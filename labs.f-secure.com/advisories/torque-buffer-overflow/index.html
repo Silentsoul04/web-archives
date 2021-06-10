@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <base href="https://labs.f-secure.com/"><!--[if lte IE 6]></base><![endif]-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta name="x-subsite-id" content="1" />
+
+    <title>TORQUE Buffer Overflow</title>
+
+    <link rel="stylesheet" href="https://labs.f-secure.com/themes/mwr/css/style.css?t=20200715">
+    <link rel="stylesheet" href="https://labs.f-secure.com/themes/labs/css/style.css?t=20200715">
+
+    <meta name="description" content="">
+    <link rel="canonical" href="https://labs.f-secure.com/advisories/torque-buffer-overflow/">
+    <meta name="robots" content="NOODP,index,follow">
+
+    
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+    <meta name="format-detection" content="telephone=no">
+    
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="F-Secure Labs">
+    <meta property="og:url" content="https://labs.f-secure.com/advisories/torque-buffer-overflow/">
+    
+    <meta property="og:locale" content='en_GB'>
+    <meta name="twitter:card" content="summary">
+    
+    <meta name="twitter:title" content="">
+    <meta name="twitter:description" content="">
+
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+    var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;
+    j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})
+    (window,document,'script','dataLayer','GTM-KD9T85H');
+  </script>
+  <meta name="google-site-verification" content="jqRTM8I_uI-jDIu1ITng14jD-3iJy0l3TTCIl2I-BIo" />
+<link rel="stylesheet" type="text/css" href="/themes/labs/css/style.css?m=1600760392" />
+</head>
+<body class="BlogPost" dir="ltr">
+
+    <header class="head menu-opened" id="top">
+	<div class="container">
+		<div class="col12">
+			<div class="logo">
+				<a href="/">F-Secure</a>
+			</div>
+		    <a href="/advisories/torque-buffer-overflow/#nav" class="btn-menu">Menu</a>
+
+<nav class="main-nav" itemscope itemtype="https://schema.org/SiteNavigationElement">
+    <ul>
+        
+            <li class="section nav-advisories"><a href="/advisories/" title="Advisories">Advisories</a></li>
+        
+            <li class="link nav-blog"><a href="/blog/" title="/var/log/messages">/var/log/messages</a></li>
+        
+            <li class="link nav-publications"><a href="/publications/" title="Publications">Publications</a></li>
+        
+            <li class="link nav-tools"><a href="/tools/" title="Tools">Tools</a></li>
+        
+            <li class="link nav-archive"><a href="/archive/" title="Archive">Archive</a></li>
+        
+        <li class="nav-careers"><a href="https://www.f-secure.com/en/web/about_global/careers/job-openings">Careers</a></li>
+    </ul>
+</nav>
+
+		</div>
+	</div>
+</header>
+
+
+    <div class="wrapper">
+
+        <section class="section">
+  <div class="page-title">
+    <div class="container">
+      <span class="content-type"></span>
+      <h1>TORQUE Buffer Overflow</h1>
+      
+      
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="col8">
+      <div class="blog-post">
+        
+        <table>
+          <tr>
+            <td>Product</td>
+            <td>TORQUE</td>
+          </tr>
+          <tr>
+            <td>Severity</td>
+            <td>High</td>
+          </tr>
+          <tr>
+            <td>CVE Reference</td>
+            <td>CVE-2014-0749</td>
+          </tr>
+          <tr>
+            <td>Type</td>
+            <td>TORQUE Buffer Overflow</td>
+          </tr>
+        </table>
+        
+        <p>A buffer overflow exists in versions of <span class="caps">TORQUE</span> which can be exploited in order to remotely execute code from an unauthenticated perspective. This issue is exploitable in all versions of the 2.5 branch, up to and including 2.5.13</p>
+<dl><dt>Software</dt><dd><span class="caps">TORQUE</span></dd><dt>Affected Versions</dt><dd>All 2.5 releases up to and including 2.5.13</dd><dt><span class="caps">CVE</span> Reference</dt><dd><span class="caps">CVE</span>-2014-0749</dd><dt>Authors</dt><dd>John Fitzpatrick</dd><dt>Severity</dt><dd>High Risk</dd><dt>Vendor</dt><dd>Adaptive Computing</dd><dt>Vendor Response</dt><dd>Incorporated <span class="caps">MWR</span> supplied fix into 2.5 development branch, no advisory</dd></dl><h3>Description</h3>
+<p>A buffer overflow exists in older versions of <span class="caps">TORQUE</span> which can be exploited in order to remotely execute code from an unauthenticated perspective. This issue is exploitable in all versions of the 2.5 branch, up to and including 2.5.13.</p>
+<h3>Impact</h3>
+<p>Successful exploitation allows remote execution of code as root.</p>
+<h3>Cause</h3>
+<p>This issue exists as a result of a misplaced bounds check.</p>
+<h3>Solution</h3>
+<p>Despite still being widely used Torque 2.5.x is now end of life and no longer supported by Adaptive. The latest version of the 2.5 branch (2.5.13) is vulnerable to this issue. <span class="caps">MWR</span> have submitted a fix to the 2.5-dev GitHub repository (which is still active) which resolves this issue. It is strongly recommended that a version of 2.5-dev (later than pull request #171) is updated to.</p>
+<p>Code changes in the 4.2.x branch significantly enhance the security posture of <span class="caps">TORQUE</span> and so <span class="caps">MWR</span> would recommend updating to this branch if possible.</p>
+<h3>Technical Details</h3>
+<p><span class="caps">TORQUE</span> is a widely used resource manager. There are several branches 2.x, 3.x and 4.×. The code is open source, but maintained by Adaptive Computing.</p>
+<p>Operations such as job submissions and querying of job queues within <span class="caps">TORQUE</span> are handled by the pbs_server component. It was found that the pbs_server did not perform sufficient bounds checking on messages sent to it. As a result it was found to be possible to submit messages which resulted in an overflow leading to arbitrary code execution. This could be achieved from a remote, unauthenticated perspective regardless of whether the source IP address is permitted to submit jobs or not.</p>
+<p>The vulnerability exists because the file disrsi_.c fails to ensure that the length of count (which is read from the request packet) is less than dis_umaxd prior to being used in a later memcpy(). As a result a specially crafted request can smuggle through a count value which is later decremented and becomes the ct value in a memcpy() made from within tcp_gets():</p>
+<p>memcpy((char *)str, tp-&gt;tdis_leadp, ct);</p>
+<p>This failure to validate count allows control over the size of the memcpy() to be leveraged and as a result control over the amount of data read from the remainder of the packet. If this value is large the memcpy() will overwrite the stack and so can be leveraged in order to gain control over the execution of the program.</p>
+<p>A backtrace showing the flow of execution is shown below:</p>
+<pre>#0 0x0000003dd4a88b9a in memcpy () from /lib64/libc.so.6
+#1 0x00007fa0008cb65b in tcp_gets (fd=11, str=0x7fff8dfce741 '3' &lt;repeats 26 times&gt;,
+"Ab1Ab2Ab3",
+ct=332) at ../Libifl/tcp_dis.c:567
+#2 0x00007fa0008be994 in disrsi_ (stream=11, negate=0x7fff8dfce93c, value=0x7fff8dfce938,
+count=333)
+at ../Libdis/disrsi_.c:187
+#3 0x00007fa0008bea1a in disrsi_ (stream=11, negate=0x7fff8dfce93c, value=0x7fff8dfce938,
+count=&lt;value optimized out&gt;) at ../Libdis/disrsi_.c:216
+#4 0x00007fa0008bea1a in disrsi_ (stream=11, negate=0x7fff8dfce93c, value=0x7fff8dfce938,
+count=&lt;value optimized out&gt;) at ../Libdis/disrsi_.c:216
+#5 0x00007fa0008bdfab in disrfst (stream=11, achars=33, value=0x27f0b58 "")
+at ../Libdis/disrfst.c:125
+#6 0x00007fa0008c13ba in decode_DIS_ReqHdr (sock=11, preq=0x27f0b20,
+proto_type=0x7fff8dfce9dc,
+proto_ver=0x7fff8dfce9d8) at ../Libifl/dec_ReqHdr.c:141
+#7 0x0000000000409ba1 in dis_request_read (sfds=11, request=0x27f0b20) at dis_read.c:137
+#8 0x000000000041cb6e in process_request (sfds=11) at process_request.c:355
+#9 0x00007fa0008d4899 in wait_request (waittime=&lt;value optimized out&gt;, SState=0x72c258)
+at ../Libnet/net_server.c:508
+#10 0x000000000041afeb in main_loop () at pbsd_main.c:1203
+#11 0x000000000041bd15 in main (argc=&lt;value optimized out&gt;, argv=&lt;value optimized out&gt;)
+at pbsd_main.c:1760</pre>
+<p><span class="caps">TORQUE</span> is required to run as root and so successful exploitation leads to code execution as root. <span class="caps">MWR</span> have created a proof of concept exploit for <span class="caps">TORQUE</span> running on 64bit versions of CentOS which makes use of return oriented programming and <span class="caps">ROP</span> gadgets in order to execute arbitrary code as root. This vulnerability can be exploited reliably and remotely. It is possible to reach this path of execution from a remote and unauthenticated perspective (and regardless of whether the attackers system is in the acl_hosts list or not). It is expected that code execution within a 32bit environment is simpler to achieve.</p>
+<p>Whilst the necessary bounds check was found to be missing from all versions of <span class="caps">TORQUE</span> reviewed this issue was only found to be directly exploitable in the 2.5 branch; code changes which have taken place in the 4.x branches prevent the condition required for exploitation from being reached. The vulnerability exists because the necessary check on the size of count occurs too late within the disrsi_.c file. The fix is, therefore, to introduce the appropriate check on the size of “count”. Replacing disrsi_.c with the patched 2.5-dev version (https://github.com/adaptivecomputing/torque/blob/2.5-dev/src/lib/Libdis/disrsi_.c) and recompiling should be sufficient to resolve this issue.</p>
+<h3>Detailed Timeline</h3>
+<table><tbody><tr><td>Date</td>
+<td>Summary</td>
+</tr><tr><td>2012</td>
+<td>Vulnerability identified</td>
+</tr><tr><td>06/12/2012</td>
+<td>Proof of concept developed</td>
+</tr><tr><td>22/07/2013</td>
+<td>Vulnerability reported to Adaptive Computing</td>
+</tr><tr><td>20/08/2013</td>
+<td><span class="caps">MWR</span> requested update from Adaptive</td>
+</tr><tr><td>22/08/2013</td>
+<td>Github pull request to resolve issue made by <span class="caps">MWR</span> with a fix</td>
+</tr><tr><td>21/01/2014</td>
+<td>Further communication with Adaptive</td>
+</tr><tr><td>14/05/2014</td>
+<td>Advisory published</td>
+</tr></tbody></table>
+      </div>
+      <div class="social-share">
+        <p><span class="content-type">Share</span></p>
+        <ul class="social">
+  <li class="facebook"><a href="http://www.facebook.com/sharer.php?u=https://labs.f-secure.com/advisories/torque-buffer-overflow/" target="_blank">Share on Facebook</a></li>
+  <li class="twitter"><a href="https://twitter.com/share?url=https://labs.f-secure.com/advisories/torque-buffer-overflow/&text=TORQUE Buffer Overflow" target="_blank">Share on LinkedIn</a></li>
+  <li class="linkedin"><a href="http://www.linkedin.com/shareArticle?url=https://labs.f-secure.com/advisories/torque-buffer-overflow/&title=TORQUE Buffer Overflow" target="_blank">Share on Twitter</a></li>
+</ul>
+
+      </div>
+    </div>
+    <div class="col4">
+      
+      <a href="/assets/662/original/torque-buffer-overflow_2014-05-14.pdf" class="flex-container__box">
+            <span class="content-type">Download</span>
+            
+            <h3 class="flex-container__box-title">Download the advisory here.</h3>
+            
+      </a>
+      
+
+      
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="col12">
+        <p>&nbsp;</p>
+      </div>
+    </div>
+  </section>
+
+
+    </div>
+
+    <footer class="foot">
+	<div class="container">
+    <div class="footer-flex-wrap">
+     <p class="logo"><img src="https://labs.f-secure.com//themes/labs/img/fs-labs-logo-white.svg" alt="F-Secure" width="180" height="60"></p>
+      <ul class="top-menu">
+        <li><a href="/advisories/torque-buffer-overflow/#top" class="btn-gototop">Top</a></li>
+        
+        <li class="link"><a href="https://www.f-secure.com/en/consulting/contact">Contact</a></li>
+        
+        
+      </ul>
+   </div>
+   <hr/>
+    <div class="col5 suf1 foot-about">
+      <p>F-Secure provides specialist advice and solutions in all areas of cyber security, from professional and managed services, through to developing commercial and open source security tools.  </p>
+    </div>
+    <div class="col3">
+      <ul class="footer-list no-margin">
+        
+        <li><a href="/publications/ti-report-lazarus-group-cryptocurrency-vertical/">Threat Intelligence Report: Lazarus Group Campaign Targeting the Cryptocurrency Vertical</a></li>
+        
+        <li><a href="/publications/the-fake-cisco/">The Fake Cisco</a></li>
+        
+        <li><a href="/publications/u-booting-securely/">U-Booting securely</a></li>
+        
+      </ul>
+    </div>
+    <div class="col3">
+     <ul class="footer-list">
+      
+      <li><a href="/blog/prelude-to-ransomware-systembc/">Prelude to Ransomware: SystemBC</a></li>
+      
+      <li><a href="/blog/attack-detection-fundamentals-2021-azure-lab-3/">Attack Detection Fundamentals 2021: Azure - Lab #3</a></li>
+      
+      <li><a href="/blog/attack-detection-fundamentals-2021-azure-lab-2/">Attack Detection Fundamentals 2021: Azure - Lab #2</a></li>
+      
+    </ul>
+  </div>
+</div>
+<div class="end">
+ <div class="container">
+  <hr/>
+  <div class="footer-flex-wrap">
+   <p class="copyright">Copyright &copy; 2021 F-Secure</p>
+    <ul class="social">
+      
+      <li class="linkedin for-footer"><a href="https://www.linkedin.com/showcase/28493188" target="_blank">Connect with us on LinkedIn</a></li>
+      
+      
+      <li class="twitter for-footer"><a href="https://twitter.com/fsecurelabs" target="_blank">Follow us on Twitter</a></li>
+      
+      
+      <li class="github for-footer"><a href="https://github.com/fsecurelabs" target="_blank">Follow us on GitHub</a></li>
+      
+    </ul>
+ </div>
+</div>
+</div>
+</footer>
+
+    <script src="/themes/mwr/js/min/jquery-3.5.1.min.js" id="jqueryscript"></script>
+
+    
+    <script src="/themes/mwr/js/min/slides.min.js"></script>
+    
+
+    <script src="/themes/mwr/js/min/scripts.js?20190917" id="pagescripts"></script>
+
+    <script type="application/ld+json">
+    { "@context" : "http://schema.org",
+      "@type" : "Organization",
+      "name" : "F-Secure Labs",
+      "url" : "https://labs.f-secure.com",
+      "logo" : "https://labs.f-secure.com/themes/labs/img/fs-labs-logo-white.svg",
+      "sameAs" : [
+          "https://twitter.com/fsecurelabs",
+          "https://www.linkedin.com/showcase/28493188"],
+      "contactPoint" : [
+        { "@type" : "ContactPoint",
+          "telephone" : "+441256300920",
+          "contactType" : "customer service"
+        } ]
+    }
+    </script>
+</body>
+</html>

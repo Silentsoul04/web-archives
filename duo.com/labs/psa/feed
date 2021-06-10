@@ -1,0 +1,2656 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rss version="2.0"
+	 xmlns:dc="http://purl.org/dc/elements/1.1/"
+	 xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	 xmlns:admin="http://webns.net/mvcb/"
+	 xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	 xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	 xmlns:atom="http://www.w3.org/2005/Atom">
+
+	<channel>
+  <title><![CDATA[Duo Product Security Advisories]]></title>
+  <link>https://duo.com/</link>
+  <description>Duo's Trusted Access platform verifies the identity of your users with two-factor authentication and security health of their devices  before they connect to the apps you want them to access.</description>
+  <lastBuildDate>Wed, 09 Jun 2021 08:30:00 -0400</lastBuildDate>
+  <language>en-us</language>
+  <webMaster>info@duosecurity.com (Amy Vazquez)</webMaster>
+  <copyright>Copyright 2021</copyright>
+  <ttl>3600</ttl>
+  <atom:link href="http://duo.com/labs/psa/feed" rel="self" type="application/rss+xml" />
+       <item>
+       <title><![CDATA[DUO-PSA-2021-001: Duo Product Security Advisory]]></title>
+       <link>https://duo.com/labs/psa/duo-psa-2021-001</link>
+       <guid>https://duo.com/labs/psa/duo-psa-2021-001</guid>
+              <pubDate>Thu, 15 Apr 2021 10:15:00 -0400</pubDate>
+       <description><![CDATA[<div class="gridcontainer psa">
+
+<div class="col8 shift2 content">
+
+<h1>Duo Product Security Advisory</h1>
+
+<p><strong>Advisory ID:</strong> DUO-PSA-2021-001<br>
+<strong>Publication Date:</strong> 2021-04-15<br>
+<strong>Revision Date:</strong> 2021-04-15<br>
+<strong>Status:</strong> Confirmed, Fixed<br>
+<strong>Document Revision:</strong> 1
+<br></p>
+
+<h2>Overview</h2>
+
+<p>Duo Security has fixed an issue that could have allowed an attacker with primary credentials of another user to bypass second-factor authentication for that user. Customers are not required to take any actions to resolve this issue.</p>
+
+<p>This issue was reported to Duo by external security researchers on Monday, December 14, 2020 and was fixed for all customers on Tuesday, December 15, 2020.</p>
+
+<p>Upon comprehensive review of all available and applicable logs, Duo found no evidence of any customer impact stemming from this issue. Apart from verifying researcher testing, we identified one instance out of billions of authentication events where this issue may have been encountered, and, upon further investigation, have no indication this was a result of malicious activity.</p>
+
+<h2>Description</h2>
+
+<p>Shaun Kammerling and Michael Kruger of Orange Cyberdefense's SensePost team disclosed an issue to Duo with the way session information is managed during two-factor authentication through the Duo Prompt. When a user authenticated with a second factor, the state representing that authentication was not tied to the current user’s session. Therefore, an attacker could reuse state information from a successful second factor authentication to bypass the two-factor authentication requirement of another user. This issue required an attacker to have possession of the victim’s primary credentials and have a Duo account on the same Duo deployment. A Duo deployment is a multitenant environment which can host many customers and contains the cloud services that power Duo products.</p>
+
+<h2>Impact</h2>
+
+<p>An attacker who had access to a victim’s primary credentials and a Duo user account on the same Duo deployment could bypass second-factor authentication and successfully authenticate to a Duo-protected application as the victim. Any Duo policies in place that restrict access would have still been enforced.</p>
+
+<h2>Affected Product(s)</h2>
+
+<ul>
+<li>Duo Multi-factor authentication</li>
+</ul>
+
+<h2>Solution</h2>
+
+<p>A fix that remediates this vulnerability has been deployed to Duo’s cloud service for all customers. No action is necessary for customers to resolve this issue.</p>
+
+<h2>Vulnerability Metrics</h2>
+
+<p><strong>Vulnerability Class:</strong> CWE-290: Authentication Bypass by Spoofing<br>
+<strong>Remotely Exploitable:</strong> Yes<br>
+<strong>Authentication Required:</strong> Yes<br>
+<strong>Severity:</strong> Critical<br>
+<strong>CVSSv3 Overall Score:</strong> 8.8<br>
+<strong>CVSSv3 Group Scores:</strong> Base: 8.1, Temporal: N/A<br>
+<strong>CVSSv3 Vector:</strong> AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N/CR:H/IR:H/AR:X/MAV:N/MAC:L/MPR:L/MUI:N/MS:U/MC:H/MI:H/MA:X
+<br></p>
+
+<h2>Timeline</h2>
+
+<h3>2020-12-14</h3>
+
+<p><strong>10:21 ET</strong><br>
+Duo becomes aware of a potential 2FA bypass vulnerability.<br></p>
+
+<p><strong>11:34 ET</strong><br>
+Duo is able to reproduce and confirm the vulnerability.<br></p>
+
+<p><strong>13:58 ET</strong><br>
+Duo confirms root cause of the issue.<br></p>
+
+<p><strong>17:00 ET</strong><br>
+Duo confirms the scope of impact of the issue.<br></p>
+
+<p><strong>20:27 ET</strong><br>
+Duo tests a potential fix for the issue, and is able to confirm that it mitigates the vulnerability.<br></p>
+
+<p><strong>21:33 ET</strong><br>
+Duo begins rolling out the fix to deployments.<br></p>
+
+<h3>2020-12-15</h3>
+
+<p><strong>16:35 ET</strong><br>
+Duo completes rollout of the fix to all customers.<br></p>
+
+<h3>2021-01-04</h3>
+
+<p>Duo begins log analysis.<br></p>
+
+<h3>2021-03-24</h3>
+
+<p>Duo completes comprehensive analysis of billions of available and applicable authentication logs, including successful identification of all researcher activity.<br></p>
+
+<h1>References</h1>
+
+<ul>
+<li>CWE-290: Authentication Bypass by Spoofing - <a href="https://cwe.mitre.org/data/definitions/290.html">https://cwe.mitre.org/data/definitions/290.html</a></li>
+</ul>
+
+<h1>Credits/Contact</h1>
+
+<p>Duo would like to thank Shaun Kammerling and Michael Kruger of Orange Cyberdefense's SensePost team for reporting this vulnerability, and for their partnership as we addressed this issue.</p>
+
+<p>If you have questions regarding this issue, please contact us at:</p>
+
+<ul>
+<li>support@duosecurity.com, referencing "DUO-PSA-2021-001" in the subject</li>
+<li>our phone line at +1(844) 386.6748. International customers can find our toll-free numbers here: <a href="https://duo.com/about/contact">https://duo.com/about/contact</a>.</li>
+</ul>
+
+<p>Or, reach out to your Customer Success Manager, as appropriate.</p>
+
+</div>
+
+</div>
+]]></description>
+     </item>
+       <item>
+       <title><![CDATA[DUO-PSA-2020-004: Duo Product Security Advisory]]></title>
+       <link>https://duo.com/labs/psa/duo-psa-2020-004</link>
+       <guid>https://duo.com/labs/psa/duo-psa-2020-004</guid>
+              <pubDate>Thu, 13 Aug 2020 00:00:00 -0400</pubDate>
+       <description><![CDATA[<div class="gridcontainer psa">
+
+<div class="col8 shift2 content">
+
+<h1>Duo Product Security Advisory</h1>
+
+<p><strong>Advisory ID:</strong> DUO-PSA-2020-004<br>
+<strong>CVE:</strong> CVE-2020-3483<br>
+<strong>Publication Date:</strong> 2020-08-13<br>
+<strong>Revision Date:</strong> 2020-08-13<br>
+<strong>Status:</strong> Confirmed, Fixed<br>
+<strong>Document Revision:</strong> 1
+<br></p>
+
+<h2>Overview</h2>
+
+<p>Duo has identified and fixed an issue with the Duo Network Gateway (DNG) product in which some customer-provided SSL certificates and private keys were not excluded from logging. This issue resulted in certificate and private key information being written out in plain-text to local files on the DNG host. Any private keys logged in this way could be viewed by those with access to the DNG host operating system without any need for reversing encrypted values or similar techniques.
+An attacker that gained access to the DNG logs and with the ability to intercept and manipulate network traffic between a user and the DNG, could decrypt and manipulate SSL/TLS connections to the DNG and to the protected applications behind it.</p>
+
+<p>If you received this notification via email, Duo’s analysis shows that you have at some point used the DNG software to connect to Duo’s services. We are notifying all customers who used the DNG to alert them to this issue so that they can review their logs. Please see the Solution section below for recommendations on performing the necessary review and remediation of your environment.</p>
+
+<p>This issue was discovered internally by a member of the Duo Engineering team.</p>
+
+<h2>Description</h2>
+
+<p>The Duo Network Gateway (DNG) requires customers to configure a separate SSL certificate for each protected application. If customers provided their own certificate and uploaded it to the DNG when configuring a DNG-protected application, the values for the certificate and matching private key were logged in plain-text. Certificates and private keys generated automatically using Let's Encrypt are not logged.</p>
+
+<p>This issue was traced to validation logic in a form field used as part of the certificate upload process that did not correctly exclude the certificate and key values from the logging it performed. This resulted in the data being written out to the specified logging location. By default, these logs are written out to a local file inside the DNG Docker container.</p>
+
+<h2>Impact</h2>
+
+<p>This issue is present in all DNG versions since 1.3.3. However, the certificate and key values are only written to the log file when the key information is uploaded by an administrator when first creating a DNG-protected application, or when modifying the certificates or keys later through an additional upload.</p>
+
+<p>If the private key is exposed to an attacker, the attacker could perform several types of attacks. One such attack would give the attacker the ability to decrypt network traffic, allowing manipulation of the requests and responses to the DNG server.</p>
+
+<p>If a customer is no longer using the DNG, there could still be a risk of compromise if the certificate and key were previously exposed in plain-text logs or in other systems used for logging. A certificate and private key that were exposed to an attacker could also be used outside the DNG context to intercept traffic sent to any service for which that certificate was legitimate. For example, exposure of a wildcard certificate is generally a higher risk issue than a certificate that was only valid for the DNG.</p>
+
+<h2>Affected Product(s)</h2>
+
+<p>Duo Network Gateway (DNG), versions 1.3.3 through 1.5.7</p>
+
+<h2>Solution</h2>
+
+<p>To prevent this issue, DNG administrators should upgrade to the latest version, 1.5.8, by following the upgrade instructions on the DNG page on Duo.com: <a href="https://duo.com/docs/dng#upgrading-duo-network-gateway">https://duo.com/docs/dng#upgrading-duo-network-gateway</a></p>
+
+<p>Customers should search all possible locations where logs have been written to determine if certificate and/or key information has been stored in logs. Note that DNG logs are overwritten each time the DNG is restarted, potentially overwriting any logs containing this sensitive information unless they had been previously exported from the Docker container.</p>
+
+<p>By default, the DNG logs are written locally at the path "/var/lib/docker/containers/&#60;container hash>/&#60;container hash>-json.log". The container hash can be found using the “docker ps” command and locating the container in the resulting list.</p>
+
+<p>If records are found, perform the following steps to invalidate the certificate:</p>
+
+<ul>
+<li>Retire and revoke the affected certificate currently in use on the DNG instance.</li>
+<li>Generate a new key and use that to generate a new certificate.</li>
+</ul>
+
+<p>In order to locate records that may contain this information, use the following search string:<br>
+host_key": &#91;"---</p>
+
+<p>Example search commands: <br>
+fgrep 'host_key": &#91;"---' dng.log<br>
+grep 'host_key": \ &#91;"---' dng.log<br></p>
+
+<h2>Vulnerability Metrics</h2>
+
+<p><strong>Vulnerability Class:</strong> CWE-256: Unprotected Storage of Credentials<br>
+<strong>Remotely Exploitable:</strong> No<br>
+<strong>Authentication Required:</strong> Partial<br>
+<strong>Severity:</strong> Critical<br>
+<strong>CVSSv3 Overall Score:</strong> 8.1<br>
+<strong>CVSSv3 Group Scores:</strong> Base: 7.1, Temporal: 7.1<br>
+<strong>CVSSv3 Vector:</strong> AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N/E:H/RL:U/RC:C/CR:H/IR:H/AR:X/MAV:L/MAC:L/MPR:L/MUI:N/MS:U/MC:H/MI:H/MA:X
+<br></p>
+
+<h2>Timeline</h2>
+
+<h3>07/08/2020</h3>
+
+<p><strong>16:30 ET</strong><br>
+A Duo engineer reported the issue to Duo PSIRT, notifying us about the sensitive values potentially being logged.<br></p>
+
+<p><strong>16:40 ET</strong><br>
+Duo acknowledges receipt of the report and begins an investigation.<br></p>
+
+<p><strong>17:35 ET</strong><br>
+A fix for the issue is created and submitted to version control for initial evaluation.<br></p>
+
+<h3>07/13/2020</h3>
+
+<p><strong>13:10 ET</strong><br>
+Duo begins analysis to determine potentially impacted customers and remediation steps for them to follow.<br></p>
+
+<p>Duo activates our internal PSIRT process.<br></p>
+
+<h3>07/15/2020</h3>
+
+<p>Duo completes an impact analysis for the list of potentially affected customers to notify.<br></p>
+
+<h3>07/16/2020</h3>
+
+<p>PSA distributed to potentially impacted customers.<br>
+Duo releases a new version of Duo Network Gateway containing the fix (1.5.8).<br></p>
+
+<h3>08/13/2020</h3>
+
+<p>Duo posts PSA publicly to the PSA section of their website.<br></p>
+
+<h1>References</h1>
+
+<ul>
+<li>CWE-256: Unprotected Storage of Credentials - <a href="https://cwe.mitre.org/data/definitions/256.html">https://cwe.mitre.org/data/definitions/256.html</a></li>
+<li>Duo Network Gateway Documentation: Gateway Configuration(certificate setup): <a href="https://duo.com/docs/dng#initial-duo-network-gateway-configuration">https://duo.com/docs/dng#initial-duo-network-gateway-configuration</a></li>
+<li>Duo Network Gateway Documentation: Upgrading DNG - <a href="https://duo.com/docs/dng#upgrading-duo-network-gateway">https://duo.com/docs/dng#upgrading-duo-network-gateway</a></li>
+<li>Duo Network Gateway Documentation: Logging - <a href="https://duo.com/docs/dng#logging">https://duo.com/docs/dng#logging</a></li>
+</ul>
+
+<h1>Credits/Contact</h1>
+
+<p>If you have questions regarding this issue, please contact us at:</p>
+
+<ul>
+<li>support@duosecurity.com, referencing "DUO-PSA-2020-004" in the subject</li>
+<li>our phone line at +1(844) 386.6748. International customers can find our toll-free numbers here: <a href="https://duo.com/about/contact">https://duo.com/about/contact</a>.</li>
+</ul>
+
+<p>Or, reach out to your Customer Success Manager, as appropriate.</p>
+
+</div>
+
+</div>
+]]></description>
+     </item>
+       <item>
+       <title><![CDATA[DUO-PSA-2020-003: Duo Product Security Advisory]]></title>
+       <link>https://duo.com/labs/psa/duo-psa-2020-003</link>
+       <guid>https://duo.com/labs/psa/duo-psa-2020-003</guid>
+              <pubDate>Wed, 15 Jul 2020 00:00:00 -0400</pubDate>
+       <description><![CDATA[<div class="gridcontainer psa">
+
+<div class="col8 shift2 content">
+
+<h1>Duo Product Security Advisory</h1>
+
+<p><strong>Advisory ID:</strong> DUO-PSA-2020-003<br>
+<strong>Publication Date:</strong> 2020-06-30<br>
+<strong>Revision Date:</strong> 2020-06-30<br>
+<strong>Status:</strong> Confirmed, Fixed<br>
+<strong>Document Revision:</strong> 2
+<br></p>
+
+<h2>Overview</h2>
+
+<p>Duo has identified and fixed an issue in the <a href="https://guide.duo.com/duoconnect">Duo Connect</a> client that allows end-users to choose insecure configurations. If DuoConnect is incorrectly configured by the end-user via the ‘-relay’ switch to use “http://” rather than “https://”, then, under certain conditions, DuoConnect may send an authentication token to a Duo Network Gateway (DNG) instance over an unencrypted HTTP connection. An adversary could then use these tokens to bypass the DNG server and gain unauthenticated network access.</p>
+
+<p>This issue was resolved in DuoConnect version 1.1.1 by enforcing HTTPS connections when communicating with the DNG server.</p>
+
+<p>If you received this notification via email, Duo's analysis showed that you had at least one user use a DNG-SSH integration type for authentication in the last 90 days. See remediation steps below under "Solution."</p>
+
+<h2>Description</h2>
+
+<p>The DuoConnect client enables users to establish SSH connections to hosts protected by a DNG instance. When a user initiates an SSH connection to a DNG-protected host for the first time using DuoConnect, the user’s browser is opened to a login screen in order to complete authentication determined by the contents of the '-relay' argument. If the ‘-relay’ is set to a URL beginning with "http://", then the browser will initially attempt to load the URL over an insecure HTTP connection, before being immediately redirected to HTTPS (in addition to standard redirect mechanisms, the DNG uses HTTP Strict Transport Security headers to enforce this).</p>
+
+<p>After successfully authenticating to a DNG, DuoConnect stores an authentication token in a local system cache, so users do not have to complete this browser-based authentication workflow for every subsequent SSH connection. These tokens are valid for a configurable period of time, which defaults to 8 hours. If a user running DuoConnect already has a valid token, then instead of opening a web browser, DuoConnect directly contacts the DNG, again using the configured '-relay' value, and sends this token, as well as the intended SSH server hostname and port numbers. If the '-relay' argument begins with "http://", then this request will be sent over an insecure connection, and could be exposed to an attacker who is sniffing the traffic on the same network.</p>
+
+<p>The DNG authentication tokens that may be exposed during SSH relay may be used to gain network-level access to the servers and ports protected by that given relay host. The DNG provides network-level access only to the protected SSH servers. It does not interact with the independent SSH authentication and encryption. An attacker cannot use a stolen token on its own to authenticate against a DNG-protected SSH server.</p>
+
+<h2>Impact</h2>
+
+<p>An adversary who is able to monitor network traffic between an improperly-configured DuoConnect client and a DNG instance may be able to capture authentication tokens. These tokens could then be used to bypass DNG authentication, gaining network-level access to SSH servers that are protected by a DNG but they cannot be used on their own to authenticate against a DNG-protected SSH server.</p>
+
+<h2>Affected Product(s)</h2>
+
+<p>This issue affects DuoConnect versions on all supported platforms before version 1.1.1.</p>
+
+<h2>Solution</h2>
+
+<p>The Duo Product team has fixed the issue by updating DuoConnect to version 1.1.1, which rejects relay configurations that do not specify an HTTPS-based relay.</p>
+
+<p>A DNG instance will automatically instruct users to install the latest version of DuoConnect. Duo administrators do not need to perform any manual updates unless their DNG is not able to connect to the internet to download the new version of the software. In that case, administrators should instruct end-users to download the latest DuoConnect version directly using the links below.</p>
+
+<p>Steps required for end-user remediation:</p>
+
+<ul>
+<li>Update DuoConnect:
+
+<ul>
+<li>End-users will need to update DuoConnect once prompted to do so by the DNG (users will be prompted to upgrade DuoConnect during authentication in their browser from July 7, 2020 onwards).</li>
+<li>The updated version of DuoConnect can alternatively be downloaded directly from the following locations at any time:
+Windows - <a href="https://dl.duosecurity.com/DuoConnect-1.1.1.msi">https://dl.duosecurity.com/DuoConnect-1.1.1.msi</a><br>
+macOS - <a href="https://dl.duosecurity.com/DuoConnect-1.1.1.pkg">https://dl.duosecurity.com/DuoConnect-1.1.1.pkg</a><br>
+Linux - <a href="https://dl.duosecurity.com/DuoConnect-1.1.1.tar.gz">https://dl.duosecurity.com/DuoConnect-1.1.1.tar.gz</a></li>
+</ul></li>
+</ul>
+
+<p>The signature of DuoConnect installer files can be verified at <a href="https://duo.com/docs/checksums">https://duo.com/docs/checksums</a>.</p>
+
+<p>End-users will need to update their DuoConnect SSH configuration if they receive the error message shown below:</p>
+
+<p>Error: Invalid URL: relay scheme http://server-ssh.example.com invalid: must be https</p>
+
+<p>Update the SSH configuration:
+Locate the http relay in the SSH configuration e.g. “ProxyCommand duoconnect -host=%h:%p -relay=http://server-ssh.example.com”
+Ensure the relay uses ‘https://’, and not ‘http://’</p>
+
+<p>The SSH configuration for *nix and macOS operating systems can be located at ~/.ssh/config. The SSH configuration for Windows operating systems can most commonly be found in the user directory C:\Users\username&#46;ssh.</p>
+
+<p>Additionally, you can refer to the “Configure SSH” section in the DuoConnect guide to learn more about steps for SSH configuration should you need further guidance.</p>
+
+<h2>Vulnerability Metrics</h2>
+
+<p><strong>Vulnerability Class:</strong> CWE-319: Cleartext Transmission of Sensitive Information<br>
+<strong>Remotely Exploitable:</strong> No<br>
+<strong>Authentication Required:</strong> No<br>
+<strong>Severity:</strong> Medium<br>
+<strong>CVSSv3.1 Overall Score:</strong> 2.8<br>
+<strong>CVSSv3.1 Group Scores:</strong> Base: 4.8, Temporal: 4.5 <br>
+<strong>CVSSv3.1 Vector:</strong> AV:A/AC:H/PR:N/UI:R/S:U/C:H/I:N/A:N/E:F/RL:O/RC:C/CR:L/IR:X/AR:X/MAV:A/MAC:H/MPR:N/MUI:R/MS:U/MC:H/MI:N/MA:N
+<br></p>
+
+<h2>Timeline</h2>
+
+<h3>2020-06-05</h3>
+
+<ul>
+<li>11:33 EDT - During internal review, Duo identifies that cached authentication tokens can be sent over cleartext for one API call</li>
+</ul>
+
+<h3>2020-06-08</h3>
+
+<ul>
+<li>14:18 EDT - Duo verifies the issue and starts investigating the root cause of the problem</li>
+</ul>
+
+<h3>2020-06-15</h3>
+
+<ul>
+<li>17:44 EDT - Duo implements the fix</li>
+</ul>
+
+<h3>2020-06-18</h3>
+
+<ul>
+<li>16:30 EDT - Duo decides to release a security advisory for the issue</li>
+</ul>
+
+<h3>2020-06-23</h3>
+
+<ul>
+<li>11:00 EDT - Duo starts testing the fix on internal systems</li>
+</ul>
+
+<h3>2020-06-29</h3>
+
+<ul>
+<li>11:00 EDT - Duo finishes internal testing</li>
+</ul>
+
+<h3>2020-06-30</h3>
+
+<ul>
+<li>11:00 EDT - Duo rolls out version 1.1.1 of DuoConnect</li>
+</ul>
+
+<h3>2020-06-30</h3>
+
+<ul>
+<li>11:00 EDT - Duo distributes PSA to impacted customers</li>
+</ul>
+
+<h3>2020-07-07</h3>
+
+<ul>
+<li>11:00 EDT - DuoConnect update starts to show up on end-user’s devices</li>
+</ul>
+
+<h3>2020-07-15</h3>
+
+<ul>
+<li>12:00 EDT - Duo publishes the PSA.</li>
+</ul>
+
+<h1>References</h1>
+
+<ul>
+<li>CWE-319: Cleartext Transmission of Sensitive Information - <a href="https://cwe.mitre.org/data/definitions/319.html">https://cwe.mitre.org/data/definitions/319.html</a></li>
+<li>Updating DuoConnect - <a href="https://guide.duo.com/duoconnect#update">https://guide.duo.com/duoconnect#update</a></li>
+<li>DuoConnect for SSH Access - <a href="https://guide.duo.com/duoconnect">https://guide.duo.com/duoconnect</a></li>
+</ul>
+
+<h1>Credits/Contact</h1>
+
+<p>If you have questions regarding this issue, please contact us at:</p>
+
+<ul>
+<li>support@duosecurity.com, referencing "DUO-PSA-2020-003" in the subject</li>
+<li>our phone line at +1(844) 386.6748. International customers can find our toll-free numbers here: https://duo.com/about/contact.</li>
+</ul>
+
+<p>Or, reach out to your Customer Success Manager, as appropriate.</p>
+
+</div>
+
+</div>
+]]></description>
+     </item>
+       <item>
+       <title><![CDATA[DUO-PSA-2020-002: Duo Product Security Advisory]]></title>
+       <link>https://duo.com/labs/psa/duo-psa-2020-002</link>
+       <guid>https://duo.com/labs/psa/duo-psa-2020-002</guid>
+              <pubDate>Tue, 28 Apr 2020 11:00:00 -0400</pubDate>
+       <description><![CDATA[<div class="gridcontainer psa">
+
+<div class="col8 shift2 content">
+
+<h1>Duo Product Security Advisory</h1>
+
+<p><strong>Advisory ID:</strong> DUO-PSA-2020-002<br>
+<strong>Publication Date:</strong> 2020-04-28<br>
+<strong>Revision Date:</strong> 2020-04-28<br>
+<strong>Status:</strong> Confirmed, Fixed<br>
+<strong>Document Revision:</strong> 1
+<br></p>
+
+<h2>Overview</h2>
+
+<p>Duo Engineering has identified and fixed an issue with directory sync for on-premises Microsoft Active Directory, OpenLDAP, and Azure Active Directory related to access rights of fully authenticated users. As a result of this issue, users who had been manually placed in a group and who were later synced as part of a directory-synced group continued to be part of the manually-created group. A successful sync should have removed them from the manually-created group. This issue could have allowed access that was previously granted to a user via the manual group to inadvertently persist, only if it was different from access granted by their synced groups. The issue was first discovered by Duo and was also reported to us by a customer, prior to completion of a fix. For customers synchronizing with on-premises directories, a fix was deployed on April 3, 2020. A fix for Azure was deployed in a rolling release between April 13 and April 23, 2020. </p>
+
+<p>If you received this notification via email, Duo's analysis showed that you had at least one manually-created group whose permissions could affect users' security posture if they were not correctly removed from that group via a directory sync. Out of an abundance of caution, we directly notified all customers who met this criteria as of our analysis on April 8, 2020, to allow them to review their policies associated with manually-created groups. This is described below under “Solution.”</p>
+
+<h2>Description</h2>
+
+<p>Duo allows groups to be created and managed in one of two ways: groups can be created and edited manually, or by synchronizing group information from a directory. These options are designed to be mutually exclusive; in particular, a user managed by directory sync cannot be added to manually-created groups. In addition, if a manually-created user later becomes sync-managed, that user’s existing memberships in manually-created groups should (as stated in Duo’s documentation) be removed.</p>
+
+<p>However, an issue was identified in which sync-managed users who were previously manually added to a manually-created group were not removed from these groups after a directory sync as expected. When functioning correctly, the sync should remove synced users from all manually-created Duo groups and place them in the synced groups.</p>
+
+<p>Group membership permissions are evaluated for both synced groups and manually-created groups. If a user is a member of both a synced group and a manually-created group, their permissions will be evaluated for both groups, one after the other. The order by which group permissions is evaluated is configurable by Duo administrators, so for users affected by this issue, their manual group permissions may or may not have been evaluated before their synced group permissions.</p>
+
+<p>We are not aware of any malicious activity resulting from this issue. Based on our analysis, it appears that this issue has been present in Azure Active Directory sync since November 2016. For on-premises Active Directory/OpenLDAP, the issue was introduced on March 22, 2020, but fixed for all customers on April 3, 2020.</p>
+
+<h2>Impact</h2>
+
+<p>Failure to remove users from manually-created groups could have resulted in a situation where some users who were previously granted access via a manually-created group may have had this access inadvertently persist if the permissions of the users' manually-created group(s) were different from those of their synced group(s).</p>
+
+<h2>Affected Product(s)</h2>
+
+<p>Directory sync for on-premises Microsoft Active Directory/OpenLDAP, and Azure Active Directory</p>
+
+<h2>Solution</h2>
+
+<p>Duo deployed a fix for this issue to all on-premises Microsoft Active Directory and OpenLDAP customers on April 3, 2020. A fix for Azure Active Directory customers was deployed in a rolling release between April 13 and April 23, 2020. The fix restores the original behavior where the users are correctly removed from manually-created groups when the sync is complete. In general, no additional action should be required from customers, as any previously-affected users should have been corrected by the sync process so long as a sync was able to successfully run. </p>
+
+<p>We also recommend that administrators visit <a href="https://admin.duosecurity.com/users/directorysync">https://admin.duosecurity.com/users/directorysync</a> to confirm that their directory sync is working successfully so that these fixes can take full effect. Additional activity logs related to directory sync can be found at <a href="https://admin.duosecurity.com/logs/admin-actions">https://admin.duosecurity.com/logs/admin-actions</a></p>
+
+<h2>Vulnerability Metrics</h2>
+
+<p><strong>Vulnerability Class:</strong> CWE-842: Placement of User into Incorrect Group<br>
+<strong>Remotely Exploitable:</strong> Yes<br>
+<strong>Authentication Required:</strong> Yes<br>
+<strong>Severity:</strong> Medium<br>
+<strong>CVSSv2 Overall Score:</strong> 5.5<br>
+<strong>CVSSv2 Group Scores:</strong> Base: 3.2, Temporal: 2.5 <br>
+<strong>CVSSv2 Vector:</strong> AV:N/AC:H/Au:M/C:P/I:P/A:N/E:POC/RL:OF/RC:C/CDP:LM/TD:H/CR:H/IR:H/AR:ND
+<br></p>
+
+<h2>Timeline</h2>
+
+<h3>03/22/2020</h3>
+
+<ul>
+<li>1:43 PM EDT - Duo Engineering identified a discrepancy between the group membership behaviors of directory syncs for on-premises Microsoft Active Directory, OpenLDAP, and Azure Active Directory sync</li>
+</ul>
+
+<h3>03/27/2020</h3>
+
+<ul>
+<li>12:48 AM EDT A customer using directory sync with on-premises Active Directory noticed the behavior in their account and reported the issue to Duo</li>
+</ul>
+
+<h3>04/01/2020</h3>
+
+<ul>
+<li>07:59 PM EDT - Duo Engineering becomes aware of the directory sync behavior for Azure Active Directory during internal testing </li>
+</ul>
+
+<h3>04/02/2020</h3>
+
+<ul>
+<li>11:30 AM EDT -
+
+<ul>
+<li>Duo engineering begins to develop a fix for the issue</li>
+<li>Duo begins analysis to determine potentially impacted customers</li>
+<li>Duo activates our internal PSIRT process</li>
+</ul></li>
+</ul>
+
+<h3>04/03/2020</h3>
+
+<ul>
+<li>10:00 PM EDT - Duo completes rollout of fix for on-premises Active Directory/OpenLDAP </li>
+</ul>
+
+<h3>04/09/2020</h3>
+
+<ul>
+<li>05:00 PM EDT - Duo completes the rollout of an additional fix for on-premises Active Directory/OpenLDAP that covers some edge cases for user synchronization</li>
+</ul>
+
+<h3>04/13/2020</h3>
+
+<ul>
+<li>11:00 AM EDT - Duo distributes PSA to impacted customers </li>
+</ul>
+
+<h3>04/24/2020</h3>
+
+<ul>
+<li>05:54 AM EDT - Duo completes rollout of fix for Azure Active Directory</li>
+</ul>
+
+<h3>04/28/2020</h3>
+
+<ul>
+<li>11:00 AM EDT - Duo publishes the PSA </li>
+</ul>
+
+<h1>References</h1>
+
+<ul>
+<li>CWE-842: Placement of User into Incorrect Group - <a href="https://cwe.mitre.org/data/definitions/842.html">https://cwe.mitre.org/data/definitions/842.html</a> </li>
+<li>What happens when existing Duo users are synced with Azure, Active Directory, or OpenLDAP? - <a href="https://duo.com/docs/dirsync-faq#what-happens-when-existing-duo-users-are-synced-with-azure,-active-directory,-or-openldap?">https://duo.com/docs/dirsync-faq#what-happens-when-existing-duo-users-are-synced-with-azure,-active-directory,-or-openldap?</a></li>
+<li>Synchronizing Users from Azure Active Directory - <a href="https://duo.com/docs/azuresync">https://duo.com/docs/azuresync</a></li>
+<li>Synchronizing Users from Active Directory - <a href="https://duo.com/docs/adsync">https://duo.com/docs/adsync</a></li>
+</ul>
+
+<h1>Credits/Contact</h1>
+
+<p>If you have questions regarding this issue, please contact us at:</p>
+
+<ul>
+<li>security@duosecurity.com, referencing "DUO-PSA-2020-002" in the subject</li>
+<li>our phone line at +1(844) 386.6748. International customers can find our toll-free numbers here: <a href="https://duo.com/about/contact">https://duo.com/about/contact</a></li>
+</ul>
+
+</div>
+
+</div>
+]]></description>
+     </item>
+       <item>
+       <title><![CDATA[DUO-PSA-2020-001: Duo Product Security Advisory]]></title>
+       <link>https://duo.com/labs/psa/duo-psa-2020-001</link>
+       <guid>https://duo.com/labs/psa/duo-psa-2020-001</guid>
+              <pubDate>Thu, 19 Mar 2020 00:00:00 -0400</pubDate>
+       <description><![CDATA[<div class="gridcontainer psa">
+
+<div class="col8 shift2 content">
+
+<h1>Duo Product Security Advisory</h1>
+
+<p><strong>Advisory ID:</strong> DUO-PSA-2020-001<br>
+<strong>Publication Date:</strong> 2020-03-19<br>
+<strong>Revision Date:</strong> 2020-03-19<br>
+<strong>Status:</strong> Confirmed, Fixed<br>
+<strong>Document Revision:</strong> 1
+<br></p>
+
+<h2>Overview</h2>
+
+<p>Duo has identified and fixed an issue with Directory Sync where enrollment emails were sent to users regardless of whether the “Send enrollment emails to sync users” checkbox was checked in the Admin Panel. This issue could have allowed for users to enroll in Duo who were not intended to be enrolled via email at this time. This issue was identified on Tuesday, March 17th and a fix was deployed the same day.</p>
+
+<h2>Description</h2>
+
+<p>As part of the Directory Sync capability, Duo can be configured to automatically send enrollment link emails to imported users that do not have any enrolled authentication devices. On Tuesday, March 17, a customer identified that enrollment emails from Duo were being sent to unenrolled users following successful Directory Syncs even though they were not configured to do so. This issue occurred due to a bug in Directory Sync introduced during a recent deployment of Duo Admin Panel.</p>
+
+<p>The code responsible for determining whether to send the enrollment emails failed to properly validate the status of the “Send enrollment emails to sync users” checkbox, which resulted in enrollment emails being sent to all synced users in the unenrolled state. This allows for users that received these emails to enroll devices in Duo regardless of whether the administrator had intended to enroll that particular user, or enroll that user via email.</p>
+
+<h2>Impact</h2>
+
+<p>Users synced via Directory Sync could have enrolled in Duo via email, regardless of whether the administrator had intended to enroll that user or enroll that user via email. This may have bypassed additional security controls customers have put in place for Duo deployments, including for users that are not typically enrolled via email.</p>
+
+<h2>Affected Product(s)</h2>
+
+<p>Directory Sync for Active Directory, Azure Active Directory, and OpenLDAP on the following deployments: DUO33, DUO50, DUO56, DUO58, DUO62, and DUO63.</p>
+
+<h2>Solution</h2>
+
+<p>Duo has deployed a fix for this issue as of Tuesday, March 17th, and invalidated the enrollment email links for users who may have received them in error on Wednesday, March 18th. Some users may have enrolled using these links before they were invalidated; therefore, Duo recommends that administrators for affected customers review any recent enrollments to ensure they are valid. Customers whose existing email management systems offer this capability may also choose to remove incorrectly-sent enrollment emails from end-users' inboxes.</p>
+
+<p>The associated logs for recent enrollments on a deployment can be reviewed here: <a href="https://admin.duosecurity.com/logs?limit=25&amp;page=1&amp;is_enrollment=true&amp;iname=portal&amp;timeRange=2020-03-17T05:00:00.000Z~2020-03-19T00:30:00.000Z">https://admin.duosecurity.com/logs?limit=25&amp;page=1&amp;is_enrollment=true&amp;iname=portal&amp;timeRange=2020-03-17T05:00:00.000Z~2020-03-19T00:30:00.000Z</a></p>
+
+<h2>Vulnerability Metrics</h2>
+
+<p><strong>Vulnerability Class:</strong> CWE-288: Authentication Bypass Using an Alternate Path or Channel<br>
+<strong>Remotely Exploitable:</strong> Yes<br>
+<strong>Authentication Required:</strong> Yes<br>
+<strong>Severity:</strong> Medium<br>
+<strong>CVSSv2 Overall Score:</strong> 1.6<br>
+<strong>CVSSv2 Group Scores:</strong> Base: 4.9, Temporal: 4.3 <br>
+<strong>CVSSv2 Vector:</strong> AV:N/AC:H/Au:S/C:C/I:N/A:N/E:H/RL:OF/RC:C/CDP:ND/TD:L/CR:H/IR:ND/AR:ND 
+<br></p>
+
+<h2>Timeline</h2>
+
+<h3>2020-03-17</h3>
+
+<ul>
+<li>15:17 ET - Duo becomes aware of a customer report where erroneous enrollment emails are being sent after a Directory Sync is performed</li>
+<li>15:33 ET - Duo engineering begins to triage the issue</li>
+<li>16:35 ET - Duo updates status.duo.com to let our customers know there is an active incident</li>
+<li>19:41 ET - Duo completes rolling out a fix for the issue to customers</li>
+<li>20:47 ET - After monitoring deployments for further issues, Duo confirms the issue has been resolved.</li>
+</ul>
+
+<h3>2020-03-18</h3>
+
+<ul>
+<li>12:58 ET - Duo activates our internal PSIRT process</li>
+<li>19:32 ET - Duo makes the decision to invalidate all enrollment links erroneously generated by this issue</li>
+<li>20:29 ET - Duo invalidates all identified enrollment links that were erroneously generated by this issue</li>
+</ul>
+
+<h3>2020-03-19</h3>
+
+<ul>
+<li>Duo distributes PSA to impacted customers</li>
+</ul>
+
+<h1>References</h1>
+
+<ul>
+<li>Synchronizing Users from Azure Active Directory: Enrollment Email - <a href="https://duo.com/docs/azuresync#enrollment-email">https://duo.com/docs/azuresync#enrollment-email</a></li>
+<li>Synchronizing Users from Active Directory: Enrollment Email - <a href="https://duo.com/docs/adsync#enrollment-email">https://duo.com/docs/adsync#enrollment-email</a></li>
+<li>Synchronizing Users from OpenLDAP: Enrollment Email - <a href="https://duo.com/docs/ldapsync#enrollment-email">https://duo.com/docs/ldapsync#enrollment-email</a></li>
+<li>CWE-288: Authentication Bypass Using an Alternate Path or Channel - <a href="https://cwe.mitre.org/data/definitions/288.html">https://cwe.mitre.org/data/definitions/288.html</a></li>
+<li>Incident Postmortem - <a href="https://status.duo.com/incidents/4t8xp2r0nxdg">https://status.duo.com/incidents/4t8xp2r0nxdg</a></li>
+</ul>
+
+<h1>Credits/Contact</h1>
+
+<p>If you have questions regarding this issue, please contact us at:</p>
+
+<ul>
+<li>security@duosecurity.com, referencing "DUO-PSA-2020-001" in the subject</li>
+<li>our phone line at +1(844) 386.6748. International customers can find our toll-free numbers here: <a href="https://duo.com/about/contact">https://duo.com/about/contact</a>.</li>
+</ul>
+
+<p>Or, reach out to your Customer Success Manager, as appropriate.</p>
+
+</div>
+
+</div>
+]]></description>
+     </item>
+       <item>
+       <title><![CDATA[DUO-PSA-2019-002: Duo Product Security Advisory]]></title>
+       <link>https://duo.com/labs/psa/duo-psa-2019-002</link>
+       <guid>https://duo.com/labs/psa/duo-psa-2019-002</guid>
+              <pubDate>Tue, 12 Nov 2019 10:35:00 -0500</pubDate>
+       <description><![CDATA[<div class="gridcontainer psa">
+
+<div class="col8 shift2 content">
+
+<h1>Duo Product Security Advisory</h1>
+
+<p><strong>Advisory ID:</strong> DUO-PSA-2019-002<br>
+<strong>CVE:</strong> CVE-2019-3465<br>
+<strong>Publication Date:</strong> 2019-11-12<br>
+<strong>Revision Date:</strong> 2019-11-12<br>
+<strong>Status:</strong> Confirmed, Fixed<br>
+<strong>Document Revision:</strong> 1
+<br></p>
+
+<h2>Overview</h2>
+
+<p>A third-party software library, which the Duo Access Gateway (DAG) uses to enable SAML as a first-factor authentication source, contains a vulnerability that could allow an attacker to impersonate a user when authenticating to an application that is federated through the Duo Access Gateway. Version 1.5.10 of the Duo Access Gateway corrects this issue.</p>
+
+<h2>Description</h2>
+
+<p>This vulnerability was identified during an independent third-party security audit of SimpleSAMLphp and was reported to the maintainers. An issue was identified in the way that xmlseclib, a library used by SimpleSAMLphp to perform XML signing and encryption operations, validates the SignedInfo element of a SAML response. 
+<br><br>
+Specifically, it was possible for an attacker to include data within a SAML response that, while not actually signed, would be interpreted by SimpleSAMLphp as signed by an Identity Provider (IdP). This issue is only applicable to Duo Access Gateways that are configured to use a SAML Identity Provider as their authentication source. DAGs configured to use Active Directory for first-factor authentication are not affected.
+<br></p>
+
+<h2>Impact</h2>
+
+<p>This vulnerability could allow an attacker who is able to authenticate to the DAG and obtain a valid signature in a SAML response from an Identity Provider to specify a different username to a Service Provider than was originally used to authenticate. This could allow an attacker to impersonate other users when accessing applications already available to them through the DAG. If the impersonated username has a Duo bypass policy applied, then the attacker could potentially access any application federated by the DAG. 
+<br></p>
+
+<h2>Affected Product(s)</h2>
+
+<p>Duo Authentication Gateway (DAG) version 1.5.9 and below
+<br></p>
+
+<h2>Solution</h2>
+
+<p>Duo recommends that all customers using Duo Access Gateway, but especially those who use the DAG with a SAML Identity Provider, upgrade to the latest version, 1.5.10, as soon as possible.
+<br></p>
+
+<h2>Vulnerability Metrics</h2>
+
+<p><strong>Vulnerability Class:</strong> CWE-287: Improper Authentication<br>
+<strong>Remotely Exploitable:</strong> Yes<br>
+<strong>Authentication Required:</strong> Yes<br>
+<strong>Severity:</strong> High<br>
+<strong>CVSSv2 Overall Score:</strong> 1.7<br>
+<strong>CVSSv2 Group Scores:</strong> Base: 6.5, Temporal: 5.1 <br>
+<strong>CVSSv2 Vector:</strong> AV:N/AC:L/Au:S/C:P/I:P/A:P/E:POC/RL:OF/RC:C/CDP:MH/TD:L/CR:M/IR:M/AR:L
+<br></p>
+
+<h2>Timeline</h2>
+
+<h3>2019-11-04</h3>
+
+<ul>
+<li>08:14 ET - Duo becomes aware of a vulnerability in SimpleSAMLphp that potentially affects the DAG</li>
+<li>14:08 ET - Duo contacts the SimpleSAMLphp maintainers requesting additional details about the vulnerability</li>
+</ul>
+
+<h3>2019-11-05</h3>
+
+<ul>
+<li>02:48 ET - Duo receives a response from the maintainers with additional detail regarding the vulnerability</li>
+<li>08:15 ET - Duo begins reviewing the issue to determine if the DAG is impacted</li>
+<li>10:15 ET - After analysis of the issue, Duo believes the DAG is likely affected and begins working on a new release containing the fix</li>
+<li>16:28 ET - Duo begins the build and test process for creating a release candidate of the DAG</li>
+</ul>
+
+<h3>2019-11-06</h3>
+
+<ul>
+<li>08:37 ET - Duo is able to use a proof of concept exploit to confirm that the DAG release candidate build with the fix is not vulnerable</li>
+<li>12:00 ET - Duo releases DAG version 1.5.10 and makes it available to customers</li>
+</ul>
+
+<h3>2019-11-12</h3>
+
+<ul>
+<li>Duo distributes PSA to potentially impacted customers</li>
+</ul>
+
+<h1>References</h1>
+
+<ul>
+<li>CWE-287: Improper Authentication - <a href="https://cwe.mitre.org/data/definitions/287.html">https://cwe.mitre.org/data/definitions/287.html</a></li>
+<li>How to update the Duo Access Gateway for Windows - <a href="https://duo.com/docs/dag-windows">https://duo.com/docs/dag-windows</a></li>
+<li>How to update the Duo Access Gateway for Linux - <a href="https://duo.com/docs/dag-linux">https://duo.com/docs/dag-linux</a></li>
+<li>Duo Access Gateway Release Notes - <a href="https://duo.com/docs/dag-notes">https://duo.com/docs/dag-notes</a></li>
+<li>SimpleSAMLphp Security Advisory - <a href="https://simplesamlphp.org/security/201911-01">https://simplesamlphp.org/security/201911-01</a></li>
+</ul>
+
+<h1>Credits/Contact</h1>
+
+<p>Duo Security would like to thank the maintainers of SimpleSAMLphp for their help in remediating this issue.
+<br><br>
+If you have questions regarding this issue, please contact us at:
+<br></p>
+
+<ul>
+<li>support@duosecurity.com, referencing "DUO-PSA-2019-002" in the subject</li>
+<li>our phone line at +1(844) 386.6748. International customers can find our toll-free numbers here: <a href="https://duo.com/about/contact">https://duo.com/about/contact</a>.</li>
+</ul>
+
+<p>Or, reach out to your Customer Success Manager, as appropriate.</p>
+
+</div>
+
+</div>
+]]></description>
+     </item>
+       <item>
+       <title><![CDATA[DUO-PSA-2019-001: Duo Product Security Advisory]]></title>
+       <link>https://duo.com/labs/psa/duo-psa-2019-001</link>
+       <guid>https://duo.com/labs/psa/duo-psa-2019-001</guid>
+              <pubDate>Tue, 16 Apr 2019 08:00:00 -0400</pubDate>
+       <description><![CDATA[<div class="gridcontainer psa">
+
+<div class="col8 shift2 content">
+
+<h1>Duo Product Security Advisory</h1>
+
+<p><strong>Advisory ID:</strong> DUO-PSA-2019-001<br>
+<strong>Publication Date:</strong> 2019-04-16<br>
+<strong>Revision Date:</strong> 2019-04-16<br>
+<strong>Status:</strong> Confirmed, Fixed<br>
+<strong>Document Revision:</strong> 1
+<br></p>
+
+<h2>Overview</h2>
+
+<p>A Duo customer has identified an issue where Duo Authentication for Windows Logon could incorrectly enforce "failmode" following a manual, post-installation change to its offline configuration. This flaw would make it such that a system configured to fail securely (i.e. fail closed) would instead fail open.
+<br><br>
+Updating to version 4.0.5 of the software fully resolves this potential enforcement issue.
+<br></p>
+
+<h2>Description</h2>
+
+<p>A defect with Duo Authentication for Windows Logon (WinLogon) could allow an incorrect enforcement of failmode configuration under a specific circumstance. In this situation, the system would react with a continuous "fail open" state when unable to reach Duo’s service.
+<br><br>
+This issue is restricted to those that use WinLogon version 4.0.0 through 4.0.4, and have manually configured the “OfflineAvailable” and “FailOpen” keys to simultaneously disable both by setting them to a value of “0” (zero). The “FailOpen” key is only set manually by a system administrator and is not set by any other part of the WinLogon functionality.
+<br></p>
+
+<h2>Impact</h2>
+
+<p>When using vulnerable versions of WinLogon, a combination of post-installation configuration options would make it so that a system configured to fail securely (i.e. fail closed) would not respect this configuration and instead fail open. 
+<br></p>
+
+<h2>Affected Product(s)</h2>
+
+<p>Duo Authentication for Windows Logon, versions 4.0.0 - 4.0.4
+<br></p>
+
+<h2>Solution</h2>
+
+<p>Duo has released a new version, 4.0.5, of the WinLogon software that properly enforces the failmode in previously impacted configurations. Impacted customers are advised to immediately update to this new version.
+<br></p>
+
+<h2>Vulnerability Metrics</h2>
+
+<p><strong>Vulnerability Class:</strong> CWE-284: Improper Access Control<br>
+<strong>Remotely Exploitable:</strong> Yes<br>
+<strong>Authentication Required:</strong> Partial<br>
+<strong>Severity:</strong> Medium<br>
+<strong>CVSSv2 Overall Score:</strong> 4.2<br>
+<strong>CVSSv2 Group Scores:</strong> Base: 5.0, Temporal: 3.9 <br>
+<strong>CVSSv2 Vector:</strong> AV:L/AC:M/Au:S/C:P/I:C/A:N/E:POC/RL:OF/RC:C/CDP:L/TD:M/CR:L/IR:H/AR:L 
+<br></p>
+
+<h2>Timeline</h2>
+
+<h3>2019-04-08</h3>
+
+<ul>
+<li>Duo receives a report for a security concern in the WinLogon software from a customer</li>
+</ul>
+
+<h3>2019-04-09</h3>
+
+<ul>
+<li>10:20 ET - Duo received logs from the customer to provide further details of the concern</li>
+<li>10:44 ET - Duo acknowledges receipt of the report and begins an investigation</li>
+<li>11:43 ET - Duo verified that the report is accurate and determines the root cause</li>
+<li>15:29 ET - Duo begins development of a patch to remediate the identified software defect</li>
+</ul>
+
+<h3>2019-04-10</h3>
+
+<ul>
+<li>10:51 ET - Duo implements a fix for the issue and performs quality assurance testing</li>
+<li>11:42 ET - Duo begins analysis to determine potentially impacted customers</li>
+</ul>
+
+<h3>2019-04-11</h3>
+
+<ul>
+<li>Duo releases the updated version (4.0.5) of WinLogon with the fix included</li>
+</ul>
+
+<h3>2019-04-12</h3>
+
+<ul>
+<li>Duo completes an impact analysis for the list of potentially affected customers to notify</li>
+</ul>
+
+<h3>2019-04-16</h3>
+
+<ul>
+<li>PSA distributed to potentially impacted customers</li>
+</ul>
+
+<h1>References</h1>
+
+<ul>
+<li>CWE-284: Improper Access Control - <a href="https://cwe.mitre.org/data/definitions/284.html">https://cwe.mitre.org/data/definitions/284.html</a></li>
+<li>Documentation to update WinLogon - <a href="https://help.duo.com/s/article/3543">https://help.duo.com/s/article/3543</a></li>
+<li>Documentation for the “OfflineAvailable” setting - <a href="https://duo.com/docs/rdp#advanced-configuration">https://duo.com/docs/rdp#advanced-configuration</a></li>
+<li>Documentation for the “FailOpen” setting - <a href="https://help.duo.com/s/article/1081">https://help.duo.com/s/article/1081</a></li>
+</ul>
+
+<h1>Credits/Contact</h1>
+
+<p>Duo Security would like to thank National Retail Properties for their security report that led to this fix.
+<br><br>
+If you have questions regarding this issue, please contact us at:
+<br></p>
+
+<ul>
+<li>support@duosecurity.com, referencing "DUO-PSA-2019-001" in the subject</li>
+<li>our phone line at +1(844) 386.6748.</li>
+</ul>
+
+<p>International customers can find our toll-free numbers here: <a href="https://duo.com/about/contact">https://duo.com/about/contact</a>.
+<br><br>
+Or, reach out to your Customer Success Manager, as appropriate.</p>
+
+</div>
+
+</div>
+]]></description>
+     </item>
+       <item>
+       <title><![CDATA[DUO-PSA-2018-004: Duo Product Security Advisory]]></title>
+       <link>https://duo.com/labs/psa/duo-psa-2018-004</link>
+       <guid>https://duo.com/labs/psa/duo-psa-2018-004</guid>
+              <pubDate>Tue, 18 Dec 2018 00:00:00 -0500</pubDate>
+       <description><![CDATA[<div class="gridcontainer psa">
+
+<div class="col8 shift2 content">
+
+<h1>Duo Product Security Advisory</h1>
+
+<p><strong>Advisory ID:</strong> DUO-PSA-2018-004<br>
+<strong>Publication Date:</strong> 2018-12-18<br>
+<strong>Revision Date:</strong> 2018-12-18<br>
+<strong>Status:</strong> Confirmed, Fixed<br>
+<strong>Document Revision:</strong> 1
+<br></p>
+
+<h2>Overview</h2>
+
+<p>Duo has identified and fixed an issue with the Duo Access Gateway (DAG). This issue could have allowed for data exposure on the DAG's filesystem for certain limited use cases as described below. Specifically, a user's primary authentication credentials could have been temporarily stored on the DAG's server -- not externally or accessible by Duo. This issue was discovered internally while working on unrelated product features. Upon discovery, Duo developed a new version of DAG that patches the issue and deletes any potentially exposed information from the filesystem.
+<br></p>
+
+<h2>Description</h2>
+
+<p>A Duo Security employee identified a bug resulting in the exposure of user's primary authentication credentials. This exposure was limited to administrators with access to the DAG's filesystem. This bug, which affected both the Linux (Docker) and Windows versions of DAG,  was further limited to deployments of the DAG that meet the following criteria: Office365 was the SAML application being authenticated to, the Basic Authentication setting was set to disabled, and the DAG was running version 1.5.0 - 1.5.5, inclusively.
+<br></p>
+
+<h2>Impact</h2>
+
+<p>This issue may have resulted in exposure of users' primary authentication credentials on the DAG's filesystem. This information could have been further exposed via backup or replication.
+<br><br>
+Duo does not have the ability to remotely access these files as they are held within the customer's environment. Moreover, these credentials were not exposed outside of the users' organizations.
+<br></p>
+
+<h2>Affected Product(s)</h2>
+
+<p>Duo Access Gateway (DAG) 1.5.0 - 1.5.5
+<br></p>
+
+<h2>Solution</h2>
+
+<p>In order to resolve this issue, customers must update their DAG deployments to version 1.5.6. This will patch the issue and delete any potentially exposed information from the filesystem.
+<br><br>
+Administrators should also consider locations this information may have been copied to -- for example in a system backup or a failover machine. Due to the potential for user credential exposure on the DAG's filesystem, organizations that believe this information may have been duplicated or accessed should consider having users reset their passwords out of caution.
+<br></p>
+
+<h2>Vulnerability Metrics</h2>
+
+<p><strong>Vulnerability Class:</strong> CWE-313: Cleartext Storage in a File or on Disk<br>
+<strong>Remotely Exploitable:</strong> [No]<br>
+<strong>Authentication Required:</strong> [Partial]<br>
+<strong>Severity:</strong> [Low]<br>
+<strong>CVSSv2 Overall Score:</strong> 0.9<br>
+<strong>CVSSv2 Group Scores:</strong> Base: 3.7, Temporal: 2.7<br>
+<strong>CVSSv2 Vector:</strong> AV:L/AC:H/Au:M/C:C/I:N/A:N/E:U/RL:OF/RC:C/CDP:L/TD:L/CR:M/IR:ND/AR:ND
+<br></p>
+
+<h2>Timeline</h2>
+
+<h3>2018-12-10</h3>
+
+<ul>
+<li>11:45 ET - Duo identifies a bug that could store user credentials on the DAG's filesystem.</li>
+<li>14:15 ET - Duo narrows the scope of the issue and determines a remediation path.</li>
+</ul>
+
+<h3>2018-12-11</h3>
+
+<ul>
+<li>Duo compiles a list of potentially affected customers and begins patch creation.</li>
+</ul>
+
+<h3>2018-12-12</h3>
+
+<ul>
+<li>Duo verifies a fix and begins the build &amp; test process for a new DAG release.</li>
+</ul>
+
+<h3>2018-12-14</h3>
+
+<ul>
+<li>Duo completes the build &amp; quality assurance testing for a new DAG release with security fixes.</li>
+</ul>
+
+<h3>2018-12-18</h3>
+
+<ul>
+<li>Duo distributes the PSA to potentially affected customers and releases DAG version 1.5.6.
+<br><br></li>
+</ul>
+
+<h1>References</h1>
+
+<ul>
+<li>CWE-313: Cleartext Storage in a File or on Disk - <a href="https://cwe.mitre.org/data/definitions/313.html">https://cwe.mitre.org/data/definitions/313.html</a>
+<br><br></li>
+</ul>
+
+<h1>Credits/Contact</h1>
+
+<p>If you have questions regarding this issue, please contact us at:<br></p>
+
+<ul>
+<li>support@duosecurity.com, referencing "DUO-PSA-2018-004" in the subject</li>
+<li>our phone line at +1(844)386.6748. International customers can find our toll-free numbers here: <a href="https://duo.com/about/contact">https://duo.com/about/contact</a>.</li>
+</ul>
+
+</div>
+
+</div>
+]]></description>
+     </item>
+       <item>
+       <title><![CDATA[DUO-PSA-2018-003: Duo Product Security Advisory]]></title>
+       <link>https://duo.com/labs/psa/duo-psa-2018-003</link>
+       <guid>https://duo.com/labs/psa/duo-psa-2018-003</guid>
+              <pubDate>Thu, 31 May 2018 00:00:00 -0400</pubDate>
+       <description><![CDATA[<div class="gridcontainer psa">
+
+<div class="col8 shift2 content">
+
+<h1>Duo Product Security Advisory</h1>
+
+<p><strong>Advisory ID:</strong> DUO-PSA-2018-003<br>
+<strong>Publication Date:</strong> 2018-05-31<br>
+<strong>Revision Date:</strong> 2018-05-31<br>
+<strong>Status:</strong> Confirmed, Fixed<br>
+<strong>Document Revision:</strong> 1<br>
+<br></p>
+
+<h2>Overview</h2>
+
+<p>Duo has identified and fixed an issue with our documentation for the Duo Authentication Proxy integration with VMware Horizon View. The previously recommended configuration could allow a malicious user who had separately compromised a user's primary authentication credentials to gain access without secondary authentication. This issue has since been resolved in our official documentation.
+<br><br></p>
+
+<h2>Description</h2>
+
+<p>A Duo Security employee identified a secondary authentication bypass condition in the previous documentation (available until 2018-05-22) when the Duo Authentication Proxy performs secondary authentication and VMware Horizon View handles primary authentication independently. Because VMware Horizon View's implementation prompts secondary authentication before primary authentication, this could have allowed a malicious user to leverage a different user's primary credentials after successfully passing secondary authentication for their own account.
+<br><br></p>
+
+<h2>Impact</h2>
+
+<p>When configuring VMware Horizon View and the Duo Authentication Proxy with [duo_only_client], there is no relationship between the user who successfully performed a second-factor authentication with Duo and the user who submits their username and password. This configuration could have potentially allowed a malicious user to bypass a targeted user's secondary authentication by using their own and then submitting the target user's primary credentials.
+<br><br></p>
+
+<h2>Affected Product(s)</h2>
+
+<p>Duo Authentication Proxy (VMware Horizon View Integration)
+<br><br></p>
+
+<h2>Solution</h2>
+
+<p>In order to resolve this issue, we advise our customers who are using the VMware Horizon View integration to remove the [duo_only_client] section and configure the [ad_client] section in Duo Authentication Proxy configuration. Customers must also make sure to enable both "Enforce 2-factor and Windows user name matching" and "Use the same username and password for RADIUS and Windows authentication" in VMware Horizon View.
+<br><br>
+As a result, the Duo Authentication Proxy will require correct primary authentication credentials before triggering secondary authentication to make sure that the primary and secondary authentication credentials match. This configuration also ensures that VMware Horizon View will not allow a user to enter different login credentials during the primary authentication. Recommended main and alternate configurations can be found here:<br>
+- <a href="https://duo.com/docs/vmwareview">https://duo.com/docs/vmwareview</a><br>
+- <a href="https://duo.com/docs/vmwareview">https://duo.com/docs/vmwareview-alt</a>
+<br><br>
+Please note that if you were using [duo_only_client] prior, the AD password reset feature with VMware Horizon View will no longer work with the updated [ad_client] configuration.
+<br><br></p>
+
+<h2>Vulnerability Metrics</h2>
+
+<p><strong>Vulnerability Class:</strong> CWE-288: Authentication Bypass Using an Alternate Path or Channel<br>
+<strong>Remotely Exploitable:</strong> [Yes]<br>
+<strong>Authentication Required:</strong> [Partial]<br>
+<strong>Severity:</strong> [Medium]<br>
+<strong>CVSSv2 Overall Score:</strong> 6.0<br>
+<strong>CVSSv2 Group Scores:</strong> Base: 6.3, Temporal: 6.0<br>
+<strong>CVSSv2 Vector:</strong> AV:N/AC:M/Au:S/C:C/I:N/A:N/E:F/RL:U/RC:C<br>
+<br></p>
+
+<h2>Timeline</h2>
+
+<h3>2018-05-15</h3>
+
+<ul>
+<li>A Duo employee identifies a potential security issue while troubleshooting a customer concern.</li>
+</ul>
+
+<h3>2018-05-16</h3>
+
+<ul>
+<li>Duo verifies the security issue exists and investigates the root cause of the problem.</li>
+</ul>
+
+<h3>2018-05-17</h3>
+
+<ul>
+<li>Duo performs internal testing to determine an appropriate remediation strategy.</li>
+<li>Duo updates published documentation with an intermediate mitigation for the issue.</li>
+</ul>
+
+<h3>2018-05-18</h3>
+
+<ul>
+<li>Duo gathers more information on this issue through additional analysis &amp; testing.</li>
+</ul>
+
+<h3>2018-05-22</h3>
+
+<ul>
+<li>Duo updates documentation with the final version of needed configuration changes.</li>
+</ul>
+
+<h3>2018-05-31</h3>
+
+<ul>
+<li>PSA is distributed to impacted customers to provide awareness of this documentation change.
+<br><br></li>
+</ul>
+
+<h1>References</h1>
+
+<ul>
+<li>CWE-288: Authentication Bypass Using an Alternate Path or Channel - <a href="https://cwe.mitre.org/data/definitions/288.html">https://cwe.mitre.org/data/definitions/288.html</a></li>
+<li>VMware Horizon View and Duo Authentication Proxy setup documentation - <a href="https://cwe.mitre.org/data/definitions/288.html">https://duo.com/docs/vmwareview</a></li>
+<li>VMware Horizon View and Duo Authentication Proxy alternate setup documentation - <a href="https://cwe.mitre.org/data/definitions/288.html">https://duo.com/docs/vmwareview-alt</a></li>
+</ul>
+
+<p><br><br></p>
+
+<h1>Credits/Contact</h1>
+
+<p>If you have questions regarding this issue, please contact us at:<br></p>
+
+<ul>
+<li>support@duosecurity.com, referencing "DUO-PSA-2018-003" in the subject</li>
+<li>our phone line at +1(844)386.6748. International customers can find our toll-free numbers here: <a href="https://duo.com/about/contact">https://duo.com/about/contact</a>.</li>
+</ul>
+
+</div>
+
+</div>
+]]></description>
+     </item>
+       <item>
+       <title><![CDATA[DUO-PSA-2018-002: Duo Product Security Advisory]]></title>
+       <link>https://duo.com/labs/psa/duo-psa-2018-002</link>
+       <guid>https://duo.com/labs/psa/duo-psa-2018-002</guid>
+              <pubDate>Wed, 23 May 2018 00:00:00 -0400</pubDate>
+       <description><![CDATA[<div class="gridcontainer psa">
+
+<div class="col8 shift2 content">
+
+<h1>Duo Product Security Advisory</h1>
+
+<p><strong>Advisory ID:</strong> DUO-PSA-2018-002<br>
+<strong>Publication Date:</strong> 2018-05-23<br>
+<strong>Revision Date:</strong> 2018-05-23<br>
+<strong>Status:</strong> Confirmed, Fixed<br>
+<strong>Document Revision:</strong> 1<br>
+<br></p>
+
+<h2>Overview</h2>
+
+<p>Duo has identified and fixed an issue with the Duo administrative panel. This issue could have allowed for a second-factor bypass of administrative logins. This issue was completely service-side and immediately resolved upon discovery of the flaw.
+<br><br></p>
+
+<h2>Description</h2>
+
+<p>A Duo Security employee identified a bypass condition for administrative logins by submitting specially crafted passcodes as a second factor of authentication. This issue was only applicable to administrative logins.
+<br><br></p>
+
+<h2>Impact</h2>
+
+<p>An administrative login for an account could have had its second factor bypassed if an attacker first acquired a valid set of primary authentication credentials. Duo Security has no knowledge of this issue being abused. Duo Security was able to remediate this issue within three hours of initial discovery by a Duo employee.
+<br><br></p>
+
+<h2>Affected Product(s)</h2>
+
+<p>Duo’s Administrative Panel
+<br><br></p>
+
+<h2>Solution</h2>
+
+<p>This issue was resolved internally through an immediate security fix applied to our cloud service deployments for all customers. No action was required by customers to have this fix applied to their account.
+<br><br>
+Duo Security conducted thorough log analysis and, from the available log data, found zero indicators that this issue had been used to attack customer accounts. However, customers may additionally choose to review their own accounts for suspicious activity by reviewing the Administrator Actions log in the administrative panel.
+<br><br></p>
+
+<h2>Vulnerability Metrics</h2>
+
+<p><strong>Vulnerability Class:</strong> CWE-287: Improper Authentication<br>
+<strong>Remotely Exploitable:</strong> [Yes]<br>
+<strong>Authentication Required:</strong> [Partial]<br>
+<strong>Severity:</strong> [Medium]<br>
+<strong>CVSSv2 Overall Score:</strong> 5.7<br>
+<strong>CVSSv2 Group Scores:</strong> Base: 6.5, Temporal: 5.7<br>
+<strong>CVSSv2 Vector:</strong> AV:N/AC:L/Au:S/C:P/I:P/A:P/E:H/RL:OF/RC:C<br>
+<br></p>
+
+<h2>Timeline</h2>
+
+<h3>2018-05-17</h3>
+
+<ul>
+<li>15:00 ET - Duo identifies a second-factor bypass in the Duo administrative panel.</li>
+<li>16:35 ET - Duo verifies a fix for the root cause of the issue and begins a roll-out of the fix.</li>
+<li>17:35 ET - All Duo customer deployments have received the remediation for this issue.</li>
+</ul>
+
+<h3>2018-05-21</h3>
+
+<ul>
+<li>Internal log analysis is conducted, and identifies no indications that this issue had been exploited.</li>
+</ul>
+
+<h3>2018-05-23</h3>
+
+<ul>
+<li>PSA is distributed to potentially impacted customers to provide awareness of this resolved issue.
+<br><br></li>
+</ul>
+
+<h1>References</h1>
+
+<ul>
+<li>CWE-287: Improper Authentication - <a href="https://cwe.mitre.org/data/definitions/287.html">https://cwe.mitre.org/data/definitions/287.html</a>
+<br><br></li>
+</ul>
+
+<h1>Credits/Contact</h1>
+
+<p>If you have questions regarding this issue, please contact us at:<br></p>
+
+<ul>
+<li>support@duosecurity.com, referencing "DUO-PSA-2018-002" in the subject</li>
+<li>our phone line at +1(844)386.6748. International customers can find our toll-free numbers here: <a href="https://duo.com/about/contact">https://duo.com/about/contact</a>.</li>
+</ul>
+
+</div>
+
+</div>
+]]></description>
+     </item>
+       <item>
+       <title><![CDATA[DUO-PSA-2018-001: Duo Product Security Advisory]]></title>
+       <link>https://duo.com/labs/psa/duo-psa-2018-001</link>
+       <guid>https://duo.com/labs/psa/duo-psa-2018-001</guid>
+              <pubDate>Tue, 06 Mar 2018 00:00:00 -0500</pubDate>
+       <description><![CDATA[<div class="gridcontainer psa">
+
+<div class="col8 shift2 content">
+
+<h1>Duo Product Security Advisory</h1>
+
+<p><strong>Advisory ID:</strong> DUO-PSA-2018-001<br>
+<strong>Publication Date:</strong> 2018-03-06<br>
+<strong>Revision Date:</strong> 2018-03-06<br>
+<strong>Status:</strong> Confirmed, Fixed<br>
+<strong>Document Revision:</strong> 1<br>
+<br></p>
+
+<h2>Overview</h2>
+
+<p>Duo has identified and fixed an issue with our public documentation on the Duo Unix integration. The suggested Pluggable Authentication Module (PAM) stack for the AIX operating system contained a logic bug that could allow for attackers to bypass secondary authentication. An attacker that had separately compromised a user's primary authentication credentials could then gain access without secondary authentication.
+<br><br>
+This issue is not a software flaw in Duo Unix, and does not require Duo Unix software updates. Applying the relevant configuration changes should be sufficient to remediate this issue.
+<br><br></p>
+
+<h2>Description</h2>
+
+<p>To protect the 'su' and 'sshd' Unix programs, Duo previously (until 2018-02-26) recommended including the following PAM configuration for the AIX operating system:
+<br><br>
+auth    requisite       pam_aix<br>
+auth    sufficient      /usr/lib/security/pam_duo.so
+<br><br>
+This would attempt primary authentication via the pam_aix PAM module and fail immediately if that was unsuccessful. Then, if primary authentication was successful, it would attempt 2FA via the pam_duo module.
+<br><br>
+The error is that the 'sufficient' PAM control flag does not return an authentication failure if that particular PAM module fails. Meaning, if the primary authentication was successful then PAM would be primed with a 'success' result, and would return that regardless of what pam_duo returned.
+<br><br></p>
+
+<h2>Impact</h2>
+
+<p>Configuring Duo Unix with the previously mentioned faulty PAM configuration causes Duo Unix to not enforce 2FA. Administrators should update their PAM configuration as soon as possible.
+<br><br></p>
+
+<h2>Affected Product(s)</h2>
+
+<p>Duo Unix, when configured for AIX systems following Duo's documented PAM configuration prior to 2018-02-26.
+<br><br></p>
+
+<h2>Solution</h2>
+
+<p>Changing the PAM control flag to 'required' will fix the issue:
+<br><br>
+auth    requisite       pam_aix<br>
+auth    required        /usr/lib/security/pam_duo.so
+<br><br>
+The complete recommended PAM configuration can be found here: <a href="https://duo.com/docs/duounix#pam-examples">https://duo.com/docs/duounix#pam-examples</a>
+<br><br>
+Note that no changes to Duo Unix itself are required.
+<br><br></p>
+
+<h2>Vulnerability Metrics</h2>
+
+<p><strong>Vulnerability Class:</strong> CWE-592: Authentication Bypass Issues<br>
+<strong>Remotely Exploitable:</strong> [Yes]<br>
+<strong>Authentication Required:</strong> [Partial]<br>
+<strong>Severity:</strong> [High]<br>
+<strong>CVSSv2 Overall Score:</strong> 5.7<br>
+<strong>CVSSv2 Group Scores:</strong> Base: 6.5, Temporal: 5.7<br>
+<strong>CVSSv2 Vector:</strong> AV:N/AC:L/Au:S/C:P/I:P/A:P/E:H/RL:OF/RC:C<br>
+<br></p>
+
+<h2>Timeline</h2>
+
+<h3>2018-02-23</h3>
+
+<ul>
+<li>Duo identifies a potential documentation error for Duo Unix on AIX</li>
+<li>Duo confirms that the posted documentation won't properly secure PAM on AIX</li>
+</ul>
+
+<h3>2018-02-26</h3>
+
+<ul>
+<li>Duo begins testing to understand root cause of PAM configuration issue</li>
+<li>Duo identifies an appropriate fix and performs additional testing</li>
+<li>duo.com is updated with fixed documentation to prevent new PAM issues</li>
+</ul>
+
+<h3>2018-03-06</h3>
+
+<ul>
+<li>PSA is distributed to potentially impacted customers using Duo Unix on AIX
+<br><br></li>
+</ul>
+
+<h1>References</h1>
+
+<ul>
+<li>CWE-592: Authentication Bypass Issues - <a href="https://cwe.mitre.org/data/definitions/592.html">https://cwe.mitre.org/data/definitions/592.html</a></li>
+<li>Duo Unix Documentation - <a href="https://duo.com/docs/duounix">https://duo.com/docs/duounix</a>
+<br><br></li>
+</ul>
+
+<h1>Credits/Contact</h1>
+
+<p>If you have questions regarding this issue, please contact us at:<br></p>
+
+<ul>
+<li>support@duosecurity.com, referencing "DUO-PSA-2018-001" in the subject</li>
+<li>our phone line at +1(844)386.6748. International customers can find our toll-free numbers here: <a href="https://duo.com/about/contact">https://duo.com/about/contact</a>.</li>
+</ul>
+
+<p>Or, reach out to your Customer Success Manager, as appropriate.</p>
+
+</div>
+
+</div>
+]]></description>
+     </item>
+       <item>
+       <title><![CDATA[DUO-PSA-2017-003: Duo Product Security Advisory]]></title>
+       <link>https://duo.com/labs/psa/duo-psa-2017-003</link>
+       <guid>https://duo.com/labs/psa/duo-psa-2017-003</guid>
+              <pubDate>Tue, 27 Feb 2018 00:00:00 -0500</pubDate>
+       <description><![CDATA[<div class="gridcontainer psa">
+
+<div class="col8 shift2 content">
+
+<h1>Duo Product Security Advisory</h1>
+
+<p><strong>Advisory ID:</strong> DUO-PSA-2017-003<br>
+<strong>Publication Date:</strong> 2018-02-27<br>
+<strong>Revision Date:</strong> 2018-02-27<br>
+<strong>Status:</strong> Confirmed, Fixed<br>
+<strong>Document Revision:</strong> 1<br>
+<br></p>
+
+<h2>Overview</h2>
+
+<p>Duo Security has identified a security flaw in a third-party library used in the Duo Network Gateway (DNG) which, under certain configurations, could allow for a bypass of the DNG's SAML first factor of authentication.
+<br><br></p>
+
+<h2>Description</h2>
+
+<p>Duo has discovered an implementation flaw in the open-source library 'python-saml' (CVE-2017-11427) that, under certain conditions, could allow an attacker with authenticated access to a SAML Identity Provider (IdP) to bypass the first factor of authentication for a different user.
+<br><br>
+This issue is due to an inconsistency of XML DOM traversal APIs and their handling of comment nodes. Comment nodes should have no effect - and indeed, due to the canonicalization of XML prior to signature verification, inserting an XML comment into a SAML message does not invalidate its signature. However, the 'python-saml' code makes incorrect use of a DOM-traversal API, such that it fails to extract the full inner text of an XML element containing a comment. Instead, all the text after the comment is lost.
+<br><br>
+To exploit this issue, an attacker inserts XML comments into select areas of the SAML assertions before passing them along to the DNG. Once the DNG validates the signature and extracts the user's identifier, only part of the user's identifier is recovered. In cases where an attacker's user identifier (e.g. john_doe) can be truncated to become a victim's user identifier (e.g. john), the attacker can trick the DNG into authenticating as the victim.
+<br><br></p>
+
+<h2>Impact</h2>
+
+<p>Attackers who have the ability to authenticate as a user may be able to bypass the first factor of authentication for a different user.
+<br><br>
+Note that, unless the attacker can separately bypass 2FA, this attack would not result in a full bypass of user authentication.
+<br><br></p>
+
+<h2>Affected Product(s)</h2>
+
+<p>This issue affects DNG versions before version 1.2.10. DNG configurations could be at greater risk, due to increased attacker control over the user being bypassed, if they either:</p>
+
+<ul>
+<li>Have "Username Normalization" enabled for the DNG integration. (Username Normalization is enabled by default)</li>
+<li>Do not have a domain specified for email identifiers via the "Enforced Email Domain" feature. (No domain is specified by default)</li>
+</ul>
+
+<h2>Solution</h2>
+
+<p>The issue has been resolved through a patch to the Duo Network Gateway. Please update to DNG version 1.2.10+ using the instructions covered at <a href="https://duo.com/docs/dng">https://duo.com/docs/dng</a>.
+<br><br>
+You can check the version of your Duo Network Gateway by following the instructions at <a href="https://help.duo.com/s/article/4151">https://help.duo.com/s/article/4151</a>.
+<br><br></p>
+
+<h2>Vulnerability Metrics</h2>
+
+<p><strong>Vulnerability Class:</strong> CWE-287: Improper Authentication<br>
+<strong>Remotely Exploitable:</strong> Yes<br>
+<strong>Authentication Required:</strong> Partial<br>
+<strong>Severity:</strong> Medium<br>
+<strong>CVSSv2 Overall Score:</strong> 5.1<br>
+<strong>CVSSv2 Group Scores:</strong> Base: 6.3, Temporal: 5.1, Environmental: 5.1<br>
+<strong>CVSSv2 Vector:</strong> AV:N/AC:M/Au:S/C:C/I:N/A:N/E:POC/RL:U/RC:UC/CDP:ND/TD:ND/CR:M/IR:L/AR:L<br>
+<br></p>
+
+<h2>References</h2>
+
+<ul>
+<li><a href="https://cwe.mitre.org/data/definitions/287.html"><strong>CWE-287: Improper Authentication</strong></a></li>
+<li><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-11427"><strong>CVE-2017-11427 (python-saml)</strong></a></li>
+<li><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-7340"><strong>CVE-2018-7340 (Duo Network Gateway)</strong></a></li>
+<li><a href="https://duo.com/blog/duo-finds-saml-vulnerabilities-affecting-multiple-implementations"><strong>"Duo Finds SAML Vulnerabilities Affecting Multiple Implementations"</strong></a>
+<br></li>
+</ul>
+
+<h2>Timeline</h2>
+
+<h3>2017-12-11</h3>
+
+<ul>
+<li>During an internal application security assessment on the python-saml library, Duo determines that a security issue exists that may have serious implications.</li>
+<li>Duo conducts an investigation of products using this library and determines that the Duo Network Gateway (DNG) application is impacted in its usage of this library.</li>
+<li>After understanding the root cause of the issue in python-saml, Duo investigates whether similar implementations within other SAML-related libraries &amp; software may suffer from this issue.</li>
+</ul>
+
+<h3>2017-12-14</h3>
+
+<ul>
+<li>Additional analysis of SAML implementations identifies three other vendors impacted by related bugs.</li>
+</ul>
+
+<h3>2017-12-18</h3>
+
+<ul>
+<li>Having confirmed this vulnerability class applies across multiple vendors, Duo contacts CERT/CC to coordinate disclosure of all related issues.</li>
+</ul>
+
+<h3>2017-12-19</h3>
+
+<ul>
+<li>To ensure customers will be immediately protected from this vulnerability, Duo releases a new version of the DNG with a fix.</li>
+</ul>
+
+<h3>2017-12-20</h3>
+
+<ul>
+<li>Impacted customers are made aware that a security issue in the DNG requires their action to update their installations. However, Duo does not disclose technical details around the issue at this time, and customers are instead informed Duo is coordinating with CERT/CC due to other parties being at risk to similar issues in their own software &amp; library usage.</li>
+<li>CERT/CC acknowledges receipt of issues from Duo and replies back with initial questions.</li>
+</ul>
+
+<h3>2017-12-22</h3>
+
+<ul>
+<li>Duo provides CERT/CC with answers to questions and additional information as required.</li>
+</ul>
+
+<h3>2018-01-02 to 2018-01-09</h3>
+
+<ul>
+<li>Additional communication between Duo and CERT/CC occurs to address questions.</li>
+</ul>
+
+<h3>2018-01-09</h3>
+
+<ul>
+<li>CERT/CC &amp; Duo agree upon 02/27/2018 as a coordinated public disclosure date.</li>
+</ul>
+
+<h3>2018-01-24</h3>
+
+<ul>
+<li>CERT/CC provides initial contact to impacted vendors after internal analysis.</li>
+</ul>
+
+<h3>2018-01-25</h3>
+
+<ul>
+<li>Vendors respond back to CERT/CC and begin internal triage &amp; remediation processes.</li>
+<li>Communication occurs with CERT/CC about additional issues related to this research.</li>
+</ul>
+
+<h3>2018-01-29</h3>
+
+<ul>
+<li>Additional vendors are identified as possibly impacted and CERT/CC contacts them.</li>
+</ul>
+
+<h3>2018-02-01</h3>
+
+<ul>
+<li>CVE numbers are reserved for each vendor's impacted software found during research.</li>
+</ul>
+
+<h3>2018-02-06</h3>
+
+<ul>
+<li>CERT/CC provides a draft of their technical note for review by Duo.</li>
+<li>Duo acknowledges and approves the draft of the CERT/CC technical note.</li>
+</ul>
+
+<h3>2018-02-19</h3>
+
+<ul>
+<li>Duo follows up with CERT/CC asking for updates to vendor report/response timelines.</li>
+</ul>
+
+<h3>2018-02-20</h3>
+
+<ul>
+<li>CERT/CC responds to Duo's request with a high-level timeline. Final confirmation that all vendors are patched and agree on a 02/27/2018 coordinated public disclosure.</li>
+</ul>
+
+<h3>2018-02-27</h3>
+
+<ul>
+<li>Coordinated public disclosure of issues identified occurs, including the DNG.</li>
+</ul>
+
+<h2>Credits/Contact</h2>
+
+<p>Duo Security would like to thank CERT/CC for their coordination related to the various security disclosure actions conducted during this process.
+<br><br>
+Technical questions regarding this issue should be sent to support@duosecurity.com and reference "DUO-PSA-2017-003" in the subject.
+<br><br>
+Other feedback regarding this issue can be sent to security@duosecurity.com.</p>
+
+</div>
+
+</div>
+]]></description>
+     </item>
+       <item>
+       <title><![CDATA[DUO-PSA-2017-002: Duo Product Security Advisory]]></title>
+       <link>https://duo.com/labs/psa/duo-psa-2017-002</link>
+       <guid>https://duo.com/labs/psa/duo-psa-2017-002</guid>
+              <pubDate>Wed, 31 May 2017 00:00:00 -0400</pubDate>
+       <description><![CDATA[<div class="gridcontainer psa">
+
+<div class="col8 shift2 content">
+
+<h1>Duo Product Security Advisory</h1>
+
+<p><strong>Advisory ID:</strong> DUO-PSA-2017-002<br>
+<strong>Publication Date:</strong> 2017-05-31<br>
+<strong>Revision Date:</strong> 2017-05-31<br>
+<strong>Status:</strong> Confirmed, Fixed<br>
+<strong>Document Revision:</strong> 1<br></p>
+
+<h2>Overview</h2>
+
+<p>Duo Security has identified an issue in duo_unix, which, under certain uncommon configurations, could enable attackers to bypass second-factor user authentication. Duo has no evidence that this vulnerability has actively been exploited and we believe this specific configuration is extraordinarily uncommon.</p>
+
+<p>This issue was resolved in version 1.9.21 of duo_unix. Customers using an affected configuration should update to the latest version as soon as possible (see "Solution" section below).</p>
+
+<h2>Description</h2>
+
+<p>Prior to version 1.9.21, duo_unix (which includes both login_duo and pam_duo), supported setting an HTTP proxy configuration through the standard 'http_proxy' environment variable. Under some uncommon configurations (examples listed below), however, it is possible for an untrusted user to set a value for the 'http_proxy' variable prior to initiating a Duo authentication attempt.</p>
+
+<p>If an invalid proxy host (e.g. '0.0.0.0') is selected, then login_duo/pam_duo will ultimately fail to connect to Duo's API, and as a result, trigger the configured "failmode" behavior. If "failmode" is set to "safe" (which is the default), then this could result in a bypass of second-factor authentication.</p>
+
+<p>Duo has identified two specific configuration scenarios in which an untrusted user may be able to control the value of the 'http_proxy' environment variable.</p>
+
+<h3>1. login_duo with nonstandard sshd "AcceptEnv" configurations:</h3>
+
+<p>OpenSSH can permit clients to forward environment variables to servers. By default, OpenSSH server distributions generally allow only a whitelisted set of variables (which does not include 'http_proxy') to be forwarded in this way. It is possible, however, for an administrator to configure a less-restrictive policy using the AcceptEnv keyword in sshd_config.</p>
+
+<p>If a server has been configured with a non-default AcceptEnv policy that permits clients to send an 'http_proxy' environment variable, and is using login_duo to add Duo 2FA to ssh logins, then this configuration could result in a bypass of Duo 2FA.</p>
+
+<p>This scenario only applies to login_duo; when used with OpenSSH, pam_duo is unaffected by this issue.</p>
+
+<h3>2. pam_duo with local authentication (e.g. su / sudo):</h3>
+
+<p>While pam_duo is not affected by this issue when used with OpenSSH, when pam_duo is being used to perform 2FA in other contexts - particularly, to authenticate system-local actions performed by untrusted users - it may be possible for untrusted users to control the value of the 'http_proxy' environment variable prior to initiating an authentication attempt.</p>
+
+<p>In particular, Duo has confirmed that configurations which use pam_duo to add Duo 2FA to the "su" and "sudo" commands are impacted by this issue.</p>
+
+<p>Version 1.9.21 of duo_unix has been released to resolve this issue. It removes support for configuring an HTTP Proxy via an environment variable.</p>
+
+<h2>Impact</h2>
+
+<p>Attackers may be able to bypass second-factor authentication on impacted configurations which accept attacker-controlled environment variables.</p>
+
+<h2>Affected Product(s)</h2>
+
+<p>All versions of duo_unix prior to 1.9.21 are impacted when used in one of the following configuration scenarios:</p>
+
+<ul>
+<li>login_duo is performing 2FA for SSH logins, and sshd has been configured with a permissive (non-default) AcceptEnv policy</li>
+<li>pam_duo is performing 2FA for scenarios other than SSH logins</li>
+</ul>
+
+<h2>Workaround</h2>
+
+<p>Customers using login_duo in an affected configuration may work around this issue by ensuring that their AcceptEnv configuration for sshd (e.g. in /etc/ssh/sshd_config) does not permit clients to send an 'http_proxy' variable.</p>
+
+<p>Customers using pam_duo in an affected configuration must upgrade to the latest version of duo_unix.</p>
+
+<h2>Solution</h2>
+
+<p>Customers should upgrade to the latest version of the duo_unix client as discussed above. Clone the latest version from:</p>
+
+<ul>
+<li><a href="https://github.com/duosecurity/duo_unix">https://github.com/duosecurity/duo_unix</a></li>
+</ul>
+
+<p>For more information on upgrading duo_unix, see <a href="https://duo.com/docs/duounix">https://duo.com/docs/duounix</a></p>
+
+<h2>Vulnerability Metrics</h2>
+
+<p><strong>Vulnerability Class:</strong> CWE-454: External Initialization of Trusted Variables or Data Stores<br>
+<strong>Remotely Exploitable:</strong> No<br>
+<strong>Authentication Required:</strong> Partial<br>
+<strong>Severity:</strong> High<br>
+<strong>CVSSv2 Overall Score:</strong> 5.0<br>
+<strong>CVSSv2 Group Scores:</strong> Base: 6.0, Temporal: 5.0<br>
+<strong>CVSSv2 Vector:</strong> (AV:L/AC:M/Au:S/C:P/I:P/A:N/E:F/RL:OF/RC:C)<br></p>
+
+<h2>References</h2>
+
+<ul>
+<li><a href="https://cwe.mitre.org/data/definitions/454.html"><strong>CWE-454: External Initialization of Trusted Variables or Data Stores</strong></a></li>
+<li><a href="https://duo.com/docs/duounix"><strong>Duo Unix Reference</strong></a></li>
+</ul>
+
+<h2>Timeline</h2>
+
+<h3>2017-05-19</h3>
+
+<ul>
+<li>Duo privately receives report of a security vulnerability in Duo Unix</li>
+<li>Duo acknowledges receipt of report and begins investigation</li>
+</ul>
+
+<h3>2017-05-22</h3>
+
+<ul>
+<li>Duo confirms vulnerability exists in related case to original report</li>
+</ul>
+
+<h3>2017-05-30</h3>
+
+<ul>
+<li>Duo completes development and testing of fixes</li>
+</ul>
+
+<h3>2017-05-31</h3>
+
+<ul>
+<li>Advisory released to all Duo customers using duo_unix</li>
+</ul>
+
+<h2>Credits/Contact</h2>
+
+<p>Technical questions regarding this issue should be sent to support@duosecurity.com and reference "DUO-PSA-2017-002" in the subject, or to your Customer Success Manager, if appropriate.</p>
+
+<p>Duo Security would like to thank Fred Emmott for reporting this issue.</p>
+
+</div>
+
+</div>
+]]></description>
+     </item>
+       <item>
+       <title><![CDATA[DUO-PSA-2017-001: Duo Product Security Advisory]]></title>
+       <link>https://duo.com/labs/psa/duo-psa-2017-001</link>
+       <guid>https://duo.com/labs/psa/duo-psa-2017-001</guid>
+              <pubDate>Tue, 14 Mar 2017 00:00:00 -0400</pubDate>
+       <description><![CDATA[<div class="gridcontainer psa">
+
+<div class="col8 shift2 content">
+
+<h1>Duo Product Security Advisory</h1>
+
+<p><strong>Advisory ID:</strong> DUO-PSA-2017-001 <br>
+<strong>Publication Date:</strong> 2017-03-14<br>
+<strong>Revision Date:</strong> 2017-03-14<br>
+<strong>Status:</strong> Confirmed, Fixed<br>
+<strong>Document Revision:</strong> 1<br></p>
+
+<h2>Overview</h2>
+
+<p>Duo has identified and fixed an issue in our cloud service which, under certain configurations, could have enabled attackers who have separately compromised a user's primary credentials to add additional unauthorized second-factor authentication devices or modify previously-registered devices for that user. The issue only affects a subset of customers who have enabled the Self-Service and Device Management Portal on their applications.</p>
+
+<p>Duo resolved this issue within 24 hours of the report by deploying a fix to our cloud service that correctly enforces authentication in all cases prior to accessing the options to add/remove/change authentication devices associated with a user account.</p>
+
+<p>Duo has confirmed with certainty that there were no attacks against this vulnerability on or after 2016-11-16, and has found no evidence suggesting that this vulnerability was ever exploited prior to that date.</p>
+
+<p>However, in the interest of transparency, we are sharing any activities performed through the Self-Service and Device Management Portal for which the possibility of an attack cannot be completely ruled out. If you have received this notification, Duo has flagged these activity patterns for your account. Again, there is no evidence that these are malicious activities, but you may choose to review these activities and/or take further actions, as described below.</p>
+
+<h2>Description</h2>
+
+<p>Duo's cloud service contains two optional features called the Self-Service Portal and the Device Management Portal which allow users to manage their own Duo accounts and enrolled authentication devices. On applications where either feature is enabled, an attacker who also had access to a user's primary credentials could have gained access to the portion of the portal where users can manage (add/change/remove) authentication devices by initiating - but not successfully completing - a second factor authentication, then crafting and loading a special URL.</p>
+
+<h2>Impact</h2>
+
+<p>Duo has found no evidence that this vulnerability was ever exploited. A thorough analysis of detailed operational logs has confirmed that there were no attacks against this vulnerability from 16-Nov-2016 until the vulnerability was patched on 10-Feb-2017. A further analysis of less-granular operational logs prior to 16-Nov-2016 affirms that the vast majority of Duo customers and users were never impacted.</p>
+
+<p>In a successful attack, an adversary who had previously compromised a user's primary credentials may have been able to add authentication devices or modify previously-registered authentication devices for that user, ultimately leading to bypass of second-factor authentication.</p>
+
+<p>For a small subset of Duo users and customers, we have identified activity patterns prior to 16-Nov-2016 that could be consistent with either legitimate user activity or exploitation of this vulnerability. There is not enough information in our logs to allow us to distinguish between these two cases. After manually reviewing these log patterns, we strongly believe they are, in all cases, the result of legitimate user activity (eg. adding, modifying, removing authentication devices) and represent false positives. Nonetheless, as we value transparency in security, we are presenting the complete list of the user activity to impacted customers so that they can determine for themselves whether to perform further review and/or take proactive action (eg. re-enroll those users).</p>
+
+<p>Customers who directly received this notification can use the Duo Administrator Panel to find the list of user activities for review and potential follow-up action at <a href="https://admin.duosecurity.com/psa/DUO-PSA-2017-001">https://admin.duosecurity.com/psa/DUO-PSA-2017-001</a>.</p>
+
+<h2>Affected Product(s)</h2>
+
+<p>Affected configurations include any applications that enabled the Device Management / Self-Service Portal features with Duo's service.</p>
+
+<h2>Solution</h2>
+
+<p>A fix that correctly enforces authentication in the Self-Service Portal and Device Management Portal has been deployed to Duo's cloud service. No action is necessary for customers to resolve the issue.</p>
+
+<p>Customers who directly received this notification can perform further review of user activity and/or take proactive action in Duo Administrator Panel at <a href="https://admin.duosecurity.com/psa/DUO-PSA-2017-001">https://admin.duosecurity.com/psa/DUO-PSA-2017-001</a>.</p>
+
+<h2>Vulnerability Metrics</h2>
+
+<p><strong>Vulnerability Class:</strong> CWE-592: Authentication Bypass Issues<br>
+<strong>Remotely Exploitable:</strong> Yes<br>
+<strong>Authentication Required:</strong> Partial<br>
+<strong>Severity:</strong> High<br>
+<strong>CVSSv2 Overall Score:</strong> 6.5<br>
+<strong>CVSSv2 Group Scores:</strong> Base: 7.9, Temporal: 6.5<br>
+<strong>CVSSv2 Vector:</strong> (AV:N/AC:M/Au:S/C:C/I:C/A:N/E:F/RL:OF/RC:C)<br></p>
+
+<h2>References</h2>
+
+<ul>
+<li><a href="https://cwe.mitre.org/data/definitions/592.html"><strong>CWE-592: Authentication Bypass Issues</strong></a></li>
+<li><a href="https://duo.com/docs/self-service-portal"><strong>Duo Self-Service Portal</strong></a></li>
+<li><a href="https://duo.com/docs/device-management"><strong>Duo Device Management Portal</strong></a></li>
+</ul>
+
+<h2>Timeline</h2>
+
+<h3>2017-02-09</h3>
+
+<ul>
+<li>Duo privately receives report of a security vulnerability in the Self-Service Portal and Device Management Portal</li>
+<li>Duo acknowledges receipt of report and begins investigation</li>
+<li>Duo confirms vulnerability exists</li>
+<li>Duo begins development of a patch</li>
+</ul>
+
+<h3>2017-02-10</h3>
+
+<ul>
+<li>Duo confirms the vulnerability with the reporting party</li>
+<li>Duo commits and tests a fix</li>
+<li>Fix is deployed to all Duo cloud deployments, closing off the vulnerability for all customers</li>
+<li>Duo begins retrospective evaluation for all possible indicators that the vulnerability might have been exploited</li>
+</ul>
+
+<h3>2017-02-14</h3>
+
+<ul>
+<li>Duo confirms via retrospective analysis that no attacks have occurred in previous 90 days, begins search back toward origin of vulnerability in March 2014</li>
+</ul>
+
+<h3>2017-02-22</h3>
+
+<ul>
+<li>Duo concludes retrospective evaluation for all possible indicators that the vulnerability might have been exploited</li>
+<li>Duo begins developing functionality to allow customers to access information about flagged user activities and, if desired, disable logins and require re-enrollment for these users</li>
+</ul>
+
+<h3>2017-03-06</h3>
+
+<ul>
+<li>Duo completes development of remediation functionality, and begins testing/deployment</li>
+</ul>
+
+<h3>2017-03-13</h3>
+
+<ul>
+<li>Deployment of remediation functionality completed</li>
+</ul>
+
+<h3>2017-03-14</h3>
+
+<ul>
+<li>PSA distributed to potentially impacted customers</li>
+</ul>
+
+<h2>Credits/Contact</h2>
+
+<p>Technical questions regarding this issue should be sent to support@duosecurity.com and reference "DUO-PSA-2017-001" in the subject, or to your Customer Success Manager, if appropriate.</p>
+
+<p>Duo Security would like to thank Brian W. Gray of Carnegie Mellon University for reporting this issue and the Carnegie Mellon Identity Services team for their assistance throughout.</p>
+
+</div>
+
+</div>
+]]></description>
+     </item>
+       <item>
+       <title><![CDATA[DUO-PSA-2016-002: Duo Product Security Advisory]]></title>
+       <link>https://duo.com/labs/psa/duo-psa-2016-002</link>
+       <guid>https://duo.com/labs/psa/duo-psa-2016-002</guid>
+              <pubDate>Wed, 14 Dec 2016 00:00:00 -0500</pubDate>
+       <description><![CDATA[<div class="gridcontainer psa">
+
+<div class="col8 shift2 content">
+
+<h1>Duo Product Security Advisory</h1>
+
+<p><strong>Advisory ID:</strong> DUO-PSA-2016-002 <br>
+<strong>Publication Date:</strong> 2016-12-14<br>
+<strong>Revision Date:</strong> 2016-12-21<br>
+<strong>Status:</strong> Confirmed, Fixed<br>
+<strong>Document Revision:</strong> 2<br></p>
+
+<h2>Overview</h2>
+
+<p>Duo Security has identified an issue in the Duo Authentication Proxy which, under certain uncommon configurations, could enable attackers to bypass second-factor user authentication. Duo has no evidence that this vulnerability has actively been exploited and we believe this specific configuration is extraordinarily uncommon.</p>
+
+<p>This issue was resolved in version 2.4.18 of the Duo Authentication Proxy. Customers using an affected configuration (see "Solution" section below) should update to the latest version as soon as possible.</p>
+
+<h2>Description</h2>
+
+<p>The Duo Authentication Proxy performs second-factor authentication by communicating with the Duo Auth API. When performing second-factor authentication for a user using an out-of-band method (i.e. Duo Push or phone call), the Auth API does not return a response until the user has approved or rejected the authentication attempt, or Duo's cloud service considers the authentication attempt "expired". By default, the Authentication Proxy does not itself enforce any timeout on these API calls; Duo's cloud service will generally consider all authentication attempts "expired" after not more than 60 seconds.</p>
+
+<p>However, the Authentication Proxy offers an advanced configuration option called "api_timeout", which places an upper-bound on the number of seconds to wait for a response from the Auth API. If this timeout was reached before the Auth API has returned a result, this would trigger the Authentication Proxy's configured "failmode". If "failmode" was set to "safe" (which is the default), then this could result in a bypass of second-factor authentication.</p>
+
+<p>As of version 2.4.18, the Authentication Proxy will no longer trigger "fail-safe" behavior if an out-of-band authentication attempt prematurely times out.</p>
+
+<h2>Impact</h2>
+
+<p>Attackers may be able to bypass second-factor authentication only on systems that authenticate users via affected configurations of the Duo Authentication Proxy.</p>
+
+<h2>Affected Product(s)</h2>
+
+<p>Take the following steps to determine whether your configuration may be affected:</p>
+
+<p><strong>1. Open your authproxy.cfg file.</strong></p>
+
+<ul>
+<li>Windows: C:\Program Files (x86)\Duo Security Authentication Proxy\conf\authproxy.cfg</li>
+<li>Linux: /opt/duoauthproxy/conf/authproxy.cfg</li>
+</ul>
+
+<p><strong>2. Search for "api_timeout".</strong> If this value is present, you must remove it, or upgrade your Duo Authentication Proxy to version 2.4.18 or later.</p>
+
+<p>For more information on this process, please see our knowledge base for details on how to verify whether you're affected: <a href="https://kb.duo.com/s/article/3341">https://kb.duo.com/s/article/3341</a></p>
+
+<h2>Workaround</h2>
+
+<p>Customers using an affected configuration may work around this issue by removing all instances of "api_timeout" from authproxy.cfg, and restarting the Authentication Proxy.</p>
+
+<h2>Solution</h2>
+
+<p>Customers using an affected configuration should upgrade to the latest version of the Duo Authentication Proxy as discussed above. Download the latest version from:</p>
+
+<ul>
+<li>Windows: <a href="https://dl.duosecurity.com/duoauthproxy-latest.exe">https://dl.duosecurity.com/duoauthproxy-latest.exe</a></li>
+<li>Linux: <a href="https://dl.duosecurity.com/duoauthproxy-latest-src.tgz">https://dl.duosecurity.com/duoauthproxy-latest-src.tgz</a></li>
+</ul>
+
+<p>For more information on upgrading the Authentication Proxy, see <a href="https://duo.com/docs/authproxy_reference#upgrading-the-proxy">https://duo.com/docs/authproxy_reference#upgrading-the-proxy</a></p>
+
+<h2>Vulnerability Metrics</h2>
+
+<p><strong>Vulnerability Class:</strong> CWE-636: Not Failing Securely ('Failing Open')<br>
+<strong>Remotely Exploitable:</strong> Yes<br>
+<strong>Authentication Required:</strong> Partial<br>
+<strong>Severity:</strong> High<br>
+<strong>CVSSv2 Overall Score:</strong> 6.2<br>
+<strong>CVSSv2 Group Scores:</strong> Base: 7.9, Temporal: 6.2<br>
+<strong>CVSSv2 Vector:</strong> (AV:N/AC:M/Au:S/C/C/I:C/A:N/E:POC/RL:OF/RC:C)<br></p>
+
+<h2>References</h2>
+
+<ul>
+<li><a href="https://cwe.mitre.org/data/definitions/636.html"><strong>CWE-636: Not Failing Securely ('Failing Open')</strong></a></li>
+<li><a href="https://duo.com/docs/authproxy_reference"><strong>Duo Authentication Proxy Reference</strong></a></li>
+</ul>
+
+<h2>Timeline</h2>
+
+<h3>2016-12-08</h3>
+
+<ul>
+<li>Duo privately receives report of a security vulnerability in the Authentication Proxy</li>
+<li>Duo acknowledges receipt of report and begins investigation</li>
+<li>Duo confirms vulnerability exists</li>
+</ul>
+
+<h3>2016-12-09</h3>
+
+<ul>
+<li>Engineers at Duo begin investigating potential fixes</li>
+</ul>
+
+<h3>2016-12-13</h3>
+
+<ul>
+<li>Duo completes development and testing of fixes</li>
+</ul>
+
+<h3>2016-12-14</h3>
+
+<ul>
+<li>Advisory released to paid Duo customers with potentially affected applications</li>
+</ul>
+
+<h3>2016-12-21</h3>
+
+<ul>
+<li>Advisory published and released to free Duo customers with potentially affected applications</li>
+</ul>
+
+<h2>Credits/Contact</h2>
+
+<p>Technical questions regarding this issue should be sent to support@duosecurity.com and reference "DUO-PSA-2016-002" in the subject, or to your Customer Success Manager, if appropriate.</p>
+
+<p>Duo Security would like to thank Leo Pereira of Invitae for reporting this issue.</p>
+
+</div>
+
+</div>
+]]></description>
+     </item>
+       <item>
+       <title><![CDATA[DUO-PSA-2016-001: Duo Product Security Advisory]]></title>
+       <link>https://duo.com/labs/psa/duo-psa-2016-001</link>
+       <guid>https://duo.com/labs/psa/duo-psa-2016-001</guid>
+              <pubDate>Wed, 11 May 2016 00:00:00 -0400</pubDate>
+       <description><![CDATA[<div class="gridcontainer psa">
+
+<div class="col8 shift2 content">
+
+<h1>Duo Product Security Advisory</h1>
+
+<p><strong>Advisory ID:</strong> DUO-PSA-2016-001<br>
+<strong>Original Publication Date:</strong> 2016-05-11<br>
+<strong>Revision Date:</strong> 2016-05-23<br>
+<strong>Status:</strong> Confirmed, Fixed<br>
+<strong>Document Revision:</strong> 3<br></p>
+
+<h2>Overview</h2>
+
+<p>Duo Security has identified multiple issues in the Duo Authentication Proxy which, under certain configurations, could enable attackers to partially or fully bypass user authentication. Duo has no evidence that these vulnerabilities have actively been exploited.</p>
+
+<p>These issues have been resolved in version 2.4.17 of the Duo Authentication Proxy. Customers using an affected configuration (see "Solution" section below) should update to this version as soon as possible.</p>
+
+<h2>Description</h2>
+
+<p>Two authentication bypass issues have been identified in certain Authentication Proxy configurations. Duo believes that these configurations are relatively uncommon; however, we strongly recommend that all customers using an affected configuration update the Authentication Proxy.</p>
+
+<h3>LDAP Client:</h3>
+
+<p>If a Duo Authentication Proxy is configured to use an LDAP directory (Active Directory, OpenLDAP, etc.) for primary authentication, an attacker may in certain cases cause the Authentication Proxy to erroneously attempt to perform user authentication with an "unauthenticated BIND". Some LDAP implementations (e.g. Active Directory) unconditionally permit unauthenticated BIND operations. As a result, if an attacker can trigger this scenario - by sending an empty password - he will be able to partially or fully bypass authentication.</p>
+
+<p>In particular, when the Authentication Proxy is configured as an LDAP-to-LDAP proxy, and set up to allow users to concatenate passwords with Duo passcodes (e.g. by typing "<password>,123456"), an attacker may fully bypass authentication by logging in with a blank password (e.g. ",123456").</p>
+
+<p>Otherwise, when the Authentication Proxy is configured as a RADIUS-to-LDAP proxy, and configured to use "plain" authentication, then an attacker may be able to bypass primary authentication (but not Duo) by logging in with a blank password.</p>
+
+<h3>RADIUS PEAPv1/GTC Server:</h3>
+
+<p>An issue has been found in the Authentication Proxy's implementation of RADIUS PEAPv1/GTC authentication, which is primarily used to support NetMotion Wireless integrations. In cases where users are otherwise not required to complete Duo authentication, the Authentication Proxy does not properly validate the results of primary authentication. This may occur, for example, if the associated application in Duo is configured with a "new user policy" of "Allow Access", or if the Authentication Proxy is configured with a failmode of "safe" and cannot communicate with Duo's service. Additionally, for a new user policy of "Require Enrollment", users unrecognized by Duo may be permitted to enroll (but not login) without successfully completing primary authentication.</p>
+
+<h2>Impact</h2>
+
+<p>Attackers may be able to partially or fully bypass authentication on systems that authenticate users via affected configurations of the Duo Authentication Proxy.</p>
+
+<h2>Affected Product(s)</h2>
+
+<p>Take the following steps to determine whether your configuration may be affected:</p>
+
+<p><strong>1. Open your authproxy.cfg file.</strong></p>
+
+<ul>
+<li>Windows: C:\Program Files (x86)\Duo Security Authentication Proxy\conf\authproxy.cfg</li>
+<li>Linux: /opt/duoauthproxy/conf/authproxy.cfg</li>
+</ul>
+
+<p><strong>2. Check for the following fields:</strong></p>
+
+<ul>
+<li>If you have a section marked [ldap_server_auto], you must upgrade your Duo Authentication Proxy to version 2.4.16 or later.</li>
+<li>If you have a section marked [ad_client], check to see if you have the following value beneath it: auth_type=plain. If you have this value, you must upgrade your Duo Authentication Proxy to version 2.4.16 or later.</li>
+<li>If you have a section marked [radius_server_eap], you must upgrade your Duo Authentication Proxy to version 2.4.17 or later.</li>
+</ul>
+
+<p>For more information on this process, please see our knowledge base for details on how to verify whether you're affected: <a href="https://kb.duo.com/s/article/2934">https://kb.duo.com/s/article/2934</a></p>
+
+<h2>Solution</h2>
+
+<p>Customers using an affected configuration should upgrade to the latest version of the Duo Authentication Proxy as discussed above. Download the latest version from:</p>
+
+<ul>
+<li>Windows: <a href="https://dl.duosecurity.com/duoauthproxy-latest.exe">https://dl.duosecurity.com/duoauthproxy-latest.exe</a></li>
+<li>Linux: <a href="https://dl.duosecurity.com/duoauthproxy-latest-src.tgz">https://dl.duosecurity.com/duoauthproxy-latest-src.tgz</a></li>
+</ul>
+
+<p>For more information on upgrading the Authentication Proxy, see <a href="https://duo.com/docs/authproxy_reference#upgrading-the-proxy">https://duo.com/docs/authproxy_reference#upgrading-the-proxy</a></p>
+
+<h2>Vulnerability Metrics</h2>
+
+<h3>LDAP Client:</h3>
+
+<p><strong>Vulnerability Class:</strong> CWE-230: Improper Handling of Missing Values<br />
+<strong>Remotely Exploitable:</strong> Yes<br />
+<strong>Authentication Required:</strong> No<br />
+<strong>Severity:</strong> Critical<br />
+<strong>CVSSv2 Overall Score:</strong> 6.9<br />
+<strong>CVSSv2 Group Scores:</strong> Base: 8.8, Temporal: 6.9<br />
+<strong>CVSSv2 Vector:</strong> (AV:N/AC:M/Au:N/C:C/I:C/A:N/E:POC/RL:OF/RC:C)</p>
+
+<h3>RADIUS PEAPv1/GTC Server:</h3>
+
+<p><strong>Vulnerability Class:</strong> CWE-391: Unchecked Error Condition<br />
+<strong>Remotely Exploitable:</strong> Yes<br />
+<strong>Authentication Required:</strong> No<br />
+<strong>Severity:</strong> High<br />
+<strong>CVSSv2 Overall Score:</strong> 4.5<br />
+<strong>CVSSv2 Group Scores:</strong> Base: 5.8, Temporal: 4.5<br />
+<strong>CVSSv2 Vector:</strong> (AV:N/AC:M/Au:N/C:P/I:P/A:N/E:POC/RL:OF/RC:C)</p>
+
+<h2>References</h2>
+
+<ul>
+<li><a href="https://tools.ietf.org/html/rfc4513#section-6.3.1"><strong>LDAP Unauthenticated Mechanism Security Considerations</strong></a></li>
+<li><a href="https://cwe.mitre.org/data/definitions/230.html"><strong>CWE-230: Improper Handling of Missing Values</strong></a></li>
+<li><a href="https://cwe.mitre.org/data/definitions/391.html"><strong>CWE-391: Unchecked Error Condition</strong></a></li>
+</ul>
+
+<h2>Timeline</h2>
+
+<h3>2016-05-05</h3>
+
+<ul>
+<li>Duo privately receives report of a security vulnerability in the Authentication Proxy</li>
+<li>Duo acknowledges receipt of report and begins investigation</li>
+</ul>
+
+<h3>2016-05-09</h3>
+
+<ul>
+<li>Engineers at Duo confirm the issue and begin investigating potential fixes</li>
+</ul>
+
+<h3>2016-05-10</h3>
+
+<ul>
+<li>Duo completes development and testing of fixes</li>
+</ul>
+
+<h3>2016-05-11</h3>
+
+<ul>
+<li>Advisory released to paid Duo customers</li>
+</ul>
+
+<h3>2016-05-11</h3>
+
+<ul>
+<li>Duo privately receives report of an additional authentication bypass issue in the Authentication Proxy</li>
+<li>Duo acknowledges receipt of additional report and begins investigation</li>
+</ul>
+
+<h3>2016-05-12</h3>
+
+<ul>
+<li>Engineers at Duo confirm the second report and begin investigating potential fixes</li>
+</ul>
+
+<h3>2016-05-13</h3>
+
+<ul>
+<li>Duo completes development and testing of new fixes</li>
+</ul>
+
+<h3>2016-05-16</h3>
+
+<ul>
+<li>Advisory revised and re-released to paid Duo customers</li>
+</ul>
+
+<h3>2016-05-23</h3>
+
+<ul>
+<li>Advisory released to non-paid Duo customers</li>
+</ul>
+
+<h2>Credits/Contact</h2>
+
+<p>Technical questions regarding this issue should be sent to <a href="&#109;&#x61;&#105;&#108;&#x74;&#111;&#x3a;s&#117;&#x70;&#112;&#x6f;&#x72;&#116;&#x2b;a&#112;&#x40;&#100;&#x75;&#x6f;&#115;&#x65;&#99;&#117;&#x72;&#105;&#x74;y&#46;&#x63;&#111;&#109;">support+ap@duosecurity.com</a> and reference "DUO-PSA-2016-001" in the subject, or to your Customer Success Manager, if appropriate.</p>
+
+<p>Duo Security would like to thank Ashley Bartlett of the Atlassian Workplace Technology team for reporting the LDAP issue. Duo Security would like to thank Tom Weston at Teneo for reporting the RADIUS PEAPv1/GTC issue.</p>
+
+</div>
+
+</div>
+]]></description>
+     </item>
+       <item>
+       <title><![CDATA[DUO-PSA-2015-003: Duo Product Security Advisory]]></title>
+       <link>https://duo.com/labs/psa/duo-psa-2015-003</link>
+       <guid>https://duo.com/labs/psa/duo-psa-2015-003</guid>
+              <pubDate>Thu, 06 Aug 2015 00:00:00 -0400</pubDate>
+       <description><![CDATA[<div class="gridcontainer psa">
+
+<div class="col8 shift2 content">
+
+<h1>Duo Product Security Advisory</h1>
+
+<p><strong>Advisory ID:</strong> DUO-PSA-2015-003<br>
+<strong>Original Publication Date:</strong> 2015-08-06<br>
+<strong>Revision Date:</strong> 2015-08-10<br>
+<strong>Status:</strong> Confirmed, Fixed<br>
+<strong>Document Revision:</strong> 2<br></p>
+
+<h2>Overview</h2>
+
+<p>Duo Security has identified an issue which, under certain configurations, could have enabled attackers to bypass second-factor authentication.</p>
+
+<p>Note: this issue has been resolved through a patch to Duo's backend service; most Duo customers need not take any action. Duo has determined that only a very small number of customers may have been affected by this issue, and has separately contacted those customers with additional remediation steps.</p>
+
+<h2>Description</h2>
+
+<p>When interacting with Duo-protected applications using Duo's Web SDK, Duo's two-factor authentication system did not strip leading whitespace from usernames. As a result, a username (e.g. "alice") was treated as distinct from the same username with whitespace in front of it (e.g. "[space]alice"). It would have been possible for an attacker to exploit this behavior to bypass second-factor authentication if:</p>
+
+<ul>
+<li>An application using Duo's Web SDK stripped (or ignored) leading whitespace in usernames for primary authentication, but sent usernames with leading whitespace to Duo's service; and</li>
+<li>The "New User Policy" for the application was set to "Require Enrollment" or "Allow Access"</li>
+</ul>
+
+<p>For example, if an attacker had gained knowledge of the password for user "alice", then he could instead login as "[space]alice". Then, after completing primary authentication, he would either receive a prompt from Duo to enroll as a new user, or be permitted 2FA entirely (given "Require Enrollment" and "Allow Access" policies, respectively). In either case, he would bypass the existing 2FA setup for "alice".</p>
+
+<h2>Impact</h2>
+
+<p>Attackers who gained knowledge of a user's primary credentials may have been able to bypass second-factor authentication for certain applications using the Web SDK.</p>
+
+<h2>Affected Product(s)</h2>
+
+<p>The issue affected Duo's 2-factor authentication service; however, only the following types of applications have met the necessary conditions (described above) to trigger it:</p>
+
+<ul>
+<li>Duo's Shibboleth integration</li>
+<li>Unicon's CAS integration</li>
+<li>Customer-developed applications using the Duo Web SDK</li>
+</ul>
+
+<h2>Solution</h2>
+
+<p>The issue has been resolved through a patch to Duo's backend service; Duo now trims whitespace from usernames before performing any lookups. Customers do not need to apply any software updates.</p>
+
+<p>Duo has identified a very small group of customers who may have been affected by this issue, and has separately contacted them with additional remediation steps.</p>
+
+<h2>Vulnerability Metrics</h2>
+
+<p><strong>Vulnerability Class:</strong> CWE-156: Improper Neutralization of Whitespace<br />
+<strong>Remotely Exploitable:</strong> Yes<br />
+<strong>Authentication Required:</strong> Partial<br />
+<strong>Severity:</strong> Medium<br />
+<strong>CVSSv2 Overall Score:</strong> 5.5<br />
+<strong>CVSSv2 Group Scores:</strong> Base: 4.9, Temporal: 4.3, Environmental: 5.5<br />
+<strong>CVSSv2 Vector:</strong> AV:N/AC:M/Au:S/C:P/I:P/A:N/E:H/RL:OF/RC:C/CDP:ND/TD:ND/CR:H/IR:H/AR:ND</p>
+
+<h2>References</h2>
+
+<ul>
+<li><a href="https://cwe.mitre.org/data/definitions/156.html"><strong>CWE-156: Improper Neutralization of Whitespace</strong></a></li>
+</ul>
+
+<h2>Timeline</h2>
+
+<h3>2015-08-04</h3>
+
+<ul>
+<li>Customer reports that adding whitespace to usernames when using the Unicon CAS integration can result in a 2FA bypass</li>
+</ul>
+
+<h3>2015-08-05</h3>
+
+<ul>
+<li>Engineers at Duo confirm the issue</li>
+<li>Duo develops a fix and applies it across Duo's production infrastructure</li>
+</ul>
+
+<h3>2015-08-06</h3>
+
+<ul>
+<li>Duo drafts and publishes advisory</li>
+</ul>
+
+<h3>2015-08-10</h3>
+
+<ul>
+<li>Advisory updated to reflect that all affected customers have now been contacted</li>
+</ul>
+
+<h2>Credits/Contact</h2>
+
+<p>Duo Security would like to thank University of Nebraska-Lincoln for reporting this issue.</p>
+
+<p>Technical questions regarding this issue should be sent to <a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#111;&#58;&#x73;&#x75;&#112;p&#x6f;&#114;&#116;&#x40;&#x64;&#117;&#111;&#x73;&#x65;&#99;u&#x72;&#105;&#116;&#x79;&#x2e;&#99;&#111;&#x6d;">support@duosecurity.com</a> and reference "DUO-PSA-2015-003" in the subject.</p>
+
+<p>Other feedback regarding this issue can be sent to <a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#x73;&#x65;&#x63;&#x75;&#x72;&#x69;&#x74;&#x79;&#x40;&#x64;&#x75;&#x6f;&#x73;&#x65;&#x63;&#117;&#114;&#105;&#116;&#121;&#46;&#99;&#111;&#109;">security@duosecurity.com</a>.</p>
+
+</div>
+
+</div>
+]]></description>
+     </item>
+       <item>
+       <title><![CDATA[DUO-PSA-2015-002: Duo Product Security Advisory]]></title>
+       <link>https://duo.com/labs/psa/duo-psa-2015-002</link>
+       <guid>https://duo.com/labs/psa/duo-psa-2015-002</guid>
+              <pubDate>Mon, 06 Apr 2015 00:00:00 -0400</pubDate>
+       <description><![CDATA[<div class="gridcontainer psa">
+
+<div class="col8 shift2 content">
+
+<h1>Duo Product Security Advisory</h1>
+
+<p><strong>Advisory ID:</strong> DUO-PSA-2015-002<br>
+<strong>Original Publication Date:</strong> 2015-04-06<br>
+<strong>Revision Date:</strong> 2015-04-13<br>
+<strong>Status:</strong> Confirmed, Fixed<br>
+<strong>Document Revision:</strong> 2<br></p>
+
+<h2>Overview</h2>
+
+<p>Duo Security has identified an issue in recent versions of Duo Mobile for iOS that could allow attackers to perform a successful Man-in-the-Middle (MITM) attack against the app's TLS connections, if they can otherwise manipulate the network traffic exchanged between the mobile app and Duo's cloud service.</p>
+
+<p>This issue has been fixed in Duo Mobile 3.7.1; all iOS users should update as soon as possible.</p>
+
+<h2>Description</h2>
+
+<p>On the iOS platform, Duo Mobile leverages AFNetworking - a widely-used third-party HTTP client library - to communicate with Duo's cloud service. Recently, it was determined that AFNetworking did not validate digital certificates against server hostnames by default. As a result, Duo Mobile would e.g. consider a digital certificate for "www.example.com" as valid for "api-XXXXXXXX.duosecurity.com" when establishing a TLS tunnel.</p>
+
+<p>This behavior makes it possible for an attacker to perform a successful Man-in-the-Middle (MITM) attack against TLS connections from affected versions of Duo Mobile, if he can otherwise manipulate the network traffic exchanged between the mobile app and Duo's cloud service. This might be a risk, for example, when using Duo Mobile while connected to untrusted wi-fi networks.</p>
+
+<p>However, in addition to TLS, Duo Mobile uses application-level signatures to ensure the integrity and authenticity of requests sent from Duo Mobile to Duo's service. Becauses of this mechanism, a MITM attack would still not generally allow an attacker to e.g. approve a fraudulent Duo Push authentication request.</p>
+
+<p>Note: A different vulnerability was introduced into AFNetworking in version 2.5.1, and recently <a href="http://blog.mindedsecurity.com/2015/03/ssl-mitm-attack-in-afnetworking-251-do.html">gained widespread attention</a>. Duo Mobile currently uses AFNetworking version 2.3.1, and was therefore not affected by that particular vulnerability. This is a separate - if very similar - issue.</p>
+
+<h2>Impact</h2>
+
+<p>An attacker can perform a successful Man-in-the-Middle (MITM) attack against Duo Mobile's TLS connections if he can otherwise manipulate the network traffic exchanged between the mobile app and Duo's cloud service. Duo's application-level signing mechanism still generally prevents the attacker from e.g. approving fraudulent Duo Push authentication requests. However, there are some limitations to this technique:</p>
+
+<ul>
+<li>Duo Mobile cannot use application-level signatures when setting up a new account, because - at this point - the app has not yet negotiated a key-pair with Duo's service. If an attacker intercepted traffic from Duo Mobile during this process, he could gain the ability to generate valid one-time passcodes and exert full control over subsequent Duo Push authentication requests intended for the targeted device.</li>
+<li>Requests from Duo Mobile to Duo's service have application-level signatures, but responses from the service do not. It may therefore be feasible for an attacker to manipulate details of a fraudulent authentication request such that it appears legitimate, thereby tricking a user into approving it.</li>
+</ul>
+
+<h2>Affected Product(s)</h2>
+
+<ul>
+<li>Duo Mobile for iOS, versions 3.4 - 3.7</li>
+</ul>
+
+<h2>Solution</h2>
+
+<p>Duo Mobile 3.7.1 was published to the iTunes App Store on April 6, 2015. This version ensures that certificate domain-name validation is performed for all TLS connections.</p>
+
+<p>Users should upgrade to this version immediately to prevent the issues described above. Note that administrators can audit their users' Duo Mobile app versions in the "phones" section of the Duo administrative interface.</p>
+
+<p>As noted above, there is a small risk that users' Duo Mobile credentials could be compromised, if an attacker captured network traffic from Duo Mobile during account setup. After users have upgraded, administrators may choose to forcibly invalidate any existing credentials by re-activating users' Duo Mobile accounts in the administrative interface.</p>
+
+<h2>Vulnerability Metrics</h2>
+
+<p><strong>Vulnerability Class:</strong> Improper Certificate Validation (CWE-295)<br />
+<strong>Remotely Exploitable:</strong> Yes<br />
+<strong>Authentication Required:</strong> No<br />
+<strong>Severity:</strong> High<br />
+<strong>CVSSv2 Overall Score:</strong> 5.8<br />
+<strong>CVSSv2 Group Scores:</strong> Base: 6.8, Temporal: 5.9, Environmental: 5.8<br />
+<strong>CVSSv2 Vector:</strong> AV:A/AC:L/Au:N/C:C/I:P/A:N/E:H/RL:OF/RC:C/CDP:MH/TD:M/CR:M/IR:H/AR:M</p>
+
+<h2>References</h2>
+
+<ul>
+<li><a href="https://github.com/AFNetworking/AFNetworking/issues/2619"><strong>AFNetworking issue #2619</strong></a></li>
+<li><a href="https://cwe.mitre.org/data/definitions/295.html"><strong>CWE-295: Improper Certificate Validation</strong></a></li>
+<li><a href="/blog/heartbleed-defense-in-depth-part-2"><strong>Heartbleed Defense-in-Depth Part #2: Don't Trust SSL</strong></a></li>
+</ul>
+
+<h2>Timeline</h2>
+
+<h3>2015-04-02</h3>
+
+<ul>
+<li>Engineers at Duo internally discover that Duo Mobile for iOS does not correctly validate server certificates.</li>
+<li>Duo develops a fix and submits an updated Duo Mobile 3.7.1 to the iTunes App Store.</li>
+</ul>
+
+<h3>2015-04-03</h3>
+
+<ul>
+<li>Duo Mobile for iOS version 3.7.1 is approved by Apple</li>
+</ul>
+
+<h3>2015-04-06</h3>
+
+<ul>
+<li>Duo completes testing on Duo Mobile for iOS 3.7.1 and releases it to end users.</li>
+<li>Duo drafts advisory and shares it with affected Enterprise and Business customers.</li>
+</ul>
+
+<h3>2015-04-13</h3>
+
+<ul>
+<li>Duo updates advisory and shares it with all remaining customers.</li>
+</ul>
+
+<h2>Credits/Contact</h2>
+
+<p>Technical questions regarding this issue should be sent to <a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#111;&#58;&#x73;&#x75;&#112;p&#x6f;&#114;&#116;&#x40;&#x64;&#117;&#111;&#x73;&#x65;&#99;u&#x72;&#105;&#116;&#x79;&#x2e;&#99;&#111;&#x6d;">support@duosecurity.com</a> and reference "DUO-PSA-2015-002" in the subject.</p>
+
+<p>Other feedback regarding this issue can be sent to <a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#x73;&#x65;&#x63;&#x75;&#x72;&#x69;&#x74;&#x79;&#x40;&#x64;&#x75;&#x6f;&#x73;&#x65;&#x63;&#117;&#114;&#105;&#116;&#121;&#46;&#99;&#111;&#109;">security@duosecurity.com</a>.</p>
+
+</div>
+
+</div>
+]]></description>
+     </item>
+       <item>
+       <title><![CDATA[DUO-PSA-2015-001: Duo Product Security Advisory]]></title>
+       <link>https://duo.com/labs/psa/duo-psa-2015-001</link>
+       <guid>https://duo.com/labs/psa/duo-psa-2015-001</guid>
+              <pubDate>Tue, 03 Feb 2015 00:00:00 -0500</pubDate>
+       <description><![CDATA[<div class="gridcontainer psa">
+
+<div class="col8 shift2 content">
+
+<h1>Duo Product Security Advisory</h1>
+
+<p><strong>Advisory ID:</strong> DUO-PSA-2015-001<br>
+<strong>Original Publication Date:</strong> 2015-02-03<br>
+<strong>Revision Date:</strong> 2015-02-10<br>
+<strong>Status:</strong> Confirmed, Fixed<br>
+<strong>Document Revision:</strong> 3<br></p>
+
+<h2>Overview</h2>
+
+<p>Duo Security has identified an issue in certain versions of the Duo Web SDK that could allow attackers to bypass primary and secondary authentication if they have separately gained access to the Duo integration's secret key, and can create valid usernames containing pipe characters ('|').</p>
+
+<p>Note: This issue does not affect any Duo-authored integrations; it only affects custom integrations developed using affected versions of the Web SDK.</p>
+
+<h2>Description</h2>
+
+<p>Duo's Web SDK requires two secret values: the integration secret key (SKEY) and an application secret key (AKEY). The SKEY is shared between Duo and the application incorporating the Web SDK integration, while the AKEY must be known only to the application.</p>
+
+<p>Both of these values must be kept confidential. In the unlikely event that attackers could gain access to the SKEY, he could use it to bypass secondary authentication. However, the Duo Web SDK incorporates an additional mechanism, using the AKEY, to ensure that attackers would <em>only</em> be able to use the SKEY to bypass <em>secondary</em> authentication; i.e. they would still need access to a target user's primary credentials (or to the AKEY itself) to log in.</p>
+
+<p>Recently, Duo Security became aware of an issue in which certain versions of the Web SDK perform insufficiently-strict validation of responses from Duo's service. This issue could allow  attackers to bypass this AKEY-based protection in an application using an affected version of the Web SDK, if they have separately gained access to the integration's confidential SKEY and can also create a valid user account with a username containing pipe characters ('|').</p>
+
+<h2>Impact</h2>
+
+<p>With affected versions of the Duo Web SDK, attackers may be able to bypass primary and secondary authentication if they can both:</p>
+
+<ul>
+<li>Gain separate access to the Web SDK integration's confidential SKEY</li>
+<li>Create a valid username containing pipe characters ('|')</li>
+</ul>
+
+<p>The Web SDK's design relies on the SKEY being kept confidential; this issue can only be exploited in cases where a core security requirement has already been violated. As such, Duo Security considers the overall severity of this issue to be low.</p>
+
+<h2>Affected Product(s)</h2>
+
+<p>Duo Web SDKs for:</p>
+
+<ul>
+<li>Ruby</li>
+<li>Java</li>
+<li>Perl</li>
+<li>PHP</li>
+<li>ColdFusion</li>
+</ul>
+
+<p>The Web SDKs for Python, ASP Classic, ASP.NET, and NodeJS were not affected.</p>
+
+<p>In addition, while Duo provides some integrations that incorporate affected versions of the Web SDK (for Confluence, Jira, Shibboleth, MediaWiki, Wordpress, and Drupal), we have determined that none of these integrations are affected by this issue.</p>
+
+<h2>Solution</h2>
+
+<p>For customers using custom integrations developed with affected versions of the Web SDK: update to the latest Web SDK.</p>
+
+<p>All affected versions of the Web SDK have been patched to strictly validate responses, and reject usernames that contain pipe characters. The latest versions of the Web SDK can be found at:</p>
+
+<ul>
+<li>Ruby: <a href="https://github.com/duosecurity/duo_ruby">https://github.com/duosecurity/duo_ruby</a></li>
+<li>Java: <a href="https://github.com/duosecurity/duo_java">https://github.com/duosecurity/duo_java</a></li>
+<li>Perl: <a href="https://github.com/duosecurity/duo_perl">https://github.com/duosecurity/duo_perl</a></li>
+<li>PHP: <a href="https://github.com/duosecurity/duo_php">https://github.com/duosecurity/duo_php</a></li>
+<li>ColdFusion: <a href="https://github.com/duosecurity/duo_coldfusion">https://github.com/duosecurity/duo_coldfusion</a></li>
+</ul>
+
+<h2>Workaround</h2>
+
+<p>Applications may mitigate this issue (without updating the Web SDK) if they either:</p>
+
+<ul>
+<li>Do not allow usernames that contain pipe characters, or</li>
+<li>Use some alternate means (e.g. session state) to store the username of a user upon successful primary authentication, and then verify that the Duo-returned username (from 'verify_response()') exactly matches the previously-stored value.</li>
+</ul>
+
+<h2>Vulnerability Metrics</h2>
+
+<p><strong>Vulnerability Class:</strong> Improper Handling of Extra Parameters (CWE-235)<br />
+<strong>Remotely Exploitable:</strong> Yes<br />
+<strong>Authentication Required:</strong> No<br />
+<strong>Severity:</strong> Low<br />
+<strong>CVSSv2 Overall Score:</strong> 4.5<br />
+<strong>CVSSv2 Group Scores:</strong> Base: 4, Temporal: 3.3, Environmental: 4.5<br />
+<strong>CVSSv2 Vector:</strong> AV:N/AC:H/Au:N/C:P/I:P/A:N/E:F/RL:OF/RC:C/CDP:ND/TD:ND/CR:H/IR:H/AR:H</p>
+
+<h2>References</h2>
+
+<ul>
+<li><a href="/docs/duoweb"><strong>Duo Web SDK</strong></a></li>
+<li><a href="http://cwe.mitre.org/data/definitions/235.html"><strong>CWE-235:</strong> Improper Handling of Extra Parameters</a></li>
+</ul>
+
+<h2>Timeline</h2>
+
+<h3>2015-01-21</h3>
+
+<ul>
+<li>Researchers from Sakurity report a possible issue in the Duo Web SDK for Ruby</li>
+<li>Duo acknowledges receipt of the report; begins investigation</li>
+<li>Duo confirms the issue in the Duo Web SDK for Ruby</li>
+</ul>
+
+<h3>2015-01-22</h3>
+
+<ul>
+<li>Duo determines that the Web SDKs for PHP, Perl, Java, and ColdFusion are also affected</li>
+<li>Duo confirms that all other versions of the Web SDK, and all other Duo integrations, are unaffected</li>
+</ul>
+
+<h3>2015-01-27</h3>
+
+<ul>
+<li>Duo develops patches for all affected versions of the Web SDK</li>
+</ul>
+
+<h3>2015-02-03</h3>
+
+<ul>
+<li>Duo updates all affected versions of the Web SDK</li>
+<li>Duo drafts advisory and shares it with affected Enterprise and Business customers</li>
+</ul>
+
+<h3>2015-02-10</h3>
+
+<ul>
+<li>Duo updates advisory and shares it with affected Personal customers</li>
+</ul>
+
+<h2>Credits/Contact</h2>
+
+<p>Duo Security would like to thank the team at <a href="http://sakurity.com/">Sakurity</a> for discovering and reporting this issue.</p>
+
+<p>Technical questions regarding this issue should be sent to <a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#111;&#58;&#x73;&#x75;&#112;p&#x6f;&#114;&#116;&#x40;&#x64;&#117;&#111;&#x73;&#x65;&#99;u&#x72;&#105;&#116;&#x79;&#x2e;&#99;&#111;&#x6d;">support@duosecurity.com</a> and reference "DUO-PSA-2015-001" in the subject.</p>
+
+<p>Other feedback regarding this issue can be sent to <a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#x73;&#x65;&#x63;&#x75;&#x72;&#x69;&#x74;&#x79;&#x40;&#x64;&#x75;&#x6f;&#x73;&#x65;&#x63;&#117;&#114;&#105;&#116;&#121;&#46;&#99;&#111;&#109;">security@duosecurity.com</a>.</p>
+
+</div>
+
+</div>
+]]></description>
+     </item>
+       <item>
+       <title><![CDATA[DUO-PSA-2014-008: Duo Product Security Advisory]]></title>
+       <link>https://duo.com/labs/psa/duo-psa-2014-008</link>
+       <guid>https://duo.com/labs/psa/duo-psa-2014-008</guid>
+              <pubDate>Mon, 22 Dec 2014 00:00:00 -0500</pubDate>
+       <description><![CDATA[<div class="gridcontainer psa">
+
+<div class="col8 shift2 content">
+
+<h1>Duo Product Security Advisory</h1>
+
+<p><strong>Advisory ID:</strong> DUO-PSA-2014-008<br />
+<strong>Publication Date:</strong> 2014-12-22<br />
+<strong>Status:</strong> Confirmed, Fixed<br />
+<strong>Document Revision:</strong> 2</p>
+
+<h2>Overview</h2>
+
+<p>Duo Security has identified an issue in the iOS Duo Mobile app that may allow credentials to be backed up in an encrypted form to a user's local machine via iTunes.</p>
+
+<h2>Description</h2>
+
+<p>The Duo Mobile application takes special steps to harden its credential storage on each respective mobile platform. On iOS, Duo Mobile leverages the Keychain service, a platform-provided framework for securely storing Duo user credentials (eg. the private key for Duo Push).</p>
+
+<p>The Keychain service also offers security attributes that can provide additional hardening. In particular, it allows a restriction to be set that Keychain items backed up using iTunes to a local machine via USB must only be restored to the same device. In other words, the encrypted backup is tied to a device-specific key and therefore cannot be restored to a different iOS device.</p>
+
+<p>While this special Keychain attribute requires that a user must reactivate their Duo account upon purchasing a new iOS device (either via an administrator or the user self-service portal), we deemed it a useful hardening measure for Duo Mobile credentials.</p>
+
+<p>However, we recently discovered a regression in Duo Mobile, where that security attribute was not properly being applied to Keychain items containing Duo user credentials, starting with Duo Mobile 3.0.</p>
+
+<h2>Impact</h2>
+
+<p>As the intended Keychain security attribute was not being applied to credentials stored with Duo Mobile, user-initiated encrypted backups of their iOS device using iTunes to a local machine via USB may contain the user's Duo credentials.</p>
+
+<p>Note: Unencrypted iTunes backups, iCloud backups, and the iCloud Keychain are <em>unaffected</em> and will not contain any Duo Mobile credentials.</p>
+
+<p>If an attacker was able to obtain the encrypted iTunes backup from the user's local machine AND capture the password used to encrypt it, they may be able to restore that backup on a different iOS of their choosing and use Duo Mobile to forge second factor authentication attempts to Duo's service.</p>
+
+<h2>Affected Product(s)</h2>
+
+<ul>
+<li>Duo Mobile for iOS >= 3.0 and &lt; 3.5.1.</li>
+</ul>
+
+<h2>Solution</h2>
+
+<p>Duo Mobile for iOS 3.5.1 was published to the iTunes App Store on December 16th, 2014. This version fixes the issue by creating Keychain items with the correct security attribute (kSecAttrAccessibleWhenUnlockedThisDeviceOnly).</p>
+
+<p>In addition, upon upgrading to the new 3.5.1 version, the app will update all existing items in the Keychain with the correct accessibility attribute.</p>
+
+<p>Users should upgrade to this version through the iTunes App Store to prevent any potential exposure of Duo Mobile credentials in their device backups.</p>
+
+<h2>Workaround</h2>
+
+<p>There is no complete workaround for this issue. However, users can delete any existing encrypted device backups and avoid performing any new backups until they have updated to Duo Mobile 3.5.1.</p>
+
+<p>Alternately, an administrator can re-activate a user's Duo Mobile account in the administrative interface to force the invalidation of any backed up credentials. Please note that existing Duo Mobile credentials will <em>not</em> be invalidated until users complete the re-activation process (i.e. open a new activation link in Duo Mobile).</p>
+
+<h2>Vulnerability Metrics</h2>
+
+<p><strong>Vulnerability Class:</strong> Improper Cross-boundary Removal of Sensitive Data (CWE-212)<br />
+<strong>Remotely Exploitable:</strong> No<br />
+<strong>Authentication Required:</strong> Yes<br />
+<strong>Severity:</strong> Low<br />
+<strong>CVSSv2 Overall Score:</strong> 2.8<br />
+<strong>CVSSv2 Group Scores:</strong> Base: 4.4, Temporal: 3.8, Environmental: 2.8<br />
+<strong>CVSSv2 Vector:</strong> (AV:L/AC:M/Au:S/C:C/I:N/A:N/E:H/RL:OF/RC:C/CDP:ND/TD:M/CR:M/IR:M/AR:L)</p>
+
+<h2>References</h2>
+
+<ul>
+<li><strong>iOS Security</strong> - <a href="https://www.apple.com/br/privacy/docs/iOS_Security_Guide_Oct_2014.pdf">https://www.apple.com/br/privacy/docs/iOS_Security_Guide_Oct_2014.pdf</a></li>
+<li><strong>iOS Keychain Services Reference</strong> -
+<a href="https://developer.apple.com/library/ios/documentation/Security/Reference/keychainservices/index.html">https://developer.apple.com/library/ios/documentation/Security/Reference/keychainservices/index.html</a></li>
+<li><strong>CWE-212: Improper Cross-boundary Removal of Sensitive Data</strong> - <a href="http://cwe.mitre.org/data/definitions/212.html">http://cwe.mitre.org/data/definitions/212.html</a></li>
+</ul>
+
+<h2>Timeline</h2>
+
+<h3>2014-12-02</h3>
+
+<ul>
+<li>A Duo customer reports unexpected behavior of their accounts being restored successfully to a new iOS device.</li>
+<li>Duo acknowledges receipt of report; begins investigation.</li>
+</ul>
+
+<h3>2014-12-04</h3>
+
+<ul>
+<li>Additional communication with the customer to confirm the reported issue.</li>
+</ul>
+
+<h3>2014-12-08</h3>
+
+<ul>
+<li>Duo confirms the issue in the iOS version of Duo Mobile and begins implementing a fix.</li>
+</ul>
+
+<h3>2014-12-10</h3>
+
+<ul>
+<li>Duo completes the fix and submits an updated Duo Mobile 3.5.1 to the iTunes App Store.</li>
+</ul>
+
+<h3>2014-12-16</h3>
+
+<ul>
+<li>Duo Mobile 3.5.1 is approved by Apple and is released to end users.</li>
+</ul>
+
+<h3>2014-12-22</h3>
+
+<ul>
+<li>Duo shares advisory with affected Enterprise customers.</li>
+</ul>
+
+<h3>2015-01-12</h3>
+
+<ul>
+<li>Advisory is updated to clarify re-activation procedure.</li>
+<li>Duo shares advisory with affected Business customers.</li>
+</ul>
+
+<h2>Credits/Contact</h2>
+
+<p>Duo would like to thank the customer who reported this issue to us.</p>
+
+<p>If you require the assistance of our support team regarding this issue, please contact support@duosecurity.com and reference "DUO-PSA-2014-008" in the subject.</p>
+
+</div>
+
+</div>
+]]></description>
+     </item>
+  
+</channel>
+
+</rss>

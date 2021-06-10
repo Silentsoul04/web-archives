@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <base href="https://labs.f-secure.com/"><!--[if lte IE 6]></base><![endif]-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta name="x-subsite-id" content="1" />
+
+    <title>Apache Qpid XML Document Type Definitions Processing</title>
+
+    <link rel="stylesheet" href="https://labs.f-secure.com/themes/mwr/css/style.css?t=20200715">
+    <link rel="stylesheet" href="https://labs.f-secure.com/themes/labs/css/style.css?t=20200715">
+
+    <meta name="description" content="">
+    <link rel="canonical" href="https://labs.f-secure.com/advisories/apache-qpid-xml-document-type-definitions-processing/">
+    <meta name="robots" content="NOODP,index,follow">
+
+    
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+    <meta name="format-detection" content="telephone=no">
+    
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="F-Secure Labs">
+    <meta property="og:url" content="https://labs.f-secure.com/advisories/apache-qpid-xml-document-type-definitions-processing/">
+    
+    <meta property="og:locale" content='en_GB'>
+    <meta name="twitter:card" content="summary">
+    
+    <meta name="twitter:title" content="">
+    <meta name="twitter:description" content="">
+
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+    var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;
+    j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})
+    (window,document,'script','dataLayer','GTM-KD9T85H');
+  </script>
+  <meta name="google-site-verification" content="jqRTM8I_uI-jDIu1ITng14jD-3iJy0l3TTCIl2I-BIo" />
+<link rel="stylesheet" type="text/css" href="/themes/labs/css/style.css?m=1600760392" />
+</head>
+<body class="BlogPost" dir="ltr">
+
+    <header class="head menu-opened" id="top">
+	<div class="container">
+		<div class="col12">
+			<div class="logo">
+				<a href="/">F-Secure</a>
+			</div>
+		    <a href="/advisories/apache-qpid-xml-document-type-definitions-processing/#nav" class="btn-menu">Menu</a>
+
+<nav class="main-nav" itemscope itemtype="https://schema.org/SiteNavigationElement">
+    <ul>
+        
+            <li class="section nav-advisories"><a href="/advisories/" title="Advisories">Advisories</a></li>
+        
+            <li class="link nav-blog"><a href="/blog/" title="/var/log/messages">/var/log/messages</a></li>
+        
+            <li class="link nav-publications"><a href="/publications/" title="Publications">Publications</a></li>
+        
+            <li class="link nav-tools"><a href="/tools/" title="Tools">Tools</a></li>
+        
+            <li class="link nav-archive"><a href="/archive/" title="Archive">Archive</a></li>
+        
+        <li class="nav-careers"><a href="https://www.f-secure.com/en/web/about_global/careers/job-openings">Careers</a></li>
+    </ul>
+</nav>
+
+		</div>
+	</div>
+</header>
+
+
+    <div class="wrapper">
+
+        <section class="section">
+  <div class="page-title">
+    <div class="container">
+      <span class="content-type"></span>
+      <h1>Apache Qpid XML Document Type Definitions Processing</h1>
+      
+      
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="col8">
+      <div class="blog-post">
+        
+        <table>
+          <tr>
+            <td>Product</td>
+            <td>Apache Qpid</td>
+          </tr>
+          <tr>
+            <td>Severity</td>
+            <td>Medium</td>
+          </tr>
+          <tr>
+            <td>CVE Reference</td>
+            <td>CVE-2014-3629</td>
+          </tr>
+          <tr>
+            <td>Type</td>
+            <td>Apache Qpid XML Document Type Definitions Processing</td>
+          </tr>
+        </table>
+        
+        <p>A vulnerability was found in Apache Qpid which allows an attacker to force the server to parse an external Document Type Definition (<span class="caps">DTD</span>). This might allow an attacker to cause a Denial of Service (DoS) for applications using the message queue.</p>
+<p>The advisory can be downloaded <a href="system/assets/809/original/Apache_Qpid.pdf">here</a>.</p>
+<h3>Description</h3>
+<p>Apache Qpid is an open source message oriented middleware message broker. Qpid provides Java and C++ implementations of the Advanced Message Queuing Protocol (<span class="caps">AMQP</span>).</p>
+<p>A vulnerability exists in the C++ broker implementation which allows an adversary to reference externally defined Document Type Definitions.</p>
+<h3>Impact</h3>
+<p>An attacker able to interact and send <span class="caps">XML</span> messages to a Qpid service endpoint could use this flaw to induce the service to perform <span class="caps">HTTP</span> requests. This can be used to perform server-side request forgery or <span class="caps">DTD</span>-based DoS attacks.</p>
+<h3>Cause</h3>
+<p><span class="caps">XML</span> parsing as handled by Qpid does not restrict processing of externally defined <span class="caps">XML</span> Document Type Definitions.</p>
+<h3>Interim Workaround</h3>
+<p>The <span class="caps">XML</span> message exchange functionality can be disabled by removing the xml.so compiled binary module file from the Qpid modules directory.</p>
+<h3>Solution</h3>
+<p>Upgrade to Apache Qpid version 0.31 when made available by the vendor.</p>
+<h3>Technical Details</h3>
+<p>An adversary can trigger the processing of externally referenced Document Type Definitions when requesting a content based subscription to a message queue which holds <span class="caps">XML</span> formatted messages.</p>
+<p>It is possible for a consumer dequeuing <span class="caps">XML</span> message(s) to specify an XQuery selector, thereby causing the broker to evaluate the XQuery expression in an attempt to match it against the messages in the queue while also performing <span class="caps">XML</span> Document Type Definition resolution.</p>
+<p>Document Type Definition resolution occurs in the process of <span class="caps">XML</span> parsing and triggered in the following function implemented in XmlExchange.cpp:</p>
+<pre>bool XmlExchange::matches(Query&amp; query,
+                          Deliverable&amp; msg,
+                          bool parse_message_content)
+{
+    std::string msgContent;
+
+    try {
+        ...
+        boost::scoped_ptr&lt;DynamicContext&gt; context(query-&gt;createDynamicContext());
+        ...
+        if (parse_message_content) {
+            msgContent = msg.getMessage().getContent();
+            QPID_LOG(trace, "matches: message content is [" &lt;&lt; msgContent &lt;&lt; "]");
+            XERCES_CPP_NAMESPACE::MemBufInputSource xml((const XMLByte*) msgContent.c_str(), msgContent.length(), "input");
+            Sequence seq(context-&gt;parseDocument(xml));
+            ...
+    }
+    ...
+    return 0;
+}</pre>
+<p>In order to successfully exploit this vulnerability, an attacker has to act on behalf of both a publisher and a consumer. The following is an attack pattern which will result in triggering the <span class="caps">DTD</span> resolution process:</p>
+<ol><li>A publisher enqueues an <span class="caps">XML</span> message which references externally defined Document Type Definitions.</li>
+<li>A consumer requests dequeuing an <span class="caps">XML</span> message from the same queue using an XQuery based selector.</li>
+<li>The broker evaluates the XQuery expression and attempts to match it against the messages in the queue while also processing any Document Type Definition references.</li>
+</ol><p>The exploitation and impact of this vulnerability depend on the underlying <span class="caps">XML</span> parser. Apache Qpid supports the Xerces and FastXDM parsers, with Xerces being used by default. It was confirmed that a default setup of Apache Qpid with Xerces is vulnerable to server-side request forgery.</p>
+<h3>Detailed Timeline</h3>
+<table><tbody><tr><td>Date</td>
+<td>Summary</td>
+</tr><tr><td>2014-10-31</td>
+<td>Reported to Apache and Red Hat</td>
+</tr><tr><td>2014-10-31</td>
+<td>Red Hat confirms reception</td>
+</tr><tr><td>2014-11-05</td>
+<td>Red Hat confirms the vulnerability and prepares fix</td>
+</tr><tr><td>2014-11-07</td>
+<td>Public fix released</td>
+</tr><tr><td>2014-12-12</td>
+<td>Advisory published</td>
+</tr></tbody></table>
+      </div>
+      <div class="social-share">
+        <p><span class="content-type">Share</span></p>
+        <ul class="social">
+  <li class="facebook"><a href="http://www.facebook.com/sharer.php?u=https://labs.f-secure.com/advisories/apache-qpid-xml-document-type-definitions-processing/" target="_blank">Share on Facebook</a></li>
+  <li class="twitter"><a href="https://twitter.com/share?url=https://labs.f-secure.com/advisories/apache-qpid-xml-document-type-definitions-processing/&text=Apache Qpid XML Document Type Definitions Processing" target="_blank">Share on LinkedIn</a></li>
+  <li class="linkedin"><a href="http://www.linkedin.com/shareArticle?url=https://labs.f-secure.com/advisories/apache-qpid-xml-document-type-definitions-processing/&title=Apache Qpid XML Document Type Definitions Processing" target="_blank">Share on Twitter</a></li>
+</ul>
+
+      </div>
+    </div>
+    <div class="col4">
+      
+      <a href="/assets/809/original/Apache_Qpid.pdf" class="flex-container__box">
+            <span class="content-type">Download</span>
+            
+            <h3 class="flex-container__box-title">Download the advisory here.</h3>
+            
+      </a>
+      
+
+      
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="col12">
+        <p>&nbsp;</p>
+      </div>
+    </div>
+  </section>
+
+
+    </div>
+
+    <footer class="foot">
+	<div class="container">
+    <div class="footer-flex-wrap">
+     <p class="logo"><img src="https://labs.f-secure.com//themes/labs/img/fs-labs-logo-white.svg" alt="F-Secure" width="180" height="60"></p>
+      <ul class="top-menu">
+        <li><a href="/advisories/apache-qpid-xml-document-type-definitions-processing/#top" class="btn-gototop">Top</a></li>
+        
+        <li class="link"><a href="https://www.f-secure.com/en/consulting/contact">Contact</a></li>
+        
+        
+      </ul>
+   </div>
+   <hr/>
+    <div class="col5 suf1 foot-about">
+      <p>F-Secure provides specialist advice and solutions in all areas of cyber security, from professional and managed services, through to developing commercial and open source security tools.  </p>
+    </div>
+    <div class="col3">
+      <ul class="footer-list no-margin">
+        
+        <li><a href="/publications/ti-report-lazarus-group-cryptocurrency-vertical/">Threat Intelligence Report: Lazarus Group Campaign Targeting the Cryptocurrency Vertical</a></li>
+        
+        <li><a href="/publications/the-fake-cisco/">The Fake Cisco</a></li>
+        
+        <li><a href="/publications/u-booting-securely/">U-Booting securely</a></li>
+        
+      </ul>
+    </div>
+    <div class="col3">
+     <ul class="footer-list">
+      
+      <li><a href="/blog/prelude-to-ransomware-systembc/">Prelude to Ransomware: SystemBC</a></li>
+      
+      <li><a href="/blog/attack-detection-fundamentals-2021-azure-lab-3/">Attack Detection Fundamentals 2021: Azure - Lab #3</a></li>
+      
+      <li><a href="/blog/attack-detection-fundamentals-2021-azure-lab-2/">Attack Detection Fundamentals 2021: Azure - Lab #2</a></li>
+      
+    </ul>
+  </div>
+</div>
+<div class="end">
+ <div class="container">
+  <hr/>
+  <div class="footer-flex-wrap">
+   <p class="copyright">Copyright &copy; 2021 F-Secure</p>
+    <ul class="social">
+      
+      <li class="linkedin for-footer"><a href="https://www.linkedin.com/showcase/28493188" target="_blank">Connect with us on LinkedIn</a></li>
+      
+      
+      <li class="twitter for-footer"><a href="https://twitter.com/fsecurelabs" target="_blank">Follow us on Twitter</a></li>
+      
+      
+      <li class="github for-footer"><a href="https://github.com/fsecurelabs" target="_blank">Follow us on GitHub</a></li>
+      
+    </ul>
+ </div>
+</div>
+</div>
+</footer>
+
+    <script src="/themes/mwr/js/min/jquery-3.5.1.min.js" id="jqueryscript"></script>
+
+    
+    <script src="/themes/mwr/js/min/slides.min.js"></script>
+    
+
+    <script src="/themes/mwr/js/min/scripts.js?20190917" id="pagescripts"></script>
+
+    <script type="application/ld+json">
+    { "@context" : "http://schema.org",
+      "@type" : "Organization",
+      "name" : "F-Secure Labs",
+      "url" : "https://labs.f-secure.com",
+      "logo" : "https://labs.f-secure.com/themes/labs/img/fs-labs-logo-white.svg",
+      "sameAs" : [
+          "https://twitter.com/fsecurelabs",
+          "https://www.linkedin.com/showcase/28493188"],
+      "contactPoint" : [
+        { "@type" : "ContactPoint",
+          "telephone" : "+441256300920",
+          "contactType" : "customer service"
+        } ]
+    }
+    </script>
+</body>
+</html>

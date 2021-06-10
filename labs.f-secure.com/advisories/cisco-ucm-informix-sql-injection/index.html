@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <base href="https://labs.f-secure.com/"><!--[if lte IE 6]></base><![endif]-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta name="x-subsite-id" content="1" />
+
+    <title>Cisco UCM Authenticated Informix SQL Injection</title>
+
+    <link rel="stylesheet" href="https://labs.f-secure.com/themes/mwr/css/style.css?t=20200715">
+    <link rel="stylesheet" href="https://labs.f-secure.com/themes/labs/css/style.css?t=20200715">
+
+    <meta name="description" content="">
+    <link rel="canonical" href="https://labs.f-secure.com/advisories/cisco-ucm-informix-sql-injection/">
+    <meta name="robots" content="NOODP,index,follow">
+
+    
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+    <meta name="format-detection" content="telephone=no">
+    
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="F-Secure Labs">
+    <meta property="og:url" content="https://labs.f-secure.com/advisories/cisco-ucm-informix-sql-injection/">
+    
+    <meta property="og:locale" content='en_GB'>
+    <meta name="twitter:card" content="summary">
+    
+    <meta name="twitter:title" content="">
+    <meta name="twitter:description" content="">
+
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+    var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;
+    j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})
+    (window,document,'script','dataLayer','GTM-KD9T85H');
+  </script>
+  <meta name="google-site-verification" content="jqRTM8I_uI-jDIu1ITng14jD-3iJy0l3TTCIl2I-BIo" />
+<link rel="stylesheet" type="text/css" href="/themes/labs/css/style.css?m=1600760392" />
+</head>
+<body class="BlogPost" dir="ltr">
+
+    <header class="head menu-opened" id="top">
+	<div class="container">
+		<div class="col12">
+			<div class="logo">
+				<a href="/">F-Secure</a>
+			</div>
+		    <a href="/advisories/cisco-ucm-informix-sql-injection/#nav" class="btn-menu">Menu</a>
+
+<nav class="main-nav" itemscope itemtype="https://schema.org/SiteNavigationElement">
+    <ul>
+        
+            <li class="section nav-advisories"><a href="/advisories/" title="Advisories">Advisories</a></li>
+        
+            <li class="link nav-blog"><a href="/blog/" title="/var/log/messages">/var/log/messages</a></li>
+        
+            <li class="link nav-publications"><a href="/publications/" title="Publications">Publications</a></li>
+        
+            <li class="link nav-tools"><a href="/tools/" title="Tools">Tools</a></li>
+        
+            <li class="link nav-archive"><a href="/archive/" title="Archive">Archive</a></li>
+        
+        <li class="nav-careers"><a href="https://www.f-secure.com/en/web/about_global/careers/job-openings">Careers</a></li>
+    </ul>
+</nav>
+
+		</div>
+	</div>
+</header>
+
+
+    <div class="wrapper">
+
+        <section class="section">
+  <div class="page-title">
+    <div class="container">
+      <span class="content-type"></span>
+      <h1>Cisco UCM Authenticated Informix SQL Injection</h1>
+      
+      
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="col8">
+      <div class="blog-post">
+        
+        <table>
+          <tr>
+            <td>Product</td>
+            <td>Cisco Unified Call Manager (UCM) Administrator Portal version 11.5.1.14900-11, other versions  may be affected</td>
+          </tr>
+          <tr>
+            <td>Severity</td>
+            <td>Medium</td>
+          </tr>
+          <tr>
+            <td>CVE Reference</td>
+            <td>CVE-2019-15972</td>
+          </tr>
+          <tr>
+            <td>Type</td>
+            <td>SQL Injection</td>
+          </tr>
+        </table>
+        
+        <h1>Description</h1><p>A SQL Injection vulnerability was discovered in the Cisco Unified Call Manager (UCM) administrator portal. An authenticated user can utilize this vulnerability to enumerate the entire database that is used by Cisco UCM. This includes any secrets, such as password hashes.</p><h1>Technical Details</h1><p>The SQL Injection issue was found in several areas of the application. Below is a URL that was used to discover the first injection point. The GET parameter "<em>whereClause</em>" contained the SQL Injection payload:</p><pre>https://&lt;cucm_admin_portal&gt;/ccmadmin/userGroupFindList.do?searc<br>hLimVal3=&amp;searchLimVal4=&amp;whereClause=<span style="text-decoration: underline;"><strong>1=1 AND (select ascii(subs</strong></span><br><span style="text-decoration: underline;"><strong>tring(tabname from 1 for 1)) FROM systables where tabid = 1) &gt; </strong></span><br><span style="text-decoration: underline;"><strong>64</strong></span>&amp;searchLimVal1=&amp;searchLimVal2=&amp;searchLimVal7=&amp;searchLimVal8=&amp;<br>searchLimVal5=&amp;search LimVal6=&amp;rowsPerPageControl=/ccmadmin/use<br>rGroupFindList.do?lookup=true&amp;colCnt=4&amp;searchLimVal0=&amp;lookup=tr<br>ue&amp;rowsPerPage=50&amp;searchLimVal9=&amp;pageNumber=1&amp;recCnt=37&amp;multipl<br>e=true</pre><p>The above SQL statement can be broken down into the following:</p><ul><li>"1=1 AND" - establishes a true statement and forces the underlying SQL query to include the proceeding SQL statement.</li>
+<li>"select asci(substring(tabname from 1 for 1)) FROM systables where tabid = 1" - In Informix SQL, all table names, called "tabname", are kept in a table called "systables" and are assigned a unique ID value, "tabid". This portion of the SQL statement looks for the first table name, looks at the first letter of the name and converts the value to the equivalent ASCII character value.</li>
+<li>"&gt; 64" - evaluates if the ASCII character value generated from the preceding SQL statement is greater than 64.</li>
+</ul><p>This SQL Injection was classified as a Blind Boolean injection, with server’s response size dependent on if the injected SQL statement returns a true or false response. By going through each letter, it is possible to enumerate the underlying tables, columns and entries.</p><h1>Multiple Injection Points</h1><p>The above SQL Injection point was discovered and verified with the tool SQLMap, and the backend database was confirmed to be Informix. After the initial discovery, several other injection points, undetectable by SQLMap, were manually discovered. </p><p>After the initial disclosure to Cisco, their internal team also verified additional SQL Injection points throughout the application.</p><h1>Custom Tool Exploitation</h1><p>As stated, SQLMap could be used to discover and verify the above Informix SQL Injection point. However, SQLMap could not be used to do the following:</p><ul><li>Extract contents of the underlying database</li>
+<li>Discover or confirm any other SQL Injection point within the application</li>
+</ul><p>F-Secure created some scripts that can be used to fully exploit this issue. It relies on the above SQL Injection point, but the scripts can be modified to work with any other SQL Injection point.</p><ul><li>The scripts are available here: <a href="https://github.com/FSecureLABS/Cisco-UCM-SQLi-Scripts">https://github.com/FSecureLABS/Cisco-UCM-SQLi-Scripts</a></li>
+<li>A description on how F-Secure fully exploited this issue is available here: <a href="blog/uncommon-sql-database-alert-informix-sql-injection">https://labs.f-secure.com/blog/uncommon-sql-database-alert-informix-sql-injection</a></li>
+</ul><h1>Remediation and Mitigation</h1><p>At the time of this advisory's posting, Cisco is working on releasing the following patches to the UCM application that will resolve this issue:</p><ul><li>UCM version 11.5.2SU7</li>
+<li>UCM version 12.5.1SU2</li>
+</ul><p>If upgrading UCM to the above versions is not possible, the following mitigations are recommended:</p><ul><li>Use UCM’s LDAP login feature to manage who can login into UCM</li>
+<li>Audit the current list of users who can login into UCM</li>
+<li>Monitor network traffic to/from the UCM application to see if this vulnerability is being exploited</li>
+</ul><p> </p><h1>Detailed Timeline</h1><table style="width: 823px; height: 35px;"><tbody><tr><td>Date</td>
+<td>Summary</td>
+</tr><tr><td>2019-04-26</td>
+<td><span>Issue reported to vendor</span></td>
+</tr><tr><td>2019-05-07</td>
+<td><span>Vendor responded, requested additional details</span></td>
+</tr><tr><td>2019-05-07</td>
+<td><span>Additional details sent</span></td>
+</tr><tr><td>2019-05-22</td>
+<td><span>Vendor responded, internal analysis still in progress</span></td>
+</tr><tr><td>2019-06-11</td>
+<td><span>Vendor responded, vulnerability confirmed in multiple versions of UCM</span></td>
+</tr><tr><td>2019-06-14</td>
+<td><span>Vendor responded, internal teams engaged to determine if other products are affected</span></td>
+</tr><tr><td>2019-06-14</td>
+<td><span>Informed vendor of client pre-release disclosure</span></td>
+</tr><tr><td>2019-09-14</td>
+<td><span>Vendor responded, approved of client pre-release disclosure</span></td>
+</tr><tr><td>2019-09-25</td>
+<td><span>F-Secure and vendor agree to a joint public disclosure date of 20 November</span></td>
+</tr><tr><td>2019-11-20</td>
+<td><span>Public Disclosure</span></td>
+</tr></tbody></table>
+      </div>
+      <div class="social-share">
+        <p><span class="content-type">Share</span></p>
+        <ul class="social">
+  <li class="facebook"><a href="http://www.facebook.com/sharer.php?u=https://labs.f-secure.com/advisories/cisco-ucm-informix-sql-injection/" target="_blank">Share on Facebook</a></li>
+  <li class="twitter"><a href="https://twitter.com/share?url=https://labs.f-secure.com/advisories/cisco-ucm-informix-sql-injection/&text=Cisco UCM Authenticated Informix SQL Injection" target="_blank">Share on LinkedIn</a></li>
+  <li class="linkedin"><a href="http://www.linkedin.com/shareArticle?url=https://labs.f-secure.com/advisories/cisco-ucm-informix-sql-injection/&title=Cisco UCM Authenticated Informix SQL Injection" target="_blank">Share on Twitter</a></li>
+</ul>
+
+      </div>
+    </div>
+    <div class="col4">
+      
+
+      
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="col12">
+        <p>&nbsp;</p>
+      </div>
+    </div>
+  </section>
+
+
+    </div>
+
+    <footer class="foot">
+	<div class="container">
+    <div class="footer-flex-wrap">
+     <p class="logo"><img src="https://labs.f-secure.com//themes/labs/img/fs-labs-logo-white.svg" alt="F-Secure" width="180" height="60"></p>
+      <ul class="top-menu">
+        <li><a href="/advisories/cisco-ucm-informix-sql-injection/#top" class="btn-gototop">Top</a></li>
+        
+        <li class="link"><a href="https://www.f-secure.com/en/consulting/contact">Contact</a></li>
+        
+        
+      </ul>
+   </div>
+   <hr/>
+    <div class="col5 suf1 foot-about">
+      <p>F-Secure provides specialist advice and solutions in all areas of cyber security, from professional and managed services, through to developing commercial and open source security tools.  </p>
+    </div>
+    <div class="col3">
+      <ul class="footer-list no-margin">
+        
+        <li><a href="/publications/ti-report-lazarus-group-cryptocurrency-vertical/">Threat Intelligence Report: Lazarus Group Campaign Targeting the Cryptocurrency Vertical</a></li>
+        
+        <li><a href="/publications/the-fake-cisco/">The Fake Cisco</a></li>
+        
+        <li><a href="/publications/u-booting-securely/">U-Booting securely</a></li>
+        
+      </ul>
+    </div>
+    <div class="col3">
+     <ul class="footer-list">
+      
+      <li><a href="/blog/prelude-to-ransomware-systembc/">Prelude to Ransomware: SystemBC</a></li>
+      
+      <li><a href="/blog/attack-detection-fundamentals-2021-azure-lab-3/">Attack Detection Fundamentals 2021: Azure - Lab #3</a></li>
+      
+      <li><a href="/blog/attack-detection-fundamentals-2021-azure-lab-2/">Attack Detection Fundamentals 2021: Azure - Lab #2</a></li>
+      
+    </ul>
+  </div>
+</div>
+<div class="end">
+ <div class="container">
+  <hr/>
+  <div class="footer-flex-wrap">
+   <p class="copyright">Copyright &copy; 2021 F-Secure</p>
+    <ul class="social">
+      
+      <li class="linkedin for-footer"><a href="https://www.linkedin.com/showcase/28493188" target="_blank">Connect with us on LinkedIn</a></li>
+      
+      
+      <li class="twitter for-footer"><a href="https://twitter.com/fsecurelabs" target="_blank">Follow us on Twitter</a></li>
+      
+      
+      <li class="github for-footer"><a href="https://github.com/fsecurelabs" target="_blank">Follow us on GitHub</a></li>
+      
+    </ul>
+ </div>
+</div>
+</div>
+</footer>
+
+    <script src="/themes/mwr/js/min/jquery-3.5.1.min.js" id="jqueryscript"></script>
+
+    
+    <script src="/themes/mwr/js/min/slides.min.js"></script>
+    
+
+    <script src="/themes/mwr/js/min/scripts.js?20190917" id="pagescripts"></script>
+
+    <script type="application/ld+json">
+    { "@context" : "http://schema.org",
+      "@type" : "Organization",
+      "name" : "F-Secure Labs",
+      "url" : "https://labs.f-secure.com",
+      "logo" : "https://labs.f-secure.com/themes/labs/img/fs-labs-logo-white.svg",
+      "sameAs" : [
+          "https://twitter.com/fsecurelabs",
+          "https://www.linkedin.com/showcase/28493188"],
+      "contactPoint" : [
+        { "@type" : "ContactPoint",
+          "telephone" : "+441256300920",
+          "contactType" : "customer service"
+        } ]
+    }
+    </script>
+</body>
+</html>

