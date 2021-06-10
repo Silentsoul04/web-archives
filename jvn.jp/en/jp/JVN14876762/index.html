@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>JVN#14876762: Apache Commons FileUpload vulnerable to denial-of-service (DoS)</title>
+	<meta name="Keywords" content="Japan Vulnerability Notes" />
+	<meta name="Description" content="Japan Vulnerability Notes" />
+	<meta http-equiv="Content-Script-Type" content="text/javascript" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+	<link href="/common/css/master.css" rel="stylesheet" type="text/css" media="screen,print" />
+	<link href="/common/css/font.css" rel="stylesheet" type="text/css" media="screen,print" />
+	<link href="/common/css/print.css" rel="stylesheet" type="text/css" media="print" />
+	<link href="/common/css/rightmenu.css" rel="stylesheet" type="text/css" media="screen,print" />
+	<script src="/common/js/swapImg.js" type="text/javascript"></script>
+	<script src="/common/js/cvss.js" type="text/javascript"></script>
+    <style type="text/css">
+        .margin_list ul {
+            padding-left:16px;
+            margin-left:16px;
+        }
+    </style>
+</head>
+<body>
+<a name="top" id="top"></a>
+<div id="wrapper">
+  <!-- header begin -->
+  <div id="header">
+    <div class="logo"><img src="/common/img/note_logo.gif" border="0" alt="Japan Vulnerability Notes" width="370" height="45" /></div>
+  </div>
+  <!-- header begin -->
+
+  <!-- mainarea begin -->
+  <div id="mainarea">
+    <!-- leftarea begin -->
+    <div id="leftarea">
+      <div id="head-bar2">
+        <div id="head-bar-txt"><span class="margin-lb">Published:2014/02/10&nbsp;&nbsp;Last Updated:2016/07/12</span></div>
+      </div>
+      <h1 class="h1ver2">
+        JVN#14876762<br />
+        Apache Commons FileUpload vulnerable to denial-of-service (DoS)<br />
+                <span class="f-red">Critical</span>
+              </h1>
+      <!-- textbox begin -->
+      <div class="textbox margin_list">
+        <h2>Overview</h2>
+        <p>Apache Commons FileUpload contains a denial-of-service (DoS) vulnerability.</p>
+      </div>
+      <!-- textbox end -->
+
+
+      <!-- textbox begin -->
+      <div class="textbox margin_list">
+        <h2>Products Affected</h2>
+        <p><ul>
+	<li>Commons FileUpload 1.0 to 1.3</li>
+	<li>Apache Tomcat 8.0.0-RC1 to 8.0.1</li>
+	<li>Apache Tomcat 7.0.0 to 7.0.50</li>
+	<li>Products that use Apache Commons FileUpload</li>
+</ul>
+According to the developer, Apache Tomcat 6 and earlier are not affected.<br />
+<br />
+The developer also states that Apache Commons FileUpload is widely used for multiple Apache products, therefore, multiple Apache products other than Apache Tomcat may be affected by this vulnerability.<br />
+According to the developer, the following products may be affected.
+<ul>
+	<li>Jenkins</li>
+	<li>JSPWiki</li>
+	<li>JXP</li>
+	<li>Lucene-Solr</li>
+	<li>onemind-commons</li>
+	<li>Spring</li>
+	<li>Stapler</li>
+	<li>Struts 1, 2</li>
+	<li>WSDL2c</li>
+</ul></p>
+      </div>
+      <!-- textbox end -->
+
+      <!-- textbox begin -->
+      <div class="textbox margin_list">
+        <h2>Description</h2>
+        <p>Apache Commons FileUpload provided by Apache Software Foundation contains an issue in processing a multi-part request, which may cause the process to be in an infinite loop.<br />
+<br />
+As of 2014 February 12, an exploit tool to attack against this vulnerability has been confirmed.</p>
+      </div>
+      <!-- textbox end -->
+
+      <!-- textbox begin -->
+      <div class="textbox margin_list">
+        <h2>Impact</h2>
+        <p>Processing a malformed request may cause the condition that the target system does not respond.</p>
+      </div>
+      <!-- textbox end -->
+
+      <!-- textbox begin -->
+      <div class="textbox margin_list">
+        <h2>Solution</h2>
+        <p><font color="#ff6600"><b>Update the Software</b></font><br />
+Update to the latest version that contains a fix fot this vulnerability:
+<ul>
+	<li><a href="http://commons.apache.org/proper/commons-fileupload/download_fileupload.cgi">Apache Commons FileUpload 1.3.1</a></li>
+	<li><a href="http://www.apache.org/dist/tomcat/tomcat-8/v8.0.3/">Apache Tomcat 8.0.3</a></li>
+	<li><a href="http://www.apache.org/dist/tomcat/tomcat-7/v7.0.52/">Apache Tomcat 7.0.52</a></li>
+	<li><a href="http://struts.apache.org/download.cgi#struts23161">Apache Struts 2.3.16.1</a></li>
+</ul>
+<font color="#ff6600"><b>Apply the Patch</b></font><br />
+In the developer&#39;s repository, the respective source code that contains a fix for this vulnerability has been released.
+<ul>
+	<li>Apache Commons FileUpload: <a href="http://svn.apache.org/r1565143">http://svn.apache.org/r1565143</a></li>
+	<li>Apache Tomcat 8: <a href="http://svn.apache.org/r1565163">http://svn.apache.org/r1565163</a></li>
+	<li>Apache Tomcat 7: <a href="http://svn.apache.org/r1565169">http://svn.apache.org/r1565169</a></li>
+</ul>
+<b><font color="#ff6600">Workaround</font></b><br />
+Applying the following workaround may mitigate the effect of this vulnerability.
+<ul>
+	<li>Limit the Content-Type header size less than 4091 bytes</li>
+</ul>
+For more information, please refer to the developer&#39;s site.</p>
+      </div>
+      <!-- textbox end -->
+
+
+            <!-- textbox begin -->
+      <div class="textbox">
+        <!-- table begin -->
+        <h2>Vendor Status</h2>
+                <div class="tbl-vinfo">
+          <table border="0" cellspacing="1" cellpadding="0" width="100%">
+            <tr>
+              <th class="wdt-a">Vendor</th>
+              <th>Status</th>
+              <th class="wdt-b" nowrap>Last Update</th>
+              <th>Vendor Notes</th>
+            </tr>
+
+                        <tr>
+              <td>NEC Corporation</td>
+              <td>
+                                                                            <a href="6443/index.html">Vulnerable</a>
+                                                                    </td>
+              <td>2016/07/11</td>
+              <td>
+                              </td>
+            </tr>
+                      </table>
+        </div>
+                <!-- table end -->
+
+        <!-- Vendor status written in English starts from here
+        Vendor status written in English is end -->
+
+        <!-- table begin -->
+        <div class="margin-tbd">
+
+                    <div class="ie5">
+            <table class="style_table" border="0" cellspacing="1">
+              <tbody>
+                <tr>
+                  <td class="style_td">
+                    Vendor
+                  </td>
+                  <td class="style_td">
+                    Link
+                  </td>
+                </tr>
+                                <tr>
+                  <td class="style_td">
+                    ASF Apache Commons FileUpload                  </td>
+                  <td class="style_td">
+                                        <a href="http://commons.apache.org/proper/commons-fileupload/download_fileupload.cgi" target="_top">Download Apache Commons FileUpload -- Apache Commons FileUpload 1.3.1</a>
+                                      </td>
+                </tr>
+                                <tr>
+                  <td class="style_td">
+                                      </td>
+                  <td class="style_td">
+                                        <a href="http://svn.apache.org/viewvc/commons/proper/fileupload/trunk/RELEASE-NOTES.txt?view=markup&amp;pathrev=1565338" target="_top">Apache Commons FileUpload 1.3.1 RELEASE NOTES</a>
+                                      </td>
+                </tr>
+                                <tr>
+                  <td class="style_td">
+                                      </td>
+                  <td class="style_td">
+                                        <a href="http://svn.apache.org/r1565143" target="_top">[Apache-SVN] Revision 1565143</a>
+                                      </td>
+                </tr>
+                                <tr>
+                  <td class="style_td">
+                    ASF Apache Tomcat                  </td>
+                  <td class="style_td">
+                                        <a href="http://www.apache.org/dist/tomcat/tomcat-8/v8.0.3/" target="_top">Apache Tomcat 8.0.3</a>
+                                      </td>
+                </tr>
+                                <tr>
+                  <td class="style_td">
+                                      </td>
+                  <td class="style_td">
+                                        <a href="http://tomcat.apache.org/security-8.html#Fixed_in_Apache_Tomcat_8.0.2" target="_top">Fixed in Apache Tomcat 8.0.2</a>
+                                      </td>
+                </tr>
+                                <tr>
+                  <td class="style_td">
+                                      </td>
+                  <td class="style_td">
+                                        <a href="http://www.apache.org/dist/tomcat/tomcat-7/v7.0.52/" target="_top">Apache Tomcat 7.0.52</a>
+                                      </td>
+                </tr>
+                                <tr>
+                  <td class="style_td">
+                                      </td>
+                  <td class="style_td">
+                                        <a href="http://tomcat.apache.org/security-7.html#Fixed_in_Apache_Tomcat_7.0.51" target="_top">Fixed in Apache Tomcat 7.0.51</a>
+                                      </td>
+                </tr>
+                                <tr>
+                  <td class="style_td">
+                    ASF Apache Struts                  </td>
+                  <td class="style_td">
+                                        <a href="http://struts.apache.org/download.cgi#struts23161" target="_top">Struts 2.3.16.1</a>
+                                      </td>
+                </tr>
+                                <tr>
+                  <td class="style_td">
+                                      </td>
+                  <td class="style_td">
+                                        <a href="http://struts.apache.org/announce.html#a20140221" target="_top">Announcements -- 21 February 2014 - Immediately upgrade commons-fileupload to version 1.3.1</a>
+                                      </td>
+                </tr>
+                                <tr>
+                  <td class="style_td">
+                    Apache Software Foundation                  </td>
+                  <td class="style_td">
+                                        <a href="http://mail-archives.us.apache.org/mod_mbox/www-announce/201402.mbox/%3C52F373FC.9030907@apache.org%3E" target="_top">www-announce mailing list archives -- CVE-2014-0050 Apache Commons FileUpload and Apache Tomcat DoS</a>
+                                      </td>
+                </tr>
+                              </tbody>
+            </table>
+          </div>
+          
+        </div>
+        <!-- table end -->
+      </div>
+      <!-- textbox end -->
+      
+      <!-- textbox begin -->
+      <div class="textbox">
+        <h2>References</h2>
+        <p>
+          <ol class='list1' style='padding-left:16px;margin-left:16px'>
+                      </ol>
+          <p class='empty'></p>
+        </p>
+      </div>
+      <!-- textbox end -->
+
+      <!-- textbox begin -->
+      <div class="textbox">
+        <h2>JPCERT/CC Addendum</h2>
+        <p></p>
+      </div>
+      <!-- textbox end -->
+
+      <!-- textbox begin -->
+      <div class="textbox">
+        <h2>Vulnerability Analysis by JPCERT/CC</h2>
+
+        
+                              <p>
+              <strong>
+                Analyzed on 2014.02.10                                &nbsp;<span class="f-red">Critical</span>
+                              </strong>
+            </p>
+            <!-- table begin -->
+            <div class="tbl-result margin-bd">
+              <table border="0" cellspacing="1" cellpadding="0" width="100%">
+                <colgroup></colgroup>
+                <colgroup class="gray"></colgroup>
+                <colgroup class="gray"></colgroup>
+                <colgroup class="gray"></colgroup>
+                <colgroup class="gray"></colgroup>
+                <tr>
+                  <th>Measures</th>
+                  <th>Conditions</th>
+                  <th>Severity</th>
+                </tr>
+                <tr>
+                  <th>Access Required</th>
+                  <td>can be attacked over the Internet using packets</td>
+                  <td nowrap>
+                    <ul class="hazard"><li class="txt"><span>High</span></li>
+                    <li><img src="/common/img/spacer.gif" alt="" border="0" width="20" height="12"></li><li><img src="/common/img/spacer.gif" alt="" border="0" width="20" height="12"></li><li><img src="/common/img/spacer.gif" alt="" border="0" width="20" height="12"></li><li><img src="/common/img/spacer.gif" alt="" border="0" width="20" height="12"></li>                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Authentication</th>
+                  <td>anonymous or no authentication (IP addresses do not count)</td>
+                  <td nowrap>
+                    <ul class="hazard"><li class="txt"><span>High</span></li>
+                    <li><img src="/common/img/spacer.gif" alt="" border="0" width="20" height="12"></li><li><img src="/common/img/spacer.gif" alt="" border="0" width="20" height="12"></li><li><img src="/common/img/spacer.gif" alt="" border="0" width="20" height="12"></li><li><img src="/common/img/spacer.gif" alt="" border="0" width="20" height="12"></li>                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <th>User Interaction Required</th>
+                  <td>the vulnerability can be exploited without an honest user taking any action</td>
+                  <td nowrap>
+                    <ul class="hazard"><li class="txt"><span>High</span></li>
+                    <li><img src="/common/img/spacer.gif" alt="" border="0" width="20" height="12"></li><li><img src="/common/img/spacer.gif" alt="" border="0" width="20" height="12"></li><li><img src="/common/img/spacer.gif" alt="" border="0" width="20" height="12"></li>                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Exploit Complexity</th>
+                  <td>some expertise and/or luck required (most buffer overflows, guessing correctly in small space, expertise in Windows function calls)</td>
+                  <td nowrap>
+                    <ul class="hazard"><li class="txt2"><span>Mid-High</span></li>
+                    <li><img src="/common/img/spacer.gif" alt="" border="0" width="20" height="12"></li><li><img src="/common/img/spacer.gif" alt="" border="0" width="20" height="12"></li><li><img src="/common/img/spacer.gif" alt="" border="0" width="20" height="12"></li><li class="rmd"><img src="/common/img/spacer.gif" alt="" border="0" width="20" height="12"></li>                    </ul>
+                  </td>
+                </tr>
+              </table>
+              <p class="first small"><a href="http://jvn.jp/en/nav/jvnhelp.html#analysys">Description of each analysis measures</a></p>
+              <!-- <div class="listex">XXX</div> -->
+            </div><!-- div.tbl-result margin-bd end -->
+                  <!-- table end -->
+        
+                <p></p>
+      </div>
+      <!-- textbox end -->
+
+      <!-- textbox begin -->
+      <div class="textbox">
+        <h2>Credit</h2>
+        <p>Hitachi Incident Response Team (HIRT) reported this vulnerability to IPA.<br />
+JPCERT/CC coordinated with the developer under Information Security Early Warning Partnership.</p>
+      </div>
+      <!-- textbox end -->
+
+      <!-- textbox begin -->
+      <div class="textbox">
+        <h2>Other Information</h2>
+        <p>
+          <div class='ie5'>
+            <table class='style_table' cellspacing='1' border='0'>
+                            <tr>
+                <td class='style_td'>
+                  JPCERT Alert                </td>
+                <td class='style_td'>
+                                  </td>
+              </tr>
+                            <tr>
+                <td class='style_td'>
+                  JPCERT Reports                </td>
+                <td class='style_td'>
+                                  </td>
+              </tr>
+                            <tr>
+                <td class='style_td'>
+                  CERT Advisory                </td>
+                <td class='style_td'>
+                                    <a href="" target="_top"></a><br />                                  </td>
+              </tr>
+                            <tr>
+                <td class='style_td'>
+                  CPNI Advisory                </td>
+                <td class='style_td'>
+                                    <a href="" target="_top"></a><br />                                  </td>
+              </tr>
+                            <tr>
+                <td class='style_td'>
+                  TRnotes                </td>
+                <td class='style_td'>
+                                    <a href="" target="_top"></a><br />                                  </td>
+              </tr>
+                            <tr>
+                <td class='style_td'>
+                  CVE                </td>
+                <td class='style_td'>
+                                    <a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-0050" target="_top">CVE-2014-0050</a><br />                                  </td>
+              </tr>
+                            <tr>
+                <td class='style_td'>
+                  JVN iPedia                </td>
+                <td class='style_td'>
+                                    <a href="http://jvndb.jvn.jp/jvndb/JVNDB-2014-000017" target="_top">JVNDB-2014-000017</a><br />                                  </td>
+              </tr>
+                          </table>
+          </div>
+          <p class='empty'></p>
+        </p>
+      </div>
+      <!-- textbox end -->
+
+            <!-- textbox begin -->
+      <div class="textbox">
+        <h2>Update History</h2>
+
+        <p class='empty'>
+        </p>
+        <dl>
+                    <dt>2014/02/10</dt>
+          <dd>Information under the section &quot;Solution&quot; was modified.</dd>
+                    <dt>2014/02/12</dt>
+          <dd>Information under the section &quot;Description&quot; and &quot;Solution&quot; was revised, and the vendor link under &quot;Vendor Status&quot; was added.</dd>
+                    <dt>2014/02/20</dt>
+          <dd>Information under the section &quot;Solution&quot; was revised, and the vendor link under &quot;Vendor Status&quot; was added.</dd>
+                    <dt>2014/02/24</dt>
+          <dd>Announcement from Apache Struts was added to &quot;Vendor Status&quot; section.</dd>
+                    <dt>2014/02/25</dt>
+          <dd>The version information Struts 1.2 was corrected to Struts 1, 2 in the &quot;Products Affected&quot; section.</dd>
+                    <dt>2014/03/07</dt>
+          <dd>Information under the section &quot;Solution&quot; and &quot;Vendor Status&quot; were updated.</dd>
+                    <dt>2016/07/12</dt>
+          <dd>NEC Corporation update status</dd>
+                  </dl>
+        <p class='empty'>
+        </p>
+      </div>
+      <!-- textbox end -->
+      
+    </div>
+    <!-- leftarea end -->
+
+    <!-- rightarea begin -->
+<div id="rightarea">
+  <div id="ajaxmenu">
+    <ul>
+      <li class="jvnhead">JVN</li>
+      <li class="link"><a href="/en/index.html">HOME</a></li>
+      <li><a href="/en/nav/jvn.html">What is JVN ?</a></li>
+      <li><a href="/en/nav/jvnhelp.html">Instructions</a></li>
+      <li><a href="/en/report/index.html">List of Vulnerability Report</a></li>
+      <li class="draft"><a href="/en/jp/index.html">VN_JP</a></li>
+      <li class="draft"><a href="/en/adj/index.html">VN_JP(Unreachable)</a></li>
+      <li class="draft"><a href="/en/vu/index.html">VN_VU</a></li>
+      <li class="draft"><a href="/en/ta/index.html">TA</a></li>
+      <li><a href="/en/tr/index.html">TRnotes</a></li>
+      <li><a href="http://jvndb.jvn.jp/en/">JVN iPedia</a></li>
+      <li><a href="http://jvndb.jvn.jp/en/apis/myjvn/index.html">MyJVN</a></li>
+      <li><a href="/en/rss/index.html">JVNJS/RSS</a></li>
+      <li><a href="/en/nav/index.html">Vendor List</a></li>
+      <li><a href="/en/reply/index.html">List of unreachable developers</a></li>
+      <li><a href="/en/contact/index.html">Contact</a></li>
+    </ul>
+  </div>
+  <!-- rightarea end -->
+</div>
+
+  </div>
+	<!-- mainarea end -->
+
+	<!-- footer begin -->
+	<div id="footer">
+		<div class="footertext">Copyright (c) 2000-2016 JPCERT/CC and IPA. All rights reserved.</div>
+	</div>
+	<!-- footer begin -->
+</div>
+</body>
+</html>
+
