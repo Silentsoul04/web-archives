@@ -1,0 +1,113 @@
+From: Jan Beulich <jbeulich@suse.com>
+Subject: x86: replace reset_stack_and_jump_nolp()
+
+Move the necessary check into check_for_livepatch_work(), rather than
+mostly duplicating reset_stack_and_jump() for this purpose. This is to
+prevent an inflation of reset_stack_and_jump() flavors.
+
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Juergen Gross <jgross@suse.com>
+---
+Of course instead of adding the check right into
+check_for_livepatch_work(), a wrapper could be introduced.
+
+--- a/xen/arch/x86/domain.c
++++ b/xen/arch/x86/domain.c
+@@ -192,7 +192,7 @@ static void noreturn continue_idle_domai
+ {
+     /* Idle vcpus might be attached to non-idle units! */
+     if ( !is_idle_domain(v->sched_unit->domain) )
+-        reset_stack_and_jump_nolp(guest_idle_loop);
++        reset_stack_and_jump(guest_idle_loop);
+ 
+     reset_stack_and_jump(idle_loop);
+ }
+--- a/xen/arch/x86/hvm/svm/svm.c
++++ b/xen/arch/x86/hvm/svm/svm.c
+@@ -1036,7 +1036,7 @@ static void noreturn svm_do_resume(struc
+ 
+     hvm_do_resume(v);
+ 
+-    reset_stack_and_jump_nolp(svm_asm_do_resume);
++    reset_stack_and_jump(svm_asm_do_resume);
+ }
+ 
+ void svm_vmenter_helper(const struct cpu_user_regs *regs)
+--- a/xen/arch/x86/hvm/vmx/vmcs.c
++++ b/xen/arch/x86/hvm/vmx/vmcs.c
+@@ -1909,7 +1909,7 @@ void vmx_do_resume(struct vcpu *v)
+     if ( host_cr4 != read_cr4() )
+         __vmwrite(HOST_CR4, read_cr4());
+ 
+-    reset_stack_and_jump_nolp(vmx_asm_do_vmentry);
++    reset_stack_and_jump(vmx_asm_do_vmentry);
+ }
+ 
+ static inline unsigned long vmr(unsigned long field)
+--- a/xen/arch/x86/pv/domain.c
++++ b/xen/arch/x86/pv/domain.c
+@@ -113,7 +113,7 @@ static int parse_pcid(const char *s)
+ static void noreturn continue_nonidle_domain(struct vcpu *v)
+ {
+     check_wakeup_from_wait();
+-    reset_stack_and_jump_nolp(ret_from_intr);
++    reset_stack_and_jump(ret_from_intr);
+ }
+ 
+ static int setup_compat_l4(struct vcpu *v)
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -676,7 +676,7 @@ static void __init noreturn reinit_bsp_s
+         asm volatile ("setssbsy" ::: "memory");
+     }
+ 
+-    reset_stack_and_jump_nolp(init_done);
++    reset_stack_and_jump(init_done);
+ }
+ 
+ /*
+--- a/xen/common/livepatch.c
++++ b/xen/common/livepatch.c
+@@ -1635,6 +1635,11 @@ void check_for_livepatch_work(void)
+     s_time_t timeout;
+     unsigned long flags;
+ 
++    /* Only do any work when invoked in truly idle state. */
++    if ( system_state != SYS_STATE_active ||
++         !is_idle_domain(current->sched_unit->domain) )
++        return;
++
+     /* Fast path: no work to do. */
+     if ( !per_cpu(work_to_do, cpu ) )
+         return;
+--- a/xen/include/asm-x86/current.h
++++ b/xen/include/asm-x86/current.h
+@@ -155,13 +155,13 @@ unsigned long get_stack_dump_bottom (uns
+ # define SHADOW_STACK_WORK ""
+ #endif
+ 
+-#define switch_stack_and_jump(fn, instr)                                \
++#define reset_stack_and_jump(fn)                                        \
+     ({                                                                  \
+         unsigned int tmp;                                               \
+         __asm__ __volatile__ (                                          \
+             SHADOW_STACK_WORK                                           \
+             "mov %[stk], %%rsp;"                                        \
+-            instr                                                       \
++            CHECK_FOR_LIVEPATCH_WORK                                    \
+             "jmp %c[fun];"                                              \
+             : [val] "=&r" (tmp),                                        \
+               [ssp] "=&r" (tmp)                                         \
+@@ -176,12 +176,6 @@ unsigned long get_stack_dump_bottom (uns
+         unreachable();                                                  \
+     })
+ 
+-#define reset_stack_and_jump(fn)                                        \
+-    switch_stack_and_jump(fn, CHECK_FOR_LIVEPATCH_WORK)
+-
+-#define reset_stack_and_jump_nolp(fn)                                   \
+-    switch_stack_and_jump(fn, "")
+-
+ /*
+  * Which VCPU's state is currently running on each CPU?
+  * This is not necesasrily the same as 'current' as a CPU may be

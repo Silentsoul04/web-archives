@@ -1,0 +1,94 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-34 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-34.html">XSA-34</a></td></tr><tr><th>Public release</th> <td>2013-01-22 11:49</td></tr><tr><th>Updated</th> <td>2013-01-22 11:49</td></tr><tr><th>Version</th> <td>2</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-0151">CVE-2013-0151</a></td></tr><tr><th>Title</th> <td>nested virtualization on 32-bit exposes host crash</td></tr></table><h1>Files</h1><a href="advisory-34.txt">advisory-34.txt</a> (signed advisory file)<br /><a href="xsa34-4.2.patch">xsa34-4.2.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+	     Xen Security Advisory CVE-2013-0151 / XSA-34
+                            version 2
+
+	   nested virtualization on 32-bit exposes host crash
+
+UPDATES IN VERSION 2
+====================
+
+Public release.
+
+ISSUE DESCRIPTION
+=================
+
+When performing nested virtualisation Xen would incorrectly map guest
+pages for extended periods using an interface which is only intended
+for transient mappings. In some configurations there are a limited
+number of slots available for these transient mappings and exhausting
+them leads to a host crash and therefore a Denial of Service attack.
+
+IMPACT
+======
+
+A malicious guest administrator can, by enabling nested virtualisation
+from within the guest, trigger the issue.
+
+Their ability to do this will depend on the number of VCPUs the domain
+is configured with. Domains with smaller numbers of VCPUs (e.g. less
+than 16) are not able to create sufficient mappings via this method to
+trigger the issue.
+
+VULNERABLE SYSTEMS
+==================
+
+32 bit hypervisors running HVM guests on either Intel or AMD are
+vulnerable.
+
+Only Xen version 4.2.x is vulnerable.
+
+Nested virtualisation was introduced as an experimental feature in Xen
+4.2 and therefore versions of Xen prior to that are not vulnerable.
+
+The 32 bit hypervisor has been removed in Xen unstable and therefore
+is not vulnerable.
+
+MITIGATION
+==========
+
+Running a 64 bit hypervisor or avoiding running HVM guests with
+untrusted administrators can avoid the issue.
+
+We strongly recommend running a 64 bit hypervisor on any processor
+which supports it. Note that this does not require running a 64 bit
+domain 0.
+
+Ensuring that HVM guests with untrusted administrators do not have
+more than 16 VCPUs will also avoid the issue.
+
+RESOLUTION
+==========
+
+The attached patch avoids this issue by disabling nested HVM support
+when running a 32-bit hypervisor.
+
+xsa34-4.2.patch             Xen 4.2.x
+
+$ sha256sum xsa34*.patch
+<a href="xsa34-4.2.patch">ef75cdcf934003aaced57698a2441c4ba058b968956925eec2d5a100a28db0ae  xsa34-4.2.patch</a>
+$
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.10 (GNU/Linux)
+
+iQEcBAEBAgAGBQJQ/ny6AAoJEIP+FMlX6CvZU20IAKVSD/ymPr/xXxVa+QHCPCeQ
+MceHY8JE7mRsy1+houbsmQyzq4ASgdrxN70E3QIxUDKXJjJsUEs/0Ju5hhbgZltp
+OazXgg+qICgjqjEklRZOCs9iymepjjDYXWhwUccUleTO/2E9/j8znLQGoUqitHrk
+APycEQ26+YbmWQAUTuvXcL5ST7oByPH8Ax0bjOnMWpQFY8G2ZBbgczmw3uMnHMRN
+NVE8akGv45ey5qEraL+Qe3S5cauVdVPxPodavlDIV0628em9+gFbG4+P5Sgn5TeY
+Kv3u8LjWDWRtZEVcHGRUkIYrlgeWD2TGFkqdGCTd7vf3lKMAopNjIGrH80kNmrc=
+=gW3M
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

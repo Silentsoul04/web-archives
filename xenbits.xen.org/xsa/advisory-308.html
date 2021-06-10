@@ -1,0 +1,107 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-308 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-308.html">XSA-308</a></td></tr><tr><th>Public release</th> <td>2019-12-11 12:00</td></tr><tr><th>Updated</th> <td>2020-08-14 16:50</td></tr><tr><th>Version</th> <td>4</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-19583">CVE-2019-19583</a></td></tr><tr><th>Title</th> <td>VMX: VMentry failure with debug exceptions and blocked states</td></tr></table><h1>Files</h1><a href="advisory-308.txt">advisory-308.txt</a> (signed advisory file)<br /><a href="xsa308.meta">xsa308.meta</a><br /><a href="xsa308.patch">xsa308.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+            Xen Security Advisory CVE-2019-19583 / XSA-308
+                               version 4
+
+     VMX: VMentry failure with debug exceptions and blocked states
+
+UPDATES IN VERSION 4
+====================
+
+Canonicalize version range for better parsing.
+
+ISSUE DESCRIPTION
+=================
+
+Please see XSA-260 for background on the MovSS shadow:
+  <a href="http://xenbits.xen.org/xsa/advisory-260.html">http://xenbits.xen.org/xsa/advisory-260.html</a>
+
+Please see XSA-156 for background on the need for #DB interception:
+  <a href="http://xenbits.xen.org/xsa/advisory-156.html">http://xenbits.xen.org/xsa/advisory-156.html</a>
+
+The VMX VMEntry checks does not like the exact combination of state
+which occurs when #DB in intercepted, Single Stepping is active, and
+blocked by STI/MovSS is active, despite this being a legitimate state to
+be in.  The resulting VMEntry failure is fatal to the guest.
+
+IMPACT
+======
+
+HVM/PVH guest userspace code may be able to crash the guest, resulting
+in a guest Denial of Service.
+
+VULNERABLE SYSTEMS
+==================
+
+All versions of Xen are affected.
+
+Only systems supporting VMX hardware virtual extensions (Intel, Cyrix or
+Zhaoxin CPUs) are affected. Arm and AMD systems are unaffected.
+
+Only HVM/PVH guests are affected.  PV guests cannot leverage the
+vulnerability.
+
+MITIGATION
+==========
+
+Running only PV guests will avoid this vulnerability.
+
+Running HVM guests on only AMD hardware will also avoid this
+vulnerability.
+
+CREDITS
+=======
+
+This issue was discovered by Håkon Alstadheim and diagnosed as a
+security issue by Andrew Cooper of Citrix.
+
+RESOLUTION
+==========
+
+Applying the attached patch resolves this issue.
+
+xsa308.patch           xen-unstable, Xen 4.13.x - Xen 4.8.x
+
+$ sha256sum xsa308*
+<a href="xsa308.meta">4aa06d21478d9debb12388ff14d8abc31982e18895db40d0cec78fcc9fe68ef2  xsa308.meta</a>
+<a href="xsa308.patch">7e782b09b16f7534c8db52042f7bb3bd730d108571c8b10af184ae0b02fdae9d  xsa308.patch</a>
+$
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches and/or mitigations described above (or
+others which are substantially similar) is permitted during the
+embargo, even on public-facing systems with untrusted guest users and
+administrators.
+
+But: Distribution of updated software is prohibited (except to other
+members of the predisclosure list).
+
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+-----BEGIN PGP SIGNATURE-----
+
+iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAl82wN0MHHBncEB4ZW4u
+b3JnAAoJEIP+FMlX6CvZtMcIAKvc3NnJBRMkDmlnyqK2G6gWmWjBh8YWyBu4cn9Z
+e+QV9+Zc4bzz/uTgRqh3fe+8/q3f2qRlVfnNF8PxcQTbpDFYuHwzjZEY0AB05ADj
+o/RpqBvEaPwZLLYoNkpx0fXcNL7esX7yDcV35ioh1bC5eI48X5jPy+SV5vdHtMk7
+AX5rVqKRYPrRe2bbjAPBnYOoSWwCD2knsDfqvlhCMFhbz5pNW7Kfz75HMFhV/Wh5
+nK6mTIhFl3g6BCl/iVjAyQ4RU1IWwgmChoPamPFiDnsQZLFGCR+JlDlOP/fgYUmI
+YIlDpcfLp2KOhvcRlUGfawx+/onPgheKMgrnySlo6QFN33g=
+=Mskp
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

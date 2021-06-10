@@ -1,0 +1,100 @@
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: common/gnttab: Introduce command line feature controls
+
+This patch was originally released as part of XSA-226.  It retains the same
+command line syntax (as various downstreams are mitigating XSA-226 using this
+mechanism) but the defaults have been updated due to the revised XSA-226
+patched, after which transitive grants are believed to functioning
+properly.
+
+Reported-by: 王磊 <lei19.wang@samsung.com>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+--- a/docs/misc/xen-command-line.markdown
++++ b/docs/misc/xen-command-line.markdown
+@@ -787,6 +787,19 @@ Controls EPT related features.
+ 
+ Specify the serial parameters for the GDB stub.
+ 
++### gnttab
++> `= List of [ max-ver:<integer>, transitive=<bool> ]`
++
++> Default: `gnttab=max-ver:2,transitive`
++
++Control various aspects of the grant table behaviour available to guests.
++
++* `max-ver` Select the maximum grant table version to offer to guests.  Valid
++version are 1 and 2.
++* `transitive` Permit or disallow the use of transitive grants.  Note that the
++use of grant table v2 without transitive grants is an ABI breakage from the
++guests point of view.
++
+ ### gnttab\_max\_frames
+ > `= <integer>`
+ 
+--- a/xen/common/grant_table.c
++++ b/xen/common/grant_table.c
+@@ -62,6 +62,41 @@ integer_param("gnttab_max_frames", max_g
+ static unsigned int __read_mostly max_maptrack_frames;
+ integer_param("gnttab_max_maptrack_frames", max_maptrack_frames);
+ 
++static unsigned int __read_mostly opt_gnttab_max_version = 2;
++static bool_t __read_mostly opt_transitive_grants = 1;
++
++static int __init parse_gnttab(const char *s)
++{
++    const char *ss, *e;
++    int val, rc = 0;
++
++    do {
++        ss = strchr(s, ',');
++        if ( !ss )
++            ss = strchr(s, '\0');
++
++        if ( !strncmp(s, "max-ver:", 8) ||
++             !strncmp(s, "max_ver:", 8) ) /* Alias for original XSA-226 patch */
++        {
++            long ver = simple_strtol(s + 8, &e, 10);
++
++            if ( e == ss && ver >= 1 && ver <= 2 )
++                opt_gnttab_max_version = ver;
++            else
++                rc = -EINVAL;
++        }
++        else if ( (val = parse_boolean("transitive", s, ss)) >= 0 )
++            opt_transitive_grants = val;
++        else
++            rc = -EINVAL;
++
++        s = ss + 1;
++    } while ( *ss );
++
++    return rc;
++}
++custom_param("gnttab", parse_gnttab);
++
+ /*
+  * Note that the three values below are effectively part of the ABI, even if
+  * we don't need to make them a formal part of it: A guest suspended for
+@@ -2532,7 +2567,8 @@ static int gnttab_copy_claim_buf(const s
+                                       current->domain->domain_id,
+                                       buf->read_only,
+                                       &buf->frame, &buf->page,
+-                                      &buf->ptr.offset, &buf->len, 1);
++                                      &buf->ptr.offset, &buf->len,
++                                      opt_transitive_grants);
+         if ( rc != GNTST_okay )
+             goto out;
+         buf->ptr.u.ref = ptr->u.ref;
+@@ -2733,6 +2769,10 @@ gnttab_set_version(XEN_GUEST_HANDLE_PARA
+     if ( op.version != 1 && op.version != 2 )
+         goto out;
+ 
++    res = -ENOSYS;
++    if ( op.version == 2 && opt_gnttab_max_version == 1 )
++        goto out; /* Behave as before set_version was introduced. */
++
+     res = 0;
+     if ( gt->gt_version == op.version )
+         goto out;

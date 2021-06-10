@@ -1,0 +1,95 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+            Xen Security Advisory CVE-2019-19583 / XSA-308
+                               version 4
+
+     VMX: VMentry failure with debug exceptions and blocked states
+
+UPDATES IN VERSION 4
+====================
+
+Canonicalize version range for better parsing.
+
+ISSUE DESCRIPTION
+=================
+
+Please see XSA-260 for background on the MovSS shadow:
+  http://xenbits.xen.org/xsa/advisory-260.html
+
+Please see XSA-156 for background on the need for #DB interception:
+  http://xenbits.xen.org/xsa/advisory-156.html
+
+The VMX VMEntry checks does not like the exact combination of state
+which occurs when #DB in intercepted, Single Stepping is active, and
+blocked by STI/MovSS is active, despite this being a legitimate state to
+be in.  The resulting VMEntry failure is fatal to the guest.
+
+IMPACT
+======
+
+HVM/PVH guest userspace code may be able to crash the guest, resulting
+in a guest Denial of Service.
+
+VULNERABLE SYSTEMS
+==================
+
+All versions of Xen are affected.
+
+Only systems supporting VMX hardware virtual extensions (Intel, Cyrix or
+Zhaoxin CPUs) are affected. Arm and AMD systems are unaffected.
+
+Only HVM/PVH guests are affected.  PV guests cannot leverage the
+vulnerability.
+
+MITIGATION
+==========
+
+Running only PV guests will avoid this vulnerability.
+
+Running HVM guests on only AMD hardware will also avoid this
+vulnerability.
+
+CREDITS
+=======
+
+This issue was discovered by Håkon Alstadheim and diagnosed as a
+security issue by Andrew Cooper of Citrix.
+
+RESOLUTION
+==========
+
+Applying the attached patch resolves this issue.
+
+xsa308.patch           xen-unstable, Xen 4.13.x - Xen 4.8.x
+
+$ sha256sum xsa308*
+4aa06d21478d9debb12388ff14d8abc31982e18895db40d0cec78fcc9fe68ef2  xsa308.meta
+7e782b09b16f7534c8db52042f7bb3bd730d108571c8b10af184ae0b02fdae9d  xsa308.patch
+$
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches and/or mitigations described above (or
+others which are substantially similar) is permitted during the
+embargo, even on public-facing systems with untrusted guest users and
+administrators.
+
+But: Distribution of updated software is prohibited (except to other
+members of the predisclosure list).
+
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+-----BEGIN PGP SIGNATURE-----
+
+iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAl82wN0MHHBncEB4ZW4u
+b3JnAAoJEIP+FMlX6CvZtMcIAKvc3NnJBRMkDmlnyqK2G6gWmWjBh8YWyBu4cn9Z
+e+QV9+Zc4bzz/uTgRqh3fe+8/q3f2qRlVfnNF8PxcQTbpDFYuHwzjZEY0AB05ADj
+o/RpqBvEaPwZLLYoNkpx0fXcNL7esX7yDcV35ioh1bC5eI48X5jPy+SV5vdHtMk7
+AX5rVqKRYPrRe2bbjAPBnYOoSWwCD2knsDfqvlhCMFhbz5pNW7Kfz75HMFhV/Wh5
+nK6mTIhFl3g6BCl/iVjAyQ4RU1IWwgmChoPamPFiDnsQZLFGCR+JlDlOP/fgYUmI
+YIlDpcfLp2KOhvcRlUGfawx+/onPgheKMgrnySlo6QFN33g=
+=Mskp
+-----END PGP SIGNATURE-----

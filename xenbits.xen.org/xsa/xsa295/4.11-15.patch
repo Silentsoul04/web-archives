@@ -1,0 +1,112 @@
+From 7f77f648cec9a30cfdca4222686dc999ff113789 Mon Sep 17 00:00:00 2001
+From: Julien Grall <julien.grall@arm.com>
+Date: Mon, 29 Apr 2019 15:05:25 +0100
+Subject: [PATCH v2 4.11 15/20] xen/arm: Turn on SILO mode by default on Arm
+
+On Arm, exclusive load-store atomics should only be used between trusted
+thread. As not all the guests are trusted, it may be possible to DoS Xen
+when updating shared memory with guest atomically.
+
+Recent patches introduced new helpers to update shared memory with guest
+atomically. Those helpers relies on a memory region to be be shared with
+Xen and a single guest.
+
+At the moment, nothing prevent a guest sharing a page with Xen and as
+well with another guest (e.g via grant table).
+
+For the scope of the XSA, the quickest way is to deny communications
+between unprivileged guest. So this patch is enabling and using SILO
+mode by default on Arm.
+
+Users wanted finer graine policy could wrote their own Flask policy.
+
+This is part of XSA-295.
+
+Signed-off-by: Julien Grall <julien.grall@arm.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
+---
+ xen/arch/arm/setup.c  | 8 ++++++--
+ xen/common/Kconfig    | 3 ++-
+ xen/include/xsm/xsm.h | 5 +++++
+ xen/xsm/xsm_core.c    | 2 +-
+ 4 files changed, 14 insertions(+), 4 deletions(-)
+
+diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+index 1d6f6bf37e..ff949f545a 100644
+--- a/xen/arch/arm/setup.c
++++ b/xen/arch/arm/setup.c
+@@ -37,6 +37,7 @@
+ #include <xen/vmap.h>
+ #include <xen/libfdt/libfdt.h>
+ #include <xen/acpi.h>
++#include <xen/warning.h>
+ #include <asm/alternative.h>
+ #include <asm/page.h>
+ #include <asm/current.h>
+@@ -787,8 +788,11 @@ void __init start_xen(unsigned long boot_phys_offset,
+ 
+     tasklet_subsys_init();
+ 
+-
+-    xsm_dt_init();
++    if ( xsm_dt_init() != 1 )
++        warning_add("WARNING: SILO mode is not enabled.\n"
++                    "It has implications on the security of the system,\n"
++                    "unless the communications have been forbidden between\n"
++                    "untrusted domains.\n");
+ 
+     init_maintenance_interrupt();
+     init_timer_interrupt();
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index 512f6446a3..e4af3f13eb 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -93,7 +93,7 @@ config XENOPROF
+ 
+ config XSM
+ 	bool "Xen Security Modules support"
+-	default n
++	default ARM
+ 	---help---
+ 	  Enables the security framework known as Xen Security Modules which
+ 	  allows administrators fine-grained control over a Xen domain and
+@@ -158,6 +158,7 @@ config XSM_SILO
+ choice
+ 	prompt "Default XSM implementation"
+ 	depends on XSM
++	default XSM_SILO_DEFAULT if XSM_SILO && ARM
+ 	default XSM_FLASK_DEFAULT if XSM_FLASK
+ 	default XSM_SILO_DEFAULT if XSM_SILO
+ 	default XSM_DUMMY_DEFAULT
+diff --git a/xen/include/xsm/xsm.h b/xen/include/xsm/xsm.h
+index b16a1b5b18..0c803531eb 100644
+--- a/xen/include/xsm/xsm.h
++++ b/xen/include/xsm/xsm.h
+@@ -710,6 +710,11 @@ extern int xsm_multiboot_policy_init(unsigned long *module_map,
+ #endif
+ 
+ #ifdef CONFIG_HAS_DEVICE_TREE
++/*
++ * Initialize XSM
++ *
++ * On success, return 1 if using SILO mode else 0.
++ */
+ extern int xsm_dt_init(void);
+ extern int xsm_dt_policy_init(void **policy_buffer, size_t *policy_size);
+ extern bool has_xsm_magic(paddr_t);
+diff --git a/xen/xsm/xsm_core.c b/xen/xsm/xsm_core.c
+index 7b862ea79d..1179cdf610 100644
+--- a/xen/xsm/xsm_core.c
++++ b/xen/xsm/xsm_core.c
+@@ -167,7 +167,7 @@ int __init xsm_dt_init(void)
+ 
+     xfree(policy_buffer);
+ 
+-    return ret;
++    return ret ?: (xsm_bootparam == XSM_BOOTPARAM_SILO);
+ }
+ 
+ /**
+-- 
+2.17.1
+

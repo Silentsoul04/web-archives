@@ -1,0 +1,112 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-48 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-48.html">XSA-48</a></td></tr><tr><th>Public release</th> <td>2013-04-15 15:00</td></tr><tr><th>Updated</th> <td>2013-04-15 15:00</td></tr><tr><th>Version</th> <td>2</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-1922">CVE-2013-1922</a></td></tr><tr><th>Title</th> <td>qemu-nbd format-guessing due to missing format specification</td></tr></table><h1>Files</h1><a href="advisory-48.txt">advisory-48.txt</a> (signed advisory file)<br /><a href="xsa48-4.2.patch">xsa48-4.2.patch</a><br /><a href="xsa48-unstable.patch">xsa48-unstable.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+	     Xen Security Advisory CVE-2013-1922 / XSA-48
+			      version 2
+
+         qemu-nbd format-guessing due to missing format specification
+
+UPDATES IN VERSION 2
+====================
+
+Public release.
+
+ISSUE DESCRIPTION
+=================
+
+The qemu-nbd tool (shipped in the Xen hypervisor tools distribution as
+qemu-nbd-xen) autodetects the image format.
+
+If a particular disk image is intended to be raw, a guest operating
+system administrator could write a header to the image, describing
+another format than original one.  This could lead to a scenario in
+which after restart of that guest, qemu-nbd would detect the new
+apparent format of the image, including a specified backing file or
+device, which could allow the guest to read any file on the host.
+
+IMPACT
+======
+
+qemu-nbd (qemu-nbd-xen) is not used by the toolstack software supplied
+with the Xen tree.  However, it is built and installed, and so might
+be used by host administrators or by toolstacks other than libxl or
+xend.
+
+If qemu-nbd is used, a malicious guest administrator may be able to
+read any file on the host, depending exactly how.
+
+VULNERABLE SYSTEMS
+==================
+
+For Xen systems using libxl (xl) or xend (xm): if neither qemu-nbd-xen
+nor qemu-nbd (since qemu-nbd-xen is installed under the latter name in
+/usr/lib/xen/bin) is explicitly invoked by scripts or other software
+not supplied by the Xen project, the system is not vulnerable.
+
+Xen systems using other toolstacks may be vulnerable if those
+toolstacks use qemu-nbd[-xen].
+
+A guest administrator who runs qemu-nbd-xen by hand on a guest may be
+exposing themselves to this vulnerability.
+
+Only qemu-xen-upstream is vulnerable; qemu-xen-traditional has a fix
+which makes this bug not apply.  However, the Xen build system builds
+and installs both by default, in some arbitrary order, to the same
+filename.  So which is installed and might be used is not predictable
+unless the qemu-xen-upstream build is entirely disabled.
+
+Only systems with Xen 4.2 and later installed are vulnerable (by
+virtue of the presence of Xen) as earlier versions of Xen do not build
+qemu-xen-upstream at all.
+
+MITIGATION
+==========
+
+No mitigation is available for users of qemu-nbd[-xen].  If you are
+using qemu-nbd[-xen] from qemu-xen-upstream on raw image files, then
+arranging to use qemu-xen-traditional instead will fail.
+
+If you wish enhanced assurance, removing all copies of of qemu-nbd and
+qemu-nbd-xen will provide confidence that this vulnerable utility is
+not being used.
+
+RESOLUTION
+==========
+
+To resolve the problem, it is necessary to apply the attached patch
+(to the qemu-xen-upstream tree).
+
+It is ALSO NECESSARY to ensure that all invocations of qemu-nbd are
+provided with an appropriate -f (--format) option.  Invoking qemu-nbd
+without this option remains unsafe and the patch does not prevent it.
+
+xsa48-4.2.patch         Xen 4.2.x (Xen&#39;s qemu-upstream-4.2-testing.git)
+xsa48-unstable.patch    Xen unstable (Xen&#39;s qemu-upstream-unstable.git)
+
+$ sha256sum xsa48*
+<a href="xsa48-4.2.patch">11e5d1f576770fde67e80e3e8c30f9a1af404fe6d07f1c37e96d68677f31435c  xsa48-4.2.patch</a>
+<a href="xsa48-unstable.patch">20dac78bff584951cb706bb76a3394b47525749655dba2f68a6d923faf168fe8  xsa48-unstable.patch</a>
+$
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.10 (GNU/Linux)
+
+iQEcBAEBAgAGBQJRbBX6AAoJEIP+FMlX6CvZBusIALRc+Cl0DUCJAbGkO8dmzOqA
+C7F9i1mD5gXZEmj0vBc8DEKivHFy3jgicL+j/SeUVMGouSi/FfntIUcevPHa3R1B
+1cPr+oZq9OYZgs/QFbLMPXEeeA0zQiWVJB0AA0h/q+FX5aFE2VpHvi66dcOoBeTL
+kJHOSEjLmuMEa+Gn1r+Y7nL7XXb5osZKMBoIv5wNX1XNv4PH/yEChTuZ5VD0ScU0
+Haib8k2SLDiDiZl/zF/6EdTb/13ceSE7WdBkaJqbbnI8KRbdAc8ERJBuoxupcnAW
+gPaVwlQ8RrGJrySofoiYozbZcAjbFQAUoxR2Vi6DxB/Lnn7V3PeFEwyXMQcx8ko=
+=Nel4
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

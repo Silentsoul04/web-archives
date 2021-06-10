@@ -1,0 +1,126 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-301 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-301.html">XSA-301</a></td></tr><tr><th>Public release</th> <td>2019-10-31 12:00</td></tr><tr><th>Updated</th> <td>2020-08-14 16:50</td></tr><tr><th>Version</th> <td>4</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-18423">CVE-2019-18423</a></td></tr><tr><th>Title</th> <td>add-to-physmap can be abused to DoS Arm hosts</td></tr></table><h1>Files</h1><a href="advisory-301.txt">advisory-301.txt</a> (signed advisory file)<br /><a href="xsa301.meta">xsa301.meta</a><br /><a href="xsa301-4.11-1.patch">xsa301-4.11-1.patch</a><br /><a href="xsa301-4.11-2.patch">xsa301-4.11-2.patch</a><br /><a href="xsa301-4.11-3.patch">xsa301-4.11-3.patch</a><br /><a href="xsa301-master-1.patch">xsa301-master-1.patch</a><br /><a href="xsa301-master-2.patch">xsa301-master-2.patch</a><br /><a href="xsa301-master-3.patch">xsa301-master-3.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+            Xen Security Advisory CVE-2019-18423 / XSA-301
+                               version 4
+
+             add-to-physmap can be abused to DoS Arm hosts
+
+UPDATES IN VERSION 4
+====================
+
+Canonicalized version ranges for better parsing.
+
+ISSUE DESCRIPTION
+=================
+
+p2m-&gt;max_mapped_gfn is used by the functions
+p2m_resolve_translation_fault() and p2m_get_entry() to sanity check
+guest physical frame.  The rest of the code in the two functions will
+assume that there is a valid root table and check that with BUG_ON().
+
+The function p2m_get_root_pointer() will ignore the unused top bits of
+a guest physical frame.  This means that the function p2m_set_entry()
+will alias the frame.  However, p2m-&gt;max_mapped_gfn will be updated
+using the original frame.
+
+It would be possible to set p2m-&gt;max_mapped_gfn high enough to cover a
+frame that would lead p2m_get_root_pointer() to return NULL in
+p2m_get_entry() and p2m_resolve_translation_fault().
+
+Additionally, the sanity check on p2m-&gt;max_mapped_gfn is off-by-one
+allowing &quot;highest mapped + 1&quot; to be considered valid.  However,
+p2m_get_root_pointer() will return NULL.
+
+The problem could be triggered with a specially crafted hypercall
+XENMEM_add_to_physmap{, _batch} followed by an access to an address
+(via hypercall or direct access) that passes the sanity check but
+cause p2m_get_root_pointer() to return NULL.
+
+IMPACT
+======
+
+A malicious guest administrator may cause a hypervisor crash,
+resulting in a Denial of Service (DoS).
+
+VULNERABLE SYSTEMS
+==================
+
+Xen version 4.8 and newer are vulnerable.
+
+Only Arm systems are vulnerable.  x86 systems are not affected.
+
+MITIGATION
+==========
+
+There are no mitigations.
+
+CREDITS
+=======
+
+This issue was discovered by Julian Grall of Arm.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+xsa301-master-*.patch  xen-unstable - Xen 4.12
+xsa301-4.11-*.patch    Xen 4.11 - Xen 4.8
+
+$ sha256sum xsa301*
+<a href="xsa301.meta">c3f334d3de1fd7385a5b73edca1f979b6027595d8aa2a3fce451ee5a37d57662  xsa301.meta</a>
+<a href="xsa301-4.11-1.patch">1f6f76e0da4bd8cbce38a127d446593058a76565bade57672d6a00357fdc64fa  xsa301-4.11-1.patch</a>
+<a href="xsa301-4.11-2.patch">b1ea7b323f509a6150983ece24ecd38f3a9ea97a11360d7a36f715ebaf85e8b1  xsa301-4.11-2.patch</a>
+<a href="xsa301-4.11-3.patch">67fffdd5f827f783e8752ca779a3234d30f26df5c42844c5b2b4a34618d7a0c2  xsa301-4.11-3.patch</a>
+<a href="xsa301-master-1.patch">3dba13afd3449b85215058c596f6a60a255e5a11c6865cbcaa05e9768f535b46  xsa301-master-1.patch</a>
+<a href="xsa301-master-2.patch">dbf952c2333807d5ee0fe4cccb069ddfda87e295c83a43ec46621b486b19f6e8  xsa301-master-2.patch</a>
+<a href="xsa301-master-3.patch">ad544e5e2da130540d5475954b1512fc00743773cad382c4c0451fd91536287d  xsa301-master-3.patch</a>
+$
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches and/or mitigations described above (or
+others which are substantially similar) is permitted during the
+embargo, even on public-facing systems with untrusted guest users and
+administrators.
+
+But: Distribution of updated software is prohibited (except to other
+members of the predisclosure list).
+
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+
+(Note: this during-embargo deployment notice is retained in
+post-embargo publicly released Xen Project advisories, even though it
+is then no longer applicable.  This is to enable the community to have
+oversight of the Xen Project Security Team&#39;s decisionmaking.)
+
+For more information about permissible uses of embargoed information,
+consult the Xen Project community&#39;s agreed Security Policy:
+  <a href="http://www.xenproject.org/security-policy.html">http://www.xenproject.org/security-policy.html</a>
+-----BEGIN PGP SIGNATURE-----
+
+iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAl82wNwMHHBncEB4ZW4u
+b3JnAAoJEIP+FMlX6CvZ6VsIALqvxawxQdO8n0VITQq8g9U/3LIRAxioG1brppX6
+1YNkDqW7D/HSieXa0Q6+/5GjN7uGhRmKibvDjCNBFkknkbAStUsFMWrnpp2ahLDg
+OXWQJJmXQU9jNWXrTdi6+8iQ/EdrLoyPi9wmqc7014p/m0tfSnev6z8jVDMDqX1W
+TW2mmck+UPucTKSVKxT8lJyXaVmf4upAeIh1PIonG05tQWeQeHE7nTj8J0MZcAQ+
+y4VB3s9u4lyNvt6SfT6SvVBcgMtRoh7yNhQ7een7eHt4/Cg++yfOEoa/tgLqaGju
+1cSfWLxsfiey0YGuF2UEgbgbCvjw/T/9SDO7EYyKzF8gAcg=
+=+XTv
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

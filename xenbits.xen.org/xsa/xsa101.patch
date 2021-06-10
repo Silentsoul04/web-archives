@@ -1,0 +1,22 @@
+xen: arm: initialise the grant_table_gpfn array on allocation
+
+Avoids leaking uninitialised memory via the grant table setup hypercall.
+
+This is XSA-101.
+
+Reported-by: Julien Grall <julien.grall@linaro.org>
+Signed-off-by: Ian Campbell <ian.campbell@citrix.com>
+
+diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+index 04d0cd0..28ecb13 100644
+--- a/xen/arch/arm/domain.c
++++ b/xen/arch/arm/domain.c
+@@ -394,7 +394,7 @@ struct domain *alloc_domain_struct(void)
+         return NULL;
+ 
+     clear_page(d);
+-    d->arch.grant_table_gpfn = xmalloc_array(xen_pfn_t, max_nr_grant_frames);
++    d->arch.grant_table_gpfn = xzalloc_array(xen_pfn_t, max_nr_grant_frames);
+     return d;
+ }
+ 

@@ -1,0 +1,76 @@
+Dear all,
+
+We recently detected a security vulnerability that can potentially allow the
+leaking of hypervisor data and guest and dom0 data. The vulnerability only
+affects hypervisors that run with hyperthreading enabled. The vulnerability
+combines two already known vulnerabilities:
+
+1) Spectre V1 (CVE-2017-5753, XSA 254)
+2) L1TF (CVE-2018-3620, CVE-2018-3646, XSA-273)
+
+As both vulnerabilities already have XSAs assigned, and the fix for L1TF is to
+disable hyperthreading, the Xen security team has asked that this issue “should
+be handled in public. there will not be a new XSA for the combined issue.” To
+allow operators of Xen with enabled hyperthreading to take action before we
+disclose the patches, we decided to disclose this information on the XSA embargo
+member list first. We will then disclose the patches publicly on 21st January,
+2019. We do not guarantee that all potential defects are fixed with the patches.
+
+We decided to prepare patches for origin/master of the Xen repository. Another
+commit that has to be backported is provided below. Without this commit, there
+might be more potential vulnerabilities. As you might be running another
+version, we furthermore provide patches to the tool “smatch”[1] under GPLv2.
+These patches allow you to perform a Spectre V1 analysis for Xen. This
+way, you can analyze your version of Xen for potential
+vulnerabilities, potentially allowing you to find more potential
+candidates than were fixed in our first patch set.  Note, the produced
+list of potential vulnerabilities can be incomplete, and might contain
+many false positives.
+
+Best,
+Norbert
+
+Details of the vulnerability:
+In the presence of the L1TF vulnerability, a guest can leak any data that is
+brought into L1 cache. A guest with 2 hyperthreads on the same core can cause
+the hypervisor to access memory in one core, while the other core executes guest
+code the hypervisor cannot control.
+
+There are several ways to speculatively bring data into the L1 cache. First,
+speculation does not stop at privilege checks, so that the whole cache line of
+data accessed close to a privilege check is brought into the cache, even if the
+hypervisor currently serves unprivileged guests. These privilege checks include
+the functions “is_hardware_domain”, “is_control_domain”, as well as Xen Security
+Module (xsm) checks. Next, the trivial part of the Spectre V1 can be combined
+with L1TF to leak even more data. The Spectre V1 attack required two parts: (1)
+a load gadget, which loads potential secrets into the cache, and (2) a leak
+gadget that makes the values of this secret available via a side channel. When
+combining Spectre V1's load gadget (1) with L1TF's leak ability, any speculative
+out-of-bound memory access becomes a potential vulnerability, especially, in
+case the index for the out-of-bound operation is guest controlled.
+
+This patch series addresses several of these issues, focusing on blocking
+speculative out-of-bound accesses, as well as blocking loading hypervisor and
+dom0 secrets into the L1 cache under speculation. We do not prevent out-of-bound
+loads that might be caused by loops, because they can usually not be influenced
+by the guest, and typically touch the same cache line that has been used in the
+last valid loop iteration. Finally, the patches focus more on fixing potential
+defects instead of maintaining high performance at all costs.
+
+The issue has been reported by members of the Xen Security Team at Amazon:
+Norbert Manthey, Julian Stecklina, and Pawel Wieczorkiewicz
+
+What is provided in this package:
+1) patches that fix potential SpectreV1+L1TF vulnerabilities
+2) list of potential defects for Xen RELEASE-4.11.1
+3) (non-public) patches for the smatch[1] tool,
+   as well as instructions to analyze Xen with this tool
+
+Additionally to the provided patches, you have to backport the following commit,
+because jump tables can also be used for speculative out-of-bound accesses:
+
+ 2276da0db9b0f111e1a8f41dd707c6bd1dea9a7d
+ "retpoline: disable jump tables"
+
+
+[1] smatch: https://repo.or.cz/w/smatch.git https://lwn.net/Articles/691882/

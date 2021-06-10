@@ -1,0 +1,119 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-264 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-264.html">XSA-264</a></td></tr><tr><th>Public release</th> <td>2018-06-27 20:06</td></tr><tr><th>Updated</th> <td>2018-06-27 20:06</td></tr><tr><th>Version</th> <td>3</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-12891">CVE-2018-12891</a></td></tr><tr><th>Title</th> <td>preemption checks bypassed in x86 PV MM handling</td></tr></table><h1>Files</h1><a href="advisory-264.txt">advisory-264.txt</a> (signed advisory file)<br /><a href="xsa264.patch">xsa264.patch</a><br /><a href="xsa264-4.10.patch">xsa264-4.10.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+            Xen Security Advisory CVE-2018-12891 / XSA-264
+                               version 3
+
+           preemption checks bypassed in x86 PV MM handling
+
+UPDATES IN VERSION 3
+====================
+
+Public release.
+
+ISSUE DESCRIPTION
+=================
+
+Certain PV MMU operations may take a long time to process.  For that
+reason Xen explicitly checks for the need to preempt the current vCPU at
+certain points.  A few rarely taken code paths did bypass such checks.
+By suitably enforcing the conditions through its own page table
+contents, a malicious guest may cause such bypasses to be used for an
+unbounded number of iterations.
+
+IMPACT
+======
+
+A malicious or buggy PV guest may cause a Denial of Service (DoS)
+affecting the entire host.  Specifically, it may prevent use of a
+physical CPU for an indeterminate period of time.
+
+VULNERABLE SYSTEMS
+==================
+
+All Xen versions from 3.4 onwards are vulnerable.  Xen versions 3.3 and
+earlier are vulnerable to an even wider class of attacks, due to them
+lacking preemption checks altogether in the affected code paths.
+
+Only x86 systems are affected.  ARM systems are not affected.
+
+Only multi-vCPU x86 PV guests can leverage the vulnerability.  x86 HVM
+or PVH guests as well as x86 single-vCPU PV ones cannot leverage the
+vulnerability.
+
+MITIGATION
+==========
+
+Running only HVM, PVH, or single-vCPU PV guests will avoid this
+vulnerability.
+
+For PV guests, the vulnerability can be avoided if the guest kernel is
+controlled by the host rather than guest administrator, provided that
+further steps are taken to prevent the guest administrator from loading
+code into the kernel (e.g. by disabling loadable modules etc) or from
+using other mechanisms which allow them to run code at kernel privilege.
+
+CREDITS
+=======
+
+This issue was discovered by Jan Beulich of SUSE.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+xsa264.patch           xen-unstable
+xsa264-4.10.patch      Xen 4.10.x ... 4.6.x
+
+$ sha256sum xsa264*
+<a href="xsa264.patch">a7d2edf219af3375ac0d49bff9e64628c70e704fcf131ea21684694517aa9210  xsa264.patch</a>
+<a href="xsa264-4.10.patch">66aca234b168abc01f28fe131b7e07645a73fd5d0f1d141d68343f31914d96cc  xsa264-4.10.patch</a>
+$
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches and/or mitigations described above (or
+others which are substantially similar) is permitted during the
+embargo, even on public-facing systems with untrusted guest users and
+administrators.
+
+But: Distribution of updated software is prohibited (except to other
+members of the predisclosure list).
+
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+
+(Note: this during-embargo deployment notice is retained in
+post-embargo publicly released Xen Project advisories, even though it
+is then no longer applicable.  This is to enable the community to have
+oversight of the Xen Project Security Team&#39;s decisionmaking.)
+
+For more information about permissible uses of embargoed information,
+consult the Xen Project community&#39;s agreed Security Policy:
+  <a href="http://www.xenproject.org/security-policy.html">http://www.xenproject.org/security-policy.html</a>
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQEcBAEBCAAGBQJbM+5GAAoJEIP+FMlX6CvZy7cIALkEoEQnHw5O8vYC5KpDA24X
+P320Gh0OppT2qtQfKtAF7MaCc7VF9Tnhf3CrtNtolXMryM4vrh7KyOn8wk7jbRBy
+tp28e6ppO8ons9x1kBAmAZrno8LXwOa2t22hQpUv1mYksRkZotViAXS72t4HkOVl
+SEQVVLElWAIfPbGJwtu1/qgS8dCckA2MeLeN/dKHRm8gD63XsYt37nQnBa2iraKX
+yN5sdih+WLgXCf55mubFlQfE6+7qgn27khZpMeJAwGk6N+Rz/Q3q1zSFX9YB+P6d
+9ppgoRFVxYpekwtCrLkVLxSAoEwCKi6sdYFnvIngHIMlLiVHjNsLd5YKTAsZcEE=
+=zTq5
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

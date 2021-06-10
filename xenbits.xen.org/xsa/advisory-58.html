@@ -1,0 +1,84 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-58 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-58.html">XSA-58</a></td></tr><tr><th>Public release</th> <td>2013-06-26 12:00</td></tr><tr><th>Updated</th> <td>2013-06-26 13:18</td></tr><tr><th>Version</th> <td>2</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-1432">CVE-2013-1432</a></td></tr><tr><th>Title</th> <td>Page reference counting error due to XSA-45/CVE-2013-1918 fixes</td></tr></table><h1>Files</h1><a href="advisory-58.txt">advisory-58.txt</a> (signed advisory file)<br /><a href="xsa58-4.1.patch">xsa58-4.1.patch</a><br /><a href="xsa58-4.2.patch">xsa58-4.2.patch</a><br /><a href="xsa58-unstable.patch">xsa58-unstable.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+             Xen Security Advisory CVE-2013-1432 / XSA-58
+                            version 2
+
+        Page reference counting error due to XSA-45/CVE-2013-1918 fixes
+
+UPDATES IN VERSION 2
+====================
+
+Public release.  Credits section added.
+
+ISSUE DESCRIPTION
+=================
+
+The XSA-45/CVE-2013-1918 patch making error handling paths preemptible broke
+page reference counting by not retaining a reference on pages stored for
+deferred cleanup. This would lead to the hypervisor prematurely attempting to
+free the page, generally crashing upon finding the page still in use.
+
+CREDITS
+=======
+
+Thanks to Andrew Cooper and the Citrix XenServer team for discovering
+and reporting this vulnerability, and helping investigate it.
+
+IMPACT
+======
+
+Malicious or buggy PV guest kernels can mount a denial of service attack
+affecting the whole system. It can&#39;t be excluded that this could also be
+exploited to mount a privilege escalation attack.
+
+VULNERABLE SYSTEMS
+==================
+
+All Xen versions having the XSA-45/CVE-2013-1918 fixes applied are vulnerable.
+
+The vulnerability is only exposed by PV guests.
+
+MITIGATION
+==========
+
+Running only HVM guests, or PV guests with trusted kernels, will avoid this
+vulnerability.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+xsa58-4.1.patch             Xen 4.1.x
+xsa58-4.2.patch             Xen 4.2.x
+xsa58-unstable.patch        xen-unstable
+
+$ sha256sum xsa58*.patch
+<a href="xsa58-4.1.patch">3623ec87e5a2830f0d41de19a8e448d618954973c3264727a1f3a095f15a8641  xsa58-4.1.patch</a>
+<a href="xsa58-4.2.patch">194d6610fc38b767d643e5d58a1268f45921fb35e309b47aca6a388b861311c2  xsa58-4.2.patch</a>
+<a href="xsa58-unstable.patch">2c94b099d7144d03c0f7f44e892a521537fc040d11bc46f84a2438eece46a0f5  xsa58-unstable.patch</a>
+$
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.10 (GNU/Linux)
+
+iQEcBAEBAgAGBQJRyuoNAAoJEIP+FMlX6CvZY3EH/04uBhD797FdBhCRkq/y1ACc
+Dvg1BRZ4lHkURDp97gD4Fdyf95Lw4qtniYBq8H/kpVPWJgN7+Dmj8uoluWhOI62Y
+Q7a97CZ3O39VcuNRQnZG8c6dduGwMTzbJMkftG0CcltygAxVVRU4uHSG4+MHQ5PZ
+N1xauljWrbw49iZz0shxZv4BA/1MQyuyZGFIpOaYoom0vV67pfrQJ2kgCMDUctmq
+WXNkVcOiS7lwS/+++goPIboSEy6UJCIVrhZmL7GhbNfiznlOFVgExMttQRcUDi/D
+4SS4ghl3IyB34TwoX1P7TPEeHGbfonObGpzBQNduBIJDM32nqO7P8097XG0j0Tw=
+=aw1s
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

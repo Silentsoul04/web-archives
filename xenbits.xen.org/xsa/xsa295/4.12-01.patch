@@ -1,0 +1,99 @@
+From 00617d5cc62d2bf4d02493aeafad14cca4e09a66 Mon Sep 17 00:00:00 2001
+From: Jan Beulich <jbeulich@suse.com>
+Date: Tue, 12 Mar 2019 14:40:24 +0100
+Subject: [PATCH v2 4.12 01/17] events: drop arch_evtchn_inject()
+
+Have the only user call vcpu_mark_events_pending() instead, at the same
+time arranging for correct ordering of the writes (evtchn_pending_sel
+should be written before evtchn_upcall_pending).
+
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Reviewed-by: Julien Grall <julien.grall@arm.com>
+---
+ xen/arch/arm/vgic.c      | 5 -----
+ xen/arch/arm/vgic/vgic.c | 5 -----
+ xen/arch/x86/irq.c       | 6 ------
+ xen/common/domain.c      | 3 +--
+ xen/include/xen/event.h  | 3 ---
+ 5 files changed, 1 insertion(+), 21 deletions(-)
+
+diff --git a/xen/arch/arm/vgic.c b/xen/arch/arm/vgic.c
+index f2608b042d..19d8c9b876 100644
+--- a/xen/arch/arm/vgic.c
++++ b/xen/arch/arm/vgic.c
+@@ -597,11 +597,6 @@ out:
+     return;
+ }
+ 
+-void arch_evtchn_inject(struct vcpu *v)
+-{
+-    vgic_inject_irq(v->domain, v, v->domain->arch.evtchn_irq, true);
+-}
+-
+ bool vgic_evtchn_irq_pending(struct vcpu *v)
+ {
+     struct pending_irq *p;
+diff --git a/xen/arch/arm/vgic/vgic.c b/xen/arch/arm/vgic/vgic.c
+index e2844dcc20..f0f2ea5021 100644
+--- a/xen/arch/arm/vgic/vgic.c
++++ b/xen/arch/arm/vgic/vgic.c
+@@ -692,11 +692,6 @@ void vgic_kick_vcpus(struct domain *d)
+     }
+ }
+ 
+-void arch_evtchn_inject(struct vcpu *v)
+-{
+-    vgic_inject_irq(v->domain, v, v->domain->arch.evtchn_irq, true);
+-}
+-
+ bool vgic_evtchn_irq_pending(struct vcpu *v)
+ {
+     struct vgic_irq *irq;
+diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
+index 23b4f423e6..8511953977 100644
+--- a/xen/arch/x86/irq.c
++++ b/xen/arch/x86/irq.c
+@@ -2724,9 +2724,3 @@ int allocate_and_map_msi_pirq(struct domain *d, int index, int *pirq_p,
+ 
+     return ret;
+ }
+-
+-void arch_evtchn_inject(struct vcpu *v)
+-{
+-    if ( is_hvm_vcpu(v) )
+-        hvm_assert_evtchn_irq(v);
+-}
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index 32bca8dbf2..0542338862 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -1306,10 +1306,9 @@ int map_vcpu_info(struct vcpu *v, unsigned long gfn, unsigned offset)
+      * Mark everything as being pending just to make sure nothing gets
+      * lost.  The domain will get a spurious event, but it can cope.
+      */
+-    vcpu_info(v, evtchn_upcall_pending) = 1;
+     for ( i = 0; i < BITS_PER_EVTCHN_WORD(d); i++ )
+         set_bit(i, &vcpu_info(v, evtchn_pending_sel));
+-    arch_evtchn_inject(v);
++    vcpu_mark_events_pending(v);
+ 
+     return 0;
+ }
+diff --git a/xen/include/xen/event.h b/xen/include/xen/event.h
+index e91097d77e..a7798f6765 100644
+--- a/xen/include/xen/event.h
++++ b/xen/include/xen/event.h
+@@ -91,9 +91,6 @@ int guest_enabled_event(struct vcpu *v, uint32_t virq);
+ /* Notify remote end of a Xen-attached event channel.*/
+ void notify_via_xen_event_channel(struct domain *ld, int lport);
+ 
+-/* Inject an event channel notification into the guest */
+-void arch_evtchn_inject(struct vcpu *v);
+-
+ /*
+  * Internal event channel object storage.
+  *
+-- 
+2.17.1
+

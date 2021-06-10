@@ -1,0 +1,199 @@
+From 6d62d6b73420d8e939595ddc7c804734f5e36b56 Mon Sep 17 00:00:00 2001
+From: Julien Grall <julien.grall@arm.com>
+Date: Mon, 29 Apr 2019 15:05:30 +0100
+Subject: [PATCH 15/15] xen/arm: grant-table: Protect gnttab_clear_flag against
+ guest misbehavior
+
+The function gnttab_clear_flag is used to clear the access flags. On
+Arm, it is implemented using a loop and guest_cmpxchg.
+
+It is possible that guest_cmpxchg will always return a different value
+than old. This can happen if the guest updated the memory before Xen has
+time to do the exchange. Because of that, there are no way for to
+promise the loop will end.
+
+It is possible to make the current code safe by re-using the same
+principle as applied on the guest atomic helper. However this patch
+takes a different approach that should lead to more efficient code in
+the default case.
+
+A new helper is introduced to clear a set of bits on a 16-bits word.
+This should avoid a an extra loop to check cmpxchg succeeded.
+
+Note that a mask is used instead of a bit, so the helper can be re-used
+later on for clearing multiple flags at the same time.
+
+This is part of XSA-295.
+
+Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Julien Grall <julien.grall@arm.com>
+Signed-off-by: Stefano Stabellini <stefanos@xilinx.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+---
+ xen/arch/arm/arm32/lib/bitops.c     | 35 +++++++++++++++++++++++++++++++++++
+ xen/arch/arm/arm64/lib/bitops.c     | 33 +++++++++++++++++++++++++++++++++
+ xen/arch/arm/mm.c                   | 10 +---------
+ xen/include/asm-arm/bitops.h        |  4 ++++
+ xen/include/asm-arm/guest_atomics.h | 13 +++++++++++++
+ 5 files changed, 86 insertions(+), 9 deletions(-)
+
+diff --git a/xen/arch/arm/arm32/lib/bitops.c b/xen/arch/arm/arm32/lib/bitops.c
+index 08750314fc..3dca769bf0 100644
+--- a/xen/arch/arm/arm32/lib/bitops.c
++++ b/xen/arch/arm/arm32/lib/bitops.c
+@@ -126,6 +126,41 @@ testop(test_and_change_bit, eor)
+ testop(test_and_clear_bit, bic)
+ testop(test_and_set_bit, orr)
+ 
++static always_inline bool int_clear_mask16(uint16_t mask, volatile uint16_t *p,
++                                           bool timeout, unsigned int max_try)
++{
++    unsigned long res, tmp;
++
++    prefetchw((const uint16_t *)p);
++
++    do
++    {
++        asm volatile ("// int_clear_mask16\n"
++        "   ldrexh  %2, %1\n"
++        "   bic     %2, %2, %3\n"
++        "   strexh  %0, %2, %1\n"
++        : "=&r" (res), "+Qo" (*p), "=&r" (tmp)
++        : "r" (mask));
++
++        if ( !res )
++            break;
++    } while ( !timeout || ((--max_try) > 0) );
++
++    return !res;
++}
++
++void clear_mask16(uint16_t mask, volatile void *p)
++{
++    if ( !int_clear_mask16(mask, p, false, 0) )
++        ASSERT_UNREACHABLE();
++}
++
++bool clear_mask16_timeout(uint16_t mask, volatile void *p,
++                          unsigned int max_try)
++{
++    return int_clear_mask16(mask, p, true, max_try);
++}
++
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/xen/arch/arm/arm64/lib/bitops.c b/xen/arch/arm/arm64/lib/bitops.c
+index 78bf4ed8c5..27688e5418 100644
+--- a/xen/arch/arm/arm64/lib/bitops.c
++++ b/xen/arch/arm/arm64/lib/bitops.c
+@@ -118,6 +118,39 @@ testop(test_and_change_bit, eor)
+ testop(test_and_clear_bit, bic)
+ testop(test_and_set_bit, orr)
+ 
++static always_inline bool int_clear_mask16(uint16_t mask, volatile uint16_t *p,
++                                           bool timeout, unsigned int max_try)
++{
++    unsigned long res, tmp;
++
++    do
++    {
++        asm volatile ("//  int_clear_mask16\n"
++        "   ldxrh   %w2, %1\n"
++        "   bic     %w2, %w2, %w3\n"
++        "   stxrh   %w0, %w2, %1\n"
++        : "=&r" (res), "+Q" (*p), "=&r" (tmp)
++        : "r" (mask));
++
++        if ( !res )
++            break;
++    } while ( !timeout || ((--max_try) > 0) );
++
++    return !res;
++}
++
++void clear_mask16(uint16_t mask, volatile void *p)
++{
++    if ( !int_clear_mask16(mask, p, false, 0) )
++        ASSERT_UNREACHABLE();
++}
++
++bool clear_mask16_timeout(uint16_t mask, volatile void *p,
++                          unsigned int max_try)
++{
++    return int_clear_mask16(mask, p, true, max_try);
++}
++
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+index dca972c0b8..e40fa7f599 100644
+--- a/xen/arch/arm/mm.c
++++ b/xen/arch/arm/mm.c
+@@ -1375,15 +1375,7 @@ void put_page_type(struct page_info *page)
+ 
+ void gnttab_clear_flag(struct domain *d, unsigned long nr, uint16_t *addr)
+ {
+-    /*
+-     * Note that this cannot be clear_bit(), as the access must be
+-     * confined to the specified 2 bytes.
+-     */
+-    uint16_t mask = ~(1 << nr), old;
+-
+-    do {
+-        old = *addr;
+-    } while (guest_cmpxchg(d, addr, old, old & mask) != old);
++    guest_clear_mask16(d, BIT(nr, UL), addr);
+ }
+ 
+ void gnttab_mark_dirty(struct domain *d, mfn_t mfn)
+diff --git a/xen/include/asm-arm/bitops.h b/xen/include/asm-arm/bitops.h
+index 1919f50845..fbb4b82413 100644
+--- a/xen/include/asm-arm/bitops.h
++++ b/xen/include/asm-arm/bitops.h
+@@ -51,6 +51,8 @@ int test_and_set_bit(int nr, volatile void *p);
+ int test_and_clear_bit(int nr, volatile void *p);
+ int test_and_change_bit(int nr, volatile void *p);
+ 
++void clear_mask16(uint16_t mask, volatile void *p);
++
+ /*
+  * The helpers below may fail to update the memory if the action takes
+  * too long.
+@@ -69,6 +71,8 @@ bool test_and_clear_bit_timeout(int nr, volatile void *p,
+                                 int *oldbit, unsigned int max_try);
+ bool test_and_change_bit_timeout(int nr, volatile void *p,
+                                  int *oldbit, unsigned int max_try);
++bool clear_mask16_timeout(uint16_t mask, volatile void *p,
++                          unsigned int max_try);
+ 
+ /**
+  * __test_and_set_bit - Set a bit and return its old value
+diff --git a/xen/include/asm-arm/guest_atomics.h b/xen/include/asm-arm/guest_atomics.h
+index 698508bf87..af27cc627b 100644
+--- a/xen/include/asm-arm/guest_atomics.h
++++ b/xen/include/asm-arm/guest_atomics.h
+@@ -73,6 +73,19 @@ guest_testop(test_and_change_bit)
+ 
+ #undef guest_testop
+ 
++static inline void guest_clear_mask16(struct domain *d, uint16_t mask,
++                                      volatile uint16_t *p)
++{
++    perfc_incr(atomics_guest);
++
++    if ( clear_mask16_timeout(mask, p, this_cpu(guest_safe_atomic_max)) )
++        return;
++
++    domain_pause_nosync(d);
++    clear_mask16(mask, p);
++    domain_unpause(d);
++}
++
+ static inline unsigned long __guest_cmpxchg(struct domain *d,
+                                             volatile void *ptr,
+                                             unsigned long old,
+-- 
+2.11.0
+

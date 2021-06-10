@@ -1,0 +1,133 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-166 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-166.html">XSA-166</a></td></tr><tr><th>Public release</th> <td>2015-12-17 12:00</td></tr><tr><th>Updated</th> <td>2015-12-17 12:38</td></tr><tr><th>Version</th> <td>2</td></tr><tr><th>CVE(s)</th> <td>none (yet) assigned</td></tr><tr><th>Title</th> <td>ioreq handling possibly susceptible to multiple read issue</td></tr></table><h1>Files</h1><a href="advisory-166.txt">advisory-166.txt</a> (signed advisory file)<br /><a href="xsa166.patch">xsa166.patch</a><br /><a href="xsa166-4.3.patch">xsa166-4.3.patch</a><br /><a href="xsa166-4.4.patch">xsa166-4.4.patch</a><br /><a href="xsa166-4.5.patch">xsa166-4.5.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+                    Xen Security Advisory XSA-166
+                              version 2
+
+      ioreq handling possibly susceptible to multiple read issue
+
+UPDATES IN VERSION 2
+====================
+
+Public release.
+
+ISSUE DESCRIPTION
+=================
+
+Single memory accesses in source code can be translated to multiple
+ones in machine code by the compiler, requiring special caution when
+accessing shared memory.  Such precaution was missing from the
+hypervisor code inspecting the state of I/O requests sent to the device
+model for assistance.
+
+Due to the offending field being a bitfield, it is however believed
+that there is no issue in practice, since compilers, at least when
+optimizing (which is always the case for non-debug builds), should find
+it more expensive to extract the bit field value twice than to keep the
+calculated value in a register.
+
+IMPACT
+======
+
+This vulnerability is exposed to malicious device models.  In
+conventional Xen systems this means the qemu which service an HVM
+domain.  On such systems this vulnerability can only be exploited if
+the attacker has gained control of the device model qemu via another
+vulnerability.
+
+Privilege escalation, host crash (Denial of Service), and leaked
+information all cannot be excluded.
+
+VULNERABLE SYSTEMS
+==================
+
+All Xen versions are affected.
+
+Only x86 variants of Xen are susceptible.  ARM variants are not
+affected.
+
+Only HVM guests expose this vulnerability.
+
+MITIGATION
+==========
+
+Running only PV guests will avoid this issue.
+
+CREDITS
+=======
+
+This issue was discovered by Konrad Rzeszutek Wilk of Oracle and Jan
+Beulich of SUSE while investigating the issues arising from XSA-155.
+XSA-155 was discovered by Felix Wilhelm of ERNW.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+xsa166.patch           xen-unstable, Xen 4.6.x
+xsa166-4.5.patch       Xen 4.5.x
+xsa166-4.4.patch       Xen 4.4.x
+xsa166-4.3.patch       Xen 4.3.x
+
+$ sha256sum xsa166*
+<a href="xsa166.patch">740a28a69524e966ab77f9f5e45067aa7ba2d32ea69b1d3c4b9bf0c86212ad0a  xsa166.patch</a>
+<a href="xsa166-4.3.patch">109a9eb132d712a56a7ca81214fff3952868a39206eb34f66f5b2265e680b9fc  xsa166-4.3.patch</a>
+<a href="xsa166-4.4.patch">d63261ca2d40e2723a4f3c94665cc120e0ea488200eebb08c7aa07e1c1a35d42  xsa166-4.4.patch</a>
+<a href="xsa166-4.5.patch">d5dddce37c644d35ef52ff7230f83bf0969b6b4db9b586241f5f5bd0dc631096  xsa166-4.5.patch</a>
+$
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches and/or mitigations described above (or
+others which are substantially similar) is permitted during the
+embargo, even on public-facing systems with untrusted guest users and
+administrators.
+
+But: Distribution of updated software is prohibited (except to other
+members of the predisclosure list).
+
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+
+
+(Note: this during-embargo deployment notice is retained in
+post-embargo publicly released Xen Project advisories, even though it
+is then no longer applicable.  This is to enable the community to have
+oversight of the Xen Project Security Team&#39;s decisionmaking.)
+
+For more information about permissible uses of embargoed information,
+consult the Xen Project community&#39;s agreed Security Policy:
+  <a href="http://www.xenproject.org/security-policy.html">http://www.xenproject.org/security-policy.html</a>
+
+NOTE REGARDING SHORT EMBARGO
+============================
+
+This issue was encountered by the Security Team during investigations
+of the scope and impact of XSA-155.  Accordingly XSA-166 is embargoed
+and the embargo will end at the same time as that of XSA-155.
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.12 (GNU/Linux)
+
+iQEcBAEBAgAGBQJWcqzCAAoJEIP+FMlX6CvZPRIIAIkXhtZYi1ro+T74PMote55o
+npXKgR9tvXOokj3O1IsYfzHQnOiX3kQmmGmSXg5Hh/sYxAQIgqn2f9Zf/K+6gx8j
+Rd+0QrbhekG7+uA3TrGNtNdBDPevAcKE2xkzGZ7OZknE7Ch9WKua3VtjlY0pG9jr
+8PUPE/NZ//MSd9Ds2uPB6G2zaoqFG6oGMgqdYs3zwLM52FR1/VlTzKLZ7sh3mPeK
+rPO1f1Agn7mFVnSbO0EkAYx++Mr3rv/w2M1qnK0cQk6T9l6Cg6qKzdV+iTV95CNo
+QxWLsm26c4YsRPIU1gBgHoPxi8hGwZThInSY8j8MH0Ed1xV3bPm1HqirrafpHHA=
+=Fovo
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

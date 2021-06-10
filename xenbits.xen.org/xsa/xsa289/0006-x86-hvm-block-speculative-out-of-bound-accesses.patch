@@ -1,0 +1,96 @@
+From f6b5b961aefe6f163cacd27ae5f3b117e069dc0c Mon Sep 17 00:00:00 2001
+From: Norbert Manthey <nmanthey@amazon.de>
+Subject: [PATCH SpectreV1+L1TF 06/13] x86/hvm: block speculative out-of-bound
+ accesses
+
+There are multiple arrays in the HVM interface that are accessed
+with indices that are provided by the guest. To avoid out of bound
+accesses, we use the array_index_nospec macro.
+
+Signed-off-by: Norbert Manthey <nmanthey@amazon.de>
+
+---
+ xen/arch/x86/hvm/hvm.c | 21 ++++++++++++++-------
+ 1 file changed, 14 insertions(+), 7 deletions(-)
+
+diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -2096,7 +2096,7 @@ int hvm_mov_from_cr(unsigned int cr, unsigned int gpr)
+     case 2:
+     case 3:
+     case 4:
+-        val = curr->arch.hvm.guest_cr[cr];
++        val = array_access_nospec(curr->arch.hvm.guest_cr, cr);
+         break;
+     case 8:
+         val = (vlapic_get_reg(vcpu_vlapic(curr), APIC_TASKPRI) & 0xf0) >> 4;
+@@ -3446,13 +3446,15 @@ int hvm_msr_read_intercept(unsigned int msr, uint64_t *msr_content)
+         if ( !d->arch.cpuid->basic.mtrr )
+             goto gp_fault;
+         index = msr - MSR_MTRRfix16K_80000;
+-        *msr_content = fixed_range_base[index + 1];
++        *msr_content = fixed_range_base[array_index_nospec(index + 1,
++                                                           NUM_FIXED_RANGES)];
+         break;
+     case MSR_MTRRfix4K_C0000...MSR_MTRRfix4K_F8000:
+         if ( !d->arch.cpuid->basic.mtrr )
+             goto gp_fault;
+         index = msr - MSR_MTRRfix4K_C0000;
+-        *msr_content = fixed_range_base[index + 3];
++        *msr_content = fixed_range_base[array_index_nospec(index + 3,
++                                                           NUM_FIXED_RANGES)];
+         break;
+     case MSR_IA32_MTRR_PHYSBASE(0)...MSR_IA32_MTRR_PHYSMASK(MTRR_VCNT_MAX - 1):
+         if ( !d->arch.cpuid->basic.mtrr )
+@@ -3461,7 +3463,8 @@ int hvm_msr_read_intercept(unsigned int msr, uint64_t *msr_content)
+         if ( (index / 2) >=
+              MASK_EXTR(v->arch.hvm.mtrr.mtrr_cap, MTRRcap_VCNT) )
+             goto gp_fault;
+-        *msr_content = var_range_base[index];
++        *msr_content = var_range_base[array_index_nospec(index,
++                                                         NUM_FIXED_RANGES)];
+         break;
+ 
+     case MSR_IA32_XSS:
+@@ -4156,7 +4159,8 @@ static int hvmop_set_param(
+          */
+         if ( !paging_mode_hap(d) || !cpu_has_vmx )
+         {
+-            d->arch.hvm.params[a.index] = a.value;
++            d->arch.hvm.params[array_index_nospec(a.index,
++                                                  HVM_NR_PARAMS)] = a.value;
+             break;
+         }
+ 
+@@ -4171,7 +4175,8 @@ static int hvmop_set_param(
+ 
+         rc = 0;
+         domain_pause(d);
+-        d->arch.hvm.params[a.index] = a.value;
++        d->arch.hvm.params[array_index_nospec(a.index,
++                                              HVM_NR_PARAMS)] = a.value;
+         for_each_vcpu ( d, v )
+             paging_update_cr3(v, false);
+         domain_unpause(d);
+@@ -4326,7 +4331,7 @@ static int hvmop_set_param(
+     if ( rc != 0 )
+         goto out;
+ 
+-    d->arch.hvm.params[a.index] = a.value;
++    d->arch.hvm.params[array_index_nospec(a.index, HVM_NR_PARAMS)] = a.value;
+ 
+     HVM_DBG_LOG(DBG_LEVEL_HCALL, "set param %u = %"PRIx64,
+                 a.index, a.value);
+@@ -4420,6 +4425,8 @@ static int hvmop_get_param(
+         break;
+     default:
+         a.value = d->arch.hvm.params[a.index];
++        a.value = d->arch.hvm.params[array_index_nospec(a.index,
++                                                        HVM_NR_PARAMS)];
+         break;
+     }
+ 
+-- 
+2.7.4
+

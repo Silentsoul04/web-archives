@@ -1,0 +1,45 @@
+From a62cdd675bc6a8053f6797b6add29b2853b081e3 Mon Sep 17 00:00:00 2001
+From: Ian Jackson <ian.jackson@eu.citrix.com>
+Date: Wed, 19 Aug 2020 18:31:45 +0100
+Subject: [PATCH] SUPPORT.md: Desupport qemu trad except stub dm
+
+While investigating XSA-335 we discovered that many upstream security
+fixes were missing.  It is not practical to backport them.  There is
+no good reason to be running this very ancient version of qemu, except
+that it is the only way to run a stub dm which is currently supported
+by upstream.
+
+Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
+---
+ SUPPORT.md | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/SUPPORT.md b/SUPPORT.md
+index 1479055c45..b0939052e2 100644
+--- a/SUPPORT.md
++++ b/SUPPORT.md
+@@ -758,7 +758,21 @@ See the section **Blkback** for image formats supported by QEMU.
+ 
+     Status: Supported, not security supported
+ 
++### qemu-xen-traditional ###
++
++The Xen Project provides an old version of qemu with modifications
++which enable use as a device model stub domain.  The old version is
++normally selected by default only in a stub dm configuration, but it
++can be requested explicitly in other configurations, for example in
++`xl` with `device_model_version="QEMU_XEN_TRADITIONAL"`.
++
++    Status, Device Model Stub Domains: Supported, with caveats
++    Status, as host process device model: No security support, not recommended
++
++qemu-xen-traditional is security supported only for those available
++devices which are supported for mainstream QEMU (see above), with
++trusted driver domains (see Device Model Stub Domains).
++
+ ## Virtual Firmware
+ 
+ ### x86/HVM iPXE
+-- 
+2.20.1
+

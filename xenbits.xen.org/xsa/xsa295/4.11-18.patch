@@ -1,0 +1,577 @@
+From 0689672212e95d65d2dd574c1fb620d3b88073cc Mon Sep 17 00:00:00 2001
+From: Julien Grall <julien.grall@arm.com>
+Date: Mon, 29 Apr 2019 15:05:28 +0100
+Subject: [PATCH v2 4.11 18/20] xen: Use guest atomics helpers when modifying
+ atomically guest memory
+
+On Arm, exclusive load-store atomics should only be used between trusted
+thread. As not all the guests are trusted, it may be possible to DoS Xen
+when updating shared memory with guest atomically.
+
+This patch replaces all the atomics operations on shared memory with
+a guest by the new guest atomics helpers. The x86 code was not audited
+to know where guest atomics helpers could be used. I will leave that
+to the x86 folks.
+
+Note that some rework was required in order to plumb use the new guest
+atomics in event channel and grant-table.
+
+Because guest_test_bit is ignoring the parameter "d" for now, it
+means there a lot of places do not need to drop the const. We may want
+to revisit this in the future if the parameter "d" becomes necessary.
+
+This is part of XSA-295.
+
+Signed-off-by: Julien Grall <julien.grall@arm.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+---
+ xen/arch/arm/domain.c             |  3 +-
+ xen/arch/arm/mm.c                 |  6 ++--
+ xen/common/event_2l.c             | 26 ++++++++------
+ xen/common/event_fifo.c           | 44 ++++++++++++-----------
+ xen/common/grant_table.c          | 59 +++++++++++++++++--------------
+ xen/include/asm-arm/grant_table.h |  2 +-
+ xen/include/asm-x86/grant_table.h |  3 +-
+ 7 files changed, 79 insertions(+), 64 deletions(-)
+
+diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+index ec0f042bf7..112a146fd9 100644
+--- a/xen/arch/arm/domain.c
++++ b/xen/arch/arm/domain.c
+@@ -26,6 +26,7 @@
+ #include <asm/event.h>
+ #include <asm/gic.h>
+ #include <asm/guest_access.h>
++#include <asm/guest_atomics.h>
+ #include <asm/irq.h>
+ #include <asm/p2m.h>
+ #include <asm/platform.h>
+@@ -961,7 +962,7 @@ void arch_dump_vcpu_info(struct vcpu *v)
+ 
+ void vcpu_mark_events_pending(struct vcpu *v)
+ {
+-    int already_pending = test_and_set_bit(
++    bool already_pending = guest_test_and_set_bit(v->domain,
+         0, (unsigned long *)&vcpu_info(v, evtchn_upcall_pending));
+ 
+     if ( already_pending )
+diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+index a6de77c28c..6b7e6b675b 100644
+--- a/xen/arch/arm/mm.c
++++ b/xen/arch/arm/mm.c
+@@ -40,6 +40,8 @@
+ #include <xen/pfn.h>
+ #include <xen/sizes.h>
+ #include <xen/libfdt/libfdt.h>
++
++#include <asm/guest_atomics.h>
+ #include <asm/setup.h>
+ 
+ struct domain *dom_xen, *dom_io, *dom_cow;
+@@ -1395,7 +1397,7 @@ void put_page_type(struct page_info *page)
+     return;
+ }
+ 
+-void gnttab_clear_flag(unsigned long nr, uint16_t *addr)
++void gnttab_clear_flag(struct domain *d, unsigned long nr, uint16_t *addr)
+ {
+     /*
+      * Note that this cannot be clear_bit(), as the access must be
+@@ -1405,7 +1407,7 @@ void gnttab_clear_flag(unsigned long nr, uint16_t *addr)
+ 
+     do {
+         old = *addr;
+-    } while (cmpxchg(addr, old, old & mask) != old);
++    } while (guest_cmpxchg(d, addr, old, old & mask) != old);
+ }
+ 
+ void gnttab_mark_dirty(struct domain *d, mfn_t mfn)
+diff --git a/xen/common/event_2l.c b/xen/common/event_2l.c
+index 8ca90899ab..e1dbb860f4 100644
+--- a/xen/common/event_2l.c
++++ b/xen/common/event_2l.c
+@@ -13,6 +13,8 @@
+ #include <xen/sched.h>
+ #include <xen/event.h>
+ 
++#include <asm/guest_atomics.h>
++
+ static void evtchn_2l_set_pending(struct vcpu *v, struct evtchn *evtchn)
+ {
+     struct domain *d = v->domain;
+@@ -25,12 +27,12 @@ static void evtchn_2l_set_pending(struct vcpu *v, struct evtchn *evtchn)
+      * others may require explicit memory barriers.
+      */
+ 
+-    if ( test_and_set_bit(port, &shared_info(d, evtchn_pending)) )
++    if ( guest_test_and_set_bit(d, port, &shared_info(d, evtchn_pending)) )
+         return;
+ 
+-    if ( !test_bit        (port, &shared_info(d, evtchn_mask)) &&
+-         !test_and_set_bit(port / BITS_PER_EVTCHN_WORD(d),
+-                           &vcpu_info(v, evtchn_pending_sel)) )
++    if ( !guest_test_bit(d, port, &shared_info(d, evtchn_mask)) &&
++         !guest_test_and_set_bit(d, port / BITS_PER_EVTCHN_WORD(d),
++                                 &vcpu_info(v, evtchn_pending_sel)) )
+     {
+         vcpu_mark_events_pending(v);
+     }
+@@ -40,7 +42,7 @@ static void evtchn_2l_set_pending(struct vcpu *v, struct evtchn *evtchn)
+ 
+ static void evtchn_2l_clear_pending(struct domain *d, struct evtchn *evtchn)
+ {
+-    clear_bit(evtchn->port, &shared_info(d, evtchn_pending));
++    guest_clear_bit(d, evtchn->port, &shared_info(d, evtchn_pending));
+ }
+ 
+ static void evtchn_2l_unmask(struct domain *d, struct evtchn *evtchn)
+@@ -52,10 +54,10 @@ static void evtchn_2l_unmask(struct domain *d, struct evtchn *evtchn)
+      * These operations must happen in strict order. Based on
+      * evtchn_2l_set_pending() above.
+      */
+-    if ( test_and_clear_bit(port, &shared_info(d, evtchn_mask)) &&
+-         test_bit          (port, &shared_info(d, evtchn_pending)) &&
+-         !test_and_set_bit (port / BITS_PER_EVTCHN_WORD(d),
+-                            &vcpu_info(v, evtchn_pending_sel)) )
++    if ( guest_test_and_clear_bit(d, port, &shared_info(d, evtchn_mask)) &&
++         guest_test_bit(d, port, &shared_info(d, evtchn_pending)) &&
++         !guest_test_and_set_bit(d, port / BITS_PER_EVTCHN_WORD(d),
++                                 &vcpu_info(v, evtchn_pending_sel)) )
+     {
+         vcpu_mark_events_pending(v);
+     }
+@@ -66,7 +68,8 @@ static bool evtchn_2l_is_pending(const struct domain *d, evtchn_port_t port)
+     unsigned int max_ports = BITS_PER_EVTCHN_WORD(d) * BITS_PER_EVTCHN_WORD(d);
+ 
+     ASSERT(port < max_ports);
+-    return port < max_ports && test_bit(port, &shared_info(d, evtchn_pending));
++    return (port < max_ports &&
++            guest_test_bit(d, port, &shared_info(d, evtchn_pending)));
+ }
+ 
+ static bool evtchn_2l_is_masked(const struct domain *d, evtchn_port_t port)
+@@ -74,7 +77,8 @@ static bool evtchn_2l_is_masked(const struct domain *d, evtchn_port_t port)
+     unsigned int max_ports = BITS_PER_EVTCHN_WORD(d) * BITS_PER_EVTCHN_WORD(d);
+ 
+     ASSERT(port < max_ports);
+-    return port >= max_ports || test_bit(port, &shared_info(d, evtchn_mask));
++    return (port >= max_ports ||
++            guest_test_bit(d, port, &shared_info(d, evtchn_mask)));
+ }
+ 
+ static void evtchn_2l_print_state(struct domain *d,
+diff --git a/xen/common/event_fifo.c b/xen/common/event_fifo.c
+index c49f446754..3f4c835518 100644
+--- a/xen/common/event_fifo.c
++++ b/xen/common/event_fifo.c
+@@ -17,6 +17,8 @@
+ #include <xen/mm.h>
+ #include <xen/domain_page.h>
+ 
++#include <asm/guest_atomics.h>
++
+ #include <public/event_channel.h>
+ 
+ static inline event_word_t *evtchn_fifo_word_from_port(const struct domain *d,
+@@ -50,7 +52,7 @@ static void evtchn_fifo_init(struct domain *d, struct evtchn *evtchn)
+      * on the wrong VCPU or with an unexpected priority.
+      */
+     word = evtchn_fifo_word_from_port(d, evtchn->port);
+-    if ( word && test_bit(EVTCHN_FIFO_LINKED, word) )
++    if ( word && guest_test_bit(d, EVTCHN_FIFO_LINKED, word) )
+         gdprintk(XENLOG_WARNING, "domain %d, port %d already on a queue\n",
+                  d->domain_id, evtchn->port);
+ }
+@@ -115,7 +117,7 @@ static int try_set_link(event_word_t *word, event_word_t *w, uint32_t link)
+  * We block unmasking by the guest by marking the tail word as BUSY,
+  * therefore, the cmpxchg() may fail at most 4 times.
+  */
+-static bool_t evtchn_fifo_set_link(const struct domain *d, event_word_t *word,
++static bool_t evtchn_fifo_set_link(struct domain *d, event_word_t *word,
+                                    uint32_t link)
+ {
+     event_word_t w;
+@@ -129,7 +131,7 @@ static bool_t evtchn_fifo_set_link(const struct domain *d, event_word_t *word,
+         return ret;
+ 
+     /* Lock the word to prevent guest unmasking. */
+-    set_bit(EVTCHN_FIFO_BUSY, word);
++    guest_set_bit(d, EVTCHN_FIFO_BUSY, word);
+ 
+     w = read_atomic(word);
+ 
+@@ -139,13 +141,13 @@ static bool_t evtchn_fifo_set_link(const struct domain *d, event_word_t *word,
+         if ( ret >= 0 )
+         {
+             if ( ret == 0 )
+-                clear_bit(EVTCHN_FIFO_BUSY, word);
++                guest_clear_bit(d, EVTCHN_FIFO_BUSY, word);
+             return ret;
+         }
+     }
+     gdprintk(XENLOG_WARNING, "domain %d, port %d not linked\n",
+              d->domain_id, link);
+-    clear_bit(EVTCHN_FIFO_BUSY, word);
++    guest_clear_bit(d, EVTCHN_FIFO_BUSY, word);
+     return 1;
+ }
+ 
+@@ -170,13 +172,13 @@ static void evtchn_fifo_set_pending(struct vcpu *v, struct evtchn *evtchn)
+         return;
+     }
+ 
+-    was_pending = test_and_set_bit(EVTCHN_FIFO_PENDING, word);
++    was_pending = guest_test_and_set_bit(d, EVTCHN_FIFO_PENDING, word);
+ 
+     /*
+      * Link the event if it unmasked and not already linked.
+      */
+-    if ( !test_bit(EVTCHN_FIFO_MASKED, word)
+-         && !test_bit(EVTCHN_FIFO_LINKED, word) )
++    if ( !guest_test_bit(d, EVTCHN_FIFO_MASKED, word) &&
++         !guest_test_bit(d, EVTCHN_FIFO_LINKED, word) )
+     {
+         struct evtchn_fifo_queue *q, *old_q;
+         event_word_t *tail_word;
+@@ -205,7 +207,7 @@ static void evtchn_fifo_set_pending(struct vcpu *v, struct evtchn *evtchn)
+         if ( !old_q )
+             goto done;
+ 
+-        if ( test_and_set_bit(EVTCHN_FIFO_LINKED, word) )
++        if ( guest_test_and_set_bit(d, EVTCHN_FIFO_LINKED, word) )
+         {
+             spin_unlock_irqrestore(&old_q->lock, flags);
+             goto done;
+@@ -251,8 +253,8 @@ static void evtchn_fifo_set_pending(struct vcpu *v, struct evtchn *evtchn)
+         spin_unlock_irqrestore(&q->lock, flags);
+ 
+         if ( !linked
+-             && !test_and_set_bit(q->priority,
+-                                  &v->evtchn_fifo->control_block->ready) )
++             && !guest_test_and_set_bit(d, q->priority,
++                                        &v->evtchn_fifo->control_block->ready) )
+             vcpu_mark_events_pending(v);
+     }
+  done:
+@@ -274,7 +276,7 @@ static void evtchn_fifo_clear_pending(struct domain *d, struct evtchn *evtchn)
+      * No need to unlink as the guest will unlink and ignore
+      * non-pending events.
+      */
+-    clear_bit(EVTCHN_FIFO_PENDING, word);
++    guest_clear_bit(d, EVTCHN_FIFO_PENDING, word);
+ }
+ 
+ static void evtchn_fifo_unmask(struct domain *d, struct evtchn *evtchn)
+@@ -286,10 +288,10 @@ static void evtchn_fifo_unmask(struct domain *d, struct evtchn *evtchn)
+     if ( unlikely(!word) )
+         return;
+ 
+-    clear_bit(EVTCHN_FIFO_MASKED, word);
++    guest_clear_bit(d, EVTCHN_FIFO_MASKED, word);
+ 
+     /* Relink if pending. */
+-    if ( test_bit(EVTCHN_FIFO_PENDING, word) )
++    if ( guest_test_bit(d, EVTCHN_FIFO_PENDING, word) )
+         evtchn_fifo_set_pending(v, evtchn);
+ }
+ 
+@@ -297,21 +299,21 @@ static bool evtchn_fifo_is_pending(const struct domain *d, evtchn_port_t port)
+ {
+     const event_word_t *word = evtchn_fifo_word_from_port(d, port);
+ 
+-    return word && test_bit(EVTCHN_FIFO_PENDING, word);
++    return word && guest_test_bit(d, EVTCHN_FIFO_PENDING, word);
+ }
+ 
+ static bool_t evtchn_fifo_is_masked(const struct domain *d, evtchn_port_t port)
+ {
+     const event_word_t *word = evtchn_fifo_word_from_port(d, port);
+ 
+-    return !word || test_bit(EVTCHN_FIFO_MASKED, word);
++    return !word || guest_test_bit(d, EVTCHN_FIFO_MASKED, word);
+ }
+ 
+ static bool_t evtchn_fifo_is_busy(const struct domain *d, evtchn_port_t port)
+ {
+     const event_word_t *word = evtchn_fifo_word_from_port(d, port);
+ 
+-    return word && test_bit(EVTCHN_FIFO_LINKED, word);
++    return word && guest_test_bit(d, EVTCHN_FIFO_LINKED, word);
+ }
+ 
+ static int evtchn_fifo_set_priority(struct domain *d, struct evtchn *evtchn,
+@@ -338,11 +340,11 @@ static void evtchn_fifo_print_state(struct domain *d,
+     word = evtchn_fifo_word_from_port(d, evtchn->port);
+     if ( !word )
+         printk("?     ");
+-    else if ( test_bit(EVTCHN_FIFO_LINKED, word) )
+-        printk("%c %-4u", test_bit(EVTCHN_FIFO_BUSY, word) ? 'B' : ' ',
++    else if ( guest_test_bit(d, EVTCHN_FIFO_LINKED, word) )
++        printk("%c %-4u", guest_test_bit(d, EVTCHN_FIFO_BUSY, word) ? 'B' : ' ',
+                *word & EVTCHN_FIFO_LINK_MASK);
+     else
+-        printk("%c -   ", test_bit(EVTCHN_FIFO_BUSY, word) ? 'B' : ' ');
++        printk("%c -   ", guest_test_bit(d, EVTCHN_FIFO_BUSY, word) ? 'B' : ' ');
+ }
+ 
+ static const struct evtchn_port_ops evtchn_port_ops_fifo =
+@@ -494,7 +496,7 @@ static void setup_ports(struct domain *d)
+ 
+         evtchn = evtchn_from_port(d, port);
+ 
+-        if ( test_bit(port, &shared_info(d, evtchn_pending)) )
++        if ( guest_test_bit(d, port, &shared_info(d, evtchn_pending)) )
+             evtchn->pending = 1;
+ 
+         evtchn_fifo_set_priority(d, evtchn, EVTCHN_FIFO_PRIORITY_DEFAULT);
+diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
+index c3a806fe47..221563a232 100644
+--- a/xen/common/grant_table.c
++++ b/xen/common/grant_table.c
+@@ -39,6 +39,7 @@
+ #include <xen/vmap.h>
+ #include <xsm/xsm.h>
+ #include <asm/flushtlb.h>
++#include <asm/guest_atomics.h>
+ 
+ /* Per-domain grant information. */
+ struct grant_table {
+@@ -653,6 +654,7 @@ static unsigned int nr_grant_entries(struct grant_table *gt)
+ }
+ 
+ static int _set_status_v1(const grant_entry_header_t *shah,
++                          struct domain *rd,
+                           struct active_grant_entry *act,
+                           int readonly,
+                           int mapflag,
+@@ -708,8 +710,8 @@ static int _set_status_v1(const grant_entry_header_t *shah,
+                          "Attempt to write-pin a r/o grant entry\n");
+         }
+ 
+-        prev_scombo.word = cmpxchg((u32 *)shah,
+-                                   scombo.word, new_scombo.word);
++        prev_scombo.word = guest_cmpxchg(rd, (u32 *)shah,
++                                         scombo.word, new_scombo.word);
+         if ( likely(prev_scombo.word == scombo.word) )
+             break;
+ 
+@@ -726,6 +728,7 @@ done:
+ 
+ static int _set_status_v2(const grant_entry_header_t *shah,
+                           grant_status_t *status,
++                          struct domain *rd,
+                           struct active_grant_entry *act,
+                           int readonly,
+                           int mapflag,
+@@ -788,8 +791,8 @@ static int _set_status_v2(const grant_entry_header_t *shah,
+              (id != ldomid) ||
+              (!readonly && (flags & GTF_readonly)) )
+         {
+-            gnttab_clear_flag(_GTF_writing, status);
+-            gnttab_clear_flag(_GTF_reading, status);
++            gnttab_clear_flag(rd, _GTF_writing, status);
++            gnttab_clear_flag(rd, _GTF_reading, status);
+             PIN_FAIL(done, GNTST_general_error,
+                      "Unstable flags (%x) or dom (%d); expected d%d (r/w: %d)\n",
+                      flags, id, ldomid, !readonly);
+@@ -799,7 +802,7 @@ static int _set_status_v2(const grant_entry_header_t *shah,
+     {
+         if ( unlikely(flags & GTF_readonly) )
+         {
+-            gnttab_clear_flag(_GTF_writing, status);
++            gnttab_clear_flag(rd, _GTF_writing, status);
+             PIN_FAIL(done, GNTST_general_error,
+                      "Unstable grant readonly flag\n");
+         }
+@@ -812,6 +815,7 @@ done:
+ 
+ static int _set_status(const grant_entry_header_t *shah,
+                        grant_status_t *status,
++                       struct domain *rd,
+                        unsigned rgt_version,
+                        struct active_grant_entry *act,
+                        int readonly,
+@@ -820,9 +824,9 @@ static int _set_status(const grant_entry_header_t *shah,
+ {
+ 
+     if ( rgt_version == 1 )
+-        return _set_status_v1(shah, act, readonly, mapflag, ldomid);
++        return _set_status_v1(shah, rd, act, readonly, mapflag, ldomid);
+     else
+-        return _set_status_v2(shah, status, act, readonly, mapflag, ldomid);
++        return _set_status_v2(shah, status, rd, act, readonly, mapflag, ldomid);
+ }
+ 
+ static struct active_grant_entry *grant_map_exists(const struct domain *ld,
+@@ -994,7 +998,7 @@ map_grant_ref(
+          (!(op->flags & GNTMAP_readonly) &&
+           !(act->pin & (GNTPIN_hstw_mask|GNTPIN_devw_mask))) )
+     {
+-        if ( (rc = _set_status(shah, status, rgt->gt_version, act,
++        if ( (rc = _set_status(shah, status, rd, rgt->gt_version, act,
+                                op->flags & GNTMAP_readonly, 1,
+                                ld->domain_id) != GNTST_okay) )
+             goto act_release_out;
+@@ -1218,10 +1222,10 @@ map_grant_ref(
+  unlock_out_clear:
+     if ( !(op->flags & GNTMAP_readonly) &&
+          !(act->pin & (GNTPIN_hstw_mask|GNTPIN_devw_mask)) )
+-        gnttab_clear_flag(_GTF_writing, status);
++        gnttab_clear_flag(rd, _GTF_writing, status);
+ 
+     if ( !act->pin )
+-        gnttab_clear_flag(_GTF_reading, status);
++        gnttab_clear_flag(rd, _GTF_reading, status);
+ 
+  act_release_out:
+     active_entry_release(act);
+@@ -1505,10 +1509,10 @@ unmap_common_complete(struct gnttab_unmap_common *op)
+ 
+     if ( ((act->pin & (GNTPIN_devw_mask|GNTPIN_hstw_mask)) == 0) &&
+          !(op->done & GNTMAP_readonly) )
+-        gnttab_clear_flag(_GTF_writing, status);
++        gnttab_clear_flag(rd, _GTF_writing, status);
+ 
+     if ( act->pin == 0 )
+-        gnttab_clear_flag(_GTF_reading, status);
++        gnttab_clear_flag(rd, _GTF_reading, status);
+ 
+     active_entry_release(act);
+     grant_read_unlock(rgt);
+@@ -2073,8 +2077,8 @@ gnttab_prepare_for_transfer(
+         new_scombo = scombo;
+         new_scombo.shorts.flags |= GTF_transfer_committed;
+ 
+-        prev_scombo.word = cmpxchg((u32 *)&sha->flags,
+-                                   scombo.word, new_scombo.word);
++        prev_scombo.word = guest_cmpxchg(rd, (u32 *)&sha->flags,
++                                         scombo.word, new_scombo.word);
+         if ( likely(prev_scombo.word == scombo.word) )
+             break;
+ 
+@@ -2359,11 +2363,11 @@ release_grant_for_copy(
+ 
+         act->pin -= GNTPIN_hstw_inc;
+         if ( !(act->pin & (GNTPIN_devw_mask|GNTPIN_hstw_mask)) )
+-            gnttab_clear_flag(_GTF_writing, status);
++            gnttab_clear_flag(rd, _GTF_writing, status);
+     }
+ 
+     if ( !act->pin )
+-        gnttab_clear_flag(_GTF_reading, status);
++        gnttab_clear_flag(rd, _GTF_reading, status);
+ 
+     active_entry_release(act);
+     grant_read_unlock(rgt);
+@@ -2385,14 +2389,15 @@ release_grant_for_copy(
+    under the domain's grant table lock. */
+ /* Only safe on transitive grants.  Even then, note that we don't
+    attempt to drop any pin on the referent grant. */
+-static void fixup_status_for_copy_pin(const struct active_grant_entry *act,
++static void fixup_status_for_copy_pin(struct domain *rd,
++                                      const struct active_grant_entry *act,
+                                       uint16_t *status)
+ {
+     if ( !(act->pin & (GNTPIN_hstw_mask | GNTPIN_devw_mask)) )
+-        gnttab_clear_flag(_GTF_writing, status);
++        gnttab_clear_flag(rd, _GTF_writing, status);
+ 
+     if ( !act->pin )
+-        gnttab_clear_flag(_GTF_reading, status);
++        gnttab_clear_flag(rd, _GTF_reading, status);
+ }
+ 
+ /* Grab a frame number from a grant entry and update the flags and pin
+@@ -2452,7 +2457,7 @@ acquire_grant_for_copy(
+     {
+         if ( (!old_pin || (!readonly &&
+                            !(old_pin & (GNTPIN_devw_mask|GNTPIN_hstw_mask)))) &&
+-             (rc = _set_status_v2(shah, status, act, readonly, 0,
++             (rc = _set_status_v2(shah, status, rd, act, readonly, 0,
+                                   ldom)) != GNTST_okay )
+             goto unlock_out;
+ 
+@@ -2501,7 +2506,7 @@ acquire_grant_for_copy(
+ 
+         if ( rc != GNTST_okay )
+         {
+-            fixup_status_for_copy_pin(act, status);
++            fixup_status_for_copy_pin(rd, act, status);
+             rcu_unlock_domain(td);
+             active_entry_release(act);
+             grant_read_unlock(rgt);
+@@ -2524,7 +2529,7 @@ acquire_grant_for_copy(
+                           !act->is_sub_page)) )
+         {
+             release_grant_for_copy(td, trans_gref, readonly);
+-            fixup_status_for_copy_pin(act, status);
++            fixup_status_for_copy_pin(rd, act, status);
+             rcu_unlock_domain(td);
+             active_entry_release(act);
+             grant_read_unlock(rgt);
+@@ -2553,7 +2558,7 @@ acquire_grant_for_copy(
+     else if ( !old_pin ||
+               (!readonly && !(old_pin & (GNTPIN_devw_mask|GNTPIN_hstw_mask))) )
+     {
+-        if ( (rc = _set_status(shah, status, rgt->gt_version, act,
++        if ( (rc = _set_status(shah, status, rd, rgt->gt_version, act,
+                                readonly, 0, ldom)) != GNTST_okay )
+              goto unlock_out;
+ 
+@@ -2641,10 +2646,10 @@ acquire_grant_for_copy(
+  unlock_out_clear:
+     if ( !(readonly) &&
+          !(act->pin & (GNTPIN_hstw_mask | GNTPIN_devw_mask)) )
+-        gnttab_clear_flag(_GTF_writing, status);
++        gnttab_clear_flag(rd, _GTF_writing, status);
+ 
+     if ( !act->pin )
+-        gnttab_clear_flag(_GTF_reading, status);
++        gnttab_clear_flag(rd, _GTF_reading, status);
+ 
+  unlock_out:
+     active_entry_release(act);
+@@ -3712,11 +3717,11 @@ gnttab_release_mappings(
+             }
+ 
+             if ( (act->pin & (GNTPIN_devw_mask|GNTPIN_hstw_mask)) == 0 )
+-                gnttab_clear_flag(_GTF_writing, status);
++                gnttab_clear_flag(rd, _GTF_writing, status);
+         }
+ 
+         if ( act->pin == 0 )
+-            gnttab_clear_flag(_GTF_reading, status);
++            gnttab_clear_flag(rd, _GTF_reading, status);
+ 
+         active_entry_release(act);
+         grant_read_unlock(rgt);
+diff --git a/xen/include/asm-arm/grant_table.h b/xen/include/asm-arm/grant_table.h
+index 24958e4670..8ae8ba47a1 100644
+--- a/xen/include/asm-arm/grant_table.h
++++ b/xen/include/asm-arm/grant_table.h
+@@ -14,7 +14,7 @@ struct grant_table_arch {
+     gfn_t *status_gfn;
+ };
+ 
+-void gnttab_clear_flag(unsigned long nr, uint16_t *addr);
++void gnttab_clear_flag(struct domain *d, unsigned long nr, uint16_t *addr);
+ int create_grant_host_mapping(unsigned long gpaddr, mfn_t mfn,
+                               unsigned int flags, unsigned int cache_flags);
+ #define gnttab_host_mapping_get_page_type(ro, ld, rd) (0)
+diff --git a/xen/include/asm-x86/grant_table.h b/xen/include/asm-x86/grant_table.h
+index e42030936b..2a54fc8e1d 100644
+--- a/xen/include/asm-x86/grant_table.h
++++ b/xen/include/asm-x86/grant_table.h
+@@ -82,7 +82,8 @@ static inline unsigned int gnttab_dom0_max(void)
+ 
+ #define gnttab_mark_dirty(d, f) paging_mark_dirty((d), f)
+ 
+-static inline void gnttab_clear_flag(unsigned int nr, uint16_t *st)
++static inline void gnttab_clear_flag(struct domain *d, unsigned int nr,
++                                     uint16_t *st)
+ {
+     /*
+      * Note that this cannot be clear_bit(), as the access must be
+-- 
+2.17.1
+

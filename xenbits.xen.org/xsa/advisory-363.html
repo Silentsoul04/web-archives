@@ -1,0 +1,77 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-363 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-363.html">XSA-363</a></td></tr><tr><th>Public release</th> <td>2021-02-16 12:00</td></tr><tr><th>Updated</th> <td>2021-02-16 12:35</td></tr><tr><th>Version</th> <td>3</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-26934">CVE-2021-26934</a></td></tr><tr><th>Title</th> <td>Linux: display frontend &quot;be-alloc&quot; mode is unsupported</td></tr></table><h1>Files</h1><a href="advisory-363.txt">advisory-363.txt</a> (signed advisory file)<br /><a href="xsa363.patch">xsa363.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+            Xen Security Advisory CVE-2021-26934 / XSA-363
+                               version 3
+
+        Linux: display frontend &quot;be-alloc&quot; mode is unsupported
+
+UPDATES IN VERSION 3
+====================
+
+Public release.
+
+ISSUE DESCRIPTION
+=================
+
+The backend allocation mode of Linux&#39;es drm_xen_front drivers was
+not meant to be a supported configuration, but this wasn&#39;t stated
+accordingly in its support status entry.
+
+IMPACT
+======
+
+Use of the feature may have unknown effects.
+
+VULNERABLE SYSTEMS
+==================
+
+Linux versions from 4.18 onwards are affected.  Earlier Linux versions
+do not provide the affected driver.
+
+MITIGATION
+==========
+
+Not using the driver or its backend allocation mode will avoid the
+vulnerability.
+
+CREDITS
+=======
+
+This issue was discovered by Jan Beulich of SUSE.
+
+RESOLUTION
+==========
+
+Applying the attached patch documents the situation.  The patch does
+not fix any security issues.
+
+xsa363.patch           xen-unstable
+
+$ sha256sum xsa363*
+<a href="xsa363.patch">cf2f2eff446aec625b19d9d01301ec66098b58b792d74012235f10c62a21bb68  xsa363.patch</a>
+$
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAmAru/UMHHBncEB4ZW4u
+b3JnAAoJEIP+FMlX6CvZSocH/3jAI0MeZtnhvuyOM4CxkNmr0fI4HIXnA1xGNhWY
+Wa2WgtOuFVaPUFX1Tj/e6zCoibatl1gicETI9hL+w4Dg6/GzIeTogOuzv5D6Ux91
+9a6n2tryFfSAs0OxTKq6etLv63VEEicYMHrZT8n700JFvJsAWYAMvuanMDknGxBP
+5/Z+DASnZxT09cpvP4REKuG7rW9vIif+6EZ0T0kU87InouDts/YOhzNsdvBD1wKH
+y5e/MZh2sOyMOovuhgbvoK+YezHTAcZeGWnUk3yQoTGnW3p+W9XZVURsc8/e2FbZ
+heY3Tj918LsY50wGpMZ2PDoHC8PSHaUqEOTq0MPmnPlppvU=
+=tJD0
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

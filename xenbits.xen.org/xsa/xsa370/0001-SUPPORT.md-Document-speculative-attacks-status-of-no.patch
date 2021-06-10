@@ -1,0 +1,55 @@
+From 4e37e21f6e71752fb69c27ab9f1417a5d19ebedb Mon Sep 17 00:00:00 2001
+From: Ian Jackson <ian.jackson@eu.citrix.com>
+Date: Tue, 9 Mar 2021 15:00:47 +0000
+Subject: [PATCH 1/2] SUPPORT.md: Document speculative attacks status of
+ non-shim 32-bit PV
+
+This documents, but does not fix, XSA-370.
+
+Reported-by: Jann Horn <jannh@google.com>
+Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
+Signed-off-by: George Dunlap <george.dunlap@citrix.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
+---
+
+NB that the security team does not consider the security support
+status of un-shimmed 32-bit PV guests in this patch to be particularly
+useful. However, we do not consider ourselves to have the authority to decide
+to completely de-support 32-bit PV guests without community consultation.
+
+The support status in this patch should therefore be considered
+transitional.  A permanent support status is proposed in a subsequent
+patch in this series.
+
+v2:
+- Fix double 'be'
+- Don't mention user -> kernel attacks, which have nothing to do with Xen
+---
+ SUPPORT.md | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/SUPPORT.md b/SUPPORT.md
+index 7db4568f1a..6dcd93e22f 100644
+--- a/SUPPORT.md
++++ b/SUPPORT.md
+@@ -84,7 +84,16 @@ Traditional Xen PV guest
+ 
+ No hardware requirements
+ 
+-    Status: Supported
++    Status, x86_64: Supported
++    Status, x86_32, shim: Supported
++    Status, x86_32, without shim: Supported, with caveats
++
++Due to architectural limitations,
++32-bit PV guests must be assumed to be able to read arbitrary host memory
++using speculative execution attacks.
++Advisories will continue to be issued
++for new vulnerabilities related to un-shimmed 32-bit PV guests
++enabling denial-of-service attacks or privilege escalation attacks.
+ 
+ ### x86/HVM
+ 
+-- 
+2.30.2
+

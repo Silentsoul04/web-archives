@@ -1,0 +1,36 @@
+From e74c5787940999766ae8cd9731471370b595c3fe Mon Sep 17 00:00:00 2001
+From: Andre Przywara <andre.przywara@arm.com>
+Date: Thu, 16 Mar 2017 11:20:10 +0000
+Subject: [PATCH v2 4.8 02/21] ARM: arm64: activate atomic 64-bit accessors
+
+For some reason (probably because there was no user before) the 64-bit
+atomic access wrappers were commented out so far.
+As we will need them in the next patch, active (and fix) them now.
+
+Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+Reviewed-by: Julien Grall <julien.grall@arm.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+---
+ xen/include/asm-arm/atomic.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/xen/include/asm-arm/atomic.h b/xen/include/asm-arm/atomic.h
+index 22a50361ec..df9de6a74a 100644
+--- a/xen/include/asm-arm/atomic.h
++++ b/xen/include/asm-arm/atomic.h
+@@ -53,9 +53,9 @@ build_atomic_write(write_u16_atomic, "h", WORD, uint16_t, "r")
+ build_atomic_write(write_u32_atomic, "",  WORD, uint32_t, "r")
+ build_atomic_write(write_int_atomic, "",  WORD, int, "r")
+ 
+-#if 0 /* defined (CONFIG_ARM_64) */
+-build_atomic_read(read_u64_atomic, "x", uint64_t, "=r")
+-build_atomic_write(write_u64_atomic, "x", uint64_t, "r")
++#if defined (CONFIG_ARM_64)
++build_atomic_read(read_u64_atomic, "", "", uint64_t, "=r")
++build_atomic_write(write_u64_atomic, "", "", uint64_t, "r")
+ #endif
+ 
+ build_add_sized(add_u8_sized, "b", BYTE, uint8_t, "ri")
+-- 
+2.17.1
+

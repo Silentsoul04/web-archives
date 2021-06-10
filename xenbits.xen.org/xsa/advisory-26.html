@@ -1,0 +1,78 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-26 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-26.html">XSA-26</a></td></tr><tr><th>Public release</th> <td>2012-12-03 17:51</td></tr><tr><th>Updated</th> <td>2012-12-03 17:51</td></tr><tr><th>Version</th> <td>3</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-5510">CVE-2012-5510</a></td></tr><tr><th>Title</th> <td>Grant table version switch list corruption vulnerability</td></tr></table><h1>Files</h1><a href="advisory-26.txt">advisory-26.txt</a> (signed advisory file)<br /><a href="xsa26-4.1.patch">xsa26-4.1.patch</a><br /><a href="xsa26-4.2.patch">xsa26-4.2.patch</a><br /><a href="xsa26-unstable.patch">xsa26-unstable.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+	     Xen Security Advisory CVE-2012-5510 / XSA-26
+                             version 3
+
+       Grant table version switch list corruption vulnerability
+
+UPDATES IN VERSION 3
+====================
+
+Public release.
+
+ISSUE DESCRIPTION
+=================
+
+Downgrading the grant table version of a guest involves freeing its
+status pages. This freeing was incomplete - the page(s) are freed back
+to the allocator, but not removed from the domain&#39;s tracking
+list. This would cause list corruption, eventually leading to a
+hypervisor crash.
+
+IMPACT
+======
+
+A malicious guest administrator can cause Xen to crash, leading to a
+denial of service attack.
+
+VULNERABLE SYSTEMS
+==================
+
+All Xen version from 4.0 on are vulnerable.
+
+Version 3.4 and earlier are not vulnerable.
+
+MITIGATION
+==========
+
+Running only guests with trusted kernels will avoid this vulnerability.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+xsa26-4.1.patch             Xen 4.1.x
+xsa26-4.2.patch             Xen 4.2.x
+xsa26-unstable.patch        xen-unstable
+
+
+$ sha256sum xsa26*.patch
+<a href="xsa26-4.1.patch">b4674ddaf9a9786d5e7e5e4f248f6095e118184df581036e0531b5db5e1d645b  xsa26-4.1.patch</a>
+<a href="xsa26-4.2.patch">a6e2ed7bae3e62d4294fdb48e8a5418b1de8e0e690f4fea4bb430d2b7cf758e6  xsa26-4.2.patch</a>
+<a href="xsa26-unstable.patch">ac2d5a82f0dba0f4213607a0e3bb9be586d90173bbadc4b402c2f19fbe4b2cf3  xsa26-unstable.patch</a>
+$
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.10 (GNU/Linux)
+
+iQEcBAEBAgAGBQJQvOJ1AAoJEIP+FMlX6CvZBHIH/jI42gGLsThzGlgkFg2aqE74
+EUKIPZE4DLQNl6oTQ/fp0dfJgsQ8XHldovl4EphWK+oO0osloE2HjAY5mesOraui
+IIQHRkbosbDshDcSqFDndl+xjAEk1ohlGMMpSdUImIHdFF8ZJneXdK11cqxMtCKR
+27ych3lDViqy0OqxFGRZpsBE0hHqU7aiL8Orr+tI4sANnd/qVfZcdqizoTRuAJX3
+KOmaq+8VwoRSeppAvVgcnGkDLyCd5udRLNEenjrFo1YkC01bVIdbD59/ZwEIC6eZ
+iR7bvppV1nuq9WnbCkx+FVkNc9AuGwUZMOdePH2PwLYqIZGMBi9uqUD3Y0HHMoo=
+=OtT0
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

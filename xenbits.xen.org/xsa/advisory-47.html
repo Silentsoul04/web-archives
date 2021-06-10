@@ -1,0 +1,70 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-47 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-47.html">XSA-47</a></td></tr><tr><th>Public release</th> <td>2013-04-04 17:54</td></tr><tr><th>Updated</th> <td>2013-04-04 17:54</td></tr><tr><th>Version</th> <td>1</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-1920">CVE-2013-1920</a></td></tr><tr><th>Title</th> <td>Potential use of freed memory in event channel operations</td></tr></table><h1>Files</h1><a href="advisory-47.txt">advisory-47.txt</a> (signed advisory file)<br /><a href="xsa47-4.1.patch">xsa47-4.1.patch</a><br /><a href="xsa47-4.2-unstable.patch">xsa47-4.2-unstable.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+             Xen Security Advisory CVE-2013-1920 / XSA-47
+
+        Potential use of freed memory in event channel operations
+
+ISSUE DESCRIPTION
+=================
+
+Wrong ordering of operations upon extending the per-domain event
+channel tracking table can cause a pointer to freed memory to be left
+in place, when the hypervisor is under memory pressure and XSM (Xen
+Security Module) is enabled.
+
+IMPACT
+======
+
+Malicious guest kernels could inject arbitrary events or corrupt other
+hypervisor state, possibly leading to code execution.
+
+VULNERABLE SYSTEMS
+==================
+
+All Xen versions from 3.2 onwards are vulnerable when making use of
+XSM.  Configurations without XSM or with a dummy module are not
+affected.
+
+MITIGATION
+==========
+
+Running without XSM (which is the default) will avoid this
+vulnerability, albeit doing so will likely lower overall security of
+systems that would otherwise have XSM enabled.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+xsa47-4.1.patch             Xen 4.1.x
+xsa47-4.2-unstable.patch    Xen 4.2.x and xen-unstable
+
+$ sha256sum xsa47*.patch
+<a href="xsa47-4.1.patch">e49a03e0693de07ec1418eb16191854458e72088febd6948ea5bc1f900a1853a  xsa47-4.1.patch</a>
+<a href="xsa47-4.2-unstable.patch">c29b59492f9d7e3f74bfc41877a2c5cff70436d3738fd91066f396f969aab0a7  xsa47-4.2-unstable.patch</a>
+$
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.10 (GNU/Linux)
+
+iQEcBAEBAgAGBQJRXb5fAAoJEIP+FMlX6CvZ0RwH/AtcVQFvERB+16wSjN3GTguk
+LnakHD3NCVeaDNbkF0G4b4ibR5oOCAGO/9CQwcB1QKj67mvYJm2kglDnGWUmZUQC
+TKWZR5vA9D9YAQvll8mSwd3OdLBoN0IGYPp9AIVUi9zl34zF+ZzbtsC57dvmjQD6
+/E0tMDgOoCsA8ARnuknjbgk+CbfsGi/dbxYGDla4/wMC9wbUhG1wcA9lqNa37azT
+1lRIj8qI3TfWC4aMh1kZKPsljrHZLkfA2VxgkrTCjr7u2Usr7vgUsNT4F0rYouRI
+h5mo1JszJOnM2EHuzVbQrvBmaXlPIFF/S5cRvD6RIavEsOUet5au49Hnhb/ENG4=
+=/g6f
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

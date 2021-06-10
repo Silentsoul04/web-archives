@@ -1,0 +1,104 @@
+From d861027dbc1e861fb27f1cea55ee08aa03279c01 Mon Sep 17 00:00:00 2001
+From: Norbert Manthey <nmanthey@amazon.de>
+Subject: [PATCH SpectreV1+L1TF 10/13] x86/vioapic: block speculative
+ out-of-bound accesses
+
+When interacting with io apic, a guest can specify values that are used
+as index to structures, and whose values are not compared against
+constants beforehand. Therefore, speculative out-of-bound accesses are
+possible. This change prevents these accesses.
+
+This is part of the SpectreV1+L1TF mitigation patch series.
+
+Signed-off-by: Norbert Manthey <nmanthey@amazon.de>
+
+---
+ xen/arch/x86/hvm/vioapic.c | 28 +++++++++++++++++-----------
+ 1 file changed, 17 insertions(+), 11 deletions(-)
+
+diff --git a/xen/arch/x86/hvm/vioapic.c b/xen/arch/x86/hvm/vioapic.c
+--- a/xen/arch/x86/hvm/vioapic.c
++++ b/xen/arch/x86/hvm/vioapic.c
+@@ -30,6 +30,7 @@
+ #include <xen/lib.h>
+ #include <xen/errno.h>
+ #include <xen/sched.h>
++#include <xen/nospec.h>
+ #include <public/hvm/ioreq.h>
+ #include <asm/hvm/io.h>
+ #include <asm/hvm/vpic.h>
+@@ -117,7 +118,8 @@ static uint32_t vioapic_read_indirect(const struct hvm_vioapic *vioapic)
+             break;
+         }
+ 
+-        redir_content = vioapic->redirtbl[redir_index].bits;
++        redir_content = vioapic->redirtbl[array_index_nospec(redir_index,
++                                                       vioapic->nr_pins)].bits;
+         result = (vioapic->ioregsel & 1) ? (redir_content >> 32)
+                                          : redir_content;
+         break;
+@@ -216,7 +218,7 @@ static void vioapic_write_redirent(
+ 
+     spin_lock(&d->arch.hvm.irq_lock);
+ 
+-    pent = &vioapic->redirtbl[idx];
++    pent = &vioapic->redirtbl[array_index_nospec(idx, vioapic->nr_pins)];
+     ent  = *pent;
+ 
+     if ( top_word )
+@@ -258,7 +260,8 @@ static void vioapic_write_redirent(
+         pent->fields.remote_irr = 0;
+     else if ( !ent.fields.mask &&
+               !ent.fields.remote_irr &&
+-              hvm_irq->gsi_assert_count[idx] )
++              hvm_irq->gsi_assert_count[array_index_nospec(idx,
++                                                           hvm_irq->nr_gsis)] )
+     {
+         pent->fields.remote_irr = 1;
+         vioapic_deliver(vioapic, idx);
+@@ -378,15 +381,17 @@ static inline int pit_channel0_enabled(void)
+ 
+ static void vioapic_deliver(struct hvm_vioapic *vioapic, unsigned int pin)
+ {
+-    uint16_t dest = vioapic->redirtbl[pin].fields.dest_id;
+-    uint8_t dest_mode = vioapic->redirtbl[pin].fields.dest_mode;
+-    uint8_t delivery_mode = vioapic->redirtbl[pin].fields.delivery_mode;
+-    uint8_t vector = vioapic->redirtbl[pin].fields.vector;
+-    uint8_t trig_mode = vioapic->redirtbl[pin].fields.trig_mode;
++    unsigned int index_pin = array_index_nospec(pin, vioapic->nr_pins);
++
++    uint16_t dest = vioapic->redirtbl[index_pin].fields.dest_id;
++    uint8_t dest_mode = vioapic->redirtbl[index_pin].fields.dest_mode;
++    uint8_t delivery_mode = vioapic->redirtbl[index_pin].fields.delivery_mode;
++    uint8_t vector = vioapic->redirtbl[index_pin].fields.vector;
++    uint8_t trig_mode = vioapic->redirtbl[index_pin].fields.trig_mode;
+     struct domain *d = vioapic_domain(vioapic);
+     struct vlapic *target;
+     struct vcpu *v;
+-    unsigned int irq = vioapic->base_gsi + pin;
++    unsigned int irq = vioapic->base_gsi + index_pin;
+ 
+     ASSERT(spin_is_locked(&d->arch.hvm.irq_lock));
+ 
+@@ -478,7 +483,7 @@ void vioapic_irq_positive_edge(struct domain *d, unsigned int irq)
+     ASSERT(pin < vioapic->nr_pins);
+     ASSERT(spin_is_locked(&d->arch.hvm.irq_lock));
+ 
+-    ent = &vioapic->redirtbl[pin];
++    ent = &vioapic->redirtbl[array_index_nospec(pin, vioapic->nr_pins)];
+     if ( ent->fields.mask )
+         return;
+ 
+@@ -566,7 +571,8 @@ int vioapic_get_trigger_mode(const struct domain *d, unsigned int gsi)
+     if ( !vioapic )
+         return -EINVAL;
+ 
+-    return vioapic->redirtbl[pin].fields.trig_mode;
++    return vioapic->redirtbl[array_index_nospec(pin,
++                                            vioapic->nr_pins)].fields.trig_mode;
+ }
+ 
+ static int ioapic_save(struct vcpu *v, hvm_domain_context_t *h)
+-- 
+2.7.4
+

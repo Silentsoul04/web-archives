@@ -1,0 +1,54 @@
+From f41515d293213ba9e1e017e9d680efd4bb5d8b87 Mon Sep 17 00:00:00 2001
+From: Ian Jackson <ian.jackson@eu.citrix.com>
+Date: Thu, 5 May 2016 16:17:26 +0100
+Subject: [PATCH 18/21] libxl: Do not trust backend for vusb
+
+Read the type from /libxl, rather than the backend.  (We still trust
+the backend for details such as the number of ports, etc.; these are
+not a security problem.)
+
+In getinfo, use the computed frontend path, and the incoming domid,
+rather than needlessly reading these values from the backend.
+
+This is part of XSA-178.
+
+Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
+Reviewed-by: Wei Liu <wei.liu2@citrix.com>
+---
+v2: New patch following rebase.
+---
+ tools/libxl/libxl_pvusb.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
+
+diff --git a/tools/libxl/libxl_pvusb.c b/tools/libxl/libxl_pvusb.c
+index 7af7e4d..58cf21c 100644
+--- a/tools/libxl/libxl_pvusb.c
++++ b/tools/libxl/libxl_pvusb.c
+@@ -401,7 +401,7 @@ libxl_device_usbctrl_list(libxl_ctx *ctx, uint32_t domid, int *num)
+             if (ret) goto out;
+             usbctrl->version = READ_SUBPATH_INT(be_path, "usb-ver");
+             usbctrl->ports = READ_SUBPATH_INT(be_path, "num-ports");
+-            libxl_usbctrl_type_from_string(READ_SUBPATH(be_path, "type"),
++            libxl_usbctrl_type_from_string(READ_SUBPATH(libxl_path, "type"),
+                                            &usbctrl->type);
+ 
+ #undef READ_SUBPATH
+@@ -459,12 +459,11 @@ int libxl_device_usbctrl_getinfo(libxl_ctx *ctx, uint32_t domid,
+     usbctrlinfo->evtch = READ_SUBPATH_INT(fe_path, "event-channel");
+     usbctrlinfo->ref_urb = READ_SUBPATH_INT(fe_path, "urb-ring-ref");
+     usbctrlinfo->ref_conn = READ_SUBPATH_INT(fe_path, "urb-ring-ref");
+-    tmp = READ_SUBPATH(be_path, "frontend");
+-    usbctrlinfo->frontend = libxl__strdup(NOGC, tmp);
+-    usbctrlinfo->frontend_id = READ_SUBPATH_INT(be_path, "frontend-id");
++    usbctrlinfo->frontend = libxl__strdup(NOGC, fe_path);
++    usbctrlinfo->frontend_id = domid;
+     usbctrlinfo->ports = READ_SUBPATH_INT(be_path, "num-ports");
+     usbctrlinfo->version = READ_SUBPATH_INT(be_path, "usb-ver");;
+-    tmp = READ_SUBPATH(be_path, "type");
++    tmp = READ_SUBPATH(libxl_path, "type");
+     libxl_usbctrl_type_from_string(tmp, &usbctrlinfo->type);
+ 
+ #undef READ_SUBPATH
+-- 
+2.1.4
+

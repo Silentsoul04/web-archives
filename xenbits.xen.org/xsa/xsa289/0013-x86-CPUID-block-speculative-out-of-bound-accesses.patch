@@ -1,0 +1,49 @@
+From 2ef0c689a67fec0964dc50f0e83a67c60b70886c Mon Sep 17 00:00:00 2001
+From: Norbert Manthey <nmanthey@amazon.de>
+Subject: [PATCH SpectreV1+L1TF 13/13] x86/CPUID: block speculative
+ out-of-bound accesses
+
+During instruction emulation, the cpuid instruction is emulated with
+data that is controlled by the guest. As speculation might pass bound
+checks, we have to ensure that no out-of-bound loads are possible.
+
+This is part of the SpectreV1+L1TF mitigation patch series.
+
+Signed-off-by: Norbert Manthey <nmanthey@amazon.de>
+
+---
+ xen/arch/x86/cpuid.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
+--- a/xen/arch/x86/cpuid.c
++++ b/xen/arch/x86/cpuid.c
+@@ -1,6 +1,7 @@
+ #include <xen/init.h>
+ #include <xen/lib.h>
+ #include <xen/sched.h>
++#include <xen/nospec.h>
+ #include <asm/cpuid.h>
+ #include <asm/hvm/hvm.h>
+ #include <asm/hvm/nestedhvm.h>
+@@ -638,7 +639,7 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
+                                  ARRAY_SIZE(p->feat.raw) - 1) )
+                 return;
+ 
+-            *res = p->feat.raw[subleaf];
++            *res = array_access_nospec(p->feat.raw, subleaf);
+             break;
+ 
+         case 0xb:
+@@ -656,7 +657,7 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
+             break;
+ 
+         default:
+-            *res = p->basic.raw[leaf];
++            *res = array_access_nospec(p->basic.raw, leaf);
+             break;
+         }
+         break;
+-- 
+2.7.4
+

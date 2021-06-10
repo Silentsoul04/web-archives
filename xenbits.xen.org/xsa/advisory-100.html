@@ -1,0 +1,102 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-100 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-100.html">XSA-100</a></td></tr><tr><th>Public release</th> <td>2014-06-17 11:44</td></tr><tr><th>Updated</th> <td>2014-06-17 11:44</td></tr><tr><th>Version</th> <td>3</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-4021">CVE-2014-4021</a></td></tr><tr><th>Title</th> <td>Hypervisor heap contents leaked to guests</td></tr></table><h1>Files</h1><a href="advisory-100.txt">advisory-100.txt</a> (signed advisory file)<br /><a href="xsa100.patch">xsa100.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+              Xen Security Advisory CVE-2014-4021 / XSA-100
+                             version 3
+
+              Hypervisor heap contents leaked to guests
+
+UPDATES IN VERSION 3
+====================
+
+Public Release.  CVE assigned.
+
+ISSUE DESCRIPTION
+=================
+
+While memory pages recovered from dying guests are being cleaned to avoid
+leaking sensitive information to other guests, memory pages that were in
+use by the hypervisor and are eligible to be allocated to guests weren&#39;t
+being properly cleaned.  Such exposure of information would happen through
+memory pages freshly allocated to or by the guest.
+
+Normally the leaked data is administrative information of limited
+value to an attacker.  However, scenarios exist where guest CPU
+register state and hypercall arguments might be leaked.
+
+IMPACT
+======
+
+A malicious guest might be able to read data relating to other guests
+or the hypervisor itself.
+
+Data at rest in guest memory or storage (filesystems) is not affected.
+However, it is possible for an attacker to obtain modest amounts of
+in-flight and in-use data, which might contain passwords or
+cryptographic keys.
+
+VULNERABLE SYSTEMS
+==================
+
+Xen 3.2.x and later are vulnerable.
+Xen 3.1.x and earlier have not been inspected.
+
+MITIGATION
+==========
+
+No comprehensive mitigation is available.
+
+An attacker will find it easier obtain sensitive data from a victim
+guest if the attacker is able to initiate domain management operations
+and lifecycle events for that guest.  This includes a situation where
+the attacker can cause the victim guest to crash.
+
+Therefore the risk from this vulnerability can be somewhat reduced by
+restricting management (such as migration or resource adjustment) to
+fully trusted guest or host administrators, and by eliminating any
+Denial of Service vulnerabilities against potential victim guests.
+
+CREDITS
+=======
+
+This issue was discovered by Jan Beulich.
+
+RESOLUTION
+==========
+
+Applying the attached patch resolves this issue.
+
+xsa100.patch        xen-unstable, Xen 4.4.x, Xen 4.3.x, Xen 4.2.x, Xen 4.1.x
+
+Note that to avoid a regression on systems with AMD IOMMU, on 4.2.x and later
+additionally commit 6b4d71d0 (&quot;AMD IOMMU: don&#39;t free page table prematurely&quot;)
+found at
+<a href="http://xenbits.xen.org/gitweb/?p=xen.git;a=commitdiff;h=6b4d71d028f445cba7426a144751fddc8bfdd67b">http://xenbits.xen.org/gitweb/?p=xen.git;a=commitdiff;h=6b4d71d028f445cba7426a144751fddc8bfdd67b</a>
+will be required if not already in place in the respective tree.
+
+$ sha256sum xsa100*.patch
+<a href="xsa100.patch">2cbd3a52bb8d32d00a19e2ce48e3157034b484b4a7b7282cae0d108ffb4ddca0  xsa100.patch</a>
+$
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.12 (GNU/Linux)
+
+iQEcBAEBAgAGBQJToCoFAAoJEIP+FMlX6CvZ8p0H/1RPfzKOIQVvjJrAPiOH8cDr
+/QR8hAhKqIs97+fxSFO5LCsfBwKga/rLz6sjveQYlvJOq9qSc2vTWxpQLNrh7M1q
+NagTSVJoxcxVn+LHgHAczfRfNwK5BWFHz5/R3k1SLSjLy15aBDr5rW42H/WjKXI3
+0UnLfpLkaDfocpQOYAz1a4cTAxbK07omhSlnCdcvPmWLDPvWy03BF7jZvTDYdiO1
+OjU/3HUwMv7Ii6By3QvjO3Z4h9qkest/iIeaeCTwNwSJa9rW+8KLZjzdJCMJOUeu
+J608R94x4vyj7wc+JVPwD59K0XkXzmsASC8q0ivohXGDTloKcdN7vdmR37g4fJ0=
+=WnYZ
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

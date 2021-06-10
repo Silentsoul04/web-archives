@@ -1,0 +1,68 @@
+From bbe4ec0187f66c8afc0a4c55bb94e7ccd4ce68a5 Mon Sep 17 00:00:00 2001
+From: Julien Grall <julien.grall@arm.com>
+Date: Mon, 29 Apr 2019 15:05:16 +0100
+Subject: [PATCH v2 4.12 03/17] xen/arm: Add an isb() before reading CNTPCT_EL0
+ to prevent re-ordering
+
+Per D8.2.1 in ARM DDI 0487C.a, "a read to CNTPCT_EL0 can occur
+speculatively and out of order relative to other instructions executed
+on the same PE."
+
+Add an instruction barrier to get accurate number of cycles when
+requested in get_cycles(). For the other users of CNPCT_EL0, replace by
+a call to get_cycles().
+
+This is part of XSA-295.
+
+Signed-off-by: Julien Grall <julien.grall@arm.com>
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+---
+ xen/arch/arm/time.c        | 4 ++--
+ xen/include/asm-arm/time.h | 2 ++
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/xen/arch/arm/time.c b/xen/arch/arm/time.c
+index bbccee742e..739bcf186c 100644
+--- a/xen/arch/arm/time.c
++++ b/xen/arch/arm/time.c
+@@ -151,7 +151,7 @@ void __init preinit_xen_time(void)
+     if ( res )
+         panic("Timer: Cannot initialize platform timer\n");
+ 
+-    boot_count = READ_SYSREG64(CNTPCT_EL0);
++    boot_count = get_cycles();
+ }
+ 
+ static void __init init_dt_xen_time(void)
+@@ -192,7 +192,7 @@ int __init init_xen_time(void)
+ /* Return number of nanoseconds since boot */
+ s_time_t get_s_time(void)
+ {
+-    uint64_t ticks = READ_SYSREG64(CNTPCT_EL0) - boot_count;
++    uint64_t ticks = get_cycles() - boot_count;
+     return ticks_to_ns(ticks);
+ }
+ 
+diff --git a/xen/include/asm-arm/time.h b/xen/include/asm-arm/time.h
+index 9a7071a546..9cb6f9b0b4 100644
+--- a/xen/include/asm-arm/time.h
++++ b/xen/include/asm-arm/time.h
+@@ -2,6 +2,7 @@
+ #define __ARM_TIME_H__
+ 
+ #include <asm/sysregs.h>
++#include <asm/system.h>
+ 
+ #define DT_MATCH_TIMER                      \
+     DT_MATCH_COMPATIBLE("arm,armv7-timer"), \
+@@ -11,6 +12,7 @@ typedef uint64_t cycles_t;
+ 
+ static inline cycles_t get_cycles (void)
+ {
++        isb();
+         return READ_SYSREG64(CNTPCT_EL0);
+ }
+ 
+-- 
+2.17.1
+

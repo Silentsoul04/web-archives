@@ -1,0 +1,122 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-148 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-148.html">XSA-148</a></td></tr><tr><th>Public release</th> <td>2015-10-29 11:59</td></tr><tr><th>Updated</th> <td>2015-10-29 11:59</td></tr><tr><th>Version</th> <td>4</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-7835">CVE-2015-7835</a></td></tr><tr><th>Title</th> <td>x86: Uncontrolled creation of large page mappings by PV guests</td></tr></table><h1>Files</h1><a href="advisory-148.txt">advisory-148.txt</a> (signed advisory file)<br /><a href="xsa148.patch">xsa148.patch</a><br /><a href="xsa148-4.4.patch">xsa148-4.4.patch</a><br /><a href="xsa148-4.5.patch">xsa148-4.5.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+            Xen Security Advisory CVE-2015-7835 / XSA-148
+                              version 4
+
+      x86: Uncontrolled creation of large page mappings by PV guests
+
+UPDATES IN VERSION 4
+====================
+
+Public release.
+
+ISSUE DESCRIPTION
+=================
+
+The code to validate level 2 page table entries is bypassed when
+certain conditions are satisfied.  This means that a PV guest can
+create writeable mappings using super page mappings.
+
+Such writeable mappings can violate Xen intended invariants for pages
+which Xen is supposed to keep read-only.
+
+This is possible even if the &quot;allowsuperpage&quot; command line option is
+not used.
+
+IMPACT
+======
+
+Malicious PV guest administrators can escalate privilege so as to
+control the whole system.
+
+VULNERABLE SYSTEMS
+==================
+
+Xen 3.4 and onward are vulnerable.
+
+Only x86 systems are vulnerable.  ARM systems are not vulnerable.
+
+Only PV guests can exploit the vulnerability.  Both 32-bit and 64-bit
+PV guests can do so.
+
+MITIGATION
+==========
+
+Running only HVM guests will avoid this vulnerability.
+
+On systems where the guest kernel is controlled by the host rather
+than guest administrator, running only kernels which do not call these
+hypercalls will also prevent untrusted guest users from exploiting
+this issue. However untrusted guest administrators can still trigger
+it unless further steps are taken to prevent them from loading code
+into the kernel (e.g. by disabling loadable modules etc) or from using
+other mechanisms which allow them to run code at kernel privilege.
+
+CREDITS
+=======
+
+This issue was discovered by 栾尚聪 (好风) of Alibaba.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+xsa148.patch                 xen-unstable, Xen 4.6.x
+xsa148-4.5.patch             Xen 4.5.x
+xsa148-4.4.patch             Xen 4.4.x, Xen 4.3.x
+
+$ sha256sum xsa148*.patch
+<a href="xsa148.patch">f320d105a4832124910f46c50acd4803fe289bd7c4702ec15f97fb611b70944d  xsa148.patch</a>
+<a href="xsa148-4.4.patch">7f78efd001f041a0e5502546664d28011cb881d72c94ea564585efb3ca01ddfe  xsa148-4.4.patch</a>
+<a href="xsa148-4.5.patch">272a729048471cea851d4a881f3f2c32c7be101e2a452d2b2ceb9d66908ee4a3  xsa148-4.5.patch</a>
+$
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches and/or mitigations described above (or
+others which are substantially similar) is permitted during the
+embargo, even on public-facing systems with untrusted guest users and
+administrators.
+
+But: Distribution of updated software is prohibited (except to other
+members of the predisclosure list).
+
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+
+
+(Note: this during-embargo deployment notice is retained in
+post-embargo publicly released Xen Project advisories, even though it
+is then no longer applicable.  This is to enable the community to have
+oversight of the Xen Project Security Team&#39;s decisionmaking.)
+
+For more information about permissible uses of embargoed information,
+consult the Xen Project community&#39;s agreed Security Policy:
+  <a href="http://www.xenproject.org/security-policy.html">http://www.xenproject.org/security-policy.html</a>
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.12 (GNU/Linux)
+
+iQEcBAEBAgAGBQJWMgm4AAoJEIP+FMlX6CvZPl0IAI7uPHn9OiDqQlKnvuF5DJkx
+WkmX6lNgIXd9arkZ2gUvlenPArfJV2Rv75TP/0LLuITrv+AcylFEBd7T7rdbXeAT
+w5TaYI1wnixu8D+klyMGDjIt8Oy0gG1D8tpJYB4SETmT/Knv9FmFmUrShPD5kEVW
+6W3j3PulCpPX6+8rpmD+1CD8DDH/FHvr3xc/mK9gaWTSfPvYX0wcUbVR5GK63SHy
+6smdmcbyMz6RLlq9MRSs1ifYuAOFel3bFi0NaUm+w3luVozgg6MiEopmnmLZXgbu
+93iMDiKbQmr6XdsqvqWexJ7hAiWD5Sp+ztUW0iyNLKpj482VU9wSm0vwneZpgCg=
+=WDZi
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

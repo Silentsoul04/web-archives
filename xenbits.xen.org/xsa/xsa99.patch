@@ -1,0 +1,283 @@
+From: Aravindh Puthiyaparambil <aravindp@cisco.com>
+Date: Tue May 20 16:35:44 2014 -0700
+
+mem_access: Add helper API to setup ring and enable mem_access
+
+tools/libxc: Add helper function to setup ring for mem events
+This patch adds a helper function that maps the ring, enables mem_event
+and removes the ring from the guest physmap while the domain is paused.
+This can be used by all mem_events but is only enabled for mem_access at
+the moment.
+
+tests/xen-access: Use helper API to setup ring and enable mem_access
+Prior to this patch, xen-access was setting up the ring page in a way
+that would give a malicous guest a window to write in to the shared ring
+page. This patch fixes this by using the helper API that does it safely
+on behalf of xen-access.
+
+This is XSA-99.
+
+Signed-off-by: Aravindh Puthiyaparambil <aravindp@cisco.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+diff --git a/tools/libxc/xc_mem_access.c b/tools/libxc/xc_mem_access.c
+index f436e69..461f0e9 100644
+--- a/tools/libxc/xc_mem_access.c
++++ b/tools/libxc/xc_mem_access.c
+@@ -24,19 +24,9 @@
+ #include "xc_private.h"
+ #include <xen/memory.h>
+ 
+-int xc_mem_access_enable(xc_interface *xch, domid_t domain_id,
+-                         uint32_t *port)
++void *xc_mem_access_enable(xc_interface *xch, domid_t domain_id, uint32_t *port)
+ {
+-    if ( !port )
+-    {
+-        errno = EINVAL;
+-        return -1;
+-    }
+-
+-    return xc_mem_event_control(xch, domain_id,
+-                                XEN_DOMCTL_MEM_EVENT_OP_ACCESS_ENABLE,
+-                                XEN_DOMCTL_MEM_EVENT_OP_ACCESS,
+-                                port);
++    return xc_mem_event_enable(xch, domain_id, HVM_PARAM_ACCESS_RING_PFN, port);
+ }
+ 
+ int xc_mem_access_disable(xc_interface *xch, domid_t domain_id)
+diff --git a/tools/libxc/xc_mem_event.c b/tools/libxc/xc_mem_event.c
+index d43a0af..be7c63d 100644
+--- a/tools/libxc/xc_mem_event.c
++++ b/tools/libxc/xc_mem_event.c
+@@ -56,3 +56,118 @@ int xc_mem_event_memop(xc_interface *xch, domid_t domain_id,
+     return do_memory_op(xch, mode, &meo, sizeof(meo));
+ }
+ 
++void *xc_mem_event_enable(xc_interface *xch, domid_t domain_id, int param,
++                          uint32_t *port)
++{
++    void *ring_page = NULL;
++    unsigned long ring_pfn, mmap_pfn;
++    unsigned int op, mode;
++    int rc1, rc2, saved_errno;
++
++    if ( !port )
++    {
++        errno = EINVAL;
++        return NULL;
++    }
++
++    /* Pause the domain for ring page setup */
++    rc1 = xc_domain_pause(xch, domain_id);
++    if ( rc1 != 0 )
++    {
++        PERROR("Unable to pause domain\n");
++        return NULL;
++    }
++
++    /* Get the pfn of the ring page */
++    rc1 = xc_get_hvm_param(xch, domain_id, param, &ring_pfn);
++    if ( rc1 != 0 )
++    {
++        PERROR("Failed to get pfn of ring page\n");
++        goto out;
++    }
++
++    mmap_pfn = ring_pfn;
++    ring_page = xc_map_foreign_batch(xch, domain_id, PROT_READ | PROT_WRITE,
++                                     &mmap_pfn, 1);
++    if ( mmap_pfn & XEN_DOMCTL_PFINFO_XTAB )
++    {
++        /* Map failed, populate ring page */
++        rc1 = xc_domain_populate_physmap_exact(xch, domain_id, 1, 0, 0,
++                                              &ring_pfn);
++        if ( rc1 != 0 )
++        {
++            PERROR("Failed to populate ring pfn\n");
++            goto out;
++        }
++
++        mmap_pfn = ring_pfn;
++        ring_page = xc_map_foreign_batch(xch, domain_id, PROT_READ | PROT_WRITE,
++                                         &mmap_pfn, 1);
++        if ( mmap_pfn & XEN_DOMCTL_PFINFO_XTAB )
++        {
++            PERROR("Could not map the ring page\n");
++            goto out;
++        }
++    }
++
++    switch ( param )
++    {
++    case HVM_PARAM_PAGING_RING_PFN:
++        op = XEN_DOMCTL_MEM_EVENT_OP_PAGING_ENABLE;
++        mode = XEN_DOMCTL_MEM_EVENT_OP_PAGING;
++        break;
++
++    case HVM_PARAM_ACCESS_RING_PFN:
++        op = XEN_DOMCTL_MEM_EVENT_OP_ACCESS_ENABLE;
++        mode = XEN_DOMCTL_MEM_EVENT_OP_ACCESS;
++        break;
++
++    case HVM_PARAM_SHARING_RING_PFN:
++        op = XEN_DOMCTL_MEM_EVENT_OP_SHARING_ENABLE;
++        mode = XEN_DOMCTL_MEM_EVENT_OP_SHARING;
++        break;
++
++    /*
++     * This is for the outside chance that the HVM_PARAM is valid but is invalid
++     * as far as mem_event goes.
++     */
++    default:
++        errno = EINVAL;
++        rc1 = -1;
++        goto out;
++    }
++
++    rc1 = xc_mem_event_control(xch, domain_id, op, mode, port);
++    if ( rc1 != 0 )
++    {
++        PERROR("Failed to enable mem_event\n");
++        goto out;
++    }
++
++    /* Remove the ring_pfn from the guest's physmap */
++    rc1 = xc_domain_decrease_reservation_exact(xch, domain_id, 1, 0, &ring_pfn);
++    if ( rc1 != 0 )
++        PERROR("Failed to remove ring page from guest physmap");
++
++ out:
++    saved_errno = errno;
++
++    rc2 = xc_domain_unpause(xch, domain_id);
++    if ( rc1 != 0 || rc2 != 0 )
++    {
++        if ( rc2 != 0 )
++        {
++            if ( rc1 == 0 )
++                saved_errno = errno;
++            PERROR("Unable to unpause domain");
++        }
++
++        if ( ring_page )
++            munmap(ring_page, XC_PAGE_SIZE);
++        ring_page = NULL;
++
++        errno = saved_errno;
++    }
++
++    return ring_page;
++}
+diff --git a/tools/libxc/xenctrl.h b/tools/libxc/xenctrl.h
+index 02129f7..34678d8 100644
+--- a/tools/libxc/xenctrl.h
++++ b/tools/libxc/xenctrl.h
+@@ -2023,6 +2023,12 @@ int xc_mem_event_control(xc_interface *xch, domid_t domain_id, unsigned int op,
+ int xc_mem_event_memop(xc_interface *xch, domid_t domain_id, 
+                         unsigned int op, unsigned int mode,
+                         uint64_t gfn, void *buffer);
++/*
++ * Enables mem_event and returns the mapped ring page indicated by param.
++ * param can be HVM_PARAM_PAGING/ACCESS/SHARING_RING_PFN
++ */
++void *xc_mem_event_enable(xc_interface *xch, domid_t domain_id, int param,
++                          uint32_t *port);
+ 
+ /** 
+  * Mem paging operations.
+@@ -2043,7 +2049,13 @@ int xc_mem_paging_load(xc_interface *xch, domid_t domain_id,
+  * Access tracking operations.
+  * Supported only on Intel EPT 64 bit processors.
+  */
+-int xc_mem_access_enable(xc_interface *xch, domid_t domain_id, uint32_t *port);
++
++/*
++ * Enables mem_access and returns the mapped ring page.
++ * Will return NULL on error.
++ * Caller has to unmap this page when done.
++ */
++void *xc_mem_access_enable(xc_interface *xch, domid_t domain_id, uint32_t *port);
+ int xc_mem_access_disable(xc_interface *xch, domid_t domain_id);
+ int xc_mem_access_resume(xc_interface *xch, domid_t domain_id);
+ 
+diff --git a/tools/tests/xen-access/xen-access.c b/tools/tests/xen-access/xen-access.c
+index 0a84bd5..572ab63 100644
+--- a/tools/tests/xen-access/xen-access.c
++++ b/tools/tests/xen-access/xen-access.c
+@@ -223,7 +223,6 @@ xenaccess_t *xenaccess_init(xc_interface **xch_r, domid_t domain_id)
+     xenaccess_t *xenaccess = 0;
+     xc_interface *xch;
+     int rc;
+-    unsigned long ring_pfn, mmap_pfn;
+ 
+     xch = xc_interface_open(NULL, NULL, 0);
+     if ( !xch )
+@@ -245,40 +244,12 @@ xenaccess_t *xenaccess_init(xc_interface **xch_r, domid_t domain_id)
+     /* Initialise lock */
+     mem_event_ring_lock_init(&xenaccess->mem_event);
+ 
+-    /* Map the ring page */
+-    xc_get_hvm_param(xch, xenaccess->mem_event.domain_id, 
+-                        HVM_PARAM_ACCESS_RING_PFN, &ring_pfn);
+-    mmap_pfn = ring_pfn;
+-    xenaccess->mem_event.ring_page = 
+-        xc_map_foreign_batch(xch, xenaccess->mem_event.domain_id, 
+-                                PROT_READ | PROT_WRITE, &mmap_pfn, 1);
+-    if ( mmap_pfn & XEN_DOMCTL_PFINFO_XTAB )
+-    {
+-        /* Map failed, populate ring page */
+-        rc = xc_domain_populate_physmap_exact(xenaccess->xc_handle, 
+-                                              xenaccess->mem_event.domain_id,
+-                                              1, 0, 0, &ring_pfn);
+-        if ( rc != 0 )
+-        {
+-            PERROR("Failed to populate ring gfn\n");
+-            goto err;
+-        }
+-
+-        mmap_pfn = ring_pfn;
+-        xenaccess->mem_event.ring_page = 
+-            xc_map_foreign_batch(xch, xenaccess->mem_event.domain_id, 
+-                                    PROT_READ | PROT_WRITE, &mmap_pfn, 1);
+-        if ( mmap_pfn & XEN_DOMCTL_PFINFO_XTAB )
+-        {
+-            PERROR("Could not map the ring page\n");
+-            goto err;
+-        }
+-    }
+-
+-    /* Initialise Xen */
+-    rc = xc_mem_access_enable(xenaccess->xc_handle, xenaccess->mem_event.domain_id,
+-                             &xenaccess->mem_event.evtchn_port);
+-    if ( rc != 0 )
++    /* Enable mem_access */
++    xenaccess->mem_event.ring_page =
++            xc_mem_access_enable(xenaccess->xc_handle,
++                                 xenaccess->mem_event.domain_id,
++                                 &xenaccess->mem_event.evtchn_port);
++    if ( xenaccess->mem_event.ring_page == NULL )
+     {
+         switch ( errno ) {
+             case EBUSY:
+@@ -288,7 +259,7 @@ xenaccess_t *xenaccess_init(xc_interface **xch_r, domid_t domain_id)
+                 ERROR("EPT not supported for this guest");
+                 break;
+             default:
+-                perror("Error initialising shared page");
++                perror("Error enabling mem_access");
+                 break;
+         }
+         goto err;
+@@ -322,11 +293,6 @@ xenaccess_t *xenaccess_init(xc_interface **xch_r, domid_t domain_id)
+                    (mem_event_sring_t *)xenaccess->mem_event.ring_page,
+                    XC_PAGE_SIZE);
+ 
+-    /* Now that the ring is set, remove it from the guest's physmap */
+-    if ( xc_domain_decrease_reservation_exact(xch, 
+-                    xenaccess->mem_event.domain_id, 1, 0, &ring_pfn) )
+-        PERROR("Failed to remove ring from guest physmap");
+-
+     /* Get domaininfo */
+     xenaccess->domain_info = malloc(sizeof(xc_domaininfo_t));
+     if ( xenaccess->domain_info == NULL )

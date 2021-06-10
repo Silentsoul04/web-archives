@@ -1,0 +1,67 @@
+From 824b31047e300b0a748bbf994d29c00fcf22f2f9 Mon Sep 17 00:00:00 2001
+From: Jan Beulich <jbeulich@suse.com>
+Date: Thu, 23 May 2019 10:42:29 -0700
+Subject: [PATCH v2 4.10 01/20] events: drop arch_evtchn_inject()
+
+Have the only user call vcpu_mark_events_pending() instead, at the same
+time arranging for correct ordering of the writes (evtchn_pending_sel
+should be written before evtchn_upcall_pending).
+
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Reviewed-by: Julien Grall <julien.grall@arm.com>
+---
+ xen/arch/arm/vgic.c     | 5 -----
+ xen/common/domain.c     | 3 +--
+ xen/include/xen/event.h | 3 ---
+ 3 files changed, 1 insertion(+), 10 deletions(-)
+
+diff --git a/xen/arch/arm/vgic.c b/xen/arch/arm/vgic.c
+index 223030db30..7a78a18429 100644
+--- a/xen/arch/arm/vgic.c
++++ b/xen/arch/arm/vgic.c
+@@ -586,11 +586,6 @@ void vgic_vcpu_inject_spi(struct domain *d, unsigned int virq)
+     vgic_vcpu_inject_irq(v, virq);
+ }
+ 
+-void arch_evtchn_inject(struct vcpu *v)
+-{
+-    vgic_vcpu_inject_irq(v, v->domain->arch.evtchn_irq);
+-}
+-
+ bool vgic_emulate(struct cpu_user_regs *regs, union hsr hsr)
+ {
+     struct vcpu *v = current;
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index 8fbd33d4c6..3fa45b8591 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -1220,10 +1220,9 @@ int map_vcpu_info(struct vcpu *v, unsigned long gfn, unsigned offset)
+      * Mark everything as being pending just to make sure nothing gets
+      * lost.  The domain will get a spurious event, but it can cope.
+      */
+-    vcpu_info(v, evtchn_upcall_pending) = 1;
+     for ( i = 0; i < BITS_PER_EVTCHN_WORD(d); i++ )
+         set_bit(i, &vcpu_info(v, evtchn_pending_sel));
+-    arch_evtchn_inject(v);
++    vcpu_mark_events_pending(v);
+ 
+     return 0;
+ }
+diff --git a/xen/include/xen/event.h b/xen/include/xen/event.h
+index ebb879e88d..b8152a9831 100644
+--- a/xen/include/xen/event.h
++++ b/xen/include/xen/event.h
+@@ -83,9 +83,6 @@ int guest_enabled_event(struct vcpu *v, uint32_t virq);
+ /* Notify remote end of a Xen-attached event channel.*/
+ void notify_via_xen_event_channel(struct domain *ld, int lport);
+ 
+-/* Inject an event channel notification into the guest */
+-void arch_evtchn_inject(struct vcpu *v);
+-
+ /*
+  * Internal event channel object storage.
+  *
+-- 
+2.17.1
+

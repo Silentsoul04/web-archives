@@ -1,0 +1,155 @@
+xen: arm: check permissions when copying to/from guest virtual addresses
+
+In particular we need to make sure the guest has write permissions to buffers
+which it passes as output buffers for hypercalls, otherwise the guest can
+overwrite memory which it shouldn't be able to write (like r/o grant table
+mappings).
+
+This is XSA-98.
+
+Signed-off-by: Ian Campbell <ian.campbell@citrix.com>
+Reviewed-by: Julien Grall <julien.grall@linaro.org>
+
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index 5ca2f15..3da6b83 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -967,7 +967,7 @@ static void initrd_load(struct kernel_info *kinfo)
+         s = offs & ~PAGE_MASK;
+         l = min(PAGE_SIZE - s, len);
+ 
+-        rc = gvirt_to_maddr(load_addr + offs, &ma);
++        rc = gvirt_to_maddr(load_addr + offs, &ma, GV2M_WRITE);
+         if ( rc )
+         {
+             panic("Unable to translate guest address");
+diff --git a/xen/arch/arm/guestcopy.c b/xen/arch/arm/guestcopy.c
+index cea5f97..d1fddec 100644
+--- a/xen/arch/arm/guestcopy.c
++++ b/xen/arch/arm/guestcopy.c
+@@ -17,7 +17,7 @@ static unsigned long raw_copy_to_guest_helper(void *to, const void *from,
+         void *p;
+         unsigned size = min(len, (unsigned)PAGE_SIZE - offset);
+ 
+-        if ( gvirt_to_maddr((vaddr_t) to, &g) )
++        if ( gvirt_to_maddr((vaddr_t) to, &g, GV2M_WRITE) )
+             return len;
+ 
+         p = map_domain_page(g>>PAGE_SHIFT);
+@@ -62,7 +62,7 @@ unsigned long raw_clear_guest(void *to, unsigned len)
+         void *p;
+         unsigned size = min(len, (unsigned)PAGE_SIZE - offset);
+ 
+-        if ( gvirt_to_maddr((vaddr_t) to, &g) )
++        if ( gvirt_to_maddr((vaddr_t) to, &g, GV2M_WRITE) )
+             return len;
+ 
+         p = map_domain_page(g>>PAGE_SHIFT);
+@@ -92,7 +92,7 @@ unsigned long raw_copy_from_guest(void *to, const void __user *from, unsigned le
+         void *p;
+         unsigned size = min(len, (unsigned)(PAGE_SIZE - offset));
+ 
+-        if ( gvirt_to_maddr((vaddr_t) from & PAGE_MASK, &g) )
++        if ( gvirt_to_maddr((vaddr_t) from & PAGE_MASK, &g, GV2M_READ) )
+             return len;
+ 
+         p = map_domain_page(g>>PAGE_SHIFT);
+diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
+index 1e3107d..69c7d43 100644
+--- a/xen/arch/arm/kernel.c
++++ b/xen/arch/arm/kernel.c
+@@ -141,7 +141,7 @@ static void kernel_zimage_load(struct kernel_info *info)
+         s = offs & ~PAGE_MASK;
+         l = min(PAGE_SIZE - s, len);
+ 
+-        rc = gvirt_to_maddr(load_addr + offs, &ma);
++        rc = gvirt_to_maddr(load_addr + offs, &ma, GV2M_WRITE);
+         if ( rc )
+         {
+             panic("Unable to map translate guest address");
+diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+index 3a34d33..2e7451b 100644
+--- a/xen/arch/arm/traps.c
++++ b/xen/arch/arm/traps.c
+@@ -836,7 +836,7 @@ static void show_guest_stack(struct vcpu *v, struct cpu_user_regs *regs)
+ 
+     printk("Guest stack trace from sp=%"PRIvaddr":\n  ", sp);
+ 
+-    if ( gvirt_to_maddr(sp, &stack_phys) )
++    if ( gvirt_to_maddr(sp, &stack_phys, GV2M_READ) )
+     {
+         printk("Failed to convert stack to physical address\n");
+         return;
+diff --git a/xen/include/asm-arm/arm32/page.h b/xen/include/asm-arm/arm32/page.h
+index b8221ca..80d5c36 100644
+--- a/xen/include/asm-arm/arm32/page.h
++++ b/xen/include/asm-arm/arm32/page.h
+@@ -90,11 +90,14 @@ static inline uint64_t __va_to_par(vaddr_t va)
+ }
+ 
+ /* Ask the MMU to translate a Guest VA for us */
+-static inline uint64_t gva_to_ma_par(vaddr_t va)
++static inline uint64_t gva_to_ma_par(vaddr_t va, unsigned int flags)
+ {
+     uint64_t par, tmp;
+     tmp = READ_CP64(PAR);
+-    WRITE_CP32(va, ATS12NSOPR);
++    if ( (flags & GV2M_WRITE) == GV2M_WRITE )
++        WRITE_CP32(va, ATS12NSOPW);
++    else
++        WRITE_CP32(va, ATS12NSOPR);
+     isb(); /* Ensure result is available. */
+     par = READ_CP64(PAR);
+     WRITE_CP64(tmp, PAR);
+diff --git a/xen/include/asm-arm/arm64/page.h b/xen/include/asm-arm/arm64/page.h
+index 3352821..3922d87 100644
+--- a/xen/include/asm-arm/arm64/page.h
++++ b/xen/include/asm-arm/arm64/page.h
+@@ -83,11 +83,14 @@ static inline uint64_t __va_to_par(vaddr_t va)
+ }
+ 
+ /* Ask the MMU to translate a Guest VA for us */
+-static inline uint64_t gva_to_ma_par(vaddr_t va)
++static inline uint64_t gva_to_ma_par(vaddr_t va, unsigned int flags)
+ {
+     uint64_t par, tmp = READ_SYSREG64(PAR_EL1);
+ 
+-    asm volatile ("at s12e1r, %0;" : : "r" (va));
++    if ( (flags & GV2M_WRITE) == GV2M_WRITE )
++        asm volatile ("at s12e1r, %0;" : : "r" (va));
++    else
++        asm volatile ("at s12e1w, %0;" : : "r" (va));
+     isb();
+     par = READ_SYSREG64(PAR_EL1);
+     WRITE_SYSREG64(tmp, PAR_EL1);
+diff --git a/xen/include/asm-arm/mm.h b/xen/include/asm-arm/mm.h
+index b8d4e7d..d0e5cb4 100644
+--- a/xen/include/asm-arm/mm.h
++++ b/xen/include/asm-arm/mm.h
+@@ -233,9 +233,9 @@ static inline void *maddr_to_virt(paddr_t ma)
+ }
+ #endif
+ 
+-static inline int gvirt_to_maddr(vaddr_t va, paddr_t *pa)
++static inline int gvirt_to_maddr(vaddr_t va, paddr_t *pa, unsigned int flags)
+ {
+-    uint64_t par = gva_to_ma_par(va);
++    uint64_t par = gva_to_ma_par(va, flags);
+     if ( par & PAR_F )
+         return -EFAULT;
+     *pa = (par & PADDR_MASK & PAGE_MASK) | ((unsigned long) va & ~PAGE_MASK);
+diff --git a/xen/include/asm-arm/page.h b/xen/include/asm-arm/page.h
+index e00be9e..84562ec 100644
+--- a/xen/include/asm-arm/page.h
++++ b/xen/include/asm-arm/page.h
+@@ -73,6 +73,10 @@
+ #define MATTR_DEV     0x1
+ #define MATTR_MEM     0xf
+ 
++/* Flags for gvirt_to_maddr */
++#define GV2M_READ  (0u<<0)
++#define GV2M_WRITE (1u<<0)
++
+ #ifndef __ASSEMBLY__
+ 
+ #include <xen/types.h>

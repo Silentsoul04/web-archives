@@ -1,0 +1,98 @@
+From 3595258f4a60dd49a75b6229e623ec478eaf239b Mon Sep 17 00:00:00 2001
+From: Zheng Li <dev@zheng.li>
+Date: Fri, 24 Mar 2017 17:02:55 +0000
+Subject: [PATCH 07/30] oxenstored: enable domain connection indexing based on
+ eventchn port
+
+Currently in xenstore connection database,  we use a hash table of
+(domid -> connection) to store domain connections. This allows fast indexing
+based on dom ids.
+
+This patch adds another dimention of fast indexing that is based on eventchn
+port number. This is useful when doing selective connection processing
+based on the port numbers of incoming events.
+
+Reported-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Zheng Li <dev@zheng.li>
+Reviewed-by: David Scott <dave.scott@citrix.com>
+---
+ tools/ocaml/xenstored/connections.ml | 26 ++++++++++++++++++++++----
+ tools/ocaml/xenstored/domain.ml      |  1 +
+ 2 files changed, 23 insertions(+), 4 deletions(-)
+
+diff --git a/tools/ocaml/xenstored/connections.ml b/tools/ocaml/xenstored/connections.ml
+index 3e6a48b..1c8d911 100644
+--- a/tools/ocaml/xenstored/connections.ml
++++ b/tools/ocaml/xenstored/connections.ml
+@@ -20,10 +20,16 @@ let debug fmt = Logging.debug "connections" fmt
+ type t = {
+ 	anonymous: (Unix.file_descr, Connection.t) Hashtbl.t;
+ 	domains: (int, Connection.t) Hashtbl.t;
++	ports: (Xeneventchn.t, Connection.t) Hashtbl.t;
+ 	mutable watches: (string, Connection.watch list) Trie.t;
+ }
+ 
+-let create () = { anonymous = Hashtbl.create 37; domains = Hashtbl.create 37; watches = Trie.create () }
++let create () = {
++	anonymous = Hashtbl.create 37;
++	domains = Hashtbl.create 37;
++	ports = Hashtbl.create 37;
++	watches = Trie.create ()
++}
+ 
+ let add_anonymous cons fd can_write =
+ 	let xbcon = Xenbus.Xb.open_fd fd in
+@@ -33,7 +39,10 @@ let add_anonymous cons fd can_write =
+ let add_domain cons dom =
+ 	let xbcon = Xenbus.Xb.open_mmap (Domain.get_interface dom) (fun () -> Domain.notify dom) in
+ 	let con = Connection.create xbcon (Some dom) in
+-	Hashtbl.add cons.domains (Domain.get_id dom) con
++	Hashtbl.add cons.domains (Domain.get_id dom) con;
++	match Domain.get_port dom with
++	| Some p -> Hashtbl.add cons.ports p con;
++	| None -> ()
+ 
+ let select cons =
+ 	Hashtbl.fold
+@@ -45,8 +54,11 @@ let select cons =
+ let find cons =
+ 	Hashtbl.find cons.anonymous
+ 
+-let find_domain cons id =
+-	Hashtbl.find cons.domains id
++let find_domain cons =
++	Hashtbl.find cons.domains
++
++let find_domain_by_port cons port =
++	Hashtbl.find cons.ports port
+ 
+ let del_watches_of_con con watches =
+ 	match List.filter (fun w -> Connection.get_con w != con) watches with
+@@ -65,6 +77,12 @@ let del_domain cons id =
+ 	try
+ 		let con = find_domain cons id in
+ 		Hashtbl.remove cons.domains id;
++		(match Connection.get_domain con with
++		 | Some d ->
++		   (match Domain.get_port d with
++		    | Some p -> Hashtbl.remove cons.ports p
++		    | None -> ())
++		 | None -> ());
+ 		cons.watches <- Trie.map (del_watches_of_con con) cons.watches;
+ 		Connection.close con
+ 	with exn ->
+diff --git a/tools/ocaml/xenstored/domain.ml b/tools/ocaml/xenstored/domain.ml
+index 444069d..06d5749 100644
+--- a/tools/ocaml/xenstored/domain.ml
++++ b/tools/ocaml/xenstored/domain.ml
+@@ -35,6 +35,7 @@ let get_id domain = domain.id
+ let get_interface d = d.interface
+ let get_mfn d = d.mfn
+ let get_remote_port d = d.remote_port
++let get_port d = d.port
+ 
+ let is_bad_domain domain = domain.bad_client
+ let mark_as_bad domain = domain.bad_client <- true
+-- 
+2.1.4
+

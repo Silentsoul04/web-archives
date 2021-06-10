@@ -1,0 +1,107 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-366 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-366.html">XSA-366</a></td></tr><tr><th>Public release</th> <td>2021-02-18 11:46</td></tr><tr><th>Updated</th> <td>2021-02-23 16:36</td></tr><tr><th>Version</th> <td>2</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-27379">CVE-2021-27379</a></td></tr><tr><th>Title</th> <td>missed flush in XSA-321 backport</td></tr></table><h1>Files</h1><a href="advisory-366.txt">advisory-366.txt</a> (signed advisory file)<br /><a href="xsa366.meta">xsa366.meta</a><br /><a href="xsa366-4.11.patch">xsa366-4.11.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+            Xen Security Advisory CVE-2021-27379 / XSA-366
+                              version 2
+
+                   missed flush in XSA-321 backport
+
+UPDATES IN VERSION 2
+====================
+
+CVE assigned.
+
+Fixed erroneous reference to XSA-320; should have read XSA-321.
+
+ISSUE DESCRIPTION
+=================
+
+An oversight was made when backporting XSA-321, leading entries in the
+IOMMU not being properly updated under certain circumstances.
+
+IMPACT
+======
+
+A malicious guest may be able to retain read/write DMA access to
+frames returned to Xen&#39;s free pool, and later reused for another
+purpose.  Host crashes (leading to a Denial of Service) and privilege
+escalation cannot be ruled out.
+
+VULNERABLE SYSTEMS
+==================
+
+Xen versions up to 4.11, from at least 3.2 onwards, are affected.  Xen
+versions 4.12 and newer are not affected.
+
+Only x86 Intel systems are affected.  x86 AMD as well as Arm systems are
+not affected.
+
+Only x86 HVM guests using hardware assisted paging (HAP), having a
+passed through PCI device assigned, and having page table sharing
+enabled can leverage the vulnerability.  Note that page table
+sharing will be enabled (by default) only if Xen considers IOMMU and
+CPU large page size support compatible.
+
+MITIGATION
+==========
+
+Suppressing the use of page table sharing will avoid the vulnerability
+(command line option &quot;iommu=no-sharept&quot;).
+
+Suppressing the use of large HAP pages will avoid the vulnerability
+(command line options &quot;hap_2mb=no hap_1gb=no&quot;).
+
+Not passing through PCI devices to HVM guests will avoid the
+vulnerability.
+
+CREDITS
+=======
+
+This issue was reported as a bug by M. Vefa Bicakci, and recognized as
+a security issue by Roger Pau Monne of Citrix.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+Note that patches for released versions are generally prepared to
+apply to the stable branches, and may not apply cleanly to the most
+recent release tarball.  Downstreams are encouraged to update to the
+tip of the stable branch before applying these patches.
+
+xsa366-4.11.patch      Xen 4.11.x
+
+$ sha256sum xsa366*
+<a href="xsa366.meta">3131c9487b9446655e2e21df4ccf1e003bec471881396d7b2b1a0939f5cbae96  xsa366.meta</a>
+<a href="xsa366-4.11.patch">8c8c18ca8425e6167535c3cf774ffeb9dcb4572e81c8d2ff4a73fefede2d4d94  xsa366-4.11.patch</a>
+$
+
+NOTE REGARDING LACK OF EMBARGO
+==============================
+
+This was reported and debugged publicly, before the security
+implications were apparent.
+-----BEGIN PGP SIGNATURE-----
+
+iQE/BAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAmA1Lx4MHHBncEB4ZW4u
+b3JnAAoJEIP+FMlX6CvZXRkH+MsCFrh/HOCaqzbdlT46sZBSS3B7wMjaCt4WtB8z
+MKxRY013/MMi7xbOhMvLE/qEtT8cdkOykxac9WjMnAPk2NQE3L3uRvoWsS8cYLa6
+39RklCw0o/0YTsiY4bB5X1jI+8dBZxt4QPYl1YQqsLOHTlSJFix2Vm6w/K8+BZt9
+ceS58GEoAawwlkVXdSH2115rSVRoBUZqgHCkPIc6eOjAmXCPL++8uUToWWhiROWD
+Ic0STLsf/Rt44G71rPh8GoFdncIBULcPlp1LbxCUEzRVhdmeb1/shs79vsIk0Z3l
+c2oHzypyS15p/kdQbulGTXDFq933C4ELtjrY/HwPumJSdg==
+=er6n
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

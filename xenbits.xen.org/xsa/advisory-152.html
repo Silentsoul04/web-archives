@@ -1,0 +1,118 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-152 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-152.html">XSA-152</a></td></tr><tr><th>Public release</th> <td>2015-10-29 11:59</td></tr><tr><th>Updated</th> <td>2015-10-29 11:59</td></tr><tr><th>Version</th> <td>3</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-7971">CVE-2015-7971</a></td></tr><tr><th>Title</th> <td>x86: some pmu and profiling hypercalls log without rate limiting</td></tr></table><h1>Files</h1><a href="advisory-152.txt">advisory-152.txt</a> (signed advisory file)<br /><a href="xsa152.patch">xsa152.patch</a><br /><a href="xsa152-4.5.patch">xsa152-4.5.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+            Xen Security Advisory CVE-2015-7971 / XSA-152
+                              version 3
+
+      x86: some pmu and profiling hypercalls log without rate limiting
+
+UPDATES IN VERSION 3
+====================
+
+Public release.
+
+ISSUE DESCRIPTION
+=================
+
+HYPERCALL_xenoprof_op and HYPERVISOR_xenpmu_op log some errors and
+attempts at invalid operations.
+
+These log messages are not rate-limited, even though they can be
+triggered by guests.
+
+IMPACT
+======
+
+A malicious guest could cause repeated logging to the hypervisor
+console, leading to a Denial of Service attack.
+
+VULNERABLE SYSTEMS
+==================
+
+Xen versions 3.2.x and later are affected.  (The VPMU part of the
+vulnerability is applicable only to Xen 4.6 and later.)
+
+ARM systems are not affected.  (The pmu hypercall is x86-specific, and
+xenoprof is not supported on ARM.)
+
+MITIGATION
+==========
+
+The problematic log messages are issued with priority Warning.
+Therefore they can be rate limited by adding &quot;loglvl=error/warning&quot; to
+the hypervisor command line or suppressed entirely by adding
+&quot;loglvl=error&quot;.
+
+On systems where the guest kernel is controlled by the host rather
+than guest administrator, running only kernels which do not call these
+hypercalls will also prevent untrusted guest users from exploiting
+this issue. However untrusted guest administrators can still trigger
+it unless further steps are taken to prevent them from loading code
+into the kernel (e.g. by disabling loadable modules etc) or from using
+other mechanisms which allow them to run code at kernel privilege.
+
+CREDITS
+=======
+
+This issue was discovered by Jan Beulich of SUSE.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+xsa152-unstable.patch        xen-unstable, Xen 4.6.x
+xsa152-4.5.patch             Xen 4.5.x, Xen 4.4.x, Xen 4.3.x
+
+$ sha256sum xsa152*.patch
+<a href="xsa152.patch">596f51797aa591b5abd068ead03e21215cf70997c98a4a562392499afe47b81c  xsa152.patch</a>
+<a href="xsa152-4.5.patch">7ae2811ea80da29ee234ad5a2cbb5908e03db8fb6c50774d378d77d273e74e39  xsa152-4.5.patch</a>
+$
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches and/or mitigations described above (or
+others which are substantially similar) is permitted during the
+embargo, even on public-facing systems with untrusted guest users and
+administrators.
+
+But: Distribution of updated software is prohibited (except to other
+members of the predisclosure list).
+
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+
+
+(Note: this during-embargo deployment notice is retained in
+post-embargo publicly released Xen Project advisories, even though it
+is then no longer applicable.  This is to enable the community to have
+oversight of the Xen Project Security Team&#39;s decisionmaking.)
+
+For more information about permissible uses of embargoed information,
+consult the Xen Project community&#39;s agreed Security Policy:
+  <a href="http://www.xenproject.org/security-policy.html">http://www.xenproject.org/security-policy.html</a>
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.12 (GNU/Linux)
+
+iQEcBAEBAgAGBQJWMgm/AAoJEIP+FMlX6CvZzPwIAJs/NTew5AJA3bTO6QZtVC2T
+sRt2F11prjjeklrAcqSC03q2bBpyylLB6PJ1jmmtT0MKtST5BszGA+sJt3G8nxw1
+XKN8zNX5Yzfmltgi6ZeWk/1ps6kceb4evhkIUzt1v8Ttge148rEedGrJD9eLeRht
+XdZr8ujXwP3NGBAesKNf0DugPTR7diYyUzvwven+OXVPg0ZT53t1r6Xref7Vl4p6
+5b9uOK3rh/QVRbPGTOA1vzObk0MssBTGA615JGG0da4fr4vVUQsVK/MV/N6oc4fJ
+iUHUcH83ldLGB9kt3+kq1S6KBESInriytPrKxNFvaKOrPlaOTOKRGvJSW0QZpos=
+=BsWE
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

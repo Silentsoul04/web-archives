@@ -1,0 +1,84 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-87 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-87.html">XSA-87</a></td></tr><tr><th>Public release</th> <td>2014-01-23 17:38</td></tr><tr><th>Updated</th> <td>2014-01-24 15:37</td></tr><tr><th>Version</th> <td>2</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-1666">CVE-2014-1666</a></td></tr><tr><th>Title</th> <td>PHYSDEVOP_{prepare,release}_msix exposed to unprivileged guests</td></tr></table><h1>Files</h1><a href="advisory-87.txt">advisory-87.txt</a> (signed advisory file)<br /><a href="xsa87-4.1.patch">xsa87-4.1.patch</a><br /><a href="xsa87-4.2.patch">xsa87-4.2.patch</a><br /><a href="xsa87-unstable-4.3.patch">xsa87-unstable-4.3.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+             Xen Security Advisory CVE-2014-1666 / XSA-87
+                              version 2
+
+     PHYSDEVOP_{prepare,release}_msix exposed to unprivileged guests
+
+UPDATES IN VERSION 2
+====================
+
+CVE assigned.
+
+ISSUE DESCRIPTION
+=================
+
+The PHYSDEVOP_{prepare,release}_msix operations are supposed to be available
+to privileged guests (domain 0 in non-disaggregated setups) only, but the
+necessary privilege check was missing.
+
+IMPACT
+======
+
+Malicious or misbehaving unprivileged guests can cause the host or other
+guests to malfunction. This can result in host-wide denial of service.
+Privilege escalation, while seeming to be unlikely, cannot be excluded.
+
+VULNERABLE SYSTEMS
+==================
+
+Xen 4.1.5 and 4.1.6.1 as well as 4.2.2 and later are vulnerable.
+Xen 4.2.1 and 4.2.0 as well as 4.1.4 and earlier are not vulnerable.
+
+Only PV guests can take advantage of this vulnerability.
+
+MITIGATION
+==========
+
+Running only HVM guests will avoid this issue.
+
+There is no mitigation available for PV guests.
+
+NOTE REGARDING LACK OF EMBARGO
+==============================
+
+This issue was disclosed publicly on the xen-devel mailing list.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+xsa87-unstable-4.3.patch    xen-unstable, Xen 4.3.x
+xsa87-4.2.patch             Xen 4.2.x
+xsa87-4.1.patch             Xen 4.1.x
+
+$ sha256sum xsa87*.patch
+<a href="xsa87-4.1.patch">45e5cc892626293067cc088a671a6bbdc18b018f54ff09b6a1cbb1fabbdf114d  xsa87-4.1.patch</a>
+<a href="xsa87-4.2.patch">df9c1507d7bb0e5266a2fadd992d1e6ed0f7bf5be7466b8a93ed3bd8e3ab8e8d  xsa87-4.2.patch</a>
+<a href="xsa87-unstable-4.3.patch">a13ce270b177d33537d627b85471abaa01215cd458541f4c6524914d7c81eb38  xsa87-unstable-4.3.patch</a>
+$
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.12 (GNU/Linux)
+
+iQEcBAEBAgAGBQJS4ojJAAoJEIP+FMlX6CvZKpsH/3lVDKRMvFVkaHVPt1uRhqQo
+HxBDflm//lR5M8j8364rRSknSv8X2m/JfKJ7DCbX0WQWPrIU/i8MzTHM9fQqLvAR
+QYEhXYZC+ctkqk/sUvQaxOkyu8bNszuIOlWM9GuH2OnFN68zSl7kXiX7KZ5dHoYQ
+eNAjQeCXNaXTiSo3X3ZIFwZOlpkUj+NxJnZlZx5Hb/m5WH86FeqBNMi/jZB/i53F
+LFu7rhJ4rq25jbfuLp1ISBs5GA+71pNRvhukHijQHks1fApKhqmUiDhrBYX21l/Y
+5GJLG6L3sYdScjoeHu+QH0akwTC5L+BauMLMWljJOTKvL0p2yU/vDc2JMjXXnzk=
+=morx
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

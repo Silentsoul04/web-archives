@@ -1,0 +1,138 @@
+From 3fd04223f9b717e3e8872a1a08c4a983b6f5f551 Mon Sep 17 00:00:00 2001
+From: Xin Li <talons.lee@gmail.com>
+Date: Tue, 9 Oct 2018 17:33:19 +0800
+Subject: [PATCH v2 4.10 13/20] xen/xsm: Introduce new boot parameter xsm
+
+Introduce new boot parameter xsm to choose which xsm module is enabled,
+and set default to dummy. And add new option in Kconfig to choose the
+default XSM implementation.
+
+Signed-off-by: Xin Li <xin.li@citrix.com>
+Acked-by: Daniel De Graaf <dgdegra@tycho.nsa.gov>
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+ docs/misc/xen-command-line.markdown | 13 +++++++++
+ xen/common/Kconfig                  | 13 ++++++++-
+ xen/xsm/xsm_core.c                  | 44 ++++++++++++++++++++++++++++-
+ 3 files changed, 68 insertions(+), 2 deletions(-)
+
+diff --git a/docs/misc/xen-command-line.markdown b/docs/misc/xen-command-line.markdown
+index b79b340dd4..f89ab0a126 100644
+--- a/docs/misc/xen-command-line.markdown
++++ b/docs/misc/xen-command-line.markdown
+@@ -838,6 +838,19 @@ hardware domain is architecture dependent.
+ Note that specifying zero as domU value means zero, while for dom0 it means
+ to use the default.
+ 
++### xsm
++> `= dummy | flask`
++
++> Default: `dummy`
++
++Specify which XSM module should be enabled.  This option is only available if
++the hypervisor was compiled with XSM support.
++
++* `dummy`: this is the default choice.  Basic restriction for common deployment
++  (the dummy module) will be applied.  It's also used when XSM is compiled out.
++* `flask`: this is the policy based access control.  To choose this, the
++  separated option in kconfig must also be enabled.
++
+ ### flask
+ > `= permissive | enforcing | late | disabled`
+ 
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index 103ef44cb5..da7002ace4 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -102,7 +102,7 @@ config XSM
+ 
+ config FLASK
+ 	def_bool y
+-	prompt "FLux Advanced Security Kernel support" if EXPERT = "y"
++	prompt "FLux Advanced Security Kernel support"
+ 	depends on XSM
+ 	---help---
+ 	  Enables FLASK (FLux Advanced Security Kernel) as the access control
+@@ -140,6 +140,17 @@ config XSM_POLICY
+ 
+ 	  If unsure, say Y.
+ 
++choice
++	prompt "Default XSM implementation"
++	depends on XSM
++	default XSM_FLASK_DEFAULT if XSM_FLASK
++	default XSM_DUMMY_DEFAULT
++	config XSM_DUMMY_DEFAULT
++		bool "Match non-XSM behavior"
++	config XSM_FLASK_DEFAULT
++		bool "FLux Advanced Security Kernel" if XSM_FLASK
++endchoice
++
+ config LATE_HWDOM
+ 	bool "Dedicated hardware domain"
+ 	default n
+diff --git a/xen/xsm/xsm_core.c b/xen/xsm/xsm_core.c
+index 08994ee7a1..e78f7d8ca2 100644
+--- a/xen/xsm/xsm_core.c
++++ b/xen/xsm/xsm_core.c
+@@ -27,6 +27,35 @@
+ 
+ struct xsm_operations *xsm_ops;
+ 
++enum xsm_bootparam {
++    XSM_BOOTPARAM_DUMMY,
++    XSM_BOOTPARAM_FLASK,
++};
++
++static enum xsm_bootparam __initdata xsm_bootparam =
++#ifdef CONFIG_XSM_FLASK_DEFAULT
++    XSM_BOOTPARAM_FLASK;
++#else
++    XSM_BOOTPARAM_DUMMY;
++#endif
++
++static int __init parse_xsm_param(const char *s)
++{
++    int rc = 0;
++
++    if ( !strcmp(s, "dummy") )
++        xsm_bootparam = XSM_BOOTPARAM_DUMMY;
++#ifdef CONFIG_XSM_FLASK
++    else if ( !strcmp(s, "flask") )
++        xsm_bootparam = XSM_BOOTPARAM_FLASK;
++#endif
++    else
++        rc = -EINVAL;
++
++    return rc;
++}
++custom_param("xsm", parse_xsm_param);
++
+ static inline int verify(struct xsm_operations *ops)
+ {
+     /* verify the security_operations structure exists */
+@@ -53,7 +82,20 @@ static int __init xsm_core_init(const void *policy_buffer, size_t policy_size)
+     }
+ 
+     xsm_ops = &dummy_xsm_ops;
+-    flask_init(policy_buffer, policy_size);
++
++    switch ( xsm_bootparam )
++    {
++    case XSM_BOOTPARAM_DUMMY:
++        break;
++
++    case XSM_BOOTPARAM_FLASK:
++        flask_init(policy_buffer, policy_size);
++        break;
++
++    default:
++        ASSERT_UNREACHABLE();
++        break;
++    }
+ 
+     return 0;
+ }
+-- 
+2.17.1
+

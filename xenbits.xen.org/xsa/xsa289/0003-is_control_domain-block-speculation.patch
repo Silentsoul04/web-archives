@@ -1,0 +1,39 @@
+From 5ed135e3cc4c21a803f12b1463b57598037f4661 Mon Sep 17 00:00:00 2001
+From: Norbert Manthey <nmanthey@amazon.de>
+Subject: [PATCH SpectreV1+L1TF 03/13] is_control_domain: block speculation
+
+Under speculation, an is_control_domain check can be bypassed, because the
+check depends on a memory load. Therefore, the CPU might speculatively
+continue execution of e.g. a hypercall to pull data from memory into
+the cache, which should only be accessible by dom0.
+
+To prevent these accesses, we block speculation after the access by
+adding an lfence instruction.
+
+Signed-off-by: Norbert Manthey <nmanthey@amazon.de>
+
+---
+ xen/include/xen/sched.h | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+--- a/xen/include/xen/sched.h
++++ b/xen/include/xen/sched.h
+@@ -874,10 +874,12 @@ void watchdog_domain_destroy(struct domain *d);
+  *    (that is, this would not be suitable for a driver domain)
+  *  - There is never a reason to deny the hardware domain access to this
+  */
+-#define is_hardware_domain(_d) ((_d) == hardware_domain)
++#define is_hardware_domain(_d) \
++    (((_d) == hardware_domain && bool_lfence()) || !bool_lfence())
+ 
+ /* This check is for functionality specific to a control domain */
+-#define is_control_domain(_d) ((_d)->is_privileged)
++#define is_control_domain(_d) \
++    (((_d)->is_privileged && bool_lfence()) || !bool_lfence())
+ 
+ #define VM_ASSIST(d, t) (test_bit(VMASST_TYPE_ ## t, &(d)->vm_assist))
+ 
+-- 
+2.7.4
+

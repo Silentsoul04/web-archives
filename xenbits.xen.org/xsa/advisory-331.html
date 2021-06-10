@@ -1,0 +1,110 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-331 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-331.html">XSA-331</a></td></tr><tr><th>Public release</th> <td>2020-10-20 11:49</td></tr><tr><th>Updated</th> <td>2021-01-19 16:24</td></tr><tr><th>Version</th> <td>3</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-27675">CVE-2020-27675</a></td></tr><tr><th>Title</th> <td>Race condition in Linux event handler may crash dom0</td></tr></table><h1>Files</h1><a href="advisory-331.txt">advisory-331.txt</a> (signed advisory file)<br /><a href="xsa331-linux.patch">xsa331-linux.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+            Xen Security Advisory CVE-2020-27675 / XSA-331
+                              version 3
+
+         Race condition in Linux event handler may crash dom0
+
+UPDATES IN VERSION 3
+====================
+
+CVE assigned.
+
+ISSUE DESCRIPTION
+=================
+
+The Linux kernel event channel handling code doesn&#39;t defend the
+handling of an event against the same event channel being removed in
+parallel.
+
+This can result in accesses to already freed memory areas or NULL
+pointer dereferences in the event handling code, leading to
+misbehaviour of the system or even crashes.
+
+IMPACT
+======
+
+A misbehaving guest can trigger a dom0 crash by sending events for a
+paravirtualized device while simultaneously reconfiguring it.
+
+VULNERABLE SYSTEMS
+==================
+
+All systems with a Linux dom0 are vulnerable.
+
+All Linux kernel versions are vulnerable.
+
+MITIGATION
+==========
+
+There is no known mitigation.
+
+CREDITS
+=======
+
+This issue was discovered by Jinoh Kang of Theori.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+Note that patches for released versions are generally prepared to
+apply to the stable branches, and may not apply cleanly to the most
+recent release tarball.  Downstreams are encouraged to update to the
+tip of the stable branch before applying these patches.
+
+xsa331-linux.patch     Linux
+
+$ sha256sum xsa331*
+<a href="xsa331-linux.patch">8583392c0c573f7baa85e41c9afbdf74dcb04aea1be992d78991f0787230a193  xsa331-linux.patch</a>
+$
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches and/or mitigations described above (or
+others which are substantially similar) is permitted during the
+embargo, even on public-facing systems with untrusted guest users and
+administrators.
+
+But: Distribution of updated software is prohibited (except to other
+members of the predisclosure list).
+
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+
+
+(Note: this during-embargo deployment notice is retained in
+post-embargo publicly released Xen Project advisories, even though it
+is then no longer applicable.  This is to enable the community to have
+oversight of the Xen Project Security Team&#39;s decisionmaking.)
+
+For more information about permissible uses of embargoed information,
+consult the Xen Project community&#39;s agreed Security Policy:
+  <a href="http://www.xenproject.org/security-policy.html">http://www.xenproject.org/security-policy.html</a>
+-----BEGIN PGP SIGNATURE-----
+
+iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAmAHB6QMHHBncEB4ZW4u
+b3JnAAoJEIP+FMlX6CvZDpEH/1DgvbcVJRbGyzc8TA80oAT+zeVQpTaZkgGthQV/
+PvJQH/sMi5mrgQ7pkTVu08wY4/BWTzz+0bceD/+PqMoXBYn+56y3oavVUdAsrK6P
+Bjucd+TI0kOrRx/82FlVtjir8xPZuiBi1xHxb4mQRc70BqJfI9GETOnFsGYhFpcX
+woDuHAfum3+6fUFyRPhyu7MoWChfyOQxu6IxU22rpelT1wAOPsIi15fX0Xbz3nJi
+7bIbc3Hv9EAv114RsDZbNhz8ymzj5BL/gXWQO13187NGVhDlKdi91zdDQqbKTKTW
+4Hvl/6zARGLEPxh6oQbQhxhnMHD5+BVPvacarjNjtHdkJTk=
+=pzTm
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-242 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-242.html">XSA-242</a></td></tr><tr><th>Public release</th> <td>2017-10-12 12:00</td></tr><tr><th>Updated</th> <td>2017-10-18 12:08</td></tr><tr><th>Version</th> <td>3</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-15593">CVE-2017-15593</a></td></tr><tr><th>Title</th> <td>page type reference leak on x86</td></tr></table><h1>Files</h1><a href="advisory-242.txt">advisory-242.txt</a> (signed advisory file)<br /><a href="xsa242.meta">xsa242.meta</a><br /><a href="xsa242.patch">xsa242.patch</a><br /><a href="xsa242-4.9.patch">xsa242-4.9.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+            Xen Security Advisory CVE-2017-15593 / XSA-242
+                              version 3
+
+                    page type reference leak on x86
+
+UPDATES IN VERSION 3
+====================
+
+CVE assigned.
+
+ISSUE DESCRIPTION
+=================
+
+The page type system of Xen requires cleanup when the last reference
+for a given page is being dropped.  In order to exclude simultaneous
+updates to a given page by multiple parties, pages which are updated
+are locked beforehand.  This locking includes temporarily increasing
+the type reference count by one.  When the page is later unlocked, the
+context precludes cleanup, so the reference that is then dropped must
+not be the last one.  This was not properly enforced.
+
+IMPACT
+======
+
+A malicious or buggy PV guest may cause a memory leak upon shutdown
+of the guest, ultimately perhaps resulting in Denial of Service (DoS)
+affecting the entire host.
+
+VULNERABLE SYSTEMS
+==================
+
+All Xen versions from 3.4 onwards are vulnerable.  Xen versions 3.3 and
+earlier are not vulnerable.
+
+Only x86 systems are affected.  ARM systems are not affected.
+
+Only x86 PV guests can leverage the vulnerability.  x86 HVM guests
+cannot leverage the vulnerability.
+
+MITIGATION
+==========
+
+Running only HVM guests will avoid this vulnerability.
+
+For PV guests, the vulnerability can be avoided if the guest kernel is
+controlled by the host rather than guest administrator, provided that
+further steps are taken to prevent the guest administrator from loading
+code into the kernel (e.g. by disabling loadable modules etc) or from
+using other mechanisms which allow them to run code at kernel privilege.
+
+CREDITS
+=======
+
+This issue was discovered by Jan Beulich of SUSE.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+xsa242.patch           xen-unstable
+xsa242-4.9.patch       Xen 4.9.x, Xen 4.8.x, Xen 4.7.x, Xen 4.6.x, Xen 4.5.x
+
+$ sha256sum xsa242*
+<a href="xsa242.meta">168db3aef00806025afa255dee35cd0c042706a27a0256744e4d63f3ee86a2e8  xsa242.meta</a>
+<a href="xsa242.patch">16848f71311c2fd6a38afd7602e59211c89a3daf29b874097dba0b1e31ba6eec  xsa242.patch</a>
+<a href="xsa242-4.9.patch">5e66b6b1d1cd400905d3abd3478144539c3afa24f5a744a11809d9c5eb517b98  xsa242-4.9.patch</a>
+$
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches and/or mitigations described above (or
+others which are substantially similar) is permitted during the
+embargo, even on public-facing systems with untrusted guest users and
+administrators.
+
+But: Distribution of updated software is prohibited (except to other
+members of the predisclosure list).
+
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+
+(Note: this during-embargo deployment notice is retained in
+post-embargo publicly released Xen Project advisories, even though it
+is then no longer applicable.  This is to enable the community to have
+oversight of the Xen Project Security Team&#39;s decisionmaking.)
+
+For more information about permissible uses of embargoed information,
+consult the Xen Project community&#39;s agreed Security Policy:
+  <a href="http://www.xenproject.org/security-policy.html">http://www.xenproject.org/security-policy.html</a>
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQEcBAEBCAAGBQJZ50QmAAoJEIP+FMlX6CvZ8KMIALNhUmBoSrrx6V16Z8rPKRTs
+uBJ9b5KcUs6aiOvTD8HnGpukF5g4W+O4MzGY0WkIGjUIXgYYj4Fjnib+40x99Bp0
+W6m7EMfkU3N9hg4BPAy33MHEwK/kC9TNxro3IxYXCzSZzZn6FG64x2j1gULZvz66
++mAIaiSF0cvrn/uB1aBoAW6z+kCtqq7+XzzeC61hHmEYseYa+5JY20xB0zJ9hQe2
+KER5QTzySFsbLv/3uQ2KamQK318YBzVuFry04/ZFOXJFlz9UdP74xcRyCXuaWQCV
+EGehp54ri3qqPv5Cc2tAKATbllIrHWizhF9dtM5vnXkvFKjh3jq8cszmuRga9zI=
+=Y0V/
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

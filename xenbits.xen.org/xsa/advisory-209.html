@@ -1,0 +1,134 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-209 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-209.html">XSA-209</a></td></tr><tr><th>Public release</th> <td>2017-02-21 10:42</td></tr><tr><th>Updated</th> <td>2017-02-23 15:52</td></tr><tr><th>Version</th> <td>4</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-2620">CVE-2017-2620</a></td></tr><tr><th>Title</th> <td>cirrus_bitblt_cputovideo does not check if memory region is safe</td></tr></table><h1>Files</h1><a href="advisory-209.txt">advisory-209.txt</a> (signed advisory file)<br /><a href="xsa209-qemut.patch">xsa209-qemut.patch</a><br /><a href="xsa209-qemuu/0001-display-cirrus-ignore-source-pitch-value-as-needed-i.patch">xsa209-qemuu/0001-display-cirrus-ignore-source-pitch-value-as-needed-i.patch</a><br /><a href="xsa209-qemuu/0002-cirrus-add-blit_is_unsafe-call-to-cirrus_bitblt_cput.patch">xsa209-qemuu/0002-cirrus-add-blit_is_unsafe-call-to-cirrus_bitblt_cput.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+            Xen Security Advisory CVE-2017-2620 / XSA-209
+                              version 4
+
+   cirrus_bitblt_cputovideo does not check if memory region is safe
+
+UPDATES IN VERSION 4
+====================
+
+Include a prerequisite patch for qemu-upstream, correct statement
+regarding the availability of a qemu-traditional patch.
+
+ISSUE DESCRIPTION
+=================
+
+In CIRRUS_BLTMODE_MEMSYSSRC mode the bitblit copy routine
+cirrus_bitblt_cputovideo fails to check wethehr the specified memory
+region is safe.
+
+IMPACT
+======
+
+A malicious guest administrator can cause an out of bounds memory
+write, very likely exploitable as a privilege escalation.
+
+VULNERABLE SYSTEMS
+==================
+
+Versions of qemu shipped with all Xen versions are vulnerable.
+
+Xen systems running on x86 with HVM guests, with the qemu process
+running in dom0 are vulnerable.
+
+Only guests provided with the &quot;cirrus&quot; emulated video card can exploit
+the vulnerability.  The non-default &quot;stdvga&quot; emulated video card is
+not vulnerable.  (With xl the emulated video card is controlled by the
+&quot;stdvga=&quot; and &quot;vga=&quot; domain configuration options.)
+
+ARM systems are not vulnerable.  Systems using only PV guests are not
+vulnerable.
+
+For VMs whose qemu process is running in a stub domain, a successful
+attacker will only gain the privileges of that stubdom, which should
+be only over the guest itself.
+
+Both upstream-based versions of qemu (device_model_version=&quot;qemu-xen&quot;)
+and `traditional&#39; qemu (device_model_version=&quot;qemu-xen-traditional&quot;)
+are vulnerable.
+
+MITIGATION
+==========
+
+Running only PV guests will avoid the issue.
+
+Running HVM guests with the device model in a stubdomain will mitigate
+the issue.
+
+Changing the video card emulation to stdvga (stdvga=1, vga=&quot;stdvga&quot;,
+in the xl domain configuration) will avoid the vulnerability.
+
+CREDITS
+=======
+
+This issue was discovered by Gerd Hoffmann of Red Hat.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+xsa209-qemuu/*.patch     qemu-xen, qemu upstream
+xsa209-qemut.patch       qemu-xen-traditional
+
+$ sha256sum xsa209* xsa209*/*
+<a href="xsa209-qemut.patch">167af9ed7163fa7cf4abb52f865290ced3163c7684151bdc1324eb5e534faf13  xsa209-qemut.patch</a>
+<a href="xsa209-qemuu/0001-display-cirrus-ignore-source-pitch-value-as-needed-i.patch">e698b73d8de24af0fe33968a43561e5e1d094f4caf2443caa447b552677d2683  xsa209-qemuu/0001-display-cirrus-ignore-source-pitch-value-as-needed-i.patch</a>
+<a href="xsa209-qemuu/0002-cirrus-add-blit_is_unsafe-call-to-cirrus_bitblt_cput.patch">50c60e45151ef2265cce4f92b204e9fd75f8bc8952f097e77ab4fe1c1446bc98  xsa209-qemuu/0002-cirrus-add-blit_is_unsafe-call-to-cirrus_bitblt_cput.patch</a>
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches described above (or others which are
+substantially similar) is permitted during the embargo, even on
+public-facing systems with untrusted guest users and administrators.
+
+However, deployment of the &quot;stdvga&quot; mitigation (changing the video
+card emulation to stdvga) is NOT permitted (except where all the
+affected systems and VMs are administered and used only by
+organisations which are members of the Xen Project Security Issues
+Predisclosure List).  Specifically, deployment on public cloud systems
+is NOT permitted.  This is because this produces a guest-visible
+change which will indicate which component contains the vulnerability.
+
+Additionally, distribution of updated software is prohibited (except
+to other members of the predisclosure list).
+
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+
+
+(Note: this during-embargo deployment notice is retained in
+post-embargo publicly released Xen Project advisories, even though it
+is then no longer applicable.  This is to enable the community to have
+oversight of the Xen Project Security Team&#39;s decisionmaking.)
+
+For more information about permissible uses of embargoed information,
+consult the Xen Project community&#39;s agreed Security Policy:
+  <a href="http://www.xenproject.org/security-policy.html">http://www.xenproject.org/security-policy.html</a>
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQEcBAEBAgAGBQJYrwN/AAoJEIP+FMlX6CvZQoQIAK9UiN9VwXv1I0E7X1TL2TjE
+P9SNXkI5wKiwCq22pbz9pjBO//ia3M5UoxpDMwaMAQzn9bEThHnki8x2njRxIEF7
+frxm6B8DpHLCoRHiqgwi018JHLLcSbr+KQrZqBns1j5BfOF0in89A8cgBmQrziyX
+bj9853Q8dHSUNW1vi8vZkMacIwxMCg4sBLjSRUoqiWmoyfU6XodRwZ3LoglsofTj
+/jk/G5OiitqXDBPzvclPRddQ53xiN9eN3fV8IdG6QpX6F+C2qQVDyS8kAqqFmmm6
+Vn6yl9UxrmP0OmvQ5CgUw8GWQoY3OqObjiPgfNUdbN+CLjdhdGfF3kGuYIniqd4=
+=I92f
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

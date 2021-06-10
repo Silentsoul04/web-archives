@@ -1,0 +1,35 @@
+From a0c5282aff51d5e6520caa904207b973567d920d Mon Sep 17 00:00:00 2001
+From: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+Date: Tue, 24 Nov 2015 02:56:07 +0000
+Subject: [PATCH 4/5] netbsd/block: only read request operation from shared
+ ring once
+
+The compiler may load a switch statement multiple times from the shared
+space. This could lead to the frontend manipulating the backend into
+unforseen branches.
+
+We want to ensure that the req->operation is only read once and we
+do that by using an compiler barrier.
+
+This is part of XSA155.
+
+Signed-off-by: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+---
+ arch/xen/xen/xbdback_xenbus.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/xen/xen/xbdback_xenbus.c b/arch/xen/xen/xbdback_xenbus.c
+index 9ee0758..3d18021 100644
+--- a/arch/xen/xen/xbdback_xenbus.c
++++ b/arch/xen/xen/xbdback_xenbus.c
+@@ -1022,6 +1022,7 @@ xbdback_co_main_loop(struct xbdback_instance *xbdi, void *obj)
+ 			req->sector_number = req64->sector_number;
+ 			break;
+ 		}
++		barrier();
+ 		XENPRINTF(("xbdback op %d req_cons 0x%x req_prod 0x%x "
+ 		    "resp_prod 0x%x id %" PRIu64 "\n", req->operation,
+ 			xbdi->xbdi_ring.ring_n.req_cons,
+-- 
+2.5.2
+

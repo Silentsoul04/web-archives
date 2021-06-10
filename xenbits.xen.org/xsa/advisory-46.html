@@ -1,0 +1,85 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-46 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-46.html">XSA-46</a></td></tr><tr><th>Public release</th> <td>2013-04-18 12:00</td></tr><tr><th>Updated</th> <td>2013-04-18 13:35</td></tr><tr><th>Version</th> <td>3</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-1919">CVE-2013-1919</a></td></tr><tr><th>Title</th> <td>Several access permission issues with IRQs for unprivileged guests</td></tr></table><h1>Files</h1><a href="advisory-46.txt">advisory-46.txt</a> (signed advisory file)<br /><a href="xsa46-4.1.patch">xsa46-4.1.patch</a><br /><a href="xsa46-4.2.patch">xsa46-4.2.patch</a><br /><a href="xsa46-unstable.patch">xsa46-unstable.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+             Xen Security Advisory CVE-2013-1919 / XSA-46
+                              version 3
+
+     Several access permission issues with IRQs for unprivileged guests
+
+UPDATES IN VERSION 3
+====================
+
+Public release.
+
+ISSUE DESCRIPTION
+=================
+
+Various IRQ related access control operations may not have the
+intended effect, thus potentially permitting a stub domain to grant
+its client domain access to an IRQ it doesn&#39;t have access to itself.
+
+IMPACT
+======
+
+Malicious or buggy stub domains kernels can mount a denial of service
+attack possibly affecting the whole system.
+
+VULNERABLE SYSTEMS
+==================
+
+Only Xen systems using stub domains are vulnerable.
+
+Only guests with passed-through IRQs or PCI devices are able to
+exploit the vulnerability.
+
+It is remotely possible that PV guests with passthrough IRQs or
+devices may also be able to exploit this vulnerability, although we
+think this is unlikely.
+
+MITIGATION
+==========
+
+Servicing HVM guests with passthrough IRQs or PCI devices in dom0 (ie,
+not using a stub domain device model) should avoid this vulnerability.
+
+Reconfiguring the system to disable IRQ/PCI passthrough and instead
+providing the guests with appropriate paravirtualised facilities will
+avoid this vulnerability.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+xsa46-4.1.patch             Xen 4.1.x
+xsa46-4.2.patch             Xen 4.2.x
+xsa46-unstable.patch        xen-unstable
+
+$ sha256sum xsa46*.patch
+<a href="xsa46-4.1.patch">3b2ea317c1cf2ba428cc14946d030d38294747fef2beeb16eba30bcf3b1bc2cc  xsa46-4.1.patch</a>
+<a href="xsa46-4.2.patch">822da2303f1fc69648d7a29eb72fdda8e64baab3edc0e1548456d31e66ed1d7c  xsa46-4.2.patch</a>
+<a href="xsa46-unstable.patch">6987201720ef8af89a4682bddc33f639e1f87dc12f1ea7aee1f2e0481b1e909c  xsa46-unstable.patch</a>
+$
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.10 (GNU/Linux)
+
+iQEcBAEBAgAGBQJRb/aXAAoJEIP+FMlX6CvZV94IAJPB3B2qnny5zhfOqp2yO17+
+nMJ+Hk3EBuMWXJVF8apjxsgfrZa0paNSU0zyhQIFV0ObVU9B90tfJfb3L+L7+t8G
+3Z9vPzE6aHZ32+OlMOIHWIvHZiiDZhM7siqayYqPphJbYW0l2jvogY9BO+00ALkr
+ctoFPzMhweVf1EK5WMLC4py8Xa06qddaOKj0Jg+DuLQzlgCyeuAfFtg/UmKFUL2k
+yDpIXTYt3/7uleR60VMEmRZWQqQN/j1jGS+XQyOzgIDaM1DRvCE+fUmmULCsd0Je
+0m/4lHm6O69XZ/z3TZ4bKqlzr8KRM2YEEzKk9L3MpRgdVh1mRLAwrsW8gwGBbyc=
+=rw/Y
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-63 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-63.html">XSA-63</a></td></tr><tr><th>Public release</th> <td>2013-09-30 10:04</td></tr><tr><th>Updated</th> <td>2013-09-30 10:04</td></tr><tr><th>Version</th> <td>3</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-4355">CVE-2013-4355</a></td></tr><tr><th>Title</th> <td>Information leaks through I/O instruction emulation</td></tr></table><h1>Files</h1><a href="advisory-63.txt">advisory-63.txt</a> (signed advisory file)<br /><a href="xsa63.patch">xsa63.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+              Xen Security Advisory CVE-2013-4355 / XSA-63
+                             version 3
+
+         Information leaks through I/O instruction emulation
+
+UPDATES IN VERSION 3
+====================
+
+Public release.
+
+ISSUE DESCRIPTION
+=================
+
+Insufficient or missing error handling in certain routines dealing
+with guest memory reads can lead to uninitialized data on the
+hypervisor stack (potentially containing sensitive data from prior
+work the hypervisor performed) being copied to guest visible storage.
+
+This allows a malicious HVM guest to craft certain operations (namely,
+but not limited to, port or memory mapped I/O writes) involving
+physical or virtual addresses that have no actual memory associated
+with them, so that hypervisor stack contents are copied into the
+destination of the operation, thus becoming visible to the guest.
+
+IMPACT
+======
+
+A malicious HVM guest might be able to read sensitive data relating
+to other guests.
+
+VULNERABLE SYSTEMS
+==================
+
+Xen 3.2.x and later are vulnerable.
+Xen 3.1.x and earlier have not been inspected.
+
+Only HVM guests can take advantage of this vulnerability.
+
+MITIGATION
+==========
+
+Running only PV guests will avoid this issue.
+
+CREDITS
+=======
+
+This issue was discovered by Coverity Scan and diagnosed by Andrew
+Cooper &amp; Tim Deegan.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+xsa63.patch        Xen 4.2.x, 4.3.x, and unstable
+
+$ sha256sum xsa63*.patch
+<a href="xsa63.patch">32fa93d8ebdfbe85931c52010bf9e561fdae8846462c5b1f2fbc217ca36f3005  xsa63.patch</a>
+$
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.12 (GNU/Linux)
+
+iQEcBAEBAgAGBQJSSUhEAAoJEIP+FMlX6CvZGUsH/13jBs/EU8H/mqXCO7gQXIrm
+tPp/gsjxxxhVrwOjmmJZShQ8CWU8T3zL0RKaaGBJzAd+imnXQdb+il1vkNYT8edH
+zSB9WN3o/WNu7bzlhm3ro67WlwhXSY2yea7Bj/9bg2//T5RgoXsewX+LbCAJ3Z44
+fflCQsCuvpl77oIcftIe5rcJAtHR4Jb5/4Ps+MzxI52oS3m2BGXv/qOTpDfy7qsp
+7j/219hChnGVoZ1u/2m0i1789/9tYWM7jFbvqVYH6yHTEgk1ds8Cnn/uHQ8zXjKI
+CW8E5HGKOHOpTtJjDF0h3OqcK8vG7qKgHULDziXV//QWPP3uH/dAQCjQO9uS8r4=
+=RilU
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

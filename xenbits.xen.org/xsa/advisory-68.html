@@ -1,0 +1,80 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-68 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-68.html">XSA-68</a></td></tr><tr><th>Public release</th> <td>2013-10-10 12:00</td></tr><tr><th>Updated</th> <td>2013-10-10 12:22</td></tr><tr><th>Version</th> <td>2</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-4369">CVE-2013-4369</a></td></tr><tr><th>Title</th> <td>possible null dereference when parsing vif ratelimiting info</td></tr></table><h1>Files</h1><a href="advisory-68.txt">advisory-68.txt</a> (signed advisory file)<br /><a href="xsa68.patch">xsa68.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+             Xen Security Advisory CVE-2013-4369 / XSA-68
+                               version 2
+
+     possible null dereference when parsing vif ratelimiting info
+
+UPDATES IN VERSION 2
+====================
+
+Public release.
+
+ISSUE DESCRIPTION
+=================
+
+The libxlu library function xlu_vif_parse_rate does not properly
+handle inputs which consist solely of the &#39;@&#39; character, leading to a
+NULL pointer dereference.
+
+IMPACT
+======
+
+A toolstack which allows untrusted users to specify an arbitrary
+configuration for the VIF rate can be subjected to a DOS.
+
+The only known user of this library is the xl toolstack which does not
+have a central long running daemon and therefore the impact is limited
+to crashing the process which is creating the domain, which exists
+only to service a single domain.
+
+VULNERABLE SYSTEMS
+==================
+
+The vulnerable code is present from Xen 4.2 onwards.
+
+MITIGATION
+==========
+
+Disallowing untrusted users from specifying arbitrary VIF rate limits
+will avoid this issue.
+
+CREDITS
+=======
+
+This issue was discovered by Coverity Scan and Matthew Daley.
+
+RESOLUTION
+==========
+
+Applying the attached patch resolves this issue in all branches
+
+xsa68.patch        xen-unstable, Xen 4.3.x, Xen 4.2.x
+
+$ sha256sum xsa68*.patch
+<a href="xsa68.patch">64716cb49696298e0bbd9556fe9d6f559a4e2785081e28d50607317b6e27ba32  xsa68.patch</a>
+$
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.12 (GNU/Linux)
+
+iQEcBAEBAgAGBQJSVpv6AAoJEIP+FMlX6CvZh5AH/3eMQvmLfgXNbr/vBFKwwJFc
+FXd/5N76S17ZI5jTPLoXc1GiXOI9MhPNazKo6e/RLYkVrxgK4Cq8jowBJBgg8Q4R
+egOlTinu87uT3ik6DP1ZQVQXEC2Wot0lJwjkN5B/72Tx/ldnS7i/Wi7P5QW7kzcJ
+3FWSoCP/degKK/pBbPbt6keUjsUgkIXR3S0Vx/5+NXWeGMfjBFMqV6O1TQ1COkjw
+GrvYzXBPAnhmw0fUSYdh87Ed2MH0nZqBGuP/b4wlXqoYWBZN/1xs8M+txnfGLyRm
++vvoM5shs+IiC0cVUcOPF+o7xZRiF6ZNdEMZdMV0NPHNeVEKtdXd6zlc/7VWuvM=
+=9/V5
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

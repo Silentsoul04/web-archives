@@ -1,0 +1,87 @@
+                PV-in-HVM shim with "sidecar" ISO
+                =================================
+
+Summary
+-------
+
+This README describes one of three mitigation strategies for Meltdown.
+
+The basic principle is to run PV guests (which can read all of host
+memory due to the hardware bugs) as HVM guests (which cannot, at least
+not due to Meltdown).  The PV environment is still provided to the
+guest by an embedded copy of Xen, the "shim".  This version of the
+shim is codenamed "Vixen".
+
+In order to boot the shim with an unmodified toolstack, you also
+provide a special disk containing the shim and the guest kernel (or
+pvgrub); this is called the "sidecar".
+
+Note that both of these shim-based approaches prevent attacks on the
+host, but leave the guest vulnerable to Meltdown attacks by its own
+unprivileged processes; this is true even if the guest OS has KPTI or
+similar Meltdown mitigation.
+
+What you will need
+------------------
+
+ * Your host must be able to run grub-mkrescue to generate a .iso
+ * You will therefore need xorriso and mtools
+ * You must be using xl and able to use an alternative your guest config
+
+ * You will need the script "pvshim-converter.pl"
+  - This relies on perl-json
+ * You will need the xen.git tag 4.9.1-shim-vixen-1
+
+
+Instructions
+------------
+
+1. On a suitable system (perhaps a different host)
+    git clone git://xenbits.xenproject.org/xen.git xen.git
+    cd xen.git
+    git checkout 4.9.1-shim-vixen-1
+
+If you need bi-directional console and don't mind a less-tested patch,
+you can apply the patch found in this email:
+
+    marc.info/?i=<1515604552-9205-1-git-send-email-srn@prgmr.com>
+
+build a xen hypervisor binary as usual:
+
+    make xen
+
+If your default version of python is python 3, you may need to add the following:
+
+    make PYTHON=python2 xen
+
+This will build a file
+    xen/xen.gz
+
+2. Copy that file to your dom0.
+
+Ideally someplace like /usr/lib/xen/boot/xen-vixen.gz
+
+3. Copy the script pvshim-converter to your dom0 and make
+   it executable:
+      chmod +x pvshim-converter.pl
+
+4. For each guest
+
+  (i) if the guest is currently booted with pygrub you must first
+   switch to direct kernel boot (by manually copying the kernel and
+   initramfs out of the guest, and configuring the command line in the
+   domain configuration file), or pvgrub.
+
+  (ii) run
+      ./pvshim-converter.pl --shim=/usr/lib/xen/boot/xen-vixen.gz /etc/xen/GUEST.cfg /etc/xen/GUEST.with-shim-cfg
+
+  (iii) shut the guest down cleanly
+
+  (iv) create the guest with the new config
+      xl create /etc/xen/GUEST.with-shim-cfg
+
+  (v) Check that it boots properly.  xl console should work.
+
+  (vi) Make arrangements so that autostarting of the guest will use
+     the new config file rather than the old one
+

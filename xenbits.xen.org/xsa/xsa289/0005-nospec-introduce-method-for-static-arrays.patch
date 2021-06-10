@@ -1,0 +1,40 @@
+From 06a4c31f0eba474633cceda4172418fa112e1cea Mon Sep 17 00:00:00 2001
+From: Norbert Manthey <nmanthey@amazon.de>
+Subject: [PATCH SpectreV1+L1TF 05/13] nospec: introduce method for static
+ arrays
+
+When blocking speculative out-of-bound accesses, we can classify arrays
+into dynamic arrays and static arrays. Where the former are allocated
+during run time, the size of the latter is known during compile time.
+On static arrays, compiler might be able to block speculative accesses
+in the future.
+
+We introduce another macro that automatically uses the ARRAY_SIZE macro
+to block speculative accesses. For arrays that are statically accessed,
+this macro can be used instead of the usual macro.
+
+Signed-off-by: Norbert Manthey <nmanthey@amazon.de>
+
+---
+ xen/include/xen/nospec.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/xen/include/xen/nospec.h b/xen/include/xen/nospec.h
+--- a/xen/include/xen/nospec.h
++++ b/xen/include/xen/nospec.h
+@@ -58,6 +58,12 @@ static inline unsigned long array_index_mask_nospec(unsigned long index,
+     (typeof(_i)) (_i & _mask);                                          \
+ })
+ 
++/*
++ * array_access_nospec - allow nospec access for static size arrays
++ */
++#define array_access_nospec(array, index)                               \
++    array[array_index_nospec(index, ARRAY_SIZE(array))]
++
+ #endif /* XEN_NOSPEC_H */
+ 
+ /*
+-- 
+2.7.4
+

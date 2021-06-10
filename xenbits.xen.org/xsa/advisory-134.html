@@ -1,0 +1,108 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-134 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-134.html">XSA-134</a></td></tr><tr><th>Public release</th> <td>2015-06-11 12:00</td></tr><tr><th>Updated</th> <td>2015-06-11 12:28</td></tr><tr><th>Version</th> <td>3</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-4163">CVE-2015-4163</a></td></tr><tr><th>Title</th> <td>GNTTABOP_swap_grant_ref operation misbehavior</td></tr></table><h1>Files</h1><a href="advisory-134.txt">advisory-134.txt</a> (signed advisory file)<br /><a href="xsa134.patch">xsa134.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+            Xen Security Advisory CVE-2015-4163 / XSA-134
+                              version 3
+
+             GNTTABOP_swap_grant_ref operation misbehavior
+
+UPDATES IN VERSION 3
+====================
+
+Public release.
+
+Added email header syntax to patches, for e.g. git-am.
+
+ISSUE DESCRIPTION
+=================
+
+With the introduction of version 2 grant table operations, a version
+check became necessary for most grant table related hypercalls.  The
+GNTTABOP_swap_grant_ref call was lacking such a check.  As a result,
+the subsequent code behaved as if version 2 was in use, when a guest
+issued this hypercall without a prior GNTTABOP_setup_table or
+GNTTABOP_set_version.
+
+The effect is a possible NULL pointer dereferences.  However, this
+cannot be exploited to elevate privileges of the attacking domain, as
+the maximum memory address that can be wrongly accessed this way is
+bounded to far below the start of hypervisor memory.
+
+IMPACT
+======
+
+Malicious or buggy guest domain kernels can mount a denial of service
+attack which, if successful, can affect the whole system.
+
+VULNERABLE SYSTEMS
+==================
+
+Xen versions from 4.2 onwards are vulnerable.
+
+MITIGATION
+==========
+
+There is no mitigation available.
+
+CREDITS
+=======
+
+This issue was discovered by Jan Beulich of SUSE.
+
+RESOLUTION
+==========
+
+Applying the attached patch resolves this issue.
+
+xsa134.patch        xen-unstable, Xen 4.5.x, Xen 4.4.x, Xen 4.3.x, Xen 4.2.x
+
+$ sha256sum xsa134*.patch
+<a href="xsa134.patch">fff911a994a5031831cabd574bcba281eff438559706414a1886502eaa05ee12  xsa134.patch</a>
+$
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches and/or mitigations described above (or
+others which are substantially similar) is permitted during the
+embargo, even on public-facing systems with untrusted guest users and
+administrators.
+
+But: Distribution of updated software is prohibited (except to other
+members of the predisclosure list).
+
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+
+(Note: this during-embargo deployment notice is retained in
+post-embargo publicly released Xen Project advisories, even though it
+is then no longer applicable.  This is to enable the community to have
+oversight of the Xen Project Security Team&#39;s decisionmaking.)
+
+For more information about permissible uses of embargoed information,
+consult the Xen Project community&#39;s agreed Security Policy:
+  <a href="http://www.xenproject.org/security-policy.html">http://www.xenproject.org/security-policy.html</a>
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.12 (GNU/Linux)
+
+iQEcBAEBAgAGBQJVeX71AAoJEIP+FMlX6CvZ67gIALM9l5JdS8BN9b1/CsXSr246
+kwuTcDX/dmvVeoMMU5tYag5H6HbpFaI4GX5rvTIVS1fqHRygyRCGJmgQQQf2EmOh
+E6PKeCzfYoUh6t8YoV5RtYFcUA8qPG6AmXjQGU5tbrCgM7kGYcHU+dFHUu7VEoBH
+7Rjzwkht/u64nFRJOU7zBLiCc0/yB1K0JystM1m5przdcTTfawl1bdknG3wGxAuk
++jSQk6+rBATZgRY3r2mjvUnXvSJfsV/UklRhJCRXT0jz4O+gdgP4AU33RtGx8Evc
+64wIORu50Imvo5ZR4yCwElw/TnIJeyY3Nbq6vltMvWhhqxhyNhG+a+t2BrsD8Sc=
+=sqdZ
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

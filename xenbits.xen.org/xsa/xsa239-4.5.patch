@@ -1,0 +1,59 @@
+From: Jan Beulich <jbeulich@suse.com>
+Subject: x86/HVM: prefill partially used variable on emulation paths
+
+Certain handlers ignore the access size (vioapic_write() being the
+example this was found with), perhaps leading to subsequent reads
+seeing data that wasn't actually written by the guest. For
+consistency and extra safety also do this on the read path of
+hvm_process_io_intercept(), even if this doesn't directly affect what
+guests get to see, as we've supposedly already dealt with read handlers
+leaving data completely unitialized.
+
+This is XSA-239.
+
+Reported-by: Roger Pau Monné <roger.pau@citrix.com>
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+
+--- a/xen/arch/x86/hvm/intercept.c
++++ b/xen/arch/x86/hvm/intercept.c
+@@ -55,6 +55,7 @@ static int hvm_mmio_access(struct vcpu *
+     {
+         if ( p->dir == IOREQ_READ )
+         {
++            data = 0;
+             if ( vio->mmio_retrying )
+             {
+                 if ( vio->mmio_large_read_bytes != p->size )
+@@ -76,6 +77,7 @@ static int hvm_mmio_access(struct vcpu *
+     {
+         for ( i = 0; i < p->count; i++ )
+         {
++            data = 0;
+             if ( vio->mmio_retrying )
+             {
+                 if ( vio->mmio_large_read_bytes != p->size )
+@@ -124,6 +126,7 @@ static int hvm_mmio_access(struct vcpu *
+     {
+         for ( i = 0; i < p->count; i++ )
+         {
++            data = 0;
+             switch ( hvm_copy_from_guest_phys(&data, p->data + step * i,
+                                               p->size) )
+             {
+@@ -222,6 +225,7 @@ static int process_portio_intercept(port
+     {
+         if ( p->dir == IOREQ_READ )
+         {
++            data = 0;
+             if ( vio->mmio_retrying )
+             {
+                 if ( vio->mmio_large_read_bytes != p->size )
+@@ -246,6 +250,7 @@ static int process_portio_intercept(port
+     {
+         for ( i = 0; i < p->count; i++ )
+         {
++            data = 0;
+             if ( vio->mmio_retrying )
+             {
+                 if ( vio->mmio_large_read_bytes != p->size )

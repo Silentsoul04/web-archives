@@ -1,0 +1,140 @@
+From 1b55792875660f5c6ce3a54e0f44465dcc614eaa Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>
+Date: Mon, 23 Nov 2020 11:00:35 +0000
+Subject: XSA-354: read important xenstore entries first
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+When the quota is hit some guest agent functionality might stop working.
+Warn about this, and try to read the more important entries first as a
+best-effort to keep it working (control, etc.).  Read data/ and vm-data/
+last, so if the quota is hit there we can still do a clean shutdown of a
+VM.
+
+Of course a privileged user inside the guest can still use up entries
+beyond the quota in one of the other xenstore subtrees and break guest
+agent functionality, but if it is sufficiently privileged it could just
+kill the guest agent, so that is expected.
+
+Rename ls-lR-quota to guest-agent-quota.  Add comment explaining depth.
+
+Periodically warn when the quota is exceeded.
+
+Signed-off-by: Edwin Török <edvin.torok@citrix.com>
+Acked-by: Christian Lindig <christian.lindig@citrix.com>
+
+diff --git a/lib/xenopsd.ml b/lib/xenopsd.ml
+index 94c55930..da02b79b 100644
+--- a/lib/xenopsd.ml
++++ b/lib/xenopsd.ml
+@@ -67,7 +67,9 @@ let numa_placement = ref false
+ let numa_placement_strict = ref false
+ 
+ (* O(N^2) operations, until we get a xenstore cache, so use a small number here *)
+-let vm_xenstore_ls_lR_quota = ref 128
++let vm_guest_agent_xenstore_quota = ref 128
++
++let vm_guest_agent_xenstore_quota_warn_interval = ref 3600
+ 
+ let options =
+   [
+@@ -172,10 +174,14 @@ let options =
+     , (fun () -> string_of_bool !pci_quarantine)
+     , "True if IOMMU contexts of PCI devices are needed to be placed in \
+        quarantine" )
+-  ; ( "vm-xenstore-ls-lR-quota"
+-    , Arg.Set_int vm_xenstore_ls_lR_quota
+-    , (fun () -> string_of_int !vm_xenstore_ls_lR_quota)
++  ; ( "vm-guest-agent-xenstore-quota"
++    , Arg.Set_int vm_guest_agent_xenstore_quota
++    , (fun () -> string_of_int !vm_guest_agent_xenstore_quota)
+     , "Maximum entries in VM xenstore trees watched by xenopsd" )
++  ; ( "vm-guest-agent-xenstore-quota-warn-interval"
++    , Arg.Set_int vm_guest_agent_xenstore_quota_warn_interval
++    , (fun () -> string_of_int !vm_guest_agent_xenstore_quota_warn_interval)
++    , "How often to warn that a VM is still over its xenstore quota" )
+   ]
+ 
+ let path () = Filename.concat !sockets_path "xenopsd"
+diff --git a/xc/xenops_server_xen.ml b/xc/xenops_server_xen.ml
+index b80bf76b..d5205165 100644
+--- a/xc/xenops_server_xen.ml
++++ b/xc/xenops_server_xen.ml
+@@ -2625,16 +2625,18 @@ module VM = struct
+                 let depth = depth - 1 in
+                 List.fold_left (ls_lR ~depth root) (quota, acc) subdirs
+             in
+-            let quota = !Xenopsd.vm_xenstore_ls_lR_quota in
++            let quota = !Xenopsd.vm_guest_agent_xenstore_quota in
++            (* depth is the number of directories descended into,
++               keys at depth+1 are still read *)
+             let quota, guest_agent =
+               [
+-                ("drivers", 0)
++                ("control", 0)
++              ; ("feature/hotplug", 0)
++              ; ("xenserver/attr", 3) (* xenserver/attr/net-sriov-vf/0/ipv4/1 *)
+               ; ("attr", 3) (* attr/vif/0/ipv4/0, attr/eth0/ipv6/0/addr *)
++              ; ("drivers", 0)
+               ; ("data", 0)
+                 (* in particular avoid data/volumes which contains many entries for each disk *)
+-              ; ("control", 0)
+-              ; ("feature/hotplug", 0)
+-              ; ("xenserver/attr", 3) (* xenserver/attr/net-sriov-vf/0/ipv4/1 *)
+               ]
+               |> List.fold_left
+                    (fun acc (dir, depth) ->
+@@ -2651,19 +2653,46 @@ module VM = struct
+                    (ls_lR (Printf.sprintf "/local/domain/%d" di.Xenctrl.domid))
+                    (quota, [])
+             in
++            let path =
++              Device_common.xenops_path_of_domain di.Xenctrl.domid
++              ^ "/guest_agent_quota_reached"
++            in
++            (* we don't want the guest controlling how often we warn *)
++            let warned_path =
++              Device_common.get_private_path di.Xenctrl.domid
++              ^ "/guest_agent_quota_warned"
++            in
+             ( if quota <= 0 then
+-                let path =
+-                  Device_common.xenops_path_of_domain di.Xenctrl.domid
+-                  ^ "/ls_lR_quota_reached"
+-                in
+                 try
+                   let (_ : string) = xs.Xs.read path in
+-                  ()
++                  let now = Unix.gettimeofday () in
++                  let last =
++                    try float_of_string (xs.Xs.read warned_path) with _ -> 0.
++                  in
++                  if
++                    now -. last
++                    > float !Xenopsd.vm_guest_agent_xenstore_quota_warn_interval
++                  then (
++                    (* periodically warn if the quota is still exceeded *)
++                    xs.Xs.write warned_path (string_of_float now) ;
++                    warn
++                      "xenstore guest agent quota is still exceeded for domid \
++                       %d"
++                      di.Xenctrl.domid
++                  )
+                 with _ -> (
+-                  debug "xenstore ls_lR quota reached for domid %d"
++                  warn
++                    "xenstore guest agent quota reached for domid %d (VM \
++                     metrics and guest agent interaction might be broken, and \
++                     vm-data incomplete!)"
+                     di.Xenctrl.domid ;
+                   try xs.Xs.write path "t" with _ -> ()
+                 )
++            else
++              try
++                let (_ : string) = xs.Xs.read path in
++                xs.Xs.rm path
++              with _ -> () (* do not RM the 'warned' path to prevent flood *)
+             ) ;
+             let shadow_multiplier_target =
+               if not di.Xenctrl.hvm_guest then

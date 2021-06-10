@@ -1,0 +1,76 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-76 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-76.html">XSA-76</a></td></tr><tr><th>Public release</th> <td>2013-11-26 12:00</td></tr><tr><th>Updated</th> <td>2013-11-26 17:02</td></tr><tr><th>Version</th> <td>3</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-4554">CVE-2013-4554</a></td></tr><tr><th>Title</th> <td>Hypercalls exposed to privilege rings 1 and 2 of HVM guests</td></tr></table><h1>Files</h1><a href="advisory-76.txt">advisory-76.txt</a> (signed advisory file)<br /><a href="xsa76.patch">xsa76.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+             Xen Security Advisory CVE-2013-4554 / XSA-76
+                              version 3
+
+      Hypercalls exposed to privilege rings 1 and 2 of HVM guests
+
+UPDATES IN VERSION 3
+====================
+
+Public release.
+
+ISSUE DESCRIPTION
+=================
+
+The privilege check applied to hypercall attempts by a HVM guest only refused
+access from ring 3; rings 1 and 2 were allowed through.
+
+IMPACT
+======
+
+Code running in the intermediate privilege rings of HVM guest OSes may be able
+to elevate its privileges inside the guest by careful hypercall use.
+
+VULNERABLE SYSTEMS
+==================
+
+Xen 3.0.3 and later are vulnerable.
+Xen 3.0.2 and earlier are not vulnerable.
+
+MITIGATION
+==========
+
+Running only PV guests, or running HVM guests known to not make use of
+protection rings 1 and 2 will avoid this issue. As far as we are aware no
+mainstream OS (Linux, Windows, BSD) make use of these rings.
+
+CREDITS
+=======
+
+This issue was discovered by Jan Beulich.
+
+RESOLUTION
+==========
+
+Applying the attached patch resolves this issue.
+
+xsa76.patch        xen-unstable, Xen 4.3.x, Xen 4.2.x, Xen 4.1.x
+
+$ sha256sum xsa76*.patch
+<a href="xsa76.patch">8c4d460c71e8e8dffa32ce24f57ce872ccd8623ab72fd38be432f0a2b097e7c1  xsa76.patch</a>
+$
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.12 (GNU/Linux)
+
+iQEcBAEBAgAGBQJSlNMiAAoJEIP+FMlX6CvZn4kH/38vSCRckKM2JuQJfIJb8WtT
+hz7XFDLhDBgeei7J3G3HiZIdaVGVYvThKDl6Dk0Kfc7V7vqIOEYN6OGAOqsJY5GL
+Yqqxqol4ncyM0okLn3mvgeX1FlpLi1rlkwWkR7on7KMahxITjeGpWs00z9o9fpxy
+21hIEw3vtXxg+C22QK2GS2fHKrkU23Fi7OPC09aU179nWjQWom+7qNsRvJlw+dRq
+NZs5EvvGofqXN7KaLAirJkNUmxDOS0+XxNcF/1zLpXa/bIXjKCju6LoLb86UZOsM
+JkSSfFYiz3UxAqjZtr4x4cbUl/0LeGUETVygIOOtx/56TKMxzgbaXHDevCiu3bw=
+=oChf
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

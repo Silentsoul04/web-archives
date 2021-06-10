@@ -1,0 +1,46 @@
+From 517e3f53d7cda71b3618b3ffab1b46b57ef903e2 Mon Sep 17 00:00:00 2001
+From: Norbert Manthey <nmanthey@amazon.de>
+Subject: [PATCH SpectreV1+L1TF 12/13] common/memory: block speculative
+ out-of-bound accesses
+
+The get_page_from_gfn method returns a pointer to a page that belongs
+to a gfn. Before returning the pointer, the gfn is checked for being
+valid. Under speculation, these checks can be bypassed, so that
+the function get_page is still executed partially. Consequently, the
+function page_get_owner_and_reference might be executed partially as
+well. In this function, the computed pointer is accessed, resulting in
+a speculative out-of-bound address load.
+
+To mitigate the root cause, the lfence instruction is added in the
+function that actually checks whether the mfn is valid.
+
+This is part of the SpectreV1+L1TF mitigation patch series.
+
+Signed-off-by: Norbert Manthey <nmanthey@amazon.de>
+
+---
+ xen/common/pdx.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/xen/common/pdx.c b/xen/common/pdx.c
+--- a/xen/common/pdx.c
++++ b/xen/common/pdx.c
+@@ -33,10 +33,11 @@ unsigned long __read_mostly pdx_group_valid[BITS_TO_LONGS(
+ 
+ bool __mfn_valid(unsigned long mfn)
+ {
+-    return likely(mfn < max_page) &&
+-           likely(!(mfn & pfn_hole_mask)) &&
+-           likely(test_bit(pfn_to_pdx(mfn) / PDX_GROUP_COUNT,
+-                           pdx_group_valid));
++    bool res = likely(mfn < max_page) &&
++               likely(!(mfn & pfn_hole_mask)) &&
++               likely(test_bit(pfn_to_pdx(mfn) / PDX_GROUP_COUNT,
++                               pdx_group_valid));
++    return (res && bool_lfence()) || !bool_lfence();
+ }
+ 
+ /* Sets all bits from the most-significant 1-bit down to the LSB */
+-- 
+2.7.4
+

@@ -1,0 +1,55 @@
+From 193a03d759b320ff4078352087a576ed138c6fc6 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>
+Date: Wed, 4 Nov 2020 19:46:31 +0000
+Subject: XSA-354: ls_lR: refactor, use fold
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Edwin Török <edvin.torok@citrix.com>
+Acked-by: Christian Lindig <christian.lindig@citrix.com>
+
+diff --git a/xc/xenops_server_xen.ml b/xc/xenops_server_xen.ml
+index 008e8dda..912e97fa 100644
+--- a/xc/xenops_server_xen.ml
++++ b/xc/xenops_server_xen.ml
+@@ -2591,9 +2591,9 @@ module VM = struct
+                      (Uuidm.to_string uuid))
+               with Xs_protocol.Enoent _ -> ""
+             in
+-            let rec ls_lR root dir =
++            let rec ls_lR root acc dir =
+               let entry = root ^ "/" ^ dir in
+-              let this = try [(dir, xs.Xs.read entry)] with _ -> [] in
++              let acc = try (dir, xs.Xs.read entry) :: acc with _ -> acc in
+               let subdirs =
+                 try
+                   xs.Xs.directory entry
+@@ -2601,22 +2601,22 @@ module VM = struct
+                   |> map_tr (fun x -> dir ^ "/" ^ x)
+                 with _ -> []
+               in
+-              this @ List.concat (map_tr (ls_lR root) subdirs)
++              List.fold_left (ls_lR root) acc subdirs
+             in
+             let guest_agent =
+               [
+                 "drivers"; "attr"; "data"; "control"; "feature"; "xenserver/attr"
+               ]
+-              |> map_tr
++              |> List.fold_left
+                    (ls_lR (Printf.sprintf "/local/domain/%d" di.Xenctrl.domid))
+-              |> List.concat
++                   []
+               |> map_tr (fun (k, v) -> (k, Xenops_utils.utf8_recode v))
+             in
+             let xsdata_state =
+               Domain.allowed_xsdata_prefixes
+-              |> map_tr
++              |> List.fold_left
+                    (ls_lR (Printf.sprintf "/local/domain/%d" di.Xenctrl.domid))
+-              |> List.concat
++                   []
+             in
+             let shadow_multiplier_target =
+               if not di.Xenctrl.hvm_guest then

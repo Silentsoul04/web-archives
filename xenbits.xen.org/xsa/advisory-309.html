@@ -1,0 +1,143 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-309 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-309.html">XSA-309</a></td></tr><tr><th>Public release</th> <td>2019-12-11 12:00</td></tr><tr><th>Updated</th> <td>2019-12-11 12:09</td></tr><tr><th>Version</th> <td>3</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-19578">CVE-2019-19578</a></td></tr><tr><th>Title</th> <td>Linear pagetable use / entry miscounts</td></tr></table><h1>Files</h1><a href="advisory-309.txt">advisory-309.txt</a> (signed advisory file)<br /><a href="xsa309.meta">xsa309.meta</a><br /><a href="xsa309.patch">xsa309.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+            Xen Security Advisory CVE-2019-19578 / XSA-309
+                               version 3
+
+                Linear pagetable use / entry miscounts
+
+UPDATES IN VERSION 3
+====================
+
+Public release.
+
+Updated metadata to add 4.13, update StableRef&#39;s
+
+ISSUE DESCRIPTION
+=================
+
+&quot;Linear pagetables&quot; is a technique which involves either pointing a
+pagetable at itself, or to another pagetable of the same or higher
+level.  Xen has limited support for linear pagetables: A page may
+either point to itself, or point to another pagetable of the same
+level (i.e., L2 to L2, L3 to L3, and so on).
+
+XSA-240 introduced an additional restriction that limited the &quot;depth&quot;
+of such chains by allowing pages to either *point to* other pages of
+the same level, or *be pointed to* by other pages of the same level,
+but not both.  To implement this, we keep track of the number of
+outstanding times a page points to or is pointed to another page
+table, to prevent both from happening at the same time.
+
+Unfortunately, the original commit introducing this reset this count
+when resuming validation of a partially-validated pagetable,
+incorrectly dropping some &quot;linear_pt_entry&quot; counts.
+
+If an attacker could engineer such a situation to occur, they might be
+able to make loops or other arbitrary chains of linear pagetables, as
+described in XSA-240.
+
+IMPACT
+======
+
+A malicious or buggy PV guest may cause the hypervisor to crash,
+resulting in Denial of Service (DoS) affecting the entire host.
+Privilege escalation and information leaks cannot be excluded.
+
+VULNERABLE SYSTEMS
+==================
+
+All versions of Xen are vulnerable.
+
+Only x86 systems are affected.  Arm systems are not affected.
+
+Only x86 PV guests can leverage the vulnerability.  x86 HVM and PVH
+guests cannot leverage the vulnerability.
+
+Only systems which have enabled linear pagetables are vulnerable.
+Systems which have disabled linear pagetables, either by selecting
+CONFIG_PV_LINEAR_PT=n when building the hypervisor, or adding
+pv-linear-pt=false on the command-line, are not vulnerable.
+
+MITIGATION
+==========
+
+If you don&#39;t have any guests which need linear pagetables, you can
+disable the feature by adding pv-linear-pt=false to your Xen
+command-line.  NetBSD is known to use linear pagetables; Linux and
+MiniOS are known not to use linear pagetables.
+
+CREDITS
+=======
+
+This issue was discovered by Manuel Bouyer and diagnosed as a security
+issue by Jan Beulich of SUSE.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+xsa309.patch           xen-unstable, Xen 4.13 - Xen 4.8
+
+$ sha256sum xsa309*
+<a href="xsa309.meta">ddd00dfbc85bada4e4cee8a51b989e3138cc47c58992657054246bc95c8ae34d  xsa309.meta</a>
+<a href="xsa309.patch">0e4b75f4416624de698f3ed619c28418917ab0a5c9663c1641804e1d0a0dec1b  xsa309.patch</a>
+$
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches described above (or others which are
+substantially similar) is permitted during the embargo, even on
+public-facing systems with untrusted guest users and administrators.
+
+But: Distribution of updated software is prohibited (except to other
+members of the predisclosure list).
+
+Deployment of the `pv-linear-pt=false` mitigation is NOT permitted
+(except where all the affected systems and VMs are administered and
+used only by organisations which are members of the Xen Project
+Security Issues Predisclosure List).  Specifically, deployment on
+public cloud systems is NOT permitted.
+
+This is because someone may notice the feature going away, and armed
+with the knowledge of where the issue is, re-discover it.
+
+Deployment of the mitigation is permitted only AFTER the embargo ends.
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+
+
+(Note: this during-embargo deployment notice is retained in
+post-embargo publicly released Xen Project advisories, even though it
+is then no longer applicable.  This is to enable the community to have
+oversight of the Xen Project Security Team&#39;s decisionmaking.)
+
+For more information about permissible uses of embargoed information,
+consult the Xen Project community&#39;s agreed Security Policy:
+  <a href="http://www.xenproject.org/security-policy.html">http://www.xenproject.org/security-policy.html</a>
+-----BEGIN PGP SIGNATURE-----
+
+iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAl3w3FwMHHBncEB4ZW4u
+b3JnAAoJEIP+FMlX6CvZt+QIAL4wU2XUXRQZFk4uS9m4EYV3tlzOidJVcAOvr4pC
+x9O0rCRrUTnXvaqDj/X7fqPC4e/uHy4yPgg2gnRqb4y/jXJexPBkY/fsZJ64JdWJ
+Fo+0a9CK8IrlzhXFcxVff49kUC3Vv/X2FMa5mY07wfg3ww2qyh9rUiKSFEX4B8vV
+6lfMbFZNyOiO2vm1RnQzUCRnUeHnLXmR22BIvwLX6496qoI/ubHDBOK8NX0RU81e
+N1wdKlOlfmX1SuXfYzKPcdulmKLHnxiVgxG5FAsaQ5At3luA0+WEn5scoBXG99uB
+e6EkbmDpLabceQufMPR7Bvad3uVSzg3qLe/NvW4bd4Fvzb0=
+=Td+m
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

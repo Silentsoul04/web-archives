@@ -1,0 +1,88 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-245 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-245.html">XSA-245</a></td></tr><tr><th>Public release</th> <td>2017-09-28 17:26</td></tr><tr><th>Updated</th> <td>2017-11-30 11:59</td></tr><tr><th>Version</th> <td>2</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-17046">CVE-2017-17046</a></td></tr><tr><th>Title</th> <td>ARM: Some memory not scrubbed at boot</td></tr></table><h1>Files</h1><a href="advisory-245.txt">advisory-245.txt</a> (signed advisory file)<br /><a href="xsa245.meta">xsa245.meta</a><br /><a href="xsa245/0001-xen-page_alloc-Cover-memory-unreserved-after-boot-in.patch">xsa245/0001-xen-page_alloc-Cover-memory-unreserved-after-boot-in.patch</a><br /><a href="xsa245/0002-xen-arm-Correctly-report-the-memory-region-in-the-du.patch">xsa245/0002-xen-arm-Correctly-report-the-memory-region-in-the-du.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+            Xen Security Advisory CVE-2017-17046 / XSA-245
+                              version 2
+
+                 ARM: Some memory not scrubbed at boot
+
+UPDATES IN VERSION 2
+====================
+
+CVE assigned.
+
+NOTE REGARDING LACK OF EMBARGO
+==============================
+
+This bug was discussed publicly before it was realised that it was a
+security vulnerability.
+
+ISSUE DESCRIPTION
+=================
+
+Data can remain readable in DRAM across soft and even hard reboots.
+To ensure that sensitive data is not leaked from one domain to another
+after a reboot, Xen must &quot;scrub&quot; all memory on boot (write it with
+zeroes).
+
+Unfortunately, it was discovered that when memory was in disjoint blocks,
+or when the first block didn&#39;t begin at physical address 0, arithmetic
+errors meant that some memory was not scrubbed.
+
+IMPACT
+======
+
+Sensitive information from one domain before a reboot might be visible
+to another domain after a reboot.
+
+VULNERABLE SYSTEMS
+==================
+
+Only ARM systems are vulnerable.
+
+All versions of Xen since 4.5 are vulnerable.
+
+Only hardware with disjoint blocks, or physical addresses not starting at 0
+are vulnerable; this includes the majority of ARM systems.
+
+MITIGATION
+==========
+
+None.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patches resolves this issue.
+
+xsa245/*.patch         All versions of Xen
+
+$ sha256sum xsa245* xsa245*/*
+<a href="xsa245.meta">121829263b85fcb5eac8e38fb44e77d3aab1dd7ae6ef665bf84bb49e5e161d24  xsa245.meta</a>
+<a href="xsa245/0001-xen-page_alloc-Cover-memory-unreserved-after-boot-in.patch">526f9e1b127fbb316762ce8e8f4563bc9de0c55a1db581456a3017d570d35bdd  xsa245/0001-xen-page_alloc-Cover-memory-unreserved-after-boot-in.patch</a>
+<a href="xsa245/0002-xen-arm-Correctly-report-the-memory-region-in-the-du.patch">7164010112fcccd9cd88e72ace2eeabdb364dd6f4d05c434686267d18067f420  xsa245/0002-xen-arm-Correctly-report-the-memory-region-in-the-du.patch</a>
+$
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQEcBAEBCAAGBQJaH/KMAAoJEIP+FMlX6CvZMfgH/j86RZD7z55Lt7ITlLWZwucP
+uTDw8gjJRtB/8mgrJq97Q37rWBHvvfITUYHW7wxA+LJQAje2X7y+3kV4EWpF0hFI
+BMU3QfeyTCgYbmTb0NOaULGzhDtN/QKjFq48fccnRYfg7MisIEy5dVqDWnbUQfIn
+STP/w63rpjx2mpZVSBuWC+yA0mjcaCyezR6xJoN1rQjVe/FrnzoJwCYBmpR3JY9+
+AIeRvLLpK/vbREZZxOpBioL9KQxH+zahIwQJkS56Jbt8uC1Fq0UFe809Xt+8I4d+
+yOJiflkHKgFBW1KUL1Pirq+koad1p66Ciz9c8j88Wop0fhDTQdn10mbteizOM64=
+=PRKQ
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

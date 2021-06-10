@@ -1,0 +1,41 @@
+From 244baaaeba0ce843917442f6697fb04702a3c66a Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>
+Date: Wed, 4 Nov 2020 20:04:39 +0000
+Subject: XSA-354: ls_lR: limit depth
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+We only want to read a few levels deep into the xenstore tree of the
+guest.  Limit the depth at which we read keys to further reduce DoS
+potential.
+
+Signed-off-by: Edwin Török <edvin.torok@citrix.com>
+Acked-by: Christian Lindig <christian.lindig@citrix.com>
+
+diff --git a/xc/xenops_server_xen.ml b/xc/xenops_server_xen.ml
+index 31a22186..32092deb 100644
+--- a/xc/xenops_server_xen.ml
++++ b/xc/xenops_server_xen.ml
+@@ -2628,10 +2628,19 @@ module VM = struct
+             let quota = !Xenopsd.vm_xenstore_ls_lR_quota in
+             let quota, guest_agent =
+               [
+-                "drivers"; "attr"; "data"; "control"; "feature"; "xenserver/attr"
++                ("drivers", 0)
++              ; ("attr", 3) (* attr/vif/0/ipv4/0, attr/eth0/ipv6/0/addr *)
++              ; ("data", 0)
++                (* in particular avoid data/volumes which contains many entries for each disk *)
++              ; ("control", 0)
++              ; ("feature/hotplug", 0)
++              ; ("xenserver/attr", 3) (* xenserver/attr/net-sriov-vf/0/ipv4/1 *)
+               ]
+               |> List.fold_left
+-                   (ls_lR (Printf.sprintf "/local/domain/%d" di.Xenctrl.domid))
++                   (fun acc (dir, depth) ->
++                     ls_lR ~depth
++                       (Printf.sprintf "/local/domain/%d" di.Xenctrl.domid)
++                       acc dir)
+                    (quota, [])
+               |> fun (quota, acc) ->
+               (quota, map_tr (fun (k, v) -> (k, Xenops_utils.utf8_recode v)) acc)

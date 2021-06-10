@@ -1,0 +1,88 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-118 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-118.html">XSA-118</a></td></tr><tr><th>Public release</th> <td>2015-01-29 11:14</td></tr><tr><th>Updated</th> <td>2015-02-25 11:14</td></tr><tr><th>Version</th> <td>2</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-1563">CVE-2015-1563</a></td></tr><tr><th>Title</th> <td>arm: vgic: incorrect rate limiting of guest triggered logging</td></tr></table><h1>Files</h1><a href="advisory-118.txt">advisory-118.txt</a> (signed advisory file)<br /><a href="xsa118-4.4.patch">xsa118-4.4.patch</a><br /><a href="xsa118-4.5-unstable-1.patch">xsa118-4.5-unstable-1.patch</a><br /><a href="xsa118-4.5-unstable-2.patch">xsa118-4.5-unstable-2.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+            Xen Security Advisory CVE-2015-1563 / XSA-118
+                              version 2
+
+    arm: vgic: incorrect rate limiting of guest triggered logging
+
+UPDATES IN VERSION 2
+====================
+
+CVE assigned.
+
+ISSUE DESCRIPTION
+=================
+
+On ARM systems the code which deals with virtualising the GIC
+distributor would, under various circumstances, log messages on a
+guest accessible code path without appropriate rate limiting.
+
+IMPACT
+======
+
+A malicious guest could cause repeated logging to the hypervisor
+console, leading to a Denial of Service attack.
+
+VULNERABLE SYSTEMS
+==================
+
+Xen 4.4 and later systems running on ARM hardware are vulnerable.
+
+x86 systems are not affected.
+
+MITIGATION
+==========
+
+The problematic log messages are issued with priority Warning.
+
+Therefore they can be rate limited by adding &quot;loglvl=error/warning&quot; to the
+hypervisor command line or suppressed entirely by adding &quot;loglvl=error&quot;.
+
+NOTE REGARDING LACK OF EMBARGO
+==============================
+
+This bug was publicly reported on xen-devel, before it was appreciated
+that there was a security problem.
+
+CREDITS
+=======
+
+This issue was discovered by Julien Grall.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch(es) resolves this issue.
+
+xsa118-unstable-4.5-{1,2}.patch       xen-unstable, Xen 4.5.x
+xsa118-4.4.patch                      Xen 4.4.x
+
+$ sha256sum xsa118*.patch
+<a href="xsa118-4.4.patch">5741cfe408273bd80e1a03c21a5650f963d7103fd022c688730f55dcf5373433  xsa118-4.4.patch</a>
+<a href="xsa118-4.5-unstable-1.patch">ee24a4c5e12b67d7539f08b644080c87797f31b4402215cd4efbbc6114bffc25  xsa118-4.5-unstable-1.patch</a>
+<a href="xsa118-4.5-unstable-2.patch">bd532e3cd535fcdea51f43631a519012baff068cb62d2205fc25f2c823f031eb  xsa118-4.5-unstable-2.patch</a>
+$
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.12 (GNU/Linux)
+
+iQEcBAEBAgAGBQJU7a6RAAoJEIP+FMlX6CvZR7UH/3zahTQv65m5AZCtXcihzjjd
+EuTAnc9I1yPcHqyEDgilVsDHCM25R7TA7Fn++sYTkIvzcUAwEfJDhEJxy5SOfWFo
+pAVbuV8p/0iKOjsufJgY40nNGyhLknPH2p+deH6P039th0X2CdnFpxSHkewjSJQH
+OTdeLUt2jfvsBBO/ufOH3z1fc+L/L119PDbcAmhiX9JzS4UeqsE9zKzDa/LfwXCm
+uL5Ggk99zuyNs3xaun6zQfRErFel0qXLIl36MIiyFXtyElD0liO5h15EjityoeXH
+6ZVoAex459R9Xrr3f5snoFVazzBfCwnchmMCFqpRNfH7l8VNkdzav3HoUKAbMU8=
+=8ydP
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

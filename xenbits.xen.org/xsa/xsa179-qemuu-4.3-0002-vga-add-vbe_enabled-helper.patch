@@ -1,0 +1,68 @@
+From e7d7c09689c725be4f0b489b4ba3b741c5d9ab31 Mon Sep 17 00:00:00 2001
+From: Gerd Hoffmann <kraxel@redhat.com>
+Date: Wed, 4 May 2016 17:41:39 +0100
+Subject: [PATCH 2/5] vga: add vbe_enabled() helper
+
+Makes code a bit easier to read.
+
+Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+Signed-off-by: Stefano Stabellini <sstabellini@kernel.org>
+---
+ hw/vga.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/hw/vga.c b/hw/vga.c
+index cd7e7aa..cb1c14d 100644
+--- a/hw/vga.c
++++ b/hw/vga.c
+@@ -169,6 +169,11 @@ static uint8_t expand4to8[16];
+ static void vga_screen_dump(void *opaque, const char *filename, bool cswitch,
+                             Error **errp);
+ 
++static inline bool vbe_enabled(VGACommonState *s)
++{
++    return s->vbe_regs[VBE_DISPI_INDEX_ENABLE] & VBE_DISPI_ENABLED;
++}
++
+ static void vga_update_memory_access(VGACommonState *s)
+ {
+     MemoryRegion *region, *old_region = s->chain4_alias;
+@@ -595,7 +600,7 @@ static void vbe_fixup_regs(VGACommonState *s)
+     uint16_t *r = s->vbe_regs;
+     uint32_t bits, linelength, maxy, offset;
+ 
+-    if (!(r[VBE_DISPI_INDEX_ENABLE] & VBE_DISPI_ENABLED)) {
++    if (!vbe_enabled(s)) {
+         /* vbe is turned off -- nothing to do */
+         return;
+     }
+@@ -1176,7 +1181,7 @@ static void vga_get_offsets(VGACommonState *s,
+ {
+     uint32_t start_addr, line_offset, line_compare;
+ 
+-    if (s->vbe_regs[VBE_DISPI_INDEX_ENABLE] & VBE_DISPI_ENABLED) {
++    if (vbe_enabled(s)) {
+         line_offset = s->vbe_line_offset;
+         start_addr = s->vbe_start_addr;
+         line_compare = 65535;
+@@ -1626,7 +1631,7 @@ static int vga_get_bpp(VGACommonState *s)
+ {
+     int ret;
+ 
+-    if (s->vbe_regs[VBE_DISPI_INDEX_ENABLE] & VBE_DISPI_ENABLED) {
++    if (vbe_enabled(s)) {
+         ret = s->vbe_regs[VBE_DISPI_INDEX_BPP];
+     } else {
+         ret = 0;
+@@ -1638,7 +1643,7 @@ static void vga_get_resolution(VGACommonState *s, int *pwidth, int *pheight)
+ {
+     int width, height;
+ 
+-    if (s->vbe_regs[VBE_DISPI_INDEX_ENABLE] & VBE_DISPI_ENABLED) {
++    if (vbe_enabled(s)) {
+         width = s->vbe_regs[VBE_DISPI_INDEX_XRES];
+         height = s->vbe_regs[VBE_DISPI_INDEX_YRES];
+     } else {
+-- 
+1.9.1
+

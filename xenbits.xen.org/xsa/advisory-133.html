@@ -1,0 +1,126 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-133 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-133.html">XSA-133</a></td></tr><tr><th>Public release</th> <td>2015-05-13 11:15</td></tr><tr><th>Updated</th> <td>2015-05-13 11:15</td></tr><tr><th>Version</th> <td>2</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-3456">CVE-2015-3456</a></td></tr><tr><th>Title</th> <td>Privilege escalation via emulated floppy disk drive</td></tr></table><h1>Files</h1><a href="advisory-133.txt">advisory-133.txt</a> (signed advisory file)<br /><a href="xsa133-qemut.patch">xsa133-qemut.patch</a><br /><a href="xsa133-qemuu.patch">xsa133-qemuu.patch</a><br /><a href="xsa133-qemuu-4.3-4.2.patch">xsa133-qemuu-4.3-4.2.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+            Xen Security Advisory CVE-2015-3456 / XSA-133
+                              version 2
+
+          Privilege escalation via emulated floppy disk drive
+
+UPDATES IN VERSION 2
+====================
+
+Public release.
+
+ISSUE DESCRIPTION
+=================
+
+The code in qemu which emulates a floppy disk controller did not
+correctly bounds check accesses to an array and therefore was
+vulnerable to a buffer overflow attack.
+
+IMPACT
+======
+
+A guest which has access to an emulated floppy device can exploit this
+vulnerability to take over the qemu process elevating its privilege to
+that of the qemu process.
+
+VULNERABLE SYSTEMS
+==================
+
+All Xen systems running x86 HVM guests without stubdomains are
+vulnerable to this depending on the specific guest configuration. The
+default configuration is vulnerable.
+
+Guests using either the traditional &quot;qemu-xen&quot; or upstream qemu device
+models are vulnerable.
+
+Guests using a qemu-dm stubdomain to run the device model are only
+vulnerable to takeover of that service domain.
+
+Systems running only x86 PV guests are not vulnerable.
+
+ARM systems are not vulnerable.
+
+MITIGATION
+==========
+
+Enabling stubdomains will mitigate this issue, by reducing the
+escalation to only those privileges accorded to the service domain.
+
+qemu-dm stubdomains are only available with the traditional &quot;qemu-xen&quot;
+version.
+
+CREDITS
+=======
+
+This issue was discovered by Jason Geffner, Senior Security Researcher
+at CrowdStrike.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+xsa133-qemuu.patch           qemu-upstream-unstable, Xen 4.5.x, Xen 4.4.x
+xsa133-qemuu-4.3-4.2.patch   qemu-upstream-unstable, Xen 4.3.x, Xen 4.2.x
+xsa133-qemut.patch           qemu-xen-unstable, Xen 4.5.x, Xen 4.4.x, Xen 4.3.x, Xen 4.2.x
+
+$ sha256sum xsa133*.patch
+<a href="xsa133-qemut.patch">e7ca0106a9d4bfe472b3b52bbed8646b47305634ff16c3e17ed6185296a7e7ff  xsa133-qemut.patch</a>
+<a href="xsa133-qemuu.patch">0cbc0415ef63bc195a0338441f3770d9fe6741e894879e35d1a6609ad028e42f  xsa133-qemuu.patch</a>
+<a href="xsa133-qemuu-4.3-4.2.patch">cf735c1ecb6a40ca57d408e5c01725eca5b9b0a14b1d31b4362dc3f036bdeb28  xsa133-qemuu-4.3-4.2.patch</a>
+$
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches described above (or others which are
+substantially similar) is permitted during the embargo, even on
+public-facing systems with untrusted guest users and administrators.
+
+But: Deployment of the mitigation by enabling stubdomains is NOT
+permitted (except on systems used and administered only by
+organisations which are members of the Xen Project Security Issues
+Predisclosure List).  Specifically, deployment on public cloud systems
+is NOT permitted.  This is because this configuration change may be
+visible to the guest.
+
+Also, distribution of updated software is prohibited (except to other
+members of the predisclosure list).
+
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+
+(Note: this during-embargo deployment notice is retained in
+post-embargo publicly released Xen Project advisories, even though it
+is then no longer applicable.  This is to enable the community to have
+oversight of the Xen Project Security Team&#39;s decisionmaking.)
+
+For more information about permissible uses of embargoed information,
+consult the Xen Project community&#39;s agreed Security Policy:
+  <a href="http://www.xenproject.org/security-policy.html">http://www.xenproject.org/security-policy.html</a>
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.12 (GNU/Linux)
+
+iQEcBAEBAgAGBQJVUzJdAAoJEIP+FMlX6CvZnJcH/iszFBI+ltmOGxfCtSmnnkdu
+6GZUFCVimeVG2ZfDCe1Bvw63ZMeB8AMUr2KmFrg0pOfC7m1Mc/4UhczpqeY9G1i0
+kPCcNiK37Ju0otFN1AODHaYGhu6pgfTM+QV1muFVXHf9QibmH+vEy7HEN34Mtv/2
+gGRmxLJnkHFME2sISuqhDsxIMf5QWN28I412/QqK8/mJMuvCJHqbLs/fv9f0uj9g
+sgAVCb3gsqNS7SSK1v49PqK+lQV+BkPR8pi8ODdL301iZWfu8PbVpYa5A84LVQF0
+4ZnlVfWqeKXF7GlsuviinhQIoUIvSktf9tg65fM48Thk0UUp+MyHVkh4GkT/+Eo=
+=rN8t
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

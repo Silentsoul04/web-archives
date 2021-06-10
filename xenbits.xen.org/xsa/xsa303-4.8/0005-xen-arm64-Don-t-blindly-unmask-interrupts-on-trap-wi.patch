@@ -1,0 +1,96 @@
+From aa342e4af814eab107b11f0b7abca0457b616fbc Mon Sep 17 00:00:00 2001
+From: Julien Grall <julien.grall@arm.com>
+Date: Mon, 7 Oct 2019 18:10:56 +0100
+Subject: [PATCH 5/5] xen/arm64: Don't blindly unmask interrupts on trap
+ without a change of level
+
+Some of the traps without a change of the level (i.e. hypervisor ->
+hypervisor) will unmask interrupts regardless the state of them in the
+interrupted context.
+
+One of the consequences is IRQ will be unmasked when receiving a
+synchronous exception (used by WARN*()). This could result to unexpected
+behavior such as deadlock (if a lock was shared with interrupts).
+
+In a nutshell, interrupts should only be unmasked when it is safe to
+do. Xen only unmask IRQ interrupts, so the logic can stay simple:
+    - hyp_error: All the interrupts are now kept masked. SError should
+      be pretty rare and if ever happen then we most likely want to
+      avoid any other interrupts to be generated. The potential main
+      "caller" is during virtual SError synchronization on the exit
+      path from the guest (see check_pending_vserror).
+
+    - hyp_sync: The IRQ state is inherited from the interrupted context.
+
+    - hyp_irq: All interrupts are now kept masked.
+
+This is part of XSA-303.
+
+Reported-by: Julien Grall <Julien.Grall@arm.com>
+Signed-off-by: Julien Grall <julien.grall@arm.com>
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+---
+ xen/arch/arm/arm64/entry.S | 27 ++++++++++++++++++++++++---
+ 1 file changed, 24 insertions(+), 3 deletions(-)
+
+diff --git a/xen/arch/arm/arm64/entry.S b/xen/arch/arm/arm64/entry.S
+index 0e7ddde9ed..7fd55300db 100644
+--- a/xen/arch/arm/arm64/entry.S
++++ b/xen/arch/arm/arm64/entry.S
+@@ -177,6 +177,14 @@ hyp_error_invalid:
+         entry   hyp=1
+         invalid BAD_ERROR
+ 
++/*
++ * SError received while running in the hypervisor mode.
++ *
++ * Technically, we could unmask the IRQ if it were unmasked in the
++ * interrupted context. However, this require to check the PSTATE. For
++ * simplicity, as SError should be rare and potentially fatal,
++ * all interrupts are kept masked.
++ */
+ hyp_error:
+         /*
+          * Only two possibilities:
+@@ -186,7 +194,6 @@ hyp_error:
+          * 2) Or we come from anywhere else, and that's a bug: we panic.
+          */
+         entry   hyp=1
+-        msr     daifclr, #2
+ 
+         /*
+          * The ELR_EL2 may be modified by an interrupt, so we have to use the
+@@ -214,14 +221,28 @@ hyp_error:
+         bl      do_trap_guest_error
+         exit    hyp=1
+ 
+-/* Traps taken in Current EL with SP_ELx */
++/*
++ * Synchronous exception received while running in the hypervisor mode.
++ *
++ * While the exception can be executed with IRQ unmasked, the interrupt
++ * context may have purposefully masked it. So we want to inherit the
++ * state from the interrupted context.
++ */
+ hyp_sync:
+         entry   hyp=1
+-        msr     daifclr, #2
++
++        /* Inherit IRQ state and keep the other interrupts masked. */
++        mrs     x0, SPSR_el2
++        and     x0, x0, #PSR_IRQ_MASK
++        mov     x1, #(PSR_DBG_MASK | PSR_ABT_MASK | PSR_FIQ_MASK)
++        orr     x0, x0, x1
++        msr     daif, x0
++
+         mov     x0, sp
+         bl      do_trap_hyp_sync
+         exit    hyp=1
+ 
++/* IRQ received while running in the hypervisor mode. */
+ hyp_irq:
+         entry   hyp=1
+         mov     x0, sp
+-- 
+2.11.0
+

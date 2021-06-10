@@ -1,0 +1,71 @@
+From c2b590ccbd4d3a5c326f1d0196d82d09e599fa4b Mon Sep 17 00:00:00 2001
+From: Julien Grall <julien.grall@arm.com>
+Date: Mon, 29 Apr 2019 15:05:16 +0100
+Subject: [PATCH v2 4.10 03/20] xen/arm: Add an isb() before reading CNTPCT_EL0
+ to prevent re-ordering
+
+Per D8.2.1 in ARM DDI 0487C.a, "a read to CNTPCT_EL0 can occur
+speculatively and out of order relative to other instructions executed
+on the same PE."
+
+Add an instruction barrier to get accurate number of cycles when
+requested in get_cycles(). For the other users of CNPCT_EL0, replace by
+a call to get_cycles().
+
+This is part of XSA-295.
+
+Signed-off-by: Julien Grall <julien.grall@arm.com>
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+---
+ xen/arch/arm/time.c        | 4 ++--
+ xen/include/asm-arm/time.h | 5 ++++-
+ 2 files changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/xen/arch/arm/time.c b/xen/arch/arm/time.c
+index 105c7410c7..825ef374e8 100644
+--- a/xen/arch/arm/time.c
++++ b/xen/arch/arm/time.c
+@@ -150,7 +150,7 @@ void __init preinit_xen_time(void)
+     if ( res )
+         panic("Timer: Cannot initialize platform timer");
+ 
+-    boot_count = READ_SYSREG64(CNTPCT_EL0);
++    boot_count = get_cycles();
+ }
+ 
+ static void __init init_dt_xen_time(void)
+@@ -191,7 +191,7 @@ int __init init_xen_time(void)
+ /* Return number of nanoseconds since boot */
+ s_time_t get_s_time(void)
+ {
+-    uint64_t ticks = READ_SYSREG64(CNTPCT_EL0) - boot_count;
++    uint64_t ticks = get_cycles() - boot_count;
+     return ticks_to_ns(ticks);
+ }
+ 
+diff --git a/xen/include/asm-arm/time.h b/xen/include/asm-arm/time.h
+index 5b9a31de91..ca30406669 100644
+--- a/xen/include/asm-arm/time.h
++++ b/xen/include/asm-arm/time.h
+@@ -1,6 +1,8 @@
+ #ifndef __ARM_TIME_H__
+ #define __ARM_TIME_H__
+ 
++#include <asm/system.h>
++
+ #define DT_MATCH_TIMER                      \
+     DT_MATCH_COMPATIBLE("arm,armv7-timer"), \
+     DT_MATCH_COMPATIBLE("arm,armv8-timer")
+@@ -9,7 +11,8 @@ typedef unsigned long cycles_t;
+ 
+ static inline cycles_t get_cycles (void)
+ {
+-        return 0;
++        isb();
++        return READ_SYSREG64(CNTPCT_EL0);
+ }
+ 
+ /* List of timer's IRQ */
+-- 
+2.17.1
+

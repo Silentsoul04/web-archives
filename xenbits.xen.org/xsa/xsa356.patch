@@ -1,0 +1,65 @@
+From: Roger Pau Monné <roger.pau@citrix.com>
+Subject: x86/irq: fix infinite loop in irq_move_cleanup_interrupt
+
+If Xen enters irq_move_cleanup_interrupt with a dynamic vector below
+IRQ_MOVE_CLEANUP_VECTOR pending in IRR (0x20 or 0x21) that's also
+designated for a cleanup it will enter a loop where
+irq_move_cleanup_interrupt continuously sends a cleanup IPI (vector
+0x22) to itself while waiting for the vector with lower priority to be
+injected - which will never happen because IRQ_MOVE_CLEANUP_VECTOR
+takes precedence and it's always injected first.
+
+Fix this by making sure vectors below IRQ_MOVE_CLEANUP_VECTOR are
+marked as used and thus not available for APs. Also add some logic to
+assert and prevent irq_move_cleanup_interrupt from entering such an
+infinite loop, albeit that should never happen given the current code.
+
+This is XSA-356 / CVE-2020-29567.
+
+Fixes: 3fba06ba9f8 ('x86/IRQ: re-use legacy vector ranges on APs')
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+--- a/xen/arch/x86/irq.c
++++ b/xen/arch/x86/irq.c
+@@ -441,8 +441,15 @@ int __init init_irq_data(void)
+     set_bit(HYPERCALL_VECTOR, used_vectors);
+ #endif
+     
+-    /* IRQ_MOVE_CLEANUP_VECTOR used for clean up vectors */
+-    set_bit(IRQ_MOVE_CLEANUP_VECTOR, used_vectors);
++    /*
++     * Mark vectors up to the cleanup one as used, to prevent an infinite loop
++     * invoking irq_move_cleanup_interrupt.
++     */
++    BUILD_BUG_ON(IRQ_MOVE_CLEANUP_VECTOR < FIRST_DYNAMIC_VECTOR);
++    for ( vector = FIRST_DYNAMIC_VECTOR;
++          vector <= IRQ_MOVE_CLEANUP_VECTOR;
++          vector++ )
++        __set_bit(vector, used_vectors);
+ 
+     return 0;
+ }
+@@ -727,10 +734,6 @@ void irq_move_cleanup_interrupt(struct cpu_user_regs *regs)
+ {
+     unsigned vector, me;
+ 
+-    /* This interrupt should not nest inside others. */
+-    BUILD_BUG_ON(APIC_PRIO_CLASS(IRQ_MOVE_CLEANUP_VECTOR) !=
+-                 APIC_PRIO_CLASS(FIRST_DYNAMIC_VECTOR));
+-
+     ack_APIC_irq();
+ 
+     me = smp_processor_id();
+@@ -774,6 +777,11 @@ void irq_move_cleanup_interrupt(struct cpu_user_regs *regs)
+          */
+         if ( irr & (1u << (vector % 32)) )
+         {
++            if ( vector < IRQ_MOVE_CLEANUP_VECTOR )
++            {
++                ASSERT_UNREACHABLE();
++                goto unlock;
++            }
+             send_IPI_self(IRQ_MOVE_CLEANUP_VECTOR);
+             TRACE_3D(TRC_HW_IRQ_MOVE_CLEANUP_DELAY,
+                      irq, vector, smp_processor_id());

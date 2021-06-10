@@ -1,0 +1,120 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-137 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-137.html">XSA-137</a></td></tr><tr><th>Public release</th> <td>2015-07-07 12:00</td></tr><tr><th>Updated</th> <td>2015-07-07 12:25</td></tr><tr><th>Version</th> <td>3</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-3259">CVE-2015-3259</a></td></tr><tr><th>Title</th> <td>xl command line config handling stack overflow</td></tr></table><h1>Files</h1><a href="advisory-137.txt">advisory-137.txt</a> (signed advisory file)<br /><a href="xsa137.patch">xsa137.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+            Xen Security Advisory CVE-2015-3259 / XSA-137
+                              version 3
+
+             xl command line config handling stack overflow
+
+UPDATES IN VERSION 3
+====================
+
+Public release.
+
+ISSUE DESCRIPTION
+=================
+
+The xl command line utility mishandles long configuration values when
+passed as command line arguments, with a buffer overrun.
+
+VULNERABLE SYSTEMS
+==================
+
+Systems built on top of xl which pass laundered or checked (but
+otherwise untrusted) configuration values onto xl&#39;s command line,
+without restricting their length, are vulnerable.
+
+We are not presently aware of any publicly distributed production
+software which exposes the xl vulnerability.  However it is
+sufficiently simple to create such an arrangement that it might be
+done locally in an attempt to grant partial management access to
+particular domains.
+
+Systems using the libxl library directly, without using xl, are not
+vulnerable.  Systems using toolstacks other than xl are not
+vulnerable.  Systems where only fully trusted input is ever presented
+to the xl command line are not vulnerable.
+
+The vulnerability exists on x86 and ARM.
+
+The vulnerability was introduced in Xen 4.1 and affects all subsequent
+Xen releases.
+
+IMPACT
+======
+
+A semi-trusted guest administrator or controller, who is intended to
+be able to partially control the configuration settings for a domain,
+can escalate their privileges to that of the whole host.
+
+MITIGATION
+==========
+
+Limiting the length of untrusted configuration settings will avoid the
+vulnerability.  (The total length of all command-line configuration
+settings, including some interposed newlines and trailing nul, must be
+less than 1024.)
+
+CREDITS
+=======
+
+This issue was discovered by Donghai Zhu of Alibab.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+xsa137.patch        Xen 4.2.x and later
+
+$ sha256sum xsa137*.patch
+<a href="xsa137.patch">0272c443575c88b53445c89ef84f0cd98a03944d3303f06c66c33ef0037d97b9  xsa137.patch</a>
+$
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches and/or mitigations described above (or
+others which are substantially similar) is permitted during the
+embargo, even on public-facing systems with untrusted guest users and
+administrators.
+
+But: Distribution of updated software is prohibited (except to other
+members of the predisclosure list).
+
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+
+
+(Note: this during-embargo deployment notice is retained in
+post-embargo publicly released Xen Project advisories, even though it
+is then no longer applicable.  This is to enable the community to have
+oversight of the Xen Project Security Team&#39;s decisionmaking.)
+
+For more information about permissible uses of embargoed information,
+consult the Xen Project community&#39;s agreed Security Policy:
+  <a href="http://www.xenproject.org/security-policy.html">http://www.xenproject.org/security-policy.html</a>
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.12 (GNU/Linux)
+
+iQEcBAEBAgAGBQJVm8UeAAoJEIP+FMlX6CvZmnEH/1Tq+nP7STM4yE56JJsqUikV
+HmKbJuCy6yApsMQ7JrPjbs3yo826OQl3BVyZBicfgk6B2Cx78QgbF+XGK6B/9sfz
+DP5bMwz9S4n5u7K4bMkppx+6p2nG06hkzfdwzGbCC3nKiW9chYo4NdPtcQRA4d2d
+LnSN7JGJjxAFq22a3KKlb5AILr6x/+PYPan/jolf39rXmU1Lcg0fsMFuLm8fK1MQ
+burOoCphm8Xd0UOgNaH2BGCAjYoFuxKC7n12u9poCFQpnyKsYI7YGvLI2X6NgHOZ
+PRRSsuWqf0g7huzM/UkvPthCJzxmPWPqrLoBVOuspAOFVcqwqDmdKKSjcppEV+Q=
+=rvRm
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

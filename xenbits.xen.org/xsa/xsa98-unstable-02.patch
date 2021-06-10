@@ -1,0 +1,259 @@
+xen: arm: ensure we hold a reference to guest pages while we copy to/from them
+
+This at once:
+ - prevents the page from being reassigned under our feet
+ - ensures that the domain owns the page, which stops a domain from giving a
+   grant mapping, MMIO region, other non-RAM as a hypercall input/output.
+
+We need to hold the p2m lock while doing the lookup until we have the
+reference.
+
+This also requires that during domain 0 building current is set to an actual
+dom0 vcpu, so take care of this at the same time as the p2m is temporarily
+loaded.
+
+Lastly when dumping the guest stack we need to make sure that the guest hasn't
+pointed its sp off into the weeds and/or misaligned it, which could lead to
+hypervisor traps. Solve this by using the new function and checking alignment
+first.
+
+Signed-off-by: Ian Campbell <ian.campbell@citrix.com>
+Reviewed-by: Julien Grall <julien.grall@linaro.org>
+
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index d079982..4dd2d84 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -1024,6 +1024,7 @@ static void initrd_load(struct kernel_info *kinfo)
+ int construct_dom0(struct domain *d)
+ {
+     struct kernel_info kinfo = {};
++    struct vcpu *saved_current;
+     int rc, i, cpu;
+ 
+     struct vcpu *v = d->vcpu[0];
+@@ -1060,8 +1061,13 @@ int construct_dom0(struct domain *d)
+     if ( rc < 0 )
+         return rc;
+ 
+-    /* The following loads use the domain's p2m */
++    /*
++     * The following loads use the domain's p2m and require current to
++     * be a vcpu of the domain, temporarily switch
++     */
++    saved_current = current;
+     p2m_restore_state(v);
++    set_current(v);
+ 
+     /*
+      * kernel_load will determine the placement of the kernel as well
+@@ -1072,6 +1078,10 @@ int construct_dom0(struct domain *d)
+     initrd_load(&kinfo);
+     dtb_load(&kinfo);
+ 
++    /* Now that we are done restore the original p2m and current. */
++    set_current(saved_current);
++    p2m_restore_state(saved_current);
++
+     discard_initial_modules();
+ 
+     v->is_initialised = 1;
+diff --git a/xen/arch/arm/guestcopy.c b/xen/arch/arm/guestcopy.c
+index d1fddec..0173597 100644
+--- a/xen/arch/arm/guestcopy.c
++++ b/xen/arch/arm/guestcopy.c
+@@ -1,6 +1,8 @@
+ #include <xen/config.h>
+ #include <xen/lib.h>
+ #include <xen/domain_page.h>
++#include <xen/sched.h>
++#include <asm/current.h>
+ 
+ #include <asm/mm.h>
+ #include <asm/guest_access.h>
+@@ -13,20 +15,22 @@ static unsigned long raw_copy_to_guest_helper(void *to, const void *from,
+ 
+     while ( len )
+     {
+-        paddr_t g;
+         void *p;
+         unsigned size = min(len, (unsigned)PAGE_SIZE - offset);
++        struct page_info *page;
+ 
+-        if ( gvirt_to_maddr((vaddr_t) to, &g, GV2M_WRITE) )
++        page = get_page_from_gva(current->domain, (vaddr_t) to, GV2M_WRITE);
++        if ( page == NULL )
+             return len;
+ 
+-        p = map_domain_page(g>>PAGE_SHIFT);
++        p = __map_domain_page(page);
+         p += offset;
+         memcpy(p, from, size);
+         if ( flush_dcache )
+             clean_xen_dcache_va_range(p, size);
+ 
+         unmap_domain_page(p - offset);
++        put_page(page);
+         len -= size;
+         from += size;
+         to += size;
+@@ -58,18 +62,20 @@ unsigned long raw_clear_guest(void *to, unsigned len)
+ 
+     while ( len )
+     {
+-        paddr_t g;
+         void *p;
+         unsigned size = min(len, (unsigned)PAGE_SIZE - offset);
++        struct page_info *page;
+ 
+-        if ( gvirt_to_maddr((vaddr_t) to, &g, GV2M_WRITE) )
++        page = get_page_from_gva(current->domain, (vaddr_t) to, GV2M_WRITE);
++        if ( page == NULL )
+             return len;
+ 
+-        p = map_domain_page(g>>PAGE_SHIFT);
++        p = __map_domain_page(page);
+         p += offset;
+         memset(p, 0x00, size);
+ 
+         unmap_domain_page(p - offset);
++        put_page(page);
+         len -= size;
+         to += size;
+         /*
+@@ -88,19 +94,21 @@ unsigned long raw_copy_from_guest(void *to, const void __user *from, unsigned le
+ 
+     while ( len )
+     {
+-        paddr_t g;
+         void *p;
+         unsigned size = min(len, (unsigned)(PAGE_SIZE - offset));
++        struct page_info *page;
+ 
+-        if ( gvirt_to_maddr((vaddr_t) from & PAGE_MASK, &g, GV2M_READ) )
++        page = get_page_from_gva(current->domain, (vaddr_t) from, GV2M_READ);
++        if ( page == NULL )
+             return len;
+ 
+-        p = map_domain_page(g>>PAGE_SHIFT);
++        p = __map_domain_page(page);
+         p += ((vaddr_t)from & (~PAGE_MASK));
+ 
+         memcpy(to, p, size);
+ 
+         unmap_domain_page(p);
++        put_page(page);
+         len -= size;
+         from += size;
+         to += size;
+diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
+index b85143b..5fc5ca6 100644
+--- a/xen/arch/arm/p2m.c
++++ b/xen/arch/arm/p2m.c
+@@ -701,6 +701,34 @@ unsigned long gmfn_to_mfn(struct domain *d, unsigned long gpfn)
+     return p >> PAGE_SHIFT;
+ }
+ 
++struct page_info *get_page_from_gva(struct domain *d, vaddr_t va,
++                                    unsigned long flags)
++{
++    struct p2m_domain *p2m = &d->arch.p2m;
++    struct page_info *page = NULL;
++    paddr_t maddr;
++
++    ASSERT(d == current->domain);
++
++    spin_lock(&p2m->lock);
++
++    if ( gvirt_to_maddr(va, &maddr, flags) )
++        goto err;
++
++    if ( !mfn_valid(maddr >> PAGE_SHIFT) )
++        goto err;
++
++    page = mfn_to_page(maddr >> PAGE_SHIFT);
++    ASSERT(page);
++
++    if ( unlikely(!get_page(page, d)) )
++        page = NULL;
++
++err:
++    spin_unlock(&p2m->lock);
++    return page;
++}
++
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+index df86ffe..d89b75f 100644
+--- a/xen/arch/arm/traps.c
++++ b/xen/arch/arm/traps.c
+@@ -777,7 +777,7 @@ static void show_guest_stack(struct vcpu *v, struct cpu_user_regs *regs)
+ {
+     int i;
+     vaddr_t sp;
+-    paddr_t stack_phys;
++    struct page_info *page;
+     void *mapped;
+     unsigned long *stack, addr;
+ 
+@@ -837,13 +837,20 @@ static void show_guest_stack(struct vcpu *v, struct cpu_user_regs *regs)
+ 
+     printk("Guest stack trace from sp=%"PRIvaddr":\n  ", sp);
+ 
+-    if ( gvirt_to_maddr(sp, &stack_phys, GV2M_READ) )
++    if ( sp & ( sizeof(long) - 1 ) )
++    {
++        printk("Stack is misaligned\n");
++        return;
++    }
++
++    page = get_page_from_gva(current->domain, sp, GV2M_READ);
++    if ( page == NULL )
+     {
+         printk("Failed to convert stack to physical address\n");
+         return;
+     }
+ 
+-    mapped = map_domain_page(stack_phys >> PAGE_SHIFT);
++    mapped = __map_domain_page(page);
+ 
+     stack = mapped + (sp & ~PAGE_MASK);
+ 
+@@ -861,7 +868,7 @@ static void show_guest_stack(struct vcpu *v, struct cpu_user_regs *regs)
+         printk("Stack empty.");
+     printk("\n");
+     unmap_domain_page(mapped);
+-
++    put_page(page);
+ }
+ 
+ #define STACK_BEFORE_EXCEPTION(regs) ((register_t*)(regs)->sp)
+diff --git a/xen/include/asm-arm/mm.h b/xen/include/asm-arm/mm.h
+index d0e5cb4..8bf179d 100644
+--- a/xen/include/asm-arm/mm.h
++++ b/xen/include/asm-arm/mm.h
+@@ -273,6 +273,9 @@ struct domain *page_get_owner_and_reference(struct page_info *page);
+ void put_page(struct page_info *page);
+ int  get_page(struct page_info *page, struct domain *domain);
+ 
++struct page_info *get_page_from_gva(struct domain *d, vaddr_t va,
++                                    unsigned long flags);
++
+ /*
+  * The MPT (machine->physical mapping table) is an array of word-sized
+  * values, indexed on machine frame number. It is expected that guest OSes
+diff --git a/xen/include/asm-arm/page.h b/xen/include/asm-arm/page.h
+index e723e5a..113be5a 100644
+--- a/xen/include/asm-arm/page.h
++++ b/xen/include/asm-arm/page.h
+@@ -73,7 +73,7 @@
+ #define MATTR_DEV     0x1
+ #define MATTR_MEM     0xf
+ 
+-/* Flags for gvirt_to_maddr */
++/* Flags for get_page_from_gva, gvirt_to_maddr etc */
+ #define GV2M_READ  (0u<<0)
+ #define GV2M_WRITE (1u<<0)
+ 

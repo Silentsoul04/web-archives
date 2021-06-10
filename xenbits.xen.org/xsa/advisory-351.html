@@ -1,0 +1,124 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-351 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-351.html">XSA-351</a></td></tr><tr><th>Public release</th> <td>2020-11-10 18:01</td></tr><tr><th>Updated</th> <td>2020-11-26 16:44</td></tr><tr><th>Version</th> <td>2</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-28368">CVE-2020-28368</a></td></tr><tr><th>Title</th> <td>Information leak via power sidechannel</td></tr></table><h1>Files</h1><a href="advisory-351.txt">advisory-351.txt</a> (signed advisory file)<br /><a href="xsa351.meta">xsa351.meta</a><br /><a href="xsa351-arm.patch">xsa351-arm.patch</a><br /><a href="xsa351-arm-4.11.patch">xsa351-arm-4.11.patch</a><br /><a href="xsa351-x86-4.11-1.patch">xsa351-x86-4.11-1.patch</a><br /><a href="xsa351-x86-4.11-2.patch">xsa351-x86-4.11-2.patch</a><br /><a href="xsa351-x86-4.12-1.patch">xsa351-x86-4.12-1.patch</a><br /><a href="xsa351-x86-4.12-2.patch">xsa351-x86-4.12-2.patch</a><br /><a href="xsa351-x86-4.13-1.patch">xsa351-x86-4.13-1.patch</a><br /><a href="xsa351-x86-4.13-2.patch">xsa351-x86-4.13-2.patch</a><br /><a href="xsa351-x86-4.14-1.patch">xsa351-x86-4.14-1.patch</a><br /><a href="xsa351-x86-4.14-2.patch">xsa351-x86-4.14-2.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+            Xen Security Advisory CVE-2020-28368 / XSA-351
+                              version 2
+
+                 Information leak via power sidechannel
+
+UPDATES IN VERSION 2
+====================
+
+CVE assigned.
+
+ISSUE DESCRIPTION
+=================
+
+Researchers have demonstrated using software power/energy monitoring
+interfaces to create covert channels, and infer the operations/data used
+by other contexts within the system.
+
+Access to these interfaces should be restricted to privileged software,
+but it was found that Xen doesn&#39;t restrict access suitably, and the
+interfaces are accessible to all guests.
+
+For more information, see:
+  <a href="https://platypusattack.com">https://platypusattack.com</a>
+  <a href="https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00389.html">https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00389.html</a>
+
+IMPACT
+======
+
+An unprivileged guest administrator can sample platform power/energy
+data.  This may be used to infer the operations/data used by other
+contexts within the system.
+
+The research demonstrates using this sidechannel to leak the AES keys
+used elsewhere in the system.
+
+VULNERABLE SYSTEMS
+==================
+
+Power/energy monitoring interfaces are platform and architecture
+specific.  Consult your hardware vendor to ascertain what power feedback
+interfaces are available.
+
+For ARM systems, all versions of Xen are vulnerable.  The fix restricts
+access to the AMU (Activity Monitors Unit) interface, introduced in
+Armv8.4.
+
+For x86 systems, Xen 4.14 and earlier are vulnerable - master is not
+vulnerable, as these issues have been addressed in a more general
+fashion.
+
+The x86 fixes restrict access to:
+ * Intel RAPL interface, introduced in SandyBridge CPUs.
+ * Intel platform energy interface.
+ * Intel perf_ctl interface, introduced in Pentium 4 CPUs and also
+   implemented by other vendors.
+ * AMD RAPL interface, introduced in Ryzen/EPYC CPUs.
+ * AMD compute unit energy interface, present in Fam15/16 CPUs.
+
+MITIGATION
+==========
+
+There are no mitigations available.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+Note that patches for released versions are generally prepared to
+apply to the stable branches, and may not apply cleanly to the most
+recent release tarball.  Downstreams are encouraged to update to the
+tip of the stable branch before applying these patches.
+
+xsa351-arm.patch             Xen unstable - 4.10.x [ARM]
+xsa351-x86-4.14-?.patch      Xen 4.14.x            [x86]
+xsa351-x86-4.13-?.patch      Xen 4.13.x            [x86]
+xsa351-x86-4.12-?.patch      Xen 4.12.x            [x86]
+xsa351-x86-4.11-?.patch      Xen 4.11.x - 4.10.x   [x86]
+
+$ sha256sum xsa351*
+<a href="xsa351.meta">cad287981a870f13484834fa2364ffee68178517e906f55d2889304a4a9eae06  xsa351.meta</a>
+<a href="xsa351-arm.patch">70ebd0e93af240af2680374dcfd8ff4a5dd3eefccf670f1cb9b546d763d6a554  xsa351-arm.patch</a>
+<a href="xsa351-arm-4.11.patch">49b52a1366912a29e184e3014a9f1f579e8a0dd8a36f01d38d995d2c8ed81928  xsa351-arm-4.11.patch</a>
+<a href="xsa351-x86-4.11-1.patch">2e7b7c2b98625d70c8b10047a9f668372f3ccede167344dedb712312606acbca  xsa351-x86-4.11-1.patch</a>
+<a href="xsa351-x86-4.11-2.patch">ab9e2cb7d5e3e0c3a916f006c697495f4f01146e09df60ece59ce0a8f7aa5ed0  xsa351-x86-4.11-2.patch</a>
+<a href="xsa351-x86-4.12-1.patch">bb68f6e6905bc1566156cafab058cbaf02a17c197385c33a83b7f73885913c1c  xsa351-x86-4.12-1.patch</a>
+<a href="xsa351-x86-4.12-2.patch">53f464269f59498f8a9a614f10a47cfb1d81c666f0d684346e28005015de962c  xsa351-x86-4.12-2.patch</a>
+<a href="xsa351-x86-4.13-1.patch">67a29d66230faafd9a8047ac80ec18130b5659e80a38c3a412cb2be6d3288a8f  xsa351-x86-4.13-1.patch</a>
+<a href="xsa351-x86-4.13-2.patch">f7d8717dec33ee7484b36490402d113f1e7e168e7541bcf193fef620df299f08  xsa351-x86-4.13-2.patch</a>
+<a href="xsa351-x86-4.14-1.patch">7d4fbe11a766226d7f1b93c5bf34664d8855deee09d1feebc76f11e49f2aa9c9  xsa351-x86-4.14-1.patch</a>
+<a href="xsa351-x86-4.14-2.patch">41df825deafe3ef28e8594ec956033689af69f84a4a6dd92f97d1071e925203d  xsa351-x86-4.14-2.patch</a>
+$
+
+NOTE REGARDING LACK OF EMBARGO
+==============================
+
+Despite an attempt to organise predisclosure, the discoverers ultimately
+did not authorise a predisclosure.
+-----BEGIN PGP SIGNATURE-----
+
+iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAl+/22UMHHBncEB4ZW4u
+b3JnAAoJEIP+FMlX6CvZt0IH/1P4OlmyExkX0u1mVXcG3o85esBYDAD6RKDhRCr5
+IjbitMUItESGYyz/Z6BEmuUIiJ1gfNx7xs4I3b4i8UUBYdBvvsdjeL3WK75Ym3nW
+Jh63AQzbDeNjkEnK4UnF6+V/9BJJUYB4avH6m82LU8+9Gp8S9CGH4y73gpiTGhcK
+VHPhdPOSc+ZDJ/OEQUR/3uMci9nuQ+qw9PClGybj3j4iru3PWfPRCSsdy2sAZO0T
+KwS+PvDgFKWqKiIAL6Ahfb0VnREP8zqpIxSq2cN8+SuVQym+H6zKh2exvYtEjq/j
+pWNzHublyLZoSBLvfguIeNKj4x2va9dF7/jJAnLfNVrvJCI=
+=QgHs
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

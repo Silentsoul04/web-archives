@@ -1,0 +1,154 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-272 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-272.html">XSA-272</a></td></tr><tr><th>Public release</th> <td>2018-08-14 17:00</td></tr><tr><th>Updated</th> <td>2018-08-20 09:46</td></tr><tr><th>Version</th> <td>3</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-15470">CVE-2018-15470</a></td></tr><tr><th>Title</th> <td>oxenstored does not apply quota-maxentity</td></tr></table><h1>Files</h1><a href="advisory-272.txt">advisory-272.txt</a> (signed advisory file)<br /><a href="xsa272.meta">xsa272.meta</a><br /><a href="xsa272.patch">xsa272.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+            Xen Security Advisory CVE-2018-15470 / XSA-272
+                              version 3
+
+               oxenstored does not apply quota-maxentity
+
+UPDATES IN VERSION 3
+====================
+
+CVE assigned.
+
+ISSUE DESCRIPTION
+=================
+
+The logic in oxenstored for handling writes depended on the order of
+evaluation of expressions making up a tuple.
+
+As indicated in section 7.7.3 &quot;Operations on data structures&quot; of the
+OCaml manual:
+
+  <a href="http://caml.inria.fr/pub/docs/manual-ocaml/expr.html">http://caml.inria.fr/pub/docs/manual-ocaml/expr.html</a>
+
+the order of evaluation of subexpressions is not specified.  In
+practice, different implementations behave differently.
+
+IMPACT
+======
+
+oxenstored may not enforce the configured quota-maxentity.
+
+This allows a malicious or buggy guest to write as many xenstore entries
+as it wishes, causing unbounded memory usage in oxenstored.  This can
+lead to a system-wide DoS.
+
+VULNERABLE SYSTEMS
+==================
+
+Xen 4.1 and later are potentially vulnerable.
+
+Only systems using the OCaml xenstored implementation are potentially
+vulnerable.  Systems using the C xenstored implementation are not
+vulnerable.
+
+Whether the compiled oxenstored binary is vulnerable depends on which
+compiler was used.  OCaml can be compiled either as bytecode (with
+ocamlc) or as a native binary (with ocamlopt).
+
+The following OCaml program demonstrates the issue, and identifies
+whether the resulting oxenstored binary will skip the quota enforcement.
+
+  $ cat order.ml
+  let check () =
+    let flag = ref false in
+    let update _ = flag := true; () in
+    List.iter update [1;2;3], !flag
+
+  let main () =
+    let _, flag = check () in
+    if flag then
+    print_endline &quot;This code is not vulnerable!&quot;
+    else
+    print_endline &quot;This code is vulnerable!&quot;
+
+  let () = main ()
+
+  $ ocamlc order.ml -o order.bytecode
+  $ ./order.bytecode
+  This code is vulnerable!
+  $ ocamlopt order.ml -o order.native
+  $ ./order.native
+  This code is not vulnerable!
+
+To confirm whether an OCaml binary is bytecode or native, use file.
+
+  $ file order.bytecode
+  order.bytecode: a /usr/bin/ocamlrun script executable (binary data)
+  $ file order.native
+  order.native: ELF 64-bit LSB executable, ...
+
+NOTE: These results are applicable to OCaml 4.01.0-5 as distributed in
+Debian Jessie.  These results are not representative of other versions
+of OCaml, or of other OS distributions.
+
+MITIGATION
+==========
+
+There are no mitigations available.
+
+CREDITS
+=======
+
+This issue was discovered by Christian Lindig of Citrix.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+xsa272.patch           All versions of Xen
+
+$ sha256sum xsa272*
+<a href="xsa272.meta">0da953ca48d0cf0688ecff6a074304a9d2217871809a76ef26b9addeb66ecb3e  xsa272.meta</a>
+<a href="xsa272.patch">6e0359d89bf65794f16d39198cc90f5c3137bce4eb850e54625ab00e2c568c2c  xsa272.patch</a>
+$
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches and/or mitigations described above (or
+others which are substantially similar) is permitted during the
+embargo, even on public-facing systems with untrusted guest users and
+administrators.
+
+But: Distribution of updated software is prohibited (except to other
+members of the predisclosure list).
+
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+
+
+(Note: this during-embargo deployment notice is retained in
+post-embargo publicly released Xen Project advisories, even though it
+is then no longer applicable.  This is to enable the community to have
+oversight of the Xen Project Security Team&#39;s decisionmaking.)
+
+For more information about permissible uses of embargoed information,
+consult the Xen Project community&#39;s agreed Security Policy:
+  <a href="http://www.xenproject.org/security-policy.html">http://www.xenproject.org/security-policy.html</a>
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQEcBAEBCAAGBQJbeo4OAAoJEIP+FMlX6CvZCO8H/Rj7Z+rFSuQAVEUKXvvV3lvJ
+rytocZDTAIduyiBundcbdkcxfCuun6Tqw8ScPJXtml82P8YE+R/ix1hMLcQdYblt
+tj3qftb6KtjFibctoc0sSLsfjhl2oJC2VjQR3HdixfMlSxEzLkCC3I21fteYs9fp
+ahO7dByNHFTufbb9GpB+DANmIJ5hwMXxCinvts/L2MP/CCRfb4w5+aTARCQ3UHpX
+3/r2wJxLnf4sNpBhHNsArROy8wS+ad0i4XC2fef/Bdye+NRbeICJNqof9fcGjWwE
+fZRyeNVSk33DuuRz2HI4aoEKAQ/v3b3KLXnfVZY5F5z6Z8j9rie42RI8VDO8Mzc=
+=Y10L
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

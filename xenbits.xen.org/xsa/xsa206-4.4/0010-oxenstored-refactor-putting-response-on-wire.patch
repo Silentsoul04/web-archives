@@ -1,0 +1,127 @@
+From 3d3b87010ff9ede82cfb79aee445a30d2c9f88b8 Mon Sep 17 00:00:00 2001
+From: Jonathan Davies <jonathan.davies@citrix.com>
+Date: Thu, 23 Mar 2017 17:40:00 +0000
+Subject: [PATCH 10/30] oxenstored: refactor putting response on wire
+
+Previously, the functions reply_{ack,data,data_or_ack} and input_handle_error
+put the response on the wire by invoking Connection.send_{ack,reply,error}.
+
+Instead, these functions now return a value indicating what needs to be put on
+the wire, and that action is done by a send_response function called
+afterwards.
+
+This refactoring gives us a chance to store the value of the response, useful
+for replaying transactions.
+
+Reported-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Jonathan Davies <jonathan.davies@citrix.com>
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Reviewed-by: Jon Ludlam <jonathan.ludlam@citrix.com>
+Reviewed-by: Euan Harris <euan.harris@citrix.com>
+Acked-by: David Scott <dave@recoil.org>
+---
+ tools/ocaml/xenstored/Makefile   |  1 +
+ tools/ocaml/xenstored/packet.ml  |  4 ++++
+ tools/ocaml/xenstored/process.ml | 34 ++++++++++++++++++++++++----------
+ 3 files changed, 29 insertions(+), 10 deletions(-)
+ create mode 100644 tools/ocaml/xenstored/packet.ml
+
+diff --git a/tools/ocaml/xenstored/Makefile b/tools/ocaml/xenstored/Makefile
+index b18f190..7a4c317 100644
+--- a/tools/ocaml/xenstored/Makefile
++++ b/tools/ocaml/xenstored/Makefile
+@@ -17,6 +17,7 @@ OBJS = define \
+ 	stdext \
+ 	trie \
+ 	config \
++	packet \
+ 	logging \
+ 	quota \
+ 	perms \
+diff --git a/tools/ocaml/xenstored/packet.ml b/tools/ocaml/xenstored/packet.ml
+new file mode 100644
+index 0000000..c8ecfe5
+--- /dev/null
++++ b/tools/ocaml/xenstored/packet.ml
+@@ -0,0 +1,4 @@
++type response =
++	| Ack of (unit -> unit)  (* function is the action to execute after sending the ack *)
++	| Reply of string
++	| Error of string
+diff --git a/tools/ocaml/xenstored/process.ml b/tools/ocaml/xenstored/process.ml
+index 89db56c..8be2ff1 100644
+--- a/tools/ocaml/xenstored/process.ml
++++ b/tools/ocaml/xenstored/process.ml
+@@ -126,8 +126,7 @@ let do_watch con t rid domains cons data =
+ 		| _                   -> raise Invalid_Cmd_Args
+ 		in
+ 	let watch = Connections.add_watch cons con node token in
+-	Connection.send_ack con (Transaction.get_id t) rid Xenbus.Xb.Op.Watch;
+-	Connection.fire_single_watch watch
++	Packet.Ack (fun () -> Connection.fire_single_watch watch)
+ 
+ let do_unwatch con t domains cons data =
+ 	let (node, token) =
+@@ -284,20 +283,32 @@ let do_set_target con t domains cons data =
+ 		| _                           -> raise Invalid_Cmd_Args
+ 
+ (*------------- Generic handling of ty ------------------*)
++let send_response ty con t rid response =
++	match response with
++	| Packet.Ack f ->
++		Connection.send_ack con (Transaction.get_id t) rid ty;
++		(* Now do any necessary follow-up actions *)
++		f ()
++	| Packet.Reply ret ->
++		Connection.send_reply con (Transaction.get_id t) rid ty ret
++	| Packet.Error e ->
++		Connection.send_error con (Transaction.get_id t) rid e
++
+ let reply_ack fct ty con t rid doms cons data =
+ 	fct con t doms cons data;
+-	Connection.send_ack con (Transaction.get_id t) rid ty;
+-	if Transaction.get_id t = Transaction.none then
+-		process_watch (Transaction.get_ops t) cons
++	Packet.Ack (fun () ->
++		if Transaction.get_id t = Transaction.none then
++			process_watch (Transaction.get_ops t) cons
++	)
+ 
+ let reply_data fct ty con t rid doms cons data =
+ 	let ret = fct con t doms cons data in
+-	Connection.send_reply con (Transaction.get_id t) rid ty ret
++	Packet.Reply ret
+ 
+ let reply_data_or_ack fct ty con t rid doms cons data =
+ 	match fct con t doms cons data with
+-		| Some ret -> Connection.send_reply con (Transaction.get_id t) rid ty ret
+-		| None -> Connection.send_ack con (Transaction.get_id t) rid ty
++		| Some ret -> Packet.Reply ret
++		| None -> Packet.Ack (fun () -> ())
+ 
+ let reply_none fct ty con t rid doms cons data =
+ 	(* let the function reply *)
+@@ -329,7 +340,7 @@ let function_of_type ty =
+ 
+ let input_handle_error ~cons ~doms ~fct ~ty ~con ~t ~rid ~data =
+ 	let reply_error e =
+-		Connection.send_error con (Transaction.get_id t) rid e in
++		Packet.Error e in
+ 	try
+ 		fct ty con t rid doms cons data
+ 	with
+@@ -362,7 +373,10 @@ let process_packet ~store ~cons ~doms ~con ~tid ~rid ~ty ~data =
+ 			else
+ 				Connection.get_transaction con tid
+ 			in
+-		input_handle_error ~cons ~doms ~fct ~ty ~con ~t ~rid ~data;
++		let response = input_handle_error ~cons ~doms ~fct ~ty ~con ~t ~rid ~data in
++
++		(* Put the response on the wire *)
++		send_response ty con t rid response
+ 	with exn ->
+ 		error "process packet: %s" (Printexc.to_string exn);
+ 		Connection.send_error con tid rid "EIO"
+-- 
+2.1.4
+

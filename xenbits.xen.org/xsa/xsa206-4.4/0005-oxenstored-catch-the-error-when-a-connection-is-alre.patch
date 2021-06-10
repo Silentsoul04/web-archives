@@ -1,0 +1,44 @@
+From 63e01804c4ba80816af7f5a12786fb45ee2d194b Mon Sep 17 00:00:00 2001
+From: Zheng Li <dev@zheng.li>
+Date: Fri, 24 Mar 2017 17:01:08 +0000
+Subject: [PATCH 05/30] oxenstored: catch the error when a connection is
+ already deleted
+
+The function process_fdset_with is called on the read set connections first.
+During the process, it might destroy a connection and remove it from the
+connections database if some errors occur. However, a reference to the same
+connection might still exist in the write set, which is awaiting to be
+processed next. In this case, a Not_found error will be raised and the process
+is aborted.
+
+This patch changes the logic to ignore connections just missing from the
+connection database and continue the rest part of the work.
+
+Reported-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Zheng Li <dev@zheng.li>
+Reviewed-by: David Scott <dave.scott@citrix.com>
+---
+ tools/ocaml/xenstored/xenstored.ml | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/tools/ocaml/xenstored/xenstored.ml b/tools/ocaml/xenstored/xenstored.ml
+index 438ecb9..d74846c 100644
+--- a/tools/ocaml/xenstored/xenstored.ml
++++ b/tools/ocaml/xenstored/xenstored.ml
+@@ -43,8 +43,11 @@ let process_connection_fds store cons domains rset wset =
+ 			debug "closing socket connection"
+ 		in
+ 	let process_fdset_with fds fct =
+-		List.iter (fun fd -> try_fct fct (Connections.find cons fd)) fds
+-	in
++		List.iter
++			(fun fd ->
++			 try try_fct fct (Connections.find cons fd)
++			 with Not_found -> ()
++			) fds in
+ 	process_fdset_with rset Process.do_input;
+ 	process_fdset_with wset Process.do_output
+ 
+-- 
+2.1.4
+

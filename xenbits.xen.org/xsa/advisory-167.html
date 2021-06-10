@@ -1,0 +1,132 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-167 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-167.html">XSA-167</a></td></tr><tr><th>Public release</th> <td>2016-01-20 12:00</td></tr><tr><th>Updated</th> <td>2016-01-20 12:08</td></tr><tr><th>Version</th> <td>4</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-1570">CVE-2016-1570</a></td></tr><tr><th>Title</th> <td>PV superpage functionality missing sanity checks</td></tr></table><h1>Files</h1><a href="advisory-167.txt">advisory-167.txt</a> (signed advisory file)<br /><a href="xsa167.patch">xsa167.patch</a><br /><a href="xsa167-4.4.patch">xsa167-4.4.patch</a><br /><a href="xsa167-4.6.patch">xsa167-4.6.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+            Xen Security Advisory CVE-2016-1570 / XSA-167
+                              version 4
+
+            PV superpage functionality missing sanity checks
+
+UPDATES IN VERSION 4
+====================
+
+Public release.
+
+ISSUE DESCRIPTION
+=================
+
+The PV superpage functionality lacks certain validity checks on data
+being passed to the hypervisor by guests.  This is the case for the
+page identifier (MFN) passed to MMUEXT_MARK_SUPER and
+MMUEXT_UNMARK_SUPER sub-ops of the HYPERVISOR_mmuext_op hypercall as
+well as for various forms of page table updates.
+
+IMPACT
+======
+
+Use of the feature, which is disabled by default, may have unknown
+effects, ranging from information leaks through Denial of Service to
+privilege escalation.
+
+VULNERABLE SYSTEMS
+==================
+
+Only systems which enable the PV superpage feature are affected.  That
+is, only systems with an `allowsuperpage&#39; setting on the hypervisor
+command line.  Note that in Xen 4.0.x and 3.4.x the option is named
+`allowhugepage&#39;.
+
+Xen versions 3.4.0, 3.4.1, and from 4.1 onwards are affected.
+
+Only x86 systems are affected.
+
+Only PV guests can exploit the vulnerability.
+
+MITIGATION
+==========
+
+Running only HVM guests will avoid this issue.
+
+Not enabling PV superpage support (by omitting the `allowsuperpage&#39; or
+`allowhugepage&#39; hypervisor command line options) will avoid exposing
+the issue.
+
+CREDITS
+=======
+
+This issue was discovered by Qinghao Tang of 360 Marvel Team.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+xsa167.patch           xen-unstable
+xsa167-4.6.patch       Xen 4.6.x, 4.5.x
+xsa167-4.4.patch       Xen 4.4.x, 4.3.x
+
+$ sha256sum xsa167*
+<a href="xsa167.patch">a71f709eef59425cb2113fa48d3b44048c6bf41063200fee1c847f6e0ed45a09  xsa167.patch</a>
+<a href="xsa167-4.4.patch">194c1ce89292f4cbb9980baa703095bcbeb5849abf46d193e07a98a0d8301f78  xsa167-4.4.patch</a>
+<a href="xsa167-4.6.patch">2bd786cccfd13c6732d6db8afc9e18058465efcb1bc93f894c359e3a820d5403  xsa167-4.6.patch</a>
+$
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches and/or mitigations described above (or
+others which are substantially similar) is permitted during the
+embargo, even on public-facing systems with untrusted guest users and
+administrators.
+
+
+However deployment of the SUPERPAGE DISABLEMENT MITIGATION is NOT
+permitted (except where all the affected systems and VMs are
+administered and used only by organisations which are members of the
+Xen Project Security Issues Predisclosure List).  Specifically,
+deployment on public cloud systems is NOT permitted.
+
+This is because disabling PV superpage support is visible to guests, so
+such deployment could lead to the rediscovery of the vulnerability.
+
+Deployment of the mitigation is permitted only AFTER the embargo ends.
+
+
+Also: Distribution of updated software is prohibited (except to other
+members of the predisclosure list).
+
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+
+
+(Note: this during-embargo deployment notice is retained in
+post-embargo publicly released Xen Project advisories, even though it
+is then no longer applicable.  This is to enable the community to have
+oversight of the Xen Project Security Team&#39;s decisionmaking.)
+
+For more information about permissible uses of embargoed information,
+consult the Xen Project community&#39;s agreed Security Policy:
+  <a href="http://www.xenproject.org/security-policy.html">http://www.xenproject.org/security-policy.html</a>
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.12 (GNU/Linux)
+
+iQEcBAEBAgAGBQJWn3jEAAoJEIP+FMlX6CvZTOsH/2ReFJ0Yhp5da69XKvFEJR/s
+0yEFxjvqiSyBPsWjyiaAdOp/1A2sltEeDDnMy7xEoXHmon0p6IV0IR4L+fMCLjl2
+1ZI4tKpkn3zUE+IOjfu/GJ53f87XWSq/u9Ri7yZQdxFpgd3AXcLegGm8i4L/58iY
+vdwAAuczACztEN/NbWFedlGUEd5PKqKwb4wOg1uhLIMwzvjxgtejVAyZD83HgP6i
+LeWMO7EfeU8ND38Otiw9lNlKD/Ia7vpRG+BXuADLx18hbR1TU9AJ0RO1zb9JnAAj
+snYdgB6s1wzRD4/HOc+s1uaIttPPODs0IhZunylI7UVhdWKp5Qkszw/QUcmufnk=
+=5acB
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

@@ -1,0 +1,53 @@
+From acad7d5166804ed3dbdf76a4ec9d07b0cd777bfc Mon Sep 17 00:00:00 2001
+From: Norbert Manthey <nmanthey@amazon.de>
+Subject: [PATCH SpectreV1+L1TF 09/13] x86/hvm/emulate: block speculative
+ out-of-bound accesses
+
+During emulating instructions, the guest controls the content of the
+CPU registers. As these values are used for array indexes, we have to
+make sure that speculative out of bound accesses are blocked. This way,
+we protect against loading secrets into L1 cache.
+
+This is part of the SpectreV1+L1TF mitigation patch series.
+
+Signed-off-by: Norbert Manthey <nmanthey@amazon.de>
+
+---
+ xen/arch/x86/hvm/emulate.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/xen/arch/x86/hvm/emulate.c b/xen/arch/x86/hvm/emulate.c
+--- a/xen/arch/x86/hvm/emulate.c
++++ b/xen/arch/x86/hvm/emulate.c
+@@ -15,6 +15,7 @@
+ #include <xen/paging.h>
+ #include <xen/trace.h>
+ #include <xen/vm_event.h>
++#include <xen/nospec.h>
+ #include <asm/event.h>
+ #include <asm/i387.h>
+ #include <asm/xstate.h>
+@@ -2028,7 +2029,7 @@ static int hvmemul_read_cr(
+     case 2:
+     case 3:
+     case 4:
+-        *val = current->arch.hvm.guest_cr[reg];
++        *val = array_access_nospec(current->arch.hvm.guest_cr, reg);
+         HVMTRACE_LONG_2D(CR_READ, reg, TRC_PAR_LONG(*val));
+         return X86EMUL_OKAY;
+     default:
+@@ -2653,8 +2654,9 @@ struct segment_register *hvmemul_get_seg_reg(
+         return ERR_PTR(-X86EMUL_UNHANDLEABLE);
+ 
+     if ( !__test_and_set_bit(idx, &hvmemul_ctxt->seg_reg_accessed) )
+-        hvm_get_segment_register(current, idx, &hvmemul_ctxt->seg_reg[idx]);
+-    return &hvmemul_ctxt->seg_reg[idx];
++        hvm_get_segment_register(current, idx,
++                             &array_access_nospec(hvmemul_ctxt->seg_reg, idx));
++    return &array_access_nospec(hvmemul_ctxt->seg_reg, idx);
+ }
+ 
+ static const char *guest_x86_mode_to_str(int mode)
+-- 
+2.7.4
+

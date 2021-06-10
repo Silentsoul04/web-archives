@@ -1,0 +1,29 @@
+From 8e8fe3e1895e9ccd510474b0c7e6032d3ba471c8 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>
+Date: Fri, 6 Nov 2020 10:38:36 +0000
+Subject: XSA-354: exclude attr/os/hotfixes from ls_lR
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This is not needed by XAPI to determine the guest VM metrics field.  And
+for old Windows OSes (e.g. WS12R2-x64) with many hotfixes this can hit
+the xenopsd xenstore quota, breaking other functionality, because we
+can't read the control/ entries anymore then.
+
+Signed-off-by: Edwin Török <edvin.torok@citrix.com>
+Acked-by: Christian Lindig <christian.lindig@citrix.com>
+
+diff --git a/xc/xenops_server_xen.ml b/xc/xenops_server_xen.ml
+index 32092deb..b80bf76b 100644
+--- a/xc/xenops_server_xen.ml
++++ b/xc/xenops_server_xen.ml
+@@ -2611,7 +2611,7 @@ module VM = struct
+               (value_opt, subdirs)
+             in
+             let rec ls_lR ?(depth = 512) root (quota, acc) dir =
+-              if quota <= 0 then
++              if quota <= 0 || dir = "attr/os/hotfixes" then
+                 (quota, acc) (* quota reached, stop listing/reading *)
+               else
+                 let value_opt, subdirs = ls_l ~depth root dir in

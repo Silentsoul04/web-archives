@@ -1,0 +1,126 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-249 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-249.html">XSA-249</a></td></tr><tr><th>Public release</th> <td>2017-12-12 11:35</td></tr><tr><th>Updated</th> <td>2018-01-06 16:14</td></tr><tr><th>Version</th> <td>3</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-17563">CVE-2017-17563</a></td></tr><tr><th>Title</th> <td>broken x86 shadow mode refcount overflow check</td></tr></table><h1>Files</h1><a href="advisory-249.txt">advisory-249.txt</a> (signed advisory file)<br /><a href="xsa249.meta">xsa249.meta</a><br /><a href="xsa249.patch">xsa249.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+            Xen Security Advisory CVE-2017-17563 / XSA-249
+                              version 3
+
+            broken x86 shadow mode refcount overflow check
+
+UPDATES IN VERSION 3
+====================
+
+CVE assigned.
+
+ISSUE DESCRIPTION
+=================
+
+Pages being used to run x86 guests in shadow mode are reference counted
+to track their uses.  Unfortunately the overflow check when trying to
+obtain a new reference used a mask one bit wider than the reference
+count actually is, rendering the entire check ineffective.
+
+IMPACT
+======
+
+A malicious or buggy guest may cause a hypervisor crash, resulting in
+a Denial of Service (DoS) affecting the entire host, or cause hypervisor
+memory corruption.  We cannot rule out a guest being able to escalate
+its privilege.
+
+VULNERABLE SYSTEMS
+==================
+
+Xen versions 4.1 and later are affected.  Xen versions 4.0 and earlier
+are not affected.
+
+x86 systems are vulnerable.  ARM systems are not vulnerable.
+
+Only guests run in shadow mode can exploit the vulnerability.
+
+PV guests typically only run in shadow mode during live migration, as
+well as for features like VM snapshot.
+
+Note that save / restore does *not* use shadow mode, and so does not
+expose this vulnerability.  Some downstreams also include a &quot;non-live
+migration&quot; feature, which also does not use shadow mode (and thus does
+not expose this vulnerability).
+
+HVM guests run in shadow mode on hardware without HAP support, or when
+HAP is disabled (globally or in the VM configuration file).  Live
+migration does not affect an HVM guest&#39;s use of shadow mode.
+
+MITIGATION
+==========
+
+For HVM guest explicitly configured to use shadow paging (e.g. via the
+`hap=0&#39; xl domain configuration file parameter), changing to HAP (e.g.
+by setting `hap=1&#39;) will avoid exposing the vulnerability to those
+guests.  HAP is the default (in upstream Xen), where the hardware
+supports it; so this mitigation is only applicable if HAP has been
+disabled by configuration.
+
+For PV guests, avoiding their live migration avoids the vulnerability.
+
+CREDITS
+=======
+
+This issue was discovered by Jan Beulich of SUSE.
+
+RESOLUTION
+==========
+
+Applying the attached patch resolves this issue.
+
+xsa249.patch           xen-unstable, Xen 4.9.x ... 4.5.x
+
+$ sha256sum xsa249*
+<a href="xsa249.meta">38a4b8033d634e22939ad42b882c35e46482782619e3e03b968a2f6489e459c9  xsa249.meta</a>
+<a href="xsa249.patch">e99066b0171d4757c6a66e1223aabe01e990de2d0dc50416936e064e6e750d00  xsa249.patch</a>
+$
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches and/or mitigations described above (or
+others which are substantially similar) is permitted during the
+embargo, even on public-facing systems with untrusted guest users and
+administrators.
+
+But: Distribution of updated software is prohibited (except to other
+members of the predisclosure list).
+
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+
+(Note: this during-embargo deployment notice is retained in
+post-embargo publicly released Xen Project advisories, even though it
+is then no longer applicable.  This is to enable the community to have
+oversight of the Xen Project Security Team&#39;s decisionmaking.)
+
+For more information about permissible uses of embargoed information,
+consult the Xen Project community&#39;s agreed Security Policy:
+  <a href="http://www.xenproject.org/security-policy.html">http://www.xenproject.org/security-policy.html</a>
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQEcBAEBCAAGBQJaUPXbAAoJEIP+FMlX6CvZdqQH/2b6yXlcScNp9SWs2VIoDLcc
+Hh3Wxmvx4oRBkdUOiE7/YNJK3yScnW2Jled+fLrBd7yuFNmztlA6Hue1thxgQmFN
+N2qDReHVBhLDQSv4Xolyifqx/leMo/s7jYkL8zBEPvRrf4DMkj7+i9/JBn8gri8G
+hiImDmIet9pKL9OP+jQDsgQia5p7ygPVLommMVS/2VZp4O4sBnpvfrAIHNvmmLPy
+xbr3Jw8cska7gspfmsXU1PziBFmawxk21pvozef9XN1lxC/ZY56yODtph/6KoBvr
+KGtGleF0QVtj/Nvt42yBr5nMagl9XsjdFz4Jero0K4hOE1Kw7IgO0Oigav8nap8=
+=Z+E8
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

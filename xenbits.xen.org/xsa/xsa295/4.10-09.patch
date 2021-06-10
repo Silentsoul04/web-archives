@@ -1,0 +1,135 @@
+From cd09ddf77ec2335ae2ed093307cb5cea80782fb5 Mon Sep 17 00:00:00 2001
+From: Julien Grall <julien.grall@arm.com>
+Date: Mon, 29 Apr 2019 15:05:22 +0100
+Subject: [PATCH v2 4.10 09/20] xen/arm32: cmpxchg: Simplify the cmpxchg
+ implementation
+
+The only difference between each case of the cmpxchg is the size of
+used. Rather than duplicating the code, provide a macro to generate each
+cases.
+
+This makes the code easier to read and modify.
+
+While doing the rework, the case for 64-bit cmpxchg is removed. This is
+unused today (already commented) and it would not be possible to use
+it directly.
+
+This is part of XSA-295.
+
+Signed-off-by: Julien Grall <julien.grall@arm.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+---
+ xen/include/asm-arm/arm32/cmpxchg.h | 84 +++++++++++------------------
+ 1 file changed, 31 insertions(+), 53 deletions(-)
+
+diff --git a/xen/include/asm-arm/arm32/cmpxchg.h b/xen/include/asm-arm/arm32/cmpxchg.h
+index 03e0bed3a6..471a9e3a3f 100644
+--- a/xen/include/asm-arm/arm32/cmpxchg.h
++++ b/xen/include/asm-arm/arm32/cmpxchg.h
+@@ -52,72 +52,50 @@ static inline unsigned long __xchg(unsigned long x, volatile void *ptr, int size
+  * indicated by comparing RETURN with OLD.
+  */
+ 
+-extern void __bad_cmpxchg(volatile void *ptr, int size);
++extern unsigned long __bad_cmpxchg(volatile void *ptr, int size);
++
++#define __CMPXCHG_CASE(sz, name)					\
++static inline unsigned long __cmpxchg_case_##name(volatile void *ptr,	\
++						  unsigned long old,	\
++						  unsigned long new)	\
++{									\
++	unsigned long oldval, res;					\
++									\
++	do {								\
++		asm volatile("@ __cmpxchg_case_" #name "\n"		\
++		"	ldrex" #sz "	%1, [%2]\n"			\
++		"	mov	%0, #0\n"				\
++		"	teq	%1, %3\n"				\
++		"	strex" #sz "eq %0, %4, [%2]\n"			\
++		: "=&r" (res), "=&r" (oldval)				\
++		: "r" (ptr), "Ir" (old), "r" (new)			\
++		: "memory", "cc");					\
++	} while (res);							\
++									\
++	return oldval;							\
++}
++
++__CMPXCHG_CASE(b, 1)
++__CMPXCHG_CASE(h, 2)
++__CMPXCHG_CASE( , 4)
+ 
+ static always_inline unsigned long __cmpxchg(
+     volatile void *ptr, unsigned long old, unsigned long new, int size)
+ {
+-	unsigned long oldval, res;
+-
+ 	prefetchw((const void *)ptr);
+ 
+ 	switch (size) {
+ 	case 1:
+-		do {
+-			asm volatile("@ __cmpxchg1\n"
+-			"	ldrexb	%1, [%2]\n"
+-			"	mov	%0, #0\n"
+-			"	teq	%1, %3\n"
+-			"	strexbeq %0, %4, [%2]\n"
+-				: "=&r" (res), "=&r" (oldval)
+-				: "r" (ptr), "Ir" (old), "r" (new)
+-				: "memory", "cc");
+-		} while (res);
+-		break;
++		return __cmpxchg_case_1(ptr, old, new);
+ 	case 2:
+-		do {
+-			asm volatile("@ __cmpxchg2\n"
+-			"	ldrexh	%1, [%2]\n"
+-			"	mov	%0, #0\n"
+-			"	teq	%1, %3\n"
+-			"	strexheq %0, %4, [%2]\n"
+-				: "=&r" (res), "=&r" (oldval)
+-				: "r" (ptr), "Ir" (old), "r" (new)
+-				: "memory", "cc");
+-		} while (res);
+-		break;
++		return __cmpxchg_case_2(ptr, old, new);
+ 	case 4:
+-		do {
+-			asm volatile("@ __cmpxchg4\n"
+-			"	ldrex	%1, [%2]\n"
+-			"	mov	%0, #0\n"
+-			"	teq	%1, %3\n"
+-			"	strexeq	%0, %4, [%2]\n"
+-				: "=&r" (res), "=&r" (oldval)
+-				: "r" (ptr), "Ir" (old), "r" (new)
+-				: "memory", "cc");
+-	    } while (res);
+-	    break;
+-#if 0
+-	case 8:
+-		do {
+-			asm volatile("@ __cmpxchg8\n"
+-			"	ldrexd	%1, [%2]\n"
+-			"	mov	%0, #0\n"
+-			"	teq	%1, %3\n"
+-			"	strexdeq %0, %4, [%2]\n"
+-				: "=&r" (res), "=&r" (oldval)
+-				: "r" (ptr), "Ir" (old), "r" (new)
+-				: "memory", "cc");
+-		} while (res);
+-		break;
+-#endif
++		return __cmpxchg_case_4(ptr, old, new);
+ 	default:
+-		__bad_cmpxchg(ptr, size);
+-		oldval = 0;
++		return __bad_cmpxchg(ptr, size);
+ 	}
+ 
+-	return oldval;
++	ASSERT_UNREACHABLE();
+ }
+ 
+ static always_inline unsigned long __cmpxchg_mb(volatile void *ptr,
+-- 
+2.17.1
+

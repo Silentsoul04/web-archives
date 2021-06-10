@@ -1,0 +1,37 @@
+From 640c407c1684bfe77526aebe60383a50e97024c5 Mon Sep 17 00:00:00 2001
+From: Norbert Manthey <nmanthey@amazon.de>
+Subject: [PATCH SpectreV1+L1TF 01/13] lfence: add function that returns int
+
+In case the CPU executes speculatively, checks of domain properties, such
+as is_hardware_domain or is_hvm_domain might be skipped. A reason for this
+skip is that these macros access the domain structure via a pointer, and
+check a certain field.
+
+To block speculation and wait until the field is actually evaluated, we
+need to add an lfence instruction after the field inspection. As the
+macros are typically used in if statements, the lfence has to come in a
+compatible way. Hence, we add a function that wraps the lfence instruction
+and returns true. To protect a certain evaluation in an if statement, we
+now have to add this function to the if statement as well.
+
+Signed-off-by: Norbert Manthey <nmanthey@amazon.de>
+
+---
+ xen/include/asm-x86/system.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/xen/include/asm-x86/system.h b/xen/include/asm-x86/system.h
+--- a/xen/include/asm-x86/system.h
++++ b/xen/include/asm-x86/system.h
+@@ -203,6 +203,8 @@ static always_inline unsigned long __xadd(
+ #define rmb()           asm volatile ( "lfence" ::: "memory" )
+ #define wmb()           asm volatile ( "sfence" ::: "memory" )
+ 
++static inline int bool_lfence(void) { rmb(); return 1; }
++
+ /*
+  * SMP barriers, for ordering of reads and writes between CPUs, most commonly
+  * used with shared memory.
+-- 
+2.7.4
+

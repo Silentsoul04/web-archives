@@ -1,0 +1,57 @@
+From 43eeed3a8da46e8fd3a96a3b09097ec92d835841 Mon Sep 17 00:00:00 2001
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Date: Fri, 12 Aug 2016 14:35:28 +0100
+Subject: [PATCH 2/2] hvm/fep: Allow testing of instructions crossing the -1 ->
+ 0 virtual boundary
+
+The Force Emulation Prefix is named to follow its PV counterpart for cpuid or
+rdtsc, but isn't really an instruction prefix.  It behaves as a break-out into
+Xen, with the purpose of emulating the next instruction in the current state.
+
+It is important to be able to test legal situations which occur in real
+hardware, including instruction which cross certain boundaries, and
+instructions starting at 0.
+
+Reported-by: Brian Marcotte <marcotte@panix.com>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+---
+ xen/arch/x86/hvm/hvm.c | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
+
+diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+index 893eff6..eab7cc9 100644
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -3900,15 +3900,8 @@ void hvm_ud_intercept(struct cpu_user_regs *regs)
+         unsigned long addr;
+         char sig[5]; /* ud2; .ascii "xen" */
+ 
+-        /*
+-         * Note that in the call below we pass 1 more than the signature
+-         * size, to guard against the overall code sequence wrapping between
+-         * "prefix" and actual instruction. There's necessarily at least one
+-         * actual instruction byte required, so this won't cause failure on
+-         * legitimate uses.
+-         */
+         if ( hvm_virtual_to_linear_addr(x86_seg_cs, cs, regs->eip,
+-                                        sizeof(sig) + 1, hvm_access_insn_fetch,
++                                        sizeof(sig), hvm_access_insn_fetch,
+                                         (hvm_long_mode_enabled(cur) &&
+                                          cs->attr.fields.l) ? 64 :
+                                         cs->attr.fields.db ? 32 : 16, &addr) &&
+@@ -3918,6 +3911,11 @@ void hvm_ud_intercept(struct cpu_user_regs *regs)
+         {
+             regs->eip += sizeof(sig);
+             regs->eflags &= ~X86_EFLAGS_RF;
++
++            /* Zero the upper 32 bits of %rip if not in long mode. */
++            if ( !(hvm_long_mode_enabled(cur) && cs->attr.fields.l) )
++                regs->eip = regs->_eip;
++
+             add_taint(TAINT_HVM_FEP);
+         }
+     }
+-- 
+2.1.4
+

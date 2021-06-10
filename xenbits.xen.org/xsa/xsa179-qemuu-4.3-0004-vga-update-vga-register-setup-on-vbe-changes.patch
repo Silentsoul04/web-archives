@@ -1,0 +1,29 @@
+From 98be1fb6ea31c130264025de8ec87ad2c7532f21 Mon Sep 17 00:00:00 2001
+From: Gerd Hoffmann <kraxel@redhat.com>
+Date: Wed, 4 May 2016 17:42:59 +0100
+Subject: [PATCH 4/5] vga: update vga register setup on vbe changes
+
+Call the new vbe_update_vgaregs() function on vbe configuration
+changes, to make sure vga registers are up-to-date.
+
+Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+Signed-off-by: Stefano Stabellini <sstabellini@kernel.org>
+---
+ hw/vga.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/hw/vga.c b/hw/vga.c
+index ad7ca49..1ac8083 100644
+--- a/hw/vga.c
++++ b/hw/vga.c
+@@ -794,6 +794,7 @@ void vbe_ioport_write_data(void *opaque, uint32_t addr, uint32_t val)
+         case VBE_DISPI_INDEX_Y_OFFSET:
+             s->vbe_regs[s->vbe_index] = val;
+             vbe_fixup_regs(s);
++            vbe_update_vgaregs(s);
+             break;
+         case VBE_DISPI_INDEX_BANK:
+             val &= s->vbe_bank_mask;
+-- 
+1.9.1
+

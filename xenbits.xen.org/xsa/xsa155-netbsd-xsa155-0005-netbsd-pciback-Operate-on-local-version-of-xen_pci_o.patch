@@ -1,0 +1,67 @@
+From 3f39e051b234b4bd8e36b820a932591afd6413b1 Mon Sep 17 00:00:00 2001
+From: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+Date: Tue, 24 Nov 2015 02:57:22 +0000
+Subject: [PATCH 5/5] netbsd/pciback: Operate on local version of xen_pci_op
+
+Double fetch vulnerabilities that happen when a variable is
+fetched twice from shared memory but a security check is only
+performed the first time.
+
+The pciback_xenbus_evthandler function performs a switch statements on the
+op->size and op->cmd value which is stored in shared memory.
+Interestingly this can result in a double fetch vulnerability depending on
+the performed compiler optimization.
+
+This patch fixes it by saving the xen_pci_op command before
+processing it. We also use 'barrier' to make sure that the
+compiler does not perform any optimization.
+
+This is part of XSA155.
+
+Signed-off-by: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+---
+ arch/xen/xen/pciback.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/arch/xen/xen/pciback.c b/arch/xen/xen/pciback.c
+index 042c8c9..46c821c 100644
+--- a/arch/xen/xen/pciback.c
++++ b/arch/xen/xen/pciback.c
+@@ -188,6 +188,7 @@ struct pb_xenbus_instance {
+ 	/* communication with the domU */
+         unsigned int pbx_evtchn; /* our even channel */
+         struct xen_pci_sharedinfo *pbx_sh_info;
++        struct xen_pci_op op;
+         grant_handle_t pbx_shinfo_handle; /* to unmap shared page */
+ };
+ 
+@@ -721,13 +722,16 @@ pciback_xenbus_evthandler(void * arg)
+ {
+ 	struct pb_xenbus_instance *pbxi = arg;
+ 	struct pciback_pci_dev *pbd;
+-	struct xen_pci_op *op = &pbxi->pbx_sh_info->op;
++	struct xen_pci_op *op = &pbxi->op;
+ 	u_int bus, dev, func;
+ 
+ 	hypervisor_clear_event(pbxi->pbx_evtchn);
+ 	if (xen_atomic_test_bit(&pbxi->pbx_sh_info->flags,
+ 	    _XEN_PCIF_active) == 0)
+ 		return 0;
++
++	memcpy(op, &pbxi->pbx_sh_info->op, sizeof (struct xen_pci_op));
++	barrier();
+ 	if (op->domain != 0) {
+ 		aprint_error("pciback: domain %d != 0", op->domain);
+ 		op->err = XEN_PCI_ERR_dev_not_found;
+@@ -794,6 +798,8 @@ pciback_xenbus_evthandler(void * arg)
+ 		aprint_error("pciback: unknown cmd %d\n", op->cmd);
+ 		op->err = XEN_PCI_ERR_not_implemented;
+ 	}
++	pbxi->pbx_sh_info->op.value = op->value;
++	pbxi->pbx_sh_info->op.err = op->err;
+ end:
+ 	xen_atomic_clear_bit(&pbxi->pbx_sh_info->flags, _XEN_PCIF_active);
+ 	hypervisor_notify_via_evtchn(pbxi->pbx_evtchn);
+-- 
+2.5.2
+

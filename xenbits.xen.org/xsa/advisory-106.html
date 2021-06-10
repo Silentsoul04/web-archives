@@ -1,0 +1,91 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-106 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-106.html">XSA-106</a></td></tr><tr><th>Public release</th> <td>2014-09-23 12:00</td></tr><tr><th>Updated</th> <td>2014-09-24 10:29</td></tr><tr><th>Version</th> <td>3</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-7156">CVE-2014-7156</a></td></tr><tr><th>Title</th> <td>Missing privilege level checks in x86 emulation of software interrupts</td></tr></table><h1>Files</h1><a href="advisory-106.txt">advisory-106.txt</a> (signed advisory file)<br /><a href="xsa106.patch">xsa106.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+            Xen Security Advisory CVE-2014-7156 / XSA-106
+                              version 3
+
+    Missing privilege level checks in x86 emulation of software interrupts
+
+UPDATES IN VERSION 3
+====================
+
+This issue has been assigned CVE-2014-7156.
+
+ISSUE DESCRIPTION
+=================
+
+The emulation of instructions which generate software interrupts fails
+to perform supervisor mode permission checks.
+
+However these instructions are not usually handled by the emulator.
+Exceptions to this are
+- - when a memory operand (implicit for the affected instructions) lives
+  in (emulated or passed through) memory mapped IO space,
+- - in the case of guests running in 32-bit PAE mode, when such an
+  instruction is (in execution flow) within four instructions of one
+  doing a page table update,
+- - when an Invalid Opcode exception gets raised by a guest instruction,
+  and the guest then (likely maliciously) alters the instruction to
+  become one of the affected ones,
+- - when the guest is in real mode (in which case there are no privilege
+  checks anyway).
+
+IMPACT
+======
+
+Malicious HVM guest user mode code may be able to crash the guest.
+
+VULNERABLE SYSTEMS
+==================
+
+Xen versions from 3.3 onwards are vulnerable.
+
+Only user processes in HVM guests can take advantage of this
+vulnerability.
+
+MITIGATION
+==========
+
+Running only PV guests will avoid this issue.
+
+There is no mitigation available for HVM guests.
+
+CREDITS
+=======
+
+This issue was discovered Andrei Lutas at BitDefender and analyzed by
+Andrew Cooper at Citrix.
+
+RESOLUTION
+==========
+
+Applying the attached patch resolves this issue.
+
+xsa106.patch        xen-unstable, Xen 4.4.x, Xen 4.3.x, Xen 4.2.x
+
+$ sha256sum xsa106*.patch
+<a href="xsa106.patch">301060f801ab39c15ac773e1bcc250f0e6bf30d748007a96173459b83afc9270  xsa106.patch</a>
+$
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.12 (GNU/Linux)
+
+iQEcBAEBAgAGBQJUIpznAAoJEIP+FMlX6CvZNzsH/2EiupxpKxmHXoWxZAqlDz5E
++cdmv5axHGO74bU8xGe/WFcfOCjx8LaPifWd/g6AMlSa7BHe1i1sPmOifr6jhRlz
+xfJonBcXl6/Z7LpfaYdu2M+6mDXoO2Ov5yKEYDNPyzwfmRH+bLBBGrGTzJvyaEj2
+PS2JgtIzIVRFHdmYh7zJeS9isKt9+/lKplAIluKUUUhnX1pMUaTV9Ax67MUs7BdJ
+SHh37YoMIZAxAkRl80nT7gBdohLUmQJZm3CVFFjk71hSFlvdRJNZuVJnxMyXXBA3
+awQlxUAhUQmP8ls1JTK0EMVe9EAPvyqgPlk/2Ch8UBtpg0MeGzBs9UJwjYeP47Y=
+=c9bK
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

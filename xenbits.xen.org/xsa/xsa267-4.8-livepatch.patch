@@ -1,0 +1,145 @@
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: x86: Livepatch mitigations for LazyFPU
+
+This is part of XSA-267 / CVE-2018-3665
+
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+diff --git a/xen/arch/x86/i387.c b/xen/arch/x86/i387.c
+index 86b098d..859be4d 100644
+--- a/xen/arch/x86/i387.c
++++ b/xen/arch/x86/i387.c
+@@ -10,6 +10,7 @@
+ 
+ #include <xen/config.h>
+ #include <xen/sched.h>
++#include <xen/livepatch_payload.h>
+ #include <asm/current.h>
+ #include <asm/processor.h>
+ #include <asm/hvm/support.h>
+@@ -202,6 +203,94 @@ static inline void fpu_fxsave(struct vcpu *v)
+     fpu_ctxt->x[FPU_WORD_SIZE_OFFSET] = fip_width;
+ }
+ 
++/* Calculate whether this CPU speculates past #NM */
++static bool should_use_eager_fpu(void)
++{
++    /*
++     * Assume all unrecognised processors are ok.  This is only known to
++     * affect Intel Family 6 processors.
++     */
++    if ( boot_cpu_data.x86_vendor != X86_VENDOR_INTEL ||
++         boot_cpu_data.x86 != 6 )
++        return false;
++
++    switch ( boot_cpu_data.x86_model )
++    {
++        /*
++         * Core processors since at least Nehalem are vulnerable.
++         */
++    case 0x1e: /* Nehalem */
++    case 0x1f: /* Auburndale / Havendale */
++    case 0x1a: /* Nehalem EP */
++    case 0x2e: /* Nehalem EX */
++    case 0x25: /* Westmere */
++    case 0x2c: /* Westmere EP */
++    case 0x2f: /* Westmere EX */
++    case 0x2a: /* SandyBridge */
++    case 0x2d: /* SandyBridge EP/EX */
++    case 0x3a: /* IvyBridge */
++    case 0x3e: /* IvyBridge EP/EX */
++    case 0x3c: /* Haswell */
++    case 0x3f: /* Haswell EX/EP */
++    case 0x45: /* Haswell D */
++    case 0x46: /* Haswell H */
++    case 0x3d: /* Broadwell */
++    case 0x47: /* Broadwell H */
++    case 0x4f: /* Broadwell EP/EX */
++    case 0x56: /* Broadwell D */
++    case 0x4e: /* Skylake M */
++    case 0x55: /* Skylake X */
++    case 0x5e: /* Skylake D */
++    case 0x66: /* Cannonlake */
++    case 0x67: /* Cannonlake? */
++    case 0x8e: /* Kabylake M */
++    case 0x9e: /* Kabylake D */
++        return true;
++
++        /*
++         * Atom processors are not vulnerable.
++         */
++    case 0x1c: /* Pineview */
++    case 0x26: /* Lincroft */
++    case 0x27: /* Penwell */
++    case 0x35: /* Cloverview */
++    case 0x36: /* Cedarview */
++    case 0x37: /* Baytrail / Valleyview (Silvermont) */
++    case 0x4d: /* Avaton / Rangely (Silvermont) */
++    case 0x4c: /* Cherrytrail / Brasswell */
++    case 0x4a: /* Merrifield */
++    case 0x5a: /* Moorefield */
++    case 0x5c: /* Goldmont */
++    case 0x5f: /* Denverton */
++    case 0x7a: /* Gemini Lake */
++        return false;
++
++        /*
++         * Knights processors are not vulnerable.
++         */
++    case 0x57: /* Knights Landing */
++    case 0x85: /* Knights Mill */
++        return false;
++
++    default:
++        printk("Unrecognised CPU model %#x - assuming vulnerable to LazyFPU\n",
++               boot_cpu_data.x86_model);
++        return true;
++    }
++}
++
++static bool fully_eager_fpu;
++
++void lazyfpu_apply_hook(void)
++{
++    fully_eager_fpu = should_use_eager_fpu();
++
++    printk("LazyFPU Livepatch: Fam %u, Model %u => Fully Eager %u\n",
++           boot_cpu_data.x86, boot_cpu_data.x86_model, fully_eager_fpu);
++}
++
++LIVEPATCH_LOAD_HOOK(lazyfpu_apply_hook);
++
+ /*******************************/
+ /*       VCPU FPU Functions    */
+ /*******************************/
+@@ -211,7 +300,7 @@ void vcpu_restore_fpu_eager(struct vcpu *v)
+     ASSERT(!is_idle_vcpu(v));
+     
+     /* Restore nonlazy extended state (i.e. parts not tracked by CR0.TS). */
+-    if ( !v->arch.nonlazy_xstate_used )
++    if ( !fully_eager_fpu && !v->arch.nonlazy_xstate_used )
+         return;
+ 
+     /* Avoid recursion */
+@@ -222,11 +311,19 @@ void vcpu_restore_fpu_eager(struct vcpu *v)
+      * above) we also need to restore full state, to prevent subsequently
+      * saving state belonging to another vCPU.
+      */
+-    if ( xstate_all(v) )
++    if ( fully_eager_fpu || (v->arch.xsave_area && xstate_all(v)) )
+     {
+-        fpu_xrstor(v, XSTATE_ALL);
++        if ( cpu_has_xsave )
++            fpu_xrstor(v, XSTATE_ALL);
++        else
++            fpu_fxrstor(v);
++
+         v->fpu_initialised = 1;
+         v->fpu_dirtied = 1;
++
++        /* Xen doesn't need TS set, but the guest might. */
++        if ( is_pv_vcpu(v) && (v->arch.pv_vcpu.ctrlreg[0] & X86_CR0_TS) )
++            stts();
+     }
+     else
+     {

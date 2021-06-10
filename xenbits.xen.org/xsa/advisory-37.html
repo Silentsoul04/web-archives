@@ -1,0 +1,86 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-37 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-37.html">XSA-37</a></td></tr><tr><th>Public release</th> <td>2013-01-04 16:00</td></tr><tr><th>Updated</th> <td>2013-01-04 16:00</td></tr><tr><th>Version</th> <td>1</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-0154">CVE-2013-0154</a></td></tr><tr><th>Title</th> <td>Hypervisor crash due to incorrect ASSERT (debug build only)</td></tr></table><h1>Files</h1><a href="advisory-37.txt">advisory-37.txt</a> (signed advisory file)<br /><a href="xsa37-4.2.patch">xsa37-4.2.patch</a><br /><a href="xsa37-unstable.patch">xsa37-unstable.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+	     Xen Security Advisory CVE-2013-0154 / XSA-37
+
+     Hypervisor crash due to incorrect ASSERT (debug build only)
+
+ISSUE DESCRIPTION
+=================
+
+A change to an internal interface within the hypervisor invalidated an
+ASSERT in a caller of that API. This code path is exposed to PV guests
+via a hypercall allowing administrators of PV guests to crash the
+hypervisor if it is built with debugging enabled.
+
+IMPACT
+======
+
+Malicious administrators of PV guests running on hypervisors built
+with the non-default debug=y option can crash the host.
+
+VULNERABLE SYSTEMS
+==================
+
+Systems running Xen 4.2 and unstable are vulnerable to this issue. Xen
+4.1 and earlier are not vulnerable.
+
+Only systems built with debugging enabled are vulnerable. Debugging is
+not enabled by default.
+
+Systems running PV guests or HVM guests using stubdomains are
+vulnerable. Guests which run only HVM guests without stubdomains are
+not vulnerable.
+
+MITIGATION
+==========
+
+Building the hypervisor without debugging enabled will completely
+avoid this issue. Note that debugging is not enabled by default.
+
+Avoiding running PV guests with untrusted administrators will also
+avoid this issue
+
+NOTE REGARDING LACK OF EMBARGO
+==============================
+
+This issue was disclosed publicly on xen-devel; the person reporting
+it did not appreciate that it was a security issue.  Under the
+circumstances the Xen.org security team do not consider that this
+advisory should be embargoed.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+xsa37-4.2.patch             Xen 4.2.x
+xsa37-unstable.patch        xen-unstable
+
+$ sha256sum xsa37*.patch
+<a href="xsa37-4.2.patch">beb9406e2d2de7a9768034af443b2eb30f69cd6e4688ceb63305595d2221194d  xsa37-4.2.patch</a>
+<a href="xsa37-unstable.patch">161f41f95bd679cdb19e37df4da6a75386af4689118377ec501a9e3d4f66c873  xsa37-unstable.patch</a>
+$
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.10 (GNU/Linux)
+
+iQEcBAEBAgAGBQJQ5vyNAAoJEIP+FMlX6CvZkGUH/38HiKMfj+95DCgRzQI8dGpu
+6bvyhnHOY1WyGPGmDYuaMfLhOdBIoOdR46qMkC7R4kgaNqRIrev2KmzXSF//UuRq
+w/8eUwby1jGmZ4NnrxjBQfHQMUywkZGO0IdSzK573nCsOBDMH42Ec/vtEpnJsNK/
+vxWibmsPmNvDuZ0l/fhuc78iGcpF1D2T9D5ndujfJQ02cYFKeXVzBLuMtA/+YAPF
+JszVIknZnXYKoVjcXMOf5qokRxZehsI4BsbI6A4AxxZboSBzV1lX+fkPqGZnUury
+oiGTSIzdnTq4UbgrgV3JJGcfsCpB2xm5pDLsmXiggd8Zjo2oW25dWrpmTo5B8dU=
+=bPx0
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

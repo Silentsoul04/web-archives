@@ -1,0 +1,105 @@
+From af440a75f0abd564c08534a5db1d4971059a89f4 Mon Sep 17 00:00:00 2001
+From: Norbert Manthey <nmanthey@amazon.de>
+Subject: [PATCH SpectreV1+L1TF 08/13] common/gant_table: block speculative
+ out-of-bound accesses
+
+Guests can issue grant table operations and provide guest controlled
+data to them. This data is also used for memory loads. To avoid
+speculative out of bound accesses, we use the array_index_nospec macro
+where applicable. However, there are also memory accesses that cannot
+be protected by a single array protection, or multiple accesses in a
+row. To protect these, an lfence instruction is placed between the
+actual range check and the access.
+
+This is part of the SpectreV1+L1TF mitigation patch series.
+
+Signed-off-by: Norbert Manthey <nmanthey@amazon.de>
+
+---
+ xen/common/grant_table.c | 22 +++++++++++++++++++++-
+ 1 file changed, 21 insertions(+), 1 deletion(-)
+
+diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
+--- a/xen/common/grant_table.c
++++ b/xen/common/grant_table.c
+@@ -37,6 +37,7 @@
+ #include <xen/paging.h>
+ #include <xen/keyhandler.h>
+ #include <xen/vmap.h>
++#include <xen/nospec.h>
+ #include <xsm/xsm.h>
+ #include <asm/flushtlb.h>
+ 
+@@ -963,6 +964,9 @@ map_grant_ref(
+         PIN_FAIL(unlock_out, GNTST_bad_gntref, "Bad ref %#x for d%d\n",
+                  op->ref, rgt->domain->domain_id);
+ 
++    /* Make sure the above check is not bypassed speculatively */
++    rmb();
++
+     act = active_entry_acquire(rgt, op->ref);
+     shah = shared_entry_header(rgt, op->ref);
+     status = rgt->gt_version == 1 ? &shah->flags : &status_entry(rgt, op->ref);
+@@ -1268,7 +1272,8 @@ unmap_common(
+     }
+ 
+     smp_rmb();
+-    map = &maptrack_entry(lgt, op->handle);
++    map = &maptrack_entry(lgt, array_index_nospec(op->handle,
++                                                  lgt->maptrack_limit));
+ 
+     if ( unlikely(!read_atomic(&map->flags)) )
+     {
+@@ -2026,6 +2031,9 @@ gnttab_prepare_for_transfer(
+         goto fail;
+     }
+ 
++    /* Make sure the above check is not bypassed speculatively */
++    rmb();
++
+     sha = shared_entry_header(rgt, ref);
+ 
+     scombo.word = *(u32 *)&sha->flags;
+@@ -2239,6 +2247,9 @@ gnttab_transfer(
+             goto unlock_and_copyback;
+         }
+ 
++        /* Make sure the above check is not bypassed speculatively */
++        rmb();
++
+         page_list_add_tail(page, &e->page_list);
+         page_set_owner(page, e);
+ 
+@@ -2408,6 +2419,9 @@ acquire_grant_for_copy(
+         PIN_FAIL(gt_unlock_out, GNTST_bad_gntref,
+                  "Bad grant reference %#x\n", gref);
+ 
++    /* Make sure the above check is not bypassed speculatively */
++    rmb();
++
+     act = active_entry_acquire(rgt, gref);
+     shah = shared_entry_header(rgt, gref);
+     if ( rgt->gt_version == 1 )
+@@ -2812,6 +2826,9 @@ static int gnttab_copy_buf(const struct gnttab_copy *op,
+          ((op->dest.offset + op->len) > PAGE_SIZE) )
+         PIN_FAIL(out, GNTST_bad_copy_arg, "copy beyond page area\n");
+ 
++    /* Make sure the above check is not bypassed speculatively */
++    rmb();
++
+     if ( op->source.offset < src->ptr.offset ||
+          op->source.offset + op->len > src->ptr.offset + src->len )
+         PIN_FAIL(out, GNTST_general_error,
+@@ -3215,6 +3232,9 @@ swap_grant_ref(grant_ref_t ref_a, grant_ref_t ref_b)
+     if ( ref_a == ref_b )
+         goto out;
+ 
++    /* Make sure the above check is not bypassed speculatively */
++    rmb();
++
+     act_a = active_entry_acquire(gt, ref_a);
+     if ( act_a->pin )
+         PIN_FAIL(out, GNTST_eagain, "ref a %#x busy\n", ref_a);
+-- 
+2.7.4
+

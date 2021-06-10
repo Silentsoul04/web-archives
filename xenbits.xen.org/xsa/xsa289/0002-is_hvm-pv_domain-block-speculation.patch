@@ -1,0 +1,40 @@
+From f2a099c06e1e5e4c8aa5516c338c4c0c70335ebb Mon Sep 17 00:00:00 2001
+From: Norbert Manthey <nmanthey@amazon.de>
+Subject: [PATCH SpectreV1+L1TF 02/13] is_hvm/pv_domain: block speculation
+
+When checking for being an hvm domain, or PV domain, we have to make
+sure that speculation cannot bypass that check, and eventually access
+data that should not end up in cache for the current domain type.
+
+Signed-off-by: Norbert Manthey <nmanthey@amazon.de>
+
+---
+ xen/include/xen/sched.h | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+--- a/xen/include/xen/sched.h
++++ b/xen/include/xen/sched.h
+@@ -883,7 +883,8 @@ void watchdog_domain_destroy(struct domain *d);
+ 
+ static inline bool is_pv_domain(const struct domain *d)
+ {
+-    return IS_ENABLED(CONFIG_PV) ? d->guest_type == guest_type_pv : false;
++    bool res = IS_ENABLED(CONFIG_PV) ? d->guest_type == guest_type_pv : false;
++    return (res && bool_lfence()) || !bool_lfence();
+ }
+ 
+ static inline bool is_pv_vcpu(const struct vcpu *v)
+@@ -914,7 +915,8 @@ static inline bool is_pv_64bit_vcpu(const struct vcpu *v)
+ #endif
+ static inline bool is_hvm_domain(const struct domain *d)
+ {
+-    return IS_ENABLED(CONFIG_HVM) ? d->guest_type == guest_type_hvm : false;
++    bool res = IS_ENABLED(CONFIG_HVM) ? d->guest_type == guest_type_hvm : false;
++    return (res && bool_lfence()) || !bool_lfence();
+ }
+ 
+ static inline bool is_hvm_vcpu(const struct vcpu *v)
+-- 
+2.7.4
+

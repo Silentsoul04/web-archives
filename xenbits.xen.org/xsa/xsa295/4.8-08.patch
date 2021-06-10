@@ -1,0 +1,83 @@
+From a1db9cab327b511753a42ba3d055f3631999e065 Mon Sep 17 00:00:00 2001
+From: Julien Grall <julien.grall@arm.com>
+Date: Mon, 29 Apr 2019 15:05:20 +0100
+Subject: [PATCH v2 4.8 08/21] xen/arm: bitops: Consolidate prototypes in one
+ place
+
+The prototype are the same between arm32 and arm64. Consolidate them in
+asm-arm/bitops.h.
+
+This change will help the introductions of new helpers in a follow-up
+patch.
+
+This is part of XSA-295.
+
+Signed-off-by: Julien Grall <julien.grall@arm.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+---
+ xen/include/asm-arm/arm32/bitops.h |  7 -------
+ xen/include/asm-arm/arm64/bitops.h | 10 ----------
+ xen/include/asm-arm/bitops.h       |  8 ++++++++
+ 3 files changed, 8 insertions(+), 17 deletions(-)
+
+diff --git a/xen/include/asm-arm/arm32/bitops.h b/xen/include/asm-arm/arm32/bitops.h
+index 67c4c3f55c..57938a5874 100644
+--- a/xen/include/asm-arm/arm32/bitops.h
++++ b/xen/include/asm-arm/arm32/bitops.h
+@@ -1,13 +1,6 @@
+ #ifndef _ARM_ARM32_BITOPS_H
+ #define _ARM_ARM32_BITOPS_H
+ 
+-extern void set_bit(int nr, volatile void * p);
+-extern void clear_bit(int nr, volatile void * p);
+-extern void change_bit(int nr, volatile void * p);
+-extern int test_and_set_bit(int nr, volatile void * p);
+-extern int test_and_clear_bit(int nr, volatile void * p);
+-extern int test_and_change_bit(int nr, volatile void * p);
+-
+ #define flsl fls
+ 
+ /*
+diff --git a/xen/include/asm-arm/arm64/bitops.h b/xen/include/asm-arm/arm64/bitops.h
+index 6bf1922680..6cc224ad13 100644
+--- a/xen/include/asm-arm/arm64/bitops.h
++++ b/xen/include/asm-arm/arm64/bitops.h
+@@ -1,16 +1,6 @@
+ #ifndef _ARM_ARM64_BITOPS_H
+ #define _ARM_ARM64_BITOPS_H
+ 
+-/*
+- * Little endian assembly atomic bitops.
+- */
+-extern void set_bit(int nr, volatile void *p);
+-extern void clear_bit(int nr, volatile void *p);
+-extern void change_bit(int nr, volatile void *p);
+-extern int test_and_set_bit(int nr, volatile void *p);
+-extern int test_and_clear_bit(int nr, volatile void *p);
+-extern int test_and_change_bit(int nr, volatile void *p);
+-
+ /* Based on linux/include/asm-generic/bitops/builtin-__ffs.h */
+ /**
+  * __ffs - find first bit in word.
+diff --git a/xen/include/asm-arm/bitops.h b/xen/include/asm-arm/bitops.h
+index bda889841b..8e864b4456 100644
+--- a/xen/include/asm-arm/bitops.h
++++ b/xen/include/asm-arm/bitops.h
+@@ -37,6 +37,14 @@
+ # error "unknown ARM variant"
+ #endif
+ 
++/* Atomics bitops */
++void set_bit(int nr, volatile void *p);
++void clear_bit(int nr, volatile void *p);
++void change_bit(int nr, volatile void *p);
++int test_and_set_bit(int nr, volatile void *p);
++int test_and_clear_bit(int nr, volatile void *p);
++int test_and_change_bit(int nr, volatile void *p);
++
+ /**
+  * __test_and_set_bit - Set a bit and return its old value
+  * @nr: Bit to set
+-- 
+2.17.1
+

@@ -1,0 +1,86 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-80 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-80.html">XSA-80</a></td></tr><tr><th>Public release</th> <td>2013-12-10 12:00</td></tr><tr><th>Updated</th> <td>2013-12-10 12:58</td></tr><tr><th>Version</th> <td>3</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-6400">CVE-2013-6400</a></td></tr><tr><th>Title</th> <td>IOMMU TLB flushing may be inadvertently suppressed</td></tr></table><h1>Files</h1><a href="advisory-80.txt">advisory-80.txt</a> (signed advisory file)<br /><a href="xsa80.patch">xsa80.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+             Xen Security Advisory CVE-2013-6400 / XSA-80
+                              version 3
+
+          IOMMU TLB flushing may be inadvertently suppressed
+
+UPDATES IN VERSION 3
+====================
+
+Public release.
+
+Corrected explanatory text to refer to the correct patch filename.
+
+ISSUE DESCRIPTION
+=================
+
+An internal flag is used to temporarily suppress IOMMU TLB flushes, in
+order to consolidate multiple single page flushes into one wider
+flush.  This flag is not cleared again, on certain error paths.  This
+can result in TLB flushes not happening when they are needed.
+Retaining stale TLB entries could allow guests access to memory that
+ought to have been revoked, or grant greater access than intended.
+
+IMPACT
+======
+
+Malicious guest administrators might be able to cause host-wide denial of
+service, or escalate their privilege to that of the host.
+
+VULNERABLE SYSTEMS
+==================
+
+Only VMs which have been assigned PCI devices can exploit the bug.
+
+Only systems using Intel VT-d are vulnerable, since the bug is in the
+VT-d specific code in Xen.
+
+Xen 4.2.x and later are vulnerable.
+Xen 4.1.x and earlier are not vulnerable.
+
+MITIGATION
+==========
+
+This issue can be avoided by not assigning PCI devices to untrusted guests on
+systems supporting Intel VT-d.
+
+CREDITS
+=======
+
+This issue was discovered by Jan Beulich.
+
+RESOLUTION
+==========
+
+Applying the attached patch resolves this issue.
+
+xsa80.patch                Xen 4.2.x, Xen 4.3.x, xen-unstable
+
+$ sha256sum xsa80*.patch
+<a href="xsa80.patch">d15e627c59dd48e1cacb2fbcd5e2148975daa426df1f693b991d69201c048e77  xsa80.patch</a>
+$
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.12 (GNU/Linux)
+
+iQEcBAEBAgAGBQJSpw/SAAoJEIP+FMlX6CvZu48IAIsJz4NRVXqCYl9hjtFhgfhL
+/V2J9T9Xp0/iNTmfP6FMu2wIZohAcosMOaZ5NXouIb50bta2mpeQhA0K0RZLEin5
+2QH9rcfYYchAeQjPt72QVPH3iMTWdPXXV3HDuqXI+G+II64bonHvArtAwYxeJpWM
+ZwegEnxsEk2YsYk+TYGMzQws2sXygx06JxEJsE9/Q6BOJG9jnwvtRsleVDuMuBMR
+6U1DdaxZohk5k1xqS5Y6udyXpJQgob7fMdwAoLWxxlb7vB3kOgzMoorVrzRZ0LcZ
+LmqBYxdCQRV+Tn19eE9xo1LjBr9qBS13nGDQbyIADoF85N/SmZoMycRsqunUQ2U=
+=rB23
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-192 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-192.html">XSA-192</a></td></tr><tr><th>Public release</th> <td>2016-11-22 12:00</td></tr><tr><th>Updated</th> <td>2016-11-22 12:00</td></tr><tr><th>Version</th> <td>3</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-9382">CVE-2016-9382</a></td></tr><tr><th>Title</th> <td>x86 task switch to VM86 mode mis-handled</td></tr></table><h1>Files</h1><a href="advisory-192.txt">advisory-192.txt</a> (signed advisory file)<br /><a href="xsa192.patch">xsa192.patch</a><br /><a href="xsa192-4.5.patch">xsa192-4.5.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+            Xen Security Advisory CVE-2016-9382 / XSA-192
+                              version 3
+
+               x86 task switch to VM86 mode mis-handled
+
+UPDATES IN VERSION 3
+====================
+
+Public release.
+
+ISSUE DESCRIPTION
+=================
+
+LDTR, just like TR, is purely a protected mode facility.  Hence even
+when switching to a VM86 mode task, LDTR loading needs to follow
+protected mode semantics.  This was violated by the code.
+
+IMPACT
+======
+
+On SVM (AMD hardware): a malicious unprivileged guest process can
+escalate its privilege to that of the guest operating system.
+
+On both SVM and VMX (Intel hardware): a malicious unprivileged guest
+process can crash the guest.
+
+VULNERABLE SYSTEMS
+==================
+
+Only 32-bit x86 HVM guests are vulnerable.  Furthermore, only guest
+operating systems which actually make use of hardware task switching,
+and allow a new task to start in VM86 mode, are vulnerable.  We are
+not aware of any such operating systems.
+
+The vulnerability is NOT exposed on any PV guests.
+The vulnerability is NOT exposed on any 64-bit guests,
+
+ARM systems are NOT vulnerable.
+
+Xen versions from 4.0 onwards are affected.  Xen versions 3.4 and
+earlier are not affected.
+
+MITIGATION
+==========
+
+For guests which are affected, the vulnerability could possibly be
+mitigated by disabling access to VM86 mode by unprivileged guest
+programs.  Details would depend on the (so far hypothetical)
+vulnerable guest kernel.
+
+CREDITS
+=======
+
+This issue was discovered by Jan Beulich of SUSE.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+xsa192.patch           xen-unstable, Xen 4.7.x, Xen 4.6.x
+xsa192-4.5.patch       Xen 4.5.x, Xen 4.4.x
+
+$ sha256sum xsa192*
+<a href="xsa192.patch">687b0216eefd5ecef8a3135cc6f542cb3d9ff35e8e9696a157703e84656c35e8  xsa192.patch</a>
+<a href="xsa192-4.5.patch">bb0c6622c6f5c5eb9a680020d865802069446830b4a170bcb82336f6c3b77f55  xsa192-4.5.patch</a>
+$
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches and/or mitigations described above (or
+others which are substantially similar) is permitted during the
+embargo, even on public-facing systems with untrusted guest users and
+administrators.
+
+But: Distribution of updated software is prohibited (except to other
+members of the predisclosure list).
+
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+
+(Note: this during-embargo deployment notice is retained in
+post-embargo publicly released Xen Project advisories, even though it
+is then no longer applicable.  This is to enable the community to have
+oversight of the Xen Project Security Team&#39;s decisionmaking.)
+
+For more information about permissible uses of embargoed information,
+consult the Xen Project community&#39;s agreed Security Policy:
+  <a href="http://www.xenproject.org/security-policy.html">http://www.xenproject.org/security-policy.html</a>
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQEcBAEBAgAGBQJYNDJ9AAoJEIP+FMlX6CvZy5gIALU7weBZNJeQzBUMoQn6fAG/
+KNP3Br3BDYHC/MMbyIAkkEyHTfsR1xFNAHHb2Tb/Wl7v081owV7JwO3bkf0FJ88w
+K8RXFeUbt1z5rAdt1B088CbZA4/KkGRBd32vicUIE7+9EnkgSOlLc8abjind+yQ9
+2CtOHwDL0LVbjjGF6VdME9pooDZf2ZT1fHfClUbwPFsfTMKjUeJcfoVFqenifmYR
+wTYPtw6z+cCrjBlPyleglh/2uAc6ncTIQAC8Ee2dJyKv4wMqP60u97ANylnN3DpZ
+DTl+VUYdNsy78R9/xbqF7dT5gCeDV9y1rDoqHQwwtSGL/lvjU0ujbEtG7XS2/7M=
+=chON
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

@@ -1,0 +1,112 @@
+From eab2b4ab06419b82be1e2cfcdc5ba2a462528d68 Mon Sep 17 00:00:00 2001
+From: Anthony PERARD <anthony.perard@citrix.com>
+Date: Wed, 24 Feb 2021 18:39:20 +0000
+Subject: [PATCH] libxl: Fix domain soft reset state handling
+
+In do_domain_soft_reset(), a `libxl__domain_suspend_state' is used
+without been properly initialised and disposed of. This lead do a
+abort() in libxl due to the `dsps.qmp' state been used before been
+initialised:
+    libxl__ev_qmp_send: Assertion `ev->state == qmp_state_disconnected || ev->state == qmp_state_connected' failed.
+
+Once initialised, `dsps' also needs to be disposed of as the `qmp'
+state might still be in the `Connected' state in the callback for
+libxl__domain_suspend_device_model(). So this patch adds
+libxl__domain_suspend_dispose() which can be called from the two
+places where we need to dispose of `dsps'.
+
+Reported-by: Olaf Hering <olaf@aepfle.de>
+Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+Reviewed-by: Ian Jackson <iwj@xenproject.org>
+Tested-by: Olaf Hering <olaf@aepfle.de>
+---
+ tools/libs/light/libxl_create.c      | 11 ++++++++---
+ tools/libs/light/libxl_dom_suspend.c | 15 +++++++++++----
+ tools/libs/light/libxl_internal.h    |  2 ++
+ 3 files changed, 21 insertions(+), 7 deletions(-)
+
+diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
+index 46f68da697..dca2766805 100644
+--- a/tools/libs/light/libxl_create.c
++++ b/tools/libs/light/libxl_create.c
+@@ -2179,9 +2179,7 @@ static int do_domain_soft_reset(libxl_ctx *ctx,
+     state->console_tty = libxl__strdup(gc, console_tty);
+ 
+     dss->ao = ao;
+-    dss->domid = dss->dsps.domid = domid;
+-    dss->dsps.dm_savefile = GCSPRINTF(LIBXL_DEVICE_MODEL_SAVE_FILE".%d",
+-                                      domid);
++    dss->domid = domid;
+ 
+     rc = libxl__save_emulator_xenstore_data(dss, &srs->toolstack_buf,
+                                             &srs->toolstack_len);
+@@ -2191,6 +2189,11 @@ static int do_domain_soft_reset(libxl_ctx *ctx,
+     }
+ 
+     dss->dsps.ao = ao;
++    dss->dsps.domid = domid;
++    dss->dsps.live = false;
++    rc = libxl__domain_suspend_init(egc, &dss->dsps, d_config->b_info.type);
++    if (rc)
++        goto out;
+     dss->dsps.callback_device_model_done = soft_reset_dm_suspended;
+     libxl__domain_suspend_device_model(egc, &dss->dsps); /* must be last */
+ 
+@@ -2209,6 +2212,8 @@ static void soft_reset_dm_suspended(libxl__egc *egc,
+         CONTAINER_OF(dsps, *srs, dss.dsps);
+     libxl__app_domain_create_state *cdcs = &srs->cdcs;
+ 
++    libxl__domain_suspend_dispose(gc, dsps);
++
+     /*
+      * Ask all backends to disconnect by removing the domain from
+      * xenstore. On the creation path the domain will be introduced to
+diff --git a/tools/libs/light/libxl_dom_suspend.c b/tools/libs/light/libxl_dom_suspend.c
+index f7823bbc8f..4fa22bb739 100644
+--- a/tools/libs/light/libxl_dom_suspend.c
++++ b/tools/libs/light/libxl_dom_suspend.c
+@@ -67,6 +67,16 @@ out:
+     return rc;
+ }
+ 
++void libxl__domain_suspend_dispose(libxl__gc *gc,
++                                   libxl__domain_suspend_state  *dsps)
++{
++    libxl__xswait_stop(gc, &dsps->pvcontrol);
++    libxl__ev_evtchn_cancel(gc, &dsps->guest_evtchn);
++    libxl__ev_xswatch_deregister(gc, &dsps->guest_watch);
++    libxl__ev_time_deregister(gc, &dsps->guest_timeout);
++    libxl__ev_qmp_dispose(gc, &dsps->qmp);
++}
++
+ /*----- callbacks, called by xc_domain_save -----*/
+ 
+ void libxl__domain_suspend_device_model(libxl__egc *egc,
+@@ -388,10 +398,7 @@ static void domain_suspend_common_done(libxl__egc *egc,
+ {
+     EGC_GC;
+     assert(!libxl__xswait_inuse(&dsps->pvcontrol));
+-    libxl__ev_evtchn_cancel(gc, &dsps->guest_evtchn);
+-    libxl__ev_xswatch_deregister(gc, &dsps->guest_watch);
+-    libxl__ev_time_deregister(gc, &dsps->guest_timeout);
+-    libxl__ev_qmp_dispose(gc, &dsps->qmp);
++    libxl__domain_suspend_dispose(gc, dsps);
+     dsps->callback_common_done(egc, dsps, rc);
+ }
+ 
+diff --git a/tools/libs/light/libxl_internal.h b/tools/libs/light/libxl_internal.h
+index 028bc013d9..c6a4a187f5 100644
+--- a/tools/libs/light/libxl_internal.h
++++ b/tools/libs/light/libxl_internal.h
+@@ -3617,6 +3617,8 @@ struct libxl__domain_suspend_state {
+ int libxl__domain_suspend_init(libxl__egc *egc,
+                                libxl__domain_suspend_state *dsps,
+                                libxl_domain_type type);
++void libxl__domain_suspend_dispose(libxl__gc *gc,
++                                   libxl__domain_suspend_state  *dsps);
+ 
+ /* calls dsps->callback_device_model_done when done
+  * may synchronously calls this callback */
+-- 
+2.30.1
+

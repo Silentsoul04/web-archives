@@ -1,0 +1,100 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+            Xen Security Advisory CVE-2019-18420 / XSA-296
+                               version 5
+
+                         VCPUOP_initialise DoS
+
+UPDATES IN VERSION 5
+====================
+
+Include recipe for versions 4.12 to 4.9 in xsa296.meta
+
+Canonicalize version text.
+
+ISSUE DESCRIPTION
+=================
+
+hypercall_create_continuation() is a variadic function which uses a
+printf-like format string to interpret its parameters.  Error handling
+for a bad format character was done using BUG(), which crashes Xen.
+
+One path, via the VCPUOP_initialise hypercall, has a bad format
+character.  The BUG() can be hit if VCPUOP_initialise executes for a
+sufficiently long period of time for a continuation to be created.
+
+IMPACT
+======
+
+Malicious guests may cause a hypervisor crash, resulting in a Denial of
+Service (Dos).
+
+VULNERABLE SYSTEMS
+==================
+
+Xen versions 4.6 and newer are vulnerable.  Xen versions 4.5 and earlier
+are not vulnerable.
+
+Only x86 PV guests can exploit the vulnerability.  HVM and PVH guests,
+and guests on ARM systems, cannot exploit the vulnerability.
+
+MITIGATION
+==========
+
+There are no mitigations.
+
+CREDITS
+=======
+
+This issue was discovered by Andrew Cooper of Citrix.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+xsa296.patch           Xen 4.9 - xen-unstable
+xsa296-4.8.patch       Xen 4.7 - 4.8
+
+$ sha256sum xsa296*
+a02e2748870c129691ad2721f916b9cf77b095b6fba292e607eba558ced8dab1  xsa296.meta
+ccfd81b162b8535d952f56b1f87dfdd960e71bf07c1cf8388976e78e2e86cde5  xsa296.patch
+b283be3df6789402553172b7fd582bfffb4fa72a6b33543439bd2fb1b87bfbd4  xsa296-4.8.patch
+$
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches and/or mitigations described above (or
+others which are substantially similar) is permitted during the
+embargo, even on public-facing systems with untrusted guest users and
+administrators.
+
+But: Distribution of updated software is prohibited (except to other
+members of the predisclosure list).
+
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+
+
+(Note: this during-embargo deployment notice is retained in
+post-embargo publicly released Xen Project advisories, even though it
+is then no longer applicable.  This is to enable the community to have
+oversight of the Xen Project Security Team's decisionmaking.)
+
+For more information about permissible uses of embargoed information,
+consult the Xen Project community's agreed Security Policy:
+  http://www.xenproject.org/security-policy.html
+-----BEGIN PGP SIGNATURE-----
+
+iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAl82vqIMHHBncEB4ZW4u
+b3JnAAoJEIP+FMlX6CvZvrIH/0DFWKPX9j9cj1AWC9w5LVH0krBf/wqQcty7nk5/
+Bwy/81Lq80iwELkZNQCECpC0iFRWq3vDZSYkrYhVatjbXn1xxpulV9nRWSmJjutP
+j2WmDD9bYYSM8kzKGrI0L2n7Hl6yrzY/0PvKmHmn0tNBPx6QvytXORCXwIowy61f
+qWHn1ic3OygRK++bsU19LuijguyYwEBQObl226p/220K6K577mccFgq5GcegacyQ
+FHXR1jpYWEwZXIo2Y5ZCcku/rOlvmrYl9fHkns/fTfyCi2/Jm2hnCBSLe8hRBB+2
+s5svP0BL8VxXtbJ8UFIbQ/UNKoZO7XnjuDeYNaBs/Yz5oiI=
+=PMQy
+-----END PGP SIGNATURE-----

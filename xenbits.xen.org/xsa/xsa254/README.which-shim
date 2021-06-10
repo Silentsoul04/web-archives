@@ -1,0 +1,102 @@
+		   How to decide which shim to use
+		   ===============================
+
+A work-around to Meltdown (aka "SP3" or "Variant 3") on Intel
+processors is to run guests in HVM or PVH mode.
+
+Note this shim-based approach prevents attacks on the host, but leaves
+the guest vulnerable to Meltdown attacks by its own unprivileged
+processes; this is true even if the guest OS has KPTI or similar
+Meltdown mitigation.
+
+Some guests are difficult to convert to running in HVM or PVH mode,
+either due to lack of partitioning / MBR, or due to kernel
+compatibilities.  As an emergency backstop, there are two approaches,
+which we've codenamed "Vixen" and "Comet".  Both involve running an
+embedded copy of Xen (called a "shim") within the HVM or PVH guest to
+provide the native PV interface.
+
+Below describes the properties, and who might want to use each one.
+
+NOTE: Both shims require host patches to boot on AMD hosts.  This
+shouldn't be an issue, as SP3 does not affect systems running on AMD.
+
+Vixen
+-----
+
+Vixen has the following properties:
+ * Runs the shim in an HVM guest.
+ * It requires no hypervisor or toolstack changes, nor does it require
+   a host reboot.
+ * It has been extensively tested in Amazon's deployment for versions
+   of Xen going back to 3.4
+ * Guest reboots are required
+ * Guest configs must be fed through a converter program
+ * The converter program spits out a small guest-specific .iso
+   image (we call this a "sidecar") used for booting
+ * Because the result is an HVM guest, this approach involves
+   running qemu as a PC emulator (this is done automatically)
+ * Some common features are not supported:
+  - Ballooning
+  - Migration
+  - vcpu hotplug
+  - bidirectional console support (console is write-only)
+ * Direct-boot kernels and pvgrub (both pvgrub1 and pvgrub2) are
+   supported by the conversion program.  'pygrub' is not supported.
+ * xl and xm domain configs can be converted; libvirt domain
+   configuration arrangements are not supported.
+ * Guest userspace can read all of guest memory, within each guest,
+   and a guest migitation for this is not possible.
+
+You might consider this approach if:
+- You want to deploy a fix immediately
+- You can tolerate the loss of within-guest security
+- You can't, or would like to avoid, updating to Xen 4.8 or newer
+- You'd like to avoid patching and rebooting your host
+- You are able to:
+ - Run a script to modify each domain config
+ - Afford an extra 80MiB per guest
+ - Tolerate having an extra QEMU around
+- You don't need migration, memory ballooning, vcpu hotplug,
+  or a bi-directional console
+
+To use this solution, see README.vixen.
+
+Bi-directional console is available as an extra patch, but hasn't been
+widely tested:
+
+marc.info/?i=<1515604552-9205-1-git-send-email-srn@prgmr.com>
+
+Comet
+-----
+
+Comet has the following properties:
+ * Runs the shim in a PVH guest.
+ * PVH mode is available in Xen 4.10, and will be backported to Xen
+   4.9 and 4.8 but no farther
+ * Requires host hypervisor and toolstack patches (and host reboot),
+   even for Xen 4.10
+ * Requires minimal guest config changes, and no "sidecar"
+ * Bootloading is identical to native PV guests; direct-boot, pvgrub,
+   and pygrub all work equally well
+ * Because the result is a PVH guest, this approach involves no PC emulator.
+ * The following features not available in Vixen are supported:
+  - Memory ballooning
+  - Guest migration
+  - vcpu hotplug
+  - bidirectional console support
+ * Guest userspace can read all of guest memory, within each guest,
+   and a guest migitation for this is not possible.
+
+You might consider this approach if:
+- You're on 4.8 or later already
+- You can tolerate the loss of within-guest security
+- You can patch and reboot your host
+- You don't want an extra QEMU around
+- You need migration, memory ballooning, or vcpu hotplug, or a
+  bidirectional console
+- You need pygrub
+- You need to use libvirt
+
+At the moment, Comet is available for 4.10.   We expect to have
+backports to 4.8 and 4.8 available within a few working days.

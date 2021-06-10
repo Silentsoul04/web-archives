@@ -1,0 +1,258 @@
+From 13f426b833053bb33e9e3ec708a1349ed6a10d55 Mon Sep 17 00:00:00 2001
+From: Julien Grall <julien.grall@arm.com>
+Date: Wed, 22 May 2019 13:39:17 -0700
+Subject: [PATCH v2 4.8 12/21] xen/arm: cmpxchg: Provide a new helper that can
+ timeout
+
+Exclusive load-store atomics should only be used between trusted
+threads. As not all the guests are trusted, it may be possible to DoS
+Xen when updating shared memory with guest atomically.
+
+To prevent the infinite loop, we introduce a new helper that can timeout.
+The timeout is based on the maximum number of iterations.
+
+It will be used in follow-up patch to make atomic operations on shared
+memory safe.
+
+This is part of XSA-295.
+
+Signed-off-by: Julien Grall <julien.grall@arm.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Signed-off-by: Stefano Stabellini <stefanos@xilinx.com>
+---
+ xen/include/asm-arm/arm32/cmpxchg.h | 63 +++++++++++++++++++++-----
+ xen/include/asm-arm/arm64/cmpxchg.h | 70 ++++++++++++++++++++++-------
+ 2 files changed, 106 insertions(+), 27 deletions(-)
+
+diff --git a/xen/include/asm-arm/arm32/cmpxchg.h b/xen/include/asm-arm/arm32/cmpxchg.h
+index 471a9e3a3f..49ca2a0d7a 100644
+--- a/xen/include/asm-arm/arm32/cmpxchg.h
++++ b/xen/include/asm-arm/arm32/cmpxchg.h
+@@ -55,11 +55,14 @@ static inline unsigned long __xchg(unsigned long x, volatile void *ptr, int size
+ extern unsigned long __bad_cmpxchg(volatile void *ptr, int size);
+ 
+ #define __CMPXCHG_CASE(sz, name)					\
+-static inline unsigned long __cmpxchg_case_##name(volatile void *ptr,	\
+-						  unsigned long old,	\
+-						  unsigned long new)	\
++static inline bool __cmpxchg_case_##name(volatile void *ptr,		\
++					 unsigned long *old,		\
++					 unsigned long new,		\
++					 bool timeout,			\
++					 unsigned int max_try)		\
+ {									\
+-	unsigned long oldval, res;					\
++	unsigned long oldval;						\
++	unsigned long res;						\
+ 									\
+ 	do {								\
+ 		asm volatile("@ __cmpxchg_case_" #name "\n"		\
+@@ -68,29 +71,35 @@ static inline unsigned long __cmpxchg_case_##name(volatile void *ptr,	\
+ 		"	teq	%1, %3\n"				\
+ 		"	strex" #sz "eq %0, %4, [%2]\n"			\
+ 		: "=&r" (res), "=&r" (oldval)				\
+-		: "r" (ptr), "Ir" (old), "r" (new)			\
++		: "r" (ptr), "Ir" (*old), "r" (new)			\
+ 		: "memory", "cc");					\
+-	} while (res);							\
+ 									\
+-	return oldval;							\
++		if (!res)						\
++			break;						\
++	} while (!timeout || ((--max_try) > 0));			\
++									\
++	*old = oldval;							\
++									\
++	return !res;							\
+ }
+ 
+ __CMPXCHG_CASE(b, 1)
+ __CMPXCHG_CASE(h, 2)
+ __CMPXCHG_CASE( , 4)
+ 
+-static always_inline unsigned long __cmpxchg(
+-    volatile void *ptr, unsigned long old, unsigned long new, int size)
++static always_inline bool __int_cmpxchg(volatile void *ptr, unsigned long *old,
++					unsigned long new, int size,
++					bool timeout, unsigned int max_try)
+ {
+ 	prefetchw((const void *)ptr);
+ 
+ 	switch (size) {
+ 	case 1:
+-		return __cmpxchg_case_1(ptr, old, new);
++		return __cmpxchg_case_1(ptr, old, new, timeout, max_try);
+ 	case 2:
+-		return __cmpxchg_case_2(ptr, old, new);
++		return __cmpxchg_case_2(ptr, old, new, timeout, max_try);
+ 	case 4:
+-		return __cmpxchg_case_4(ptr, old, new);
++		return __cmpxchg_case_4(ptr, old, new, timeout, max_try);
+ 	default:
+ 		return __bad_cmpxchg(ptr, size);
+ 	}
+@@ -98,6 +107,17 @@ static always_inline unsigned long __cmpxchg(
+ 	ASSERT_UNREACHABLE();
+ }
+ 
++static always_inline unsigned long __cmpxchg(volatile void *ptr,
++					     unsigned long old,
++					     unsigned long new,
++					     int size)
++{
++	if (!__int_cmpxchg(ptr, &old, new, size, false, 0))
++		ASSERT_UNREACHABLE();
++
++	return old;
++}
++
+ static always_inline unsigned long __cmpxchg_mb(volatile void *ptr,
+                                                 unsigned long old,
+                                                 unsigned long new, int size)
+@@ -111,6 +131,25 @@ static always_inline unsigned long __cmpxchg_mb(volatile void *ptr,
+ 	return ret;
+ }
+ 
++/*
++ * The helper may fail to update the memory if the action takes too long.
++ *
++ * @old: On call the value pointed contains the expected old value. It will be
++ * updated to the actual old value.
++ * @max_try: Maximum number of iterations
++ *
++ * The helper will return true when the update has succeeded (i.e no
++ * timeout) and false if the update has failed.
++ */
++static always_inline bool __cmpxchg_mb_timeout(volatile void *ptr,
++					       unsigned long *old,
++					       unsigned long new,
++					       int size,
++					       unsigned int max_try)
++{
++	return __int_cmpxchg(ptr, old, new, size, true, max_try);
++}
++
+ #define cmpxchg(ptr,o,n)						\
+ 	((__typeof__(*(ptr)))__cmpxchg_mb((ptr),			\
+ 					  (unsigned long)(o),		\
+diff --git a/xen/include/asm-arm/arm64/cmpxchg.h b/xen/include/asm-arm/arm64/cmpxchg.h
+index 393fbca6a5..5bc2e1f786 100644
+--- a/xen/include/asm-arm/arm64/cmpxchg.h
++++ b/xen/include/asm-arm/arm64/cmpxchg.h
+@@ -64,11 +64,14 @@ static inline unsigned long __xchg(unsigned long x, volatile void *ptr, int size
+ extern unsigned long __bad_cmpxchg(volatile void *ptr, int size);
+ 
+ #define __CMPXCHG_CASE(w, sz, name)					\
+-static inline unsigned long __cmpxchg_case_##name(volatile void *ptr,	\
+-						  unsigned long old,	\
+-						  unsigned long new)	\
++static inline bool __cmpxchg_case_##name(volatile void *ptr,		\
++					 unsigned long *old,		\
++					 unsigned long new,		\
++					 bool timeout,			\
++					 unsigned int max_try)		\
+ {									\
+-	unsigned long res, oldval;					\
++	unsigned long oldval;						\
++	unsigned long res;						\
+ 									\
+ 	do {								\
+ 		asm volatile("// __cmpxchg_case_" #name "\n"		\
+@@ -80,11 +83,16 @@ static inline unsigned long __cmpxchg_case_##name(volatile void *ptr,	\
+ 		"1:\n"							\
+ 		: "=&r" (res), "=&r" (oldval),				\
+ 		  "+Q" (*(unsigned long *)ptr)				\
+-		: "Ir" (old), "r" (new)					\
++		: "Ir" (*old), "r" (new)				\
+ 		: "cc");						\
+-	} while (res);							\
+ 									\
+-	return oldval;							\
++		if (!res)						\
++			break;						\
++	} while (!timeout || ((--max_try) > 0));			\
++									\
++	*old = oldval;							\
++									\
++	return !res;							\
+ }
+ 
+ __CMPXCHG_CASE(w, b, 1)
+@@ -92,18 +100,19 @@ __CMPXCHG_CASE(w, h, 2)
+ __CMPXCHG_CASE(w,  , 4)
+ __CMPXCHG_CASE( ,  , 8)
+ 
+-static inline unsigned long __cmpxchg(volatile void *ptr, unsigned long old,
+-				      unsigned long new, int size)
++static always_inline bool __int_cmpxchg(volatile void *ptr, unsigned long *old,
++					unsigned long new, int size,
++					bool timeout, unsigned int max_try)
+ {
+ 	switch (size) {
+ 	case 1:
+-		return __cmpxchg_case_1(ptr, old, new);
++		return __cmpxchg_case_1(ptr, old, new, timeout, max_try);
+ 	case 2:
+-		return __cmpxchg_case_2(ptr, old, new);
++		return __cmpxchg_case_2(ptr, old, new, timeout, max_try);
+ 	case 4:
+-		return __cmpxchg_case_4(ptr, old, new);
++		return __cmpxchg_case_4(ptr, old, new, timeout, max_try);
+ 	case 8:
+-		return __cmpxchg_case_8(ptr, old, new);
++		return __cmpxchg_case_8(ptr, old, new, timeout, max_try);
+ 	default:
+ 		return __bad_cmpxchg(ptr, size);
+ 	}
+@@ -111,8 +120,20 @@ static inline unsigned long __cmpxchg(volatile void *ptr, unsigned long old,
+ 	ASSERT_UNREACHABLE();
+ }
+ 
+-static inline unsigned long __cmpxchg_mb(volatile void *ptr, unsigned long old,
+-					 unsigned long new, int size)
++static always_inline unsigned long __cmpxchg(volatile void *ptr,
++					     unsigned long old,
++					     unsigned long new,
++					     int size)
++{
++	if (!__int_cmpxchg(ptr, &old, new, size, false, 0))
++		ASSERT_UNREACHABLE();
++
++	return old;
++}
++
++static always_inline unsigned long __cmpxchg_mb(volatile void *ptr,
++						unsigned long old,
++						unsigned long new, int size)
+ {
+ 	unsigned long ret;
+ 
+@@ -123,6 +144,25 @@ static inline unsigned long __cmpxchg_mb(volatile void *ptr, unsigned long old,
+ 	return ret;
+ }
+ 
++/*
++ * The helper may fail to update the memory if the action takes too long.
++ *
++ * @old: On call the value pointed contains the expected old value. It will be
++ * updated to the actual old value.
++ * @max_try: Maximum number of iterations
++ *
++ * The helper will return true when the update has succeeded (i.e no
++ * timeout) and false if the update has failed.
++ */
++static always_inline bool __cmpxchg_mb_timeout(volatile void *ptr,
++					       unsigned long *old,
++					       unsigned long new,
++					       int size,
++					       unsigned int max_try)
++{
++	return __int_cmpxchg(ptr, old, new, size, true, max_try);
++}
++
+ #define cmpxchg(ptr, o, n) \
+ ({ \
+ 	__typeof__(*(ptr)) __ret; \
+-- 
+2.17.1
+

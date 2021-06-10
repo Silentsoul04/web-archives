@@ -1,0 +1,35 @@
+From b3075beb188f6fd1cb5322505f7637d3de6cfd41 Mon Sep 17 00:00:00 2001
+From: Ian Jackson <ian.jackson@eu.citrix.com>
+Date: Thu, 24 Jul 2014 17:21:15 +0100
+Subject: [PATCH] xen: arm: Correctly handle do_sysreg exception injection
+ from 64-bit userspace
+
+The do_sysreg case was missing a return, so it would increment PC and
+inject the trap to the second instruction of the handler.
+
+(This patch needs to be applied on top of xsa102-4.4-02.patch.)
+
+This is XSA-103.
+
+Signed-off-by: Ian Campbell <ian.campbell@citrix.com>
+Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
+Acked-by: Julien Grall <julien.grall@linaro.org>
+---
+ xen/arch/arm/traps.c |    1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+index e763f12..4c910c8 100644
+--- a/xen/arch/arm/traps.c
++++ b/xen/arch/arm/traps.c
+@@ -1683,6 +1683,7 @@ static void do_sysreg(struct cpu_user_regs *regs,
+                      hsr.bits & HSR_SYSREG_REGS_MASK);
+ #endif
+             inject_undef_exception(regs, sysreg.len);
++            return;
+         }
+     }
+ 
+-- 
+1.7.10.4
+

@@ -1,0 +1,235 @@
+From a18d25e2fbb7f0f43d25e2c1132be299ff0161a5 Mon Sep 17 00:00:00 2001
+From: Norbert Manthey <nmanthey@amazon.de>
+Subject: [PATCH SpectreV1+L1TF 07/13] xen/evtchn: block speculative
+ out-of-bound accesses
+
+Guests can issue event channel interaction with guest specified data.
+To avoid speculative out of bound accesses, we use the nospec macros.
+
+This is part of the SpectreV1+L1TF mitigation patch series.
+
+Signed-off-by: Norbert Manthey <nmanthey@amazon.de>
+
+---
+ xen/common/event_2l.c      |  3 ++-
+ xen/common/event_channel.c | 48 +++++++++++++++++++++++++++-------------------
+ xen/common/event_fifo.c    |  4 +++-
+ xen/include/xen/event.h    |  5 +++--
+ 4 files changed, 36 insertions(+), 24 deletions(-)
+
+diff --git a/xen/common/event_2l.c b/xen/common/event_2l.c
+--- a/xen/common/event_2l.c
++++ b/xen/common/event_2l.c
+@@ -45,7 +45,8 @@ static void evtchn_2l_clear_pending(struct domain *d, struct evtchn *evtchn)
+ 
+ static void evtchn_2l_unmask(struct domain *d, struct evtchn *evtchn)
+ {
+-    struct vcpu *v = d->vcpu[evtchn->notify_vcpu_id];
++    struct vcpu *v = d->vcpu[array_index_nospec(evtchn->notify_vcpu_id,
++                                                d->max_vcpus)];
+     unsigned int port = evtchn->port;
+ 
+     /*
+diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
+--- a/xen/common/event_channel.c
++++ b/xen/common/event_channel.c
+@@ -369,12 +369,12 @@ int evtchn_bind_virq(evtchn_bind_virq_t *bind, evtchn_port_t port)
+         return -EINVAL;
+ 
+     if ( (vcpu < 0) || (vcpu >= d->max_vcpus) ||
+-         ((v = d->vcpu[vcpu]) == NULL) )
++         ((v = d->vcpu[array_index_nospec(vcpu, d->max_vcpus)]) == NULL) )
+         return -ENOENT;
+ 
+     spin_lock(&d->event_lock);
+ 
+-    if ( v->virq_to_evtchn[virq] != 0 )
++    if ( array_access_nospec(v->virq_to_evtchn, virq) != 0 )
+         ERROR_EXIT(-EEXIST);
+ 
+     if ( port != 0 )
+@@ -402,7 +402,7 @@ int evtchn_bind_virq(evtchn_bind_virq_t *bind, evtchn_port_t port)
+ 
+     spin_unlock(&chn->lock);
+ 
+-    v->virq_to_evtchn[virq] = bind->port = port;
++    array_access_nospec(v->virq_to_evtchn, virq) = bind->port = port;
+ 
+  out:
+     spin_unlock(&d->event_lock);
+@@ -419,7 +419,7 @@ static long evtchn_bind_ipi(evtchn_bind_ipi_t *bind)
+     long           rc = 0;
+ 
+     if ( (vcpu < 0) || (vcpu >= d->max_vcpus) ||
+-         (d->vcpu[vcpu] == NULL) )
++         (d->vcpu[array_index_nospec(vcpu, d->max_vcpus)] == NULL) )
+         return -ENOENT;
+ 
+     spin_lock(&d->event_lock);
+@@ -576,7 +576,8 @@ int evtchn_close(struct domain *d1, int port1, bool guest)
+             pirq_guest_unbind(d1, pirq);
+         pirq->evtchn = 0;
+         pirq_cleanup_check(pirq, d1);
+-        unlink_pirq_port(chn1, d1->vcpu[chn1->notify_vcpu_id]);
++        unlink_pirq_port(chn1, d1->vcpu[array_index_nospec(chn1->notify_vcpu_id,
++                                                           d1->max_vcpus)]);
+ #ifdef CONFIG_X86
+         if ( is_hvm_domain(d1) && domain_pirq_to_irq(d1, pirq->pirq) > 0 )
+             unmap_domain_pirq_emuirq(d1, pirq->pirq);
+@@ -587,9 +588,9 @@ int evtchn_close(struct domain *d1, int port1, bool guest)
+     case ECS_VIRQ:
+         for_each_vcpu ( d1, v )
+         {
+-            if ( v->virq_to_evtchn[chn1->u.virq] != port1 )
++            if ( array_access_nospec(v->virq_to_evtchn, chn1->u.virq) != port1 )
+                 continue;
+-            v->virq_to_evtchn[chn1->u.virq] = 0;
++            array_access_nospec(v->virq_to_evtchn, chn1->u.virq) = 0;
+             spin_barrier(&v->virq_lock);
+         }
+         break;
+@@ -700,7 +701,9 @@ int evtchn_send(struct domain *ld, unsigned int lport)
+         rport = lchn->u.interdomain.remote_port;
+         rchn  = evtchn_from_port(rd, rport);
+         if ( consumer_is_xen(rchn) )
+-            xen_notification_fn(rchn)(rd->vcpu[rchn->notify_vcpu_id], rport);
++            xen_notification_fn(rchn)
++                (rd->vcpu[array_index_nospec(rchn->notify_vcpu_id,
++                                             rd->max_vcpus)], rport);
+         else
+             evtchn_port_set_pending(rd, rchn->notify_vcpu_id, rchn);
+         break;
+@@ -722,7 +725,7 @@ out:
+ 
+ int guest_enabled_event(struct vcpu *v, uint32_t virq)
+ {
+-    return ((v != NULL) && (v->virq_to_evtchn[virq] != 0));
++    return ((v != NULL) && (array_access_nospec(v->virq_to_evtchn, virq) != 0));
+ }
+ 
+ void send_guest_vcpu_virq(struct vcpu *v, uint32_t virq)
+@@ -764,7 +767,7 @@ static void send_guest_global_virq(struct domain *d, uint32_t virq)
+ 
+     spin_lock_irqsave(&v->virq_lock, flags);
+ 
+-    port = v->virq_to_evtchn[virq];
++    port = array_access_nospec(v->virq_to_evtchn, virq);
+     if ( unlikely(port == 0) )
+         goto out;
+ 
+@@ -804,7 +807,8 @@ void send_global_virq(uint32_t virq)
+ {
+     ASSERT(virq_is_global(virq));
+ 
+-    send_guest_global_virq(global_virq_handlers[virq] ?: hardware_domain, virq);
++    send_guest_global_virq(array_access_nospec(global_virq_handlers, virq) ?:
++                           hardware_domain, virq);
+ }
+ 
+ int set_global_virq_handler(struct domain *d, uint32_t virq)
+@@ -816,15 +820,15 @@ int set_global_virq_handler(struct domain *d, uint32_t virq)
+     if (!virq_is_global(virq))
+         return -EINVAL;
+ 
+-    if (global_virq_handlers[virq] == d)
++    if (array_access_nospec(global_virq_handlers, virq) == d)
+         return 0;
+ 
+     if (unlikely(!get_domain(d)))
+         return -EINVAL;
+ 
+     spin_lock(&global_virq_handlers_lock);
+-    old = global_virq_handlers[virq];
+-    global_virq_handlers[virq] = d;
++    old = array_access_nospec(global_virq_handlers, virq);
++    array_access_nospec(global_virq_handlers, virq) = d;
+     spin_unlock(&global_virq_handlers_lock);
+ 
+     if (old != NULL)
+@@ -842,9 +846,9 @@ static void clear_global_virq_handlers(struct domain *d)
+ 
+     for (virq = 0; virq < NR_VIRQS; virq++)
+     {
+-        if (global_virq_handlers[virq] == d)
++        if (array_access_nospec(global_virq_handlers, virq) == d)
+         {
+-            global_virq_handlers[virq] = NULL;
++            array_access_nospec(global_virq_handlers, virq) = NULL;
+             put_count++;
+         }
+     }
+@@ -931,7 +935,8 @@ long evtchn_bind_vcpu(unsigned int port, unsigned int vcpu_id)
+     struct evtchn *chn;
+     long           rc = 0;
+ 
+-    if ( (vcpu_id >= d->max_vcpus) || (d->vcpu[vcpu_id] == NULL) )
++    if ( (vcpu_id >= d->max_vcpus) ||
++         (d->vcpu[array_index_nospec(vcpu_id, d->max_vcpus)] == NULL) )
+         return -ENOENT;
+ 
+     spin_lock(&d->event_lock);
+@@ -966,11 +971,14 @@ long evtchn_bind_vcpu(unsigned int port, unsigned int vcpu_id)
+     case ECS_PIRQ:
+         if ( chn->notify_vcpu_id == vcpu_id )
+             break;
+-        unlink_pirq_port(chn, d->vcpu[chn->notify_vcpu_id]);
++        unlink_pirq_port(chn, d->vcpu[array_index_nospec(chn->notify_vcpu_id,
++                                                         d->max_vcpus)]);
+         chn->notify_vcpu_id = vcpu_id;
+         pirq_set_affinity(d, chn->u.pirq.irq,
+-                          cpumask_of(d->vcpu[vcpu_id]->processor));
+-        link_pirq_port(port, chn, d->vcpu[vcpu_id]);
++                          cpumask_of(d->vcpu[array_index_nospec(vcpu_id,
++                                                                d->max_vcpus)]->processor));
++        link_pirq_port(port, chn, d->vcpu[array_index_nospec(vcpu_id,
++                                                             d->max_vcpus)]);
+         break;
+     default:
+         rc = -EINVAL;
+diff --git a/xen/common/event_fifo.c b/xen/common/event_fifo.c
+--- a/xen/common/event_fifo.c
++++ b/xen/common/event_fifo.c
+@@ -30,8 +30,10 @@ static inline event_word_t *evtchn_fifo_word_from_port(const struct domain *d,
+     /*
+      * Callers aren't required to hold d->event_lock, so we need to synchronize
+      * with add_page_to_event_array().
++     * 
++     * To block speculative out-of-bound accesses, use rmb.
+      */
+-    smp_rmb();
++    rmb();
+ 
+     p = port / EVTCHN_FIFO_EVENT_WORDS_PER_PAGE;
+     w = port % EVTCHN_FIFO_EVENT_WORDS_PER_PAGE;
+diff --git a/xen/include/xen/event.h b/xen/include/xen/event.h
+--- a/xen/include/xen/event.h
++++ b/xen/include/xen/event.h
+@@ -13,6 +13,7 @@
+ #include <xen/smp.h>
+ #include <xen/softirq.h>
+ #include <xen/bitops.h>
++#include <xen/nospec.h>
+ #include <asm/event.h>
+ 
+ /*
+@@ -96,7 +97,7 @@ void arch_evtchn_inject(struct vcpu *v);
+  * The first bucket is directly accessed via d->evtchn.
+  */
+ #define group_from_port(d, p) \
+-    ((d)->evtchn_group[(p) / EVTCHNS_PER_GROUP])
++    (array_access_nospec((d)->evtchn_group, (p) / EVTCHNS_PER_GROUP))
+ #define bucket_from_port(d, p) \
+     ((group_from_port(d, p))[((p) % EVTCHNS_PER_GROUP) / EVTCHNS_PER_BUCKET])
+ 
+@@ -174,7 +175,7 @@ static inline void evtchn_port_set_pending(struct domain *d,
+                                            unsigned int vcpu_id,
+                                            struct evtchn *evtchn)
+ {
+-    d->evtchn_port_ops->set_pending(d->vcpu[vcpu_id], evtchn);
++    d->evtchn_port_ops->set_pending(d->vcpu[array_index_nospec(vcpu_id, d->max_vcpus)], evtchn);
+ }
+ 
+ static inline void evtchn_port_clear_pending(struct domain *d,
+-- 
+2.7.4
+

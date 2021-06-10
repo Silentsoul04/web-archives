@@ -1,0 +1,91 @@
+From: Jan Beulich <jbeulich@suse.com>
+Subject: IOMMU: default to always quarantining PCI devices
+
+XSA-302 relies on the use of libxl's "assignable-add" feature to prepare
+devices to be assigned to untrusted guests.
+
+Unfortunately, this is not considered a strictly required step for
+device assignment. The PCI passthrough documentation on the wiki
+describes alternate ways of preparing devices for assignment, and
+libvirt uses its own ways as well. Hosts where these alternate methods
+are used will still leave the system in a vulnerable state after the
+device comes back from a guest.
+
+Default to always quarantining PCI devices, but provide a command line
+option to revert back to prior behavior (such that people who both
+sufficiently trust their guests and want to be able to use devices in
+Dom0 again after they had been in use by a guest wouldn't need to
+"manually" move such devices back from DomIO to Dom0).
+
+This is XSA-306.
+
+Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Wei Liu <wl@xen.org>
+
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -1171,7 +1171,7 @@ detection of systems known to misbehave
+ > Default: `new` unless directed-EOI is supported
+ 
+ ### iommu
+-    = List of [ <bool>, verbose, debug, force, required,
++    = List of [ <bool>, verbose, debug, force, required, quarantine,
+                 sharept, intremap, intpost, crash-disable,
+                 snoop, qinval, igfx, amd-iommu-perdev-intremap,
+                 dom0-{passthrough,strict} ]
+@@ -1209,6 +1209,12 @@ boolean (e.g. `iommu=no`) can override t
+     will prevent Xen from booting if IOMMUs aren't discovered and enabled
+     successfully.
+ 
++*   The `quarantine` boolean can be used to control Xen's behavior when
++    de-assigning devices from guests.  If enabled (the default), Xen always
++    quarantines such devices; they must be explicitly assigned back to Dom0
++    before they can be used there again.  If disabled, Xen will only
++    quarantine devices the toolstack hass arranged for getting quarantined.
++
+ *   The `sharept` boolean controls whether the IOMMU pagetables are shared
+     with the CPU-side HAP pagetables, or allocated separately.  Sharing
+     reduces the memory overhead, but doesn't work in combination with CPU-side
+--- a/xen/drivers/passthrough/iommu.c
++++ b/xen/drivers/passthrough/iommu.c
+@@ -30,6 +30,7 @@ bool_t __initdata iommu_enable = 1;
+ bool_t __read_mostly iommu_enabled;
+ bool_t __read_mostly force_iommu;
+ bool_t __read_mostly iommu_verbose;
++bool __read_mostly iommu_quarantine = true;
+ bool_t __read_mostly iommu_igfx = 1;
+ bool_t __read_mostly iommu_snoop = 1;
+ bool_t __read_mostly iommu_qinval = 1;
+@@ -74,6 +75,8 @@ static int __init parse_iommu_param(cons
+         else if ( (val = parse_boolean("force", s, ss)) >= 0 ||
+                   (val = parse_boolean("required", s, ss)) >= 0 )
+             force_iommu = val;
++        else if ( (val = parse_boolean("quarantine", s, ss)) >= 0 )
++            iommu_quarantine = val;
+         else if ( (val = parse_boolean("igfx", s, ss)) >= 0 )
+             iommu_igfx = val;
+         else if ( (val = parse_boolean("verbose", s, ss)) >= 0 )
+--- a/xen/drivers/passthrough/pci.c
++++ b/xen/drivers/passthrough/pci.c
+@@ -1548,7 +1548,8 @@ int deassign_device(struct domain *d, u1
+         return -ENODEV;
+ 
+     /* De-assignment from dom_io should de-quarantine the device */
+-    target = (pdev->quarantine && pdev->domain != dom_io) ?
++    target = ((pdev->quarantine || iommu_quarantine) &&
++              pdev->domain != dom_io) ?
+         dom_io : hardware_domain;
+ 
+     while ( pdev->phantom_stride )
+--- a/xen/include/xen/iommu.h
++++ b/xen/include/xen/iommu.h
+@@ -53,7 +53,7 @@ static inline bool_t dfn_eq(dfn_t x, dfn
+ }
+ 
+ extern bool_t iommu_enable, iommu_enabled;
+-extern bool_t force_iommu, iommu_verbose, iommu_igfx;
++extern bool force_iommu, iommu_quarantine, iommu_verbose, iommu_igfx;
+ extern bool_t iommu_snoop, iommu_qinval, iommu_intremap, iommu_intpost;
+ extern bool_t iommu_hap_pt_share;
+ extern bool_t iommu_debug;

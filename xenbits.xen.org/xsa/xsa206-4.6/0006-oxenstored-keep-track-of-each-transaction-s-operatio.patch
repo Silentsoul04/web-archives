@@ -1,0 +1,160 @@
+From 7e956305bb7990d39fd57a05820dcbf0e1ff3c38 Mon Sep 17 00:00:00 2001
+From: Jonathan Davies <jonathan.davies@citrix.com>
+Date: Thu, 23 Mar 2017 16:27:58 +0000
+Subject: [PATCH 06/23] oxenstored: keep track of each transaction's operations
+
+A list of (request, response) pairs from the operations performed within the
+transaction will be useful to support transaction replay.
+
+Since this consumes memory, the number of requests per transaction must not be
+left unbounded. Hence a new quota for this is introduced. This quota, configured
+via the configuration key 'quota-maxrequests', limits the size of transactions
+initiated by domUs.
+
+After the maximum number of requests has been exhausted, any further requests
+will result in EQUOTA errors. The client may then choose to end the transaction;
+a successful commit will result in the retention of only the prior requests.
+
+Reported-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Jonathan Davies <jonathan.davies@citrix.com>
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Reviewed-by: Jon Ludlam <jonathan.ludlam@citrix.com>
+Reviewed-by: Euan Harris <euan.harris@citrix.com>
+Acked-by: David Scott <dave@recoil.org>
+---
+ tools/ocaml/xenstored/define.ml       |  1 +
+ tools/ocaml/xenstored/oxenstored.conf |  1 +
+ tools/ocaml/xenstored/process.ml      | 13 +++++++++++--
+ tools/ocaml/xenstored/transaction.ml  | 21 +++++++++++++++------
+ tools/ocaml/xenstored/xenstored.ml    |  1 +
+ 5 files changed, 29 insertions(+), 8 deletions(-)
+
+diff --git a/tools/ocaml/xenstored/define.ml b/tools/ocaml/xenstored/define.ml
+index 89a6aac..d60861c 100644
+--- a/tools/ocaml/xenstored/define.ml
++++ b/tools/ocaml/xenstored/define.ml
+@@ -27,6 +27,7 @@ let default_config_dir = "/etc/xen"
+ 
+ let maxwatch = ref (50)
+ let maxtransaction = ref (20)
++let maxrequests = ref (-1)   (* maximum requests per transaction *)
+ 
+ let domid_self = 0x7FF0
+ 
+diff --git a/tools/ocaml/xenstored/oxenstored.conf b/tools/ocaml/xenstored/oxenstored.conf
+index dd20eda..ac60f49 100644
+--- a/tools/ocaml/xenstored/oxenstored.conf
++++ b/tools/ocaml/xenstored/oxenstored.conf
+@@ -18,6 +18,7 @@ quota-maxentity = 1000
+ quota-maxsize = 2048
+ quota-maxwatch = 100
+ quota-transaction = 10
++quota-maxrequests = 1024
+ 
+ # Activate filed base backend
+ persistent = false
+diff --git a/tools/ocaml/xenstored/process.ml b/tools/ocaml/xenstored/process.ml
+index c92bec7..758ade1 100644
+--- a/tools/ocaml/xenstored/process.ml
++++ b/tools/ocaml/xenstored/process.ml
+@@ -155,7 +155,7 @@ let do_transaction_end con t domains cons data =
+ 	if not success then
+ 		raise Transaction_again;
+ 	if commit then
+-		process_watch (List.rev (Transaction.get_ops t)) cons
++		process_watch (List.rev (Transaction.get_paths t)) cons
+ 
+ let do_introduce con t domains cons data =
+ 	if not (Connection.is_dom0 con)
+@@ -303,7 +303,7 @@ let reply_ack fct con t doms cons data =
+ 	fct con t doms cons data;
+ 	Packet.Ack (fun () ->
+ 		if Transaction.get_id t = Transaction.none then
+-			process_watch (Transaction.get_ops t) cons
++			process_watch (Transaction.get_paths t) cons
+ 	)
+ 
+ let reply_data fct con t doms cons data =
+@@ -384,6 +384,15 @@ let process_packet ~store ~cons ~doms ~con ~req =
+ 			in
+ 		let response = input_handle_error ~cons ~doms ~fct ~con ~t ~req in
+ 
++		let response = try
++			if tid <> Transaction.none then
++				(* Remember the request and response for this operation in case we need to replay the transaction *)
++				Transaction.add_operation ~perm:(Connection.get_perm con) t req response;
++			response
++		with Quota.Limit_reached ->
++			Packet.Error "EQUOTA"
++		in
++
+ 		(* Put the response on the wire *)
+ 		send_response ty con t rid response
+ 	with exn ->
+diff --git a/tools/ocaml/xenstored/transaction.ml b/tools/ocaml/xenstored/transaction.ml
+index 77de4e8..6b37fc2 100644
+--- a/tools/ocaml/xenstored/transaction.ml
++++ b/tools/ocaml/xenstored/transaction.ml
+@@ -75,7 +75,8 @@ type t = {
+ 	ty: ty;
+ 	store: Store.t;
+ 	quota: Quota.t;
+-	mutable ops: (Xenbus.Xb.Op.operation * Store.Path.t) list;
++	mutable paths: (Xenbus.Xb.Op.operation * Store.Path.t) list;
++	mutable operations: (Packet.request * Packet.response) list;
+ 	mutable read_lowpath: Store.Path.t option;
+ 	mutable write_lowpath: Store.Path.t option;
+ }
+@@ -86,16 +87,24 @@ let make id store =
+ 		ty = ty;
+ 		store = if id = none then store else Store.copy store;
+ 		quota = Quota.copy store.Store.quota;
+-		ops = [];
++		paths = [];
++		operations = [];
+ 		read_lowpath = None;
+ 		write_lowpath = None;
+ 	}
+ 
+ let get_id t = match t.ty with No -> none | Full (id, _, _) -> id
+ let get_store t = t.store
+-let get_ops t = t.ops
+-
+-let add_wop t ty path = t.ops <- (ty, path) :: t.ops
++let get_paths t = t.paths
++
++let add_wop t ty path = t.paths <- (ty, path) :: t.paths
++let add_operation ~perm t request response =
++	if !Define.maxrequests >= 0
++		&& not (Perms.Connection.is_dom0 perm)
++		&& List.length t.operations >= !Define.maxrequests
++		then raise Quota.Limit_reached;
++	t.operations <- (request, response) :: t.operations
++let get_operations t = List.rev t.operations
+ let set_read_lowpath t path = t.read_lowpath <- get_lowest path t.read_lowpath
+ let set_write_lowpath t path = t.write_lowpath <- get_lowest path t.write_lowpath
+ 
+@@ -141,7 +150,7 @@ let getperms t perm path =
+ 	r
+ 
+ let commit ~con t =
+-	let has_write_ops = List.length t.ops > 0 in
++	let has_write_ops = List.length t.paths > 0 in
+ 	let has_coalesced = ref false in
+ 	let has_commited =
+ 	match t.ty with
+diff --git a/tools/ocaml/xenstored/xenstored.ml b/tools/ocaml/xenstored/xenstored.ml
+index 42b8183..7d3df43 100644
+--- a/tools/ocaml/xenstored/xenstored.ml
++++ b/tools/ocaml/xenstored/xenstored.ml
+@@ -95,6 +95,7 @@ let parse_config filename =
+ 		("quota-transaction", Config.Set_int Define.maxtransaction);
+ 		("quota-maxentity", Config.Set_int Quota.maxent);
+ 		("quota-maxsize", Config.Set_int Quota.maxsize);
++		("quota-maxrequests", Config.Set_int Define.maxrequests);
+ 		("test-eagain", Config.Set_bool Transaction.test_eagain);
+ 		("persistent", Config.Set_bool Disk.enable);
+ 		("xenstored-log-file", Config.String Logging.set_xenstored_log_destination);
+-- 
+2.1.4
+

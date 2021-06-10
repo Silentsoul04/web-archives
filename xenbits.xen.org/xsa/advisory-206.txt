@@ -1,0 +1,293 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+                    Xen Security Advisory XSA-206
+                              version 9
+
+            xenstore denial of service via repeated update
+
+UPDATES IN VERSION 9
+====================
+
+More exhaustive testing discovered a further bug in the oxenstored
+patches: if no transactions are performed (ie, only atomic writes),
+the new in-memory history record can grow without bound.  This means
+that an attacker could be able to render oxenstored slow and
+eventually unuseable, and/or run dom0 out of memory.  Running any
+transaction (even one which aborts) will clear the history, so
+periodically running the command
+   xenstore-write /xsa206-v7-leak 1 /xsa206-v7-leak 2
+will mitigate the problem.
+
+This bug is fixed in the new final patch attached to this version,
+ "oxenstored: trim history in the frequent_ops function"
+The other patches remain unchanged.
+
+ISSUE DESCRIPTION
+=================
+
+xenstored supports transactions, such that if writes which would
+invalidate assumptions of a transaction occur, the entire transaction
+fails.  Typical response on a failed transaction is to simply retry
+the transaction until it succeeds.
+
+Unprivileged domains may issue writes to xenstore which conflict with
+transactions either of the toolstack or of backends such as the driver
+domain. Depending on the exact timing, repeated writes may cause
+transactions made by these entities to fail indefinitely.
+
+IMPACT
+======
+
+Unprivileged guests may be able to stall progress of the control
+domain or driver domain, possibly leading to a Denial of Service (DoS)
+of the entire host.
+
+In most systems, the impact is limited to the delay or prevention of
+control operations (such as domain creation, reconfiguration,
+configuration enquiry, or destruction).
+
+VULNERABLE SYSTEMS
+==================
+
+All Xen versions are vulnerable.
+
+Both "cxenstored" (the version of xenstored written in C) and
+"oxenstored" (the version of xenstored written in ocaml) are
+vulnerable.  oxenstored in Xen 4.7 and later is more difficult to
+exploit because it has more fine-grained detection of conflicts.
+
+MITIGATION
+==========
+
+If the rogue domain(s) can be identified, it will usually be possible
+to pause them with "xl pause" and/or destroy them with "xl destroy".
+Note that if the toolstack is not simply "xl", the toolstack may be
+confused by use of "xl" to pause or destroy domains.
+
+The output of commands such as "xl top" and "xenstore-ls -fp" may be
+helpful to find the rogue domain(s).
+
+When the rogue domain(s) are paused or destroyed, the stuck operations
+will become unstuck.
+
+CREDITS
+=======
+
+This issue was discovered by Jürgen Groß of SUSE.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patches resolves this issue by
+limiting the rate at which it is possible to invalidate transactions.
+
+C xenstored
+- -----------
+
+Only the first of the patches is strictly necessary to solve the
+issue; the second patch adds logging for when the situation occurs, so
+may be useful in detecting attacks or debugging issues.
+
+ocaml xenstored
+- ---------------
+
+The oxenstored patches depend on some patches to reduce false
+conflicts in transactions that were introduced in Xen 4.7.  The
+patches for 4.4-4.6 include backported versions of these patches in
+addition to backported versions of the ratelimiting patches.
+
+Xen 4.4 requires some further backports in order to allow the
+ratelimiting patches to apply cleanly without significant reworking.
+These have been kept to a minimum.
+
+Identification of patch files
+- -----------------------------
+
+The patch number ranges are:
+xen-unstable, 4.8, and 4.7:
+  0001-0002: cxenstored
+  0003-0016: oxenstored ratelimiting
+
+4.6, 4.5:
+  0001-0002: cxenstored
+  0003-0010: oxenstored avoidance of needless conflicts
+  0011-0024: oxenstored ratelimiting
+
+4.4:
+  0001-0002: cxenstored
+  0003-0009: oxenstored further prerequisites
+  0009-0017: oxenstored avoidance of needless conflicts
+  0018-0031: oxenstored ratelimiting
+
+xsa206-unstable/*.patch  xen-unstable
+xsa206-4.8/*.patch       xen-4.8
+xsa206-4.7/*.patch       xen-4.7
+xsa206-4.6/*.patch       xen-4.6
+xsa206-4.5/*.patch       xen-4.5
+xsa206-4.4/*.patch       xen-4.4
+
+$ sha256sum xsa206*/*
+9a4854117c15f1994f4398b0db24c771143766e759c23b332ddef0c65d6f6214  xsa206-unstable/0001-xenstored-apply-a-write-transaction-rate-limit.patch
+6b9bce3d231fcd43b8f6a23f9da4a11a8bf9991009e89b1b1be9e22f358b3676  xsa206-unstable/0002-xenstored-Log-when-the-write-transaction-rate-limit-.patch
+2e7a3e79188a2477054ccd9146a877ce4cf35679e846f279030775ba5905a825  xsa206-unstable/0003-oxenstored-comments-explaining-some-variables.patch
+bdde472ebbdd9e8654a8e5c5881723adefeb6cd217b2e73810cb99c7404763a1  xsa206-unstable/0004-oxenstored-handling-of-domain-conflict-credit.patch
+cfd1b2ef7d37666b99b5b95d317650d856af087d2588bb76b4e3c74b44e82f0c  xsa206-unstable/0005-oxenstored-ignore-domains-with-no-conflict-credit.patch
+8dcf3f3232116ab4611ae7016a749280ee2d4fe750de20db2bce458fbc8ff5d5  xsa206-unstable/0006-oxenstored-add-transaction-info-relevant-to-history-.patch
+c65c6d4e02d9e06db1667334f6006c5d9935824f927cab30852b3c8d1bdc6209  xsa206-unstable/0007-oxenstored-support-commit-history-tracking.patch
+1266f764156b5f7d694c77d76457653ce8003dab155fd61db7e1a26eebc27d78  xsa206-unstable/0008-oxenstored-only-record-operations-with-side-effects-.patch
+93f4b6aa2396d51e91b3c817dc582ea028d6c273732ace795c64154b9a498cf3  xsa206-unstable/0009-oxenstored-discard-old-commit-history-on-txn-end.patch
+7c9472d6ffb4c1fe3d368d407bb214a0c5eec7b67d717288a6a3866af9ed67b1  xsa206-unstable/0010-oxenstored-track-commit-history.patch
+f8908981d25f9e3db4b764b9175e80ea7e97ed288293daaab53e7e653100a3a2  xsa206-unstable/0011-oxenstored-blame-the-connection-that-caused-a-transa.patch
+558ccbc92c7a79930571edc41490f92ca25bd2f801e980c29487a4d5c336149f  xsa206-unstable/0012-oxenstored-allow-self-conflicts.patch
+f8d5ee900c945c7a402f1e3e450824cd4c935bbd8679575cf7750f1302b8b4a1  xsa206-unstable/0013-oxenstored-do-not-commit-read-only-transactions.patch
+ffa38d660dcd0ba4da05740674e2fb4f252dab702cfd4a19ccd7e74d97f906aa  xsa206-unstable/0014-oxenstored-don-t-wake-to-issue-no-conflict-credit.patch
+aa7d38f2bb373fcb96cf5c834f35687cc8781f6bbe0f34af3bd7207d411352f4  xsa206-unstable/0015-oxenstored-transaction-conflicts-improve-logging.patch
+9fb5551d3b18bd3c0d7760b92b581ca9207aca6fd9ef23feeee9a279b2fcf470  xsa206-unstable/0016-oxenstored-trim-history-in-the-frequent_ops-function.patch
+04658b55b68d6ad783a362e815180f2a56a5d554125dde6fae69410475e1e889  xsa206-4.4/0001-xenstored-apply-a-write-transaction-rate-limit.patch
+37a0f00a195da50a68e51a801c352bb37619bd29652f257f213070eca07201bf  xsa206-4.4/0002-xenstored-Log-when-the-write-transaction-rate-limit-.patch
+52a3f1e9c61e648fb3c673a4c3ae93118e5e9086290a3f3ccc977424d455eaee  xsa206-4.4/0003-oxenstored-exempt-dom0-from-domU-node-quotas.patch
+ba1f3f9f36401939c6757f53f9c91222287edcbd52275f3d428152600b7529ef  xsa206-4.4/0004-oxenstored-perform-a-3-way-merge-of-the-quota-after-.patch
+29afc8bf1ba4e18d64c873bac2d92482513eba8dc9c39418b97cb0a44edc4d27  xsa206-4.4/0005-oxenstored-catch-the-error-when-a-connection-is-alre.patch
+79a726984b51c2a1ee0785cd2a4088c5e26cca70224130133a2f5938574f8bd3  xsa206-4.4/0006-oxenstored-use-hash-table-to-store-socket-connection.patch
+203422dd170cc4d946b399e01aac90895518fa05c9ac6fdaf56dcb72f671110e  xsa206-4.4/0007-oxenstored-enable-domain-connection-indexing-based-o.patch
+b3dcdbc7890e12b7529c9e7f912d3db62bf0a7f384f77d7b6976ec6c515d9247  xsa206-4.4/0008-oxenstored-only-process-domain-connections-that-noti.patch
+5d811aa442eb871d737e6e3e338f288a7213fa70e7621a11810e9343dcb1ced1  xsa206-4.4/0009-oxenstored-add-a-safe-net-mechanism-for-existing-ill.patch
+61c503e814bf8e9109598f7e9373d42f2663c0d70eda149505ba33803f9f4f16  xsa206-4.4/0010-oxenstored-refactor-putting-response-on-wire.patch
+f2cae0c5f1d46a8261bc4b3b5fa9080d1ab86112dcb12a78a1df0dbd3144024a  xsa206-4.4/0011-oxenstored-remove-some-unused-parameters.patch
+1e69cb6547bb90ea01d1cf1367318eb42543676ccaaf5dd408b3b82cc252f90a  xsa206-4.4/0012-oxenstored-refactor-request-processing.patch
+e2ba9e2f57a9798d555245c3fd0d484816b4196f0a88faa8a27958fb552405c3  xsa206-4.4/0013-oxenstored-keep-track-of-each-transaction-s-operatio.patch
+3d54ae0faf7e2b1f8090bfdafe2a09294fcc1a310e5949b055827628bc6a235c  xsa206-4.4/0014-oxenstored-move-functions-that-process-simple-operat.patch
+8303b1116f81763b95473381d8ab3743761f10bdcb8b9e39e0b93dcaaa6768c8  xsa206-4.4/0015-oxenstored-replay-transaction-upon-conflict.patch
+5cd63211b371a4e4a8067839fd114f51b0afc62a805ef22e4c13893d95bb0dc8  xsa206-4.4/0016-oxenstored-log-request-and-response-during-transacti.patch
+c42a8395cfe5d9f417776de7517d27db4e46c3f9c3b9f56ef3fb465949f63c08  xsa206-4.4/0017-oxenstored-allow-compilation-prior-to-OCaml-3.12.0.patch
+dd9e70e7e924f568e7d7807e2edc992c4dac1986b2b9b91226d5ac70ff028c6f  xsa206-4.4/0018-oxenstored-comments-explaining-some-variables.patch
+ba2f035815b44bc8f4c4831bf1aa602ec553800aa3693fc0ca69878764c912e1  xsa206-4.4/0019-oxenstored-handling-of-domain-conflict-credit.patch
+c693d3d28136a030d033b9a2017ec0a3f7a580da909034d3ac4c4188cb4cc540  xsa206-4.4/0020-oxenstored-ignore-domains-with-no-conflict-credit.patch
+471e1904a453f03fee09d78f2d9ca25790e2619327b232566a06fd4f35ed3066  xsa206-4.4/0021-oxenstored-add-transaction-info-relevant-to-history-.patch
+59756b7edacea62f0e283a16fd68a43cbc639ee32ac00b9519f2183d4cdfa7bc  xsa206-4.4/0022-oxenstored-support-commit-history-tracking.patch
+35916183640b29a474ed87c56c784cc28716ce896471bc8ae9363b48af5fcaa4  xsa206-4.4/0023-oxenstored-only-record-operations-with-side-effects-.patch
+98d17240fe7c2dc4380e9e8991abbe1f1fdfbe1cc676e52fa96fcf567d5502a6  xsa206-4.4/0024-oxenstored-discard-old-commit-history-on-txn-end.patch
+6e9f0c33b555e1f69ef236e63f495a920b84022ed48ee50b1bb53f96216d3fb8  xsa206-4.4/0025-oxenstored-track-commit-history.patch
+742d69846211969de623bf4c6106d09b761e6d261b138b63677fc401d2c5f3f3  xsa206-4.4/0026-oxenstored-blame-the-connection-that-caused-a-transa.patch
+ede1c388e6aed671a5a6648b94ef5caf3cc6093b9c010d56ac25a61ba657557e  xsa206-4.4/0027-oxenstored-allow-self-conflicts.patch
+8c0caf3c9458afb5620130c9abca6913a9e82270e7e2bebaa156a19dc72c2119  xsa206-4.4/0028-oxenstored-do-not-commit-read-only-transactions.patch
+ac3611d7d358a71f0d5295e6d3d72502aeda61222a48cfa8bf1dbcd4def80f6e  xsa206-4.4/0029-oxenstored-don-t-wake-to-issue-no-conflict-credit.patch
+036eb78cfe0e724e9f3082cbacec0401a1893665490aae6423bbe8ad85a07977  xsa206-4.4/0030-oxenstored-transaction-conflicts-improve-logging.patch
+fdbaaaceade568047ceccf516c9126c40a977b45fa4a4d6491ba93acb760ad0b  xsa206-4.4/0031-oxenstored-trim-history-in-the-frequent_ops-function.patch
+3317d5492e053a67ee795e414907b24c7a7963b12b66fc7a3575b202ba072bd6  xsa206-4.5/0001-xenstored-apply-a-write-transaction-rate-limit.patch
+160d0be576fbde34a1c325d7101028bf5818496ab7b03543ec9a04ffd21a0276  xsa206-4.5/0002-xenstored-Log-when-the-write-transaction-rate-limit-.patch
+f6198807f1ca21681fc90c95be6a0e90d38d0ab5d926e89cecbfc59cbde119a8  xsa206-4.5/0003-oxenstored-refactor-putting-response-on-wire.patch
+de6e1a7232b7f8e553978021a7d14714b1fa8ce9ce79d93d0ae6350bdf79462d  xsa206-4.5/0004-oxenstored-remove-some-unused-parameters.patch
+de2dac3b07917294eb49918e3bbc14469c94d4db52652484ff571abb13d5deb0  xsa206-4.5/0005-oxenstored-refactor-request-processing.patch
+2388e08c59013b9f999727173f01d1ea235cb5e6e345361766de7cc25f77064f  xsa206-4.5/0006-oxenstored-keep-track-of-each-transaction-s-operatio.patch
+9230cd86aabf980c8bda424675139085782baed9a1b07d212013cea4761f852b  xsa206-4.5/0007-oxenstored-move-functions-that-process-simple-operat.patch
+9f8f26afa776fc36a1b823f0dc9130397047074bb6c354cace4fecd302fb7376  xsa206-4.5/0008-oxenstored-replay-transaction-upon-conflict.patch
+a0656e0864562467cb02b89159a5d4514ae3a1b6f30f2f31938667b91640443b  xsa206-4.5/0009-oxenstored-log-request-and-response-during-transacti.patch
+ed7e623a556e4505eff5080e71476070338c903e4d8b6312fff320d6d376c5a8  xsa206-4.5/0010-oxenstored-allow-compilation-prior-to-OCaml-3.12.0.patch
+a80e40456249f15555870f0a4f67555f31aab90199b3b1989508c4f42feec6b1  xsa206-4.5/0011-oxenstored-comments-explaining-some-variables.patch
+f5b9e650a4c484ce336525dfa43612f76c52f1f0e951360f872e69ca9c1a6773  xsa206-4.5/0012-oxenstored-handling-of-domain-conflict-credit.patch
+12c44371d379eeeee37325e1d7116e9d95a236c30197fd6252e1b4cbeda56c57  xsa206-4.5/0013-oxenstored-ignore-domains-with-no-conflict-credit.patch
+a126b22908280ecb0a561f19e2781538333c236da74f23600cf1899f32fc2532  xsa206-4.5/0014-oxenstored-add-transaction-info-relevant-to-history-.patch
+899d01c7b211851e31262fab59d8285a5c078d551b61ef94720c81a95f114b24  xsa206-4.5/0015-oxenstored-support-commit-history-tracking.patch
+1b828006bc62094de570e8880ae19a66517c02938bab49130e5751b9eebb2bce  xsa206-4.5/0016-oxenstored-only-record-operations-with-side-effects-.patch
+fe2d3a01b0e322fe7a9f7e50bf21d43b9d4ee6e663c76af745b6668a50903eba  xsa206-4.5/0017-oxenstored-discard-old-commit-history-on-txn-end.patch
+fdef41093921d22a2be1bf80f92df4c2feb728f4e1feab4a587c528d7df68a0f  xsa206-4.5/0018-oxenstored-track-commit-history.patch
+868d06a41a054df7b875587ccc574d6a6df833882d1a52260fb171637e1e1aa9  xsa206-4.5/0019-oxenstored-blame-the-connection-that-caused-a-transa.patch
+f20d7ffe6bae21b0c2b90b675fdcd5d6e37bf88bd52a27dfc31f00d087fcccbe  xsa206-4.5/0020-oxenstored-allow-self-conflicts.patch
+b496ce132ad8742e7e3060812b5dd7ab073d8e2655a7da9504460f64f90d4938  xsa206-4.5/0021-oxenstored-do-not-commit-read-only-transactions.patch
+0b6efaa1985ad52eca341f368ebaaf5d8991bcad61a31e04ea2323ab84b664d2  xsa206-4.5/0022-oxenstored-don-t-wake-to-issue-no-conflict-credit.patch
+100b7ba3a8f28fb730f050368b0ebb339713d9efac5b531e46953c07bc3a6d82  xsa206-4.5/0023-oxenstored-transaction-conflicts-improve-logging.patch
+8a4c175ccecf97a1e5bad361ea4190f7575df90e5ff850f7ee533e81832d85e4  xsa206-4.5/0024-oxenstored-trim-history-in-the-frequent_ops-function.patch
+d331d26f4a7ab85a410697f533a5cbd379c712e403b3b81dbfde6d7da6ffbfec  xsa206-4.6/0001-xenstored-apply-a-write-transaction-rate-limit.patch
+4d366ad26daeb65e9f5f0587401401c66bc9bcf8c559e6f7b055b37b837c50b2  xsa206-4.6/0002-xenstored-Log-when-the-write-transaction-rate-limit-.patch
+ea645aeeb9b535314a4e8983514768105daa43ae051b95766aa6850ed62b8d75  xsa206-4.6/0003-oxenstored-refactor-putting-response-on-wire.patch
+5a24b811e7e8e5305c87b276151ee50f1b5d9de4f5d0229eb31ff65b5db4db99  xsa206-4.6/0004-oxenstored-remove-some-unused-parameters.patch
+4f51c38419a2c4c29ecbc05b418ba4f336b020fef9c7958f0a8820efd0c16967  xsa206-4.6/0005-oxenstored-refactor-request-processing.patch
+bd7c50391cd4cdd6907d8d8e219f86fd39ab724e8e2ae7d8cbefbb58b6f9aa38  xsa206-4.6/0006-oxenstored-keep-track-of-each-transaction-s-operatio.patch
+c429c207476e1fee3ed10d72ec50a101724dbcc3b207736461e65d3a34d03750  xsa206-4.6/0007-oxenstored-move-functions-that-process-simple-operat.patch
+594cf57750f6593c018834d4e8f115c84e63df0597397861fa651d5903a9e9ae  xsa206-4.6/0008-oxenstored-replay-transaction-upon-conflict.patch
+5ae3c81c26377d32702a5783541cafe177923a000ec01b5a1525cc8a5d34890f  xsa206-4.6/0009-oxenstored-log-request-and-response-during-transacti.patch
+04cde40696cd93522a739946709122aab4e31da493fc28f8a905b082c1897640  xsa206-4.6/0010-oxenstored-allow-compilation-prior-to-OCaml-3.12.0.patch
+f11b549b9d9070e08fd84ccdd1ab0339a38798ae0354d97171cc5ade3ee7c2de  xsa206-4.6/0011-oxenstored-comments-explaining-some-variables.patch
+b79b36bea4cb3b5b549e6ae3be6bec45a54615cc58cb0337a8539dd5d1a613eb  xsa206-4.6/0012-oxenstored-handling-of-domain-conflict-credit.patch
+eb8dd4a24f51ee1ec9a2a2b06de12826633236f2c1f12845b72fca7d798519b0  xsa206-4.6/0013-oxenstored-ignore-domains-with-no-conflict-credit.patch
+bdf0ecbf22734e76389153dc7794bb16bc577053c7a7815f7f9c86e69385f0b9  xsa206-4.6/0014-oxenstored-add-transaction-info-relevant-to-history-.patch
+8d4bf5be08ca9a27d1a0cab8a7d4eacf79ed427a877f6a79d4309f0bcfec0e3c  xsa206-4.6/0015-oxenstored-support-commit-history-tracking.patch
+0bcf04291afea26b916314b93e1c32b75cd3ac176f0f50b6697745940aa3194e  xsa206-4.6/0016-oxenstored-only-record-operations-with-side-effects-.patch
+53d707bc2d933faabf2dcf469d256b01ea8c696a6aea3d98fe3fc3a86f6da5fe  xsa206-4.6/0017-oxenstored-discard-old-commit-history-on-txn-end.patch
+e297f3de87216b25d9329fc8946ad409827ce99bea0a2b8debeff485168adad8  xsa206-4.6/0018-oxenstored-track-commit-history.patch
+6ad756977f2dcdee219d04f287d5b165391f8d949103420fdf0d5085aafae507  xsa206-4.6/0019-oxenstored-blame-the-connection-that-caused-a-transa.patch
+f3769eb343896c5119f507bf699bb6e595a4e59d50095fbded17cb66be7336c1  xsa206-4.6/0020-oxenstored-allow-self-conflicts.patch
+2d040a7500cb272f225dab53eb82d4b3b82609b8128f9fba180e71b97b5d1fe4  xsa206-4.6/0021-oxenstored-do-not-commit-read-only-transactions.patch
+ea28e29a2f06423d849888ec97ee369fa5ddd2b15abdfe2588e20e3d03455b0d  xsa206-4.6/0022-oxenstored-don-t-wake-to-issue-no-conflict-credit.patch
+9a7994d86fc49ac5ebcec63fcf6dae9501e84559adc8a650a2a0f125e251cc01  xsa206-4.6/0023-oxenstored-transaction-conflicts-improve-logging.patch
+8a4c175ccecf97a1e5bad361ea4190f7575df90e5ff850f7ee533e81832d85e4  xsa206-4.6/0024-oxenstored-trim-history-in-the-frequent_ops-function.patch
+66023f442b3d9c2f03565312b8b7df67f5e60873dfc3d3cae9f1f5e48be240bf  xsa206-4.7/0001-xenstored-apply-a-write-transaction-rate-limit.patch
+886da41986b3789c4d469a7a317671cfcfd63fe779436a4d966d0b8268ba5ea7  xsa206-4.7/0002-xenstored-Log-when-the-write-transaction-rate-limit-.patch
+f90e94dde95a519661bc49a106b0431408cefb6d6838e65238fbb5be63a96390  xsa206-4.7/0003-oxenstored-comments-explaining-some-variables.patch
+2d645680487ff2d1e632ee1e42d1db9b4d2a5c60c65d115d48dc81cfbdcea923  xsa206-4.7/0004-oxenstored-handling-of-domain-conflict-credit.patch
+b16cc0ee957f10b704c31b93e1a27183c55df1aa8d573985407189335eb5259e  xsa206-4.7/0005-oxenstored-ignore-domains-with-no-conflict-credit.patch
+82dad324ef34455beccecb3ff3bf306cd2975a0a631d31653d33ace3e82ab768  xsa206-4.7/0006-oxenstored-add-transaction-info-relevant-to-history-.patch
+a16a3cddbe02979e11079735a50e8f0aad027788834ca098ef44af10b448209e  xsa206-4.7/0007-oxenstored-support-commit-history-tracking.patch
+e306f8b860965c671bd09f10b7a6b2aa02d141a9cf0d19e8604fd61e0bc4676f  xsa206-4.7/0008-oxenstored-only-record-operations-with-side-effects-.patch
+3cb0ffe7f5a3461799add9ad06e199bd485345c9319c02ff3dcc5c645118c8d6  xsa206-4.7/0009-oxenstored-discard-old-commit-history-on-txn-end.patch
+2349825d20e5cd4546c0ea40a3b47567d65e1e1136e3dd0b8b53252833735dc6  xsa206-4.7/0010-oxenstored-track-commit-history.patch
+364297e468989f266e6690661aadd1ce69d52046a0cd6f823b8a5677a5b6b55d  xsa206-4.7/0011-oxenstored-blame-the-connection-that-caused-a-transa.patch
+dfc134667b142541e3cd2d938332ab1aefae358f7f18ddf2a481da3810246065  xsa206-4.7/0012-oxenstored-allow-self-conflicts.patch
+edcf3c4c5c0b7a48b5467a7a5287f750cbdd71456d2ec94fecd3bac71b618060  xsa206-4.7/0013-oxenstored-do-not-commit-read-only-transactions.patch
+9d683f41138926cc2273765b7e887abf1ba80f75de3065b70c99444d6bb1ec67  xsa206-4.7/0014-oxenstored-don-t-wake-to-issue-no-conflict-credit.patch
+341bb09db621d45514f4acdb4cd7c2f51d58d75eedcd44dcddc0e56728b762ba  xsa206-4.7/0015-oxenstored-transaction-conflicts-improve-logging.patch
+9fb5551d3b18bd3c0d7760b92b581ca9207aca6fd9ef23feeee9a279b2fcf470  xsa206-4.7/0016-oxenstored-trim-history-in-the-frequent_ops-function.patch
+4892ae70f81f9e32b1c3c6cae19870387ab0efde2e7ac98e87e8a06e6a4f3cf0  xsa206-4.8/0001-xenstored-apply-a-write-transaction-rate-limit.patch
+f5c61dffb1f500bdc05b9561a960d803b9a5ad47544eca46ca06e4eff731609c  xsa206-4.8/0002-xenstored-Log-when-the-write-transaction-rate-limit-.patch
+2224c440995033ea650658874a131dd440708635fc6c463184d742f94248d537  xsa206-4.8/0003-oxenstored-comments-explaining-some-variables.patch
+f5dd1be2f693e9bf84b0c2ac06c11784f972aa211c5e44b9b60fbad8f7a67a31  xsa206-4.8/0004-oxenstored-handling-of-domain-conflict-credit.patch
+3a7b2cc69bb42e027e6ec33c5f47eb9ecddcb66dafec3dab8b59088959829298  xsa206-4.8/0005-oxenstored-ignore-domains-with-no-conflict-credit.patch
+642feeb68393378feb6d4ce7ead8408120002382e0cf5655c24165f976f3e762  xsa206-4.8/0006-oxenstored-add-transaction-info-relevant-to-history-.patch
+0b790e361f8b1ecb3381240789808cbdbc4b24ad39af7673f4c4b2ac340e9522  xsa206-4.8/0007-oxenstored-support-commit-history-tracking.patch
+052ae69b9ff689e56d79a6a7fea5bdc7e3d31960fce125c1465e1d005e0120f6  xsa206-4.8/0008-oxenstored-only-record-operations-with-side-effects-.patch
+fbc0d1e68d6caaefc629439ffb9a7eeb95e6118289679be13012d850b97b00c1  xsa206-4.8/0009-oxenstored-discard-old-commit-history-on-txn-end.patch
+78c75dde183e0ca5008e6593e9df9001b1f1ff46e841bb8b2c8da4a211f7bda5  xsa206-4.8/0010-oxenstored-track-commit-history.patch
+9ed684c344e8fcf5e2a6836106c0c77be7b5ae947c1928b5c83473bce75db3fa  xsa206-4.8/0011-oxenstored-blame-the-connection-that-caused-a-transa.patch
+bb7f93df3bdaf6571ddef1e8ebcae3e331b4a84c43b474adaf59192c32b6eed6  xsa206-4.8/0012-oxenstored-allow-self-conflicts.patch
+23fc369224df75157e402505bb5631f8500e3d3b21e310b8c6a61833bab27db8  xsa206-4.8/0013-oxenstored-do-not-commit-read-only-transactions.patch
+c96bc121a68910e59ca6b4abfdc2f3653d45decfbb9063544a5e6ac4191352d5  xsa206-4.8/0014-oxenstored-don-t-wake-to-issue-no-conflict-credit.patch
+873db68b4e26c0ac08e400bfea4e7908db95184dcc24b98e7003f04091814f62  xsa206-4.8/0015-oxenstored-transaction-conflicts-improve-logging.patch
+9fb5551d3b18bd3c0d7760b92b581ca9207aca6fd9ef23feeee9a279b2fcf470  xsa206-4.8/0016-oxenstored-trim-history-in-the-frequent_ops-function.patch
+$
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches and/or mitigations described above (or
+others which are substantially similar) is permitted during the
+embargo, even on public-facing systems with untrusted guest users and
+administrators.
+
+But: Distribution of updated software is prohibited (except to other
+members of the predisclosure list).
+
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+
+(Note: this during-embargo deployment notice is retained in
+post-embargo publicly released Xen Project advisories, even though it
+is then no longer applicable.  This is to enable the community to have
+oversight of the Xen Project Security Team's decisionmaking.)
+
+For more information about permissible uses of embargoed information,
+consult the Xen Project community's agreed Security Policy:
+  http://www.xenproject.org/security-policy.html
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQEcBAEBAgAGBQJY281CAAoJEIP+FMlX6CvZiQQH/1ceRJjfX0/5Ni850AGbDm1L
+cm9rkBIaXsUClO2rcLU6M05tzyiRm3nuEe/HccX8L0M9gw5DdUKIgFl4ojYhubwj
+VWByc9niB7Fz4r26xc+ekajV7XbPjQl911ClQvgpmxF3Fnk+p65sRsCya0A9SFaj
+d87yC5fmBdyXea/3qA41r8x/2r7vZUCpBOpjWjb42Eub76474d/nWYhHDA7iqXsG
+nHGJk7Ea8Crcj0t6wK78Unba/JwfBwfOn24ajuU/0lqfwWW09SK+iOVTM7t6e7DJ
+Z0A5OLDXT9YNaJ5vKhZ+Xk3Ta689/IO66sGoUGZ3d86/lITf/37/Zf8cXsApz3Q=
+=xWsj
+-----END PGP SIGNATURE-----

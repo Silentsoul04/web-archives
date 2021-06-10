@@ -1,0 +1,123 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-229 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-229.html">XSA-229</a></td></tr><tr><th>Public release</th> <td>2017-08-15 12:00</td></tr><tr><th>Updated</th> <td>2017-08-15 12:04</td></tr><tr><th>Version</th> <td>3</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-12134">CVE-2017-12134</a></td></tr><tr><th>Title</th> <td>linux: Fix Xen block IO merge-ability calculation</td></tr></table><h1>Files</h1><a href="advisory-229.txt">advisory-229.txt</a> (signed advisory file)<br /><a href="xsa229.patch">xsa229.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+            Xen Security Advisory CVE-2017-12134 / XSA-229
+                               version 3
+
+            linux: Fix Xen block IO merge-ability calculation
+
+UPDATES IN VERSION 3
+====================
+
+Public release.
+
+ISSUE DESCRIPTION
+=================
+
+The block layer in Linux may choose to merge adjacent block IO requests.
+When Linux is running as a Xen guest, the default merging algorithm is
+replaced with a Xen-specific one.  When Linux is running as an x86 PV
+guest, some BIO&#39;s are erroneously merged, corrupting the data stream
+to/from the block device.
+
+This can result in incorrect access to an uncontrolled adjacent frame.
+
+IMPACT
+======
+
+A buggy or malicious guest can cause Linux to read or write incorrect
+memory when processing a block stream.  This could leak information from
+other guests in the system or from Xen itself, or be used to DoS or
+escalate privilege within the system.
+
+VULNERABLE SYSTEMS
+==================
+
+All x86 Xen systems using pvops Linux in a backend role (either as
+dom0, or as a disk device driver domain) are affected.  This includes
+upstream Linux versions 2.6.37 and later.  Systems using the older
+classic-linux fork are not affected.
+
+All PV x86 domains doing block IO on behalf of a guest, including dom0
+and any PV driver domains, are vulnerable.  (Any HVM driver domains
+running are not vulnerable.)  This includes Xen vbd backends such as
+blkback, but also direct IO performed for the guest via eg qemu.
+
+ARM systems are not affected.
+
+The vulnerability is only exposed if the underlying block device has
+request merging enabled.  See Mitigation.
+
+The vulnerability is only exposed to configurations which use grant
+mapping as a transport mechanism for the block data.  Configurations
+which use exclusively grant copy are not vulnerable.
+
+MITIGATION
+==========
+
+Disable bio merges on all relevant underlying backend block devices.
+For example,
+  echo 2 &gt; /sys/block/nvme0n1/queue/nomerges
+
+CREDITS
+=======
+
+This issue was discovered by Jan H. Schönherr of Amazon.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+xsa229.patch           Linux
+
+$ sha256sum xsa229*
+<a href="xsa229.patch">5f96c72c8c5a971d52f5540475a3fc6f4fef2071ec772ef21392fdc238eda858  xsa229.patch</a>
+$
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches and/or mitigations described above (or
+others which are substantially similar) is permitted during the
+embargo, even on public-facing systems with untrusted guest users and
+administrators.
+
+But: Distribution of updated software is prohibited (except to other
+members of the predisclosure list).
+
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+
+(Note: this during-embargo deployment notice is retained in
+post-embargo publicly released Xen Project advisories, even though it
+is then no longer applicable.  This is to enable the community to have
+oversight of the Xen Project Security Team&#39;s decisionmaking.)
+
+For more information about permissible uses of embargoed information,
+consult the Xen Project community&#39;s agreed Security Policy:
+  <a href="http://www.xenproject.org/security-policy.html">http://www.xenproject.org/security-policy.html</a>
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQEcBAEBCAAGBQJZkuNWAAoJEIP+FMlX6CvZBt4H/3tpKPBmzTaI5yKPdBf6wU7L
+hjmKG6QROeWV+EX3wmmmRi+iG0M90hDYFCTmhdNY4sjCdDEFDMB1KM8XA/LwHlz2
+3gX6TVKQ/cXQRJFhlWSZQUDDd5jPqZzDK7KnhS2DC+MjnKvnnuS6N2ibIfaHJmUG
+HL6VdS7GZ8Z434mgOZskWPFn5xeaWd1vXGV+GI9Ih2RRn/axe6l0RSzgDpfeGB3T
+hVRQdy9wW4aXrnnUXEuuz5JNlTU1fuGXGz7W5BDP8mu9l/dzmDye6NOgVqo5wAkz
++l/fRbFrjdO9JnKDpASDjGuoOCZgkBBxmG2wUz8COi6JTA5X0IRysG5OMOYZ/KU=
+=lyzV
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

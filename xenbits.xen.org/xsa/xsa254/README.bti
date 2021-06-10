@@ -1,0 +1,274 @@
+                      Branch Target Injection (BTI)
+                      ===============================
+
+Summary
+-------
+
+This README gives references for the mitigation for Spectre v2.
+
+
+Determining whether the migitation is enabled on x86
+----------------------------------------------------
+
+In general, compiler and CPU microcode updates are also required.
+
+When the mitigation is fully active, on AMD hardware,
+Xen prints at least the following messages:
+
+  Speculative mitigation facilities:
+    Compiled-in support: INDIRECT_THUNK
+  BTI mitigations: Thunk LFENCE
+
+On pre-Skylake Intel hardware:
+
+  Speculative mitigation facilities:
+    Compiled-in support: INDIRECT_THUNK
+  BTI mitigations: Thunk RETPOLINE
+
+On Skylake (or later) Intel hardware:
+
+  Speculative mitigation facilities:
+    Hardware features: IBRS/IBPB STIBP
+    Compiled-in support: INDIRECT_THUNK
+  BTI mitigations: Thunk JMP, Others: IBRS+ IBPB
+
+Note however that on release builds none of these messages are visible
+by default; "loglvl=all" needs to be passed to see all of them.
+However production systems should not be run with "loglvl=all" as that
+exposes a log spew (denial of service) vulnerability to guests.
+
+"loglvl=info" (which is perhaps better) is sufficient to see
+  BTI mitigations: ...
+listing the mitigations Xen actually uses.
+
+If you are not sure whether your Intel CPU is pre- or post-Skylake,
+please look your cpu model number (printed in /proc/cpuinfo on Linux)
+up on Wikipedia.
+
+
+Precise git commits
+-------------------
+
+4.10:
+
+3181472a5ca45ae5e77abbcf024d025d9ba79ced x86/idle: Clear SPEC_CTRL while idle
+5644514050b9ae7d75cdd95fd07912b9930cae08 x86/cpuid: Offer Indirect Branch Controls to guests
+db12743f2d24fc59d5b9cefc15eb3d56cdaf549d x86/ctxt: Issue a speculation barrier between vcpu contexts
+bc0e599a83d17f06ec7da1708721cede2df8274e x86/boot: Calculate the most appropriate BTI mitigation to use
+fc81946ceaae2c27fce2ba0f3f29fa9df3975951 x86/entry: Avoid using alternatives in NMI/#MC paths
+ce7d7c01685569d9ff1f971c0f0622573bfe8bf3 x86/entry: Organise the clobbering of the RSB/RAS on entry to Xen
+a695f8dce7c3f137f61c8c8a880b24b1b4cf319c x86/entry: Organise the use of MSR_SPEC_CTRL at each entry/exit point
+92efbe865813d84873a0e7262b1fa414842306b6 x86/hvm: Permit guests direct access to MSR_{SPEC_CTRL,PRED_CMD}
+8baba874d6c76c1d6dd69b1d9aa06abdc344a1f5 x86/migrate: Move MSR_SPEC_CTRL on migrate
+79891ef9442acb998f354b969e7302d81245ab0b x86/msr: Emulation of MSR_{SPEC_CTRL,PRED_CMD} for guests
+641c11ef293c7f3a58c1856138835c06e09d6b07 x86/cpuid: Handling of IBRS/IBPB, STIBP and IBRS for guests
+65ee6e043a6dc61bece75a9dfe24c7ee70c6597c x86/cmdline: Introduce a command line option to disable IBRS/IBPB, STIBP and IBPB
+129880dd8f28bc728f93e3aad4675622c1ee2aad x86/feature: Definitions for Indirect Branch Controls
+c513244d8e5b8aa0326c6f2d5fb2382811c97d6d x86: Introduce alternative indirect thunks
+0e12c2c881aa12016bb659ab1eb4c7289244b3e7 x86/amd: Try to set lfence as being Dispatch Serialising
+6aaf353f2ecbe8ae57e16812a6d74a4f089def3a x86/boot: Report details of speculative mitigations
+32babfc19ad3a3123f8ed4466df3c79492a2212b x86: Support indirect thunks from assembly code
+47bbcb2dd1291d61062fe58da807010631fe1b3a x86: Support compiling with indirect branch thunks
+8743fc2ef7d107104c17b773eadee15fefa64e53 common/wait: Clarifications to wait infrastructure
+1830b20b6b83be38738784ea162d62fcf85f3178 x86/entry: Erase guest GPR state on entry to Xen
+ab95cb0d948fdc9fcda215fec0526ac902340b14 x86/hvm: Use SAVE_ALL to construct the cpu_user_regs frame after VMExit
+d02ef3d27485e1429ac480cca78ab3636387df23 x86/entry: Rearrange RESTORE_ALL to restore register in stack order
+e32f814160c95094da83fbc813b45eca42d5397a x86: Introduce a common cpuid_policy_updated()
+c534ab4e940ae3fbddf0b4840c3549c03654921f x86/hvm: Rename update_guest_vendor() callback to cpuid_policy_changed()
+be3138b6f65955196d67c1d54aea3d6a3bf33934 x86/alt: Introduce ALTERNATIVE{,_2} macros
+79012ead937f0533ec591c4ece925e4d23568874 x86/alt: Break out alternative-asm into a separate header file
+bbd093c5033d87c0043cf90aa782efdc141dc0e7 xen/arm32: entry: Document the purpose of r11 in the traps handler
+a69a8b5fdc9cc90aa4faf522c355abd849f11001 xen/arm32: Invalidate icache on guest exist for Cortex-A15
+f167ebf6b33c4dbdb0135c350c0d927980191ac5 xen/arm32: Invalidate BTB on guest exit for Cortex A17 and 12
+c4c0187839bacadc82a5729cea739e8c485f6c60 xen/arm32: Add skeleton to harden branch predictor aliasing attacks
+19ad8a7287298f701b557e55e4be689a702194c0 xen/arm32: entry: Add missing trap_reset entry
+3caf32c470f2f7eb3452c8a61d6224d10e56f9a3 xen/arm32: Add missing MIDR values for Cortex-A17 and A12
+df7be94f26757a77747bf4fbfb84bbe2a3da3b4f xen/arm32: entry: Consolidate DEFINE_TRAP_ENTRY_* macros
+728fadb586a2a14a244dabd70463bcc1654ecc85 xen/arm: cpuerrata: Remove percpu.h include
+928112900e5b4a92ccebb2eea11665fd76aa0f0d xen/arm64: Implement branch predictor hardening for affected Cortex-A CPUs
+cae6e1572f39a1906be0fc3bdaf49fe514c6a9c0 xen/arm64: Add skeleton to harden the branch predictor aliasing attacks
+d1f4283a1d8405a480b4121e1efcfaec8bbdbffa xen/arm: cpuerrata: Add MIDR_ALL_VERSIONS
+0f7a4faafb2d79920cc63457cfca3e03990af4cc xen/arm64: Add missing MIDR values for Cortex-A72, A73 and A75
+b829d42829c1ff626a02756acae4dd482fc20c9a xen/arm: Introduce enable callback to enable a capabilities on each online CPU
+910dd005da20f27f3415b7eccdf436874989506b x86/entry: Remove support for partial cpu_user_regs frames
+
+4.9:
+
+88fbabc49158b0b858248fa124ef590c5df7782f x86/PV: correctly count MSRs to migrate
+7d5f8b36be149c169215b3afe20e1cfba8456170 x86/idle: Clear SPEC_CTRL while idle
+59999aecdad6fc4f446958b65e2869e02530b1a6 x86/cpuid: Offer Indirect Branch Controls to guests
+79d519795231110f222a24379e3a43243db6e55f x86/ctxt: Issue a speculation barrier between vcpu contexts
+68c76d71e045a4e8510704270fc570fb9d797dfd x86/boot: Calculate the most appropriate BTI mitigation to use
+bda328363ffef58c3475105e93016fcac486c5d5 x86/entry: Avoid using alternatives in NMI/#MC paths
+a24b7553f92517b3d81cad1ad4798ef74b42055b x86/entry: Organise the clobbering of the RSB/RAS on entry to Xen
+13a30ba54caa1b33f707137279d27d5cd39e8844 x86/entry: Organise the use of MSR_SPEC_CTRL at each entry/exit point
+0177bf5d25c66e700e15024913a3bc71c7cf507d x86/hvm: Permit guests direct access to MSR_{SPEC_CTRL,PRED_CMD}
+2fdee60ec12c238358bff209378c7d91e4817fa7 x86/migrate: Move MSR_SPEC_CTRL on migrate
+e57d4d043b0df8f9953b3d211feacc3a54401817 x86/msr: Emulation of MSR_{SPEC_CTRL,PRED_CMD} for guests
+1dcfd3951999e875f911fb0513391774af8d5fb4 x86/cpuid: Handling of IBRS/IBPB, STIBP and IBRS for guests
+764804938c69b69e1ee369a9b5480e89b18e453a x86/cmdline: Introduce a command line option to disable IBRS/IBPB, STIBP and IBPB
+602633eb73ed2d9918da2dae7bebf279a057ea20 x86/feature: Definitions for Indirect Branch Controls
+6fef46d6fb9fa4578b97f8d6a0cb240abec48587 x86: Introduce alternative indirect thunks
+30b99299d6ea0c5008f5e4f41eb1f48e1ae566ce x86/amd: Try to set lfence as being Dispatch Serialising
+447dce891f05c0585ec67c47ed22eb2e073ce0ab x86/boot: Report details of speculative mitigations
+29df8a5c4d6271d52231bbecc52a7c3eb38aac13 x86: Support indirect thunks from assembly code
+6403b5048d6f1ac5bc8524937b7975f96b597046 x86: Support compiling with indirect branch thunks
+628b6af24f9727f201f677a4ad98104c00cc76c1 common/wait: Clarifications to wait infrastructure
+237a58b1d0c35201e1e9ed7c32deacf9cd804229 x86/entry: Erase guest GPR state on entry to Xen
+f0f7ce5e82b5bd511ef3eed8fe8b8b27a23f4365 x86/hvm: Use SAVE_ALL to construct the cpu_user_regs frame after VMExit
+d6e972508ed6ae84c5a46580af12ebdcb88de702 x86/entry: Rearrange RESTORE_ALL to restore register in stack order
+9aaa2088863d63168986f9e69c0f482839a24d80 x86: Introduce a common cpuid_policy_updated()
+40f9ae9d0532a3c7dbb2a1e740c2cebe2aeb1d72 x86/hvm: Rename update_guest_vendor() callback to cpuid_policy_changed()
+ade9554f87262b0c6dcc21aca194f3139a31fcfa x86/alt: Introduce ALTERNATIVE{,_2} macros
+a0ed0349ff212b41dbfab37141cccb71bc1c3031 x86/alt: Break out alternative-asm into a separate header file
+4d01dbc7133e0c55aecb31d95cd461580241c576 xen/arm32: entry: Document the purpose of r11 in the traps handler
+22379b6adce0249ffc05a3a7870f2293368337e1 xen/arm32: Invalidate icache on guest exist for Cortex-A15
+6e13ad777d331cd534928df720dbf542497231ba xen/arm32: Invalidate BTB on guest exit for Cortex A17 and 12
+0d32237d5f4db419f84da891761abb4f6b1a8f52 xen/arm32: Add skeleton to harden branch predictor aliasing attacks
+4ba59bdc26bd69bdd84bcb2bd597fee144e845d9 xen/arm32: entry: Add missing trap_reset entry
+2997c5e628dd588ff4adb3733b7f48bb0521a243 xen/arm32: Add missing MIDR values for Cortex-A17 and A12
+751c8791d086831f2038fe18217e553f612a5600 xen/arm32: entry: Consolidate DEFINE_TRAP_ENTRY_* macros
+a2567d6b54b7b187ecc0165021b6dd07dafaf06a xen/arm: cpuerrata: Remove percpu.h include
+9f79e8d846e8413c828f5fc7cc6ac733728dff00 xen/arm64: Implement branch predictor hardening for affected Cortex-A CPUs
+fba48eff18c02d716c95b92df804a755620be82e xen/arm64: Add skeleton to harden the branch predictor aliasing attacks
+3790833ef16b95653424ec9b145e460ec1a56d16 xen/arm: cpuerrata: Add MIDR_ALL_VERSIONS
+50450c1f33dc72f2138a671d738934f796be3318 xen/arm64: Add missing MIDR values for Cortex-A72, A73 and A75
+2ec7ccbffc6b788f65e55498e4347c1ee3a44b01 xen/arm: Introduce enable callback to enable a capabilities on each online CPU
+2213ffe1a2d82c3c9c4a154ea6ee252395aa8693 x86/entry: Remove support for partial cpu_user_regs frames
+
+4.8:
+
+5938aa17b49595150cade3ddc2c1929ecd0df39a x86/PV: correctly count MSRs to migrate
+99ed7863b29ea170e50749fe22991b964cbce6ba x86/idle: Clear SPEC_CTRL while idle
+76bdfe894ab2205f597e52448d620982b84565c4 x86/cpuid: Offer Indirect Branch Controls to guests
+fee4689c5c60b699f4dea21a21a2ba17887d2f49 x86/ctxt: Issue a speculation barrier between vcpu contexts
+c0bfde68ccd941b14a2f0ca54c61a83796156ea6 x86/boot: Calculate the most appropriate BTI mitigation to use
+64c1742b206344c51db130b0bb47fc299a1462ca x86/entry: Avoid using alternatives in NMI/#MC paths
+86153856f857f786b95ecc4f81260477d75dc15c x86/entry: Organise the clobbering of the RSB/RAS on entry to Xen
+e09a5c2917506cf9d95d85f65b2df158a494649c x86/entry: Organise the use of MSR_SPEC_CTRL at each entry/exit point
+ff570a3ee0b42a036df1e8c2b05730192ad4bd90 x86/hvm: Permit guests direct access to MSR_{SPEC_CTRL,PRED_CMD}
+e6bcb416a5f5489366fc20f45fd92a703ad96e15 x86/migrate: Move MSR_SPEC_CTRL on migrate
+29e7171e9dd0aa8e35f790157d781dff22f6a970 x86/msr: Emulation of MSR_{SPEC_CTRL,PRED_CMD} for guests
+c3d195cd91385531ed12af2576bfedcab3118211 x86/cpuid: Handling of IBRS/IBPB, STIBP and IBRS for guests
+532ccf4fd55cfd916f56279a71852585d726ab23 x86/cmdline: Introduce a command line option to disable IBRS/IBPB, STIBP and IBPB
+da49e518d79ca6c405a244889cab57ac8ed097cb x86/feature: Definitions for Indirect Branch Controls
+ca9583d9e705aaa74da121e920ebf77d9f7995b2 x86: Introduce alternative indirect thunks
+479b879a7dd0bbf02920d2f6053d9bee271797ce x86/amd: Try to set lfence as being Dispatch Serialising
+2eefd926bbc8217cf511bc096c897ae4c56dd0c2 x86/boot: Report details of speculative mitigations
+60c50f2b0bf5d3f894ca428cf4b4374fbea2d082 x86: Support indirect thunks from assembly code
+1838e21521497cdfa6d3b1dfac0374bcce717eba x86: Support compiling with indirect branch thunks
+5732a8ef2885633cdffc56fe9d8df40f76bfb2c2 common/wait: Clarifications to wait infrastructure
+987b08d56cd8d439bdf435099218b96de901199d x86/entry: Erase guest GPR state on entry to Xen
+eadcd8318c46f53ed8ee6516ca876271f75930fa x86/hvm: Use SAVE_ALL to construct the cpu_user_regs frame after VMExit
+ef2464c56e8dab194cd956498c3d5215f1b6b97b x86/entry: Rearrange RESTORE_ALL to restore register in stack order
+17bfbc8289c487bcb5f446f79de54869f12786cb x86: Introduce a common cpuid_policy_updated()
+499391b50b85d31fa3dd4c427a816e10facb1fe4 x86/hvm: Rename update_guest_vendor() callback to cpuid_policy_changed()
+87cb0e2090fce317c4e6775f343d5caba66f61f1 x86/alt: Introduce ALTERNATIVE{,_2} macros
+3efcd7fb40a900bc7d4f9063f2d43ee27b0a5270 x86/alt: Break out alternative-asm into a separate header file
+11875b7d5706f8aef86d306a43d7fe3b7011aaa2 xen/arm32: entry: Document the purpose of r11 in the traps handler
+1105f3a92df83f3bfcda78d66c4d28458123e1bb xen/arm32: Invalidate icache on guest exist for Cortex-A15
+754345c01933f1eed3d1601fa8fdbf62f52c9d80 xen/arm32: Invalidate BTB on guest exit for Cortex A17 and 12
+7336d0d2a719d6135b8d02801401e449b0dbbfb6 xen/arm32: Add skeleton to harden branch predictor aliasing attacks
+cf95bba7b7406ef1929ea4c6c36388ed43b4f9bb xen/arm32: entry: Add missing trap_reset entry
+a586cbd9f0cbb3835de1f8ab4d9a105e08b2ac5a xen/arm32: Add missing MIDR values for Cortex-A17 and A12
+6082e3ba8941b3d10c3cb73f445759c19e89afc9 xen/arm32: entry: Consolidate DEFINE_TRAP_ENTRY_* macros
+6f6786ef0d7f7025860d360f6b1267193ffd1b27 xen/arm64: Implement branch predictor hardening for affected Cortex-A CPUs
+44139fed7c794eb4e47a9bb93061e325bd57fe8c xen/arm64: Add skeleton to harden the branch predictor aliasing attacks
+cf0b584c8c5030588bc47a3614ad860af7482c53 xen/arm: cpuerrata: Add MIDR_ALL_VERSIONS
+85990bf53addcdb0ce8e458a3d8fad199710ac59 xen/arm64: Add missing MIDR values for Cortex-A72, A73 and A75
+946dd2eefae2faeecbeb9662e66935c8070f64f5 xen/arm: Introduce enable callback to enable a capabilities on each online CPU
+a7cf0a3b818377a8a49baed3606bfa2f214cd645 x86/entry: Remove support for partial cpu_user_regs frames
+
+4.7:
+
+ade3bcafd25883130fc234121ed7416d531e456d x86/PV: correctly count MSRs to migrate
+aac4cbe3644738d485d38bd551046d63c00cc670 x86: fix build with older tool chain
+68420b47d9b813ca48891b604fab379d40aa594e x86/idle: Clear SPEC_CTRL while idle
+e09548d28a1cffafc0fa5ed9f97ac58514491ab8 x86/cpuid: Offer Indirect Branch Controls to guests
+be261bd97f7b4fc76db7c11bb3366974f5635a04 x86/ctxt: Issue a speculation barrier between vcpu contexts
+327a7836744ca8d7e1cfc6dc476d51d7c63f68ea x86/boot: Calculate the most appropriate BTI mitigation to use
+9f08fce3b942180d62bc773cab840fa4533d0a51 x86/entry: Avoid using alternatives in NMI/#MC paths
+4a38ec26bafde70f2af36d7bc2bec7f218145982 x86/entry: Organise the clobbering of the RSB/RAS on entry to Xen
+65c9e06429f629249a84d01231be5fa643460547 x86/entry: Organise the use of MSR_SPEC_CTRL at each entry/exit point
+84d47acc05af516d813f1952e853c4ca2be2adba x86/hvm: Permit guests direct access to MSR_{SPEC_CTRL,PRED_CMD}
+b7dae55c0eaae6d5a34bfdd3a62fe938673f53cf x86/migrate: Move MSR_SPEC_CTRL on migrate
+b2b7fe128f6fbecf54e97cdd2d71923d0a852535 x86/msr: Emulation of MSR_{SPEC_CTRL,PRED_CMD} for guests
+c947e1e23d1db17da0dd211b9410f311248b6c13 x86/cpuid: Handling of IBRS/IBPB, STIBP and IBRS for guests
+e9220b40c67a6c1eab6b3613f6054adfacea65eb x86/cmdline: Introduce a command line option to disable IBRS/IBPB, STIBP and IBPB
+f9616884e16b8028c257c8b01fb12daff7fe3454 x86/feature: Definitions for Indirect Branch Controls
+91f7e4627b6597536ded5b8326da3ca504b1772f x86: Introduce alternative indirect thunks
+f291c01cd6d405927ceb022bdef6479de8b9fb9a x86/amd: Try to set lfence as being Dispatch Serialising
+3cf4e29f8df5fc18f65baa08408a3d7cf3269d03 x86/boot: Report details of speculative mitigations
+88602190f698aeace6d7e028954a1349997ee0be x86: Support indirect thunks from assembly code
+62a2624e3c6250c6be8a9248c8fe5a3211834d4d x86: Support compiling with indirect branch thunks
+c3f8df3df224eeac0e78533644010ed096de7a34 common/wait: Clarifications to wait infrastructure
+3877c024ea4916ede177ef0067a081f73ee16c4d x86/entry: Erase guest GPR state on entry to Xen
+f0ed5f95cb373fb55d9eb2eb3fe0cba442e80eb2 x86/hvm: Use SAVE_ALL to construct the cpu_user_regs frame after VMExit
+160b53c824011b9ddb89e67f0f682f471335747d x86/entry: Rearrange RESTORE_ALL to restore register in stack order
+e1313098e43c41598d5b378e6344d691dcf29f2f x86: Introduce a common cpuid_policy_updated()
+9ede1acbe91cb127b23d5e711470025b462f5d50 x86/hvm: Rename update_guest_vendor() callback to cpuid_policy_changed()
+d0cfbe81d01b2ac1dc9d02d70d3249249d5cb5bc x86/alt: Introduce ALTERNATIVE{,_2} macros
+d596e6a0a6ddfebbe657d07d0d64159cc4eb7a68 x86/alt: Break out alternative-asm into a separate header file
+f50ea840b9a860927c7aca5fa64eb34e14f17164 xen/arm32: entry: Document the purpose of r11 in the traps handler
+de3bdaa717002e4ec917bd0494943eb1660d71b8 xen/arm32: Invalidate icache on guest exist for Cortex-A15
+766990b0b64336d1b859b6caa36033ec5338d563 xen/arm32: Invalidate BTB on guest exit for Cortex A17 and 12
+4ac0229bc5312a01664b747261ee1cc7ea52c4b5 xen/arm32: Add skeleton to harden branch predictor aliasing attacks
+bafd63f8be2e8a78c0e85444e4c255e679303282 xen/arm32: entry: Add missing trap_reset entry
+d5bb425dac6718d3fba64b863b07d7314c857067 xen/arm32: Add missing MIDR values for Cortex-A17 and A12
+003ec3e00a05935ea6a31430da65ee62363900f9 xen/arm32: entry: Consolidate DEFINE_TRAP_ENTRY_* macros
+fd884d61991cd0de588ae51728cd0602375dfa71 xen/arm64: Implement branch predictor hardening for affected Cortex-A CPUs
+50c68df8182bf332525ebf6120d3b1e0fdf77545 xen/arm64: Add skeleton to harden the branch predictor aliasing attacks
+1bdcc9f7ef438ab9c219a5099726b112b93a4fbe xen/arm: cpuerrata: Add MIDR_ALL_VERSIONS
+2914ef5753c9328889df314f33bb12ece1bd4fbe xen/arm64: Add missing MIDR values for Cortex-A72, A73 and A75
+62b9706dba3b6a3d9881329bca604216313c82dc xen/arm: Introduce enable callback to enable a capabilities on each online CPU
+624abdcf2d30ae48e0653fb511b4c90d3ccdd2af xen/arm: Detect silicon revision and set cap bits accordingly
+d7b73edd0fe6bb0c46aa883229f900643b4726e9 xen/arm: cpufeature: Provide an helper to check if a capability is supported
+112c49c114ffe37e068fc9f13e960a8f275379d2 xen/arm: Add cpu_hwcap bitmap
+a5b0fa4871b0895da203fb2dac16840d24c6be21 xen/arm: Add macros to handle the MIDR
+0e6c6fc449000d97f9fa87ed1fbe23f0cf21406b x86/entry: Remove support for partial cpu_user_regs frames
+
+4.6:
+
+0fbf30a7f863139dd0ac556e44f92f5787654847 x86/hvm: Don't corrupt the HVM context stream when writing the MSR record
+7e20b9b2ddbb04c6ebb60613b1117e05edc8a5ea x86/PV: correctly count MSRs to migrate
+75bdd693033e6dbd6fe5ae235f79961d2f0aa84d x86/idle: Clear SPEC_CTRL while idle
+8994cf3cf730422ded6596ecb18dc0d8b6579493 x86/ctxt: Issue a speculation barrier between vcpu contexts
+642c6037bba310538b00c0cbb5d91525bd1eed0a x86/boot: Calculate the most appropriate BTI mitigation to use
+c25ea9a1393c1eb5d6732ec366baa1091db5e7db x86/entry: Avoid using alternatives in NMI/#MC paths
+feba571a5d9586778e0978b8df5b9166275b8680 x86/entry: Organise the clobbering of the RSB/RAS on entry to Xen
+0163087ed6175b00966f4ee991d8c424ad7eb59d x86/entry: Organise the use of MSR_SPEC_CTRL at each entry/exit point
+44c2666589fefc13049edc874c7ef063823bad90 x86/hvm: Permit guests direct access to MSR_{SPEC_CTRL,PRED_CMD}
+db743b04998a9cbf6866b5f328855239a73220e5 x86/migrate: Move MSR_SPEC_CTRL on migrate
+41a5ccec99e81a768a66995f483f424f848f5b5e x86/msr: Emulation of MSR_{SPEC_CTRL,PRED_CMD} for guests
+4e1b9e98dffbc2f29a0a90a4ae43b9e19f323089 x86/cpuid: Handling of IBRS/IBPB, STIBP and IBRS for guests
+4d2154914e3f44bae123dc6a93fbb3f1b39c0fee x86/cmdline: Introduce a command line option to disable IBRS/IBPB, STIBP and IBPB
+ff4800cac63756f7755e6c251571cd29fd5171eb x86/feature: Definitions for Indirect Branch Controls
+2613a1bc709ed4b46af36b0bab3200ed9d3c86d0 x86: Introduce alternative indirect thunks
+8335c8aedacd9a50b4796afb533dc8205f2129e4 x86/amd: Try to set lfence as being Dispatch Serialising
+ab20c5c804ae814de9bed5f85d55fecc894dc78f x86/boot: Report details of speculative mitigations
+9089da9cd06875be6c1022d59a6651cf3919da2e x86: Support indirect thunks from assembly code
+8edfc82f67f25137909dda13e6658cba4d1e5d26 x86: Support compiling with indirect branch thunks
+af5b61af9e350bcc2c8b0f053682e3c7a700b46f common/wait: Clarifications to wait infrastructure
+ec05090403ef4d760fbe701e31afd0f0edc414d5 x86/entry: Erase guest GPR state on entry to Xen
+75263f7908a02f5673c25df9bcdaed9fe5f9de5c x86/hvm: Use SAVE_ALL to construct the cpu_user_regs frame after VMExit
+f7e273a07ccf993063727675589f10da206f1683 x86/entry: Rearrange RESTORE_ALL to restore register in stack order
+03c7d2cd1b4bb9868c10c4a3db2b092d211d055a x86/alt: Introduce ALTERNATIVE{,_2} macros
+9ce1a7180050353c07321980cf1ed0b0baebf38a x86/alt: Break out alternative-asm into a separate header file
+a735c7ae8046024925927406747d4a6ca5bf7fcc x86/microcode: Add support for fam17h microcode loading
+9d534c12bf71babb76f1338029841f757191f729 xen/arm32: entry: Document the purpose of r11 in the traps handler
+dbb3553130241ae99d444a6a08b7dc32ce90a272 xen/arm32: Invalidate icache on guest exist for Cortex-A15
+e54a8c617ceb5ba3481e6aa122ad3f835c1915b8 xen/arm32: Invalidate BTB on guest exit for Cortex A17 and 12
+8005ed3ef14c6c8b31a9e1a5ae2576a4b4c66528 xen/arm32: Add skeleton to harden branch predictor aliasing attacks
+9a852e0eebc6300585db89669dbade625be18a12 xen/arm32: entry: Add missing trap_reset entry
+d779cc1f9c6a5f1d40db9e85f779a79c8eed2ccf xen/arm32: Add missing MIDR values for Cortex-A17 and A12
+c93bcf9409e0da14cbc4bf43bf138bfaaecefa2c xen/arm32: entry: Consolidate DEFINE_TRAP_ENTRY_* macros
+15adcf395923499eb1eaaca1e67c032956428191 xen/arm64: Implement branch predictor hardening for affected Cortex-A CPUs
+d7b8190d3222156e89ccefb7ac74ad0410337097 xen/arm64: Add skeleton to harden the branch predictor aliasing attacks
+2b1457f955a98007cd51be67f78d1690711e8849 xen/arm: cpuerrata: Add MIDR_ALL_VERSIONS
+a3578802a2882afbbfe730f0227e075b5f42b4a6 xen/arm64: Add missing MIDR values for Cortex-A72, A73 and A75
+ee23fcc2539ce8143ae4ce58a7c140fa46a4359b xen/arm: Introduce enable callback to enable a capabilities on each online CPU
+56510154bbd21f10080993b7888c1a47a802c3e2 xen/arm: Detect silicon revision and set cap bits accordingly
+225e9c7050e8f2694df3dc92c95b06a46e57130e xen/arm: cpufeature: Provide an helper to check if a capability is supported
+3c706195565910b961eb5a7e64f34948deb2a545 xen/arm: Add cpu_hwcap bitmap
+1222333a8220638747e77b40b6418daa85270265 xen/arm: Add macros to handle the MIDR
+c6e9e6095669b3c63b92d21fddb326441c73712c x86/entry: Remove support for partial cpu_user_regs frames

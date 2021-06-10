@@ -1,0 +1,113 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-204 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-204.html">XSA-204</a></td></tr><tr><th>Public release</th> <td>2016-12-19 15:36</td></tr><tr><th>Updated</th> <td>2016-12-19 17:04</td></tr><tr><th>Version</th> <td>2</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-10013">CVE-2016-10013</a></td></tr><tr><th>Title</th> <td>x86: Mishandling of SYSCALL singlestep during emulation</td></tr></table><h1>Files</h1><a href="advisory-204.txt">advisory-204.txt</a> (signed advisory file)<br /><a href="xsa204.patch">xsa204.patch</a><br /><a href="xsa204-4.5.patch">xsa204-4.5.patch</a><br /><a href="xsa204-4.7.patch">xsa204-4.7.patch</a><br /><a href="xsa204-4.8.patch">xsa204-4.8.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+            Xen Security Advisory CVE-2016-10013 / XSA-204
+                              version 2
+
+        x86: Mishandling of SYSCALL singlestep during emulation
+
+UPDATES IN VERSION 2
+====================
+
+CVE assigned.
+
+ISSUE DESCRIPTION
+=================
+
+The typical behaviour of singlestepping exceptions is determined at the
+start of the instruction, with a #DB trap being raised at the end of the
+instruction.
+
+SYSCALL (and SYSRET, although we don&#39;t implement it) behave differently
+because the typical behaviour allows userspace to escalate its
+privilege.  (This difference in behaviour seems to be undocumented.)
+
+Xen wrongly raised the exception based on the flags at the start of
+the instruction.
+
+IMPACT
+======
+
+Guest userspace which can invoke the instruction emulator can use this
+flaw to escalate its privilege to that of the guest kernel.
+
+VULNERABLE SYSTEMS
+==================
+
+All Xen versions are affected.
+
+The vulnerability is only exposed to 64-bit x86 HVM guests.
+
+On Xen 4.6 and earlier the vulnerability is exposed to all guest user
+processes, including unprivileged processes, in such guests.
+
+On Xen 4.7 and later, the vulnerability is exposed only to guest user
+processes granted a degree of privilege (such as direct hardware access)
+by the guest administrator; or, to all user processes when the VM has
+been explicitly configured with a non-default cpu vendor string (in
+xm/xl, this would be done with a `cpuid=&#39; domain config option).
+
+A 64-bit guest kernel which uses an IST for #DB handling will most likely
+mitigate the issue, but will have a single unexpected #DB exception
+frame to deal with.  This in practice means that Linux is not
+vulnerable.
+
+The vulnerability is not exposed to 32-bit HVM guests.  This is because
+the emulation bug also matches real hardware behaviour, and a 32-bit
+guest kernel using SYSCALL will already have to be using a Task Gate for
+handling #DB to avoid being susceptible to an escalation of privilege.
+
+The vulnerability is not exposed to PV guests.
+
+ARM systems are not vulnerable.
+
+MITIGATION
+==========
+
+There is no known mitigation.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+xsa204.patch           xen-unstable
+xsa204-4.8.patch       Xen 4.8.x
+xsa204-4.7.patch       Xen 4.7.x, Xen 4.6.x
+xsa204-4.5.patch       Xen 4.5.x, Xen 4.4.x
+
+$ sha256sum xsa204*
+<a href="xsa204.patch">251c33905f86d386cc07240041108ec0664e5e9dddb2b88685d9b4b8ca7fdc24  xsa204.patch</a>
+<a href="xsa204-4.5.patch">e523b65ba122c8e22d32004d2035facaf06295094fdc8b67c151b6f44799ef0b  xsa204-4.5.patch</a>
+<a href="xsa204-4.7.patch">d0359f26e9be783672896200e14d85a3111c29d7da580313b593fca04688fef2  xsa204-4.7.patch</a>
+<a href="xsa204-4.8.patch">fa2a69682868104b6263655abbfc6b326f76deebdac3273b4b65da6673f5d977  xsa204-4.8.patch</a>
+$
+
+NOTE REGARDING EMBARGO
+======================
+
+This issue was discussed publicly on qemu-devel before its impact was
+realised.
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQEcBAEBAgAGBQJYWBMjAAoJEIP+FMlX6CvZe2wH/i/tAxpXbIc0xhhA5L6nlGJ9
+fYZY0C6GuujTFIPmF40dMKIZieB+zKxiBseYHw4dHSzs3hbLbYhcP2Qgr2WJ2uJw
+3zuS+OAtOlwzl+KRu6WUZPMf5JTAZp+kWJny3qCymUzXqz4OmUzsqHAORYyAjVi/
+RN0lqgnkoTrGV8YS7fEUC5mB6PQGaEerJWFRLmaEmxV0th70oTuSGELjZ7rJdJg/
+92BZ/GVQNspuSgZCJyEhwSfzBgF1MvAKjUZafh9+0/2G5Ab0Z71ikRX/l8RWop9E
+7B+KC6zeG6DukPME2sJTuL+b0EmZyfOwewDnbdGbzb2nCfOhwsoHvzrAhF9rYwI=
+=ypHy
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

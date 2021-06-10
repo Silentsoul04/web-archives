@@ -1,0 +1,95 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-188 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-188.html">XSA-188</a></td></tr><tr><th>Public release</th> <td>2016-09-08 12:00</td></tr><tr><th>Updated</th> <td>2016-09-08 12:00</td></tr><tr><th>Version</th> <td>3</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-7154">CVE-2016-7154</a></td></tr><tr><th>Title</th> <td>use after free in FIFO event channel code</td></tr></table><h1>Files</h1><a href="advisory-188.txt">advisory-188.txt</a> (signed advisory file)<br /><a href="xsa188.patch">xsa188.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+            Xen Security Advisory CVE-2016-7154 / XSA-188
+                              version 3
+
+               use after free in FIFO event channel code
+
+UPDATES IN VERSION 3
+====================
+
+Public release.
+
+ISSUE DESCRIPTION
+=================
+
+When the EVTCHNOP_init_control operation is called with a bad guest
+frame number, it takes an error path which frees a control structure
+without also clearing the corresponding pointer.  Certain subsequent
+operations (EVTCHNOP_expand_array or another EVTCHNOP_init_control),
+upon finding the non-NULL pointer, continue operation assuming it
+points to allocated memory.
+
+IMPACT
+======
+
+A malicious guest administrator can crash the host, leading to a DoS.
+Arbitrary code execution (and therefore privilege escalation), and
+information leaks, cannot be excluded.
+
+VULNERABLE SYSTEMS
+==================
+
+Only Xen 4.4 is vulnerable.  Xen versions 4.5 and later as well as Xen
+versions 4.3 and earlier are not vulnerable.
+
+MITIGATION
+==========
+
+There is no mitigation available.
+
+CREDITS
+=======
+
+This issue was discovered by Mikhail Gorobets of Advanced Threat
+Research, Intel Security.
+
+RESOLUTION
+==========
+
+Applying the attached patch resolves this issue.
+
+xsa188.patch           Xen 4.4.x
+
+$ sha256sum xsa188*
+<a href="xsa188.patch">9f374c2e1437ad71369f41275e7b333e7b7691a783ba693ee567c899bd78c722  xsa188.patch</a>
+$
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches and/or mitigations described above (or
+others which are substantially similar) is permitted during the
+embargo, even on public-facing systems with untrusted guest users and
+administrators.
+
+But: Distribution of updated software is prohibited (except to other
+members of the predisclosure list).
+
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQEcBAEBAgAGBQJX0VLuAAoJEIP+FMlX6CvZNjYH/RVxqYegZpfj0aiT5pai/a0i
+PgPSoMccGoSSVTXzivXUTZS3fTIqfTpd4SQHu2Q2dUqbb6zcPqd3NzF7Jl9IMwLk
+JHZwPYXOsZ0D6thFAMYFpjHOWXv7+1Mw7Np82PaA2yAUad+kxUORiJeL1RAE6zG/
+xsAR7PTl2mK1Ae9lqDtKLijn0cnicAYoKiSlta8M0T5Sp79CT3xsfHiBbaWUBCcI
+gmOW76RUbfOwn2kmhFJ4X5bwSzEhM93pQu7hJCmuwAADc8ezEEFv2lsUm5W8hkmW
+a8V2nuqM+prbxY8JI3XbKJm5YrmHQpnX4FiBn13DZeUsaukT4Q1EltP1z/XvJto=
+=jzF5
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

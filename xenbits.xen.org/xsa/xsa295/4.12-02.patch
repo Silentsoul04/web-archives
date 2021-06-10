@@ -1,0 +1,90 @@
+From 8908fe0d3f42a4764d29e6aa657749d7a1b4c8ca Mon Sep 17 00:00:00 2001
+From: Jan Beulich <jbeulich@suse.com>
+Date: Tue, 12 Mar 2019 14:40:56 +0100
+Subject: [PATCH v2 4.12 02/17] common: avoid atomic read-modify-write accesses
+ in map_vcpu_info()
+
+There's no need to set the evtchn_pending_sel bits one by one. Simply
+write full words with all ones.
+
+For Arm this requires extending write_atomic() to also handle 64-bit
+values; for symmetry read_atomic() gets adjusted as well.
+
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Reviewed-by: Julien Grall <julien.grall@arm.com>
+---
+ xen/common/domain.c          |  9 ++++++---
+ xen/include/asm-arm/atomic.h | 15 +++++++++++++++
+ 2 files changed, 21 insertions(+), 3 deletions(-)
+
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index 0542338862..3b18f11f12 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -1253,7 +1253,6 @@ int map_vcpu_info(struct vcpu *v, unsigned long gfn, unsigned offset)
+     void *mapping;
+     vcpu_info_t *new_info;
+     struct page_info *page;
+-    int i;
+ 
+     if ( offset > (PAGE_SIZE - sizeof(vcpu_info_t)) )
+         return -EINVAL;
+@@ -1306,8 +1305,12 @@ int map_vcpu_info(struct vcpu *v, unsigned long gfn, unsigned offset)
+      * Mark everything as being pending just to make sure nothing gets
+      * lost.  The domain will get a spurious event, but it can cope.
+      */
+-    for ( i = 0; i < BITS_PER_EVTCHN_WORD(d); i++ )
+-        set_bit(i, &vcpu_info(v, evtchn_pending_sel));
++#ifdef CONFIG_COMPAT
++    if ( !has_32bit_shinfo(d) )
++        write_atomic(&new_info->native.evtchn_pending_sel, ~0);
++    else
++#endif
++        write_atomic(&vcpu_info(v, evtchn_pending_sel), ~0);
+     vcpu_mark_events_pending(v);
+ 
+     return 0;
+diff --git a/xen/include/asm-arm/atomic.h b/xen/include/asm-arm/atomic.h
+index afb3eeea5b..7b4c987fa7 100644
+--- a/xen/include/asm-arm/atomic.h
++++ b/xen/include/asm-arm/atomic.h
+@@ -55,6 +55,19 @@ build_atomic_write(write_int_atomic, "",  WORD, int, "r")
+ #if defined (CONFIG_ARM_64)
+ build_atomic_read(read_u64_atomic, "", "", uint64_t, "=r")
+ build_atomic_write(write_u64_atomic, "", "", uint64_t, "r")
++#elif defined (CONFIG_ARM_32)
++static inline uint64_t read_u64_atomic(const volatile uint64_t *addr)
++{
++    uint64_t val;
++
++    asm volatile ( "ldrd %0,%H0,%1" : "=r" (val) : "m" (*addr) );
++
++    return val;
++}
++static inline void write_u64_atomic(volatile uint64_t *addr, uint64_t val)
++{
++    asm volatile ( "strd %1,%H1,%0" : "=m" (*addr) : "r" (val) );
++}
+ #endif
+ 
+ build_add_sized(add_u8_sized, "b", BYTE, uint8_t, "ri")
+@@ -69,6 +82,7 @@ void __bad_atomic_size(void);
+     case 1: __x = (typeof(*p))read_u8_atomic((uint8_t *)p); break;      \
+     case 2: __x = (typeof(*p))read_u16_atomic((uint16_t *)p); break;    \
+     case 4: __x = (typeof(*p))read_u32_atomic((uint32_t *)p); break;    \
++    case 8: __x = (typeof(*p))read_u64_atomic((uint64_t *)p); break;    \
+     default: __x = 0; __bad_atomic_size(); break;                       \
+     }                                                                   \
+     __x;                                                                \
+@@ -80,6 +94,7 @@ void __bad_atomic_size(void);
+     case 1: write_u8_atomic((uint8_t *)p, (uint8_t)__x); break;         \
+     case 2: write_u16_atomic((uint16_t *)p, (uint16_t)__x); break;      \
+     case 4: write_u32_atomic((uint32_t *)p, (uint32_t)__x); break;      \
++    case 8: write_u64_atomic((uint64_t *)p, (uint64_t)__x); break;      \
+     default: __bad_atomic_size(); break;                                \
+     }                                                                   \
+     __x;                                                                \
+-- 
+2.17.1
+

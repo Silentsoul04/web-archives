@@ -1,0 +1,109 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-303 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-303.html">XSA-303</a></td></tr><tr><th>Public release</th> <td>2019-10-31 12:00</td></tr><tr><th>Updated</th> <td>2020-08-14 16:50</td></tr><tr><th>Version</th> <td>5</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-18422">CVE-2019-18422</a></td></tr><tr><th>Title</th> <td>ARM: Interrupts are unconditionally unmasked in exception handlers</td></tr></table><h1>Files</h1><a href="advisory-303.txt">advisory-303.txt</a> (signed advisory file)<br /><a href="xsa303.meta">xsa303.meta</a><br /><a href="xsa303-4.8/0001-Revert-xen-arm32-entry-Consolidate-DEFINE_TRAP_ENTRY.patch">xsa303-4.8/0001-Revert-xen-arm32-entry-Consolidate-DEFINE_TRAP_ENTRY.patch</a><br /><a href="xsa303-4.8/0002-xen-arm32-entry-Consolidate-DEFINE_TRAP_ENTRY-macros.patch">xsa303-4.8/0002-xen-arm32-entry-Consolidate-DEFINE_TRAP_ENTRY-macros.patch</a><br /><a href="xsa303-4.8/0003-xen-arm32-entry-Fold-the-macro-SAVE_ALL-in-the-macro.patch">xsa303-4.8/0003-xen-arm32-entry-Fold-the-macro-SAVE_ALL-in-the-macro.patch</a><br /><a href="xsa303-4.8/0004-xen-arm32-Don-t-blindly-unmask-interrupts-on-trap-wi.patch">xsa303-4.8/0004-xen-arm32-Don-t-blindly-unmask-interrupts-on-trap-wi.patch</a><br /><a href="xsa303-4.8/0005-xen-arm64-Don-t-blindly-unmask-interrupts-on-trap-wi.patch">xsa303-4.8/0005-xen-arm64-Don-t-blindly-unmask-interrupts-on-trap-wi.patch</a><br /><a href="xsa303/0001-xen-arm32-entry-Split-__DEFINE_ENTRY_TRAP-in-two.patch">xsa303/0001-xen-arm32-entry-Split-__DEFINE_ENTRY_TRAP-in-two.patch</a><br /><a href="xsa303/0002-xen-arm32-entry-Fold-the-macro-SAVE_ALL-in-the-macro.patch">xsa303/0002-xen-arm32-entry-Fold-the-macro-SAVE_ALL-in-the-macro.patch</a><br /><a href="xsa303/0003-xen-arm32-Don-t-blindly-unmask-interrupts-on-trap-wi.patch">xsa303/0003-xen-arm32-Don-t-blindly-unmask-interrupts-on-trap-wi.patch</a><br /><a href="xsa303/0004-xen-arm64-Don-t-blindly-unmask-interrupts-on-trap-wi.patch">xsa303/0004-xen-arm64-Don-t-blindly-unmask-interrupts-on-trap-wi.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+            Xen Security Advisory CVE-2019-18422 / XSA-303
+                               version 5
+
+  ARM: Interrupts are unconditionally unmasked in exception handlers
+
+UPDATES IN VERSION 5
+====================
+
+Canonicalize version ranges for easier parsing.
+
+ISSUE DESCRIPTION
+=================
+
+When an exception occurs on an ARM system which is handled without
+changing processor level, some interrupts are unconditionally enabled
+during exception entry.  So exceptions which occur when interrupts are
+masked will effectively unmask the interrupts.
+
+IMPACT
+======
+
+A malicious guest might contrive to arrange for critical Xen code to
+run with interrupts erroneously enabled.  This could lead to data
+corruption, denial of service, or possibly even privilege escalation.
+However a precise attack technique has not been identified.
+
+VULNERABLE SYSTEMS
+==================
+
+All ARM systems are vulnerable.  x86 systems are not vulnerable.
+
+On some platforms this issue could possibly be exploited by an
+unprivileged userspace attacker.
+
+CREDITS
+=======
+
+This issue was discovered by Julian Grall of Arm.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+xsa303/*.patch         xen-unstable - Xen 4.9
+xsa303-4.8/*.patch     Xen 4.8
+
+$ sha256sum xsa303* xsa303*/*
+<a href="xsa303.meta">66b3eb28cfa633999da7480a37cd919293eb87aa730e7bc58b12c47bcdb0c9c0  xsa303.meta</a>
+<a href="xsa303-4.8/0001-Revert-xen-arm32-entry-Consolidate-DEFINE_TRAP_ENTRY.patch">7769eee9b876cdb7dde2ec664d34a5067f9b639d5c543ee89ff2eda818f04cab  xsa303-4.8/0001-Revert-xen-arm32-entry-Consolidate-DEFINE_TRAP_ENTRY.patch</a>
+<a href="xsa303-4.8/0002-xen-arm32-entry-Consolidate-DEFINE_TRAP_ENTRY-macros.patch">f1337aa8c4b38f4ab61e7206c7bd8f5c782583947d9b9e1e8c6f139db73ca2cb  xsa303-4.8/0002-xen-arm32-entry-Consolidate-DEFINE_TRAP_ENTRY-macros.patch</a>
+<a href="xsa303-4.8/0003-xen-arm32-entry-Fold-the-macro-SAVE_ALL-in-the-macro.patch">160ea6acfba85faf1cbb670b0a3873f025c0dab388f73018a22a61104e1a5fe1  xsa303-4.8/0003-xen-arm32-entry-Fold-the-macro-SAVE_ALL-in-the-macro.patch</a>
+<a href="xsa303-4.8/0004-xen-arm32-Don-t-blindly-unmask-interrupts-on-trap-wi.patch">2cc1e3282263f03c6b9c6e05039f84173b8dbc893a2cd88f80ce2275ff7478d8  xsa303-4.8/0004-xen-arm32-Don-t-blindly-unmask-interrupts-on-trap-wi.patch</a>
+<a href="xsa303-4.8/0005-xen-arm64-Don-t-blindly-unmask-interrupts-on-trap-wi.patch">63c4a90c45ae28032e0149353cafd495cce5caa8c84ad022d21b8078710e996d  xsa303-4.8/0005-xen-arm64-Don-t-blindly-unmask-interrupts-on-trap-wi.patch</a>
+<a href="xsa303/0001-xen-arm32-entry-Split-__DEFINE_ENTRY_TRAP-in-two.patch">4da48a29aaad85a410021952b2b3cb4dae14365c688e724ed7fc80feea1334df  xsa303/0001-xen-arm32-entry-Split-__DEFINE_ENTRY_TRAP-in-two.patch</a>
+<a href="xsa303/0002-xen-arm32-entry-Fold-the-macro-SAVE_ALL-in-the-macro.patch">99773cbfb6f0df5f0c83477c9dcd39127cb361213455bd2cb1f6bcfe4566d5a2  xsa303/0002-xen-arm32-entry-Fold-the-macro-SAVE_ALL-in-the-macro.patch</a>
+<a href="xsa303/0003-xen-arm32-Don-t-blindly-unmask-interrupts-on-trap-wi.patch">9e8241c311aa8da7fcb1da09b9d8b5a55c26a10f02355e37e97d1e7a3b6db7be  xsa303/0003-xen-arm32-Don-t-blindly-unmask-interrupts-on-trap-wi.patch</a>
+<a href="xsa303/0004-xen-arm64-Don-t-blindly-unmask-interrupts-on-trap-wi.patch">4c9bc0d0b27eff06f65f1a679263ffbcc8aa4c65117840284dc115ae49e7966d  xsa303/0004-xen-arm64-Don-t-blindly-unmask-interrupts-on-trap-wi.patch</a>
+$
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches and/or mitigations described above (or
+others which are substantially similar) is permitted during the
+embargo, even on public-facing systems with untrusted guest users and
+administrators.
+
+But: Distribution of updated software is prohibited (except to other
+members of the predisclosure list).
+
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+
+(Note: this during-embargo deployment notice is retained in
+post-embargo publicly released Xen Project advisories, even though it
+is then no longer applicable.  This is to enable the community to have
+oversight of the Xen Project Security Team&#39;s decisionmaking.)
+
+For more information about permissible uses of embargoed information,
+consult the Xen Project community&#39;s agreed Security Policy:
+  <a href="http://www.xenproject.org/security-policy.html">http://www.xenproject.org/security-policy.html</a>
+-----BEGIN PGP SIGNATURE-----
+
+iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAl82wNwMHHBncEB4ZW4u
+b3JnAAoJEIP+FMlX6CvZNLoH/2kCfJummrqwMAGx7Aeo94DmlsnrtafGMuzlI6Oz
+PrcYFzHzeDIWjpE8VGLB9+ELUDnB59Z8+D+OYAKkPycwr681oo8wqlBiIwnMYXGm
+kN+28k7QbKTdh+WIh/czpuB0trCESv4xHsM4owuTP1fiJ4ZZBB/lmJk8toM/9MoO
+6mhAFttGkHlUEGCFFkr943Ol2zHYm1iDB7qhefxJW2wkTsN/wxT0W0bCTZ8Ic3Cl
+rI14rOIIYEPXwmCOQwvv7qt62QayznhpKsG+/OG0sZS2OHNjFlBP6nDNPdylWUcf
+SJD19KFDaAnIB5bp6u1lK8+AAVmRM8ba1Z8HjoCWUlhhTLE=
+=Q8T0
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

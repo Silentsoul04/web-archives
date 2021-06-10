@@ -1,0 +1,121 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-215 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-215.html">XSA-215</a></td></tr><tr><th>Public release</th> <td>2017-05-02 11:18</td></tr><tr><th>Updated</th> <td>2017-05-12 10:44</td></tr><tr><th>Version</th> <td>3</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-8905">CVE-2017-8905</a></td></tr><tr><th>Title</th> <td>possible memory corruption via failsafe callback</td></tr></table><h1>Files</h1><a href="advisory-215.txt">advisory-215.txt</a> (signed advisory file)<br /><a href="xsa215.patch">xsa215.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+            Xen Security Advisory CVE-2017-8905 / XSA-215
+                              version 3
+
+           possible memory corruption via failsafe callback
+
+UPDATES IN VERSION 3
+====================
+
+CVE assigned.
+
+ISSUE DESCRIPTION
+=================
+
+Under certain special conditions Xen reports an exception resulting
+from returning to guest mode not via ordinary exception entry points,
+but via a so call failsafe callback.  This callback, unlike exception
+handlers, takes 4 extra arguments on the stack (the saved data
+selectors DS, ES, FS, and GS).  Prior to placing exception or failsafe
+callback frames on the guest kernel stack, Xen checks the linear
+address range to not overlap with hypervisor space.  The range spanned
+by that check was mistakenly not covering these extra 4 slots.
+
+IMPACT
+======
+
+A malicious or buggy 64-bit PV guest may be able to modify part of a
+physical memory page not belonging to it, potentially allowing for all
+of privilege escalation, host or other guest crashes, and information
+leaks.
+
+VULNERABLE SYSTEMS
+==================
+
+64-bit Xen versions 4.6 and earlier are vulnerable.  Xen versions 4.7
+and later are not vulnerable.
+
+Only x86 systems are affected.  ARM systems are not vulnerable.
+
+Only x86 systems with physical memory extending to a configuration
+dependent boundary (5Tb or 3.5Tb) may be affected.  Whether they are
+actually affected depends on actual physical memory layout.
+
+The vulnerability is only exposed to 64-bit PV guests.  HVM guests and
+32-bit PV guests can&#39;t exploit the vulnerability.
+
+MITIGATION
+==========
+
+Running only HVM or 32-bit PV guests will avoid the vulnerability.
+
+The vulnerability can be avoided if the guest kernel is controlled by
+the host rather than guest administrator, provided that further steps
+are taken to prevent the guest administrator from loading code into
+the kernel (e.g. by disabling loadable modules etc) or from using
+other mechanisms which allow them to run code at kernel privilege.
+
+CREDITS
+=======
+
+This issue was discovered by Jann Horn of Google Project Zero.
+
+RESOLUTION
+==========
+
+Applying the attached patch resolves this issue.
+
+xsa215.patch       Xen 4.6.x, Xen 4.5.x
+
+$ sha256sum xsa215*
+<a href="xsa215.patch">5be4ff661dd22890b0120f86beee3ec809e2a29f833db8c48bd70ce98e9691ee  xsa215.patch</a>
+$
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches and/or mitigations described above (or
+others which are substantially similar) is permitted during the
+embargo, even on public-facing systems with untrusted guest users and
+administrators.
+
+But: Distribution of updated software is prohibited (except to other
+members of the predisclosure list).
+
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+
+(Note: this during-embargo deployment notice is retained in
+post-embargo publicly released Xen Project advisories, even though it
+is then no longer applicable.  This is to enable the community to have
+oversight of the Xen Project Security Team&#39;s decisionmaking.)
+
+For more information about permissible uses of embargoed information,
+consult the Xen Project community&#39;s agreed Security Policy:
+  <a href="http://www.xenproject.org/security-policy.html">http://www.xenproject.org/security-policy.html</a>
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQEcBAEBCAAGBQJZFZIqAAoJEIP+FMlX6CvZQUoIAMBeK3zz4qoOtlR92dLGyYkT
+PlITMMsz1PbkZapt/pdsuQFVRC0P7UXdJ/u1GjJLJqOBSsUOnlJ9m9uTjDW7KJTm
+5Dch1lYO0npQLAcpr32KvDGDFt5dp+Cqn0NiGFV4yFsdMLnhW8Wyugc8DhJgVcv9
+2PPZ5IlFFlrdCs4g6jMFy7rdM/r6d6wyPQukE6L0VObHv5MsqVgg+p01/yk/uDaz
+KHSlHdfAfuxpMbKPZ2cz/rWQYN2xwV6foZ2pn1WHQln9NxXzQWSR8J5KZj3BLXME
++i1cg/aRm3jHM+SZDRXwton51SAkTpCYW5/n+QqbGJd7NN6+GMk14t8Y3wKSZVA=
+=skSs
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

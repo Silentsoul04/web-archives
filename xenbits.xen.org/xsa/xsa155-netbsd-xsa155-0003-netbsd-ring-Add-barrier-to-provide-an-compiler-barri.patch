@@ -1,0 +1,41 @@
+From b367cdba0cc3e2de4237ca74f31043141deda892 Mon Sep 17 00:00:00 2001
+From: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+Date: Tue, 24 Nov 2015 02:54:45 +0000
+Subject: [PATCH 3/5] netbsd/ring: Add 'barrier' to provide an compiler
+ barrier.
+
+We need an mechanism to disable the compiler from generating to much
+optimization. Using the 'barrier' macro will make the compiler not
+optimize variables past the 'barrier' (as in, re-use the registers
+or only read part of a value from a memory).
+
+This is part of XSA155.
+
+Signed-off-by: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+---
+ arch/xen/include/xen-public/io/ring.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/arch/xen/include/xen-public/io/ring.h b/arch/xen/include/xen-public/io/ring.h
+index 316bceb..5278d06 100644
+--- a/arch/xen/include/xen-public/io/ring.h
++++ b/arch/xen/include/xen-public/io/ring.h
+@@ -35,6 +35,7 @@
+ #define xen_mb()  mb()
+ #define xen_rmb() rmb()
+ #define xen_wmb() wmb()
++#define barrier()     __asm__ __volatile__("": : :"memory")
+ #endif
+ #endif
+ 
+@@ -42,6 +43,7 @@
+ #define xen_mb()  x86_mfence()
+ #define xen_rmb() x86_lfence()
+ #define xen_wmb() x86_sfence()
++#define barrier()     __asm__ __volatile__("": : :"memory")
+ #endif
+ 
+ typedef unsigned int RING_IDX;
+-- 
+2.5.2
+

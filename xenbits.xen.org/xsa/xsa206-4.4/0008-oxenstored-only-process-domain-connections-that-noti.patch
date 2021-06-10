@@ -1,0 +1,111 @@
+From b10466d49d925e5c9bb360847e92a8cb7f899ac9 Mon Sep 17 00:00:00 2001
+From: Zheng Li <dev@zheng.li>
+Date: Fri, 24 Mar 2017 17:03:31 +0000
+Subject: [PATCH 08/30] oxenstored: only process domain connections that notify
+ us by events
+
+Currently, upon receiving an event, oxenstored will always scan/process all
+the domain connections (xs rings), disregarding which domain sent that event.
+This is rather costy and inefficient. It also shadows and indulges client
+for not correctly communicating with us on message/space availability.
+
+With this patch, oxenstore will only scan/process the domain connections
+that have correctly notified us by events or have IO actions leftover from
+previous communication.
+
+Reported-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Zheng Li <dev@zheng.li>
+Reviewed-by: David Scott <dave.scott@citrix.com>
+---
+ tools/ocaml/xenstored/connection.ml  |  4 ++++
+ tools/ocaml/xenstored/connections.ml |  9 ++++-----
+ tools/ocaml/xenstored/xenstored.ml   | 13 ++++++++++---
+ 3 files changed, 18 insertions(+), 8 deletions(-)
+
+diff --git a/tools/ocaml/xenstored/connection.ml b/tools/ocaml/xenstored/connection.ml
+index 47695f8..807fc00 100644
+--- a/tools/ocaml/xenstored/connection.ml
++++ b/tools/ocaml/xenstored/connection.ml
+@@ -223,10 +223,14 @@ let pop_in con = Xenbus.Xb.get_in_packet con.xb
+ let has_more_input con = Xenbus.Xb.has_more_input con.xb
+ 
+ let has_output con = Xenbus.Xb.has_output con.xb
++let has_old_output con = Xenbus.Xb.has_old_output con.xb
+ let has_new_output con = Xenbus.Xb.has_new_output con.xb
+ let peek_output con = Xenbus.Xb.peek_output con.xb
+ let do_output con = Xenbus.Xb.output con.xb
+ 
++let has_more_work con =
++	has_more_input con || not (has_old_output con) && has_new_output con
++
+ let incr_ops con = con.stat_nb_ops <- con.stat_nb_ops + 1
+ 
+ let mark_symbols con =
+diff --git a/tools/ocaml/xenstored/connections.ml b/tools/ocaml/xenstored/connections.ml
+index 1c8d911..f9bc225 100644
+--- a/tools/ocaml/xenstored/connections.ml
++++ b/tools/ocaml/xenstored/connections.ml
+@@ -98,11 +98,10 @@ let iter cons fct =
+ 	iter_domains cons fct; iter_anonymous cons fct
+ 
+ let has_more_work cons =
+-	Hashtbl.fold (fun id con acc ->
+-		if Connection.has_more_input con then
+-			con :: acc
+-		else
+-			acc) cons.domains []
++	Hashtbl.fold
++		(fun id con acc ->
++		 if Connection.has_more_work con then con :: acc else acc)
++		cons.domains []
+ 
+ let key_of_str path =
+ 	if path.[0] = '@'
+diff --git a/tools/ocaml/xenstored/xenstored.ml b/tools/ocaml/xenstored/xenstored.ml
+index d74846c..4a1d027 100644
+--- a/tools/ocaml/xenstored/xenstored.ml
++++ b/tools/ocaml/xenstored/xenstored.ml
+@@ -57,7 +57,10 @@ let process_domains store cons domains =
+ 			let con = Connections.find_domain cons (Domain.get_id domain) in
+ 				Process.do_input store cons domains con;
+ 				Process.do_output store cons domains con in
+-	Domains.iter domains do_io_domain
++	List.iter
++		(fun c ->
++		 match Connection.get_domain c with
++		 | Some d -> do_io_domain d | _ -> ())
+ 
+ let sigusr1_handler store =
+ 	try
+@@ -303,6 +306,7 @@ let _ =
+ 			Connections.add_anonymous cons cfd can_write
+ 		and handle_eventchn fd =
+ 			let port = Event.pending eventchn in
++			debug "pending port %d" (Xeneventchn.to_int port);
+ 			finally (fun () ->
+ 				if Some port = eventchn.Event.virq_port then (
+ 					let (notify, deaddom) = Domains.cleanup xc domains in
+@@ -310,7 +314,10 @@ let _ =
+ 					if deaddom <> [] || notify then
+ 						Connections.fire_spec_watches cons "@releaseDomain"
+ 				)
+-			) (fun () -> Event.unmask eventchn port);
++				else
++					let c = Connections.find_domain_by_port cons port in
++					process_domains store cons domains [c]
++				) (fun () -> Event.unmask eventchn port)
+ 		and do_if_set fd set fct =
+ 			if List.mem fd set then
+ 				fct fd in
+@@ -380,7 +387,7 @@ let _ =
+ 			process_special_fds sfds;
+ 		if List.length cfds > 0 || List.length wset > 0 then
+ 			process_connection_fds store cons domains cfds wset;
+-		process_domains store cons domains
++		process_domains store cons domains mw
+ 		in
+ 
+ 	while not !quit
+-- 
+2.1.4
+

@@ -1,0 +1,76 @@
+xen: enable memory and I/O decoding before passing PCI device to guest
+
+Otherwise, with v1 of the XSA-126 fix in place, nothing will do this,
+leaving the device unusable except for malicious purposes.
+
+This is part of CVE-2015-2756 / XSA-126.
+
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Ian Campbell <ian.campbell@citrix.com>
+
+--- a/hw/pass-through.c
++++ b/hw/pass-through.c
+@@ -1905,7 +1905,7 @@ static int pt_dev_is_virtfn(struct pci_d
+     return rc;
+ }
+ 
+-static int pt_register_regions(struct pt_dev *assigned_device)
++static int pt_register_regions(struct pt_dev *assigned_device, uint16_t *cmd)
+ {
+     int i = 0;
+     uint32_t bar_data = 0;
+@@ -1925,17 +1925,26 @@ static int pt_register_regions(struct pt
+ 
+             /* Register current region */
+             if ( pci_dev->base_addr[i] & PCI_ADDRESS_SPACE_IO )
++            {
+                 pci_register_io_region((PCIDevice *)assigned_device, i,
+                     (uint32_t)pci_dev->size[i], PCI_ADDRESS_SPACE_IO,
+                     pt_ioport_map);
++                *cmd |= PCI_COMMAND_IO;
++            }
+             else if ( pci_dev->base_addr[i] & PCI_ADDRESS_SPACE_MEM_PREFETCH )
++            {
+                 pci_register_io_region((PCIDevice *)assigned_device, i,
+                     (uint32_t)pci_dev->size[i], PCI_ADDRESS_SPACE_MEM_PREFETCH,
+                     pt_iomem_map);
++                *cmd |= PCI_COMMAND_MEMORY;
++            }
+             else
++            {
+                 pci_register_io_region((PCIDevice *)assigned_device, i,
+                     (uint32_t)pci_dev->size[i], PCI_ADDRESS_SPACE_MEM,
+                     pt_iomem_map);
++                *cmd |= PCI_COMMAND_MEMORY;
++            }
+ 
+             PT_LOG("IO region registered (size=0x%08x base_addr=0x%08x)\n",
+                 (uint32_t)(pci_dev->size[i]),
+@@ -4211,6 +4220,7 @@ static struct pt_dev * register_real_dev
+     struct pt_dev *assigned_device = NULL;
+     struct pci_dev *pci_dev;
+     uint8_t e_device, e_intx;
++    uint16_t cmd = 0;
+     char *key, *val;
+     int msi_translate, power_mgmt;
+ 
+@@ -4300,7 +4310,7 @@ static struct pt_dev * register_real_dev
+         assigned_device->dev.config[i] = pci_read_byte(pci_dev, i);
+ 
+     /* Handle real device's MMIO/PIO BARs */
+-    pt_register_regions(assigned_device);
++    pt_register_regions(assigned_device, &cmd);
+ 
+     /* Setup VGA bios for passthroughed gfx */
+     if ( setup_vga_pt(assigned_device) < 0 )
+@@ -4378,6 +4388,10 @@ static struct pt_dev * register_real_dev
+     }
+ 
+ out:
++    if (cmd)
++        pci_write_word(pci_dev, PCI_COMMAND,
++            *(uint16_t *)(&assigned_device->dev.config[PCI_COMMAND]) | cmd);
++
+     PT_LOG("Real physical device %02x:%02x.%x registered successfuly!\n"
+            "IRQ type = %s\n", r_bus, r_dev, r_func,
+            assigned_device->msi_trans_en? "MSI-INTx":"INTx");

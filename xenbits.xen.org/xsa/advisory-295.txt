@@ -1,0 +1,248 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+    Xen Security Advisory CVE-2019-17349,CVE-2019-17350 / XSA-295
+                              version 2
+
+                  Unlimited Arm Atomics Operations
+
+UPDATES IN VERSION 2
+====================
+
+CVEs assigned.
+
+ISSUE DESCRIPTION
+=================
+
+Software targeting pre-Armv8.1-A hardware, Xen included, commonly
+implements atomics using Load/Store exclusive instructions in a loop
+that will terminate once the store succeeded.
+
+As per the Armv8-A Architecture Reference Manual (ARM DDI0487D.a),
+paragraph 2.9.5 "Load-Exclusive and Store-Exclusive instruction usage
+restrictions", page B2-143:
+
+"""
+It is permissible for the LoadExcl / StoreExcl loop not to make
+forward progress if a different thread is repeatedly doing any of the
+following in a tight loop:
+- - Performing stores to a PA covered by the Exclusives monitor.
+- - Prefetching with intent to write to a PA covered by the Exclusives
+  monitor.
+- - Executing data cache clean, data cache invalidate, or data cache clean
+  and invalidate instructions to a
+  PA covered by the Exclusives monitor.
+- - Executing instruction cache invalidate all instructions.
+- - Executing instruction cache invalidate by VA instructions to a PA
+  covered by the Exclusives monitor.
+"""
+
+The underlying LoadExcl or StoreExcl operation might never succeed,
+resulting in an unlimited loop in the hypervisor.
+
+A similar, but independent, issue occurs when compare-and-exchange
+operations are misused:
+
+ do
+ {
+   old = *addr;
+ }
+ while (cmpxchg(addr, old, new) != new);
+
+This pattern is not safe, because the operation may continuously fail if
+another thread in a guest is continuously modifying the value. An
+instance of this pattern was found in Xen.
+
+
+IMPACT
+======
+
+An attacker in a domU could perform a denial of service attack on Xen by
+accessing a memory region shared with the hypervisor, while Xen is
+performing an atomic operation on the same region. As a result Xen could
+end up looping boundlessly. See the issue description for more details
+on the memory accesses that affect LoadExcl and StoreExcl operations.
+
+
+VULNERABLE SYSTEMS
+==================
+
+Systems running all versions of Xen are affected.
+
+x86 processors are not affected.
+Arm processors are vulnerable, both Armv7 and Armv8.
+
+
+NOTE REGARDING LACK OF EMBARGO
+==============================
+
+Other Open Source projects released fixes to the public before we could
+arrange for an organized disclosure.
+
+
+MITIGATION
+==========
+
+There are no mitigations.
+
+
+CREDITS
+=======
+
+This issue was discovered by Andrew Cooper of Citrix and Julien Grall of
+Arm.
+
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patches resolve this issue.
+
+Please note that these patches enable SILO mode by default, which denies
+communications between unprivileged guests. Page sharing between domUs,
+thus inter-domains communications and driver domains, are not allowed by
+SILO mode. It is necessary to have a complete fix to this vulnerability.
+
+SILO mode is required because the fix relies on Xen being able to
+pinpoint the domain owner of the shared page. Without SILO mode, a guest
+could share a page with Xen and with a second guest (e.g via grant
+table): the second guest could use the foreign page to attack the
+hypervisor.
+
+Users are encouraged to write their own Flask policies to enable more
+complex configurations. For example, Flask could be used to allow page
+sharing between trusted virtual machines (trusted by the administrator).
+
+xsa295/unstable-*.patch         xen-unstable
+xsa295/4.12-*.patch             Xen 4.12.x
+xsa295/4.11-*.patch             Xen 4.11.x
+xsa295/4.10-*.patch             Xen 4.10.x
+xsa295/4.9-*.patch              Xen 4.9.x
+xsa295/4.8-*.patch              Xen 4.8.x
+
+$ sha256sum xsa295* xsa295*/*
+697d0e7d2535b573596087cc0228891d7cb48a3dd2527e1d277bf501132403f4  xsa295.meta
+d3205f79cc2dd34a7359cf7c692dd5c00c3e488ccbb503fdd93606133a15aeb9  xsa295/4.8-01.patch
+995ac1a3a4fb7e8ef48664fec8a98963ee84582c1b70ece36ddeaa8889a63274  xsa295/4.8-02.patch
+9b30579cd9043aff58626da159f58519795323d2a6e8dde86b4e5ca667c64828  xsa295/4.8-03.patch
+63cbc7cae8636f496dbf6c743eda2dbc8acdcdcd010546f362f39c461d064b7e  xsa295/4.8-04.patch
+174ce3aadcf28f241106c506e1494ad1343f924e747e8f86073ab375803e15e2  xsa295/4.8-05.patch
+c5d18e3471a9d7dd3f5cef3f56ecb8b54a2a836c4529e9247d1c15332fc6eec9  xsa295/4.8-06.patch
+ebe7a57cc436004cb0bcd3acc9e37a4e8c4b76cc9fde5811587758260bd8ce01  xsa295/4.8-07.patch
+4b45b2e741edc33eb2ed7f55994b12ef7bddd65c8c89856ceba373704a1add03  xsa295/4.8-08.patch
+8493a5367589988310681b09d775009c6feabb696a308f69ae6cb254d445d80d  xsa295/4.8-09.patch
+dd226d28c19b2dc2bc68ebb03d7f573273506ce96c3b31a4f627f9682b32f094  xsa295/4.8-10.patch
+70af876fb95e11b73a532fa560ddf0e2057668526455618da54faef5aaa19908  xsa295/4.8-11.patch
+97ad268d6be9becb6718e688517bb9e8ded2781e62a384383d7d089833c4af75  xsa295/4.8-12.patch
+d6885314e52daaf27403a013f896a3a55c4faefa74989047aff90e97368125e7  xsa295/4.8-13.patch
+7639b0eb9bdc02fe324163c40ce913e886a56d523435cc6977e268ad81dcc4fe  xsa295/4.8-14.patch
+1835d88402ce9095c37c604fc5b20f8b48d1c2e15d320336e7b1c11c0f0bad82  xsa295/4.8-15.patch
+54346a21cdda49a403244d223e552384557f3f09ef4a5aa3d5e3efa989a9bd27  xsa295/4.8-16.patch
+07ebef935818163e29621d7bc319ae599e0f0347cf585b9a463ae36a809954c7  xsa295/4.8-17.patch
+7106193d65afc7c43f7aa4d92e12d8374117b9364acb59d84f5687eb19ad1aee  xsa295/4.8-18.patch
+70fad082b2c921c3c01ee2a46cd0826a7e96e90b423322f3abf7d42535f74a53  xsa295/4.8-19.patch
+c9f3cf4ae11de9347fe385c75714f2fb03f63e165253b80ba00d2138ccc424b4  xsa295/4.8-20.patch
+fc2fb134941e45849d66b7ac41915d4188fa692ad679bbc982d8a13f4cca459e  xsa295/4.8-21.patch
+9f9aba779f1ec0e50a13f6c4ea57bf69bcb98bc06a3c1612bc70b0e579e4e67e  xsa295/4.9-01.patch
+8b853a24049f419413b8854bf2ccbb21cb2f730083f70878d5ed9b9e16943a9e  xsa295/4.9-02.patch
+b1658c003d1c15444c11119b4f5d11fdbb0fea3d86a3611e37fe763eff53ed11  xsa295/4.9-03.patch
+3fb7cf8d10a0c6c7dc597fe86ed22aa63a65bc6c6a55a8a4eb36d92b524c84c9  xsa295/4.9-04.patch
+73e3796e4a159dcb670e315ded2dc3cce4bc6aec805300906fd9f82ff246144f  xsa295/4.9-05.patch
+b07f7aa9f18434ae49cbbdbc67e63ae20fd12b06dc2a564a8b2f12fb45ac9766  xsa295/4.9-06.patch
+09ac28c464dea4438714691d93d7b6dfeb06f00a482a46e3f6f20e0f5fd9c24e  xsa295/4.9-07.patch
+492d2f5691ba330290c61c497d9da5c7681da046c4da06c0e3c90fe8ddfe5fed  xsa295/4.9-08.patch
+5dc39df41cfc3f5dde06f6c4eb7044d6ff1d655285a650ecab01dc93ec625908  xsa295/4.9-09.patch
+a5f1813ae070efe7508f1a128c197f6b0c6fe72d206a48597407c77bae434490  xsa295/4.9-10.patch
+b603b7e6eb2b5f6a5ac17ce12fede6f4e804f36d8c352e70433f93068d99d15b  xsa295/4.9-11.patch
+dd4e444355797dc0eb29de3f50a00b6fe02e29bc2675e5fb286f448f2d14bb03  xsa295/4.9-12.patch
+e4a659e259d16150441041b08433c423fe8ab1e13fb2496ba887733fabd23654  xsa295/4.9-13.patch
+2230d8930aff9dcafa46f643d1b9e4d405edf0a0c5639a28e8f5c929154ad093  xsa295/4.9-14.patch
+087a022013cf8e0b05b957702500505eea08a9236efb2df4e3b475e8fa6257d6  xsa295/4.9-15.patch
+acf80303cb5d59a42ec46d6b1bc5352ee9c013ca8688ae05c2d3192b68479ce5  xsa295/4.9-16.patch
+6ffc97f683b906848697b5b0781741c7f180c5a37da4b59e042f43b9cbf7d0ff  xsa295/4.9-17.patch
+c5b4fcf27fef8cbfde888794b1f6a8feec555afea7d702bbb87580ffcea18409  xsa295/4.9-18.patch
+3d72dfa40832045f141e9f66f8b10d1cd54d4117df3a8590447ae0523b98efb3  xsa295/4.9-19.patch
+aba4702d8bcff9bb6397cf24b2c347532052a91d19269f6ada30bd490a5fa873  xsa295/4.9-20.patch
+a9872522ad97da690ffe82888c9f5b68f225a80396a8bcee6c4819b1bbf98604  xsa295/4.10-01.patch
+6a3b764546ee0350318f0c95f617604d9805bde68357a3b89232768e8b6fbeff  xsa295/4.10-02.patch
+73c72344ac6fc05db85d73c1cfb28302fe3e73a01d450eb4360bbced78f16b05  xsa295/4.10-03.patch
+9ce62928555859e4689645a251f6501726bf36fc3c4250579d66afc36a22d424  xsa295/4.10-04.patch
+21e5d8817b9b5afd13efff4efa72dabfe56dfed3e44241355816ffe65d02b179  xsa295/4.10-05.patch
+b9288a8a7cdfdc2a36051f16850c3dd792f0b19ea9cc297acdbcb9b2223b0051  xsa295/4.10-06.patch
+1d7b7dbfe26853f36b434370ddd2e474ae16d40fd958b2148fa08dc46f6c8e48  xsa295/4.10-07.patch
+220546808af75e8306a4cc6a069db3cf1c1b1a5a355a62a504333222957ca5d8  xsa295/4.10-08.patch
+0687490d095b175ab2c1cf86b1eb8f6533fb06b03c374499ed4bea938e611cd4  xsa295/4.10-09.patch
+eb6f44dcd14aa7ebe481f6144fca845707ca6fc1f44391a88a25779cf06e6424  xsa295/4.10-10.patch
+62c8eb33864e72006e31c25ff5bd222e0c40542d5e851366c8360c68d9d54294  xsa295/4.10-11.patch
+f87a658afca43c9bd7e24ad31fcf1559e5dd4412397a70812b56f002956e5351  xsa295/4.10-12.patch
+4448828b6bdfd805a4704f90481b3c0071b6ce68b48d0e1d87413c92870e143d  xsa295/4.10-13.patch
+75e1524c6be1141c428cc37ec793de3af361e428f3e2077135f5a677166c53f6  xsa295/4.10-14.patch
+0670dd8bd1914d88d2e602d01e91d0115181dbe3c6c2edd917cef8c4b56cb692  xsa295/4.10-15.patch
+6464077fae9fbf5b946309dc54f6b2b8b8182c606bdafd73813394cd0e6c2b8a  xsa295/4.10-16.patch
+e38bd1a2f251526d439bcefcab857ea8bbd18285fbe033410e1ef760d2ee7962  xsa295/4.10-17.patch
+b349b5da41ef94a71d8c473ec08f4785024e93f2d3d69842a0a25f8e5cc79779  xsa295/4.10-18.patch
+0c02c336c245be5ab9e9a9dca071750f1e4ce32e5bb09561989964fcd492ea81  xsa295/4.10-19.patch
+c2c9b558dee16f3f994bfe33ed29caa5f4b5ef58be2eba91ce5e7bf1ba893d15  xsa295/4.10-20.patch
+877e4bf9c4f102b1b11118cca2f328f2bf7b41270661e5390b687126ff74b7ea  xsa295/4.11-01.patch
+8828b593a291aa264863734809d87bb40e311a5572e26439f1dd49d9aa5014d5  xsa295/4.11-02.patch
+85288a06596ffdfaf9426e775c4d8f2d9be8d9a0804ea76728ed8e4098125142  xsa295/4.11-03.patch
+d8d48305ff0c7bdb4597c4959c646634522de58c2822679ec2d0f6f4745cffa1  xsa295/4.11-04.patch
+d54609119a03b1c53f3808f0656e3ce79093b222643170fd785787898c663321  xsa295/4.11-05.patch
+c9e199287df3cf0dfa8bb52789b520bad8787fb974685bc2c3c7a27c8ff301c3  xsa295/4.11-06.patch
+8b2d0375fd9ea3cb8cad8875448ec6669b7522355da17ff11e52a701468e72ce  xsa295/4.11-07.patch
+c3462a37673aadde2bd7230afd8a47111dda5368dff193ada7d107880f66ba21  xsa295/4.11-08.patch
+7df8c127a45b7a7a50aa4c95d239b44bf022e2ea4e775a8da3b807482bfe81c6  xsa295/4.11-09.patch
+244fa2153b8d55ba971b447365c329dfe286bbe773b3b006f34c822c21aa879b  xsa295/4.11-10.patch
+2669b7dbe75260f4b6271d88acc42675e022045f7287f2c503fab0d906d50c5a  xsa295/4.11-11.patch
+f864bb6dd86cfcf6aefded4f4880b478bd19978a8dde515dffcbee5ef148455e  xsa295/4.11-12.patch
+06d968f993ddb72417ba69a2d40a08978cef310a9857b371d037d5bb0172e2f8  xsa295/4.11-13.patch
+1ca901e0749609de29bddd39ca00986820cd29967ba1bddd56baef2e00984324  xsa295/4.11-14.patch
+7268bd14fb09f9549609c18a3c343e5d60861266e945b283bab88692b26f0f64  xsa295/4.11-15.patch
+fb900e58c372a96bbb08ee7b0bda1289a31082675095d2f05775a91b8c76fca1  xsa295/4.11-16.patch
+072c5840a5ca99383be2cfb5bf15b233dc132a62cbb500d7c8e43b7602b84bfa  xsa295/4.11-17.patch
+64b4b10209e3856dbbba7e4ce650de5c81e543e493efb6d7dc9ff4c349f8433c  xsa295/4.11-18.patch
+3fe4ee39b93fb54a4bebb6944724e2db9bd3829cfdd47d58f66b797bc3c3e7dc  xsa295/4.11-19.patch
+b480df66dcbae4c06e6e1311b2d84b9b8b5397978d0ce97db65e813e4af6a368  xsa295/4.11-20.patch
+f9ee8d83060b9389fb781e0f8ed5cfb65b5832e2f28b0c8d92c6dd5f3c8ec6b9  xsa295/4.12-01.patch
+f1682b9eb028fadbe45e0570ec1c2f22bbd9259cc774220f06bc5c68e49c5679  xsa295/4.12-02.patch
+2a4305b103f420abaed5e906e20041f833a62fb72f16b2b78563368c6e0d3313  xsa295/4.12-03.patch
+daa9e6dd1c4600449f3ec552fb9143e79de5027c84e89998b663d74eaa8999e4  xsa295/4.12-04.patch
+79b7d9bb516415665c257d267937aac193e233d29ae068f227754f3dd3769c02  xsa295/4.12-05.patch
+c56fde989d3a18b16a526546ec9f8098eb4c4f4d85e98f5b49cda18cefad9d92  xsa295/4.12-06.patch
+840f9a8c65da834a590850fe7300334e9066a40eb43a35a15b4fefe4e898736d  xsa295/4.12-07.patch
+103067f269a694af8ae3fb83cc1923bbf8aea5283216ac70a6a2191e64d8e978  xsa295/4.12-08.patch
+95ca3b81360f2372daf2d6999623f296ee54493341d8dcba862750bfd9980e78  xsa295/4.12-09.patch
+3d2620e73531dc2b1f2731ea73d992a754233de2f23a9b908db52f944b2f8cd4  xsa295/4.12-10.patch
+b75e38d8d38d9b604dd6e94e790cfd2703cf029a507527744fee9514b25346aa  xsa295/4.12-11.patch
+7f5cfae93d930cb085e053013f0008a98ca0e4ae14a616e112470f994db87809  xsa295/4.12-12.patch
+7d247d7207d96da1fc1be4e309be0e3fec273bc2c7401903a1dcc8b2cfd8831e  xsa295/4.12-13.patch
+9bbf771a4b10aa64e55fe8d5c6d1e4babb03707b8373520fad6c59b3c77514fe  xsa295/4.12-14.patch
+fc8af641c4926184785ac5f742ec8afaeeb883ba5a21cf171a814e6ba7955176  xsa295/4.12-15.patch
+a16189f5c743283f2cce8d346d8c47c950c874705427947f79cd65d78ecd0c5c  xsa295/4.12-16.patch
+e06d5caf859920625bd955b53ade9d2cba314d32ceb41fdc63aba4974bcdc5a2  xsa295/4.12-17.patch
+ce0ef520e70907b53d132be34d319606f234b22a331cdc132e5511b49775e516  xsa295/unstable-01.patch
+ab0ceb33ab640f51b8a42b85c2b0ada395b7ce10597a81534447a6cd4f15342d  xsa295/unstable-02.patch
+eb4681d172bf17c5023235dce4191cca69ba72f3664ed80e7c180101015c4960  xsa295/unstable-03.patch
+788377a285d0b57619c4e3ca35b88a0fc3f9f0823a5675d5c6de0eb488c79a26  xsa295/unstable-04.patch
+1886b2b45a9be0d50c2f1bdbe20657e6a3d3b3634c0f4bd093fb4e70342a6fdc  xsa295/unstable-05.patch
+a33d4c969e2d22d9c56135b1c97cb440724ba27af786c211a3287a1981abc30a  xsa295/unstable-06.patch
+b9fc6a5a2e72dbe821f03819ce6c4b0edf07fd876cafbefc36d759099b65396e  xsa295/unstable-07.patch
+1185d465944418de5fc1d100f506905a629228722020f37d58d23c6bb67e92e3  xsa295/unstable-08.patch
+26eda405b47c4b0c5efddb4fd99ed2c200cf0064d6fc26c5eab2fe2485241274  xsa295/unstable-09.patch
+9fa8d50da43782b1032eac0b672a1e81fdce70bc5826b959003d3fc84724fddd  xsa295/unstable-10.patch
+59592868ac1cde2e72ec347715a204ffe95b434d445ce21d63eb70866f2c0298  xsa295/unstable-11.patch
+84f55da76a8788bfe9667cd7aa7e2c9fd046903388e818afb18e5b78b161d67b  xsa295/unstable-12.patch
+9d3992567ede2ab61675de19a22d19e3e67b67e5f9bac7812e4551f55766cde6  xsa295/unstable-13.patch
+c9f07ae61870d09e68f621b6d68943c9bcd041af3a71ba7fe42578cb9d1c6748  xsa295/unstable-14.patch
+5b4c18f5f11401cf2d4421f27d93bb92053e78da1f88f371f381287298c29fa9  xsa295/unstable-15.patch
+-----BEGIN PGP SIGNATURE-----
+
+iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAl2y1/0MHHBncEB4ZW4u
+b3JnAAoJEIP+FMlX6CvZW30H/17lB1djWFA0ziNAGWnEVYhveWaznY4yJuQD8VDI
+wGhYroU35WRLaKz23gexestMBC3BkMGonyXBJryYVG7VBZ61lDSml8DGmWucGpTB
+jE5iB5gVX+TRiFvowxb+Qoo/cWhoFN2qv8FgfcKNrE/cdJLvWJvdGP9lrq5KTVHL
+J0z4WxbBnC8LYCPS7nFufLH65s6bHjOr/aauoEwPPb5RN2Ik/8fVb6vbQs7empO9
+OeDLEzrw4qqoLbIPQtgvVPXVZ/Mdx1t2/qMF8vYjKjY5UF6O4Qhw7X4bQRuQ92fx
+I9xs5eIqJshymFzgYNzYcFm/oXCFIcu4fj9QqmC441pIyWo=
+=hqlB
+-----END PGP SIGNATURE-----

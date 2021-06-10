@@ -1,0 +1,50 @@
+From: Stefano Stabellini <sstabellini@kernel.org>
+Subject: ARM: disable grant table v2
+
+It was never expected to work, the implementation is incomplete.
+
+As a side effect, it also prevents guests from triggering a
+"BUG_ON(page_get_owner(pg) != d)" in gnttab_unpopulate_status_frames().
+
+This is XSA-268.
+
+Reported-by: 王磊 <lei19.wang@samsung.com>
+Signed-off-by: Stefano Stabellini <sstabellini@kernel.org>
+Acked-by: Jan Beulich <jbeulich@suse.com>
+
+--- a/docs/misc/xen-command-line.markdown
++++ b/docs/misc/xen-command-line.markdown
+@@ -885,6 +885,8 @@ version are 1 and 2.
+ use of grant table v2 without transitive grants is an ABI breakage from the
+ guests point of view.
+ 
++The usage of gnttab v2 is not security supported on ARM platforms.
++
+ ### gnttab\_max\_frames
+ > `= <integer>`
+ 
+--- a/xen/common/grant_table.c
++++ b/xen/common/grant_table.c
+@@ -62,7 +62,11 @@ integer_param("gnttab_max_frames", max_g
+ static unsigned int __read_mostly max_maptrack_frames;
+ integer_param("gnttab_max_maptrack_frames", max_maptrack_frames);
+ 
+-static unsigned int __read_mostly opt_gnttab_max_version = 2;
++#ifndef GNTTAB_MAX_VERSION
++#define GNTTAB_MAX_VERSION 2
++#endif
++
++static unsigned int __read_mostly opt_gnttab_max_version = GNTTAB_MAX_VERSION;
+ static bool __read_mostly opt_transitive_grants = true;
+ 
+ static int __init parse_gnttab(const char *s)
+--- a/xen/include/asm-arm/grant_table.h
++++ b/xen/include/asm-arm/grant_table.h
+@@ -4,6 +4,7 @@
+ #include <xen/grant_table.h>
+ 
+ #define INITIAL_NR_GRANT_FRAMES 4
++#define GNTTAB_MAX_VERSION 1
+ 
+ void gnttab_clear_flag(unsigned long nr, uint16_t *addr);
+ int create_grant_host_mapping(unsigned long gpaddr,

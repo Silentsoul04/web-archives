@@ -1,0 +1,82 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-94 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-94.html">XSA-94</a></td></tr><tr><th>Public release</th> <td>2014-04-23 13:05</td></tr><tr><th>Updated</th> <td>2014-04-23 15:12</td></tr><tr><th>Version</th> <td>2</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-2986">CVE-2014-2986</a></td></tr><tr><th>Title</th> <td>ARM hypervisor crash on guest interrupt controller access</td></tr></table><h1>Files</h1><a href="advisory-94.txt">advisory-94.txt</a> (signed advisory file)<br /><a href="xsa94.patch">xsa94.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+              Xen Security Advisory CVE-2014-2986 / XSA-94
+                             version 2
+
+      ARM hypervisor crash on guest interrupt controller access
+
+UPDATES IN VERSION 2
+====================
+
+This issue has been assigned CVE-2014-2986.
+
+ISSUE DESCRIPTION
+=================
+
+When handling a guest access to the virtual GIC distributor (interrupt
+controller) Xen could dereference a pointer before checking it for
+validity leading to a hypervisor crash and host Denial of Service.
+
+IMPACT
+======
+
+A buggy or malicious guest can crash the host.
+
+VULNERABLE SYSTEMS
+==================
+
+Both 32- and 64-bit ARM systems are vulnerable from Xen 4.4 onward.
+
+x86 systems are not vulnerable.
+
+MITIGATION
+==========
+
+None.
+
+NOTE REGARDING LACK OF EMBARGO
+==============================
+
+This bug was publicly reported on xen-devel, before it was appreciated
+that there was a security problem.
+
+CREDITS
+=======
+
+The initial bug was discovered by Thomas Leonard and the security
+aspect was diagnosed by Julien Grall.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+xsa94.patch        xen-unstable, Xen 4.4.x
+
+$ sha256sum xsa94*.patch
+<a href="xsa94.patch">ad0f20577400756a1786daeafef86fa870727ec35b48f71f565e4a30dcbda58d  xsa94.patch</a>
+$
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.12 (GNU/Linux)
+
+iQEcBAEBAgAGBQJTV9hdAAoJEIP+FMlX6CvZmDwH/2sBH/w9kPhOu+hdOAMX3dlb
+bmj1sLTehOKqEy8sZpDsCuJw8cRAIQn+xWPMDPj2lUggz5iVWHUgfs4Zk8o9l3qQ
+9/RcnQQHFSw1Bu8lDLlH0FpE6R98ZcdX//PAviJewj10FiMOpIoBSzNpKLxst1IZ
+5YPmBVCn6DfgsCjWYPPaGQMLtBWU/LbAPmpYUiIDywOd58OScekNL2hfKM0ZWzgo
+HPuB2DwpPsj7P43kuEJyXIHYLu00see+uEXXKd591mmznVtSXSrzVVaKPjeTfh9D
+WEGqCxOof5slzwofbMFflBL1SW6d6f0Llui/7cMEDITSXeCaP2wqMb34p/g68+w=
+=BNcq
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

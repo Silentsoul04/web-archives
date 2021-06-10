@@ -1,0 +1,155 @@
+From 4967b9eff36f637f9e608559b15e12553b0b9322 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>
+Date: Wed, 4 Nov 2020 20:00:46 +0000
+Subject: XSA-354: ls_lR: add quota
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+xenopsd watches certain sub-trees in the guest:
+vm-data, FIST, drivers, attr, data, control, feature, xenserver/attr
+
+vm-data is replicated as is into the XAPI database, which raises a DoS
+concern: each key update is amplified in DB and message-switch traffic:
+the entire VM objects needs to be read and written back, which results
+in O(N^2) operation if we insert N keys.
+
+VMs do have xenstore quotas, but even when they work they are fairly
+large (8192 keys). It is not easy to reduce that quota (calculating
+number of keys legitimately needed for 255 disks, 8 NICs, 32 vCPUs,
+etc.) results in ~7000 keys already.
+
+However vm-data is not meant as a general purpose data store, and
+although it probably shouldn't have existed in the first place, we can't
+change that for LCM releases. Lets at least add a small quota on it,
+such that N^2 isn't too big.
+
+With this change xenopsd doesn't run out of memory anymore (as long as
+oxenstored properly enforces quota).  Now a VM should only be able to
+store ~2.3MiB, instead of ~144MiB which is a significant reduction.
+
+We should consider introducing a limit in bytes, although that would be
+more complicated because the XML serialization can amplify the size
+(e.g. " gets turned into &quot;) and is a XAPI implementation detail.
+
+Signed-off-by: Edwin Török <edvin.torok@citrix.com>
+Acked-by: Christian Lindig <christian.lindig@citrix.com>
+
+diff --git a/lib/xenopsd.ml b/lib/xenopsd.ml
+index cb418516..94c55930 100644
+--- a/lib/xenopsd.ml
++++ b/lib/xenopsd.ml
+@@ -66,6 +66,9 @@ let numa_placement = ref false
+ (* This is for debugging only *)
+ let numa_placement_strict = ref false
+ 
++(* O(N^2) operations, until we get a xenstore cache, so use a small number here *)
++let vm_xenstore_ls_lR_quota = ref 128
++
+ let options =
+   [
+     ( "queue"
+@@ -169,6 +172,10 @@ let options =
+     , (fun () -> string_of_bool !pci_quarantine)
+     , "True if IOMMU contexts of PCI devices are needed to be placed in \
+        quarantine" )
++  ; ( "vm-xenstore-ls-lR-quota"
++    , Arg.Set_int vm_xenstore_ls_lR_quota
++    , (fun () -> string_of_int !vm_xenstore_ls_lR_quota)
++    , "Maximum entries in VM xenstore trees watched by xenopsd" )
+   ]
+ 
+ let path () = Filename.concat !sockets_path "xenopsd"
+diff --git a/xc/xenops_server_xen.ml b/xc/xenops_server_xen.ml
+index 84c59f13..31a22186 100644
+--- a/xc/xenops_server_xen.ml
++++ b/xc/xenops_server_xen.ml
+@@ -2591,42 +2591,71 @@ module VM = struct
+                      (Uuidm.to_string uuid))
+               with Xs_protocol.Enoent _ -> ""
+             in
+-            let ls_l root dir =
++            let ls_l ~depth root dir =
+               let entry = root ^ "/" ^ dir in
+               let value_opt =
+                 try Some (dir, xs.Xs.read entry) with _ -> None
+               in
+               let subdirs =
+-                try
+-                  xs.Xs.directory entry
+-                  |> List.filter (fun x -> x <> "")
+-                  |> map_tr (fun x -> dir ^ "/" ^ x)
+-                with _ -> []
++                if depth < 0 then
++                  []
++                (* depth limit reached, at a depth of 0 we still read entries/values, but stop
++                 * descending into subdirs *)
++                else
++                  try
++                    xs.Xs.directory entry
++                    |> List.filter (fun x -> x <> "")
++                    |> map_tr (fun x -> dir ^ "/" ^ x)
++                  with _ -> []
+               in
+               (value_opt, subdirs)
+             in
+-            let rec ls_lR root acc dir =
+-              let value_opt, subdirs = ls_l root dir in
+-              let acc =
+-                match value_opt with Some v -> v :: acc | None -> acc
+-              in
+-              List.fold_left (ls_lR root) acc subdirs
++            let rec ls_lR ?(depth = 512) root (quota, acc) dir =
++              if quota <= 0 then
++                (quota, acc) (* quota reached, stop listing/reading *)
++              else
++                let value_opt, subdirs = ls_l ~depth root dir in
++                let quota, acc =
++                  match value_opt with
++                  | Some v ->
++                      (quota - 1, v :: acc)
++                  | None ->
++                      (quota, acc)
++                in
++                let depth = depth - 1 in
++                List.fold_left (ls_lR ~depth root) (quota, acc) subdirs
+             in
+-            let guest_agent =
++            let quota = !Xenopsd.vm_xenstore_ls_lR_quota in
++            let quota, guest_agent =
+               [
+                 "drivers"; "attr"; "data"; "control"; "feature"; "xenserver/attr"
+               ]
+               |> List.fold_left
+                    (ls_lR (Printf.sprintf "/local/domain/%d" di.Xenctrl.domid))
+-                   []
+-              |> map_tr (fun (k, v) -> (k, Xenops_utils.utf8_recode v))
++                   (quota, [])
++              |> fun (quota, acc) ->
++              (quota, map_tr (fun (k, v) -> (k, Xenops_utils.utf8_recode v)) acc)
+             in
+-            let xsdata_state =
++            let quota, xsdata_state =
+               Domain.allowed_xsdata_prefixes
+               |> List.fold_left
+                    (ls_lR (Printf.sprintf "/local/domain/%d" di.Xenctrl.domid))
+-                   []
++                   (quota, [])
+             in
++            ( if quota <= 0 then
++                let path =
++                  Device_common.xenops_path_of_domain di.Xenctrl.domid
++                  ^ "/ls_lR_quota_reached"
++                in
++                try
++                  let (_ : string) = xs.Xs.read path in
++                  ()
++                with _ -> (
++                  debug "xenstore ls_lR quota reached for domid %d"
++                    di.Xenctrl.domid ;
++                  try xs.Xs.write path "t" with _ -> ()
++                )
++            ) ;
+             let shadow_multiplier_target =
+               if not di.Xenctrl.hvm_guest then
+                 1.

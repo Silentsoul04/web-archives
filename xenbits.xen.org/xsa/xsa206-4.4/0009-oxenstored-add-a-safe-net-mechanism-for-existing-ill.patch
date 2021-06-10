@@ -1,0 +1,248 @@
+From af37817fe5c03f17855b27f7b768783797318987 Mon Sep 17 00:00:00 2001
+From: Zheng Li <dev@zheng.li>
+Date: Fri, 24 Mar 2017 17:04:23 +0000
+Subject: [PATCH 09/30] oxenstored: add a safe net mechanism for existing
+ ill-behaved clients
+
+In previous commit, we moved from exhaustively scanning all domain connections
+to only processing those have correctly notified us by events. The benefits are
+not only efficiency but also correctness, because it could potentially block an
+ill-behaved client and have it waiting on its own mistake. If someone makes a
+mistake on this when developing a piece of code, he/she would immediately
+notice the problem (as the process being blocked), so that he/she could fix it
+rightaway before anything else. Note that the chances of making such mistakes
+are rare in reality, because most client code would use the libxenstore library
+(which has all the notification logic built in correctly) instead of having to
+implement raw accessing from scratch.
+
+On the other hand, we did notice that there were some legacy code that didn't do
+the notification correctly. As some code might be still running in wild, it
+would be bad if they break by this change (e.g. after an upgrade). This patch
+introduces a safe net mechanism to ensure ill-behaved clients continue to work,
+but still retain most of the performance benefits here.
+
+  * We add a checker to still scan all the rings periodically, so that we can
+    still pick up these messages at an acceptable frequency.
+
+  * Internally, we introduce an io_credit concept for domain connections. It
+    represents the rounds of ring scan we are going to perform on a domain
+    connection. For well-behaved connections, this value is changing between 0
+    and 1; but for connections detected as ill-behaved, we'll bump its credit
+    to a high value so that we'll unconditionally scan its ring for the next
+    $n$ rounds. This way, the client won't hiccupped by the interval between
+    checker's running (especially during periods when it continously interacts
+    with oxenstored); and oxenstored doesn't have to keep scanning these
+    rings indefinitely (with the credit running out), as they are usually quite
+    most of the time.
+
+  * We log an message when a domain connection is suspected as ill-behaved.
+    Enable [info] level logging if you want/need to see it in action. Note that
+    this information won't be accurate, as false positives are possible due to
+    time window (e.g. we detect a client has written to the ring and we get no
+    notificiation from it for the time being, but still the notification could
+    potentially arrive at some time later). It's no harm to give a domain
+    connection extra credit though.
+
+Reported-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Zheng Li <dev@zheng.li>
+Reviewed-by: David Scott <dave.scott@citrix.com>
+---
+ tools/ocaml/xenstored/domain.ml       | 11 ++++-
+ tools/ocaml/xenstored/oxenstored.conf |  3 ++
+ tools/ocaml/xenstored/xenstored.ml    | 76 ++++++++++++++++++++++++++---------
+ 3 files changed, 69 insertions(+), 21 deletions(-)
+
+diff --git a/tools/ocaml/xenstored/domain.ml b/tools/ocaml/xenstored/domain.ml
+index 06d5749..ab34314 100644
+--- a/tools/ocaml/xenstored/domain.ml
++++ b/tools/ocaml/xenstored/domain.ml
+@@ -28,6 +28,9 @@ type t =
+ 	eventchn: Event.t;
+ 	mutable port: Xeneventchn.t option;
+ 	mutable bad_client: bool;
++	mutable io_credit: int; (* the rounds of ring process left to do, default is 0,
++	                           usually set to 1 when there is work detected, could
++	                           also set to n to give "lazy" clients extra credit *)
+ }
+ 
+ let get_path dom = "/local/domain/" ^ (sprintf "%u" dom.id)
+@@ -40,6 +43,11 @@ let get_port d = d.port
+ let is_bad_domain domain = domain.bad_client
+ let mark_as_bad domain = domain.bad_client <- true
+ 
++let get_io_credit domain = domain.io_credit
++let set_io_credit ?(n=1) domain = domain.io_credit <- max 0 n
++let incr_io_credit domain = domain.io_credit <- domain.io_credit + 1
++let decr_io_credit domain = domain.io_credit <- max 0 (domain.io_credit - 1)
++
+ let string_of_port = function
+ | None -> "None"
+ | Some x -> string_of_int (Xeneventchn.to_int x)
+@@ -74,7 +82,8 @@ let make id mfn remote_port interface eventchn = {
+ 	interface = interface;
+ 	eventchn = eventchn;
+ 	port = None;
+-	bad_client = false
++	bad_client = false;
++	io_credit = 0;
+ }
+ 
+ let is_dom0 d = d.id = 0
+diff --git a/tools/ocaml/xenstored/oxenstored.conf b/tools/ocaml/xenstored/oxenstored.conf
+index 13ee770..dd20eda 100644
+--- a/tools/ocaml/xenstored/oxenstored.conf
++++ b/tools/ocaml/xenstored/oxenstored.conf
+@@ -33,3 +33,6 @@ persistent = false
+ # acesss-log-nb-chars = 180
+ # access-log-special-ops = false
+ 
++# Perodically scanning all the rings as a safenet for lazy clients.
++# Define the interval in seconds, set to negative to disable.
++# ring-scan-interval = 20
+diff --git a/tools/ocaml/xenstored/xenstored.ml b/tools/ocaml/xenstored/xenstored.ml
+index 4a1d027..58a1ffc 100644
+--- a/tools/ocaml/xenstored/xenstored.ml
++++ b/tools/ocaml/xenstored/xenstored.ml
+@@ -54,13 +54,14 @@ let process_connection_fds store cons domains rset wset =
+ let process_domains store cons domains =
+ 	let do_io_domain domain =
+ 		if not (Domain.is_bad_domain domain) then
+-			let con = Connections.find_domain cons (Domain.get_id domain) in
++			let io_credit = Domain.get_io_credit domain in
++			if io_credit > 0 then (
++				let con = Connections.find_domain cons (Domain.get_id domain) in
+ 				Process.do_input store cons domains con;
+-				Process.do_output store cons domains con in
+-	List.iter
+-		(fun c ->
+-		 match Connection.get_domain c with
+-		 | Some d -> do_io_domain d | _ -> ())
++				Process.do_output store cons domains con;
++				Domain.decr_io_credit domain;
++			) in
++	Domains.iter domains do_io_domain
+ 
+ let sigusr1_handler store =
+ 	try
+@@ -82,6 +83,8 @@ let config_filename cf =
+ 
+ let default_pidfile = "/var/run/xenstored.pid"
+ 
++let ring_scan_interval = ref 20
++
+ let parse_config filename =
+ 	let pidfile = ref default_pidfile in
+ 	let options = [
+@@ -108,6 +111,7 @@ let parse_config filename =
+ 		("access-log-transactions-ops", Config.Set_bool Logging.access_log_transaction_ops);
+ 		("access-log-special-ops", Config.Set_bool Logging.access_log_special_ops);
+ 		("allow-debug", Config.Set_bool Process.allow_debug);
++		("ring-scan-interval", Config.Set_int ring_scan_interval);
+ 		("pid-file", Config.Set_string pidfile); ] in
+ 	begin try Config.read filename options (fun _ _ -> raise Not_found)
+ 	with
+@@ -316,7 +320,8 @@ let _ =
+ 				)
+ 				else
+ 					let c = Connections.find_domain_by_port cons port in
+-					process_domains store cons domains [c]
++					match Connection.get_domain c with
++					| Some dom -> Domain.incr_io_credit dom | None -> ()
+ 				) (fun () -> Event.unmask eventchn port)
+ 		and do_if_set fd set fct =
+ 			if List.mem fd set then
+@@ -325,11 +330,30 @@ let _ =
+ 		maybe (fun fd -> do_if_set fd rset (accept_connection true)) rw_sock;
+ 		maybe (fun fd -> do_if_set fd rset (accept_connection false)) ro_sock;
+ 		do_if_set (Event.fd eventchn) rset (handle_eventchn)
+-		in
++	in
++
++	let ring_scan_checker dom =
++		(* no need to scan domains already marked as for processing *)
++		if not (Domain.get_io_credit dom > 0) then
++			let con = Connections.find_domain cons (Domain.get_id dom) in
++			if not (Connection.has_more_work con) then (
++				Process.do_output store cons domains con;
++				Process.do_input store cons domains con;
++				if Connection.has_more_work con then
++					(* Previously thought as no work, but detect some after scan (as
++					   processing a new message involves multiple steps.) It's very
++					   likely to be a "lazy" client, bump its credit. It could be false
++					   positive though (due to time window), but it's no harm to give a
++					   domain extra credit. *)
++					let n = 32 + 2 * (Domains.number domains) in
++					info "found lazy domain %d, credit %d" (Domain.get_id dom) n;
++					Domain.set_io_credit ~n dom
++			) in
+ 
+ 	let last_stat_time = ref 0. in
+-	let periodic_ops_counter = ref 0 in
+-	let periodic_ops () =
++	let last_scan_time = ref 0. in
++
++	let periodic_ops now =
+ 		(* we garbage collect the string->int dictionary after a sizeable amount of operations,
+ 		 * there's no need to be really fast even if we got loose
+ 		 * objects since names are often reuse.
+@@ -342,10 +366,13 @@ let _ =
+ 			Symbol.garbage ()
+ 		end;
+ 
++		(* scan all the xs rings as a safenet for ill-behaved clients *)
++		if !ring_scan_interval >= 0 && now > (!last_scan_time +. float !ring_scan_interval) then
++			(last_scan_time := now; Domains.iter domains ring_scan_checker);
++
+ 		(* make sure we don't print general stats faster than 2 min *)
+-		let ntime = Unix.gettimeofday () in
+-		if ntime > (!last_stat_time +. 120.) then (
+-			last_stat_time := ntime;
++		if now > (!last_stat_time +. 120.) then (
++			last_stat_time := now;
+ 
+ 			let gc = Gc.stat () in
+ 			let (lanon, lanon_ops, lanon_watchs,
+@@ -366,16 +393,20 @@ let _ =
+ 		)
+ 		in
+ 
++		let period_ops_interval = 15. in
++		let period_start = ref 0. in
++
+ 	let main_loop () =
+-		incr periodic_ops_counter;
+-		if !periodic_ops_counter > 20 then (
+-			periodic_ops_counter := 0;
+-			periodic_ops ();
+-		);
+ 
+ 		let mw = Connections.has_more_work cons in
++		List.iter
++			(fun c ->
++			 match Connection.get_domain c with
++			 | None -> () | Some d -> Domain.incr_io_credit d)
++			mw;
++		let timeout =
++			if List.length mw > 0 then 0. else period_ops_interval in
+ 		let inset, outset = Connections.select cons in
+-		let timeout = if List.length mw > 0 then 0. else -1. in
+ 		let rset, wset, _ =
+ 		try
+ 			Unix.select (spec_fds @ inset) outset [] timeout
+@@ -387,7 +418,12 @@ let _ =
+ 			process_special_fds sfds;
+ 		if List.length cfds > 0 || List.length wset > 0 then
+ 			process_connection_fds store cons domains cfds wset;
+-		process_domains store cons domains mw
++		if timeout <> 0. then (
++			let now = Unix.gettimeofday () in
++			if now > !period_start +. period_ops_interval then
++				(period_start := now; periodic_ops now)
++		);
++		process_domains store cons domains
+ 		in
+ 
+ 	while not !quit
+-- 
+2.1.4
+

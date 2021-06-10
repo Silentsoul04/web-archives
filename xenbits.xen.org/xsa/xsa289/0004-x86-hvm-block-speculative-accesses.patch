@@ -1,0 +1,42 @@
+From 69b9c85d10f0956fa2710afe7669a7587f44d5d4 Mon Sep 17 00:00:00 2001
+From: Norbert Manthey <nmanthey@amazon.de>
+Subject: [PATCH SpectreV1+L1TF 04/13] x86/hvm: block speculative accesses
+
+When interacting with the hvm interface and event channels, the guest can
+specify a vcpu id. This ID is checked against the maximum number of CPUs,
+however, this check can by bypassed speculatively. This change prevents
+the potential speculative out-of-bound access.
+
+This is part of the SpectreV1+L1TF mitigation patch series.
+
+Reported-by: Pawel Wieczorkiewicz <wipawel@amazon.de>
+Signed-off-by: Norbert Manthey <nmanthey@amazon.de>
+
+---
+ xen/arch/x86/hvm/hvm.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -37,6 +37,7 @@
+ #include <xen/monitor.h>
+ #include <xen/warning.h>
+ #include <xen/vpci.h>
++#include <xen/nospec.h>
+ #include <asm/shadow.h>
+ #include <asm/hap.h>
+ #include <asm/current.h>
+@@ -4032,7 +4033,8 @@ static int hvmop_set_evtchn_upcall_vector(
+     if ( op.vector < 0x10 )
+         return -EINVAL;
+ 
+-    if ( op.vcpu >= d->max_vcpus || (v = d->vcpu[op.vcpu]) == NULL )
++    if ( op.vcpu >= d->max_vcpus ||
++	 (v = d->vcpu[array_index_nospec(op.vcpu, d->max_vcpus)]) == NULL )
+         return -ENOENT;
+ 
+     printk(XENLOG_G_INFO "%pv: upcall vector %02x\n", v, op.vector);
+-- 
+2.7.4
+

@@ -1,0 +1,84 @@
+From 0241f5ce5bb4ed63360ce889940c811a3327e65c Mon Sep 17 00:00:00 2001
+From: Julien Grall <julien.grall@arm.com>
+Date: Mon, 29 Apr 2019 15:05:29 +0100
+Subject: [PATCH 14/15] xen/arm: Add performance counters in guest atomic
+ helpers
+
+Add performance counters in guest atomic helpers to be able to detect
+whether a guest is often paused during the operations.
+
+This is part of XSA-295.
+
+Signed-off-by: Julien Grall <julien.grall@arm.com>
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+---
+ xen/include/asm-arm/guest_atomics.h | 12 ++++++++++++
+ xen/include/asm-arm/perfc_defn.h    |  3 +++
+ 2 files changed, 15 insertions(+)
+
+diff --git a/xen/include/asm-arm/guest_atomics.h b/xen/include/asm-arm/guest_atomics.h
+index 61925d313d..698508bf87 100644
+--- a/xen/include/asm-arm/guest_atomics.h
++++ b/xen/include/asm-arm/guest_atomics.h
+@@ -24,9 +24,13 @@ DECLARE_PER_CPU(unsigned int, guest_safe_atomic_max);
+ #define guest_bitop(name)                                                   \
+ static inline void guest_##name(struct domain *d, int nr, volatile void *p) \
+ {                                                                           \
++    perfc_incr(atomics_guest);                                              \
++                                                                            \
+     if ( name##_timeout(nr, p, this_cpu(guest_safe_atomic_max)) )           \
+         return;                                                             \
+                                                                             \
++    perfc_incr(atomics_guest_paused);                                       \
++                                                                            \
+     domain_pause_nosync(d);                                                 \
+     name(nr, p);                                                            \
+     domain_unpause(d);                                                      \
+@@ -38,11 +42,15 @@ static inline int guest_##name(struct domain *d, int nr, volatile void *p)  \
+     bool succeed;                                                           \
+     int oldbit;                                                             \
+                                                                             \
++    perfc_incr(atomics_guest);                                              \
++                                                                            \
+     succeed = name##_timeout(nr, p, &oldbit,                                \
+                              this_cpu(guest_safe_atomic_max));              \
+     if ( succeed )                                                          \
+         return oldbit;                                                      \
+                                                                             \
++    perfc_incr(atomics_guest_paused);                                       \
++                                                                            \
+     domain_pause_nosync(d);                                                 \
+     oldbit = name(nr, p);                                                   \
+     domain_unpause(d);                                                      \
+@@ -73,10 +81,14 @@ static inline unsigned long __guest_cmpxchg(struct domain *d,
+ {
+     unsigned long oldval = old;
+ 
++    perfc_incr(atomics_guest);
++
+     if ( __cmpxchg_mb_timeout(ptr, &oldval, new, size,
+                               this_cpu(guest_safe_atomic_max)) )
+         return oldval;
+ 
++    perfc_incr(atomics_guest_paused);
++
+     domain_pause_nosync(d);
+     oldval = __cmpxchg_mb(ptr, old, new, size);
+     domain_unpause(d);
+diff --git a/xen/include/asm-arm/perfc_defn.h b/xen/include/asm-arm/perfc_defn.h
+index 8922e9525a..6a83185163 100644
+--- a/xen/include/asm-arm/perfc_defn.h
++++ b/xen/include/asm-arm/perfc_defn.h
+@@ -73,6 +73,9 @@ PERFCOUNTER(phys_timer_irqs,  "Physical timer interrupts")
+ PERFCOUNTER(virt_timer_irqs,  "Virtual timer interrupts")
+ PERFCOUNTER(maintenance_irqs, "Maintenance interrupts")
+ 
++PERFCOUNTER(atomics_guest,    "atomics: guest access")
++PERFCOUNTER(atomics_guest_paused,   "atomics: guest paused")
++
+ /*#endif*/ /* __XEN_PERFC_DEFN_H__ */
+ 
+ /*
+-- 
+2.11.0
+

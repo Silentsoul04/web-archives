@@ -1,0 +1,26 @@
+From: Rob Hoes <rob.hoes@citrix.com>
+Date: Wed, 18 Jul 2018 11:18:27 +0100
+Subject: Fix path verification in /update/ handler
+
+The handler decoded the percent-symbols in the given path after resolving the .
+and .. patterns. This meant that any "%2e%2e" strings in the path would still
+result in .. strings in the validate path, which made it possible to download
+files outside the designated directory for updates.
+
+Reported-by: Ronald Volgers <rvolgers@computest.nl>
+Signed-off-by: Rob Hoes <rob.hoes@citrix.com>
+
+diff --git a/ocaml/xapi/xapi_pool_update.ml b/ocaml/xapi/xapi_pool_update.ml
+index 275a8e5..ccc1d88 100644
+--- a/ocaml/xapi/xapi_pool_update.ml
++++ b/ocaml/xapi/xapi_pool_update.ml
+@@ -536,8 +536,8 @@ let path_from_uri uri =
+   (* remove any dodgy use of "." or ".." NB we don't prevent the use of symlinks *)
+   String.sub_to_end uri (String.length Constants.get_pool_update_download_uri)
+   |> Filename.concat !Xapi_globs.host_update_dir
+-  |> Stdext.Unixext.resolve_dot_and_dotdot
+   |> Uri.pct_decode
++  |> Stdext.Unixext.resolve_dot_and_dotdot
+ 
+ let pool_update_download_handler (req: Request.t) s _ =
+   debug "pool_update.pool_update_download_handler URL %s" req.Request.uri;

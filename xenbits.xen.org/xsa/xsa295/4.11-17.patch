@@ -1,0 +1,93 @@
+From d410b20098cfceb17eff3c12031e528542569197 Mon Sep 17 00:00:00 2001
+From: Julien Grall <julien.grall@arm.com>
+Date: Mon, 29 Apr 2019 15:05:27 +0100
+Subject: [PATCH v2 4.11 17/20] xen/cmpxchg: Provide helper to safely modify
+ guest memory atomically
+
+On Arm, exclusive load-store atomics should only be used between trusted
+thread. As not all the guests are trusted, it may be possible to DoS Xen
+when updating shared memory with guest atomically.
+
+This patch adds a new helper that will update the guest memory safely.
+For x86, it is already possible to use the current helper safely. So
+just wrap it.
+
+For Arm, we will first attempt to update the guest memory with the
+loop bounded by a maximum number of iterations. If it fails, we will
+pause the domain and try again.
+
+Note that this heuristics assumes that a page can only
+be shared between Xen and one domain. Not Xen and multiple domain.
+
+The maximum number of iterations is based on how many times atomic_inc()
+can be executed in 1uS. The maximum value is per-CPU to cater big.LITTLE
+and calculated when the CPU is booting.
+
+The maximum number of iterations is based on how many times a simple
+load-store atomic operation can be executed in 1uS. The maximum
+value is per-CPU to cater big.LITTLE and calculated when the CPU is
+booting. The heuristic was randomly chosen and can be modified if
+impact too much good-behaving guest.
+
+This is part of XSA-295.
+
+Signed-of-by: Julien Grall <julien.grall@arm.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Acked-by: Jan Beulich <jbeulich@suse.com>
+---
+ xen/include/asm-arm/guest_atomics.h | 25 +++++++++++++++++++++++++
+ xen/include/asm-x86/guest_atomics.h |  2 ++
+ 2 files changed, 27 insertions(+)
+
+diff --git a/xen/include/asm-arm/guest_atomics.h b/xen/include/asm-arm/guest_atomics.h
+index 4f127fda41..61925d313d 100644
+--- a/xen/include/asm-arm/guest_atomics.h
++++ b/xen/include/asm-arm/guest_atomics.h
+@@ -65,6 +65,31 @@ guest_testop(test_and_change_bit)
+ 
+ #undef guest_testop
+ 
++static inline unsigned long __guest_cmpxchg(struct domain *d,
++                                            volatile void *ptr,
++                                            unsigned long old,
++                                            unsigned long new,
++                                            unsigned int size)
++{
++    unsigned long oldval = old;
++
++    if ( __cmpxchg_mb_timeout(ptr, &oldval, new, size,
++                              this_cpu(guest_safe_atomic_max)) )
++        return oldval;
++
++    domain_pause_nosync(d);
++    oldval = __cmpxchg_mb(ptr, old, new, size);
++    domain_unpause(d);
++
++    return oldval;
++}
++
++#define guest_cmpxchg(d, ptr, o, n)                         \
++    ((__typeof__(*(ptr)))__guest_cmpxchg(d, ptr,            \
++                                         (unsigned long)(o),\
++                                         (unsigned long)(n),\
++                                         sizeof (*(ptr))))
++
+ #endif /* _ARM_GUEST_ATOMICS_H */
+ /*
+  * Local variables:
+diff --git a/xen/include/asm-x86/guest_atomics.h b/xen/include/asm-x86/guest_atomics.h
+index 0c71d2d278..029417c8ff 100644
+--- a/xen/include/asm-x86/guest_atomics.h
++++ b/xen/include/asm-x86/guest_atomics.h
+@@ -19,6 +19,8 @@
+ #define guest_test_and_change_bit(d, nr, p) \
+     ((void)(d), test_and_change_bit(nr, p))
+ 
++#define guest_cmpxchg(d, ptr, o, n) ((void)(d), cmpxchg(ptr, o, n))
++
+ #endif /* _X86_GUEST_ATOMICS_H */
+ /*
+  * Local variables:
+-- 
+2.17.1
+

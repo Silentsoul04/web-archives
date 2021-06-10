@@ -1,0 +1,92 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-282 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-282.html">XSA-282</a></td></tr><tr><th>Public release</th> <td>2018-11-06 18:40</td></tr><tr><th>Updated</th> <td>2019-01-08 16:43</td></tr><tr><th>Version</th> <td>2</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-19967">CVE-2018-19967</a></td></tr><tr><th>Title</th> <td>guest use of HLE constructs may lock up host</td></tr></table><h1>Files</h1><a href="advisory-282.txt">advisory-282.txt</a> (signed advisory file)<br /><a href="xsa282.meta">xsa282.meta</a><br /><a href="xsa282-1.patch">xsa282-1.patch</a><br /><a href="xsa282-2.patch">xsa282-2.patch</a><br /><a href="xsa282-4.8-2.patch">xsa282-4.8-2.patch</a><br /><a href="xsa282-4.9-1.patch">xsa282-4.9-1.patch</a><br /><a href="xsa282-4.11-1.patch">xsa282-4.11-1.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+            Xen Security Advisory CVE-2018-19967 / XSA-282
+                              version 2
+
+             guest use of HLE constructs may lock up host
+
+UPDATES IN VERSION 2
+====================
+
+CVE assigned.
+
+ISSUE DESCRIPTION
+=================
+
+Various Intel CPU models have an erratum listed under the title
+&quot;Processor May Hang When Executing Code In an HLE Transaction&quot;.  It
+describes a potential hang when using instructions with the XACQUIRE
+prefix on the host physical memory range covering the first 4 MiB
+starting at the 1GiB boundary.
+
+IMPACT
+======
+
+A malicious or buggy guest may cause a CPU to hang, resulting in a DoS
+(Denial of Service) affecting the entire host.
+
+VULNERABLE SYSTEMS
+==================
+
+All Xen versions are affected.
+
+Only Intel based x86 systems are affected.  Please refer to Intel
+documentation as to which specific CPU models are affected.
+
+AMD x86 systems as well as Arm ones are not affected.
+
+MITIGATION
+==========
+
+There is no known mitigation.  A BIOS update may be available for some
+systems, working around the issue at the firmware level.
+
+RESOLUTION
+==========
+
+Applying the appropriate pair of attached patches works around this issue
+for the CPU models known to be affected at the time of writing.
+
+xsa282-?.patch                              xen-unstable
+xsa282-4.11-1.patch + xsa282-2.patch        Xen 4.11.x, Xen 4.10.x
+xsa282-4.9-1.patch + xsa282-2.patch         Xen 4.9.x
+xsa282-4.9-1.patch + xsa282-4.8-2.patch     Xen 4.8.x, Xen 4.7.x
+
+$ sha256sum xsa282*
+<a href="xsa282.meta">6ef64ca920a58ed9185e81fad3dfa9ca5f6316f1e72ddd4f411f3e79eaf79903  xsa282.meta</a>
+<a href="xsa282-1.patch">ad7093e00b3d6650530c95427ef0e68880883f0cec7229b5f41c9e2dc497ffd5  xsa282-1.patch</a>
+<a href="xsa282-2.patch">7ce7fa105026b189500a31bd3978ec0c6fd9d7c95f688463c25ecce76366be35  xsa282-2.patch</a>
+<a href="xsa282-4.8-2.patch">fbff734d678700864563f8214361f391c0cbda9b67ed7256535ed3db388c8feb  xsa282-4.8-2.patch</a>
+<a href="xsa282-4.9-1.patch">df833cbe9b8798104a65d44b737c46f97399b86b0ffd03c99fda4c8ecf5a353c  xsa282-4.9-1.patch</a>
+<a href="xsa282-4.11-1.patch">68eab296a7124662cbe3c6df8835aff9b4a26160fdbe970e206a7a6ef8d27ec7  xsa282-4.11-1.patch</a>
+$
+
+NOTE REGARDING LACK OF EMBARGO
+==============================
+
+The issue has been documented publicly in Specification Updates for at
+least some of the affected processors for quite some time.
+-----BEGIN PGP SIGNATURE-----
+
+iQE/BAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAlw00zIMHHBncEB4ZW4u
+b3JnAAoJEIP+FMlX6CvZZ4wH90ahPfLXQZmbuDKHT++ny7Xtb9Bf9HdeqWS19m3h
+DjNBovpLz/ECfkbK2I445yoXygXi8enoElK5Yq1Ln4VFtR22u/kAWQt7b+Hh3Z1k
+mc/l77bOPcn2glox9Wc/sv8CYfJ5QE6KmGOZ6GtbjAds+yEGm2VKVGiR3QJP3KHP
+7AT6c9rxe8Wv+Vzkl61FAWlm/Pt6zgdGmSwqMk/3LBuWuxZbXKg+WaILTcTmD3eQ
+RRAPE8v68gGohSxdRUwTgjpvxK2Og4mNUminEc9ovr5jSjuyYwrSP8GEKFYtPEDn
+orW3HvmvyQ7QawpKBkkJq+YgcDe402r6s/ESC5vuUtdi/A==
+=escz
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

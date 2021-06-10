@@ -1,0 +1,72 @@
+From: George Dunlap <george.dunlap@citrix.com>
+Subject: SUPPORT.md: Un-shimmed 32-bit PV guests are no longer supported
+
+The support status of 32-bit guests doesn't seem particularly useful.
+
+With it changed to fully unsupported outside of PV-shim, adjust the PV32
+Kconfig default accordingly.
+
+Reported-by: Jann Horn <jannh@google.com>
+Signed-off-by: George Dunlap <george.dunlap@citrix.com>
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+
+NB this patch should be considered a proposal to the community.  It
+will not become effective until three weeks after the XSA-370 embargo
+lifts, and only if there are no objections raised before that point.
+
+TBD: Should we also default opt_pv32 to false when not running in shim
+     mode?
+
+The (forward) dependency on PV_SHIM isn't very useful especially when
+configuring from scratch - we may want to re-order items down the road,
+such that the prompt for PV_SHIM occurs ahead of that for PV32. Yet then
+this conflicts with PV_SHIM also depending on GUEST.
+
+v3:
+- Add Kconfig adjustment.
+
+v2:
+- Port over changes in patch 1
+
+--- a/SUPPORT.md
++++ b/SUPPORT.md
+@@ -86,14 +86,7 @@ No hardware requirements
+ 
+     Status, x86_64: Supported
+     Status, x86_32, shim: Supported
+-    Status, x86_32, without shim: Supported, with caveats
+-
+-Due to architectural limitations,
+-32-bit PV guests must be assumed to be able to read arbitrary host memory
+-using speculative execution attacks.
+-Advisories will continue to be issued
+-for new vulnerabilities related to un-shimmed 32-bit PV guests
+-enabling denial-of-service attacks or privilege escalation attacks.
++    Status, x86_32, without shim: Supported, not security supported
+ 
+ ### x86/HVM
+ 
+--- a/xen/arch/x86/Kconfig
++++ b/xen/arch/x86/Kconfig
+@@ -56,7 +56,7 @@ config PV
+ config PV32
+ 	bool "Support for 32bit PV guests"
+ 	depends on PV
+-	default y
++	default PV_SHIM
+ 	---help---
+ 	  The 32bit PV ABI uses Ring1, an area of the x86 architecture which
+ 	  was deprecated and mostly removed in the AMD64 spec.  As a result,
+@@ -67,7 +67,10 @@ config PV32
+ 	  reduction, or performance reasons.  Backwards compatibility can be
+ 	  provided via the PV Shim mechanism.
+ 
+-	  If unsure, say Y.
++	  Note that outside of PV Shim, 32-bit PV guests are not security
++	  supported anymore.
++
++	  If unsure, use the default setting.
+ 
+ config PV_LINEAR_PT
+        bool "Support for PV linear pagetables"

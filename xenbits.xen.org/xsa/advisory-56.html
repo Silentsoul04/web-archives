@@ -1,0 +1,95 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-56 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-56.html">XSA-56</a></td></tr><tr><th>Public release</th> <td>2013-05-17 12:00</td></tr><tr><th>Updated</th> <td>2013-05-17 15:44</td></tr><tr><th>Version</th> <td>2</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-2072">CVE-2013-2072</a></td></tr><tr><th>Title</th> <td>Buffer overflow in xencontrol Python bindings affecting xend</td></tr></table><h1>Files</h1><a href="advisory-56.txt">advisory-56.txt</a> (signed advisory file)<br /><a href="xsa56.patch">xsa56.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+	     Xen Security Advisory CVE-2013-2072 / XSA-56
+                              version 2
+
+     Buffer overflow in xencontrol Python bindings affecting xend
+
+UPDATES IN VERSION 2
+====================
+
+Public release.
+
+ISSUE DESCRIPTION
+=================
+
+The Python bindings for the xc_vcpu_setaffinity call do not properly
+check their inputs. Systems which allow untrusted administrators to
+configure guest vcpu affinity may be exploited to trigger a buffer
+overrun and corrupt memory.
+
+IMPACT
+======
+
+An attacker who is able to configure a specific vcpu affinity via a
+toolstack which uses the Python bindings is able to exploit this
+issue.
+
+Exploiting this issue leads to memory corruption which may result in a
+DoS against the system by crashing the toolstack. The possibility of
+code execution (privilege escalation) has not been ruled out.
+
+The xend toolstack passes a cpumap to this function without
+sanitization. xend allows the cpumap to be configured via the guest
+configuration file or the SXP/XenAPI interface. Normally these
+interfaces are not considered safe to expose to non-trusted
+parties. However systems which attempt to allow guest administrator
+control of VCPU affinity in a safe way via xend may expose this issue.
+
+VULNERABLE SYSTEMS
+==================
+
+Xen version 4.0 and later contain this flaw.
+
+Only systems which allow the specification of cpu affinity masks by
+untrusted guest administrators are vulnerable.  Normally the cpu
+affinity is specified by the host administrator as part of the guest
+configuration; there is then no vulnerability.
+
+Only systems which use the libxc Python bindings, are vulnerable.
+Toolstacks which do not use Python, such as xl or xapi, are not
+vulnerable.
+
+MITIGATION
+==========
+
+Not allowing untrusted guest administrators to configure VCPU affinity
+will avoid exposure.
+
+Where possible switching to a toolstack which does not use Python will
+also avoid exposure to this vulnerability.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+xsa56.patch             Xen 4.1.x, Xen 4.2.x, xen-unstable
+
+$ sha256sum xsa56*.patch
+<a href="xsa56.patch">a691c5f5332a42c0d38ddb4dc037eb902f01ba31033b64c47d02909a8de0257d  xsa56.patch</a>
+$
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.10 (GNU/Linux)
+
+iQEcBAEBAgAGBQJRlk9eAAoJEIP+FMlX6CvZIOMIAJFcMxxknbjo9oT9Plv8I9TA
+agEEaUV/cbZTUWHCdGLj6G8kHp4Td8mfKzHy9ZKlNn0GJ0vgezi08enxjgjSlloG
+7KAsLAYYlrwjtSmu74CC48EDKF5KTy3xhxGIMT14fJAyDUAStwgHHZbcE8dNvaXk
+sfygb5epW+ZzQBkOxhKQkNDt5yoGVZ+Zb4Z/pmBXb+e8SVx+4i005HPuB8aIFowi
+1nlbo2cSkFj6/NP5olhDQOYM5LEqzO8GPgHjTXJmIoTxA0Zuu4P53qjLsose5DCy
+4OQY1v76lMP419t0I3UwA/KUott3PaUc3kzE24/3AmVxsh27k6cyVxovV4jsvf0=
+=5dzZ
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

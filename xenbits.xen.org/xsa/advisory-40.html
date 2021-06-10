@@ -1,0 +1,66 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>XSA-40 - Xen Security Advisories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<h1>Information</h1><table><tr><th>Advisory</th> <td><a href="advisory-40.html">XSA-40</a></td></tr><tr><th>Public release</th> <td>2013-01-16 14:50</td></tr><tr><th>Updated</th> <td>2013-01-16 14:50</td></tr><tr><th>Version</th> <td>1</td></tr><tr><th>CVE(s)</th> <td><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-0190">CVE-2013-0190</a></td></tr><tr><th>Title</th> <td>Linux stack corruption in xen_failsafe_callback for 32bit PVOPS guests.</td></tr></table><h1>Files</h1><a href="advisory-40.txt">advisory-40.txt</a> (signed advisory file)<br /><a href="xsa40.patch">xsa40.patch</a><h1>Advisory</h1><hr /><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+             Xen Security Advisory CVE-2013-0190 / XSA-40
+
+ Linux stack corruption in xen_failsafe_callback for 32bit PVOPS guests.
+
+ISSUE DESCRIPTION
+=================
+
+xen_failsafe_callback incorrectly sets up its stack if an iret fault is
+injected by the hypervisor.
+
+IMPACT
+======
+
+Malicious or buggy unprivileged userspace can cause the guest kernel to
+crash, or operate erroneously.
+
+VULNERABLE SYSTEMS
+==================
+
+All 32bit PVOPS versions of Linux are affected, since the introduction
+of Xen PVOPS support in 2.6.23.  Classic-Xen kernels are not vulnerable.
+
+MITIGATION
+==========
+
+This can be mitigated by not running 32bit PVOPS Linux guests.
+
+32bit classic-Xen guests, all 64bit PV guests and all HVM guests are
+unaffected.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+xsa40.patch
+
+$ sha256sum xsa40*.patch
+<a href="xsa40.patch">b6aa67b4605f6088f757ca28093d265c71e456906619d81d129bf656944ed721  xsa40.patch</a>
+$
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.10 (GNU/Linux)
+
+iQEcBAEBAgAGBQJQ9r4HAAoJEIP+FMlX6CvZhIMIAKa3l8CMZ4Di0gyp1cVi95es
+0Pzq8qV5Qwla+NZEuz1O91UAxzwke8mrVsKK9PQCUVqdrmKbIrWjGX3b/KNIoa3d
+hCGBd1wkTld7XmQxNfr+0BcfybqM92dww623rhv6G2jPaehOMVGWl28vomwkMU9E
+iT/z2dqYJuAkcq6hobJ02tyfABl5sWNDE+HvI6EFxTptzeUGQtaPm9q6qbdbw1pT
+InAae/VU7u+qAZTr0MY8kncFiK3206LvJX2Wq6YBI6LCFw4eaOvTFfJiAvFojqQb
+nl5PT2KXH3IbiZEAiSOENBRiudkzxY0OfGyTnyuwsZuJa7SaI47pN1Sp5YtRPf0=
+=9uNq
+-----END PGP SIGNATURE-----
+</pre><hr /><address>Xenproject.org Security Team</address>
+</body>
+</html>

@@ -1,0 +1,34 @@
+From: Julien Grall <julien.grall@linaro.org>
+Date: Mon, 14 Apr 2014 20:00:14 +0100
+Subject: xen/arm: Trap cache and TCM lockdown registers
+
+Some cp15 c9/c10/c11 encodings are used for:
+     - cache control
+     - TCM control
+     - branch predictor control
+
+All of them are implementation defined. For now inject an undefined exception
+if the guest wants try to access it.
+
+Signed-off-by: Julien Grall <julien.grall@linaro.org>
+Acked-by: Ian Campbell <ian.campbell@citrix.com>
+---
+ xen/arch/arm/traps.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+index 17ac8d8..b77e623 100644
+--- a/xen/arch/arm/traps.c
++++ b/xen/arch/arm/traps.c
+@@ -82,7 +82,7 @@ void __cpuinit init_traps(void)
+ 
+     /* Setup hypervisor traps */
+     WRITE_SYSREG(HCR_PTW|HCR_BSU_OUTER|HCR_AMO|HCR_IMO|HCR_VM|HCR_TWI|HCR_TSC|
+-                 HCR_TAC|HCR_SWIO, HCR_EL2);
++                 HCR_TAC|HCR_SWIO|HCR_TIDCP, HCR_EL2);
+     isb();
+ }
+ 
+-- 
+1.7.10.4
+
