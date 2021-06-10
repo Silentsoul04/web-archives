@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html  lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+    <meta charset="utf-8" /><script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={licenseKey:"877b02039c",applicationID:"628657512"};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var i=e[n]={exports:{}};t[n][0].call(i.exports,function(e){var i=t[n][1][e];return r(i||e)},i,i.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var i=0;i<n.length;i++)r(n[i]);return r}({1:[function(t,e,n){function r(){}function i(t,e,n){return function(){return o(t,[u.now()].concat(f(arguments)),e?null:this,n),e?void 0:this}}var o=t("handle"),a=t(8),f=t(9),c=t("ee").get("tracer"),u=t("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var d=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],p="api-",l=p+"ixn-";a(d,function(t,e){s[e]=i(p+e,!0,"api")}),s.addPageAction=i(p+"addPageAction",!0),s.setCurrentRouteName=i(p+"routeName",!0),e.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(t,e){var n={},r=this,i="function"==typeof e;return o(l+"tracer",[u.now(),t,n],r),function(){if(c.emit((i?"":"no-")+"fn-start",[u.now(),r,i],n),i)try{return e.apply(this,arguments)}catch(t){throw c.emit("fn-err",[arguments,this,t],n),t}finally{c.emit("fn-end",[u.now()],n)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(t,e){m[e]=i(l+e)}),newrelic.noticeError=function(t,e){"string"==typeof t&&(t=new Error(t)),o("err",[t,u.now(),!1,e])}},{}],2:[function(t,e,n){function r(t){if(NREUM.init){for(var e=NREUM.init,n=t.split("."),r=0;r<n.length-1;r++)if(e=e[n[r]],"object"!=typeof e)return;return e=e[n[n.length-1]]}}e.exports={getConfiguration:r}},{}],3:[function(t,e,n){function r(){return f.exists&&performance.now?Math.round(performance.now()):(o=Math.max((new Date).getTime(),o))-a}function i(){return o}var o=(new Date).getTime(),a=o,f=t(10);e.exports=r,e.exports.offset=a,e.exports.getLastTimestamp=i},{}],4:[function(t,e,n){function r(t){return!(!t||!t.protocol||"file:"===t.protocol)}e.exports=r},{}],5:[function(t,e,n){function r(t,e){var n=t.getEntries();n.forEach(function(t){"first-paint"===t.name?d("timing",["fp",Math.floor(t.startTime)]):"first-contentful-paint"===t.name&&d("timing",["fcp",Math.floor(t.startTime)])})}function i(t,e){var n=t.getEntries();n.length>0&&d("lcp",[n[n.length-1]])}function o(t){t.getEntries().forEach(function(t){t.hadRecentInput||d("cls",[t])})}function a(t){if(t instanceof m&&!g){var e=Math.round(t.timeStamp),n={type:t.type};e<=p.now()?n.fid=p.now()-e:e>p.offset&&e<=Date.now()?(e-=p.offset,n.fid=p.now()-e):e=p.now(),g=!0,d("timing",["fi",e,n])}}function f(t){d("pageHide",[p.now(),t])}if(!("init"in NREUM&&"page_view_timing"in NREUM.init&&"enabled"in NREUM.init.page_view_timing&&NREUM.init.page_view_timing.enabled===!1)){var c,u,s,d=t("handle"),p=t("loader"),l=t(7),m=NREUM.o.EV;if("PerformanceObserver"in window&&"function"==typeof window.PerformanceObserver){c=new PerformanceObserver(r);try{c.observe({entryTypes:["paint"]})}catch(v){}u=new PerformanceObserver(i);try{u.observe({entryTypes:["largest-contentful-paint"]})}catch(v){}s=new PerformanceObserver(o);try{s.observe({type:"layout-shift",buffered:!0})}catch(v){}}if("addEventListener"in document){var g=!1,h=["click","keydown","mousedown","pointerdown","touchstart"];h.forEach(function(t){document.addEventListener(t,a,!1)})}l(f)}},{}],6:[function(t,e,n){function r(t,e){if(!i)return!1;if(t!==i)return!1;if(!e)return!0;if(!o)return!1;for(var n=o.split("."),r=e.split("."),a=0;a<r.length;a++)if(r[a]!==n[a])return!1;return!0}var i=null,o=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var f=navigator.userAgent,c=f.match(a);c&&f.indexOf("Chrome")===-1&&f.indexOf("Chromium")===-1&&(i="Safari",o=c[1])}e.exports={agent:i,version:o,match:r}},{}],7:[function(t,e,n){function r(t){function e(){t(a&&document[a]?document[a]:document[i]?"hidden":"visible")}"addEventListener"in document&&o&&document.addEventListener(o,e,!1)}e.exports=r;var i,o,a;"undefined"!=typeof document.hidden?(i="hidden",o="visibilitychange",a="visibilityState"):"undefined"!=typeof document.msHidden?(i="msHidden",o="msvisibilitychange"):"undefined"!=typeof document.webkitHidden&&(i="webkitHidden",o="webkitvisibilitychange",a="webkitVisibilityState")},{}],8:[function(t,e,n){function r(t,e){var n=[],r="",o=0;for(r in t)i.call(t,r)&&(n[o]=e(r,t[r]),o+=1);return n}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],9:[function(t,e,n){function r(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,i=n-e||0,o=Array(i<0?0:i);++r<i;)o[r]=t[e+r];return o}e.exports=r},{}],10:[function(t,e,n){e.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(t,e,n){function r(){}function i(t){function e(t){return t&&t instanceof r?t:t?u(t,c,a):a()}function n(n,r,i,o,a){if(a!==!1&&(a=!0),!l.aborted||o){t&&a&&t(n,r,i);for(var f=e(i),c=v(n),u=c.length,s=0;s<u;s++)c[s].apply(f,r);var p=d[w[n]];return p&&p.push([b,n,r,f]),f}}function o(t,e){y[t]=v(t).concat(e)}function m(t,e){var n=y[t];if(n)for(var r=0;r<n.length;r++)n[r]===e&&n.splice(r,1)}function v(t){return y[t]||[]}function g(t){return p[t]=p[t]||i(n)}function h(t,e){l.aborted||s(t,function(t,n){e=e||"feature",w[n]=e,e in d||(d[e]=[])})}var y={},w={},b={on:o,addEventListener:o,removeEventListener:m,emit:n,get:g,listeners:v,context:e,buffer:h,abort:f,aborted:!1};return b}function o(t){return u(t,c,a)}function a(){return new r}function f(){(d.api||d.feature)&&(l.aborted=!0,d=l.backlog={})}var c="nr@context",u=t("gos"),s=t(8),d={},p={},l=e.exports=i();e.exports.getOrSetContext=o,l.backlog=d},{}],gos:[function(t,e,n){function r(t,e,n){if(i.call(t,e))return t[e];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:r,writable:!0,enumerable:!1}),r}catch(o){}return t[e]=r,r}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],handle:[function(t,e,n){function r(t,e,n,r){i.buffer([t],r),i.emit(t,e,n)}var i=t("ee").get("handle");e.exports=r,r.ee=i},{}],id:[function(t,e,n){function r(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:a(t,o,function(){return i++})}var i=1,o="nr@id",a=t("gos");e.exports=r},{}],loader:[function(t,e,n){function r(){if(!R++){var t=M.info=NREUM.info,e=v.getElementsByTagName("script")[0];if(setTimeout(u.abort,3e4),!(t&&t.licenseKey&&t.applicationID&&e))return u.abort();c(E,function(e,n){t[e]||(t[e]=n)});var n=a();f("mark",["onload",n+M.offset],null,"api"),f("timing",["load",n]);var r=v.createElement("script");0===t.agent.indexOf("http://")||0===t.agent.indexOf("https://")?r.src=t.agent:r.src=l+"://"+t.agent,e.parentNode.insertBefore(r,e)}}function i(){"complete"===v.readyState&&o()}function o(){f("mark",["domContent",a()+M.offset],null,"api")}var a=t(3),f=t("handle"),c=t(8),u=t("ee"),s=t(6),d=t(4),p=t(2),l=p.getConfiguration("ssl")===!1?"http":"https",m=window,v=m.document,g="addEventListener",h="attachEvent",y=m.XMLHttpRequest,w=y&&y.prototype,b=!d(m.location);NREUM.o={ST:setTimeout,SI:m.setImmediate,CT:clearTimeout,XHR:y,REQ:m.Request,EV:m.Event,PR:m.Promise,MO:m.MutationObserver};var x=""+location,E={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1209.min.js"},O=y&&w&&w[g]&&!/CriOS/.test(navigator.userAgent),M=e.exports={offset:a.getLastTimestamp(),now:a,origin:x,features:{},xhrWrappable:O,userAgent:s,disabled:b};if(!b){t(1),t(5),v[g]?(v[g]("DOMContentLoaded",o,!1),m[g]("load",r,!1)):(v[h]("onreadystatechange",i),m[h]("onload",r)),f("mark",["firstbyte",a.getLastTimestamp()],null,"api");var R=0}},{}],"wrap-function":[function(t,e,n){function r(t,e){function n(e,n,r,c,u){function nrWrapper(){var o,a,s,p;try{a=this,o=d(arguments),s="function"==typeof r?r(o,a):r||{}}catch(l){i([l,"",[o,a,c],s],t)}f(n+"start",[o,a,c],s,u);try{return p=e.apply(a,o)}catch(m){throw f(n+"err",[o,a,m],s,u),m}finally{f(n+"end",[o,a,p],s,u)}}return a(e)?e:(n||(n=""),nrWrapper[p]=e,o(e,nrWrapper,t),nrWrapper)}function r(t,e,r,i,o){r||(r="");var f,c,u,s="-"===r.charAt(0);for(u=0;u<e.length;u++)c=e[u],f=t[c],a(f)||(t[c]=n(f,s?c+r:r,i,c,o))}function f(n,r,o,a){if(!m||e){var f=m;m=!0;try{t.emit(n,r,o,e,a)}catch(c){i([c,n,r,o],t)}m=f}}return t||(t=s),n.inPlace=r,n.flag=p,n}function i(t,e){e||(e=s);try{e.emit("internal-error",t)}catch(n){}}function o(t,e,n){if(Object.defineProperty&&Object.keys)try{var r=Object.keys(t);return r.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(o){i([o],n)}for(var a in t)l.call(t,a)&&(e[a]=t[a]);return e}function a(t){return!(t&&t instanceof Function&&t.apply&&!t[p])}function f(t,e){var n=e(t);return n[p]=t,o(t,n,s),n}function c(t,e,n){var r=t[e];t[e]=f(r,n)}function u(){for(var t=arguments.length,e=new Array(t),n=0;n<t;++n)e[n]=arguments[n];return e}var s=t("ee"),d=t(9),p="nr@original",l=Object.prototype.hasOwnProperty,m=!1;e.exports=r,e.exports.wrapFunction=f,e.exports.wrapInPlace=c,e.exports.argsToArray=u},{}]},{},["loader"]);</script>
+<script async src="/sites/default/files/google_analytics/gtag.js?qubv3z"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("config", "UA-34879253-1", {"groups":"default","anonymize_ip":true,"allow_ad_personalization_signals":false});</script>
+<meta name="description" content="The Cybersecurity and Infrastructure Security Agency (CISA) is sharing the following information with the cybersecurity community as a primer for assisting in the protection of our Nation’s critical infrastructure in light of the current tensions between the Islamic Republic of Iran and the United States and Iran’s historic use of cyber offensive activities to retaliate against perceived harm. Foremost, CISA recommends organizations take the following actions:" />
+<meta name="abstract" content="As part of its mission, CISA leads the effort to enhance the security, resiliency, and reliability of the Nation&#039;s cybersecurity and communications infrastructure." />
+<meta name="keywords" content="uscert, csirt, cert, cybersecurity, cyber security, computer security, U. S. Computer Emergency Readiness, cyber risks" />
+<meta name="Generator" content="Drupal 9 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/sites/default/files/images/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="https://us-cert.cisa.gov/ncas/alerts/aa20-006a" />
+<link rel="shortlink" href="https://us-cert.cisa.gov/node/13443" />
+<link rel="revision" href="https://us-cert.cisa.gov/ncas/alerts/aa20-006a" />
+
+    <title>Potential for Iranian Cyber Response to U.S. Military Strike in Baghdad | CISA</title>
+    <link rel="stylesheet" media="all" href="/sites/default/files/css/css_-w-jQbIWIO0ZERqyQMFp9m1ddgDjs5ZGsor0ebo5CG4.css" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_OtQ9QHAYVZDqM__uuCDStHUt38Nwh_1MHX1vxg5dE5c.css" />
+
+    
+    <!-- Google Font -->
+    <style type="text/css">
+/* source-sans-pro-regular - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'),
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.woff') format('woff'), /* Modern Browsers */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.svg#SourceSansPro') format('svg'); /* Legacy iOS */
+}
+    </style>
+    <!--link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet"--> 
+    <!-- Google Font -->
+  </head>
+  <body class="path-node page-node-type-activity-alert has-glyphicons">
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+
+
+<div class="container-fluid top-top">
+      <aside role="complementary">
+        <div class="region region-top">
+    <section id="block-certtoptop" class="block block-block-content block-block-content4d95ffde-0818-4e6b-bd79-d1547b08c0c0 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container">
+<div id="top">
+<div class="row">
+<div class="col-sm-12 flag"><img alt="United States Flag" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/flag.png" style="position: absolute;" /><p style="padding-left: 35px; font-family: Arial; font-size: 11px;">An official website of the United States government <a href="#" id="here-is-how-u-know">Here's how you know <span class="arrow down"> </span></a></p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="usa-banner-content usa-grid usa-accordion-content hidden container" id="gov-banner">
+<div class="usa-banner-guidance-gov usa-width-one-half col-sm-6"><img alt="Dot gov" class="usa-banner-icon usa-media_block-img" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/icon-dot-gov.svg" /><div class="usa-media_block-body"><strong>Official websites use .gov</strong><br />
+A <b>.gov</b> website belongs to an official government organization in the United States.</div>
+</div>
+
+<div class="usa-banner-guidance-ssl usa-width-one-half col-sm-6"><img alt="SSL" class="usa-banner-icon usa-media_block-img" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/icon-https.svg" /><div class="usa-media_block-body"><strong>Secure .gov websites use HTTPS</strong> A <b>lock (<img alt="lock icon" src="/sites/default/files/icons/lock.svg" style="width:15px;" />)</b> or <b>https://</b> means you've safely connected to the .gov website. Share sensitive information only on official, secure websites.</div>
+</div>
+</div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </div>
+
+
+
+<div class="container-fluid hidden-xs hidden-sm banner-region">
+<div class="container">
+<div class="row">
+
+
+  
+
+<section class="col-sm-9">
+
+      <a id="logo-section"></a>
+        <div class="region region-logo">
+    <section id="block-certlogo" class="block block-block-content block-block-content4639a667-debe-4642-bc69-7839662c0187 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="hidden-xs hidden-sm"><a href="/"><img alt="Cybersecurity and Infrastructure Security Agency CISA" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/logo_verbose.png" title="Cybersecurity and Infrastructure Security Agency CISA" /></a></div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </section>
+
+
+
+      <aside class="col-sm-3" role="complementary">
+        <div class="region region-search">
+    <section id="block-certsearch" class="block block-block-content block-block-contentc33bd875-6ea6-42cc-b1ab-348a4e4bdff7 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><form accept-charset="UTF-8" action="https://search.us-cert.gov/search" class="hidden-xs searchbox" method="get"><input name="utf8" type="hidden" value="✓" /><input id="affiliate-desktop" name="affiliate" type="hidden" value="us-cert" /><div class="form-group"><label class="sr-only" for="query-desktop">Enter Search Terms(s):</label>
+<div class="input-group"><input autocomplete="off" class="form-control form-control-custom input-lg" id="query-desktop" name="query" placeholder="Search" type="text" /><div class="input-group-addon input-group-addon-custom"><button class="submit input-lg"><img alt="search icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/search-icon.png" title="search icon" /></button></div>
+</div>
+</div>
+</form>
+<style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+.navbar-default ul.navbar-nav > li.last a{
+display: none;
+
+/*--><!]]>*/
+</style><div style="padding: 16px 12px 8px 12px"><a class="btn btn-primary" href="/services" type="button" style="font-weight: bold; width: 40%">Services</a><a class="btn btn-primary pull-right" href="/report" type="button" style="font-weight: bold; width: 40%">Report</a></div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </div>
+</div>
+<hr class="hidden-xs nav-top-line">
+</div>
+
+
+
+          <header class="navbar navbar-default container-fluid" id="navbar" role="banner">
+        <div class="container ">
+      <div class="navbar-header">
+        
+                          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+            <div class="hidden-lg hidden-md mobile-nav">
+        <a class="" href="/">
+            <img src="/sites/default/files/cert/logo3.png"  alt="US Department of Homeland Security CISA Cyber + Infrastructure" title="US Department of Homeland Security CISA Cyber + Infrastructure">
+          </a>
+        </div>
+      </div>
+
+              <div id="navbar-collapse" class="navbar-collapse collapse">
+            <div class="region region-navigation-collapsible">
+    <section id="block-certsearchmobile" class="block block-block-content block-block-content0da6361c-e31a-4a58-b455-f9ebde1ba544 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><form accept-charset="UTF-8" action="https://search.us-cert.gov/search" class="hidden-lg hidden-md searchbox" method="get"><input name="utf8" type="hidden" value="✓" /><input id="affiliate-mobile" name="affiliate" type="hidden" value="us-cert" /><div class="form-group"><label class="sr-only" for="query-mobile">Enter Search Terms(s):</label>
+<div class="input-group"><input autocomplete="off" class="form-control form-control-custom input-lg" id="query-mobile" name="query" placeholder="Search" type="text" /><div class="input-group-addon input-group-addon-custom"><button class="submit input-lg"><img alt="search icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/search-icon.png" title="search icon" /></button></div>
+</div>
+</div>
+</form>
+<div class="hidden-md hidden-lg" style="padding: 8px"><a class="btn btn-primary btn-block" href="/services" role="button" style="font-weight: bold">Services</a></div>
+
+<div class="hidden-md hidden-lg" style="padding: 8px"><a class="btn btn-primary btn-block" href="/report" role="button" style="font-weight: bold">Report</a></div></div>
+      
+  </section>
+
+<nav role="navigation" aria-labelledby="block-certmainmenu-menu" id="block-certmainmenu">
+            
+  <h2 class="visually-hidden" id="block-certmainmenu-menu">CertMain Menu</h2>
+  
+
+        
+      <ul class="menu menu--certmain-menu nav navbar-nav">
+                      <li class="first">
+                                        <a href="/ncas" title="Alerts and Tips" data-drupal-link-system-path="node/5">Alerts and Tips</a>
+              </li>
+                      <li>
+                                        <a href="/resources" title="Resources" data-drupal-link-system-path="node/12436">Resources</a>
+              </li>
+                      <li>
+                                        <a href="/ics" title="Industrial Control Systems" data-drupal-link-system-path="node/14614">Industrial Control Systems</a>
+              </li>
+                      <li class="last">
+                                        <a href="/report" title="Report" data-drupal-link-system-path="node/5745">Report</a>
+              </li>
+        </ul>
+  
+
+  </nav>
+
+  </div>
+
+        </div>
+                </header>
+  <hr class="hidden-xs hidden-sm nav-bottom-line">
+<div class="visible-xs visible-sm mobile-border"></div>
+
+
+<div class="container">
+    <div id="print-logo"><img alt="US Department of Homeland Security CISA Cyber + Infrastructure" src="/sites/default/files/cert/logo2.png"/></div>
+    <div id="tlp-header"><svg height="30" width="120"> <rect fill="black" height="30" width="120" x="0" y="0"></rect> <text fill="#ffffff" font-size="18px" x="10" y="20">TLP:WHITE</text> </svg></div>
+    <div id="tlp-footer"><svg height="30" width="120"> <rect fill="black" height="30" width="120" x="0" y="0"></rect> <text fill="#ffffff" font-size="18px" x="10" y="20">TLP:WHITE</text> </svg></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  <div role="main" class="main-container container js-quickedit-main-content">
+    <div class="row">
+
+                              <div class="col-sm-12" role="heading" aria-level="1">
+              <div class="region region-header">
+      <div class="container-fluid hidden-xs">
+  <ol class="breadcrumb">
+          <li >
+                  <a href="/ncas">National Cyber Awareness System</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
+              </li>
+          <li >
+                  <a href="/ncas/alerts">Alerts</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
+              </li>
+          <li  class="active">
+                  Potential for Iranian Cyber Response to U.S. Military Strike in Baghdad
+              </li>
+      </ol>
+</div>
+
+
+
+  </div>
+
+          </div>
+              
+
+            
+            
+                        
+
+            
+                  <section class="col-sm-12">
+
+                              <div class="highlighted">  <div class="region region-highlighted">
+    <div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+</div>
+              
+                                      
+                  
+                          <a id="main-content"></a>
+            <div class="region region-content">
+                  <div id="ncas-header">
+            <div id="alerts-archive">
+                <a title="View Archives" href="/ncas/alerts/">More Alerts</a>
+            </div>
+            <h1 id="page-title">Alert (AA20-006A)</h1>
+            <h2 id="page-sub-title">Potential for Iranian Cyber Response to U.S. Military Strike in Baghdad</h2>
+            <div class="submitted meta-text">
+                                Original release date: January 06, 2020  | Last <a href="#revisions">revised</a>: October 24, 2020
+                                            </div>
+            <div id="social-options">
+	<!-- START PRINT BUTTON -->
+		<div id="print-button">
+			<span id="custom-print-button">
+				<a rel="nofollow" href="javascript:window.print();" title="Click to print."><img src="/sites/default/files/icons/print-button.png" alt="Click to print." /></a>
+			</span>
+		</div>
+    <!-- END PRINT BUTTON -->
+	<!-- START TWEET BUTTON -->
+	<div id="tweet-button">
+		<span id="custom-tweet-button">
+			<a rel="nofollow" target="_blank" href="https://twitter.com/share?url=https%3A%2F%2Fus-cert.cisa.gov%2Fncas%2Falerts%2Faa20-006a" class="popup-twitter" title="Click to Tweet."><img src="/sites/default/files/icons/tweet-button.png" alt="Click to Tweet." /></a>
+		</span>
+	</div>
+	<!-- END TWEET BUTTON -->
+
+	<!-- START FACEBOOK BUTTON -->
+	<div id="facebook-button">
+		<span id="custom-facebook-button">
+		<a rel="nofollow" target="_blank" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fus-cert.cisa.gov%2Fncas%2Falerts%2Faa20-006a" class="popup-facebook" title="Click to send to Facebook."><img src="/sites/default/files/icons/facebook-send-button.png" alt="Click to send to Facebook." /></a>
+		</span>
+	</div>
+	<!-- END FACEBOOK BUTTON -->
+
+	<!-- START SHARE BUTTON -->
+	<div id="share-button">
+		<span id="custom-share-button">
+			<a rel="nofollow" target="_blank" href="http://www.addthis.com/bookmark.php?url=https%3A%2F%2Fus-cert.cisa.gov%2Fncas%2Falerts%2Faa20-006a" class="popup-share" title="Click to Share." ><img src="/sites/default/files/icons/share-button.png" alt="Click to Share." /></a>
+		</span>
+	</div>
+	<!-- END SHARE BUTTON -->
+
+</div>
+        </div>
+    
+  
+<article role="article" about="/ncas/alerts/aa20-006a" class="activity-alert full clearfix">
+
+  
+    
+
+  
+  <div class="content">
+	<div id="ncas-content">
+        		<a id="summary"></a>
+		<h3>Summary</h3>
+        
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><p>The Cybersecurity and Infrastructure Security Agency (CISA) is sharing the following information with the cybersecurity community as a primer for assisting in the protection of our Nation’s critical infrastructure in light of the current tensions between the Islamic Republic of Iran and the United States and Iran’s historic use of cyber offensive activities to retaliate against perceived harm. Foremost, CISA recommends organizations take the following actions:</p>
+
+<ol><li><strong>Adopt a state of heightened awareness. </strong>This includes minimizing coverage gaps in personnel availability, more consistently consuming relevant threat intelligence, and making sure emergency call trees are up to date.</li>
+	<li><strong>Increase organizational vigilance.</strong> Ensure security personnel are monitoring key internal security capabilities and that they know how to identify anomalous behavior. Flag any known Iranian indicators of compromise and tactics, techniques, and procedures (TTPs) for immediate response.</li>
+	<li><strong>Confirm reporting processes.</strong> Ensure personnel know how and when to report an incident. The well-being of an organization’s workforce and cyber infrastructure depends on awareness of threat activity. Consider reporting incidents to CISA to help serve as part of CISA’s early warning system (see Contact Information section below).</li>
+	<li><strong>Exercise organizational incident response plans. </strong>Ensure personnel are familiar with the key steps they need to take during an incident. Do they have the accesses they need? Do they know the processes? Are your various data sources logging as expected? Ensure personnel are positioned to act in a calm and unified manner.</li>
+</ol></div>
+      
+        
+        
+        		    <a id="technical-details"></a>
+		    <h3>Technical Details</h3>
+            
+            <div class="field field--name-field-aa-technical-details field--type-text-long field--label-hidden field--item"><h2>Iranian Cyber Threat Profile</h2>
+
+<p>Iran has a history of leveraging asymmetric tactics to pursue national interests beyond its conventional capabilities. More recently, its use of offensive cyber operations is an extension of that doctrine. Iran has exercised its increasingly sophisticated capabilities to suppress both social and political perspectives deemed dangerous to Iran and to harm regional and international opponents.</p>
+
+<p>Iranian cyber threat actors have continuously improved their offensive cyber capabilities. They continue to engage in more “conventional” activities ranging from website defacement, distributed denial of service (DDoS) attacks, and theft of personally identifiable information (PII), but they have also demonstrated a willingness to push the boundaries of their activities, which include destructive wiper malware and, potentially, cyber-enabled kinetic attacks.</p>
+
+<p>The U.S. intelligence community and various private sector threat intelligence organizations have identified the Islamic Revolutionary Guard Corps (IRGC) as a driving force behind Iranian state-sponsored cyberattacks–either through contractors in the Iranian private sector or by the IRGC itself.</p>
+
+<h2>Iranian Cyber Activity</h2>
+
+<p>According to open-source information, offensive cyber operations targeting a variety of industries and organizations—including financial services, energy, government facilities, chemical, healthcare, critical manufacturing, communications, and the defense industrial base—have been attributed, or allegedly attributed, to the Iranian government. The same reporting has associated Iranian actors with a range of high-profile attacks, including the following:</p>
+
+<ul><li><strong>Late 2011 to Mid-2013 – DDoS Targeting U.S. Financial Sector:</strong> In response to this activity, in March 2016, the U.S. Department of Justice indicted seven Iranian actors employed by companies performing work on behalf of the IRGC for conducting DDoS attacks primarily targeting the public-facing websites of U.S. banks. The attacks prevented customers from accessing their accounts and cost the banks millions of dollars in remediation. <a href="https://www.justice.gov/opa/pr/seven-iranians-working-islamic-revolutionary-guard-corps-affiliated-entities-charged">[1]</a> </li>
+	<li><strong>August/September 2013 – Unauthorized Access to Dam in New York State:</strong> In response, in March 2016, the U.S. Department of Justice indicted one Iranian actor employed by a company performing work on behalf of the IRGC for illegally accessing the supervisory control and data acquisition (SCADA) systems of the Bowman Dam in Rye, New York. The access allowed the actor to obtain information regarding the status and operation of the dam. <a href="https://www.justice.gov/opa/pr/seven-iranians-working-islamic-revolutionary-guard-corps-affiliated-entities-charged">[2]</a></li>
+	<li><strong>February 2014 – Sands Las Vegas Corporation Hacked: </strong>Cyber threat actors hacked into the Sands Las Vegas Corporation in Las Vegas, Nevada, and stole customer data, including credit card data, Social Security Numbers, and driver’s license numbers. According to a Bloomberg article from December 2014, the attack also involved a destructive portion, in which the Sands Las Vegas Corporation’s computer systems were wiped. In September 2015, the U.S. Director of National Intelligence identified the Iranian government as the perpetrator of the attack in a Statement for the Record to the House Permanent Select Committee on Intelligence. <a href="https://www.bloomberg.com/news/articles/2014-12-11/iranian-hackers-hit-sheldon-adelsons-sands-casino-in-las-vegas#p2">[3]</a></li>
+	<li><strong>2013 to 2017 – Cyber Theft Campaign on Behalf of IRGC:</strong> In response, in March 2018, the U.S. Justice Department indicted nine Iranian actors associated with the Mabna Institute for conducting a massive cyber theft campaign containing dozens of individual incidents, including “many on behalf of the IRGC.” The thefts targeted academic and intellectual property data as well as email account credentials. According to the indictment, the campaign targeted “144 U.S. universities, 176 universities across 21 foreign countries, 47 domestic and foreign private sector companies, the U.S. Department of Labor, the Federal Energy Regulatory Commission, the State of Hawaii, the State of Indiana, the United Nations, and the United Nations Children’s Fund.” <a href="https://www.justice.gov/opa/pr/nine-iranians-charged-conducting-massive-cyber-theft-campaign-behalf-islamic-revolutionary">[4]</a></li>
+</ul></div>
+      
+        
+        		    <a id="mitigations"></a>
+		    <h3>Mitigations</h3>
+            
+            <div class="field field--name-field-aa-mitigations field--type-text-long field--label-hidden field--item"><h2>Recommended Actions</h2>
+
+<p>The following is a composite of actionable technical recommendations for IT professionals and providers to reduce their overall vulnerability. These recommendations are not exhaustive; rather they focus on the actions that will likely have the highest return on investment. In general, CISA recommends two courses of action in the face of potential threat from Iranian actors: 1) vulnerability mitigation and 2) incident preparation.</p>
+
+<ol><li><strong>Disable all unnecessary ports and protocols. </strong>Review network security device logs and determine whether to shut off unnecessary ports and protocols. Monitor common ports and protocols for command and control activity.</li>
+	<li><strong>Enhance monitoring of network and email traffic.</strong> Review network signatures and indicators for focused operations activities, monitor for new phishing themes and adjust email rules accordingly, and follow best practices of restricting attachments via email or other mechanisms.  </li>
+	<li><strong>Patch externally facing equipment.</strong> Focus on patching critical and high vulnerabilities that allow for remote code execution or denial of service on externally facing equipment.</li>
+	<li><strong>Log and limit usage of PowerShell. </strong>Limit the usage of PowerShell to only users and accounts that need it, enable code signing of PowerShell scripts, and enable logging of all PowerShell commands.</li>
+	<li><strong>Ensure backups are up to date</strong> and stored in an easily retrievable location that is air-gapped from the organizational network.</li>
+</ol><h2>Patterns of Publicly Known Iranian Advanced Persistent Threats</h2>
+
+<p>The following mitigations and detection recommendations regarding publicly known Iranian advanced persistent threat (APT) techniques are based on the <a href="https://attack.mitre.org/">MITRE ATT&amp;CK Framework</a>. <a href="https://attack.mitre.org/">[5]</a></p>
+
+<table border="1" cellpadding="1" cellspacing="1" class="general-table" style="width: 600px; height: 312px;"><thead><tr><th scope="col"><span style="font-size: 11pt;"><span style="line-height: 115%;"><span style="font-family: &quot;Arial&quot;,sans-serif;"><strong><font color="#000000">Iranian APT Technique</font></strong></span></span></span></th>
+			<th scope="col"><span style="font-size: 11pt;"><span style="line-height: 115%;"><span style="font-family: &quot;Arial&quot;,sans-serif;"><strong><font color="#000000">Mitigation and Detection</font></strong></span></span></span></th>
+		</tr><tr><td scope="col" style="text-align: left;"><span style="font-size: 11pt;"><span style="line-height: 115%;"><span style="font-family: &quot;Arial&quot;,sans-serif;"><a href="https://attack.mitre.org/versions/v7/techniques/T1003/"><font color="#0000ff">Credential Dumping</font></a></span></span></span></td>
+			<td scope="col" style="text-align: left;">
+			<p style="margin-top: 8px; margin-bottom: 11px;"><font color="#000000"><font size="3">Mitigation</font></font></p>
+
+			<ul><li>
+				<p>Manage the access control list for "Replicating Directory Changes" and other permissions associated with domain controller replication.</p>
+				</li>
+				<li>
+				<p>Consider disabling or restricting NTLM.</p>
+				</li>
+				<li>
+				<p>Ensure that local administrator accounts have complex, unique passwords across all systems on the network.</p>
+				</li>
+				<li>
+				<p>Limit credential overlap across accounts and systems by training users and administrators not to use the same password for multiple accounts.</p>
+				</li>
+			</ul><p>Detection</p>
+
+			<ul><li>Windows: Monitor for unexpected processes interacting with Isass.exe.</li>
+				<li>Linux: The AuditD monitoring tool can be used to watch for hostile processes opening a maps file in the proc file system, alerting on the pid, process name, and arguments for such programs.</li>
+			</ul></td>
+		</tr><tr><td scope="col" style="text-align: left;"><span style="font-size: 11pt;"><span style="line-height: 115%;"><span style="font-family: &quot;Arial&quot;,sans-serif;"><a href="https://attack.mitre.org/versions/v7/techniques/T1027/"><font color="#0000ff">Obfuscated Files or Information</font></a></span></span></span></td>
+			<td scope="col" style="text-align: left;">
+			<p>Mitigation</p>
+
+			<ul><li>Consider utilizing the Antimalware Scan Interface (AMSI) on Windows 10 to analyze commands after being processed/interpreted.</li>
+			</ul><p>Detection</p>
+
+			<ul><li>Windows: Monitor for unexpected processes interacting with Isass.exe.</li>
+				<li>Linux: The AuditD monitoring tool can be used to watch for hostile processes opening a maps file in the proc file system, alerting on the pid, process name, and arguments for such programs.</li>
+			</ul></td>
+		</tr><tr><td scope="col" style="text-align: left;"><span style="font-size: 11pt;"><span style="line-height: 115%;"><span style="font-family: &quot;Arial&quot;,sans-serif;"><a href="https://attack.mitre.org/versions/v7/techniques/T1002/"><font color="#0000ff">Data Compressed</font></a></span></span></span></td>
+			<td scope="col" style="text-align: left;">
+			<p>Mitigation</p>
+
+			<ul><li>Network intrusion prevention or data loss prevention tools may be set to block specific file types from leaving the network over unencrypted channels.</li>
+			</ul><p>Detection</p>
+
+			<ul><li>Process monitoring and monitoring for command-line arguments for known compression utilities.</li>
+				<li>If the communications channel is unencrypted, compressed files can be detected in transit during exfiltration with a network intrusion detection or data loss prevention system analyzing file headers.</li>
+			</ul></td>
+		</tr><tr><td scope="col" style="text-align: left;"><span style="font-size: 11pt;"><span style="line-height: 115%;"><span style="font-family: &quot;Arial&quot;,sans-serif;"><a href="https://attack.mitre.org/versions/v7/techniques/T1086/"><font color="#0000ff">PowerShell</font></a></span></span></span></td>
+			<td scope="col" style="text-align: left;">
+			<p>Mitigation</p>
+
+			<ul><li>Set PowerShell execution policy to execute only signed scripts.</li>
+				<li>Remove PowerShell from systems when not needed, but a review should be performed to assess the impact to an environment, since it could be in use for many legitimate purposes and administrative functions.</li>
+				<li>Disable/restrict the WinRM Service to help prevent uses of PowerShell for remote execution.</li>
+				<li>Restrict PowerShell execution policy to administrators.</li>
+			</ul><p>Detection</p>
+
+			<ul><li>If PowerShell is not used in an environment, looking for PowerShell execution may detect malicious activity.</li>
+				<li>Monitor for loading and/or execution of artifacts associated with PowerShell specific assemblies, such as System. Management.Automation.dll (especially to unusual process names/locations).</li>
+				<li>Turn on PowerShell logging to gain increased fidelity in what occurs during execution (which is applied to .NET invocations).</li>
+			</ul></td>
+		</tr><tr><td scope="col" style="text-align: left;">
+			<p><span style="font-size: 11pt;"><span style="line-height: 115%;"><span style="font-family: &quot;Arial&quot;,sans-serif;"><a href="https://attack.mitre.org/versions/v7/techniques/T1204/"><font color="#0000ff">User Execution</font></a></span></span></span></p>
+			</td>
+			<td scope="col" style="text-align: left;">
+			<p>Mitigation</p>
+
+			<ul><li>Application allow listing may be able to prevent the running of executables masquerading as other files.</li>
+				<li>If a link is being visited by a user, network intrusion prevention systems and systems designed to scan and remove malicious downloads can be used to block activity.</li>
+				<li>Block unknown or unused files in transit by default that should not be downloaded or by policy from suspicious sites as a best practice to prevent some vectors, such as .scr., .exe, .pif, .cpl, etc.</li>
+				<li>Use user training as a way to bring awareness to common phishing and spearphishing techniques and how to raise suspicion for potentially malicious events.</li>
+			</ul><p>Detection</p>
+
+			<ul><li>Monitor the execution of and command-line arguments for applications that may be used by an adversary to gain Initial Access that require user interaction. This includes compression applications, such as those for zip files that can be used to Deobfuscate/Decode Files or Information in payloads.</li>
+				<li>Anti-virus can potentially detect malicious documents and files that are downloaded and executed on the user's computer.</li>
+				<li>Endpoint sensing or network sensing can potentially detect malicious events once the file is opened (such as a Microsoft Word document or PDF reaching out to the internet or spawning Powershell.exe) for techniques such as Exploitation for Client Execution and Scripting.</li>
+			</ul></td>
+		</tr><tr><td scope="col" style="text-align: left;"><span style="font-size: 11pt;"><span style="line-height: 115%;"><span style="font-family: &quot;Arial&quot;,sans-serif;"><a href="https://attack.mitre.org/versions/v7/techniques/T1064/"><font color="#0000ff">Scripting</font></a></span></span></span></td>
+			<td scope="col" style="text-align: left;">
+			<p style="margin-top: 8px; margin-bottom: 11px;"><font color="#000000"><font size="3">Mitigation</font></font></p>
+
+			<ul><li>Configure Office security settings enable Protected View, to execute within a sandbox environment, and to block macros through Group Policy. Other types of virtualization and application microsegmentation may also mitigate the impact of compromise.</li>
+				<li>Turn off unused features or restrict access to scripting engines such as VBScript or scriptable administration frameworks such as PowerShell.</li>
+			</ul><p>Detection</p>
+
+			<ul><li>Examine scripting user restrictions. Evaluate any attempts to enable scripts running on a system that would be considered suspicious.</li>
+				<li>Scripts should be captured from the file system when possible to determine their actions and intent.</li>
+				<li>Monitor processes and command-line arguments for script execution and subsequent behavior.</li>
+				<li>Analyze Office file attachments for potentially malicious macros.</li>
+				<li>Office processes, such as winword.exe, spawning instances of cmd.exe, script application like wscript.exe or powershell.exe, or other suspicious processes may indicate malicious activity.</li>
+			</ul></td>
+		</tr><tr><td scope="col" style="text-align: left;"><span style="font-size: 11pt;"><span style="line-height: 115%;"><span style="font-family: &quot;Arial&quot;,sans-serif;"><a href="https://attack.mitre.org/versions/v7/techniques/T1060/"><font color="#0000ff">Registry Run Keys/Startup Folder</font></a></span></span></span></td>
+			<td scope="col" style="text-align: left;">
+			<p>Mitigation</p>
+
+			<ul><li>This type of attack technique cannot be easily mitigated with preventive controls since it is based on the abuse of system features.</li>
+			</ul><p>Detection</p>
+
+			<ul><li>Monitor Registry for changes to run keys that do not correlate with known software, patch cycles, etc.</li>
+				<li>Monitor the start folder for additions or changes.</li>
+				<li>Tools such as Sysinternals Autoruns may also be used to detect system changes that could be attempts at persistence, including listing the run keys' Registry locations and startup folders.</li>
+				<li>To increase confidence of malicious activity, data and events should not be viewed in isolation, but as part of a chain of behavior that could lead to other activities, such as network connections made for Command and Control, learning details about the environment through Discovery, and Lateral Movement.</li>
+			</ul></td>
+		</tr><tr><td scope="col" style="text-align: left;"><span style="font-size: 11pt;"><span style="line-height: 115%;"><span style="font-family: &quot;Arial&quot;,sans-serif;"><a href="https://attack.mitre.org/versions/v7/techniques/T1105/"><font color="#0000ff">Remote File Copy</font></a></span></span></span></td>
+			<td scope="col" style="text-align: left;">
+			<p>Mitigation</p>
+
+			<ul><li>Network intrusion detection and prevention systems that use network signatures to identify traffic for specific adversary malware or unusual data transfer over known tools and protocols like FTP can be used to mitigate activity at the network level.</li>
+			</ul><p>Detection</p>
+
+			<ul><li>Monitor for file creation and files transferred within a network over SMB.</li>
+				<li>Monitor use of utilities, such as FTP, that does not normally occur.</li>
+				<li>Analyze network data for uncommon data flows (e.g., a client sending significantly more data than it receives from a server).</li>
+				<li>Analyze packet contents to detect communications that do not follow the expected protocol behavior for the port that is being used.</li>
+			</ul></td>
+		</tr><tr><td scope="col" style="text-align: left;">
+			<p><span style="font-size: 11pt;"><span style="line-height: 115%;"><span style="font-family: &quot;Arial&quot;,sans-serif;"><a href="https://attack.mitre.org/versions/v7/techniques/T1192/"><font color="#0000ff">Spearphishing Link</font></a></span></span></span></p>
+			</td>
+			<td scope="col" style="text-align: left;">
+			<p>Mitigation</p>
+
+			<ul><li>Determine if certain websites that can be used for spearphishing are necessary for business operations and consider blocking access if activity cannot be monitored well or if it poses a significant risk.</li>
+				<li>Users can be trained to identify social engineering techniques and spearphishing emails with malicious links.</li>
+			</ul><p>Detection</p>
+
+			<ul><li>URL inspection within email (including expanding shortened links) can help detect links leading to known malicious sites.</li>
+				<li>Detonation chambers can be used to detect these links and either automatically go to these sites to determine if they're potentially malicious, or wait and capture the content if a user visits the link.</li>
+			</ul></td>
+		</tr><tr><td scope="col" style="text-align: left;"><span style="font-size: 11pt;"><span style="line-height: 115%;"><span style="font-family: &quot;Arial&quot;,sans-serif;"><a href="https://attack.mitre.org/versions/v7/techniques/T1193/"><font color="#0000ff">Spearphishing Attachment</font></a></span></span></span></td>
+			<td scope="col" style="text-align: left;">
+			<p>Mitigation</p>
+
+			<ul><li>Anti-virus can automatically quarantine suspicious files.</li>
+				<li>Network intrusion prevention systems and systems designed to scan and remove malicious email attachments can be used to block activity.</li>
+				<li>Block unknown or unused attachments by default that should not be transmitted over email as a best practice to prevent some vectors, such as .scr, .exe, .pif, .cpl, etc.</li>
+				<li>Some email scanning devices can open and analyze compressed and encrypted formats, such as zip and rar that may be used to conceal malicious attachments in Obfuscated Files or Information.</li>
+				<li>Users can be trained to identify social engineering techniques and spearphishing emails.</li>
+			</ul><p>Detection</p>
+
+			<ul><li><span style="font-style: normal;"><span style="font-weight: normal;">Network intrusion detection systems and email gateways can be used to detect spearphishing with malicious attachments in transit.</span></span></li>
+				<li>Detonation chambers may also be used to identify malicious attachments.</li>
+				<li>Solutions can be signature and behavior based, but adversaries may construct attachments in a way to avoid these systems.</li>
+				<li>Anti-virus can potentially detect malicious documents and attachments as they're scanned to be stored on the email server or on the user's computer.</li>
+			</ul></td>
+		</tr></thead></table></div>
+      
+        
+        		    <a id="contact-information"></a>
+		    <h3>Contact Information</h3>
+            
+            <div class="field field--name-field-aa-contact-info field--type-text-long field--label-hidden field--item"><p>CISA encourages recipients of this report to contribute any additional information that they may have related to this threat. For any questions related to this report, please contact CISA at</p>
+
+<ul><li>1-888-282-0870 (From outside the United States: +1-703-235-8832)</li>
+	<li>CISAServiceDesk@cisa.dhs.gov (UNCLASS)</li>
+	<li>us-cert@dhs.sgov.gov (SIPRNET)</li>
+	<li>us-cert@dhs.ic.gov (JWICS)</li>
+</ul><p>CISA encourages you to report any suspicious activity, including cybersecurity incidents, possible malicious code, software vulnerabilities, and phishing-related scams. Reporting forms can be found on the CISA homepage at <a href="http://www.us-cert.gov/">http://www.us-cert.gov/</a>.</p>
+</div>
+      
+        
+        		    <a id="references"></a>
+		    <h3>References</h3>
+            
+      <div class="field field--name-field-aa-references field--type-link field--label-hidden field--items">
+              <div class="field--item"><a href="https://www.justice.gov/opa/pr/seven-iranians-working-islamic-revolutionary-guard-corps-affiliated-entities-charged">[1] Department of Justice press release: Seven Iranians Working for Islamic Rev…</a></div>
+              <div class="field--item"><a href="https://www.justice.gov/opa/pr/seven-iranians-working-islamic-revolutionary-guard-corps-affiliated-entities-charged">[2] Department of Justice press release: Seven Iranians Working for Islamic Rev…</a></div>
+              <div class="field--item"><a href="https://www.bloomberg.com/news/articles/2014-12-11/iranian-hackers-hit-sheldon-adelsons-sands-casino-in-las-vegas#p2">[3] Bloomberg article: Now at the Sands Casino: An Iranian Hacker in Every Serv…</a></div>
+              <div class="field--item"><a href="https://www.justice.gov/opa/pr/nine-iranians-charged-conducting-massive-cyber-theft-campaign-behalf-islamic-revolutionary">[4] Department of Justice press release: Nine Iranians Charged With Conducting …</a></div>
+              <div class="field--item"><a href="https://attack.mitre.org/">[5] MITRE ATT&amp;CK Framework</a></div>
+              <div class="field--item"><a href="https://www.cisa.gov/insights">CISA Insights: Increased Geopolitical Tensions and Threats</a></div>
+          </div>
+  
+        
+        		    <a id="revisions"></a>
+		    <h3>Revisions</h3>
+            
+      <div class="field field--name-field-aa-revisions field--type-string field--label-hidden field--items">
+              <div class="field--item">January 6, 2019: Initial version</div>
+              <div class="field--item">October 23, 2020</div>
+          </div>
+  
+        
+        
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><p class="privacy-and-terms">This product is provided subject to this <a href="/privacy/notification">Notification</a> and this <a href="https://www.dhs.gov/privacy-policy">Privacy &amp; Use</a> policy.</p>
+</div>
+      
+
+	</div>
+                        <div id="document-feedback">
+	<div class="inner-document-feedback center-center">
+        <p><b>Please share your thoughts.</b></p>
+		<p>We recently updated our anonymous <a href="https://www.surveymonkey.com/r/CISA-cyber-survey?product=https://us-cert.cisa.gov/ncas/alerts/aa20-006a">product survey</a>; we'd welcome your feedback.</p>
+	</div>
+</div>
+
+              </div>
+
+</article>
+
+
+  </div>
+
+              </section>
+
+
+                      </div>
+  </div>
+
+
+
+
+
+
+      <footer class="footer container-fluid" role="contentinfo">
+        <div class="region region-footer">
+    <section id="block-certsignup" class="block block-block-content block-block-contentc5846d10-2e2b-4822-aa59-7a5c3262f671 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container-fluid signup">
+<div class="container">
+<div class="row">
+<div class="col-lg-3 contact-icons">
+<h3>Contact Us</h3>
+
+<p class="phone-text"><img alt="phone icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Phone.png" />(888)282-0870</p>
+
+<p><img alt="email icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Email.png" /><a class="mailto" href="mailto:central@cisa.dhs.gov" title="General questions or suggestions">Send us email</a></p>
+
+<p><img alt="lock icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Lock.png" /><a href="/contact-us/" title="Download PGP/GPG keys">Download PGP/GPG keys</a></p>
+
+<p><img alt="feedback icon" data-entity-type="" data-entity-uuid="" height="32" src="/sites/default/files/images/icon-feedback.png" /><a href="/forms/website-feedback" title="Website Feedback">Submit website feedback</a></p>
+</div>
+
+<div class="col-lg-6 sub-alert">
+<h3>Subscribe to Alerts</h3>
+
+<p>Receive security alerts, tips, and other updates.</p>
+
+<form action="https://public.govdelivery.com/accounts/USDHSCISA/subscribers/qualify"><label class="visually-hidden" for="email-address-field">Enter your email address</label> <input class="signup-form" id="email-address-field" name="email" placeholder=" Enter your email address" title="Enter your email address" type="text" /><br /><input class="btn btn-primary" name="submit" title="Sign up for alerts" type="submit" value="Sign Up" /> </form>
+
+<div class="pull-right signup-icon-one"><a href="https://twitter.com/uscert_gov" title="US-CERT Twitter Feed"><img alt="twitter icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/twitter-button.png" /></a></div>
+
+<div class="pull-right signup-icon-two"><a href="/mailing-lists-and-feeds" title="Mailing Lists and Feeds"><img alt="rss icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/rss-button-bottom.png" /></a></div>
+
+<div class="pull-right signup-icon-three"><a href="/hsin" class="btn btn-cert-report" name="button" type="button" id="button">HSIN</a></div>
+</div>
+
+<div class="col-lg-3 cert-report"><a class="btn btn-cert-report btn-lg" href="/report" name="button" type="button" id="button">Report</a></div>
+</div>
+</div>
+</div>
+</div>
+      
+  </section>
+
+<section id="block-certcertfooter" class="block block-block-content block-block-contentd5b85bd2-62d1-485a-b9ae-f040b1ca1a45 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container">
+<hr /><div class="text-center"><a href="/" title="Home">Home</a>   <a href="/sitemap" title="Site Map">Site Map</a>   <a href="/faq/" title="Frequently Asked Questions">FAQ</a>   <a href="/contact-us/" title="Contact Us">Contact Us</a>   <a href="/tlp/" title="Traffic Light Protocol">Traffic Light Protocol</a>   <a href="/pcii" title="PCII">PCII</a>   <a href="https://www.dhs.gov" title="Accountability">Accountability</a>   <a href="/disclaimer" title="Disclaimer">Disclaimer</a>   <a href="/privacy-policy" title="Privacy Policy">Privacy Policy</a>   <a href="https://www.dhs.gov/freedom-information-act-foia" title="FOIA">FOIA</a>   <a href="https://www.dhs.gov/homeland-security-no-fear-act-reporting" title="No Fear Act">No Fear Act</a>   <a href="/accessibility/" title="Accessibility">Accessibility</a><a href="https://www.dhs.gov/plain-writing-dhs" title="Plain Writing">Plain Writing</a><a href="https://www.dhs.gov/plug-information" title="Plug-ins">Plug-ins</a>   <a href="https://www.oig.dhs.gov/" title="Office of the Inspector General">Inspector General</a>   <a href="https://www.whitehouse.gov/" title="The White House">The White House</a>   <a href="https://www.usa.gov/" title="USA.gov">USA.gov</a><br />
+ 
+<p>CISA is part of the <a href="https://www.dhs.gov/" title="Department of Homeland Security">Department of Homeland Security</a></p>
+</div>
+<script type="text/javascript">
+<!--//--><![CDATA[// ><!--
+
+    window.onload = function(){
+            jQuery('body.page-node-type-us-cert-events div#ncas-header').find('img').each(function(){
+                    var $src=jQuery(this).prop('src');
+                    if($src.indexOf('default/files/') == -1)jQuery(this).remove();
+                    });
+            if('Privacy Data Breach' == jQuery('#uscert-utilities-irf-form #item-info-impact option:selected').text()){ 
+                jQuery('#item-info-impact-block').removeClass('collapsed'); 
+            }
+jQuery('#print-logo img').removeAttr('width').removeAttr('height');
+if(jQuery('body.path-frontpage').length > 0)
+{   
+    jQuery('.main-container').find('.col-sm-12').removeAttr('role');
+}
+jQuery('#map area').each(function(){ jQuery(this).click(function(){var idstr=jQuery(this).attr('clickthis'); if(jQuery(idstr).hasClass('open') == false){jQuery(idstr).click();}});});  
+if(jQuery('#document-feedback').length > 0)
+{ 
+    var $url    = window.location.href
+    //var str ='Your feedback is very important to us. Please take a moment to complete this <a href="https://surveymonkey.com/r/G8STDRY?product=' + $url + '">survey.';
+    //var $p = jQuery('#document-feedback div p').html(str);
+}
+    };
+
+//--><!]]>
+</script></div>
+<style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+#views-bootstrap-carousel-block-2 .carousel-inner > .item > a > img {
+  margin:auto;
+}
+button#product-feedback-next {
+    margin-bottom: 10px;
+}
+/*
+.mobile-nav {
+border-bottom: 3px solid #112e51;
+}
+*/
+.cma-banner-container {
+    display: none;
+}
+@media (max-width: 991px) {
+.navbar .navbar-header {
+background: #fff;
+}
+}
+div.banner-region { background: #fff; }
+
+.accordion_fold {
+    padding-bottom: 25px;
+}
+
+h2.accordion.open {
+    background: #f2f2f2;
+}
+
+a { color: #2b72af;}
+
+.navbar-default .navbar-nav > li > a { color: #767676; }
+/* andi */
+.sidebar-widget-orange .orange {
+    background-color: #e77431;
+}
+#block-views-block-ics-announcements-block-1 .views-field-created {
+    color: #565656;
+}
+a#sort-bulletin {
+color: #000;
+background: white;
+position: absolute;
+right: 150px;
+padding: 1px 12px;
+}
+
+/*--><!]]>*/
+</style></div>
+      
+  </section>
+
+
+  </div>
+
+    </footer>
+  
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","scriptPath":null,"pathPrefix":"","currentPath":"node\/13443","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"UA-34879253-1","trackOutbound":true,"trackMailto":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"data":{"extlink":{"extTarget":false,"extTargetNoOverride":false,"extNofollow":false,"extNoreferrer":false,"extFollowNoOverride":false,"extClass":"ext","extLabel":"(link is external)","extImgClass":false,"extSubdomains":true,"extExclude":"(\\.gov|\\.mil|\\.org.*|twitter\\.com\\\/share\\?url\\=.*|www\\.facebook\\.com\\\/sharer\\.php\\?u\\=.*|www\\.addthis\\.com\\\/bookmark\\.php\\?url\\=.*|javascript\\:window\\.print\\(\\)\\;)","extInclude":"","extCssExclude":"","extCssExplicit":"","extAlert":true,"extAlertText":"You are now leaving an official website of the United States Government (USG), the Department of Homeland Security (DHS), and the Cybersecurity and Infrastructure Security Agency (CISA). Links to non-USG, non-DHS, and non-CISA sites are provided for the visitor\u0027s convenience and do not represent an endorsement by USG, DHS, or CISA of any commercial or private issues, products, or services. Note that the privacy policy of the linked site may differ from that of USG, DHS, and CISA.","mailtoClass":"mailto","mailtoLabel":"(link sends email)","extUseFontAwesome":false,"extIconPlacement":"append","extFaLinkClasses":"fa fa-external-link","extFaMailtoClasses":"fa fa-envelope-o","whitelistedDomains":null}},"bootstrap":{"forms_has_error_value_toggle":1,"popover_enabled":1,"popover_animation":1,"popover_auto_close":1,"popover_container":"body","popover_content":"","popover_delay":"0","popover_html":0,"popover_placement":"right","popover_selector":"","popover_title":"","popover_trigger":"click","tooltip_enabled":1,"tooltip_animation":1,"tooltip_container":"body","tooltip_delay":"0","tooltip_html":0,"tooltip_placement":"auto left","tooltip_selector":"","tooltip_trigger":"hover"},"user":{"uid":0,"permissionsHash":"5ac3ae468050ddd0aa4ecea12c34a32977a23244239ed53eb7226f296aed658f"}}</script>
+<script src="/sites/default/files/js/js_xhqBHziEDyCKWlB5IUseaFAGh1B08TPFGmxCf6RvFnM.js"></script>
+<script src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DHS&amp;subagency=US-CERT&amp;pua=0" id="_fed_an_ua_tag"></script>
+<script src="/sites/default/files/js/js_m5CHELy9XHlAx2jnhaYdT2XVeN916TnZL5U2ha7Ln94.js"></script>
+
+  <script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"877b02039c","applicationID":"628657512,979282327","transactionName":"ZFYHMhZSXUpRUkcKDF0cJAUQWlxXH0FSBAZsUAQFDFY=","queueTime":0,"applicationTime":18,"atts":"SBEERF5ITkQ=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

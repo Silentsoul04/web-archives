@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html  lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+    <meta charset="utf-8" /><script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={licenseKey:"877b02039c",applicationID:"628657512"};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var i=e[n]={exports:{}};t[n][0].call(i.exports,function(e){var i=t[n][1][e];return r(i||e)},i,i.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var i=0;i<n.length;i++)r(n[i]);return r}({1:[function(t,e,n){function r(){}function i(t,e,n){return function(){return o(t,[u.now()].concat(f(arguments)),e?null:this,n),e?void 0:this}}var o=t("handle"),a=t(8),f=t(9),c=t("ee").get("tracer"),u=t("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var d=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],p="api-",l=p+"ixn-";a(d,function(t,e){s[e]=i(p+e,!0,"api")}),s.addPageAction=i(p+"addPageAction",!0),s.setCurrentRouteName=i(p+"routeName",!0),e.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(t,e){var n={},r=this,i="function"==typeof e;return o(l+"tracer",[u.now(),t,n],r),function(){if(c.emit((i?"":"no-")+"fn-start",[u.now(),r,i],n),i)try{return e.apply(this,arguments)}catch(t){throw c.emit("fn-err",[arguments,this,t],n),t}finally{c.emit("fn-end",[u.now()],n)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(t,e){m[e]=i(l+e)}),newrelic.noticeError=function(t,e){"string"==typeof t&&(t=new Error(t)),o("err",[t,u.now(),!1,e])}},{}],2:[function(t,e,n){function r(t){if(NREUM.init){for(var e=NREUM.init,n=t.split("."),r=0;r<n.length-1;r++)if(e=e[n[r]],"object"!=typeof e)return;return e=e[n[n.length-1]]}}e.exports={getConfiguration:r}},{}],3:[function(t,e,n){function r(){return f.exists&&performance.now?Math.round(performance.now()):(o=Math.max((new Date).getTime(),o))-a}function i(){return o}var o=(new Date).getTime(),a=o,f=t(10);e.exports=r,e.exports.offset=a,e.exports.getLastTimestamp=i},{}],4:[function(t,e,n){function r(t){return!(!t||!t.protocol||"file:"===t.protocol)}e.exports=r},{}],5:[function(t,e,n){function r(t,e){var n=t.getEntries();n.forEach(function(t){"first-paint"===t.name?d("timing",["fp",Math.floor(t.startTime)]):"first-contentful-paint"===t.name&&d("timing",["fcp",Math.floor(t.startTime)])})}function i(t,e){var n=t.getEntries();n.length>0&&d("lcp",[n[n.length-1]])}function o(t){t.getEntries().forEach(function(t){t.hadRecentInput||d("cls",[t])})}function a(t){if(t instanceof m&&!g){var e=Math.round(t.timeStamp),n={type:t.type};e<=p.now()?n.fid=p.now()-e:e>p.offset&&e<=Date.now()?(e-=p.offset,n.fid=p.now()-e):e=p.now(),g=!0,d("timing",["fi",e,n])}}function f(t){d("pageHide",[p.now(),t])}if(!("init"in NREUM&&"page_view_timing"in NREUM.init&&"enabled"in NREUM.init.page_view_timing&&NREUM.init.page_view_timing.enabled===!1)){var c,u,s,d=t("handle"),p=t("loader"),l=t(7),m=NREUM.o.EV;if("PerformanceObserver"in window&&"function"==typeof window.PerformanceObserver){c=new PerformanceObserver(r);try{c.observe({entryTypes:["paint"]})}catch(v){}u=new PerformanceObserver(i);try{u.observe({entryTypes:["largest-contentful-paint"]})}catch(v){}s=new PerformanceObserver(o);try{s.observe({type:"layout-shift",buffered:!0})}catch(v){}}if("addEventListener"in document){var g=!1,h=["click","keydown","mousedown","pointerdown","touchstart"];h.forEach(function(t){document.addEventListener(t,a,!1)})}l(f)}},{}],6:[function(t,e,n){function r(t,e){if(!i)return!1;if(t!==i)return!1;if(!e)return!0;if(!o)return!1;for(var n=o.split("."),r=e.split("."),a=0;a<r.length;a++)if(r[a]!==n[a])return!1;return!0}var i=null,o=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var f=navigator.userAgent,c=f.match(a);c&&f.indexOf("Chrome")===-1&&f.indexOf("Chromium")===-1&&(i="Safari",o=c[1])}e.exports={agent:i,version:o,match:r}},{}],7:[function(t,e,n){function r(t){function e(){t(a&&document[a]?document[a]:document[i]?"hidden":"visible")}"addEventListener"in document&&o&&document.addEventListener(o,e,!1)}e.exports=r;var i,o,a;"undefined"!=typeof document.hidden?(i="hidden",o="visibilitychange",a="visibilityState"):"undefined"!=typeof document.msHidden?(i="msHidden",o="msvisibilitychange"):"undefined"!=typeof document.webkitHidden&&(i="webkitHidden",o="webkitvisibilitychange",a="webkitVisibilityState")},{}],8:[function(t,e,n){function r(t,e){var n=[],r="",o=0;for(r in t)i.call(t,r)&&(n[o]=e(r,t[r]),o+=1);return n}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],9:[function(t,e,n){function r(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,i=n-e||0,o=Array(i<0?0:i);++r<i;)o[r]=t[e+r];return o}e.exports=r},{}],10:[function(t,e,n){e.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(t,e,n){function r(){}function i(t){function e(t){return t&&t instanceof r?t:t?u(t,c,a):a()}function n(n,r,i,o,a){if(a!==!1&&(a=!0),!l.aborted||o){t&&a&&t(n,r,i);for(var f=e(i),c=v(n),u=c.length,s=0;s<u;s++)c[s].apply(f,r);var p=d[w[n]];return p&&p.push([b,n,r,f]),f}}function o(t,e){y[t]=v(t).concat(e)}function m(t,e){var n=y[t];if(n)for(var r=0;r<n.length;r++)n[r]===e&&n.splice(r,1)}function v(t){return y[t]||[]}function g(t){return p[t]=p[t]||i(n)}function h(t,e){l.aborted||s(t,function(t,n){e=e||"feature",w[n]=e,e in d||(d[e]=[])})}var y={},w={},b={on:o,addEventListener:o,removeEventListener:m,emit:n,get:g,listeners:v,context:e,buffer:h,abort:f,aborted:!1};return b}function o(t){return u(t,c,a)}function a(){return new r}function f(){(d.api||d.feature)&&(l.aborted=!0,d=l.backlog={})}var c="nr@context",u=t("gos"),s=t(8),d={},p={},l=e.exports=i();e.exports.getOrSetContext=o,l.backlog=d},{}],gos:[function(t,e,n){function r(t,e,n){if(i.call(t,e))return t[e];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:r,writable:!0,enumerable:!1}),r}catch(o){}return t[e]=r,r}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],handle:[function(t,e,n){function r(t,e,n,r){i.buffer([t],r),i.emit(t,e,n)}var i=t("ee").get("handle");e.exports=r,r.ee=i},{}],id:[function(t,e,n){function r(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:a(t,o,function(){return i++})}var i=1,o="nr@id",a=t("gos");e.exports=r},{}],loader:[function(t,e,n){function r(){if(!R++){var t=M.info=NREUM.info,e=v.getElementsByTagName("script")[0];if(setTimeout(u.abort,3e4),!(t&&t.licenseKey&&t.applicationID&&e))return u.abort();c(E,function(e,n){t[e]||(t[e]=n)});var n=a();f("mark",["onload",n+M.offset],null,"api"),f("timing",["load",n]);var r=v.createElement("script");0===t.agent.indexOf("http://")||0===t.agent.indexOf("https://")?r.src=t.agent:r.src=l+"://"+t.agent,e.parentNode.insertBefore(r,e)}}function i(){"complete"===v.readyState&&o()}function o(){f("mark",["domContent",a()+M.offset],null,"api")}var a=t(3),f=t("handle"),c=t(8),u=t("ee"),s=t(6),d=t(4),p=t(2),l=p.getConfiguration("ssl")===!1?"http":"https",m=window,v=m.document,g="addEventListener",h="attachEvent",y=m.XMLHttpRequest,w=y&&y.prototype,b=!d(m.location);NREUM.o={ST:setTimeout,SI:m.setImmediate,CT:clearTimeout,XHR:y,REQ:m.Request,EV:m.Event,PR:m.Promise,MO:m.MutationObserver};var x=""+location,E={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1209.min.js"},O=y&&w&&w[g]&&!/CriOS/.test(navigator.userAgent),M=e.exports={offset:a.getLastTimestamp(),now:a,origin:x,features:{},xhrWrappable:O,userAgent:s,disabled:b};if(!b){t(1),t(5),v[g]?(v[g]("DOMContentLoaded",o,!1),m[g]("load",r,!1)):(v[h]("onreadystatechange",i),m[h]("onload",r)),f("mark",["firstbyte",a.getLastTimestamp()],null,"api");var R=0}},{}],"wrap-function":[function(t,e,n){function r(t,e){function n(e,n,r,c,u){function nrWrapper(){var o,a,s,p;try{a=this,o=d(arguments),s="function"==typeof r?r(o,a):r||{}}catch(l){i([l,"",[o,a,c],s],t)}f(n+"start",[o,a,c],s,u);try{return p=e.apply(a,o)}catch(m){throw f(n+"err",[o,a,m],s,u),m}finally{f(n+"end",[o,a,p],s,u)}}return a(e)?e:(n||(n=""),nrWrapper[p]=e,o(e,nrWrapper,t),nrWrapper)}function r(t,e,r,i,o){r||(r="");var f,c,u,s="-"===r.charAt(0);for(u=0;u<e.length;u++)c=e[u],f=t[c],a(f)||(t[c]=n(f,s?c+r:r,i,c,o))}function f(n,r,o,a){if(!m||e){var f=m;m=!0;try{t.emit(n,r,o,e,a)}catch(c){i([c,n,r,o],t)}m=f}}return t||(t=s),n.inPlace=r,n.flag=p,n}function i(t,e){e||(e=s);try{e.emit("internal-error",t)}catch(n){}}function o(t,e,n){if(Object.defineProperty&&Object.keys)try{var r=Object.keys(t);return r.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(o){i([o],n)}for(var a in t)l.call(t,a)&&(e[a]=t[a]);return e}function a(t){return!(t&&t instanceof Function&&t.apply&&!t[p])}function f(t,e){var n=e(t);return n[p]=t,o(t,n,s),n}function c(t,e,n){var r=t[e];t[e]=f(r,n)}function u(){for(var t=arguments.length,e=new Array(t),n=0;n<t;++n)e[n]=arguments[n];return e}var s=t("ee"),d=t(9),p="nr@original",l=Object.prototype.hasOwnProperty,m=!1;e.exports=r,e.exports.wrapFunction=f,e.exports.wrapInPlace=c,e.exports.argsToArray=u},{}]},{},["loader"]);</script>
+<script async src="/sites/default/files/google_analytics/gtag.js?qubv3z"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("config", "UA-34879253-1", {"groups":"default","anonymize_ip":true,"allow_ad_personalization_signals":false});</script>
+<meta name="description" content="High VulnerabilitiesPrimary" />
+<meta name="abstract" content="As part of its mission, CISA leads the effort to enhance the security, resiliency, and reliability of the Nation&#039;s cybersecurity and communications infrastructure." />
+<meta name="keywords" content="uscert, csirt, cert, cybersecurity, cyber security, computer security, U. S. Computer Emergency Readiness, cyber risks" />
+<meta name="Generator" content="Drupal 9 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/sites/default/files/images/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="https://us-cert.cisa.gov/ncas/bulletins/SB11-262" />
+<link rel="shortlink" href="https://us-cert.cisa.gov/node/5347" />
+<link rel="revision" href="https://us-cert.cisa.gov/ncas/bulletins/SB11-262" />
+
+    <title>Vulnerability Summary for the Week of September 12, 2011  | CISA</title>
+    <link rel="stylesheet" media="all" href="/sites/default/files/css/css_-w-jQbIWIO0ZERqyQMFp9m1ddgDjs5ZGsor0ebo5CG4.css" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_OtQ9QHAYVZDqM__uuCDStHUt38Nwh_1MHX1vxg5dE5c.css" />
+
+    
+    <!-- Google Font -->
+    <style type="text/css">
+/* source-sans-pro-regular - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'),
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.woff') format('woff'), /* Modern Browsers */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.svg#SourceSansPro') format('svg'); /* Legacy iOS */
+}
+    </style>
+    <!--link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet"--> 
+    <!-- Google Font -->
+  </head>
+  <body class="path-node page-node-type-bulletin has-glyphicons">
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+
+
+<div class="container-fluid top-top">
+      <aside role="complementary">
+        <div class="region region-top">
+    <section id="block-certtoptop" class="block block-block-content block-block-content4d95ffde-0818-4e6b-bd79-d1547b08c0c0 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container">
+<div id="top">
+<div class="row">
+<div class="col-sm-12 flag"><img alt="United States Flag" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/flag.png" style="position: absolute;" /><p style="padding-left: 35px; font-family: Arial; font-size: 11px;">An official website of the United States government <a href="#" id="here-is-how-u-know">Here's how you know <span class="arrow down"> </span></a></p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="usa-banner-content usa-grid usa-accordion-content hidden container" id="gov-banner">
+<div class="usa-banner-guidance-gov usa-width-one-half col-sm-6"><img alt="Dot gov" class="usa-banner-icon usa-media_block-img" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/icon-dot-gov.svg" /><div class="usa-media_block-body"><strong>Official websites use .gov</strong><br />
+A <b>.gov</b> website belongs to an official government organization in the United States.</div>
+</div>
+
+<div class="usa-banner-guidance-ssl usa-width-one-half col-sm-6"><img alt="SSL" class="usa-banner-icon usa-media_block-img" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/icon-https.svg" /><div class="usa-media_block-body"><strong>Secure .gov websites use HTTPS</strong> A <b>lock (<img alt="lock icon" src="/sites/default/files/icons/lock.svg" style="width:15px;" />)</b> or <b>https://</b> means you've safely connected to the .gov website. Share sensitive information only on official, secure websites.</div>
+</div>
+</div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </div>
+
+
+
+<div class="container-fluid hidden-xs hidden-sm banner-region">
+<div class="container">
+<div class="row">
+
+
+  
+
+<section class="col-sm-9">
+
+      <a id="logo-section"></a>
+        <div class="region region-logo">
+    <section id="block-certlogo" class="block block-block-content block-block-content4639a667-debe-4642-bc69-7839662c0187 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="hidden-xs hidden-sm"><a href="/"><img alt="Cybersecurity and Infrastructure Security Agency CISA" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/logo_verbose.png" title="Cybersecurity and Infrastructure Security Agency CISA" /></a></div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </section>
+
+
+
+      <aside class="col-sm-3" role="complementary">
+        <div class="region region-search">
+    <section id="block-certsearch" class="block block-block-content block-block-contentc33bd875-6ea6-42cc-b1ab-348a4e4bdff7 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><form accept-charset="UTF-8" action="https://search.us-cert.gov/search" class="hidden-xs searchbox" method="get"><input name="utf8" type="hidden" value="✓" /><input id="affiliate-desktop" name="affiliate" type="hidden" value="us-cert" /><div class="form-group"><label class="sr-only" for="query-desktop">Enter Search Terms(s):</label>
+<div class="input-group"><input autocomplete="off" class="form-control form-control-custom input-lg" id="query-desktop" name="query" placeholder="Search" type="text" /><div class="input-group-addon input-group-addon-custom"><button class="submit input-lg"><img alt="search icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/search-icon.png" title="search icon" /></button></div>
+</div>
+</div>
+</form>
+<style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+.navbar-default ul.navbar-nav > li.last a{
+display: none;
+
+/*--><!]]>*/
+</style><div style="padding: 16px 12px 8px 12px"><a class="btn btn-primary" href="/services" type="button" style="font-weight: bold; width: 40%">Services</a><a class="btn btn-primary pull-right" href="/report" type="button" style="font-weight: bold; width: 40%">Report</a></div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </div>
+</div>
+<hr class="hidden-xs nav-top-line">
+</div>
+
+
+
+          <header class="navbar navbar-default container-fluid" id="navbar" role="banner">
+        <div class="container ">
+      <div class="navbar-header">
+        
+                          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+            <div class="hidden-lg hidden-md mobile-nav">
+        <a class="" href="/">
+            <img src="/sites/default/files/cert/logo3.png"  alt="US Department of Homeland Security CISA Cyber + Infrastructure" title="US Department of Homeland Security CISA Cyber + Infrastructure">
+          </a>
+        </div>
+      </div>
+
+              <div id="navbar-collapse" class="navbar-collapse collapse">
+            <div class="region region-navigation-collapsible">
+    <section id="block-certsearchmobile" class="block block-block-content block-block-content0da6361c-e31a-4a58-b455-f9ebde1ba544 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><form accept-charset="UTF-8" action="https://search.us-cert.gov/search" class="hidden-lg hidden-md searchbox" method="get"><input name="utf8" type="hidden" value="✓" /><input id="affiliate-mobile" name="affiliate" type="hidden" value="us-cert" /><div class="form-group"><label class="sr-only" for="query-mobile">Enter Search Terms(s):</label>
+<div class="input-group"><input autocomplete="off" class="form-control form-control-custom input-lg" id="query-mobile" name="query" placeholder="Search" type="text" /><div class="input-group-addon input-group-addon-custom"><button class="submit input-lg"><img alt="search icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/search-icon.png" title="search icon" /></button></div>
+</div>
+</div>
+</form>
+<div class="hidden-md hidden-lg" style="padding: 8px"><a class="btn btn-primary btn-block" href="/services" role="button" style="font-weight: bold">Services</a></div>
+
+<div class="hidden-md hidden-lg" style="padding: 8px"><a class="btn btn-primary btn-block" href="/report" role="button" style="font-weight: bold">Report</a></div></div>
+      
+  </section>
+
+<nav role="navigation" aria-labelledby="block-certmainmenu-menu" id="block-certmainmenu">
+            
+  <h2 class="visually-hidden" id="block-certmainmenu-menu">CertMain Menu</h2>
+  
+
+        
+      <ul class="menu menu--certmain-menu nav navbar-nav">
+                      <li class="first">
+                                        <a href="/ncas" title="Alerts and Tips" data-drupal-link-system-path="node/5">Alerts and Tips</a>
+              </li>
+                      <li>
+                                        <a href="/resources" title="Resources" data-drupal-link-system-path="node/12436">Resources</a>
+              </li>
+                      <li>
+                                        <a href="/ics" title="Industrial Control Systems" data-drupal-link-system-path="node/14614">Industrial Control Systems</a>
+              </li>
+                      <li class="last">
+                                        <a href="/report" title="Report" data-drupal-link-system-path="node/5745">Report</a>
+              </li>
+        </ul>
+  
+
+  </nav>
+
+  </div>
+
+        </div>
+                </header>
+  <hr class="hidden-xs hidden-sm nav-bottom-line">
+<div class="visible-xs visible-sm mobile-border"></div>
+
+
+<div class="container">
+    <div id="print-logo"><img alt="US Department of Homeland Security CISA Cyber + Infrastructure" src="/sites/default/files/cert/logo2.png"/></div>
+    <div id="tlp-header"><svg height="30" width="120"> <rect fill="black" height="30" width="120" x="0" y="0"></rect> <text fill="#ffffff" font-size="18px" x="10" y="20">TLP:WHITE</text> </svg></div>
+    <div id="tlp-footer"><svg height="30" width="120"> <rect fill="black" height="30" width="120" x="0" y="0"></rect> <text fill="#ffffff" font-size="18px" x="10" y="20">TLP:WHITE</text> </svg></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  <div role="main" class="main-container container js-quickedit-main-content">
+    <div class="row">
+
+                              <div class="col-sm-12" role="heading" aria-level="1">
+              <div class="region region-header">
+      <div class="container-fluid hidden-xs">
+  <ol class="breadcrumb">
+          <li >
+                  <a href="/ncas">National Cyber Awareness System</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
+              </li>
+          <li >
+                  <a href="/ncas/bulletins">Bulletins</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
+              </li>
+          <li  class="active">
+                   Vulnerability Summary for the Week of September 12, 2011 
+              </li>
+      </ol>
+</div>
+
+
+
+  </div>
+
+          </div>
+              
+
+            
+            
+                        
+
+            
+                  <section class="col-sm-12">
+
+                              <div class="highlighted">  <div class="region region-highlighted">
+    <div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+</div>
+              
+                                      
+                  
+                          <a id="main-content"></a>
+            <div class="region region-content">
+                      <div id="bulletins-archive">
+                <a title="View Archives" href="/ncas/bulletins/">More Bulletins</a>
+            </div>
+	    <h1 id="page-title">Bulletin (SB11-262 )</h1>
+	    <h2 id="page-sub-title"> Vulnerability Summary for the Week of September 12, 2011 </h2>
+        <div class="submitted meta-text">
+                        Original release date: September 19, 2011  | Last revised: November 08, 2012
+                                    <div id="social-options">
+	<!-- START PRINT BUTTON -->
+		<div id="print-button">
+			<span id="custom-print-button">
+				<a rel="nofollow" href="javascript:window.print();" title="Click to print."><img src="/sites/default/files/icons/print-button.png" alt="Click to print." /></a>
+			</span>
+		</div>
+    <!-- END PRINT BUTTON -->
+	<!-- START TWEET BUTTON -->
+	<div id="tweet-button">
+		<span id="custom-tweet-button">
+			<a rel="nofollow" target="_blank" href="https://twitter.com/share?url=" class="popup-twitter" title="Click to Tweet."><img src="/sites/default/files/icons/tweet-button.png" alt="Click to Tweet." /></a>
+		</span>
+	</div>
+	<!-- END TWEET BUTTON -->
+
+	<!-- START FACEBOOK BUTTON -->
+	<div id="facebook-button">
+		<span id="custom-facebook-button">
+		<a rel="nofollow" target="_blank" href="https://www.facebook.com/sharer.php?u=" class="popup-facebook" title="Click to send to Facebook."><img src="/sites/default/files/icons/facebook-send-button.png" alt="Click to send to Facebook." /></a>
+		</span>
+	</div>
+	<!-- END FACEBOOK BUTTON -->
+
+	<!-- START SHARE BUTTON -->
+	<div id="share-button">
+		<span id="custom-share-button">
+			<a rel="nofollow" target="_blank" href="http://www.addthis.com/bookmark.php?url=" class="popup-share" title="Click to Share." ><img src="/sites/default/files/icons/share-button.png" alt="Click to Share." /></a>
+		</span>
+	</div>
+	<!-- END SHARE BUTTON -->
+
+</div>
+        </div>
+    
+  
+<div class="cert-content">
+<article role="article" about="/ncas/bulletins/SB11-262" class="bulletin full clearfix">
+
+  
+    
+  
+  <div class="content">
+        
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><p>The CISA Vulnerability Bulletin provides a summary of new vulnerabilities that have been recorded by the <a href="https://www.nist.gov/">National Institute of Standards and Technology</a> (NIST) <a href="https://nvd.nist.gov/">National Vulnerability Database</a> (NVD) in the past week. NVD is sponsored by CISA. In some cases, the vulnerabilities in the bulletin may not yet have assigned CVSS scores. Please visit NVD for updated vulnerability entries, which include CVSS scores once they are available.</p>
+
+<p>Vulnerabilities are based on the <a href="https://cve.mitre.org/">Common Vulnerabilities and Exposures</a> (CVE) vulnerability naming standard and are organized according to severity, determined by the <a href="https://nvd.nist.gov/cvss.cfm">Common Vulnerability Scoring System</a> (CVSS) standard. The division of high, medium, and low severities correspond to the following scores:</p>
+
+<ul><li><a href="#high">High</a>: vulnerabilities with a CVSS base score of 7.0–10.0</li>
+	<li><a href="#medium">Medium</a>: vulnerabilities with a CVSS base score of 4.0–6.9</li>
+	<li><a href="#low">Low</a>: vulnerabilities with a CVSS base score of 0.0–3.9</li>
+</ul><p>Entries may include additional information provided by organizations and efforts sponsored by CISA. This information may include identifying information, values, definitions, and related links. Patch information is provided when available. Please note that some of the information in the bulletin is compiled from external, open-source reports and is not a direct result of CISA analysis.</p>
+</div>
+      
+
+        
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><a name="high" id="high"></a><div id="high_v"><h2 id="high_v_title">High Vulnerabilities</h2><table align="center" border="1" class="vul_tables" summary="High Vulnerabilities"><tr><th scope="col" style="width:20%;" class="headers">Primary<br />Vendor -- Product</th>	<th scope="col" style="width:45%;" class="headers">Description</th>	<th scope="col" style="width:10%;" class="headers">Published </th>	<th scope="col" style="width:5%;" class="headers">CVSS Score</th>	<th scope="col" style="width:10%;" class="headers">Source &amp; Patch Info</th>	</tr><tbody><tr><td scope="row" width="20%" style="text-align: left;">acdsee -- fotoslate<br /></td>		<td width="45%" style="text-align: left;">Multiple stack-based buffer overflows in ACDSee FotoSlate 4.0 Build 146 allow remote attackers to execute arbitrary code via a long id parameter in a (1) String or (2) Int tag in a FotoSlate Project (aka PLP) file.</td>		<td width="10%" style="text-align:center;">2011-09-14</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-2595&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">10.0</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-2595" target="_blank">CVE-2011-2595</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">adobe -- acrobat<br /></td>		<td width="45%" style="text-align: left;">Adobe Reader and Acrobat 8.x before 8.3.1, 9.x before 9.4.6, and 10.x before 10.1.1 allow attackers to execute arbitrary code via unspecified vectors, related to a "security bypass vulnerability."</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-2431&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)" target="_blank">9.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-2431" target="_blank">CVE-2011-2431</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">adobe -- acrobat<br /></td>		<td width="45%" style="text-align: left;">Buffer overflow in the U3D TIFF Resource in Adobe Reader and Acrobat 8.x before 8.3.1, 9.x before 9.4.6, and 10.x before 10.1.1 allows attackers to execute arbitrary code via unspecified vectors.</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-2432&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)" target="_blank">9.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-2432" target="_blank">CVE-2011-2432</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">adobe -- acrobat<br /></td>		<td width="45%" style="text-align: left;">Heap-based buffer overflow in Adobe Reader and Acrobat 8.x before 8.3.1, 9.x before 9.4.6, and 10.x before 10.1.1 allows attackers to execute arbitrary code via unspecified vectors, a different vulnerability than CVE-2011-2434 and CVE-2011-2437.</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-2433&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)" target="_blank">9.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-2433" target="_blank">CVE-2011-2433</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">adobe -- acrobat<br /></td>		<td width="45%" style="text-align: left;">Heap-based buffer overflow in Adobe Reader and Acrobat 8.x before 8.3.1, 9.x before 9.4.6, and 10.x before 10.1.1 allows attackers to execute arbitrary code via unspecified vectors, a different vulnerability than CVE-2011-2433 and CVE-2011-2437.</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-2434&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)" target="_blank">9.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-2434" target="_blank">CVE-2011-2434</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">adobe -- acrobat<br /></td>		<td width="45%" style="text-align: left;">Buffer overflow in Adobe Reader and Acrobat 8.x before 8.3.1, 9.x before 9.4.6, and 10.x before 10.1.1 allows attackers to execute arbitrary code via unspecified vectors.</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-2435&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)" target="_blank">9.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-2435" target="_blank">CVE-2011-2435</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">adobe -- acrobat<br /></td>		<td width="45%" style="text-align: left;">Heap-based buffer overflow in the image-parsing library in Adobe Reader and Acrobat 8.x before 8.3.1, 9.x before 9.4.6, and 10.x before 10.1.1 allows attackers to execute arbitrary code via unspecified vectors.</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-2436&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)" target="_blank">9.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-2436" target="_blank">CVE-2011-2436</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">adobe -- acrobat<br /></td>		<td width="45%" style="text-align: left;">Heap-based buffer overflow in Adobe Reader and Acrobat 8.x before 8.3.1, 9.x before 9.4.6, and 10.x before 10.1.1 allows attackers to execute arbitrary code via unspecified vectors, a different vulnerability than CVE-2011-2433 and CVE-2011-2434.</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-2437&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)" target="_blank">9.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-2437" target="_blank">CVE-2011-2437</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">adobe -- acrobat<br /></td>		<td width="45%" style="text-align: left;">Multiple stack-based buffer overflows in the image-parsing library in Adobe Reader and Acrobat 8.x before 8.3.1, 9.x before 9.4.6, and 10.x before 10.1.1 allow attackers to execute arbitrary code via unspecified vectors.</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-2438&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)" target="_blank">9.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-2438" target="_blank">CVE-2011-2438</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">adobe -- acrobat<br /></td>		<td width="45%" style="text-align: left;">Adobe Reader and Acrobat 8.x before 8.3.1, 9.x before 9.4.6, and 10.x before 10.1.1 allow attackers to execute arbitrary code via unspecified vectors, related to a "memory leakage condition vulnerability."</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-2439&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)" target="_blank">9.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-2439" target="_blank">CVE-2011-2439</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">adobe -- acrobat<br /></td>		<td width="45%" style="text-align: left;">Use-after-free vulnerability in Adobe Reader and Acrobat 8.x before 8.3.1, 9.x before 9.4.6, and 10.x before 10.1.1 allows attackers to execute arbitrary code via unspecified vectors.</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-2440&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)" target="_blank">9.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-2440" target="_blank">CVE-2011-2440</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">adobe -- acrobat<br /></td>		<td width="45%" style="text-align: left;">Multiple stack-based buffer overflows in CoolType.dll in Adobe Reader and Acrobat 8.x before 8.3.1, 9.x before 9.4.6, and 10.x before 10.1.1 allow attackers to execute arbitrary code via unspecified vectors.</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-2441&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)" target="_blank">9.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-2441" target="_blank">CVE-2011-2441</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">adobe -- acrobat<br /></td>		<td width="45%" style="text-align: left;">Adobe Reader and Acrobat 8.x before 8.3.1, 9.x before 9.4.6, and 10.x before 10.1.1 allow attackers to execute arbitrary code via unspecified vectors, related to a "logic error vulnerability."</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-2442&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)" target="_blank">9.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-2442" target="_blank">CVE-2011-2442</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">azeotech -- daqfactory<br /></td>		<td width="45%" style="text-align: left;">Stack-based buffer overflow in Azeotech DAQFactory 5.85 build 1853 and earlier allows remote attackers to cause a denial of service (crash) and possibly execute arbitrary code via a crafted NETB packet to UDP port 20034.</td>		<td width="10%" style="text-align:center;">2011-09-16</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-3492&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">10.0</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-3492" target="_blank">CVE-2011-3492</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">bcfg2 -- bcfg2<br /></td>		<td width="45%" style="text-align: left;">The server in Bcfg2 1.1.2 and earlier, and 1.2 prerelease, allows remote attackers to execute arbitrary commands via shell metacharacters in data received from a client.</td>		<td width="10%" style="text-align:center;">2011-09-16</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-3211&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)" target="_blank">9.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-3211" target="_blank">CVE-2011-3211</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">cmsfaethon -- cms_faethon<br /></td>		<td width="45%" style="text-align: left;">SQL injection vulnerability in info.php in CMS Faethon 2.2.0 Ultimate allows remote attackers to execute arbitrary SQL commands via the item parameter.</td>		<td width="10%" style="text-align:center;">2011-09-12</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2009-5094&amp;vector=(AV:N/AC:L/Au:N/C:P/I:P/A:P)" target="_blank">7.5</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2009-5094" target="_blank">CVE-2009-5094</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">cmu -- cyrus_imap_server<br /></td>		<td width="45%" style="text-align: left;">Stack-based buffer overflow in the split_wildmats function in nntpd.c in nntpd in Cyrus IMAP Server before 2.3.17 and 2.4.x before 2.4.11 allows remote attackers to execute arbitrary code via a crafted NNTP command.</td>		<td width="10%" style="text-align:center;">2011-09-14</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-3208&amp;vector=(AV:N/AC:L/Au:N/C:P/I:P/A:P)" target="_blank">7.5</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-3208" target="_blank">CVE-2011-3208</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">cogentdatahub -- cogent_datahub<br /></td>		<td width="45%" style="text-align: left;">Multiple stack-based buffer overflows in the DH_OneSecondTick function in Cogent DataHub 7.1.1.63 and earlier allow remote attackers to cause a denial of service (crash) and possibly execute arbitrary code via long (1) domain, (2) report_domain, (3) register_datahub, or (4) slave commands.</td>		<td width="10%" style="text-align:center;">2011-09-16</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-3493&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">10.0</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-3493" target="_blank">CVE-2011-3493</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">edgetechweb -- event_registration<br /></td>		<td width="45%" style="text-align: left;">SQL injection vulnerability in the Event Registration plugin 5.32 and earlier for WordPress allows remote attackers to execute arbitrary SQL commands via the event_id parameter in a register action.</td>		<td width="10%" style="text-align:center;">2011-09-13</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2010-4839&amp;vector=(AV:N/AC:L/Au:N/C:P/I:P/A:P)" target="_blank">7.5</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2010-4839" target="_blank">CVE-2010-4839</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">equis -- metastock<br /></td>		<td width="45%" style="text-align: left;">Use-after-free vulnerability in Equis MetaStock 11 and earlier allows remote attackers to execute arbitrary code via a malformed (1) mwc chart, (2) mws chart, (3) mwt template, or (4) mwl layout.</td>		<td width="10%" style="text-align:center;">2011-09-16</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-3488&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">10.0</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-3488" target="_blank">CVE-2011-3488</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">google -- chrome<br /></td>		<td width="45%" style="text-align: left;">Multiple unspecified vulnerabilities in Google Chrome before 14.0.835.157 on the Acer AC700, Samsung Series 5, and Cr-48 Chromebook platforms have unknown impact and attack vectors.</td>		<td width="10%" style="text-align:center;">2011-09-12</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-3420&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">10.0</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-3420" target="_blank">CVE-2011-3420</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">google -- chrome<br /></td>		<td width="45%" style="text-align: left;">Multiple unspecified vulnerabilities in Google Chrome before 14.0.835.125 on the Acer AC700, Samsung Series 5, and Cr-48 Chromebook platforms have unknown impact and attack vectors.</td>		<td width="10%" style="text-align:center;">2011-09-12</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-3421&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">10.0</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-3421" target="_blank">CVE-2011-3421</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">hp -- palm_pre_webos<br /></td>		<td width="45%" style="text-align: left;">Palm Pre WebOS 1.1 and earlier processes JavaScript in email messages, which allows remote attackers to execute arbitrary JavaScript, as demonstrated by reading PalmDatabase.db3.</td>		<td width="10%" style="text-align:center;">2011-09-13</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2009-5097&amp;vector=(AV:N/AC:M/Au:N/C:C/I:N/A:N)" target="_blank">7.1</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2009-5097" target="_blank">CVE-2009-5097</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">ideacart -- ideacart<br /></td>		<td width="45%" style="text-align: left;">SQL injection vulnerability in secure/index.php in IdeaCart 0.02 allows remote attackers to execute arbitrary SQL commands via the cID parameter.</td>		<td width="10%" style="text-align:center;">2011-09-12</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2009-5088&amp;vector=(AV:N/AC:L/Au:N/C:P/I:P/A:P)" target="_blank">7.5</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2009-5088" target="_blank">CVE-2009-5088</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">interactivedata -- esignal<br /></td>		<td width="45%" style="text-align: left;">WinSig.exe in eSignal 10.6.2425 and earlier allows remote attackers to cause a denial of service (crash) and possibly execute arbitrary code via (1) a long StyleTemplate element in a QUO, SUM or POR file, which triggers a stack-based buffer overflow, or (2) a long Font-&gt;FaceName field (aka FaceName element), which triggers a heap-based buffer overflow.  NOTE: some of these details are obtained from third party information.</td>		<td width="10%" style="text-align:center;">2011-09-16</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-3494&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">10.0</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-3494" target="_blank">CVE-2011-3494</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">interactivedata -- esignal<br /></td>		<td width="45%" style="text-align: left;">Untrusted search path vulnerability in eSignal 10.6.2425.1208, and possibly other versions, allows local users, and possibly remote attackers, to execute arbitrary code and conduct DLL hijacking attacks via a Trojan horse JRS_UT.dll that is located in the same folder as a .quo (QUOTE) file.  NOTE: the provenance of this information is unknown; the details are obtained solely from third party information.</td>		<td width="10%" style="text-align:center;">2011-09-16</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-3503&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)" target="_blank">9.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-3503" target="_blank">CVE-2011-3503</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">measuresoft -- scadapro<br /></td>		<td width="45%" style="text-align: left;">Multiple stack-based buffer overflows in service.exe in Measuresoft ScadaPro 4.0.0 and earlier allow remote attackers to cause a denial of service (crash) and possibly execute arbitrary code via a long command to port 11234, as demonstrated with the TF command.</td>		<td width="10%" style="text-align:center;">2011-09-16</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-3490&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">10.0</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-3490" target="_blank">CVE-2011-3490</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">measuresoft -- scadapro<br /></td>		<td width="45%" style="text-align: left;">Multiple directory traversal vulnerabilities in service.exe in Measuresoft ScadaPro 4.0.0 and earlier allow remote attackers to read, modify, or delete arbitrary files via the (1) RF, (2) wF, (3) UF, or (4) NF command.</td>		<td width="10%" style="text-align:center;">2011-09-16</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-3495&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">10.0</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-3495" target="_blank">CVE-2011-3495</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">measuresoft -- scadapro<br /></td>		<td width="45%" style="text-align: left;">service.exe in Measuresoft ScadaPro 4.0.0 and earlier allows remote attackers to execute arbitrary commands via shell metacharacters in the (1) BF, (2) OF, or (3) EF command.</td>		<td width="10%" style="text-align:center;">2011-09-16</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-3496&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">10.0</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-3496" target="_blank">CVE-2011-3496</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">measuresoft -- scadapro<br /></td>		<td width="45%" style="text-align: left;">service.exe in Measuresoft ScadaPro 4.0.0 and earlier allows remote attackers to execute arbitrary DLL functions via the XF function, possibly related to an insecure exposed method.</td>		<td width="10%" style="text-align:center;">2011-09-16</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-3497&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">10.0</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-3497" target="_blank">CVE-2011-3497</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">megalith -- megalith<br /></td>		<td width="45%" style="text-align: left;">Unspecified vulnerability in Megalith 12th edition through 27th edition allows remote attackers to gain administrative privileges via unknown vectors.</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-2671&amp;vector=(AV:N/AC:L/Au:N/C:P/I:P/A:P)" target="_blank">7.5</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-2671" target="_blank">CVE-2011-2671</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">microsoft -- office<br /></td>		<td width="45%" style="text-align: left;">Untrusted search path vulnerability in Microsoft Office 2003 SP3 and 2007 SP2 allows local users to gain privileges via a Trojan horse DLL in the current working directory, as demonstrated by a directory that contains a .doc, .ppt, or .xls file, aka "Office Component Insecure Library Loading Vulnerability."</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-1980&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)" target="_blank">9.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-1980" target="_blank">CVE-2011-1980</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">microsoft -- office<br /></td>		<td width="45%" style="text-align: left;">Microsoft Office 2007 SP2, and 2010 Gold and SP1, does not initialize an unspecified object pointer during the opening of Word documents, which allows remote attackers to execute arbitrary code via a crafted document, aka "Office Uninitialized Object Pointer Vulnerability."</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-1982&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)" target="_blank">9.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-1982" target="_blank">CVE-2011-1982</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">microsoft -- windows_2003_server<br /></td>		<td width="45%" style="text-align: left;">WINS in Microsoft Windows Server 2003 SP2 and Server 2008 SP2, R2, and R2 SP1 allows local users to gain privileges by sending crafted packets over the loopback interface, aka "WINS Local Elevation of Privilege Vulnerability."</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-1984&amp;vector=(AV:L/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">7.2</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-1984" target="_blank">CVE-2011-1984</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">microsoft -- excel<br /></td>		<td width="45%" style="text-align: left;">Use-after-free vulnerability in Microsoft Excel 2003 SP3 allows remote attackers to execute arbitrary code via a crafted spreadsheet, aka "Excel Use after Free WriteAV Vulnerability."</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-1986&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)" target="_blank">9.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-1986" target="_blank">CVE-2011-1986</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">microsoft -- excel<br /></td>		<td width="45%" style="text-align: left;">Array index error in Microsoft Excel 2003 SP3 and 2007 SP2; Excel in Office 2007 SP2; Excel 2010 Gold and SP1; Excel in Office 2010 Gold and SP1; Office 2004, 2008, and 2011 for Mac; Open XML File Format Converter for Mac; Excel Viewer SP2; and Office Compatibility Pack for Word, Excel, and PowerPoint 2007 File Formats SP2 allows remote attackers to execute arbitrary code via a crafted spreadsheet, aka "Excel Out of Bounds Array Indexing Vulnerability."</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-1987&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)" target="_blank">9.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-1987" target="_blank">CVE-2011-1987</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">microsoft -- excel<br /></td>		<td width="45%" style="text-align: left;">Microsoft Excel 2003 SP3 and 2007 SP2; Excel in Office 2007 SP2; Office 2004 and 2008 for Mac; Open XML File Format Converter for Mac; Excel Viewer SP2; and Office Compatibility Pack for Word, Excel, and PowerPoint 2007 File Formats SP2 do not properly parse records in Excel spreadsheets, which allows remote attackers to execute arbitrary code via a crafted spreadsheet, aka "Excel Heap Corruption Vulnerability."</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-1988&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)" target="_blank">9.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-1988" target="_blank">CVE-2011-1988</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">microsoft -- excel<br /></td>		<td width="45%" style="text-align: left;">Microsoft Excel 2003 SP3 and 2007 SP2; Excel in Office 2007 SP2; Excel 2010 Gold and SP1; Excel in Office 2010 Gold and SP1; Office 2004, 2008, and 2011 for Mac; Open XML File Format Converter for Mac; Excel Viewer SP2; Office Compatibility Pack for Word, Excel, and PowerPoint 2007 File Formats SP2; Excel Services on Office SharePoint Server 2007 SP2; Excel Services on Office SharePoint Server 2010 Gold and SP1; and Excel Web App 2010 Gold and SP1 do not properly parse conditional expressions associated with formatting requirements, which allows remote attackers to execute arbitrary code via a crafted spreadsheet, aka "Excel Conditional Expression Parsing Vulnerability."</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-1989&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)" target="_blank">9.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-1989" target="_blank">CVE-2011-1989</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">microsoft -- excel<br /></td>		<td width="45%" style="text-align: left;">Microsoft Excel 2007 SP2; Excel in Office 2007 SP2; Excel Viewer SP2; Office Compatibility Pack for Word, Excel, and PowerPoint 2007 File Formats SP2; and Excel Services on Office SharePoint Server 2007 SP2 do not properly validate the sign of an unspecified array index, which allows remote attackers to execute arbitrary code via a crafted spreadsheet, aka "Excel Out of Bounds Array Indexing Vulnerability."</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-1990&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)" target="_blank">9.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-1990" target="_blank">CVE-2011-1990</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">microsoft -- windows_2003_server<br /></td>		<td width="45%" style="text-align: left;">Multiple untrusted search path vulnerabilities in Microsoft Windows XP SP2 and SP3, Windows Server 2003 SP2, Windows Vista SP2, Windows Server 2008 SP2, R2, and R2 SP1, and Windows 7 Gold and SP1 allow local users to gain privileges via a Trojan horse DLL in the current working directory, as demonstrated by a directory that contains a .doc, .rtf, or .txt file, related to (1) deskpan.dll in the Display Panning CPL Extension, (2) EAPHost Authenticator Service, (3) Folder Redirection, (4) HyperTerminal, (5) the Japanese Input Method Editor (IME), and (6) Microsoft Management Console (MMC), aka "Windows Components Insecure Library Loading Vulnerability."</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-1991&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)" target="_blank">9.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-1991" target="_blank">CVE-2011-1991</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">myrephp -- myre_real_estate_software<br /></td>		<td width="45%" style="text-align: left;">SQL injection vulnerability in findagent.php in MYRE Real Estate Software allows remote attackers to execute arbitrary SQL commands via the page parameter.</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-3394&amp;vector=(AV:N/AC:L/Au:N/C:P/I:P/A:P)" target="_blank">7.5</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-3394" target="_blank">CVE-2011-3394</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">progea -- movicon_powerhmi<br /></td>		<td width="45%" style="text-align: left;">Heap-based buffer overflow in Progea Movicon / PowerHMI 11.2.1085 and earlier allows remote attackers to cause a denial of service (crash) and possibly execute arbitrary code via a negative Content-Length field.</td>		<td width="10%" style="text-align:center;">2011-09-16</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-3491&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">10.0</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-3491" target="_blank">CVE-2011-3491</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">progea -- movicon_powerhmi<br /></td>		<td width="45%" style="text-align: left;">Heap-based buffer overflow in Progea Movicon / PowerHMI 11.2.1085 and earlier allows remote attackers to cause a denial of service (crash) and possibly execute arbitrary code via a long request.</td>		<td width="10%" style="text-align:center;">2011-09-16</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-3498&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">10.0</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-3498" target="_blank">CVE-2011-3498</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">progea -- movicon_powerhmi<br /></td>		<td width="45%" style="text-align: left;">Progea Movicon / PowerHMI 11.2.1085 and earlier allows remote attackers to cause a denial of service (memory corruption and crash) and possibly execute arbitrary code via an EIDP packet with a large size field, which writes a zero byte to an arbitrary memory location.</td>		<td width="10%" style="text-align:center;">2011-09-16</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-3499&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">10.0</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-3499" target="_blank">CVE-2011-3499</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">scadatec -- procyon_scada<br /></td>		<td width="45%" style="text-align: left;">Core Server HMI Service (Coreservice.exe) in Scadatec Limited Procyon SCADA 1.06, and other versions before 1.14, allows remote attackers to cause a denial of service (crash) and possibly execute arbitrary code via a long password to the Telnet (TCP/23) port, which triggers an out-of-bounds read or write, leading to a stack-based buffer overflow.</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-3322&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">10.0</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-3322" target="_blank">CVE-2011-3322</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">siemens -- simatic_wincc_flexible_runtime<br /></td>		<td width="45%" style="text-align: left;">Heap-based buffer overflow in the Siemens WinCC Runtime Advanced Loader, as used in SIMATIC WinCC flexible Runtime and SIMATIC WinCC (TIA Portal) Runtime Advanced, allows remote attackers to cause a denial of service (memory corruption) or possibly execute arbitrary code via a crafted packet to TCP port 2308.</td>		<td width="10%" style="text-align:center;">2011-09-16</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-3321&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)" target="_blank">9.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-3321" target="_blank">CVE-2011-3321</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">vlinks -- vlinks<br /></td>		<td width="45%" style="text-align: left;">SQL injection vulnerability in page.php in Vlinks 1.0.3 and 1.1.6 allows remote attackers to execute arbitrary SQL commands via the id parameter.</td>		<td width="10%" style="text-align:center;">2011-09-12</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2009-5091&amp;vector=(AV:N/AC:L/Au:N/C:P/I:P/A:P)" target="_blank">7.5</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2009-5091" target="_blank">CVE-2009-5091</a><br /></td>	</tr></tbody><tfoot></tfoot></table><a href="#top">Back to top</a></div><a name="medium" id="medium"></a><div id="medium_v"><h2 id="medium_v_title">Medium Vulnerabilities</h2><table align="center" border="1" class="vul_tables" summary="Medium Vulnerabilities"><tr><th scope="col" style="width:20%;" class="headers">Primary<br />Vendor -- Product</th>	<th scope="col" style="width:45%;" class="headers">Description</th>	<th scope="col" style="width:10%;" class="headers">Published </th>	<th scope="col" style="width:5%;" class="headers">CVSS Score</th>	<th scope="col" style="width:10%;" class="headers">Source &amp; Patch Info</th>	</tr><tbody><tr><td scope="row" width="20%" style="text-align: left;">adobe -- acrobat_reader<br /></td>		<td width="45%" style="text-align: left;">Unspecified vulnerability in Adobe Reader 10.x before 10.1.1 on Windows allows local users to gain privileges via unknown vectors.</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-1353&amp;vector=(AV:L/AC:M/Au:N/C:C/I:C/A:C)" target="_blank">6.9</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-1353" target="_blank">CVE-2011-1353</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">apache -- libcloud<br /></td>		<td width="45%" style="text-align: left;">libcloud before 0.4.1 does not verify SSL certificates for HTTPS connections, which allows remote attackers to spoof certificates and bypass intended access restrictions via a man-in-the-middle (MITM) attack.</td>		<td width="10%" style="text-align:center;">2011-09-12</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2010-4340&amp;vector=(AV:N/AC:M/Au:N/C:N/I:P/A:N)" target="_blank">4.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2010-4340" target="_blank">CVE-2010-4340</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">apple -- mac_os_x<br /></td>		<td width="45%" style="text-align: left;">The Keychain implementation in Apple Mac OS X 10.6.8 and earlier does not properly handle an untrusted attribute of a Certification Authority certificate, which makes it easier for man-in-the-middle attackers to spoof arbitrary SSL servers via an Extended Validation certificate, as demonstrated by https access with Safari.</td>		<td width="10%" style="text-align:center;">2011-09-12</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-3422&amp;vector=(AV:N/AC:M/Au:N/C:N/I:P/A:N)" target="_blank">4.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-3422" target="_blank">CVE-2011-3422</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">beckhoff -- twincat<br /></td>		<td width="45%" style="text-align: left;">Beckhoff TwinCAT 2.11.0.2004 and earlier allows remote attackers to cause a denial of service via a crafted request to UDP port 48899, which triggers an out-of-bounds read.</td>		<td width="10%" style="text-align:center;">2011-09-16</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-3486&amp;vector=(AV:N/AC:L/Au:N/C:N/I:N/A:P)" target="_blank">5.0</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-3486" target="_blank">CVE-2011-3486</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">carel -- plantvisor<br /></td>		<td width="45%" style="text-align: left;">Directory traversal vulnerability in CarelDataServer.exe in Carel PlantVisor 2.4.4 and earlier allows remote attackers to read arbitrary files via a .. (dot dot) in an HTTP GET request.</td>		<td width="10%" style="text-align:center;">2011-09-16</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-3487&amp;vector=(AV:N/AC:L/Au:N/C:P/I:N/A:N)" target="_blank">5.0</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-3487" target="_blank">CVE-2011-3487</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">cisco -- nx-os<br /></td>		<td width="45%" style="text-align: left;">The ACL implementation in Cisco NX-OS 5.0(2) and 5.0(3) before 5.0(3)N2(1) on Nexus 5000 series switches, and NX-OS before 5.0(3)U1(2a) on Nexus 3000 series switches, does not properly handle comments in conjunction with deny statements, which allows remote attackers to bypass intended access restrictions in opportunistic circumstances by sending packets, aka Bug IDs CSCto09813 and CSCtr61490.</td>		<td width="10%" style="text-align:center;">2011-09-14</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-2581&amp;vector=(AV:N/AC:L/Au:N/C:P/I:N/A:N)" target="_blank">5.0</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-2581" target="_blank">CVE-2011-2581</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">cmu -- cyrus_imap_server<br /></td>		<td width="45%" style="text-align: left;">The index_get_ids function in index.c in imapd in Cyrus IMAP Server before 2.4.11, when server-side threading is enabled, allows remote attackers to cause a denial of service (NULL pointer dereference and daemon crash) via a crafted References header in an e-mail message.</td>		<td width="10%" style="text-align:center;">2011-09-14</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-3481&amp;vector=(AV:N/AC:M/Au:N/C:N/I:N/A:P)" target="_blank">4.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-3481" target="_blank">CVE-2011-3481</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">cogentdatahub -- cogent_datahub<br /></td>		<td width="45%" style="text-align: left;">Directory traversal vulnerability in the web server in Cogent DataHub 7.1.1.63 and earlier allows remote attackers to read arbitrary files via a .. (dot dot backslash) in an HTTP request.</td>		<td width="10%" style="text-align:center;">2011-09-16</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-3500&amp;vector=(AV:N/AC:L/Au:N/C:P/I:N/A:N)" target="_blank">5.0</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-3500" target="_blank">CVE-2011-3500</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">cogentdatahub -- cogent_datahub<br /></td>		<td width="45%" style="text-align: left;">Integer overflow in Cogent DataHub 7.1.1.63 and earlier allows remote attackers to cause a denial of servicr (crash) via a negative or large Content-Length value.</td>		<td width="10%" style="text-align:center;">2011-09-16</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-3501&amp;vector=(AV:N/AC:L/Au:N/C:N/I:N/A:P)" target="_blank">5.0</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-3501" target="_blank">CVE-2011-3501</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">cogentdatahub -- cogent_datahub<br /></td>		<td width="45%" style="text-align: left;">The web server in Cogent DataHub 7.1.1.63 and earlier allows remote attackers to obtain the source code of executable files via a request with a trailing (1) space or (2) %2e (encoded dot).</td>		<td width="10%" style="text-align:center;">2011-09-16</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-3502&amp;vector=(AV:N/AC:L/Au:N/C:P/I:N/A:N)" target="_blank">5.0</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-3502" target="_blank">CVE-2011-3502</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">daman371 -- bloggeruniverse<br /></td>		<td width="45%" style="text-align: left;">SQL injection vulnerability in editcomments.php in Bloggeruniverse Beta 2, when magic_quotes_gpc is disabled, allows remote attackers to execute arbitrary SQL commands via the id parameter and possibly other unspecified vectors.</td>		<td width="10%" style="text-align:center;">2011-09-12</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2009-5090&amp;vector=(AV:N/AC:M/Au:N/C:P/I:P/A:P)" target="_blank">6.8</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2009-5090" target="_blank">CVE-2009-5090</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">ea-style -- gbook<br /></td>		<td width="45%" style="text-align: left;">PHP remote file inclusion vulnerability in index_inc.php in ea gBook 0.1 and 0.1.4 allows remote attackers to execute arbitrary PHP code via a URL in the inc_ordner parameter.</td>		<td width="10%" style="text-align:center;">2011-09-12</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2009-5095&amp;vector=(AV:N/AC:M/Au:N/C:P/I:P/A:P)" target="_blank">6.8</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2009-5095" target="_blank">CVE-2009-5095</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">extensiondepot -- com_jsupport<br /></td>		<td width="45%" style="text-align: left;">Cross-site scripting (XSS) vulnerability in the JSupport (com_jsupport) component 1.5.6 for Joomla! allows remote attackers to inject arbitrary web script or HTML via the subject parameter (title field) in a saveTicket action to index2.php.  NOTE: some of these details are obtained from third party information.</td>		<td width="10%" style="text-align:center;">2011-09-13</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2010-4837&amp;vector=(AV:N/AC:M/Au:N/C:N/I:P/A:N)" target="_blank">4.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2010-4837" target="_blank">CVE-2010-4837</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">extensiondepot -- com_jsupport<br /></td>		<td width="45%" style="text-align: left;">SQL injection vulnerability in the JSupport (com_jsupport) component 1.5.6 for Joomla! allows remote authenticated users, with Public Back-end permissions, to execute arbitrary SQL commands via the alpha parameter in a (1) listTickets or (2) listFaqs action to administrator/index.php.</td>		<td width="10%" style="text-align:center;">2011-09-13</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2010-4838&amp;vector=(AV:N/AC:M/Au:S/C:P/I:P/A:P)" target="_blank">6.0</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2010-4838" target="_blank">CVE-2010-4838</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">geovision -- digital_surveillance_system<br /></td>		<td width="45%" style="text-align: left;">Directory traversal vulnerability in geohttpserver in Geovision Digital Video Surveillance System 8.2 allows remote attackers to read arbitrary files via a .. (dot dot) in a GET request.</td>		<td width="10%" style="text-align:center;">2011-09-12</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2009-5087&amp;vector=(AV:N/AC:L/Au:N/C:P/I:N/A:N)" target="_blank">5.0</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2009-5087" target="_blank">CVE-2009-5087</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">hp -- palm_pre_webos<br /></td>		<td width="45%" style="text-align: left;">The LunaSysMgr process in Palm Pre WebOS 1.1 and earlier, when not viewing web pages in landscape mode, allows remote attackers to cause a denial of service (crash) via a web page containing a long string following a refresh tag, which triggers a floating point exception.</td>		<td width="10%" style="text-align:center;">2011-09-13</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2009-5098&amp;vector=(AV:N/AC:H/Au:N/C:N/I:N/A:C)" target="_blank">5.4</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2009-5098" target="_blank">CVE-2009-5098</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">ideacart -- ideacart<br /></td>		<td width="45%" style="text-align: left;">Directory traversal vulnerability in index.php in IdeaCart 0.02 and 0.02a allows remote attackrs to read arbitrary files via a .. (dot dot) in the page parameter.</td>		<td width="10%" style="text-align:center;">2011-09-12</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2009-5089&amp;vector=(AV:N/AC:M/Au:N/C:P/I:N/A:N)" target="_blank">4.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2009-5089" target="_blank">CVE-2009-5089</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">khalid_baheyeldin -- flag_content<br /></td>		<td width="45%" style="text-align: left;">Cross-site scripting (XSS) vulnerability in the Flag Content module 5.x-2.x before 5.x-2.10 for Drupal allows remote attackers to inject arbitrary web script or HTML via the Reason parameter.</td>		<td width="10%" style="text-align:center;">2011-09-13</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2009-5096&amp;vector=(AV:N/AC:M/Au:N/C:N/I:P/A:N)" target="_blank">4.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2009-5096" target="_blank">CVE-2009-5096</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">mark_stosberg -- data::formvalidator<br /></td>		<td width="45%" style="text-align: left;">The Data::FormValidator module 4.66 and earlier for Perl, when untaint_all_constraints is enabled, does not properly preserve the taint attribute of data, which might allow remote attackers to bypass the taint protection mechanism via form input.</td>		<td width="10%" style="text-align:center;">2011-09-14</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-2201&amp;vector=(AV:N/AC:M/Au:N/C:P/I:N/A:N)" target="_blank">4.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-2201" target="_blank">CVE-2011-2201</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">microsoft -- fast_esp<br /></td>		<td width="45%" style="text-align: left;">Cross-site scripting (XSS) vulnerability in the management interface in Microsoft FAST ESP 5.1.5 and earlier allows remote attackers to inject arbitrary web script or HTML via unspecified vectors.</td>		<td width="10%" style="text-align:center;">2011-09-12</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2009-5092&amp;vector=(AV:N/AC:M/Au:N/C:N/I:P/A:N)" target="_blank">4.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2009-5092" target="_blank">CVE-2009-5092</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">microsoft -- sharepoint_foundation<br /></td>		<td width="45%" style="text-align: left;">Cross-site scripting (XSS) vulnerability in Microsoft Office SharePoint Server 2010 Gold and SP1, and SharePoint Foundation 2010, allows remote attackers to inject arbitrary web script or HTML via the URI, aka "XSS in SharePoint Calendar Vulnerability."</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-0653&amp;vector=(AV:N/AC:M/Au:N/C:N/I:P/A:N)" target="_blank">4.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-0653" target="_blank">CVE-2011-0653</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">microsoft -- sharepoint_foundation<br /></td>		<td width="45%" style="text-align: left;">Cross-site scripting (XSS) vulnerability in EditForm.aspx in Microsoft Office SharePoint Server 2010 and SharePoint Foundation 2010 allows remote attackers to inject arbitrary web script or HTML via a post, aka "Editform Script Injection Vulnerability."</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-1890&amp;vector=(AV:N/AC:M/Au:N/C:N/I:P/A:N)" target="_blank">4.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-1890" target="_blank">CVE-2011-1890</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">microsoft -- sharepoint_foundation<br /></td>		<td width="45%" style="text-align: left;">Cross-site scripting (XSS) vulnerability in Microsoft Windows SharePoint Services 3.0 SP2, and SharePoint Foundation 2010 Gold and SP1, allows remote attackers to inject arbitrary web script or HTML via unspecified parameters in a request to a script, aka "Contact Details Reflected XSS Vulnerability."</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-1891&amp;vector=(AV:N/AC:M/Au:N/C:N/I:P/A:N)" target="_blank">4.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-1891" target="_blank">CVE-2011-1891</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">microsoft -- forms_server<br /></td>		<td width="45%" style="text-align: left;">Microsoft Office Groove 2007 SP2, SharePoint Workspace 2010 Gold and SP1, Office Forms Server 2007 SP2, Office SharePoint Server 2007 SP2, Office SharePoint Server 2010 Gold and SP1, Office Groove Data Bridge Server 2007 SP2, Office Groove Management Server 2007 SP2, Groove Server 2010 Gold and SP1, Windows SharePoint Services 3.0 SP2, SharePoint Foundation 2010, and Office Web Apps 2010 Gold and SP1 do not properly handle Web Parts containing XML classes referencing external entities, which allows remote authenticated users to read arbitrary files via a crafted XML and XSL file, aka "SharePoint Remote File Disclosure Vulnerability."</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-1892&amp;vector=(AV:N/AC:L/Au:S/C:P/I:N/A:N)" target="_blank">4.0</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-1892" target="_blank">CVE-2011-1892</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">microsoft -- sharepoint_foundation<br /></td>		<td width="45%" style="text-align: left;">Cross-site scripting (XSS) vulnerability in Microsoft Office SharePoint Server 2010, Windows SharePoint Services 2.0 and 3.0 SP2, and SharePoint Foundation 2010 allows remote attackers to inject arbitrary web script or HTML via the URI, aka "SharePoint XSS Vulnerability."</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-1893&amp;vector=(AV:N/AC:M/Au:N/C:N/I:P/A:N)" target="_blank">4.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-1893" target="_blank">CVE-2011-1893</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">myrephp -- myre_real_estate_software<br /></td>		<td width="45%" style="text-align: left;">Multiple cross-site scripting (XSS) vulnerabilities in findagent.php in MYRE Real Estate Software allow remote attackers to inject arbitrary web script or HTML via the (1) country1, (2) state1, or (3) city1 parameter.</td>		<td width="10%" style="text-align:center;">2011-09-15</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-3393&amp;vector=(AV:N/AC:M/Au:N/C:N/I:P/A:N)" target="_blank">4.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-3393" target="_blank">CVE-2011-3393</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">oneorzero -- aims<br /></td>		<td width="45%" style="text-align: left;">Multiple SQL injection vulnerabilities in index.php in OneOrZero AIMS 2.6.0 Members Edition and 2.7.0 Trial Edition allow remote authenticated users to execute arbitrary SQL commands via the (1) id parameter in a saved_search action and (2) item_types parameter in a show_item_search action in the search_management_manage subcontroller. NOTE: some of these details are obtained from third party information.</td>		<td width="10%" style="text-align:center;">2011-09-13</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2010-4834&amp;vector=(AV:N/AC:L/Au:S/C:P/I:P/A:P)" target="_blank">6.5</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2010-4834" target="_blank">CVE-2010-4834</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">oneorzero -- aims<br /></td>		<td width="45%" style="text-align: left;">Directory traversal vulnerability in index.php in OneOrZero AIMS 2.6.0 Members Edition allows remote authenticated users to read arbitrary files via directory traversal sequences in the controller parameter in a show_report action.</td>		<td width="10%" style="text-align:center;">2011-09-13</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2010-4835&amp;vector=(AV:N/AC:L/Au:S/C:P/I:N/A:N)" target="_blank">4.0</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2010-4835" target="_blank">CVE-2010-4835</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">pentaho -- bi_server<br /></td>		<td width="45%" style="text-align: left;">Cross-site scripting (XSS) vulnerability in ViewAction in Pentaho BI Server 1.7.0.1062 and earlier allows remote attackers to inject arbitrary web script or HTML via the outputType parameter.</td>		<td width="10%" style="text-align:center;">2011-09-13</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2009-5099&amp;vector=(AV:N/AC:M/Au:N/C:N/I:P/A:N)" target="_blank">4.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2009-5099" target="_blank">CVE-2009-5099</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">pentaho -- bi_server<br /></td>		<td width="45%" style="text-align: left;">Pentaho BI Server 1.7.0.1062 and earlier includes the session ID (JSESSIONID) in the URL, which allows attackers to obtain it from session history, referer headers, or sniffing of web traffic.</td>		<td width="10%" style="text-align:center;">2011-09-13</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2009-5101&amp;vector=(AV:N/AC:L/Au:N/C:P/I:N/A:N)" target="_blank">5.0</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2009-5101" target="_blank">CVE-2009-5101</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">php4scripte -- gastebuch<br /></td>		<td width="45%" style="text-align: left;">Directory traversal vulnerability in gastbuch.php in Gstebuch (Gastebuch) 1.6 allows remote attackers to read arbitrary files via a .. (dot dot) in the start parameter.</td>		<td width="10%" style="text-align:center;">2011-09-12</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2009-5093&amp;vector=(AV:N/AC:L/Au:N/C:P/I:N/A:N)" target="_blank">5.0</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2009-5093" target="_blank">CVE-2009-5093</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">phpshop -- phpshop<br /></td>		<td width="45%" style="text-align: left;">Cross-site scripting (XSS) vulnerability in register.html in PHPShop 2.1 EE and earlier allows remote attackers to inject arbitrary web script or HTML via the name_new parameter.</td>		<td width="10%" style="text-align:center;">2011-09-13</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2010-4836&amp;vector=(AV:N/AC:M/Au:N/C:N/I:P/A:N)" target="_blank">4.3</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2010-4836" target="_blank">CVE-2010-4836</a><br /></td>	</tr><tr><td scope="row" width="20%" style="text-align: left;">rockwellautomation -- rslogix<br /></td>		<td width="45%" style="text-align: left;">RnaUtility.dll in RsvcHost.exe 2.30.0.23 in Rockwell RSLogix 19 and earlier allows remote attackers to cause a denial of service (crash) via a crafted rna packet with a long string to TCP port 4446 that triggers (1) "a memset zero overflow" or (2) an out-of-bounds read, related to improper handling of a 32-bit size field.</td>		<td width="10%" style="text-align:center;">2011-09-16</td>		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2011-3489&amp;vector=(AV:N/AC:L/Au:N/C:N/I:N/A:P)" target="_blank">5.0</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2011-3489" target="_blank">CVE-2011-3489</a><br /></td>	</tr></tbody><tfoot></tfoot></table><a href="#top">Back to top</a></div><a name="low" id="low"></a><div id="low_v"><h2 id="low_v_title">Low Vulnerabilities</h2><table align="center" border="1" class="vul_tables" summary="Low Vulnerabilities"><tr><th scope="col" style="width:20%;" class="headers">Primary<br />Vendor -- Product</th>	<th scope="col" style="width:45%;" class="headers">Description</th>	<th scope="col" style="width:10%;" class="headers">Published </th>	<th scope="col" style="width:5%;" class="headers">CVSS Score</th>	<th scope="col" style="width:10%;" class="headers">Source &amp; Patch Info</th>	</tr><tbody><tr><td scope="row" width="20%" style="text-align: left;">pentaho -- bi_server<br /></td>		<td width="45%" style="text-align: left;">Pentaho BI Server 1.7.0.1062 and earlier does not set the autocomplete tag to off on web pages using a password field, which might allow physically proximate attackers to obtain the password.</td>		<td width="10%" style="text-align:center;">2011-09-13</td><td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2009-5100&amp;vector=(AV:L/AC:L/Au:N/C:P/I:N/A:N)" target="_blank">2.1</a></td>		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2009-5100" target="_blank">CVE-2009-5100</a><br /></td>	</tr></tbody><tfoot></tfoot></table><a href="#top">Back to top</a></div>
+</div>
+      
+
+        
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><p class="privacy-and-terms">This product is provided subject to this <a href="/privacy/notification">Notification</a> and this <a href="https://www.dhs.gov/privacy-policy">Privacy &amp; Use</a> policy.</p>
+</div>
+      
+
+                        <div id="document-feedback">
+	<div class="inner-document-feedback center-center">
+        <p><b>Please share your thoughts.</b></p>
+		<p>We recently updated our anonymous <a href="https://www.surveymonkey.com/r/CISA-cyber-survey?product=https://us-cert.cisa.gov/ncas/bulletins/SB11-262">product survey</a>; we'd welcome your feedback.</p>
+	</div>
+</div>
+
+              </div>
+
+</article>
+</div>
+
+
+  </div>
+
+              </section>
+
+
+                      </div>
+  </div>
+
+
+
+
+
+
+      <footer class="footer container-fluid" role="contentinfo">
+        <div class="region region-footer">
+    <section id="block-certsignup" class="block block-block-content block-block-contentc5846d10-2e2b-4822-aa59-7a5c3262f671 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container-fluid signup">
+<div class="container">
+<div class="row">
+<div class="col-lg-3 contact-icons">
+<h3>Contact Us</h3>
+
+<p class="phone-text"><img alt="phone icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Phone.png" />(888)282-0870</p>
+
+<p><img alt="email icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Email.png" /><a class="mailto" href="mailto:central@cisa.dhs.gov" title="General questions or suggestions">Send us email</a></p>
+
+<p><img alt="lock icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Lock.png" /><a href="/contact-us/" title="Download PGP/GPG keys">Download PGP/GPG keys</a></p>
+
+<p><img alt="feedback icon" data-entity-type="" data-entity-uuid="" height="32" src="/sites/default/files/images/icon-feedback.png" /><a href="/forms/website-feedback" title="Website Feedback">Submit website feedback</a></p>
+</div>
+
+<div class="col-lg-6 sub-alert">
+<h3>Subscribe to Alerts</h3>
+
+<p>Receive security alerts, tips, and other updates.</p>
+
+<form action="https://public.govdelivery.com/accounts/USDHSCISA/subscribers/qualify"><label class="visually-hidden" for="email-address-field">Enter your email address</label> <input class="signup-form" id="email-address-field" name="email" placeholder=" Enter your email address" title="Enter your email address" type="text" /><br /><input class="btn btn-primary" name="submit" title="Sign up for alerts" type="submit" value="Sign Up" /> </form>
+
+<div class="pull-right signup-icon-one"><a href="https://twitter.com/uscert_gov" title="US-CERT Twitter Feed"><img alt="twitter icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/twitter-button.png" /></a></div>
+
+<div class="pull-right signup-icon-two"><a href="/mailing-lists-and-feeds" title="Mailing Lists and Feeds"><img alt="rss icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/rss-button-bottom.png" /></a></div>
+
+<div class="pull-right signup-icon-three"><a href="/hsin" class="btn btn-cert-report" name="button" type="button" id="button">HSIN</a></div>
+</div>
+
+<div class="col-lg-3 cert-report"><a class="btn btn-cert-report btn-lg" href="/report" name="button" type="button" id="button">Report</a></div>
+</div>
+</div>
+</div>
+</div>
+      
+  </section>
+
+<section id="block-certcertfooter" class="block block-block-content block-block-contentd5b85bd2-62d1-485a-b9ae-f040b1ca1a45 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container">
+<hr /><div class="text-center"><a href="/" title="Home">Home</a>   <a href="/sitemap" title="Site Map">Site Map</a>   <a href="/faq/" title="Frequently Asked Questions">FAQ</a>   <a href="/contact-us/" title="Contact Us">Contact Us</a>   <a href="/tlp/" title="Traffic Light Protocol">Traffic Light Protocol</a>   <a href="/pcii" title="PCII">PCII</a>   <a href="https://www.dhs.gov" title="Accountability">Accountability</a>   <a href="/disclaimer" title="Disclaimer">Disclaimer</a>   <a href="/privacy-policy" title="Privacy Policy">Privacy Policy</a>   <a href="https://www.dhs.gov/freedom-information-act-foia" title="FOIA">FOIA</a>   <a href="https://www.dhs.gov/homeland-security-no-fear-act-reporting" title="No Fear Act">No Fear Act</a>   <a href="/accessibility/" title="Accessibility">Accessibility</a><a href="https://www.dhs.gov/plain-writing-dhs" title="Plain Writing">Plain Writing</a><a href="https://www.dhs.gov/plug-information" title="Plug-ins">Plug-ins</a>   <a href="https://www.oig.dhs.gov/" title="Office of the Inspector General">Inspector General</a>   <a href="https://www.whitehouse.gov/" title="The White House">The White House</a>   <a href="https://www.usa.gov/" title="USA.gov">USA.gov</a><br />
+ 
+<p>CISA is part of the <a href="https://www.dhs.gov/" title="Department of Homeland Security">Department of Homeland Security</a></p>
+</div>
+<script type="text/javascript">
+<!--//--><![CDATA[// ><!--
+
+    window.onload = function(){
+            jQuery('body.page-node-type-us-cert-events div#ncas-header').find('img').each(function(){
+                    var $src=jQuery(this).prop('src');
+                    if($src.indexOf('default/files/') == -1)jQuery(this).remove();
+                    });
+            if('Privacy Data Breach' == jQuery('#uscert-utilities-irf-form #item-info-impact option:selected').text()){ 
+                jQuery('#item-info-impact-block').removeClass('collapsed'); 
+            }
+jQuery('#print-logo img').removeAttr('width').removeAttr('height');
+if(jQuery('body.path-frontpage').length > 0)
+{   
+    jQuery('.main-container').find('.col-sm-12').removeAttr('role');
+}
+jQuery('#map area').each(function(){ jQuery(this).click(function(){var idstr=jQuery(this).attr('clickthis'); if(jQuery(idstr).hasClass('open') == false){jQuery(idstr).click();}});});  
+if(jQuery('#document-feedback').length > 0)
+{ 
+    var $url    = window.location.href
+    //var str ='Your feedback is very important to us. Please take a moment to complete this <a href="https://surveymonkey.com/r/G8STDRY?product=' + $url + '">survey.';
+    //var $p = jQuery('#document-feedback div p').html(str);
+}
+    };
+
+//--><!]]>
+</script></div>
+<style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+#views-bootstrap-carousel-block-2 .carousel-inner > .item > a > img {
+  margin:auto;
+}
+button#product-feedback-next {
+    margin-bottom: 10px;
+}
+/*
+.mobile-nav {
+border-bottom: 3px solid #112e51;
+}
+*/
+.cma-banner-container {
+    display: none;
+}
+@media (max-width: 991px) {
+.navbar .navbar-header {
+background: #fff;
+}
+}
+div.banner-region { background: #fff; }
+
+.accordion_fold {
+    padding-bottom: 25px;
+}
+
+h2.accordion.open {
+    background: #f2f2f2;
+}
+
+a { color: #2b72af;}
+
+.navbar-default .navbar-nav > li > a { color: #767676; }
+/* andi */
+.sidebar-widget-orange .orange {
+    background-color: #e77431;
+}
+#block-views-block-ics-announcements-block-1 .views-field-created {
+    color: #565656;
+}
+a#sort-bulletin {
+color: #000;
+background: white;
+position: absolute;
+right: 150px;
+padding: 1px 12px;
+}
+
+/*--><!]]>*/
+</style></div>
+      
+  </section>
+
+
+  </div>
+
+    </footer>
+  
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","scriptPath":null,"pathPrefix":"","currentPath":"node\/5347","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"UA-34879253-1","trackOutbound":true,"trackMailto":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"data":{"extlink":{"extTarget":false,"extTargetNoOverride":false,"extNofollow":false,"extNoreferrer":false,"extFollowNoOverride":false,"extClass":"ext","extLabel":"(link is external)","extImgClass":false,"extSubdomains":true,"extExclude":"(\\.gov|\\.mil|\\.org.*|twitter\\.com\\\/share\\?url\\=.*|www\\.facebook\\.com\\\/sharer\\.php\\?u\\=.*|www\\.addthis\\.com\\\/bookmark\\.php\\?url\\=.*|javascript\\:window\\.print\\(\\)\\;)","extInclude":"","extCssExclude":"","extCssExplicit":"","extAlert":true,"extAlertText":"You are now leaving an official website of the United States Government (USG), the Department of Homeland Security (DHS), and the Cybersecurity and Infrastructure Security Agency (CISA). Links to non-USG, non-DHS, and non-CISA sites are provided for the visitor\u0027s convenience and do not represent an endorsement by USG, DHS, or CISA of any commercial or private issues, products, or services. Note that the privacy policy of the linked site may differ from that of USG, DHS, and CISA.","mailtoClass":"mailto","mailtoLabel":"(link sends email)","extUseFontAwesome":false,"extIconPlacement":"append","extFaLinkClasses":"fa fa-external-link","extFaMailtoClasses":"fa fa-envelope-o","whitelistedDomains":null}},"bootstrap":{"forms_has_error_value_toggle":1,"popover_enabled":1,"popover_animation":1,"popover_auto_close":1,"popover_container":"body","popover_content":"","popover_delay":"0","popover_html":0,"popover_placement":"right","popover_selector":"","popover_title":"","popover_trigger":"click","tooltip_enabled":1,"tooltip_animation":1,"tooltip_container":"body","tooltip_delay":"0","tooltip_html":0,"tooltip_placement":"auto left","tooltip_selector":"","tooltip_trigger":"hover"},"user":{"uid":0,"permissionsHash":"5ac3ae468050ddd0aa4ecea12c34a32977a23244239ed53eb7226f296aed658f"}}</script>
+<script src="/sites/default/files/js/js_xhqBHziEDyCKWlB5IUseaFAGh1B08TPFGmxCf6RvFnM.js"></script>
+<script src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DHS&amp;subagency=US-CERT&amp;pua=0" id="_fed_an_ua_tag"></script>
+<script src="/sites/default/files/js/js_m5CHELy9XHlAx2jnhaYdT2XVeN916TnZL5U2ha7Ln94.js"></script>
+
+  <script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"877b02039c","applicationID":"628657512,979282327","transactionName":"ZFYHMhZSXUpRUkcKDF0cJAUQWlxXH0FSBAZsUAQFDFY=","queueTime":0,"applicationTime":75,"atts":"SBEERF5ITkQ=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

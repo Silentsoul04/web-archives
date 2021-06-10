@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html  lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+    <meta charset="utf-8" /><script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={licenseKey:"877b02039c",applicationID:"628657512"};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var i=e[n]={exports:{}};t[n][0].call(i.exports,function(e){var i=t[n][1][e];return r(i||e)},i,i.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var i=0;i<n.length;i++)r(n[i]);return r}({1:[function(t,e,n){function r(){}function i(t,e,n){return function(){return o(t,[u.now()].concat(f(arguments)),e?null:this,n),e?void 0:this}}var o=t("handle"),a=t(8),f=t(9),c=t("ee").get("tracer"),u=t("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var d=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],p="api-",l=p+"ixn-";a(d,function(t,e){s[e]=i(p+e,!0,"api")}),s.addPageAction=i(p+"addPageAction",!0),s.setCurrentRouteName=i(p+"routeName",!0),e.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(t,e){var n={},r=this,i="function"==typeof e;return o(l+"tracer",[u.now(),t,n],r),function(){if(c.emit((i?"":"no-")+"fn-start",[u.now(),r,i],n),i)try{return e.apply(this,arguments)}catch(t){throw c.emit("fn-err",[arguments,this,t],n),t}finally{c.emit("fn-end",[u.now()],n)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(t,e){m[e]=i(l+e)}),newrelic.noticeError=function(t,e){"string"==typeof t&&(t=new Error(t)),o("err",[t,u.now(),!1,e])}},{}],2:[function(t,e,n){function r(t){if(NREUM.init){for(var e=NREUM.init,n=t.split("."),r=0;r<n.length-1;r++)if(e=e[n[r]],"object"!=typeof e)return;return e=e[n[n.length-1]]}}e.exports={getConfiguration:r}},{}],3:[function(t,e,n){function r(){return f.exists&&performance.now?Math.round(performance.now()):(o=Math.max((new Date).getTime(),o))-a}function i(){return o}var o=(new Date).getTime(),a=o,f=t(10);e.exports=r,e.exports.offset=a,e.exports.getLastTimestamp=i},{}],4:[function(t,e,n){function r(t){return!(!t||!t.protocol||"file:"===t.protocol)}e.exports=r},{}],5:[function(t,e,n){function r(t,e){var n=t.getEntries();n.forEach(function(t){"first-paint"===t.name?d("timing",["fp",Math.floor(t.startTime)]):"first-contentful-paint"===t.name&&d("timing",["fcp",Math.floor(t.startTime)])})}function i(t,e){var n=t.getEntries();n.length>0&&d("lcp",[n[n.length-1]])}function o(t){t.getEntries().forEach(function(t){t.hadRecentInput||d("cls",[t])})}function a(t){if(t instanceof m&&!g){var e=Math.round(t.timeStamp),n={type:t.type};e<=p.now()?n.fid=p.now()-e:e>p.offset&&e<=Date.now()?(e-=p.offset,n.fid=p.now()-e):e=p.now(),g=!0,d("timing",["fi",e,n])}}function f(t){d("pageHide",[p.now(),t])}if(!("init"in NREUM&&"page_view_timing"in NREUM.init&&"enabled"in NREUM.init.page_view_timing&&NREUM.init.page_view_timing.enabled===!1)){var c,u,s,d=t("handle"),p=t("loader"),l=t(7),m=NREUM.o.EV;if("PerformanceObserver"in window&&"function"==typeof window.PerformanceObserver){c=new PerformanceObserver(r);try{c.observe({entryTypes:["paint"]})}catch(v){}u=new PerformanceObserver(i);try{u.observe({entryTypes:["largest-contentful-paint"]})}catch(v){}s=new PerformanceObserver(o);try{s.observe({type:"layout-shift",buffered:!0})}catch(v){}}if("addEventListener"in document){var g=!1,h=["click","keydown","mousedown","pointerdown","touchstart"];h.forEach(function(t){document.addEventListener(t,a,!1)})}l(f)}},{}],6:[function(t,e,n){function r(t,e){if(!i)return!1;if(t!==i)return!1;if(!e)return!0;if(!o)return!1;for(var n=o.split("."),r=e.split("."),a=0;a<r.length;a++)if(r[a]!==n[a])return!1;return!0}var i=null,o=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var f=navigator.userAgent,c=f.match(a);c&&f.indexOf("Chrome")===-1&&f.indexOf("Chromium")===-1&&(i="Safari",o=c[1])}e.exports={agent:i,version:o,match:r}},{}],7:[function(t,e,n){function r(t){function e(){t(a&&document[a]?document[a]:document[i]?"hidden":"visible")}"addEventListener"in document&&o&&document.addEventListener(o,e,!1)}e.exports=r;var i,o,a;"undefined"!=typeof document.hidden?(i="hidden",o="visibilitychange",a="visibilityState"):"undefined"!=typeof document.msHidden?(i="msHidden",o="msvisibilitychange"):"undefined"!=typeof document.webkitHidden&&(i="webkitHidden",o="webkitvisibilitychange",a="webkitVisibilityState")},{}],8:[function(t,e,n){function r(t,e){var n=[],r="",o=0;for(r in t)i.call(t,r)&&(n[o]=e(r,t[r]),o+=1);return n}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],9:[function(t,e,n){function r(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,i=n-e||0,o=Array(i<0?0:i);++r<i;)o[r]=t[e+r];return o}e.exports=r},{}],10:[function(t,e,n){e.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(t,e,n){function r(){}function i(t){function e(t){return t&&t instanceof r?t:t?u(t,c,a):a()}function n(n,r,i,o,a){if(a!==!1&&(a=!0),!l.aborted||o){t&&a&&t(n,r,i);for(var f=e(i),c=v(n),u=c.length,s=0;s<u;s++)c[s].apply(f,r);var p=d[w[n]];return p&&p.push([b,n,r,f]),f}}function o(t,e){y[t]=v(t).concat(e)}function m(t,e){var n=y[t];if(n)for(var r=0;r<n.length;r++)n[r]===e&&n.splice(r,1)}function v(t){return y[t]||[]}function g(t){return p[t]=p[t]||i(n)}function h(t,e){l.aborted||s(t,function(t,n){e=e||"feature",w[n]=e,e in d||(d[e]=[])})}var y={},w={},b={on:o,addEventListener:o,removeEventListener:m,emit:n,get:g,listeners:v,context:e,buffer:h,abort:f,aborted:!1};return b}function o(t){return u(t,c,a)}function a(){return new r}function f(){(d.api||d.feature)&&(l.aborted=!0,d=l.backlog={})}var c="nr@context",u=t("gos"),s=t(8),d={},p={},l=e.exports=i();e.exports.getOrSetContext=o,l.backlog=d},{}],gos:[function(t,e,n){function r(t,e,n){if(i.call(t,e))return t[e];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:r,writable:!0,enumerable:!1}),r}catch(o){}return t[e]=r,r}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],handle:[function(t,e,n){function r(t,e,n,r){i.buffer([t],r),i.emit(t,e,n)}var i=t("ee").get("handle");e.exports=r,r.ee=i},{}],id:[function(t,e,n){function r(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:a(t,o,function(){return i++})}var i=1,o="nr@id",a=t("gos");e.exports=r},{}],loader:[function(t,e,n){function r(){if(!R++){var t=M.info=NREUM.info,e=v.getElementsByTagName("script")[0];if(setTimeout(u.abort,3e4),!(t&&t.licenseKey&&t.applicationID&&e))return u.abort();c(E,function(e,n){t[e]||(t[e]=n)});var n=a();f("mark",["onload",n+M.offset],null,"api"),f("timing",["load",n]);var r=v.createElement("script");0===t.agent.indexOf("http://")||0===t.agent.indexOf("https://")?r.src=t.agent:r.src=l+"://"+t.agent,e.parentNode.insertBefore(r,e)}}function i(){"complete"===v.readyState&&o()}function o(){f("mark",["domContent",a()+M.offset],null,"api")}var a=t(3),f=t("handle"),c=t(8),u=t("ee"),s=t(6),d=t(4),p=t(2),l=p.getConfiguration("ssl")===!1?"http":"https",m=window,v=m.document,g="addEventListener",h="attachEvent",y=m.XMLHttpRequest,w=y&&y.prototype,b=!d(m.location);NREUM.o={ST:setTimeout,SI:m.setImmediate,CT:clearTimeout,XHR:y,REQ:m.Request,EV:m.Event,PR:m.Promise,MO:m.MutationObserver};var x=""+location,E={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1209.min.js"},O=y&&w&&w[g]&&!/CriOS/.test(navigator.userAgent),M=e.exports={offset:a.getLastTimestamp(),now:a,origin:x,features:{},xhrWrappable:O,userAgent:s,disabled:b};if(!b){t(1),t(5),v[g]?(v[g]("DOMContentLoaded",o,!1),m[g]("load",r,!1)):(v[h]("onreadystatechange",i),m[h]("onload",r)),f("mark",["firstbyte",a.getLastTimestamp()],null,"api");var R=0}},{}],"wrap-function":[function(t,e,n){function r(t,e){function n(e,n,r,c,u){function nrWrapper(){var o,a,s,p;try{a=this,o=d(arguments),s="function"==typeof r?r(o,a):r||{}}catch(l){i([l,"",[o,a,c],s],t)}f(n+"start",[o,a,c],s,u);try{return p=e.apply(a,o)}catch(m){throw f(n+"err",[o,a,m],s,u),m}finally{f(n+"end",[o,a,p],s,u)}}return a(e)?e:(n||(n=""),nrWrapper[p]=e,o(e,nrWrapper,t),nrWrapper)}function r(t,e,r,i,o){r||(r="");var f,c,u,s="-"===r.charAt(0);for(u=0;u<e.length;u++)c=e[u],f=t[c],a(f)||(t[c]=n(f,s?c+r:r,i,c,o))}function f(n,r,o,a){if(!m||e){var f=m;m=!0;try{t.emit(n,r,o,e,a)}catch(c){i([c,n,r,o],t)}m=f}}return t||(t=s),n.inPlace=r,n.flag=p,n}function i(t,e){e||(e=s);try{e.emit("internal-error",t)}catch(n){}}function o(t,e,n){if(Object.defineProperty&&Object.keys)try{var r=Object.keys(t);return r.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(o){i([o],n)}for(var a in t)l.call(t,a)&&(e[a]=t[a]);return e}function a(t){return!(t&&t instanceof Function&&t.apply&&!t[p])}function f(t,e){var n=e(t);return n[p]=t,o(t,n,s),n}function c(t,e,n){var r=t[e];t[e]=f(r,n)}function u(){for(var t=arguments.length,e=new Array(t),n=0;n<t;++n)e[n]=arguments[n];return e}var s=t("ee"),d=t(9),p="nr@original",l=Object.prototype.hasOwnProperty,m=!1;e.exports=r,e.exports.wrapFunction=f,e.exports.wrapInPlace=c,e.exports.argsToArray=u},{}]},{},["loader"]);</script>
+<script async src="/sites/default/files/google_analytics/gtag.js?qubv3z"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("config", "UA-34879253-1", {"groups":"default","anonymize_ip":true,"allow_ad_personalization_signals":false});</script>
+<meta name="description" content="" />
+<meta name="abstract" content="As part of its mission, CISA leads the effort to enhance the security, resiliency, and reliability of the Nation&#039;s cybersecurity and communications infrastructure." />
+<meta name="keywords" content="uscert, csirt, cert, cybersecurity, cyber security, computer security, U. S. Computer Emergency Readiness, cyber risks" />
+<meta name="Generator" content="Drupal 9 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/sites/default/files/images/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="https://us-cert.cisa.gov/ncas/bulletins/SB16-067" />
+<link rel="shortlink" href="https://us-cert.cisa.gov/node/6435" />
+<link rel="revision" href="https://us-cert.cisa.gov/ncas/bulletins/SB16-067" />
+
+    <title>Vulnerability Summary for the Week of February 29, 2016 | CISA</title>
+    <link rel="stylesheet" media="all" href="/sites/default/files/css/css_-w-jQbIWIO0ZERqyQMFp9m1ddgDjs5ZGsor0ebo5CG4.css" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_OtQ9QHAYVZDqM__uuCDStHUt38Nwh_1MHX1vxg5dE5c.css" />
+
+    
+    <!-- Google Font -->
+    <style type="text/css">
+/* source-sans-pro-regular - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'),
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.woff') format('woff'), /* Modern Browsers */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.svg#SourceSansPro') format('svg'); /* Legacy iOS */
+}
+    </style>
+    <!--link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet"--> 
+    <!-- Google Font -->
+  </head>
+  <body class="path-node page-node-type-bulletin has-glyphicons">
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+
+
+<div class="container-fluid top-top">
+      <aside role="complementary">
+        <div class="region region-top">
+    <section id="block-certtoptop" class="block block-block-content block-block-content4d95ffde-0818-4e6b-bd79-d1547b08c0c0 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container">
+<div id="top">
+<div class="row">
+<div class="col-sm-12 flag"><img alt="United States Flag" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/flag.png" style="position: absolute;" /><p style="padding-left: 35px; font-family: Arial; font-size: 11px;">An official website of the United States government <a href="#" id="here-is-how-u-know">Here's how you know <span class="arrow down"> </span></a></p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="usa-banner-content usa-grid usa-accordion-content hidden container" id="gov-banner">
+<div class="usa-banner-guidance-gov usa-width-one-half col-sm-6"><img alt="Dot gov" class="usa-banner-icon usa-media_block-img" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/icon-dot-gov.svg" /><div class="usa-media_block-body"><strong>Official websites use .gov</strong><br />
+A <b>.gov</b> website belongs to an official government organization in the United States.</div>
+</div>
+
+<div class="usa-banner-guidance-ssl usa-width-one-half col-sm-6"><img alt="SSL" class="usa-banner-icon usa-media_block-img" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/icon-https.svg" /><div class="usa-media_block-body"><strong>Secure .gov websites use HTTPS</strong> A <b>lock (<img alt="lock icon" src="/sites/default/files/icons/lock.svg" style="width:15px;" />)</b> or <b>https://</b> means you've safely connected to the .gov website. Share sensitive information only on official, secure websites.</div>
+</div>
+</div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </div>
+
+
+
+<div class="container-fluid hidden-xs hidden-sm banner-region">
+<div class="container">
+<div class="row">
+
+
+  
+
+<section class="col-sm-9">
+
+      <a id="logo-section"></a>
+        <div class="region region-logo">
+    <section id="block-certlogo" class="block block-block-content block-block-content4639a667-debe-4642-bc69-7839662c0187 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="hidden-xs hidden-sm"><a href="/"><img alt="Cybersecurity and Infrastructure Security Agency CISA" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/logo_verbose.png" title="Cybersecurity and Infrastructure Security Agency CISA" /></a></div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </section>
+
+
+
+      <aside class="col-sm-3" role="complementary">
+        <div class="region region-search">
+    <section id="block-certsearch" class="block block-block-content block-block-contentc33bd875-6ea6-42cc-b1ab-348a4e4bdff7 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><form accept-charset="UTF-8" action="https://search.us-cert.gov/search" class="hidden-xs searchbox" method="get"><input name="utf8" type="hidden" value="✓" /><input id="affiliate-desktop" name="affiliate" type="hidden" value="us-cert" /><div class="form-group"><label class="sr-only" for="query-desktop">Enter Search Terms(s):</label>
+<div class="input-group"><input autocomplete="off" class="form-control form-control-custom input-lg" id="query-desktop" name="query" placeholder="Search" type="text" /><div class="input-group-addon input-group-addon-custom"><button class="submit input-lg"><img alt="search icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/search-icon.png" title="search icon" /></button></div>
+</div>
+</div>
+</form>
+<style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+.navbar-default ul.navbar-nav > li.last a{
+display: none;
+
+/*--><!]]>*/
+</style><div style="padding: 16px 12px 8px 12px"><a class="btn btn-primary" href="/services" type="button" style="font-weight: bold; width: 40%">Services</a><a class="btn btn-primary pull-right" href="/report" type="button" style="font-weight: bold; width: 40%">Report</a></div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </div>
+</div>
+<hr class="hidden-xs nav-top-line">
+</div>
+
+
+
+          <header class="navbar navbar-default container-fluid" id="navbar" role="banner">
+        <div class="container ">
+      <div class="navbar-header">
+        
+                          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+            <div class="hidden-lg hidden-md mobile-nav">
+        <a class="" href="/">
+            <img src="/sites/default/files/cert/logo3.png"  alt="US Department of Homeland Security CISA Cyber + Infrastructure" title="US Department of Homeland Security CISA Cyber + Infrastructure">
+          </a>
+        </div>
+      </div>
+
+              <div id="navbar-collapse" class="navbar-collapse collapse">
+            <div class="region region-navigation-collapsible">
+    <section id="block-certsearchmobile" class="block block-block-content block-block-content0da6361c-e31a-4a58-b455-f9ebde1ba544 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><form accept-charset="UTF-8" action="https://search.us-cert.gov/search" class="hidden-lg hidden-md searchbox" method="get"><input name="utf8" type="hidden" value="✓" /><input id="affiliate-mobile" name="affiliate" type="hidden" value="us-cert" /><div class="form-group"><label class="sr-only" for="query-mobile">Enter Search Terms(s):</label>
+<div class="input-group"><input autocomplete="off" class="form-control form-control-custom input-lg" id="query-mobile" name="query" placeholder="Search" type="text" /><div class="input-group-addon input-group-addon-custom"><button class="submit input-lg"><img alt="search icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/search-icon.png" title="search icon" /></button></div>
+</div>
+</div>
+</form>
+<div class="hidden-md hidden-lg" style="padding: 8px"><a class="btn btn-primary btn-block" href="/services" role="button" style="font-weight: bold">Services</a></div>
+
+<div class="hidden-md hidden-lg" style="padding: 8px"><a class="btn btn-primary btn-block" href="/report" role="button" style="font-weight: bold">Report</a></div></div>
+      
+  </section>
+
+<nav role="navigation" aria-labelledby="block-certmainmenu-menu" id="block-certmainmenu">
+            
+  <h2 class="visually-hidden" id="block-certmainmenu-menu">CertMain Menu</h2>
+  
+
+        
+      <ul class="menu menu--certmain-menu nav navbar-nav">
+                      <li class="first">
+                                        <a href="/ncas" title="Alerts and Tips" data-drupal-link-system-path="node/5">Alerts and Tips</a>
+              </li>
+                      <li>
+                                        <a href="/resources" title="Resources" data-drupal-link-system-path="node/12436">Resources</a>
+              </li>
+                      <li>
+                                        <a href="/ics" title="Industrial Control Systems" data-drupal-link-system-path="node/14614">Industrial Control Systems</a>
+              </li>
+                      <li class="last">
+                                        <a href="/report" title="Report" data-drupal-link-system-path="node/5745">Report</a>
+              </li>
+        </ul>
+  
+
+  </nav>
+
+  </div>
+
+        </div>
+                </header>
+  <hr class="hidden-xs hidden-sm nav-bottom-line">
+<div class="visible-xs visible-sm mobile-border"></div>
+
+
+<div class="container">
+    <div id="print-logo"><img alt="US Department of Homeland Security CISA Cyber + Infrastructure" src="/sites/default/files/cert/logo2.png"/></div>
+    <div id="tlp-header"><svg height="30" width="120"> <rect fill="black" height="30" width="120" x="0" y="0"></rect> <text fill="#ffffff" font-size="18px" x="10" y="20">TLP:WHITE</text> </svg></div>
+    <div id="tlp-footer"><svg height="30" width="120"> <rect fill="black" height="30" width="120" x="0" y="0"></rect> <text fill="#ffffff" font-size="18px" x="10" y="20">TLP:WHITE</text> </svg></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  <div role="main" class="main-container container js-quickedit-main-content">
+    <div class="row">
+
+                              <div class="col-sm-12" role="heading" aria-level="1">
+              <div class="region region-header">
+      <div class="container-fluid hidden-xs">
+  <ol class="breadcrumb">
+          <li >
+                  <a href="/ncas">National Cyber Awareness System</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
+              </li>
+          <li >
+                  <a href="/ncas/bulletins">Bulletins</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
+              </li>
+          <li  class="active">
+                  Vulnerability Summary for the Week of February 29, 2016
+              </li>
+      </ol>
+</div>
+
+
+
+  </div>
+
+          </div>
+              
+
+            
+            
+                        
+
+            
+                  <section class="col-sm-12">
+
+                              <div class="highlighted">  <div class="region region-highlighted">
+    <div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+</div>
+              
+                                      
+                  
+                          <a id="main-content"></a>
+            <div class="region region-content">
+                      <div id="bulletins-archive">
+                <a title="View Archives" href="/ncas/bulletins/">More Bulletins</a>
+            </div>
+	    <h1 id="page-title">Bulletin (SB16-067)</h1>
+	    <h2 id="page-sub-title">Vulnerability Summary for the Week of February 29, 2016</h2>
+        <div class="submitted meta-text">
+                        Original release date: March 11, 2016  | Last revised: March 22, 2016
+                                    <div id="social-options">
+	<!-- START PRINT BUTTON -->
+		<div id="print-button">
+			<span id="custom-print-button">
+				<a rel="nofollow" href="javascript:window.print();" title="Click to print."><img src="/sites/default/files/icons/print-button.png" alt="Click to print." /></a>
+			</span>
+		</div>
+    <!-- END PRINT BUTTON -->
+	<!-- START TWEET BUTTON -->
+	<div id="tweet-button">
+		<span id="custom-tweet-button">
+			<a rel="nofollow" target="_blank" href="https://twitter.com/share?url=" class="popup-twitter" title="Click to Tweet."><img src="/sites/default/files/icons/tweet-button.png" alt="Click to Tweet." /></a>
+		</span>
+	</div>
+	<!-- END TWEET BUTTON -->
+
+	<!-- START FACEBOOK BUTTON -->
+	<div id="facebook-button">
+		<span id="custom-facebook-button">
+		<a rel="nofollow" target="_blank" href="https://www.facebook.com/sharer.php?u=" class="popup-facebook" title="Click to send to Facebook."><img src="/sites/default/files/icons/facebook-send-button.png" alt="Click to send to Facebook." /></a>
+		</span>
+	</div>
+	<!-- END FACEBOOK BUTTON -->
+
+	<!-- START SHARE BUTTON -->
+	<div id="share-button">
+		<span id="custom-share-button">
+			<a rel="nofollow" target="_blank" href="http://www.addthis.com/bookmark.php?url=" class="popup-share" title="Click to Share." ><img src="/sites/default/files/icons/share-button.png" alt="Click to Share." /></a>
+		</span>
+	</div>
+	<!-- END SHARE BUTTON -->
+
+</div>
+        </div>
+    
+  
+<div class="cert-content">
+<article role="article" about="/ncas/bulletins/SB16-067" class="bulletin full clearfix">
+
+  
+    
+  
+  <div class="content">
+        
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><p>The CISA Vulnerability Bulletin provides a summary of new vulnerabilities that have been recorded by the <a href="https://www.nist.gov/">National Institute of Standards and Technology</a> (NIST) <a href="https://nvd.nist.gov/">National Vulnerability Database</a> (NVD) in the past week. NVD is sponsored by CISA. In some cases, the vulnerabilities in the bulletin may not yet have assigned CVSS scores. Please visit NVD for updated vulnerability entries, which include CVSS scores once they are available.</p>
+
+<p>Vulnerabilities are based on the <a href="https://cve.mitre.org/">Common Vulnerabilities and Exposures</a> (CVE) vulnerability naming standard and are organized according to severity, determined by the <a href="https://nvd.nist.gov/cvss.cfm">Common Vulnerability Scoring System</a> (CVSS) standard. The division of high, medium, and low severities correspond to the following scores:</p>
+
+<ul><li><a href="#high">High</a>: vulnerabilities with a CVSS base score of 7.0–10.0</li>
+	<li><a href="#medium">Medium</a>: vulnerabilities with a CVSS base score of 4.0–6.9</li>
+	<li><a href="#low">Low</a>: vulnerabilities with a CVSS base score of 0.0–3.9</li>
+</ul><p>Entries may include additional information provided by organizations and efforts sponsored by CISA. This information may include identifying information, values, definitions, and related links. Patch information is provided when available. Please note that some of the information in the bulletin is compiled from external, open-source reports and is not a direct result of CISA analysis.</p>
+</div>
+      
+
+        
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><p><a name="high" id="high"></a></p><div id="high_v"><h2 id="high_v_title">High Vulnerabilities</h2><table align="center" border="1" summary="High Vulnerabilities"><thead><tr><th scope="col" style="width: 24%; -ms-word-break: keep-all;">Primary<br />Vendor -- Product</th><th scope="col" style="width: 44%;">Description</th><th scope="col" style="width: 8%;">Published</th><th scope="col" style="width: 4%;">CVSS Score</th><th scope="col" style="width: 10%;">Source &amp; Patch Info</th></tr></thead><tbody><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">adobe -- flash_player</td><td style="text-align: left;">Adobe Flash Player before 18.0.0.268 and 19.x and 20.x before 20.0.0.228 on Windows and OS X and before 11.2.202.554 on Linux, Adobe AIR before 20.0.0.204, Adobe AIR SDK before 20.0.0.204, and Adobe AIR SDK &amp; Compiler before 20.0.0.204 allow attackers to execute arbitrary code or cause a denial of service (out-of-bounds read and memory corruption) via crafted MPEG-4 data, a different vulnerability than CVE-2015-8045, CVE-2015-8047, CVE-2015-8060, CVE-2015-8408, CVE-2015-8416, CVE-2015-8417, CVE-2015-8418, CVE-2015-8419, CVE-2015-8443, CVE-2015-8444, CVE-2015-8451, CVE-2015-8455, CVE-2015-8654, CVE-2015-8656, CVE-2015-8657, CVE-2015-8658, and CVE-2015-8820.</td><td style="text-align: center;">2016-03-04</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=%20CVE-2015-8652%20&amp;vector=(AV:N/AC:M/Au:S/C:N/I:P/A:N)" target="_blank">9.3</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=%20CVE-2015-8652%20target=_blank">CVE-2015-8652</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">adobe -- flash_player</td><td style="text-align: left;">Use-after-free vulnerability in Adobe Flash Player before 18.0.0.268 and 19.x and 20.x before 20.0.0.228 on Windows and OS X and before 11.2.202.554 on Linux, Adobe AIR before 20.0.0.204, Adobe AIR SDK before 20.0.0.204, and Adobe AIR SDK &amp; Compiler before 20.0.0.204 allows attackers to execute arbitrary code via crafted MPEG-4 data, a different vulnerability than CVE-2015-8048, CVE-2015-8049, CVE-2015-8050, CVE-2015-8055, CVE-2015-8056, CVE-2015-8057, CVE-2015-8058, CVE-2015-8059, CVE-2015-8061, CVE-2015-8062, CVE-2015-8063, CVE-2015-8064, CVE-2015-8065, CVE-2015-8066, CVE-2015-8067, CVE-2015-8068, CVE-2015-8069, CVE-2015-8070, CVE-2015-8071, CVE-2015-8401, CVE-2015-8402, CVE-2015-8403, CVE-2015-8404, CVE-2015-8405, CVE-2015-8406, CVE-2015-8410, CVE-2015-8411, CVE-2015-8412, CVE-2015-8413, CVE-2015-8414, CVE-2015-8420, CVE-2015-8421, CVE-2015-8422, CVE-2015-8423, CVE-2015-8424, CVE-2015-8425, CVE-2015-8426, CVE-2015-8427, CVE-2015-8428, CVE-2015-8429, CVE-2015-8430, CVE-2015-8431, CVE-2015-8432, CVE-2015-8433, CVE-2015-8434, CVE-2015-8435, CVE-2015-8436, CVE-2015-8437, CVE-2015-8441, CVE-2015-8442, CVE-2015-8447, CVE-2015-8448, CVE-2015-8449, CVE-2015-8450, CVE-2015-8452, CVE-2015-8454, CVE-2015-8655, CVE-2015-8821, and CVE-2015-8822.</td><td style="text-align: center;">2016-03-04</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=%20CVE-2015-8653%20&amp;vector=(AV:N/AC:M/Au:S/C:N/I:P/A:N)" target="_blank">9.3</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=%20CVE-2015-8653%20target=_blank">CVE-2015-8653</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">adobe -- flash_player</td><td style="text-align: left;">Adobe Flash Player before 18.0.0.268 and 19.x and 20.x before 20.0.0.228 on Windows and OS X and before 11.2.202.554 on Linux, Adobe AIR before 20.0.0.204, Adobe AIR SDK before 20.0.0.204, and Adobe AIR SDK &amp; Compiler before 20.0.0.204 allow attackers to execute arbitrary code or cause a denial of service (out-of-bounds read and memory corruption) via crafted MPEG-4 data, a different vulnerability than CVE-2015-8045, CVE-2015-8047, CVE-2015-8060, CVE-2015-8408, CVE-2015-8416, CVE-2015-8417, CVE-2015-8418, CVE-2015-8419, CVE-2015-8443, CVE-2015-8444, CVE-2015-8451, CVE-2015-8455, CVE-2015-8652, CVE-2015-8656, CVE-2015-8657, CVE-2015-8658, and CVE-2015-8820.</td><td style="text-align: center;">2016-03-04</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=%20CVE-2015-8654%20&amp;vector=(AV:N/AC:M/Au:S/C:N/I:P/A:N)" target="_blank">9.3</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=%20CVE-2015-8654%20target=_blank">CVE-2015-8654</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">adobe -- flash_player</td><td style="text-align: left;">Use-after-free vulnerability in Adobe Flash Player before 18.0.0.268 and 19.x and 20.x before 20.0.0.228 on Windows and OS X and before 11.2.202.554 on Linux, Adobe AIR before 20.0.0.204, Adobe AIR SDK before 20.0.0.204, and Adobe AIR SDK &amp; Compiler before 20.0.0.204 allows attackers to execute arbitrary code via crafted MPEG-4 data, a different vulnerability than CVE-2015-8048, CVE-2015-8049, CVE-2015-8050, CVE-2015-8055, CVE-2015-8056, CVE-2015-8057, CVE-2015-8058, CVE-2015-8059, CVE-2015-8061, CVE-2015-8062, CVE-2015-8063, CVE-2015-8064, CVE-2015-8065, CVE-2015-8066, CVE-2015-8067, CVE-2015-8068, CVE-2015-8069, CVE-2015-8070, CVE-2015-8071, CVE-2015-8401, CVE-2015-8402, CVE-2015-8403, CVE-2015-8404, CVE-2015-8405, CVE-2015-8406, CVE-2015-8410, CVE-2015-8411, CVE-2015-8412, CVE-2015-8413, CVE-2015-8414, CVE-2015-8420, CVE-2015-8421, CVE-2015-8422, CVE-2015-8423, CVE-2015-8424, CVE-2015-8425, CVE-2015-8426, CVE-2015-8427, CVE-2015-8428, CVE-2015-8429, CVE-2015-8430, CVE-2015-8431, CVE-2015-8432, CVE-2015-8433, CVE-2015-8434, CVE-2015-8435, CVE-2015-8436, CVE-2015-8437, CVE-2015-8441, CVE-2015-8442, CVE-2015-8447, CVE-2015-8448, CVE-2015-8449, CVE-2015-8450, CVE-2015-8452, CVE-2015-8454, CVE-2015-8653, CVE-2015-8821, and CVE-2015-8822.</td><td style="text-align: center;">2016-03-04</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=%20CVE-2015-8655%20&amp;vector=(AV:N/AC:M/Au:S/C:N/I:P/A:N)" target="_blank">9.3</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=%20CVE-2015-8655%20target=_blank">CVE-2015-8655</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">adobe -- flash_player</td><td style="text-align: left;">Adobe Flash Player before 18.0.0.268 and 19.x and 20.x before 20.0.0.228 on Windows and OS X and before 11.2.202.554 on Linux, Adobe AIR before 20.0.0.204, Adobe AIR SDK before 20.0.0.204, and Adobe AIR SDK &amp; Compiler before 20.0.0.204 allow attackers to execute arbitrary code or cause a denial of service (out-of-bounds read and memory corruption) via crafted MPEG-4 data, a different vulnerability than CVE-2015-8045, CVE-2015-8047, CVE-2015-8060, CVE-2015-8408, CVE-2015-8416, CVE-2015-8417, CVE-2015-8418, CVE-2015-8419, CVE-2015-8443, CVE-2015-8444, CVE-2015-8451, CVE-2015-8455, CVE-2015-8652, CVE-2015-8654, CVE-2015-8657, CVE-2015-8658, and CVE-2015-8820.</td><td style="text-align: center;">2016-03-04</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=%20CVE-2015-8656%20&amp;vector=(AV:N/AC:M/Au:S/C:N/I:P/A:N)" target="_blank">9.3</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=%20CVE-2015-8656%20target=_blank">CVE-2015-8656</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">adobe -- flash_player</td><td style="text-align: left;">Adobe Flash Player before 18.0.0.268 and 19.x and 20.x before 20.0.0.228 on Windows and OS X and before 11.2.202.554 on Linux, Adobe AIR before 20.0.0.204, Adobe AIR SDK before 20.0.0.204, and Adobe AIR SDK &amp; Compiler before 20.0.0.204 allow attackers to execute arbitrary code or cause a denial of service (uninitialized pointer dereference and memory corruption) via crafted MPEG-4 data, a different vulnerability than CVE-2015-8045, CVE-2015-8047, CVE-2015-8060, CVE-2015-8408, CVE-2015-8416, CVE-2015-8417, CVE-2015-8418, CVE-2015-8419, CVE-2015-8443, CVE-2015-8444, CVE-2015-8451, CVE-2015-8455, CVE-2015-8652, CVE-2015-8654, CVE-2015-8656, CVE-2015-8657, and CVE-2015-8820.</td><td style="text-align: center;">2016-03-04</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=%20CVE-2015-8658%20&amp;vector=(AV:N/AC:M/Au:S/C:N/I:P/A:N)" target="_blank">9.3</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=%20CVE-2015-8658%20target=_blank">CVE-2015-8658</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">adobe -- flash_player</td><td style="text-align: left;">Adobe Flash Player before 18.0.0.268 and 19.x and 20.x before 20.0.0.228 on Windows and OS X and before 11.2.202.554 on Linux, Adobe AIR before 20.0.0.204, Adobe AIR SDK before 20.0.0.204, and Adobe AIR SDK &amp; Compiler before 20.0.0.204 allow attackers to execute arbitrary code or cause a denial of service (out-of-bounds read and memory corruption) via crafted MPEG-4 data, a different vulnerability than CVE-2015-8045, CVE-2015-8047, CVE-2015-8060, CVE-2015-8408, CVE-2015-8416, CVE-2015-8417, CVE-2015-8418, CVE-2015-8419, CVE-2015-8443, CVE-2015-8444, CVE-2015-8451, CVE-2015-8455, CVE-2015-8652, CVE-2015-8654, CVE-2015-8656, CVE-2015-8657, and CVE-2015-8658.</td><td style="text-align: center;">2016-03-04</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=%20CVE-2015-8820%20&amp;vector=(AV:N/AC:M/Au:S/C:N/I:P/A:N)" target="_blank">9.3</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=%20CVE-2015-8820%20target=_blank">CVE-2015-8820</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">adobe -- flash_player</td><td style="text-align: left;">"Use-after-free vulnerability in Adobe Flash Player before 18.0.0.268 and 19.x and 20.x before 20.0.0.228 on Windows and OS X and before 11.2.202.554 on Linux, Adobe AIR before 20.0.0.204, Adobe AIR SDK before 20.0.0.204, and Adobe AIR SDK &amp; Compiler before 20.0.0.204 allows attackers to execute arbitrary code via crafted MPEG-4 data, a different vulnerability than CVE-2015-8048, CVE-2015-8049, CVE-2015-8050, CVE-2015-8055, CVE-2015-8056, CVE-2015-8057, CVE-2015-8058, CVE-2015-8059, CVE-2015-8061, CVE-2015-8062, CVE-2015-8063, CVE-2015-8064, CVE-2015-8065, CVE-2015-8066, CVE-2015-8067, CVE-2015-8068, CVE-2015-8069, CVE-2015-8070, CVE-2015-8071, CVE-2015-8401, CVE-2015-8402, CVE-2015-8403, CVE-2015-8404, CVE-2015-8405, CVE-2015-8406, CVE-2015-8410, CVE-2015-8411, CVE-2015-8412, CVE-2015-8413, CVE-2015-8414, CVE-2015-8420, CVE-2015-8421, CVE-2015-8422, CVE-2015-8423, CVE-2015-8424, CVE-2015-8425, CVE-2015-8426, CVE-2015-8427, CVE-2015-8428, CVE-2015-8429, CVE-2015-8430 , CVE-2015-8431, CVE-2015-8432, CVE-2015-8433, CVE-2015-8434, CVE-2015-8435, CVE-2015-8436, CVE-2015-8437, CVE-2015-8441, CVE-2015-8442, CVE-2015-8447, CVE-2015-8448, CVE-2015-8449, CVE-2015-8450, CVE-2015-8452, CVE-2015-8454, CVE-2015-8653, CVE-2015-8655, and CVE-2015-8822."</td><td style="text-align: center;">2016-03-04</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=%20CVE-2015-8821%20&amp;vector=(AV:N/AC:M/Au:S/C:N/I:P/A:N)" target="_blank">9.3</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=%20CVE-2015-8821%20target=_blank">CVE-2015-8821</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">adobe -- flash_player</td><td style="text-align: left;">"Use-after-free vulnerability in Adobe Flash Player before 18.0.0.268 and 19.x and 20.x before 20.0.0.228 on Windows and OS X and before 11.2.202.554 on Linux, Adobe AIR before 20.0.0.204, Adobe AIR SDK before 20.0.0.204, and Adobe AIR SDK &amp; Compiler before 20.0.0.204 allows attackers to execute arbitrary code via crafted MPEG-4 data, a different vulnerability than CVE-2015-8048, CVE-2015-8049, CVE-2015-8050, CVE-2015-8055, CVE-2015-8056, CVE-2015-8057, CVE-2015-8058, CVE-2015-8059, CVE-2015-8061, CVE-2015-8062, CVE-2015-8063, CVE-2015-8064, CVE-2015-8065, CVE-2015-8066, CVE-2015-8067, CVE-2015-8068, CVE-2015-8069, CVE-2015-8070, CVE-2015-8071, CVE-2015-8401, CVE-2015-8402, CVE-2015-8403, CVE-2015-8404, CVE-2015-8405, CVE-2015-8406, CVE-2015-8410, CVE-2015-8411, CVE-2015-8412, CVE-2015-8413, CVE-2015-8414, CVE-2015-8420, CVE-2015-8421, CVE-2015-8422, CVE-2015-8423, CVE-2015-8424, CVE-2015-8425, CVE-2015-8426, CVE-2015-8427, CVE-2015-8428, CVE-2015-8429, CVE-2015-8430 , CVE-2015-8431, CVE-2015-8432, CVE-2015-8433, CVE-2015-8434, CVE-2015-8435, CVE-2015-8436, CVE-2015-8437, CVE-2015-8441, CVE-2015-8442, CVE-2015-8447, CVE-2015-8448, CVE-2015-8449, CVE-2015-8450, CVE-2015-8452, CVE-2015-8454, CVE-2015-8653, CVE-2015-8655, and CVE-2015-8821."</td><td style="text-align: center;">2016-03-04</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=%20CVE-2015-8822%20&amp;vector=(AV:N/AC:M/Au:S/C:N/I:P/A:N)" target="_blank">9.3</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=%20CVE-2015-8822%20target=_blank">CVE-2015-8822</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">adobe -- flash_player</td><td style="text-align: left;">Adobe Flash Player before 18.0.0.268 and 19.x and 20.x before 20.0.0.228 on Windows and OS X and before 11.2.202.554 on Linux, Adobe AIR before 20.0.0.204, Adobe AIR SDK before 20.0.0.204, and Adobe AIR SDK &amp; Compiler before 20.0.0.204 allow attackers to execute arbitrary code or cause a denial of service (out-of-bounds read and memory corruption) via crafted MPEG-4 data, a different vulnerability than CVE-2015-8045, CVE-2015-8047, CVE-2015-8060, CVE-2015-8408, CVE-2015-8416, CVE-2015-8417, CVE-2015-8418, CVE-2015-8419, CVE-2015-8443, CVE-2015-8444, CVE-2015-8451, CVE-2015-8455, CVE-2015-8652, CVE-2015-8654, CVE-2015-8656, CVE-2015-8658, and CVE-2015-8820.</td><td style="text-align: center;">2016-03-04</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=%20CVE-2015-8657%20&amp;vector=(AV:N/AC:M/Au:S/C:N/I:P/A:N)" target="_blank">9.3</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=%20CVE-2015-8657%20target=_blank">CVE-2015-8657</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">google -- chrome</td><td style="text-align: left;">Use-after-free vulnerability in Blink, as used in Google Chrome before 49.0.2623.75, allows remote attackers to cause a denial of service or possibly have unspecified other impact via unknown vectors.</td><td style="text-align: center;">2016-03-05</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-1633&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">10.0</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-1633" target="_blank">CVE-2016-1633</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">google -- chrome</td><td style="text-align: left;">extensions/renderer/render_frame_observer_natives.cc in Google Chrome before 49.0.2623.75 does not properly consider object lifetimes and re-entrancy issues during OnDocumentElementCreated handling, which allows remote attackers to cause a denial of service (use-after-free) or possibly have unspecified other impact via unknown vectors.</td><td style="text-align: center;">2016-03-05</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-1635&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">10.0</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-1635" target="_blank">CVE-2016-1635</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">google -- chrome</td><td style="text-align: left;">Use-after-free vulnerability in browser/extensions/api/webrtc_audio_private/webrtc_audio_private_api.cc in the WebRTC Audio Private API implementation in Google Chrome before 49.0.2623.75 allows remote attackers to cause a denial of service or possibly have unspecified other impact by leveraging incorrect reliance on the resource context pointer.</td><td style="text-align: center;">2016-03-05</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-1639&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">10.0</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-1639" target="_blank">CVE-2016-1639</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">google -- chrome</td><td style="text-align: left;">Multiple unspecified vulnerabilities in Google Chrome before 49.0.2623.75 allow attackers to cause a denial of service or possibly have other impact via unknown vectors.</td><td style="text-align: center;">2016-03-05</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-1642&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">10.0</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-1642" target="_blank">CVE-2016-1642</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">google -- chrome</td><td style="text-align: left;">Multiple unspecified vulnerabilities in Google V8 before 4.9.385.26, as used in Google Chrome before 49.0.2623.75, allow attackers to cause a denial of service or possibly have other impact via unknown vectors.</td><td style="text-align: center;">2016-03-05</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-2843&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">10.0</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-2843" target="_blank">CVE-2016-2843</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">google -- chrome</td><td style="text-align: left;">Use-after-free vulnerability in the StyleResolver::appendCSSStyleSheet function in WebKit/Source/core/css/resolver/StyleResolver.cpp in Blink, as used in Google Chrome before 49.0.2623.75, allows remote attackers to cause a denial of service or possibly have unspecified other impact via a crafted web site that triggers Cascading Style Sheets (CSS) style invalidation during a certain subtree-removal action.</td><td style="text-align: center;">2016-03-05</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-1634&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">9.3</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-1634" target="_blank">CVE-2016-1634</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">google -- chrome</td><td style="text-align: left;">Use-after-free vulnerability in content/browser/web_contents/web_contents_impl.cc in Google Chrome before 49.0.2623.75 allows remote attackers to cause a denial of service or possibly have unspecified other impact by triggering an image download after a certain data structure is deleted, as demonstrated by a favicon.ico download.</td><td style="text-align: center;">2016-03-05</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-1641&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">9.3</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-1641" target="_blank">CVE-2016-1641</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">google -- chrome</td><td style="text-align: left;">WebKit/Source/core/layout/LayoutBlock.cpp in Blink, as used in Google Chrome before 49.0.2623.75, does not properly determine when anonymous block wrappers may exist, which allows remote attackers to cause a denial of service (incorrect cast and assertion failure) or possibly have unspecified other impact via crafted JavaScript code.</td><td style="text-align: center;">2016-03-05</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-2844&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">9.3</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-2844" target="_blank">CVE-2016-2844</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">ibm -- tivoli_storage_manager_fastback</td><td style="text-align: left;">Stack-based buffer overflow in IBM Tivoli Storage Manager FastBack 5.5 and 6.1.x through 6.1.11.1 allows remote attackers to cause a denial of service (daemon crash) via unspecified vectors, a different vulnerability than CVE-2016-0213 and CVE-2016-0216.</td><td style="text-align: center;">2016-02-29</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-0212&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">10.0</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-0212" target="_blank">CVE-2016-0212</a><br /><a href="http://www.ibm.com/support/docview.wss?uid=swg21975358" target="_blank">CONFIRM</a><br /><a href="http://www.ibm.com/connections/blogs/PSIRT/entry/ibm_security_bulletin_multiple_security_vulnerabilities_in_ibm_tivoli_storage_manager_fastback_cve_2016_0212_cve_2016_0213_cve_2016_0216" target="_blank">CONFIRM</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">ibm -- tivoli_storage_manager_fastback</td><td style="text-align: left;">Stack-based buffer overflow in IBM Tivoli Storage Manager FastBack 5.5 and 6.1.x through 6.1.11.1 allows remote attackers to cause a denial of service (daemon crash) via unspecified vectors, a different vulnerability than CVE-2016-0212 and CVE-2016-0216.</td><td style="text-align: center;">2016-02-29</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-0213&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">10.0</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-0213" target="_blank">CVE-2016-0213</a><br /><a href="http://www.ibm.com/support/docview.wss?uid=swg21975358" target="_blank">CONFIRM</a><br /><a href="http://www.ibm.com/connections/blogs/PSIRT/entry/ibm_security_bulletin_multiple_security_vulnerabilities_in_ibm_tivoli_storage_manager_fastback_cve_2016_0212_cve_2016_0213_cve_2016_0216" target="_blank">CONFIRM</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">ibm -- tivoli_storage_manager_fastback</td><td style="text-align: left;">Stack-based buffer overflow in IBM Tivoli Storage Manager FastBack 5.5 and 6.1.x through 6.1.11.1 allows remote attackers to cause a denial of service (daemon crash) via unspecified vectors, a different vulnerability than CVE-2016-0212 and CVE-2016-0213.</td><td style="text-align: center;">2016-02-29</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-0216&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">10.0</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-0216" target="_blank">CVE-2016-0216</a><br /><a href="http://www.ibm.com/support/docview.wss?uid=swg21975358" target="_blank">CONFIRM</a><br /><a href="http://www.ibm.com/connections/blogs/PSIRT/entry/ibm_security_bulletin_multiple_security_vulnerabilities_in_ibm_tivoli_storage_manager_fastback_cve_2016_0212_cve_2016_0213_cve_2016_0216" target="_blank">CONFIRM</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">openssl</td><td style="text-align: left;">Double free vulnerability in the dsa_priv_decode function in crypto/dsa/dsa_ameth.c in OpenSSL 1.0.1 before 1.0.1s and 1.0.2 before 1.0.2g allows remote attackers to cause a denial of service (memory corruption) or possibly have unspecified other impact via a malformed DSA private key.</td><td style="text-align: center;">2016-03-03</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-0705&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">10.0</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-0705" target="_blank">CVE-2016-0705</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">openssl</td><td style="text-align: left;">The fmtstr function in crypto/bio/b_print.c in OpenSSL 1.0.1 before 1.0.1s and 1.0.2 before 1.0.2g improperly calculates string lengths, which allows remote attackers to cause a denial of service (overflow and out-of-bounds read) or possibly have unspecified other impact via a long string, as demonstrated by a large amount of ASN.1 data, a different vulnerability than CVE-2016-2842.</td><td style="text-align: center;">2016-03-03</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-0799&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">10.0</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-0799" target="_blank">CVE-2016-0799</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">openssl</td><td style="text-align: left;">The doapr_outch function in crypto/bio/b_print.c in OpenSSL 1.0.1 before 1.0.1s and 1.0.2 before 1.0.2g does not verify that a certain memory allocation succeeds, which allows remote attackers to cause a denial of service (out-of-bounds write or memory consumption) or possibly have unspecified other impact via a long string, as demonstrated by a large amount of ASN.1 data, a different vulnerability than CVE-2016-0799.</td><td style="text-align: center;">2016-03-03</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-2842&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">10.0</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-2842" target="_blank">CVE-2016-2842</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">openssl</td><td style="text-align: left;">Memory leak in the SRP_VBASE_get_by_user implementation in OpenSSL 1.0.1 before 1.0.1s and 1.0.2 before 1.0.2g allows remote attackers to cause a denial of service (memory consumption) by providing an invalid username in a connection attempt, related to apps/s_server.c and crypto/srp/srp_vfy.c.</td><td style="text-align: center;">2016-03-03</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-0798&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">7.8</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-0798" target="_blank">CVE-2016-0798</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">openssl</td><td style="text-align: left;">The PendingScript::notifyFinished function in WebKit/Source/core/dom/PendingScript.cpp in Google Chrome before 49.0.2623.75 relies on memory-cache information about integrity-check occurrences instead of integrity-check successes, which allows remote attackers to bypass the Subresource Integrity (aka SRI) protection mechanism by triggering two loads of the same resource.</td><td style="text-align: center;">2016-03-05</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-1636&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">9.5</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-1636" target="_blank">CVE-2016-1636</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">schneider_electric -- struxureware_building_ operations_automation_server</td><td style="text-align: left;">Schneider Electric Struxureware Building Operations Automation Server AS 1.7 and earlier and AS-P 1.7 and earlier allows remote authenticated administrators to execute arbitrary OS commands by defeating an msh (aka Minimal Shell) protection mechanism.</td><td style="text-align: center;">2016-03-02</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-2278&amp;vector=(AV:N/AC:L/Au:S/C:C/I:C/A:C)" target="_blank">9.0</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-2278" target="_blank">CVE-2016-2278</a><br /><a href="/ics/advisories/ICSA-16-061-01" target="_blank">MISC</a><br /><a href="http://download.schneider-electric.com/files?p_Doc_Ref=SEVD-2016-025-01" target="_blank">CONFIRM</a></td></tr></tbody></table><a href="#top">Back to top</a></div><p><a name="medium" id="medium"></a></p><div id="medium_v"><h2 id="medium_v_title">Medium Vulnerabilities</h2><table align="center" border="1" summary="Medium Vulnerabilities"><thead><tr><th scope="col" style="width: 24%; -ms-word-break: keep-all;">Primary<br />Vendor -- Product</th><th scope="col" style="width: 44%;">Description</th><th scope="col" style="width: 8%;">Published</th><th scope="col" style="width: 4%;">CVSS Score</th><th scope="col" style="width: 10%;">Source &amp; Patch Info</th></tr></thead><tbody><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">cisco -- unified_communications_domain_manager</td><td style="text-align: left;">Cross-site scripting (XSS) vulnerability in Cisco Unified Communications Domain Manager (UCDM) 8.x before 8.1.1 allows remote attackers to inject arbitrary web script or HTML via crafted markup data, aka Bug ID CSCud41176.</td><td style="text-align: center;">2016-03-03</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-1354&amp;vector=(AV:N/AC:M/Au:N/C:N/I:P/A:N)" target="_blank">4.3</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-1354" target="_blank">CVE-2016-1354</a><br /><a href="http://tools.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-20160302-cucdm" target="_blank">CISCO</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">cisco -- nx</td><td style="text-align: left;">Cisco NX-OS 4.0 through 6.1 on Nexus 1000V 3000, 4000, 5000, 6000, and 7000 devices and Unified Computing System (UCS) platforms allows remote attackers to cause a denial of service (TCP stack reload) by sending crafted TCP packets to a device that has a TIME_WAIT TCP session, aka Bug ID CSCub70579.</td><td style="text-align: center;">2016-03-03</td><td style="width: 5%; text-align: center;">not yet calculated</td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=%20CVE-2015-0718%20target=_blank">CVE-2015-0718</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">cisco -- nx</td><td style="text-align: left;">Cisco NX-OS 7.1(1)N1(1) on Nexus 5500, 5600, and 6000 devices does not properly validate PDUs in SNMP packets, which allows remote attackers to cause a denial of service (SNMP application restart) via a crafted packet, aka Bug ID CSCut84645.</td><td style="text-align: center;">2016-03-03</td><td style="width: 5%; text-align: center;">not yet calculated</td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=%20CVE-2015-6260%20target=_blank">CVE-2015-6260</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">cisco -- firesight_system_software</td><td style="text-align: left;">Cross-site scripting (XSS) vulnerability in the Device Management UI in the management interface in Cisco FireSIGHT System Software 6.1.0 allows remote attackers to inject arbitrary web script or HTML via a crafted value, aka Bug ID CSCuy41687.</td><td style="text-align: center;">2016-03-03</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-1355&amp;vector=(AV:N/AC:M/Au:N/C:N/I:P/A:N)" target="_blank">4.3</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-1355" target="_blank">CVE-2016-1355</a><br /><a href="http://tools.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-20160302-FireSIGHT" target="_blank">CISCO</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">cisco -- firesight_system_software</td><td style="text-align: left;">Cisco FireSIGHT System Software 6.1.0 does not use a constant-time algorithm for verifying credentials, which makes it easier for remote attackers to enumerate valid usernames by measuring timing differences, aka Bug ID CSCuy41615.</td><td style="text-align: center;">2016-03-03</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-1356&amp;vector=(AV:N/AC:M/Au:N/C:P/I:N/A:N)" target="_blank">4.3</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-1356" target="_blank">CVE-2016-1356</a><br /><a href="http://tools.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-20160302-FireSIGHT1" target="_blank">CISCO</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">cisco -- prime_infrastructure</td><td style="text-align: left;">Cisco Prime Infrastructure 3.0 allows remote authenticated users to execute arbitrary code via a crafted HTTP request that is mishandled during viewing of a log file, aka Bug ID CSCuw81494.</td><td style="text-align: center;">2016-03-03</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-1359&amp;vector=(AV:N/AC:L/Au:S/C:P/I:P/A:P)" target="_blank">6.5</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-1359" target="_blank">CVE-2016-1359</a><br /><a href="http://tools.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-20160302-cpi1" target="_blank">CISCO</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">google -- chrome</td><td style="text-align: left;">The ContainerNode::parserRemoveChild function in WebKit/Source/core/dom/ContainerNode.cpp in Blink, as used in Google Chrome before 49.0.2623.75, mishandles widget updates, which makes it easier for remote attackers to bypass the Same Origin Policy via a crafted web site.</td><td style="text-align: center;">2016-03-05</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-1630&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">6.8</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-1630" target="_blank">CVE-2016-1630</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">google -- chrome</td><td style="text-align: left;">The PPB_Flash_MessageLoop_Impl::InternalRun function in content/renderer/pepper/ppb_flash_message_loop_impl.cc in the Pepper plugin in Google Chrome before 49.0.2623.75 mishandles nested message loops, which allows remote attackers to bypass the Same Origin Policy via a crafted web site.</td><td style="text-align: center;">2016-03-05</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-1631&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">6.8</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-1631" target="_blank">CVE-2016-1631</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">google -- chrome</td><td style="text-align: left;">The Extensions subsystem in Google Chrome before 49.0.2623.75 does not properly maintain own properties, which allows remote attackers to bypass intended access restrictions via crafted JavaScript code that triggers an incorrect cast, related to extensions/renderer/v8_helpers.h and gin/converter.h.</td><td style="text-align: center;">2016-03-05</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-1632&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">6.8</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-1632" target="_blank">CVE-2016-1632</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">google -- chrome</td><td style="text-align: left;">extensions/renderer/resources/platform_app.js in the Extensions subsystem in Google Chrome before 49.0.2623.75 does not properly restrict use of Web APIs, which allows remote attackers to bypass intended access restrictions via a crafted platform app.</td><td style="text-align: center;">2016-03-05</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-1638&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">6.8</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-1638" target="_blank">CVE-2016-1638</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">google -- chrome</td><td style="text-align: left;">The Content Security Policy (CSP) implementation in Blink, as used in Google Chrome before 49.0.2623.75, does not ignore a URL's path component in the case of a ServiceWorker fetch, which allows remote attackers to obtain sensitive information about visited web pages by reading CSP violation reports, related to FrameFetchContext.cpp and ResourceFetcher.cpp.</td><td style="text-align: center;">2016-03-05</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-2845&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">5</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-2845" target="_blank">CVE-2016-2845</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">google -- chrome</td><td style="text-align: left;">The SkATan2_255 function in effects/gradients/SkSweepGradient.cpp in Skia, as used in Google Chrome before 49.0.2623.75, mishandles arctangent calculations, which allows remote attackers to obtain sensitive information via a crafted web site.</td><td style="text-align: center;">2016-03-05</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-1637&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">4.3</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-1637" target="_blank">CVE-2016-1637</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">google -- chrome</td><td style="text-align: left;">The Web Store inline-installer implementation in the Extensions UI in Google Chrome before 49.0.2623.75 does not block installations upon deletion of an installation frame, which makes it easier for remote attackers to trick a user into believing that an installation request originated from the user's next navigation target via a crafted web site.</td><td style="text-align: center;">2016-03-05</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-1640&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">4.3</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-1640" target="_blank">CVE-2016-1640</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">ibm -- infosphere</td><td style="text-align: left;">IBM InfoSphere Information Server 8.5 through FP3, 8.7 through FP2, 9.1 through 9.1.2.0, 11.3 through 11.3.1.2, and 11.5 allows remote authenticated users to bypass intended access restrictions via a modified cookie.</td><td style="text-align: center;">2016-03-03</td><td style="width: 5%; text-align: center;">not yet calculated</td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=%20CVE-2015-7490%20target=_blank">CVE-2015-7490</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">ibm -- websphere_portal</td><td style="text-align: left;">Open redirect vulnerability in IBM WebSphere Portal 8.0.x before 8.0.0.1 CF20 and 8.5.x before 8.5.0.0 CF09 allows remote attackers to redirect users to arbitrary web sites and conduct phishing attacks via a crafted URL.</td><td style="text-align: center;">2016-02-29</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2015-7428&amp;vector=(AV:N/AC:M/Au:N/C:P/I:P/A:N)" target="_blank">5.8</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2015-7428" target="_blank">CVE-2015-7428</a><br /><a href="http://www-01.ibm.com/support/docview.wss?uid=swg1PI51589" target="_blank">AIXAPAR</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">ibm -- websphere_portal</td><td style="text-align: left;">IBM WebSphere Portal 7.x through 7.0.0.2 CF29, 8.0.x before 8.0.0.1 CF20, and 8.5.x before 8.5.0.0 CF09 uses weak permissions for content items, which allows remote authenticated users to make modifications via the authoring UI.</td><td style="text-align: center;">2016-02-29</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2015-7455&amp;vector=(AV:N/AC:L/Au:S/C:N/I:P/A:N)" target="_blank">4.0</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2015-7455" target="_blank">CVE-2015-7455</a><br /><a href="http://www.ibm.com/support/docview.wss?uid=swg21975358" target="_blank">CONFIRM</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">ibm -- websphere_portal</td><td style="text-align: left;">Cross-site scripting (XSS) vulnerability in IBM WebSphere Portal 8.0.x before 8.0.0.1 CF20 and 8.5.x before 8.5.0.0 CF09 allows remote attackers to inject arbitrary web script or HTML via a crafted URL.</td><td style="text-align: center;">2016-02-29</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2015-7457&amp;vector=(AV:N/AC:M/Au:N/C:N/I:P/A:N)" target="_blank">4.3</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2015-7457" target="_blank">CVE-2015-7457</a><br /><a href="http://www-01.ibm.com/support/docview.wss?uid=swg1PI56432" target="_blank">AIXAPAR</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">ibm -- business_process_manager</td><td style="text-align: left;">Cross-site scripting (XSS) vulnerability in Process Portal in IBM Business Process Manager 8.5.0.x through 8.5.0.2, 8.5.5.x through 8.5.5.0, and 8.5.6.x through 8.5.6.2 allows remote attackers to inject arbitrary web script or HTML via a crafted URL.</td><td style="text-align: center;">2016-02-29</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2015-8524&amp;vector=(AV:N/AC:M/Au:N/C:N/I:P/A:N)" target="_blank">4.3</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2015-8524" target="_blank">CVE-2015-8524</a><br /><a href="http://www-01.ibm.com/support/docview.wss?uid=swg21974472" target="_blank">CONFIRM</a><br /><a href="http://www-01.ibm.com/support/docview.wss?uid=swg1JR54981" target="_blank">AIXAPAR</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">ibm -- websphere_commerce</td><td style="text-align: left;">IBM WebSphere Commerce 6.x through 6.0.0.11 and 7.x through 7.0.0.9 allows remote authenticated Commerce Accelerator administrators to obtain sensitive information via unspecified vectors.</td><td style="text-align: center;">2016-02-29</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-0225&amp;vector=(AV:N/AC:L/Au:S/C:P/I:N/A:N)" target="_blank">4.0</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-0225" target="_blank">CVE-2016-0225</a><br /><a href="http://www-01.ibm.com/support/docview.wss?uid=swg21976623" target="_blank">CONFIRM</a><br /><a href="http://www-01.ibm.com/support/docview.wss?uid=swg1JR54585" target="_blank">AIXAPAR</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">ibm -- websphere_portal</td><td style="text-align: left;">Cross-site scripting (XSS) vulnerability in IBM WebSphere Portal 6.1.0.x through 6.1.0.6 CF27, 6.1.5.x through 6.1.5.3 CF27, 7.x through 7.0.0.2 CF29, 8.0.x before 8.0.0.1 CF20, and 8.5.x before 8.5.0.0 CF09 allows remote attackers to inject arbitrary web script or HTML via a crafted URL, a different vulnerability than CVE-2016-0244.</td><td style="text-align: center;">2016-02-29</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-0243&amp;vector=(AV:N/AC:M/Au:N/C:N/I:P/A:N)" target="_blank">4.3</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-0243" target="_blank">CVE-2016-0243</a><br /><a href="http://www-01.ibm.com/support/docview.wss?uid=swg1PI54088" target="_blank">AIXAPAR</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">ibm -- websphere_portal</td><td style="text-align: left;">Cross-site scripting (XSS) vulnerability in IBM WebSphere Portal 6.1.0.x through 6.1.0.6 CF27, 6.1.5.x through 6.1.5.3 CF27, 7.x through 7.0.0.2 CF29, 8.0.x before 8.0.0.1 CF20, and 8.5.x before 8.5.0.0 CF09 allows remote attackers to inject arbitrary web script or HTML via a crafted URL, a different vulnerability than CVE-2016-0243.</td><td style="text-align: center;">2016-02-29</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-0244&amp;vector=(AV:N/AC:M/Au:N/C:N/I:P/A:N)" target="_blank">4.3</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-0244" target="_blank">CVE-2016-0244</a><br /><a href="http://www-01.ibm.com/support/docview.wss?uid=swg1PI55327" target="_blank">AIXAPAR</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">openssl</td><td style="text-align: left;">Multiple integer overflows in OpenSSL 1.0.1 before 1.0.1s and 1.0.2 before 1.0.2g allow remote attackers to cause a denial of service (heap memory corruption or NULL pointer dereference) or possibly have unspecified other impact via a long digit string that is mishandled by the (1) BN_dec2bn or (2) BN_hex2bn function, related to crypto/bn/bn.h and crypto/bn/bn_print.c.</td><td style="text-align: center;">2016-03-03</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-0797&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">5</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-0797" target="_blank">CVE-2016-0797</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">openssl</td><td style="text-align: left;">The get_client_master_key function in s2_srvr.c in the SSLv2 implementation in OpenSSL before 0.9.8zf, 1.0.0 before 1.0.0r, 1.0.1 before 1.0.1m, and 1.0.2 before 1.0.2a accepts a nonzero CLIENT-MASTER-KEY CLEAR-KEY-LENGTH value for an arbitrary cipher, which allows man-in-the-middle attackers to determine the MASTER-KEY value and decrypt TLS ciphertext data by leveraging a Bleichenbacher RSA padding oracle, a related issue to CVE-2016-0800.</td><td style="text-align: center;">2016-03-02</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-0703&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">4.3</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-0703" target="_blank">CVE-2016-0703</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">phpmyadmin -- phpmyadmin</td><td style="text-align: left;">Multiple cross-site scripting (XSS) vulnerabilities in phpMyAdmin 4.0.x before 4.0.10.15, 4.4.x before 4.4.15.5, and 4.5.x before 4.5.5.1 allow remote attackers to inject arbitrary web script or HTML via (1) a crafted Host HTTP header, related to libraries/Config.class.php; (2) crafted JSON data, related to file_echo.php; (3) a crafted SQL query, related to js/functions.js; (4) the initial parameter to libraries/server_privileges.lib.php in the user accounts page; or (5) the it parameter to libraries/controllers/TableSearchController.class.php in the zoom search page.</td><td style="text-align: center;">2016-03-01</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-2560&amp;vector=(AV:N/AC:M/Au:N/C:N/I:P/A:N)" target="_blank">4.3</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-2560" target="_blank">CVE-2016-2560</a><br /><a href="https://www.phpmyadmin.net/security/PMASA-2016-11/" target="_blank">CONFIRM</a><br /><a href="https://github.com/phpmyadmin/phpmyadmin/commit/c842a0de9288033d25404d1d6eb22dd83033675f" target="_blank">CONFIRM</a><br /><a href="https://github.com/phpmyadmin/phpmyadmin/commit/ab1283e8366c97a155d4e9ae58628a248458ea32" target="_blank">CONFIRM</a><br /><a href="https://github.com/phpmyadmin/phpmyadmin/commit/7877a9c0084bf8ae15cbd8d2729b126271f682cc" target="_blank">CONFIRM</a><br /><a href="https://github.com/phpmyadmin/phpmyadmin/commit/41c4e0214c286f28830cca54423b5db57e7c0ce4" target="_blank">CONFIRM</a><br /><a href="https://github.com/phpmyadmin/phpmyadmin/commit/38fa1191049ac0c626a6684eea52068dfbbb5078" target="_blank">CONFIRM</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">phpmyadmin -- phpmyadmin</td><td style="text-align: left;">The checkHTTP function in libraries/Config.class.php in phpMyAdmin 4.5.x before 4.5.5.1 does not verify X.509 certificates from api.github.com SSL servers, which allows man-in-the-middle attackers to spoof these servers and obtain sensitive information via a crafted certificate.</td><td style="text-align: center;">2016-03-01</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-2562&amp;vector=(AV:N/AC:M/Au:N/C:P/I:P/A:N)" target="_blank">5.8</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-2562" target="_blank">CVE-2016-2562</a><br /><a href="https://www.phpmyadmin.net/security/PMASA-2016-13/" target="_blank">CONFIRM</a><br /><a href="https://github.com/phpmyadmin/phpmyadmin/commit/e42b7e3aedd29dd0f7a48575f20bfc5aca0ff976" target="_blank">CONFIRM</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">rockwell_automation -- allen_bradley_compactlogix</td><td style="text-align: left;">Cross-site scripting (XSS) vulnerability in the web server in Rockwell Automation Allen-Bradley CompactLogix 1769-L* before 28.011+ allows remote attackers to inject arbitrary web script or HTML via unspecified vectors.</td><td style="text-align: center;">2016-03-02</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-2279&amp;vector=(AV:N/AC:M/Au:N/C:P/I:P/A:N)" target="_blank">4.3</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-2279" target="_blank">CVE-2016-2279</a></td></tr></tbody></table><a href="#top">Back to top</a></div><p><a name="low" id="low"></a></p><div id="low_v"><h2 id="low_v_title">Low Vulnerabilities</h2><table align="center" border="1" summary="Low Vulnerabilities"><thead><tr><th scope="col" style="width: 24%; -ms-word-break: keep-all;">Primary<br />Vendor -- Product</th><th scope="col" style="width: 44%;">Description</th><th scope="col" style="width: 8%;">Published</th><th scope="col" style="width: 4%;">CVSS Score</th><th scope="col" style="width: 10%;">Source &amp; Patch Info</th></tr></thead><tbody><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">ibm -- websphere_portal</td><td style="text-align: left;">Cross-site scripting (XSS) vulnerability in IBM WebSphere Portal 8.0.x before 8.0.0.1 CF20 and 8.5.x before 8.5.0.0 CF09 allows remote authenticated users to inject arbitrary web script or HTML via a crafted URL.</td><td style="text-align: center;">2016-02-29</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2015-7491&amp;vector=(AV:N/AC:M/Au:S/C:N/I:P/A:N)" target="_blank">3.5</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2015-7491" target="_blank">CVE-2015-7491</a><br /><a href="http://www-01.ibm.com/support/docview.wss?uid=swg1PI56433" target="_blank">AIXAPAR</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">ibm -- business_process_manager</td><td style="text-align: left;">Cross-site scripting (XSS) vulnerability in the document-list control implementation in IBM Business Process Manager (BPM) 8.0 through 8.0.1.3, 8.5.0 through 8.5.0.2, and 8.5.5 and 8.5.6 through 8.5.6.2 allows remote authenticated users to inject arbitrary web script or HTML via a crafted URL.</td><td style="text-align: center;">2016-03-03</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-0227&amp;vector=(AV:N/AC:M/Au:S/C:N/I:P/A:N)" target="_blank">3.5</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-0227" target="_blank">CVE-2016-0227</a><br /><a href="http://www-01.ibm.com/support/docview.wss?uid=swg21978058" target="_blank">CONFIRM</a><br /><a href="http://www-01.ibm.com/support/docview.wss?uid=swg1JR55152" target="_blank">AIXAPAR</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;">openssl</td><td style="text-align: left;">The MOD_EXP_CTIME_COPY_FROM_PREBUF function in crypto/bn/bn_exp.c in OpenSSL 1.0.1 before 1.0.1s and 1.0.2 before 1.0.2g does not properly consider cache-bank access times during modular exponentiation, which makes it easier for local users to discover RSA keys by running a crafted application on the same Intel Sandy Bridge CPU core as a victim and leveraging cache-bank conflicts, aka a "CacheBleed" attack.</td><td style="text-align: center;">2016-03-03</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-0702&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)" target="_blank">1.9</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-0702" target="_blank">CVE-2016-0702</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">phpmyadmin -- phpmyadmin</td><td style="text-align: left;">Cross-site scripting (XSS) vulnerability in the format function in libraries/sql-parser/src/Utils/Error.php in the SQL parser in phpMyAdmin 4.5.x before 4.5.5.1 allows remote authenticated users to inject arbitrary web script or HTML via a crafted query.</td><td style="text-align: center;">2016-03-01</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-2559&amp;vector=(AV:N/AC:M/Au:S/C:N/I:P/A:N)" target="_blank">3.5</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-2559" target="_blank">CVE-2016-2559</a><br /><a href="https://www.phpmyadmin.net/security/PMASA-2016-10/" target="_blank">CONFIRM</a><br /><a href="https://github.com/phpmyadmin/phpmyadmin/commit/3a6a9a807d99371ee126635e1a505fc1fe0df32c" target="_blank">CONFIRM</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">phpmyadmin -- phpmyadmin</td><td style="text-align: left;">Multiple cross-site scripting (XSS) vulnerabilities in phpMyAdmin 4.4.x before 4.4.15.5 and 4.5.x before 4.5.5.1 allow remote authenticated users to inject arbitrary web script or HTML via (1) normalization.php or (2) js/normalization.js in the database normalization page, (3) templates/database/structure/sortable_header.phtml in the database structure page, or (4) the pos parameter to db_central_columns.php in the central columns page.</td><td style="text-align: center;">2016-03-01</td><td style="width: 5%; text-align: center;"><a href="https://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2016-2561&amp;vector=(AV:N/AC:M/Au:S/C:N/I:P/A:N)" target="_blank">3.5</a></td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-2561" target="_blank">CVE-2016-2561</a><br /><a href="https://www.phpmyadmin.net/security/PMASA-2016-12/" target="_blank">CONFIRM</a><br /><a href="https://github.com/phpmyadmin/phpmyadmin/commit/f33a42f1da9db943a67bda7d29f7dd91957a8e7e" target="_blank">CONFIRM</a><br /><a href="https://github.com/phpmyadmin/phpmyadmin/commit/cc55f44a4a90147a007dee1aefa1cb529e23798b" target="_blank">CONFIRM</a><br /><a href="https://github.com/phpmyadmin/phpmyadmin/commit/bcd4ce8cba1272fca52f2331c08f2e3ac19cbbef" target="_blank">CONFIRM</a><br /><a href="https://github.com/phpmyadmin/phpmyadmin/commit/983faa94f161df3623ecd371d3696a1b3f91c15f" target="_blank">CONFIRM</a><br /><a href="https://github.com/phpmyadmin/phpmyadmin/commit/746240bd13b62b5956fc34389cfbdc09e1e67775" target="_blank">CONFIRM</a><br /><a href="https://github.com/phpmyadmin/phpmyadmin/commit/37c34d089aa19f30d11203bb0c7f85b486424372" target="_blank">CONFIRM</a></td></tr></tbody></table><a href="#top">Back to top</a></div><p><a name="severity_not_yet_assigned" id="severity_not_yet_assigned"></a></p><div id="snya_v"><h2 id="snya_v_title">Severity Not Yet Assigned</h2><table align="center" border="1" summary="Severity Not Yet Assigned"><thead><tr><th scope="col" style="width: 24%; -ms-word-break: keep-all;">Primary<br />Vendor -- Product</th><th scope="col" style="width: 44%;">Description</th><th scope="col" style="width: 8%;">Published</th><th scope="col" style="width: 4%;">CVSS Score</th><th scope="col" style="width: 10%;">Source &amp; Patch Info</th></tr></thead><tbody><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">cisco -- asyncos</td><td style="text-align: left;">The HTTPS Proxy feature in Cisco AsyncOS before 8.5.3-051 and 9.x before 9.0.0-485 on Web Security Appliance (WSA) devices allows remote attackers to cause a denial of service (service outage) by leveraging certain intranet connectivity and sending a malformed HTTPS request, aka Bug ID CSCuu24840.</td><td style="text-align: center;">2016-03-03</td><td style="width: 5%; text-align: center;">not yet calculated</td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-1288" target="_blank">CVE-2016-1288</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">cisco -- nx</td><td style="text-align: left;">Cisco NX-OS 6.0(2)U6(1) through 6.0(2)U6(5) on Nexus 3000 devices and 6.0(2)A6(1) through 6.0(2)A6(5) and 6.0(2)A7(1) on Nexus 3500 devices has hardcoded credentials, which allows remote attackers to obtain root privileges via a (1) TELNET or (2) SSH session, aka Bug ID CSCuy25800.</td><td style="text-align: center;">2016-03-03</td><td style="width: 5%; text-align: center;">not yet calculated</td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-1329" target="_blank">CVE-2016-1329</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">cisco -- policy_suite</td><td style="text-align: left;">The password-management administration component in Cisco Policy Suite (CPS) 7.0.1.3, 7.0.2, 7.0.2-att, 7.0.3-att, 7.0.4-att, and 7.5.0 allows remote attackers to bypass intended RBAC restrictions and read unspecified data via unknown vectors, aka Bug ID CSCut85211.</td><td style="text-align: center;">2016-03-03</td><td style="width: 5%; text-align: center;">not yet calculated</td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-1357" target="_blank">CVE-2016-1357</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">cisco -- prime_infrastructure</td><td style="text-align: left;">Cisco Prime Infrastructure 2.2, 3.0, and 3.1(0.0) allows remote authenticated users to read arbitrary files or cause a denial of service via an XML document containing an external entity declaration in conjunction with an entity reference, related to an XML External Entity (XXE) issue, aka Bug ID CSCuw81497.</td><td style="text-align: center;">2016-03-03</td><td style="width: 5%; text-align: center;">not yet calculated</td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-1358" target="_blank">CVE-2016-1358</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">cisco -- videoscape_distribution_suite</td><td style="text-align: left;">The TCP implementation in Cisco Videoscape Distribution Suite for Internet Streaming (VDS-IS) 3.3(0), 3.3(1), 4.0(0), and 4.1(0) does not properly initiate new TCP sessions when a previous session is in a FIN wait state, which allows remote attackers to cause a denial of service (TCP outage) via vectors involving FIN packets, aka Bug ID CSCuy45136.</td><td style="text-align: center;">2016-02-29</td><td style="width: 5%; text-align: center;">not yet calculated</td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-1356" target="_blank">CVE-2016-1356</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">corega</td><td style="text-align: left;">Cross-site request forgery (CSRF) vulnerability on Corega CG-WLBARGMH and CG-WLBARGNL devices allows remote attackers to hijack the authentication of administrators for requests that perform administrative functions.</td><td style="text-align: center;">2016-03-03</td><td style="width: 5%; text-align: center;">not yet calculated</td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-1158" target="_blank">CVE-2016-1158</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">hp -- printers</td><td style="text-align: left;">HP LaserJet printers and MFPs and OfficeJet Enterprise printers with firmware before 3.7.01 allow remote attackers to obtain sensitive information via unspecified vectors.</td><td style="text-align: center;">2016-03-04</td><td style="width: 5%; text-align: center;">not yet calculated</td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-2244" target="_blank">CVE-2016-2244</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">hp -- sure_start</td><td style="text-align: left;">Sure Start on HP Commercial PCs 2015 allows local users to cause a denial of service (BIOS recovery failure) by leveraging administrative access.</td><td style="text-align: center;">2016-03-04</td><td style="width: 5%; text-align: center;">not yet calculated</td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-2243" target="_blank">CVE-2016-2243</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">ibm -- websphere_ portal</td><td style="text-align: left;">The XML parser in IBM WebSphere Portal 8.0.x before 8.0.0.1 CF20 and 8.5.x before 8.5.0.0 CF10 allows remote authenticated users to read arbitrary files or cause a denial of service via an external entity declaration in conjunction with an entity reference, related to an XML External Entity (XXE) issue.</td><td style="text-align: center;">2016-02-29</td><td style="width: 5%; text-align: center;">not yet calculated</td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-0245" target="_blank">CVE-2016-0245</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">moxa -- iologik</td><td style="text-align: left;">Moxa ioLogik E2200 devices before 3.12 and ioAdmin Configuration Utility before 3.18 do not properly encrypt credentials, which makes it easier for remote attackers to obtain the associated cleartext via unspecified vectors.</td><td style="text-align: center;">2016-03-04</td><td style="width: 5%; text-align: center;">not yet calculated</td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-2282" target="_blank">CVE-2016-2282</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">moxa -- iologik</td><td style="text-align: left;">Moxa ioLogik E2200 devices before 3.12 and ioAdmin Configuration Utility before 3.18 do not properly encrypt data, which makes it easier for remote attackers to obtain the associated cleartext via unspecified vectors.</td><td style="text-align: center;">2016-03-04</td><td style="width: 5%; text-align: center;">not yet calculated</td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-2283" target="_blank">CVE-2016-2283</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">openssl</td><td style="text-align: left;">The SSLv2 protocol, as used in OpenSSL before 1.0.1s and 1.0.2 before 1.0.2g and other products, requires a server to send a ServerVerify message before establishing that a client possesses certain plaintext RSA data, which makes it easier for remote attackers to decrypt TLS ciphertext data by leveraging a Bleichenbacher RSA padding oracle, aka a "DROWN" attack.</td><td style="text-align: center;">2016-03-01</td><td style="width: 5%; text-align: center;">not yet calculated</td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-0800" target="_blank">CVE-2016-0800</a></td></tr><tr><td scope="row" style="text-align: left; -ms-word-break: keep-all;" width="20%">oracle</td><td style="text-align: left;">An oracle protection mechanism in the get_client_master_key function in s2_srvr.c in the SSLv2 implementation in OpenSSL before 0.9.8zf, 1.0.0 before 1.0.0r, 1.0.1 before 1.0.1m, and 1.0.2 before 1.0.2a overwrites incorrect MASTER-KEY bytes during use of export cipher suites, which makes it easier for remote attackers to decrypt TLS ciphertext data by leveraging a Bleichenbacher RSA padding oracle, a related issue to CVE-2016-0800.</td><td style="text-align: center;">2016-03-02</td><td style="width: 5%; text-align: center;">not yet calculated</td><td><a href="https://nvd.nist.gov/nvd.cfm?cvename=CVE-2016-0704" target="_blank">CVE-2016-0704</a></td></tr></tbody></table><a href="#top">Back to top</a></div></div>
+      
+
+        
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><p class="privacy-and-terms">This product is provided subject to this <a href="/privacy/notification">Notification</a> and this <a href="https://www.dhs.gov/privacy-policy">Privacy &amp; Use</a> policy.</p>
+</div>
+      
+
+                        <div id="document-feedback">
+	<div class="inner-document-feedback center-center">
+        <p><b>Please share your thoughts.</b></p>
+		<p>We recently updated our anonymous <a href="https://www.surveymonkey.com/r/CISA-cyber-survey?product=https://us-cert.cisa.gov/ncas/bulletins/SB16-067">product survey</a>; we'd welcome your feedback.</p>
+	</div>
+</div>
+
+              </div>
+
+</article>
+</div>
+
+
+  </div>
+
+              </section>
+
+
+                      </div>
+  </div>
+
+
+
+
+
+
+      <footer class="footer container-fluid" role="contentinfo">
+        <div class="region region-footer">
+    <section id="block-certsignup" class="block block-block-content block-block-contentc5846d10-2e2b-4822-aa59-7a5c3262f671 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container-fluid signup">
+<div class="container">
+<div class="row">
+<div class="col-lg-3 contact-icons">
+<h3>Contact Us</h3>
+
+<p class="phone-text"><img alt="phone icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Phone.png" />(888)282-0870</p>
+
+<p><img alt="email icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Email.png" /><a class="mailto" href="mailto:central@cisa.dhs.gov" title="General questions or suggestions">Send us email</a></p>
+
+<p><img alt="lock icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Lock.png" /><a href="/contact-us/" title="Download PGP/GPG keys">Download PGP/GPG keys</a></p>
+
+<p><img alt="feedback icon" data-entity-type="" data-entity-uuid="" height="32" src="/sites/default/files/images/icon-feedback.png" /><a href="/forms/website-feedback" title="Website Feedback">Submit website feedback</a></p>
+</div>
+
+<div class="col-lg-6 sub-alert">
+<h3>Subscribe to Alerts</h3>
+
+<p>Receive security alerts, tips, and other updates.</p>
+
+<form action="https://public.govdelivery.com/accounts/USDHSCISA/subscribers/qualify"><label class="visually-hidden" for="email-address-field">Enter your email address</label> <input class="signup-form" id="email-address-field" name="email" placeholder=" Enter your email address" title="Enter your email address" type="text" /><br /><input class="btn btn-primary" name="submit" title="Sign up for alerts" type="submit" value="Sign Up" /> </form>
+
+<div class="pull-right signup-icon-one"><a href="https://twitter.com/uscert_gov" title="US-CERT Twitter Feed"><img alt="twitter icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/twitter-button.png" /></a></div>
+
+<div class="pull-right signup-icon-two"><a href="/mailing-lists-and-feeds" title="Mailing Lists and Feeds"><img alt="rss icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/rss-button-bottom.png" /></a></div>
+
+<div class="pull-right signup-icon-three"><a href="/hsin" class="btn btn-cert-report" name="button" type="button" id="button">HSIN</a></div>
+</div>
+
+<div class="col-lg-3 cert-report"><a class="btn btn-cert-report btn-lg" href="/report" name="button" type="button" id="button">Report</a></div>
+</div>
+</div>
+</div>
+</div>
+      
+  </section>
+
+<section id="block-certcertfooter" class="block block-block-content block-block-contentd5b85bd2-62d1-485a-b9ae-f040b1ca1a45 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container">
+<hr /><div class="text-center"><a href="/" title="Home">Home</a>   <a href="/sitemap" title="Site Map">Site Map</a>   <a href="/faq/" title="Frequently Asked Questions">FAQ</a>   <a href="/contact-us/" title="Contact Us">Contact Us</a>   <a href="/tlp/" title="Traffic Light Protocol">Traffic Light Protocol</a>   <a href="/pcii" title="PCII">PCII</a>   <a href="https://www.dhs.gov" title="Accountability">Accountability</a>   <a href="/disclaimer" title="Disclaimer">Disclaimer</a>   <a href="/privacy-policy" title="Privacy Policy">Privacy Policy</a>   <a href="https://www.dhs.gov/freedom-information-act-foia" title="FOIA">FOIA</a>   <a href="https://www.dhs.gov/homeland-security-no-fear-act-reporting" title="No Fear Act">No Fear Act</a>   <a href="/accessibility/" title="Accessibility">Accessibility</a><a href="https://www.dhs.gov/plain-writing-dhs" title="Plain Writing">Plain Writing</a><a href="https://www.dhs.gov/plug-information" title="Plug-ins">Plug-ins</a>   <a href="https://www.oig.dhs.gov/" title="Office of the Inspector General">Inspector General</a>   <a href="https://www.whitehouse.gov/" title="The White House">The White House</a>   <a href="https://www.usa.gov/" title="USA.gov">USA.gov</a><br />
+ 
+<p>CISA is part of the <a href="https://www.dhs.gov/" title="Department of Homeland Security">Department of Homeland Security</a></p>
+</div>
+<script type="text/javascript">
+<!--//--><![CDATA[// ><!--
+
+    window.onload = function(){
+            jQuery('body.page-node-type-us-cert-events div#ncas-header').find('img').each(function(){
+                    var $src=jQuery(this).prop('src');
+                    if($src.indexOf('default/files/') == -1)jQuery(this).remove();
+                    });
+            if('Privacy Data Breach' == jQuery('#uscert-utilities-irf-form #item-info-impact option:selected').text()){ 
+                jQuery('#item-info-impact-block').removeClass('collapsed'); 
+            }
+jQuery('#print-logo img').removeAttr('width').removeAttr('height');
+if(jQuery('body.path-frontpage').length > 0)
+{   
+    jQuery('.main-container').find('.col-sm-12').removeAttr('role');
+}
+jQuery('#map area').each(function(){ jQuery(this).click(function(){var idstr=jQuery(this).attr('clickthis'); if(jQuery(idstr).hasClass('open') == false){jQuery(idstr).click();}});});  
+if(jQuery('#document-feedback').length > 0)
+{ 
+    var $url    = window.location.href
+    //var str ='Your feedback is very important to us. Please take a moment to complete this <a href="https://surveymonkey.com/r/G8STDRY?product=' + $url + '">survey.';
+    //var $p = jQuery('#document-feedback div p').html(str);
+}
+    };
+
+//--><!]]>
+</script></div>
+<style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+#views-bootstrap-carousel-block-2 .carousel-inner > .item > a > img {
+  margin:auto;
+}
+button#product-feedback-next {
+    margin-bottom: 10px;
+}
+/*
+.mobile-nav {
+border-bottom: 3px solid #112e51;
+}
+*/
+.cma-banner-container {
+    display: none;
+}
+@media (max-width: 991px) {
+.navbar .navbar-header {
+background: #fff;
+}
+}
+div.banner-region { background: #fff; }
+
+.accordion_fold {
+    padding-bottom: 25px;
+}
+
+h2.accordion.open {
+    background: #f2f2f2;
+}
+
+a { color: #2b72af;}
+
+.navbar-default .navbar-nav > li > a { color: #767676; }
+/* andi */
+.sidebar-widget-orange .orange {
+    background-color: #e77431;
+}
+#block-views-block-ics-announcements-block-1 .views-field-created {
+    color: #565656;
+}
+a#sort-bulletin {
+color: #000;
+background: white;
+position: absolute;
+right: 150px;
+padding: 1px 12px;
+}
+
+/*--><!]]>*/
+</style></div>
+      
+  </section>
+
+
+  </div>
+
+    </footer>
+  
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","scriptPath":null,"pathPrefix":"","currentPath":"node\/6435","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"UA-34879253-1","trackOutbound":true,"trackMailto":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"data":{"extlink":{"extTarget":false,"extTargetNoOverride":false,"extNofollow":false,"extNoreferrer":false,"extFollowNoOverride":false,"extClass":"ext","extLabel":"(link is external)","extImgClass":false,"extSubdomains":true,"extExclude":"(\\.gov|\\.mil|\\.org.*|twitter\\.com\\\/share\\?url\\=.*|www\\.facebook\\.com\\\/sharer\\.php\\?u\\=.*|www\\.addthis\\.com\\\/bookmark\\.php\\?url\\=.*|javascript\\:window\\.print\\(\\)\\;)","extInclude":"","extCssExclude":"","extCssExplicit":"","extAlert":true,"extAlertText":"You are now leaving an official website of the United States Government (USG), the Department of Homeland Security (DHS), and the Cybersecurity and Infrastructure Security Agency (CISA). Links to non-USG, non-DHS, and non-CISA sites are provided for the visitor\u0027s convenience and do not represent an endorsement by USG, DHS, or CISA of any commercial or private issues, products, or services. Note that the privacy policy of the linked site may differ from that of USG, DHS, and CISA.","mailtoClass":"mailto","mailtoLabel":"(link sends email)","extUseFontAwesome":false,"extIconPlacement":"append","extFaLinkClasses":"fa fa-external-link","extFaMailtoClasses":"fa fa-envelope-o","whitelistedDomains":null}},"bootstrap":{"forms_has_error_value_toggle":1,"popover_enabled":1,"popover_animation":1,"popover_auto_close":1,"popover_container":"body","popover_content":"","popover_delay":"0","popover_html":0,"popover_placement":"right","popover_selector":"","popover_title":"","popover_trigger":"click","tooltip_enabled":1,"tooltip_animation":1,"tooltip_container":"body","tooltip_delay":"0","tooltip_html":0,"tooltip_placement":"auto left","tooltip_selector":"","tooltip_trigger":"hover"},"user":{"uid":0,"permissionsHash":"5ac3ae468050ddd0aa4ecea12c34a32977a23244239ed53eb7226f296aed658f"}}</script>
+<script src="/sites/default/files/js/js_xhqBHziEDyCKWlB5IUseaFAGh1B08TPFGmxCf6RvFnM.js"></script>
+<script src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DHS&amp;subagency=US-CERT&amp;pua=0" id="_fed_an_ua_tag"></script>
+<script src="/sites/default/files/js/js_m5CHELy9XHlAx2jnhaYdT2XVeN916TnZL5U2ha7Ln94.js"></script>
+
+  <script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"877b02039c","applicationID":"628657512,979282327","transactionName":"ZFYHMhZSXUpRUkcKDF0cJAUQWlxXH0FSBAZsUAQFDFY=","queueTime":0,"applicationTime":54,"atts":"SBEERF5ITkQ=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

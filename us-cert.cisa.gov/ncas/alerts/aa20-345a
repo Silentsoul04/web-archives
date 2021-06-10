@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html  lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+    <meta charset="utf-8" /><script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={licenseKey:"877b02039c",applicationID:"628657512"};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var i=e[n]={exports:{}};t[n][0].call(i.exports,function(e){var i=t[n][1][e];return r(i||e)},i,i.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var i=0;i<n.length;i++)r(n[i]);return r}({1:[function(t,e,n){function r(){}function i(t,e,n){return function(){return o(t,[u.now()].concat(f(arguments)),e?null:this,n),e?void 0:this}}var o=t("handle"),a=t(8),f=t(9),c=t("ee").get("tracer"),u=t("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var d=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],p="api-",l=p+"ixn-";a(d,function(t,e){s[e]=i(p+e,!0,"api")}),s.addPageAction=i(p+"addPageAction",!0),s.setCurrentRouteName=i(p+"routeName",!0),e.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(t,e){var n={},r=this,i="function"==typeof e;return o(l+"tracer",[u.now(),t,n],r),function(){if(c.emit((i?"":"no-")+"fn-start",[u.now(),r,i],n),i)try{return e.apply(this,arguments)}catch(t){throw c.emit("fn-err",[arguments,this,t],n),t}finally{c.emit("fn-end",[u.now()],n)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(t,e){m[e]=i(l+e)}),newrelic.noticeError=function(t,e){"string"==typeof t&&(t=new Error(t)),o("err",[t,u.now(),!1,e])}},{}],2:[function(t,e,n){function r(t){if(NREUM.init){for(var e=NREUM.init,n=t.split("."),r=0;r<n.length-1;r++)if(e=e[n[r]],"object"!=typeof e)return;return e=e[n[n.length-1]]}}e.exports={getConfiguration:r}},{}],3:[function(t,e,n){function r(){return f.exists&&performance.now?Math.round(performance.now()):(o=Math.max((new Date).getTime(),o))-a}function i(){return o}var o=(new Date).getTime(),a=o,f=t(10);e.exports=r,e.exports.offset=a,e.exports.getLastTimestamp=i},{}],4:[function(t,e,n){function r(t){return!(!t||!t.protocol||"file:"===t.protocol)}e.exports=r},{}],5:[function(t,e,n){function r(t,e){var n=t.getEntries();n.forEach(function(t){"first-paint"===t.name?d("timing",["fp",Math.floor(t.startTime)]):"first-contentful-paint"===t.name&&d("timing",["fcp",Math.floor(t.startTime)])})}function i(t,e){var n=t.getEntries();n.length>0&&d("lcp",[n[n.length-1]])}function o(t){t.getEntries().forEach(function(t){t.hadRecentInput||d("cls",[t])})}function a(t){if(t instanceof m&&!g){var e=Math.round(t.timeStamp),n={type:t.type};e<=p.now()?n.fid=p.now()-e:e>p.offset&&e<=Date.now()?(e-=p.offset,n.fid=p.now()-e):e=p.now(),g=!0,d("timing",["fi",e,n])}}function f(t){d("pageHide",[p.now(),t])}if(!("init"in NREUM&&"page_view_timing"in NREUM.init&&"enabled"in NREUM.init.page_view_timing&&NREUM.init.page_view_timing.enabled===!1)){var c,u,s,d=t("handle"),p=t("loader"),l=t(7),m=NREUM.o.EV;if("PerformanceObserver"in window&&"function"==typeof window.PerformanceObserver){c=new PerformanceObserver(r);try{c.observe({entryTypes:["paint"]})}catch(v){}u=new PerformanceObserver(i);try{u.observe({entryTypes:["largest-contentful-paint"]})}catch(v){}s=new PerformanceObserver(o);try{s.observe({type:"layout-shift",buffered:!0})}catch(v){}}if("addEventListener"in document){var g=!1,h=["click","keydown","mousedown","pointerdown","touchstart"];h.forEach(function(t){document.addEventListener(t,a,!1)})}l(f)}},{}],6:[function(t,e,n){function r(t,e){if(!i)return!1;if(t!==i)return!1;if(!e)return!0;if(!o)return!1;for(var n=o.split("."),r=e.split("."),a=0;a<r.length;a++)if(r[a]!==n[a])return!1;return!0}var i=null,o=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var f=navigator.userAgent,c=f.match(a);c&&f.indexOf("Chrome")===-1&&f.indexOf("Chromium")===-1&&(i="Safari",o=c[1])}e.exports={agent:i,version:o,match:r}},{}],7:[function(t,e,n){function r(t){function e(){t(a&&document[a]?document[a]:document[i]?"hidden":"visible")}"addEventListener"in document&&o&&document.addEventListener(o,e,!1)}e.exports=r;var i,o,a;"undefined"!=typeof document.hidden?(i="hidden",o="visibilitychange",a="visibilityState"):"undefined"!=typeof document.msHidden?(i="msHidden",o="msvisibilitychange"):"undefined"!=typeof document.webkitHidden&&(i="webkitHidden",o="webkitvisibilitychange",a="webkitVisibilityState")},{}],8:[function(t,e,n){function r(t,e){var n=[],r="",o=0;for(r in t)i.call(t,r)&&(n[o]=e(r,t[r]),o+=1);return n}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],9:[function(t,e,n){function r(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,i=n-e||0,o=Array(i<0?0:i);++r<i;)o[r]=t[e+r];return o}e.exports=r},{}],10:[function(t,e,n){e.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(t,e,n){function r(){}function i(t){function e(t){return t&&t instanceof r?t:t?u(t,c,a):a()}function n(n,r,i,o,a){if(a!==!1&&(a=!0),!l.aborted||o){t&&a&&t(n,r,i);for(var f=e(i),c=v(n),u=c.length,s=0;s<u;s++)c[s].apply(f,r);var p=d[w[n]];return p&&p.push([b,n,r,f]),f}}function o(t,e){y[t]=v(t).concat(e)}function m(t,e){var n=y[t];if(n)for(var r=0;r<n.length;r++)n[r]===e&&n.splice(r,1)}function v(t){return y[t]||[]}function g(t){return p[t]=p[t]||i(n)}function h(t,e){l.aborted||s(t,function(t,n){e=e||"feature",w[n]=e,e in d||(d[e]=[])})}var y={},w={},b={on:o,addEventListener:o,removeEventListener:m,emit:n,get:g,listeners:v,context:e,buffer:h,abort:f,aborted:!1};return b}function o(t){return u(t,c,a)}function a(){return new r}function f(){(d.api||d.feature)&&(l.aborted=!0,d=l.backlog={})}var c="nr@context",u=t("gos"),s=t(8),d={},p={},l=e.exports=i();e.exports.getOrSetContext=o,l.backlog=d},{}],gos:[function(t,e,n){function r(t,e,n){if(i.call(t,e))return t[e];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:r,writable:!0,enumerable:!1}),r}catch(o){}return t[e]=r,r}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],handle:[function(t,e,n){function r(t,e,n,r){i.buffer([t],r),i.emit(t,e,n)}var i=t("ee").get("handle");e.exports=r,r.ee=i},{}],id:[function(t,e,n){function r(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:a(t,o,function(){return i++})}var i=1,o="nr@id",a=t("gos");e.exports=r},{}],loader:[function(t,e,n){function r(){if(!R++){var t=M.info=NREUM.info,e=v.getElementsByTagName("script")[0];if(setTimeout(u.abort,3e4),!(t&&t.licenseKey&&t.applicationID&&e))return u.abort();c(E,function(e,n){t[e]||(t[e]=n)});var n=a();f("mark",["onload",n+M.offset],null,"api"),f("timing",["load",n]);var r=v.createElement("script");0===t.agent.indexOf("http://")||0===t.agent.indexOf("https://")?r.src=t.agent:r.src=l+"://"+t.agent,e.parentNode.insertBefore(r,e)}}function i(){"complete"===v.readyState&&o()}function o(){f("mark",["domContent",a()+M.offset],null,"api")}var a=t(3),f=t("handle"),c=t(8),u=t("ee"),s=t(6),d=t(4),p=t(2),l=p.getConfiguration("ssl")===!1?"http":"https",m=window,v=m.document,g="addEventListener",h="attachEvent",y=m.XMLHttpRequest,w=y&&y.prototype,b=!d(m.location);NREUM.o={ST:setTimeout,SI:m.setImmediate,CT:clearTimeout,XHR:y,REQ:m.Request,EV:m.Event,PR:m.Promise,MO:m.MutationObserver};var x=""+location,E={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1209.min.js"},O=y&&w&&w[g]&&!/CriOS/.test(navigator.userAgent),M=e.exports={offset:a.getLastTimestamp(),now:a,origin:x,features:{},xhrWrappable:O,userAgent:s,disabled:b};if(!b){t(1),t(5),v[g]?(v[g]("DOMContentLoaded",o,!1),m[g]("load",r,!1)):(v[h]("onreadystatechange",i),m[h]("onload",r)),f("mark",["firstbyte",a.getLastTimestamp()],null,"api");var R=0}},{}],"wrap-function":[function(t,e,n){function r(t,e){function n(e,n,r,c,u){function nrWrapper(){var o,a,s,p;try{a=this,o=d(arguments),s="function"==typeof r?r(o,a):r||{}}catch(l){i([l,"",[o,a,c],s],t)}f(n+"start",[o,a,c],s,u);try{return p=e.apply(a,o)}catch(m){throw f(n+"err",[o,a,m],s,u),m}finally{f(n+"end",[o,a,p],s,u)}}return a(e)?e:(n||(n=""),nrWrapper[p]=e,o(e,nrWrapper,t),nrWrapper)}function r(t,e,r,i,o){r||(r="");var f,c,u,s="-"===r.charAt(0);for(u=0;u<e.length;u++)c=e[u],f=t[c],a(f)||(t[c]=n(f,s?c+r:r,i,c,o))}function f(n,r,o,a){if(!m||e){var f=m;m=!0;try{t.emit(n,r,o,e,a)}catch(c){i([c,n,r,o],t)}m=f}}return t||(t=s),n.inPlace=r,n.flag=p,n}function i(t,e){e||(e=s);try{e.emit("internal-error",t)}catch(n){}}function o(t,e,n){if(Object.defineProperty&&Object.keys)try{var r=Object.keys(t);return r.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(o){i([o],n)}for(var a in t)l.call(t,a)&&(e[a]=t[a]);return e}function a(t){return!(t&&t instanceof Function&&t.apply&&!t[p])}function f(t,e){var n=e(t);return n[p]=t,o(t,n,s),n}function c(t,e,n){var r=t[e];t[e]=f(r,n)}function u(){for(var t=arguments.length,e=new Array(t),n=0;n<t;++n)e[n]=arguments[n];return e}var s=t("ee"),d=t(9),p="nr@original",l=Object.prototype.hasOwnProperty,m=!1;e.exports=r,e.exports.wrapFunction=f,e.exports.wrapInPlace=c,e.exports.argsToArray=u},{}]},{},["loader"]);</script>
+<script async src="/sites/default/files/google_analytics/gtag.js?qubv3z"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("config", "UA-34879253-1", {"groups":"default","anonymize_ip":true,"allow_ad_personalization_signals":false});</script>
+<meta name="description" content="This Joint Cybersecurity Advisory was coauthored by the Federal Bureau of Investigation (FBI), the Cybersecurity and Infrastructure Security Agency (CISA), and the Multi-State Information Sharing and Analysis Center (MS-ISAC)." />
+<meta name="abstract" content="As part of its mission, CISA leads the effort to enhance the security, resiliency, and reliability of the Nation&#039;s cybersecurity and communications infrastructure." />
+<meta name="keywords" content="uscert, csirt, cert, cybersecurity, cyber security, computer security, U. S. Computer Emergency Readiness, cyber risks" />
+<meta name="Generator" content="Drupal 9 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/sites/default/files/images/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="https://us-cert.cisa.gov/ncas/alerts/aa20-345a" />
+<link rel="shortlink" href="https://us-cert.cisa.gov/node/15767" />
+<link rel="revision" href="https://us-cert.cisa.gov/ncas/alerts/aa20-345a" />
+
+    <title>Cyber Actors Target K-12 Distance Learning Education to Cause Disruptions and Steal Data  | CISA</title>
+    <link rel="stylesheet" media="all" href="/sites/default/files/css/css_-w-jQbIWIO0ZERqyQMFp9m1ddgDjs5ZGsor0ebo5CG4.css" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_OtQ9QHAYVZDqM__uuCDStHUt38Nwh_1MHX1vxg5dE5c.css" />
+
+    
+    <!-- Google Font -->
+    <style type="text/css">
+/* source-sans-pro-regular - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'),
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.woff') format('woff'), /* Modern Browsers */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.svg#SourceSansPro') format('svg'); /* Legacy iOS */
+}
+    </style>
+    <!--link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet"--> 
+    <!-- Google Font -->
+  </head>
+  <body class="path-node page-node-type-activity-alert has-glyphicons">
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+
+
+<div class="container-fluid top-top">
+      <aside role="complementary">
+        <div class="region region-top">
+    <section id="block-certtoptop" class="block block-block-content block-block-content4d95ffde-0818-4e6b-bd79-d1547b08c0c0 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container">
+<div id="top">
+<div class="row">
+<div class="col-sm-12 flag"><img alt="United States Flag" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/flag.png" style="position: absolute;" /><p style="padding-left: 35px; font-family: Arial; font-size: 11px;">An official website of the United States government <a href="#" id="here-is-how-u-know">Here's how you know <span class="arrow down"> </span></a></p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="usa-banner-content usa-grid usa-accordion-content hidden container" id="gov-banner">
+<div class="usa-banner-guidance-gov usa-width-one-half col-sm-6"><img alt="Dot gov" class="usa-banner-icon usa-media_block-img" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/icon-dot-gov.svg" /><div class="usa-media_block-body"><strong>Official websites use .gov</strong><br />
+A <b>.gov</b> website belongs to an official government organization in the United States.</div>
+</div>
+
+<div class="usa-banner-guidance-ssl usa-width-one-half col-sm-6"><img alt="SSL" class="usa-banner-icon usa-media_block-img" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/icon-https.svg" /><div class="usa-media_block-body"><strong>Secure .gov websites use HTTPS</strong> A <b>lock (<img alt="lock icon" src="/sites/default/files/icons/lock.svg" style="width:15px;" />)</b> or <b>https://</b> means you've safely connected to the .gov website. Share sensitive information only on official, secure websites.</div>
+</div>
+</div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </div>
+
+
+
+<div class="container-fluid hidden-xs hidden-sm banner-region">
+<div class="container">
+<div class="row">
+
+
+  
+
+<section class="col-sm-9">
+
+      <a id="logo-section"></a>
+        <div class="region region-logo">
+    <section id="block-certlogo" class="block block-block-content block-block-content4639a667-debe-4642-bc69-7839662c0187 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="hidden-xs hidden-sm"><a href="/"><img alt="Cybersecurity and Infrastructure Security Agency CISA" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/logo_verbose.png" title="Cybersecurity and Infrastructure Security Agency CISA" /></a></div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </section>
+
+
+
+      <aside class="col-sm-3" role="complementary">
+        <div class="region region-search">
+    <section id="block-certsearch" class="block block-block-content block-block-contentc33bd875-6ea6-42cc-b1ab-348a4e4bdff7 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><form accept-charset="UTF-8" action="https://search.us-cert.gov/search" class="hidden-xs searchbox" method="get"><input name="utf8" type="hidden" value="✓" /><input id="affiliate-desktop" name="affiliate" type="hidden" value="us-cert" /><div class="form-group"><label class="sr-only" for="query-desktop">Enter Search Terms(s):</label>
+<div class="input-group"><input autocomplete="off" class="form-control form-control-custom input-lg" id="query-desktop" name="query" placeholder="Search" type="text" /><div class="input-group-addon input-group-addon-custom"><button class="submit input-lg"><img alt="search icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/search-icon.png" title="search icon" /></button></div>
+</div>
+</div>
+</form>
+<style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+.navbar-default ul.navbar-nav > li.last a{
+display: none;
+
+/*--><!]]>*/
+</style><div style="padding: 16px 12px 8px 12px"><a class="btn btn-primary" href="/services" type="button" style="font-weight: bold; width: 40%">Services</a><a class="btn btn-primary pull-right" href="/report" type="button" style="font-weight: bold; width: 40%">Report</a></div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </div>
+</div>
+<hr class="hidden-xs nav-top-line">
+</div>
+
+
+
+          <header class="navbar navbar-default container-fluid" id="navbar" role="banner">
+        <div class="container ">
+      <div class="navbar-header">
+        
+                          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+            <div class="hidden-lg hidden-md mobile-nav">
+        <a class="" href="/">
+            <img src="/sites/default/files/cert/logo3.png"  alt="US Department of Homeland Security CISA Cyber + Infrastructure" title="US Department of Homeland Security CISA Cyber + Infrastructure">
+          </a>
+        </div>
+      </div>
+
+              <div id="navbar-collapse" class="navbar-collapse collapse">
+            <div class="region region-navigation-collapsible">
+    <section id="block-certsearchmobile" class="block block-block-content block-block-content0da6361c-e31a-4a58-b455-f9ebde1ba544 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><form accept-charset="UTF-8" action="https://search.us-cert.gov/search" class="hidden-lg hidden-md searchbox" method="get"><input name="utf8" type="hidden" value="✓" /><input id="affiliate-mobile" name="affiliate" type="hidden" value="us-cert" /><div class="form-group"><label class="sr-only" for="query-mobile">Enter Search Terms(s):</label>
+<div class="input-group"><input autocomplete="off" class="form-control form-control-custom input-lg" id="query-mobile" name="query" placeholder="Search" type="text" /><div class="input-group-addon input-group-addon-custom"><button class="submit input-lg"><img alt="search icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/search-icon.png" title="search icon" /></button></div>
+</div>
+</div>
+</form>
+<div class="hidden-md hidden-lg" style="padding: 8px"><a class="btn btn-primary btn-block" href="/services" role="button" style="font-weight: bold">Services</a></div>
+
+<div class="hidden-md hidden-lg" style="padding: 8px"><a class="btn btn-primary btn-block" href="/report" role="button" style="font-weight: bold">Report</a></div></div>
+      
+  </section>
+
+<nav role="navigation" aria-labelledby="block-certmainmenu-menu" id="block-certmainmenu">
+            
+  <h2 class="visually-hidden" id="block-certmainmenu-menu">CertMain Menu</h2>
+  
+
+        
+      <ul class="menu menu--certmain-menu nav navbar-nav">
+                      <li class="first">
+                                        <a href="/ncas" title="Alerts and Tips" data-drupal-link-system-path="node/5">Alerts and Tips</a>
+              </li>
+                      <li>
+                                        <a href="/resources" title="Resources" data-drupal-link-system-path="node/12436">Resources</a>
+              </li>
+                      <li>
+                                        <a href="/ics" title="Industrial Control Systems" data-drupal-link-system-path="node/14614">Industrial Control Systems</a>
+              </li>
+                      <li class="last">
+                                        <a href="/report" title="Report" data-drupal-link-system-path="node/5745">Report</a>
+              </li>
+        </ul>
+  
+
+  </nav>
+
+  </div>
+
+        </div>
+                </header>
+  <hr class="hidden-xs hidden-sm nav-bottom-line">
+<div class="visible-xs visible-sm mobile-border"></div>
+
+
+<div class="container">
+    <div id="print-logo"><img alt="US Department of Homeland Security CISA Cyber + Infrastructure" src="/sites/default/files/cert/logo2.png"/></div>
+    <div id="tlp-header"><svg height="30" width="120"> <rect fill="black" height="30" width="120" x="0" y="0"></rect> <text fill="#ffffff" font-size="18px" x="10" y="20">TLP:WHITE</text> </svg></div>
+    <div id="tlp-footer"><svg height="30" width="120"> <rect fill="black" height="30" width="120" x="0" y="0"></rect> <text fill="#ffffff" font-size="18px" x="10" y="20">TLP:WHITE</text> </svg></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  <div role="main" class="main-container container js-quickedit-main-content">
+    <div class="row">
+
+                              <div class="col-sm-12" role="heading" aria-level="1">
+              <div class="region region-header">
+      <div class="container-fluid hidden-xs">
+  <ol class="breadcrumb">
+          <li >
+                  <a href="/ncas">National Cyber Awareness System</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
+              </li>
+          <li >
+                  <a href="/ncas/alerts">Alerts</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
+              </li>
+          <li  class="active">
+                  Cyber Actors Target K-12 Distance Learning Education to Cause Disruptions and Steal Data 
+              </li>
+      </ol>
+</div>
+
+
+
+  </div>
+
+          </div>
+              
+
+            
+            
+                        
+
+            
+                  <section class="col-sm-12">
+
+                              <div class="highlighted">  <div class="region region-highlighted">
+    <div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+</div>
+              
+                                      
+                  
+                          <a id="main-content"></a>
+            <div class="region region-content">
+                  <div id="ncas-header">
+            <div id="alerts-archive">
+                <a title="View Archives" href="/ncas/alerts/">More Alerts</a>
+            </div>
+            <h1 id="page-title">Alert (AA20-345A)</h1>
+            <h2 id="page-sub-title">Cyber Actors Target K-12 Distance Learning Education to Cause Disruptions and Steal Data </h2>
+            <div class="submitted meta-text">
+                                                Original release date: December 10, 2020
+                            </div>
+            <div id="social-options">
+	<!-- START PRINT BUTTON -->
+		<div id="print-button">
+			<span id="custom-print-button">
+				<a rel="nofollow" href="javascript:window.print();" title="Click to print."><img src="/sites/default/files/icons/print-button.png" alt="Click to print." /></a>
+			</span>
+		</div>
+    <!-- END PRINT BUTTON -->
+	<!-- START TWEET BUTTON -->
+	<div id="tweet-button">
+		<span id="custom-tweet-button">
+			<a rel="nofollow" target="_blank" href="https://twitter.com/share?url=https%3A%2F%2Fus-cert.cisa.gov%2Fncas%2Falerts%2Faa20-345a" class="popup-twitter" title="Click to Tweet."><img src="/sites/default/files/icons/tweet-button.png" alt="Click to Tweet." /></a>
+		</span>
+	</div>
+	<!-- END TWEET BUTTON -->
+
+	<!-- START FACEBOOK BUTTON -->
+	<div id="facebook-button">
+		<span id="custom-facebook-button">
+		<a rel="nofollow" target="_blank" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fus-cert.cisa.gov%2Fncas%2Falerts%2Faa20-345a" class="popup-facebook" title="Click to send to Facebook."><img src="/sites/default/files/icons/facebook-send-button.png" alt="Click to send to Facebook." /></a>
+		</span>
+	</div>
+	<!-- END FACEBOOK BUTTON -->
+
+	<!-- START SHARE BUTTON -->
+	<div id="share-button">
+		<span id="custom-share-button">
+			<a rel="nofollow" target="_blank" href="http://www.addthis.com/bookmark.php?url=https%3A%2F%2Fus-cert.cisa.gov%2Fncas%2Falerts%2Faa20-345a" class="popup-share" title="Click to Share." ><img src="/sites/default/files/icons/share-button.png" alt="Click to Share." /></a>
+		</span>
+	</div>
+	<!-- END SHARE BUTTON -->
+
+</div>
+        </div>
+    
+  
+<article role="article" about="/ncas/alerts/aa20-345a" class="activity-alert full clearfix">
+
+  
+    
+
+  
+  <div class="content">
+	<div id="ncas-content">
+        		<a id="summary"></a>
+		<h3>Summary</h3>
+        
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><p>This Joint Cybersecurity Advisory was coauthored by the Federal Bureau of Investigation (FBI), the Cybersecurity and Infrastructure Security Agency (CISA), and the Multi-State Information Sharing and Analysis Center (MS-ISAC).</p>
+
+<p>The FBI, CISA, and MS-ISAC assess malicious cyber actors are targeting kindergarten through twelfth grade (K-12) educational institutions, leading to ransomware attacks, the theft of data, and the disruption of distance learning services. Cyber actors likely view schools as targets of opportunity, and these types of attacks are expected to continue through the 2020/2021 academic year. These issues will be particularly challenging for K-12 schools that face resource limitations; therefore, educational leadership, information technology personnel, and security personnel will need to balance this risk when determining their cybersecurity investments.</p>
+
+<p><a href="https://us-cert.cisa.gov/sites/default/files/publications/AA20-345A_Joint_Cybersecurity_Advisory_Distance_Learning_S508C.pdf">Click here</a> for a PDF version of this report.</p>
+</div>
+      
+        
+        
+        		    <a id="technical-details"></a>
+		    <h3>Technical Details</h3>
+            
+            <div class="field field--name-field-aa-technical-details field--type-text-long field--label-hidden field--item"><p>As of December 2020, the FBI, CISA, and MS-ISAC continue to receive reports from K-12 educational institutions about the disruption of distance learning efforts by cyber actors.</p>
+
+<h4>Ransomware</h4>
+
+<p>The FBI, CISA, and MS-ISAC have received numerous reports of ransomware attacks against K-12 educational institutions. In these attacks, malicious cyber actors target school computer systems, slowing access, and—in some instances—rendering the systems inaccessible for basic functions, including distance learning. Adopting tactics previously leveraged against business and industry, ransomware actors have also stolen—and threatened to leak—confidential student data to the public unless institutions pay a ransom.</p>
+
+<p>According to MS-ISAC data, the percentage of reported ransomware incidents against K-12 schools increased at the beginning of the 2020 school year. In August and September, 57% of ransomware incidents reported to the MS-ISAC involved K-12 schools, compared to 28% of all reported ransomware incidents from January through July.</p>
+
+<p>The five most common ransomware variants identified in incidents targeting K-12 schools between January and September 2020—based on open source information as well as victim and third-party incident reports made to MS-ISAC—are Ryuk, Maze, Nefilim, AKO, and Sodinokibi/REvil.</p>
+
+<h4>Malware</h4>
+
+<p>Figure 1 identifies the top 10 malware strains that have affected state, local, tribal, and territorial (SLTT) educational institutions over the past year (up to and including September 2020). Note: These malware variants are purely opportunistic as they not only affect educational institutions but other organizations as well.</p>
+
+<p>ZeuS and Shlayer are among the most prevalent malware affecting K-12 schools.</p>
+
+<ul><li>ZeuS is a Trojan with several variants that targets Microsoft Windows operating systems. Cyber actors use ZeuS to infect target machines and send stolen information to command-and-control servers.</li>
+	<li>Shlayer is a Trojan downloader and dropper for MacOS malware. It is primarily distributed through malicious websites, hijacked domains, and malicious advertising posing as a fake Adobe Flash updater. <strong>Note: </strong>Shlayer is the only malware of the top 10 that targets MacOS; the other 9 affect Microsoft Windows operating systems</li>
+</ul><p class="text-align-center"><img alt="" data-entity-type="file" data-entity-uuid="ee5aa08d-fe73-44e6-8f7d-4b5e6ac08320" height="275" src="/sites/default/files/publications/Top%2010%20Malware%20-%20K-12.png" width="614" loading="lazy" /></p>
+
+<p class="text-align-center"><cite>Figure 1: Top 10 malware affecting SLTT educational institutions</cite></p>
+
+<h4><cite> </cite><br />
+Distributed Denial-of-Service Attacks</h4>
+
+<p>Cyber actors are causing disruptions to K-12 educational institutions—including third-party services supporting distance learning—with distributed denial-of-service (DDoS) attacks,  which temporarily limit or prevent users from conducting daily operations. The availability of DDoS-for-hire services provides opportunities for any motivated malicious cyber actor to conduct disruptive attacks regardless of experience level. <strong>Note:</strong> DDoS attacks overwhelm servers with a high level of internet traffic originating from many different sources, making it impossible to mitigate at a single source.</p>
+
+<h4>Video Conference Disruptions</h4>
+
+<p>Numerous reports received by the FBI, CISA, and MS-ISAC since March 2020 indicate uninvited users have disrupted live video-conferenced classroom sessions. These disruptions have included verbally harassing students and teachers, displaying pornography and/or violent images, and doxing meeting attendees (<strong>Note: </strong>doxing is the act of compiling or publishing personal information about an individual on the internet, typically with malicious intent). To enter classroom sessions, uninvited users have been observed:</p>
+
+<ul><li>Using student names to trick hosts into accepting them into class sessions, and</li>
+	<li>Accessing meetings from either publicly available links or links shared with outside users (e.g., students sharing links and/or passwords with friends).</li>
+</ul><p>Video conference sessions without proper control measures risk disruption or compromise of classroom conversations and exposure of sensitive information.</p>
+
+<h3>Additional Risks and Vulnerabilities</h3>
+
+<p>In addition to the recent reporting of distance learning disruptions received by the FBI, CISA, and MS-ISAC, malicious cyber actors are expected to continue seeking opportunities to exploit the evolving remote learning environment.</p>
+
+<h4>Social Engineering</h4>
+
+<p>Cyber actors could apply social engineering methods against students, parents, faculty, IT personnel, or other individuals involved in distance learning. Tactics, such as phishing, trick victims into revealing personal information (e.g., password or bank account information) or performing a task (e.g., clicking on a link). In such scenarios, a victim could receive what appears to be legitimate email that:</p>
+
+<ul><li>Requests personally identifiable information (PII) (e.g., full name, birthdate, student ID),</li>
+	<li>Directs the user to confirm a password or personal identification number (PIN),</li>
+	<li>Instructs the recipient to visit a website that is compromised by the cyber actor, or</li>
+	<li>Contains an attachment with malware.</li>
+</ul><p>Cyber actors also register web domains that are similar to legitimate websites in an attempt to capture individuals who mistype URLs or click on similar looking URLs. These types of attacks are referred to as domain spoofing or homograph attacks. For example, a user wanting to access <code>www.cottoncandyschool.edu</code> could mistakenly click on <code>www.cottencandyschool.edu</code> (changed “<code>o</code>” to an “<code>e</code>”) or <code>www.cottoncandyschoo1.edu</code> (changed letter “<code>l</code>” to a number “1”) (<strong>Note:</strong> this is a fictitious example to demonstrate how a user can mistakenly click and access a website without noticing subtle changes in website URLs). Victims believe they are on a legitimate website when, in reality, they are visiting a site controlled by a cyber actor.</p>
+
+<h4>Technology Vulnerabilities and Student Data</h4>
+
+<p>Whether as collateral for ransomware attacks or to sell on the dark web, cyber actors may seek to exploit the data-rich environment of student information in schools and education technology (edtech) services. The need for schools to rapidly transition to distance learning likely contributed to cybersecurity gaps, leaving schools vulnerable to attack. In addition, educational institutions that have outsourced their distance learning tools may have lost visibility into data security measures. Cyber actors could view the increased reliance on—and sharp usership growth in—these distance learning services and student data as lucrative targets.</p>
+
+<h4>Open/Exposed Ports</h4>
+
+<p>The FBI, CISA, and MS-ISAC frequently see malicious cyber actors exploiting exposed Remote Desktop Protocol (RDP) services to gain initial access to a network and, often, to manually deploy ransomware. For example, cyber actors will attack ports 445 (Server Message Block [SMB]) and 3389 (RDP) to gain network access. They are then positioned to move laterally throughout a network (often using SMB), escalate privileges, access and exfiltrate sensitive information, harvest credentials, or deploy a wide variety of malware. This popular attack vector allows cyber actors to maintain a low profile, as they are using a legitimate network service that provides them with the same functionality as any other remote user.</p>
+
+<h4>End-of-Life Software</h4>
+
+<p>End-of-Life (EOL) software is regularly exploited by cyber actors—often to gain initial access, deface websites, or further their reach in a network. Once a product reaches EOL, customers no longer receive security updates, technical support, or bug fixes. Unpatched and vulnerable servers are likely to be exploited by cyber actors, hindering an organization’s operational capacity.</p>
+</div>
+      
+        
+        		    <a id="mitigations"></a>
+		    <h3>Mitigations</h3>
+            
+            <div class="field field--name-field-aa-mitigations field--type-text-long field--label-hidden field--item"><h4>Plans and Policies</h4>
+
+<p>The FBI and CISA encourage educational providers to maintain business continuity plans—the practice of executing essential functions through emergencies (e.g., cyberattacks)—to minimize service interruptions. Without planning, provision, and implementation of continuity principles, institutions may be unable to continue teaching and administrative operations. Evaluating continuity and capability will help identify potential operational gaps. Through identifying and addressing these gaps, institutions can establish a viable continuity program that will help keep them functioning during cyberattacks or other emergencies. The FBI and CISA suggest K-12 educational institutions review or establish patching plans, security policies, user agreements, and business continuity plans to ensure they address current threats posed by cyber actors.</p>
+
+<h4>Network Best Practices</h4>
+
+<ul><li>Patch operating systems, software, and firmware as soon as manufacturers release updates.</li>
+	<li>Check configurations for every operating system version for educational institution-owned assets to prevent issues from arising that local users are unable to fix due to having local administration disabled.</li>
+	<li>Regularly change passwords to network systems and accounts and avoid reusing passwords for different accounts.</li>
+	<li>Use multi-factor authentication where possible.</li>
+	<li>Disable unused remote access/RDP ports and monitor remote access/RDP logs.</li>
+	<li>Implement application and remote access allow listing to only allow systems to execute programs known and permitted by the established security policy.</li>
+	<li>Audit user accounts with administrative privileges and configure access controls with least privilege in mind.</li>
+	<li>Audit logs to ensure new accounts are legitimate.</li>
+	<li>Scan for open or listening ports and mediate those that are not needed.</li>
+	<li>Identify critical assets such as student database servers and distance learning infrastructure; create backups of these systems and house the backups offline from the network.</li>
+	<li>Implement network segmentation. Sensitive data should not reside on the same server and network segment as the email environment.</li>
+	<li>Set antivirus and anti-malware solutions to automatically update; conduct regular scans.</li>
+</ul><h4>User Awareness Best Practices</h4>
+
+<ul><li>Focus on awareness and training. Because end users are targeted, make employees and students aware of the threats—such as ransomware and phishing scams—and how they are delivered. Additionally, provide users training on information security principles and techniques as well as overall emerging cybersecurity risks and vulnerabilities.</li>
+	<li>Ensure employees know who to contact when they see suspicious activity or when they believe they have been a victim of a cyberattack. This will ensure that the proper established mitigation strategy can be employed quickly and efficiently.</li>
+	<li>Monitor privacy settings and information available on social networking sites.</li>
+</ul><h4>Ransomware Best Practices</h4>
+
+<p>The FBI and CISA do not recommend paying ransoms. Payment does not guarantee files will be recovered. It may also embolden adversaries to target additional organizations, encourage other criminal actors to engage in the distribution of ransomware, and/or fund illicit activities. However, regardless of whether your organization decided to pay the ransom, the FBI urges you to report ransomware incidents to your local FBI field office. Doing so provides the FBI with the critical information they need to prevent future attacks by identifying and tracking ransomware attackers and holding them accountable under U.S. law.</p>
+
+<p>In addition to implementing the above network best practices, the FBI and CISA also recommend the following:</p>
+
+<ul><li>Regularly back up data, air gap, and password protect backup copies offline.</li>
+	<li>Implement a recovery plan to maintain and retain multiple copies of sensitive or proprietary data and servers in a physically separate, secure location.</li>
+</ul><h4>Denial-of-Service Best Practices</h4>
+
+<ul><li>Consider enrolling in a denial-of-service mitigation service that detects abnormal traffic flows and redirects traffic away from your network.</li>
+	<li>Create a partnership with your local internet service provider (ISP) prior to an event and work with your ISP to control network traffic attacking your network during an event.</li>
+	<li>Configure network firewalls to block unauthorized IP addresses and disable port forwarding.</li>
+</ul><h4>Video-Conferencing Best Practices</h4>
+
+<ul><li>Ensure participants use the most updated version of remote access/meeting applications.</li>
+	<li>Require passwords for session access.</li>
+	<li>Encourage students to avoid sharing passwords or meeting codes.</li>
+	<li>Establish a vetting process to identify participants as they arrive, such as a waiting room.</li>
+	<li>Establish policies to require participants to sign in using true names rather than aliases.</li>
+	<li>Ensure only the host controls screensharing privileges.</li>
+	<li>Implement a policy to prevent participants from entering rooms prior to host arrival and to prevent the host from exiting prior to the departure of all participants.</li>
+</ul><h4>Edtech Implementation Considerations</h4>
+
+<ul><li>When partnering with third-party and edtech services to support distance learning, educational institutions should consider the following:</li>
+	<li>The service provider’s cybersecurity policies and response plan in the event of a breach and their remediation practices:
+	<ul><li>How did the service provider resolve past cyber incidents? How did their cybersecurity practices change after these incidents?</li>
+	</ul></li>
+	<li>The provider’s data security practices for their products and services (e.g., data encryption in transit and at rest, security audits, security training of staff, audit logs);</li>
+	<li>The provider’s data maintenance and storage practices (e.g., use of company servers, cloud storage, or third-party services);</li>
+	<li>Types of student data the provider collects and tracks (e.g., PII, academic, disciplinary, medical, biometric, IP addresses);</li>
+	<li>Entities to whom the provider will grant access to the student data (e.g., vendors);</li>
+	<li>How the provider will use student data (e.g., will they sell it to—or share it with—third parties for service enhancement, new product development, studies, marketing/advertising?);</li>
+	<li>The provider’s de-identification practices for student data; and</li>
+	<li>The provider’s policies on data retention and deletion.</li>
+</ul><h4>Malware Defense</h4>
+
+<p>Table 1 identifies CISA-created Snort signatures, which have been successfully used to detect and defend against related attacks, for the malware variants listed below. <strong>Note:</strong> the listing is not fully comprehensive and should not be used at the exclusion of other detection methods.</p>
+
+<p class="text-align-center"><em>Table 1: Malware signatures</em></p>
+
+<table border="1" cellpadding="1" cellspacing="1" class="general-table" style="width: 881.46px; height: 312px; margin-right: auto; margin-left: auto;"><thead><tr><th scope="col" style="width: 198px;"><strong>Malware</strong></th>
+			<th scope="col" style="width: 356px;">Signature</th>
+		</tr></thead><tbody><tr><td scope="col" style="width: 198px; text-align: left;"><strong>NanoCore</strong></td>
+			<td scope="col" style="width: 356px; text-align: left;"><code>alert tcp any any -&gt; any $HTTP_PORTS (msg:"NANOCORE:HTTP GET URI contains 'FAD00979338'"; sid:00000000; rev:1; flow:established,to_server; content:"GET"; http_method; content:"getPluginName.php?PluginID=FAD00979338"; fast_pattern; http_uri; classtype:http-uri; metadata:service http;) </code></td>
+		</tr><tr><td scope="col" style="width: 198px; text-align: left;">
+			<p><strong>Cerber</strong></p>
+			</td>
+			<td scope="col" style="width: 356px; text-align: left;"><code>alert tcp any any -&gt; any $HTTP_PORTS (msg:"HTTP Client Header contains 'host|3a 20|polkiuj.top'"; sid:00000000; rev:1; flow:established,to_server; flowbits:isnotset,&lt;unique_ID&gt;.tagged; content:"host|3a 20|polkiuj.top|0d 0a|"; http_header; fast_pattern:only; flowbits:set,&lt;unique_ID&gt;.tagged; tag:session,10,packets; classtype:http-header; metadata:service http;) </code></td>
+		</tr><tr><td scope="col" style="width: 198px; text-align: left;"><strong>Kovter</strong></td>
+			<td scope="col" style="width: 356px; text-align: left;"><code>alert tcp any any -&gt; any $HTTP_PORTS (msg:"Kovter:HTTP URI POST to CnC Server"; sid:00000000; rev:1; flow:established,to_server; flowbits:isnotset,&lt;unique_ID&gt;.tagged; content:"POST / HTTP/1.1"; depth:15; content:"Content-Type|3a 20|application/x-www-form-urlencoded"; http_header; depth:47; fast_pattern; content:"User-Agent|3a 20|Mozilla/"; http_header; content:!"LOADCURRENCY"; nocase; content:!"Accept"; http_header; content:!"Referer|3a|"; http_header; content:!"Cookie|3a|"; nocase; http_header; pcre:"/^(?:[A-Za-z0-9+\/]{4})*(?:[A-Za-z0-9+\/]{2}==|[A-Za-z0-9+\/]{3}=|[A-Za-z0-9+\/]{4})$/P"; pcre:"/User-Agent\x3a[^\r\n]+\r\nHost\x3a\x20(?:\d{1,3}\.){3}\d{1,3}\r\nContent-Length\x3a\x20[1-5][0-9]{2,3}\r\n(?:Cache-Control|Pragma)\x3a[^\r\n]+\r\n(?:\r\n)?$/H"; flowbits:set,&lt;unique_ID&gt;.tagged; tag:session,10,packets; classtype:nonstd-tcp; metadata:service http;)</code></td>
+		</tr><tr><td scope="col" style="width: 198px; text-align: left;"><strong>Dridex</strong></td>
+			<td scope="col" style="width: 356px; text-align: left;">
+			<p><code>alert tcp any any -&gt; any $HTTP_PORTS (msg:"HTTP URI GET contains 'invoice_########.doc' (DRIDEX)"; sid:00000000; rev:1; flow:established,to_server; content:"invoice_"; http_uri; fast_pattern:only; content:".doc"; nocase; distance:8; within:4; content:"GET"; nocase; http_method; classtype:http-uri; metadata:service http;)<br />
+			alert tcp any any -&gt; any $HTTP_PORTS (msg:"HTTP Client Header contains 'Host|3a 20|tanevengledrep ru' (DRIDEX)"; sid:00000000; rev:1; flow:established,to_server; flowbits:isnotset,&lt;unique_ID&gt;.tagged; content:"Host|3a 20|tanevengledrep|2e|ru|0d 0a|"; http_header; fast_pattern:only; flowbits:set,&lt;unique_ID&gt;.tagged; tag:session,10,packets; classtype:http-header; metadata:service http;)</code></p>
+			</td>
+		</tr></tbody></table></div>
+      
+        
+        		    <a id="contact-information"></a>
+		    <h3>Contact Information</h3>
+            
+            <div class="field field--name-field-aa-contact-info field--type-text-long field--label-hidden field--item"><p>To report suspicious or criminal activity related to information found in this Joint Cybersecurity Advisory, contact your local FBI field office at <a href="https://www.fbi.gov/contact-us/field-offices">www.fbi.gov/contact-us/field</a>. When available, please include the following information regarding the incident: date, time, and location of the incident; type of activity; number of people affected; type of equipment used for the activity; the name of the submitting organization; and a designated point of contact.</p>
+
+<p>To request incident response resources or technical assistance related to these threats, contact CISA at <a href="mailto:Central@cisa.gov">Central@cisa.gov</a>.</p>
+
+<h3>Resources</h3>
+
+<p>MS-ISAC membership is open to employees or representatives from all public K-12 education entities in the United States. The MS-ISAC provides multiple cybersecurity services and benefits to help K-12 education entities increase their cybersecurity posture. To join, visit <a href="https://learn.cisecurity.org/ms-isac-registration">https://learn.cisecurity.org/ms-isac-registration</a>.</p>
+
+<ul><li><a href="https://www.cisa.gov/telework">CISA Telework Guidance and Resources</a></li>
+	<li><a href="https://www.cisa.gov/publication/secure-video-conferencing-schools">CISA Cybersecurity Recommendations and Tips for Schools Using Video Conferencing</a></li>
+	<li><a href="https://us-cert.cisa.gov/Ransomware">CISA Ransomware Publications</a></li>
+	<li><a href="https://www.cisa.gov/emergency-services-sector-continuity-planning-suite">CISA Emergency Services Sector Continuity Planning Suite</a></li>
+	<li><a href="https://www.cisa.gov/publication/ransomware-guide">CISA-MS-ISAC Joint Ransomware Guide</a></li>
+	<li><a href="https://us-cert.cisa.gov/ncas/tips/ST04-014">CISA Tip: Avoiding Social Engineering and Phishing Attacks</a></li>
+	<li><a href="https://www.us-cert.gov/ncas/tips/ST04-006">CISA Tip: Understanding Patches</a></li>
+	<li><a href="https://cyber.org/cybersafety">CISA and CYBER.ORG “Cyber Safety Video Series” for K-12 students and educators</a></li>
+	<li><a href="https://www.ic3.gov/media/2019/191002.aspx">FBI PSA: “High-Impact Ransomware Attacks Threaten U.S. Businesses and Organizations</a></li>
+</ul><p><strong>Note: </strong>contact your local FBI field office (<a href="http://www.fbi.gov/contact-us/field">www.fbi.gov/contact-us/field</a>) for additional FBI products on ransomware, edtech, and cybersecurity for educational institutions.</p>
+</div>
+      
+        
+        
+        		    <a id="revisions"></a>
+		    <h3>Revisions</h3>
+            
+      <div class="field field--name-field-aa-revisions field--type-string field--label-hidden field--items">
+              <div class="field--item">Initial Version: December 10, 2020</div>
+          </div>
+  
+        
+        
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><p class="privacy-and-terms">This product is provided subject to this <a href="/privacy/notification">Notification</a> and this <a href="https://www.dhs.gov/privacy-policy">Privacy &amp; Use</a> policy.</p>
+</div>
+      
+
+	</div>
+                        <div id="document-feedback">
+	<div class="inner-document-feedback center-center">
+        <p><b>Please share your thoughts.</b></p>
+		<p>We recently updated our anonymous <a href="https://www.surveymonkey.com/r/CISA-cyber-survey?product=https://us-cert.cisa.gov/ncas/alerts/aa20-345a">product survey</a>; we'd welcome your feedback.</p>
+	</div>
+</div>
+
+              </div>
+
+</article>
+
+
+  </div>
+
+              </section>
+
+
+                      </div>
+  </div>
+
+
+
+
+
+
+      <footer class="footer container-fluid" role="contentinfo">
+        <div class="region region-footer">
+    <section id="block-certsignup" class="block block-block-content block-block-contentc5846d10-2e2b-4822-aa59-7a5c3262f671 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container-fluid signup">
+<div class="container">
+<div class="row">
+<div class="col-lg-3 contact-icons">
+<h3>Contact Us</h3>
+
+<p class="phone-text"><img alt="phone icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Phone.png" />(888)282-0870</p>
+
+<p><img alt="email icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Email.png" /><a class="mailto" href="mailto:central@cisa.dhs.gov" title="General questions or suggestions">Send us email</a></p>
+
+<p><img alt="lock icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Lock.png" /><a href="/contact-us/" title="Download PGP/GPG keys">Download PGP/GPG keys</a></p>
+
+<p><img alt="feedback icon" data-entity-type="" data-entity-uuid="" height="32" src="/sites/default/files/images/icon-feedback.png" /><a href="/forms/website-feedback" title="Website Feedback">Submit website feedback</a></p>
+</div>
+
+<div class="col-lg-6 sub-alert">
+<h3>Subscribe to Alerts</h3>
+
+<p>Receive security alerts, tips, and other updates.</p>
+
+<form action="https://public.govdelivery.com/accounts/USDHSCISA/subscribers/qualify"><label class="visually-hidden" for="email-address-field">Enter your email address</label> <input class="signup-form" id="email-address-field" name="email" placeholder=" Enter your email address" title="Enter your email address" type="text" /><br /><input class="btn btn-primary" name="submit" title="Sign up for alerts" type="submit" value="Sign Up" /> </form>
+
+<div class="pull-right signup-icon-one"><a href="https://twitter.com/uscert_gov" title="US-CERT Twitter Feed"><img alt="twitter icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/twitter-button.png" /></a></div>
+
+<div class="pull-right signup-icon-two"><a href="/mailing-lists-and-feeds" title="Mailing Lists and Feeds"><img alt="rss icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/rss-button-bottom.png" /></a></div>
+
+<div class="pull-right signup-icon-three"><a href="/hsin" class="btn btn-cert-report" name="button" type="button" id="button">HSIN</a></div>
+</div>
+
+<div class="col-lg-3 cert-report"><a class="btn btn-cert-report btn-lg" href="/report" name="button" type="button" id="button">Report</a></div>
+</div>
+</div>
+</div>
+</div>
+      
+  </section>
+
+<section id="block-certcertfooter" class="block block-block-content block-block-contentd5b85bd2-62d1-485a-b9ae-f040b1ca1a45 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container">
+<hr /><div class="text-center"><a href="/" title="Home">Home</a>   <a href="/sitemap" title="Site Map">Site Map</a>   <a href="/faq/" title="Frequently Asked Questions">FAQ</a>   <a href="/contact-us/" title="Contact Us">Contact Us</a>   <a href="/tlp/" title="Traffic Light Protocol">Traffic Light Protocol</a>   <a href="/pcii" title="PCII">PCII</a>   <a href="https://www.dhs.gov" title="Accountability">Accountability</a>   <a href="/disclaimer" title="Disclaimer">Disclaimer</a>   <a href="/privacy-policy" title="Privacy Policy">Privacy Policy</a>   <a href="https://www.dhs.gov/freedom-information-act-foia" title="FOIA">FOIA</a>   <a href="https://www.dhs.gov/homeland-security-no-fear-act-reporting" title="No Fear Act">No Fear Act</a>   <a href="/accessibility/" title="Accessibility">Accessibility</a><a href="https://www.dhs.gov/plain-writing-dhs" title="Plain Writing">Plain Writing</a><a href="https://www.dhs.gov/plug-information" title="Plug-ins">Plug-ins</a>   <a href="https://www.oig.dhs.gov/" title="Office of the Inspector General">Inspector General</a>   <a href="https://www.whitehouse.gov/" title="The White House">The White House</a>   <a href="https://www.usa.gov/" title="USA.gov">USA.gov</a><br />
+ 
+<p>CISA is part of the <a href="https://www.dhs.gov/" title="Department of Homeland Security">Department of Homeland Security</a></p>
+</div>
+<script type="text/javascript">
+<!--//--><![CDATA[// ><!--
+
+    window.onload = function(){
+            jQuery('body.page-node-type-us-cert-events div#ncas-header').find('img').each(function(){
+                    var $src=jQuery(this).prop('src');
+                    if($src.indexOf('default/files/') == -1)jQuery(this).remove();
+                    });
+            if('Privacy Data Breach' == jQuery('#uscert-utilities-irf-form #item-info-impact option:selected').text()){ 
+                jQuery('#item-info-impact-block').removeClass('collapsed'); 
+            }
+jQuery('#print-logo img').removeAttr('width').removeAttr('height');
+if(jQuery('body.path-frontpage').length > 0)
+{   
+    jQuery('.main-container').find('.col-sm-12').removeAttr('role');
+}
+jQuery('#map area').each(function(){ jQuery(this).click(function(){var idstr=jQuery(this).attr('clickthis'); if(jQuery(idstr).hasClass('open') == false){jQuery(idstr).click();}});});  
+if(jQuery('#document-feedback').length > 0)
+{ 
+    var $url    = window.location.href
+    //var str ='Your feedback is very important to us. Please take a moment to complete this <a href="https://surveymonkey.com/r/G8STDRY?product=' + $url + '">survey.';
+    //var $p = jQuery('#document-feedback div p').html(str);
+}
+    };
+
+//--><!]]>
+</script></div>
+<style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+#views-bootstrap-carousel-block-2 .carousel-inner > .item > a > img {
+  margin:auto;
+}
+button#product-feedback-next {
+    margin-bottom: 10px;
+}
+/*
+.mobile-nav {
+border-bottom: 3px solid #112e51;
+}
+*/
+.cma-banner-container {
+    display: none;
+}
+@media (max-width: 991px) {
+.navbar .navbar-header {
+background: #fff;
+}
+}
+div.banner-region { background: #fff; }
+
+.accordion_fold {
+    padding-bottom: 25px;
+}
+
+h2.accordion.open {
+    background: #f2f2f2;
+}
+
+a { color: #2b72af;}
+
+.navbar-default .navbar-nav > li > a { color: #767676; }
+/* andi */
+.sidebar-widget-orange .orange {
+    background-color: #e77431;
+}
+#block-views-block-ics-announcements-block-1 .views-field-created {
+    color: #565656;
+}
+a#sort-bulletin {
+color: #000;
+background: white;
+position: absolute;
+right: 150px;
+padding: 1px 12px;
+}
+
+/*--><!]]>*/
+</style></div>
+      
+  </section>
+
+
+  </div>
+
+    </footer>
+  
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","scriptPath":null,"pathPrefix":"","currentPath":"node\/15767","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"UA-34879253-1","trackOutbound":true,"trackMailto":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"data":{"extlink":{"extTarget":false,"extTargetNoOverride":false,"extNofollow":false,"extNoreferrer":false,"extFollowNoOverride":false,"extClass":"ext","extLabel":"(link is external)","extImgClass":false,"extSubdomains":true,"extExclude":"(\\.gov|\\.mil|\\.org.*|twitter\\.com\\\/share\\?url\\=.*|www\\.facebook\\.com\\\/sharer\\.php\\?u\\=.*|www\\.addthis\\.com\\\/bookmark\\.php\\?url\\=.*|javascript\\:window\\.print\\(\\)\\;)","extInclude":"","extCssExclude":"","extCssExplicit":"","extAlert":true,"extAlertText":"You are now leaving an official website of the United States Government (USG), the Department of Homeland Security (DHS), and the Cybersecurity and Infrastructure Security Agency (CISA). Links to non-USG, non-DHS, and non-CISA sites are provided for the visitor\u0027s convenience and do not represent an endorsement by USG, DHS, or CISA of any commercial or private issues, products, or services. Note that the privacy policy of the linked site may differ from that of USG, DHS, and CISA.","mailtoClass":"mailto","mailtoLabel":"(link sends email)","extUseFontAwesome":false,"extIconPlacement":"append","extFaLinkClasses":"fa fa-external-link","extFaMailtoClasses":"fa fa-envelope-o","whitelistedDomains":null}},"bootstrap":{"forms_has_error_value_toggle":1,"popover_enabled":1,"popover_animation":1,"popover_auto_close":1,"popover_container":"body","popover_content":"","popover_delay":"0","popover_html":0,"popover_placement":"right","popover_selector":"","popover_title":"","popover_trigger":"click","tooltip_enabled":1,"tooltip_animation":1,"tooltip_container":"body","tooltip_delay":"0","tooltip_html":0,"tooltip_placement":"auto left","tooltip_selector":"","tooltip_trigger":"hover"},"user":{"uid":0,"permissionsHash":"5ac3ae468050ddd0aa4ecea12c34a32977a23244239ed53eb7226f296aed658f"}}</script>
+<script src="/sites/default/files/js/js_xhqBHziEDyCKWlB5IUseaFAGh1B08TPFGmxCf6RvFnM.js"></script>
+<script src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DHS&amp;subagency=US-CERT&amp;pua=0" id="_fed_an_ua_tag"></script>
+<script src="/sites/default/files/js/js_m5CHELy9XHlAx2jnhaYdT2XVeN916TnZL5U2ha7Ln94.js"></script>
+
+  <script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"877b02039c","applicationID":"628657512,979282327","transactionName":"ZFYHMhZSXUpRUkcKDF0cJAUQWlxXH0FSBAZsUAQFDFY=","queueTime":0,"applicationTime":22,"atts":"SBEERF5ITkQ=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

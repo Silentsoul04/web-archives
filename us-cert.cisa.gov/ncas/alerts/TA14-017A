@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html  lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+    <meta charset="utf-8" /><script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={licenseKey:"877b02039c",applicationID:"628657512"};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var i=e[n]={exports:{}};t[n][0].call(i.exports,function(e){var i=t[n][1][e];return r(i||e)},i,i.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var i=0;i<n.length;i++)r(n[i]);return r}({1:[function(t,e,n){function r(){}function i(t,e,n){return function(){return o(t,[u.now()].concat(f(arguments)),e?null:this,n),e?void 0:this}}var o=t("handle"),a=t(8),f=t(9),c=t("ee").get("tracer"),u=t("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var d=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],p="api-",l=p+"ixn-";a(d,function(t,e){s[e]=i(p+e,!0,"api")}),s.addPageAction=i(p+"addPageAction",!0),s.setCurrentRouteName=i(p+"routeName",!0),e.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(t,e){var n={},r=this,i="function"==typeof e;return o(l+"tracer",[u.now(),t,n],r),function(){if(c.emit((i?"":"no-")+"fn-start",[u.now(),r,i],n),i)try{return e.apply(this,arguments)}catch(t){throw c.emit("fn-err",[arguments,this,t],n),t}finally{c.emit("fn-end",[u.now()],n)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(t,e){m[e]=i(l+e)}),newrelic.noticeError=function(t,e){"string"==typeof t&&(t=new Error(t)),o("err",[t,u.now(),!1,e])}},{}],2:[function(t,e,n){function r(t){if(NREUM.init){for(var e=NREUM.init,n=t.split("."),r=0;r<n.length-1;r++)if(e=e[n[r]],"object"!=typeof e)return;return e=e[n[n.length-1]]}}e.exports={getConfiguration:r}},{}],3:[function(t,e,n){function r(){return f.exists&&performance.now?Math.round(performance.now()):(o=Math.max((new Date).getTime(),o))-a}function i(){return o}var o=(new Date).getTime(),a=o,f=t(10);e.exports=r,e.exports.offset=a,e.exports.getLastTimestamp=i},{}],4:[function(t,e,n){function r(t){return!(!t||!t.protocol||"file:"===t.protocol)}e.exports=r},{}],5:[function(t,e,n){function r(t,e){var n=t.getEntries();n.forEach(function(t){"first-paint"===t.name?d("timing",["fp",Math.floor(t.startTime)]):"first-contentful-paint"===t.name&&d("timing",["fcp",Math.floor(t.startTime)])})}function i(t,e){var n=t.getEntries();n.length>0&&d("lcp",[n[n.length-1]])}function o(t){t.getEntries().forEach(function(t){t.hadRecentInput||d("cls",[t])})}function a(t){if(t instanceof m&&!g){var e=Math.round(t.timeStamp),n={type:t.type};e<=p.now()?n.fid=p.now()-e:e>p.offset&&e<=Date.now()?(e-=p.offset,n.fid=p.now()-e):e=p.now(),g=!0,d("timing",["fi",e,n])}}function f(t){d("pageHide",[p.now(),t])}if(!("init"in NREUM&&"page_view_timing"in NREUM.init&&"enabled"in NREUM.init.page_view_timing&&NREUM.init.page_view_timing.enabled===!1)){var c,u,s,d=t("handle"),p=t("loader"),l=t(7),m=NREUM.o.EV;if("PerformanceObserver"in window&&"function"==typeof window.PerformanceObserver){c=new PerformanceObserver(r);try{c.observe({entryTypes:["paint"]})}catch(v){}u=new PerformanceObserver(i);try{u.observe({entryTypes:["largest-contentful-paint"]})}catch(v){}s=new PerformanceObserver(o);try{s.observe({type:"layout-shift",buffered:!0})}catch(v){}}if("addEventListener"in document){var g=!1,h=["click","keydown","mousedown","pointerdown","touchstart"];h.forEach(function(t){document.addEventListener(t,a,!1)})}l(f)}},{}],6:[function(t,e,n){function r(t,e){if(!i)return!1;if(t!==i)return!1;if(!e)return!0;if(!o)return!1;for(var n=o.split("."),r=e.split("."),a=0;a<r.length;a++)if(r[a]!==n[a])return!1;return!0}var i=null,o=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var f=navigator.userAgent,c=f.match(a);c&&f.indexOf("Chrome")===-1&&f.indexOf("Chromium")===-1&&(i="Safari",o=c[1])}e.exports={agent:i,version:o,match:r}},{}],7:[function(t,e,n){function r(t){function e(){t(a&&document[a]?document[a]:document[i]?"hidden":"visible")}"addEventListener"in document&&o&&document.addEventListener(o,e,!1)}e.exports=r;var i,o,a;"undefined"!=typeof document.hidden?(i="hidden",o="visibilitychange",a="visibilityState"):"undefined"!=typeof document.msHidden?(i="msHidden",o="msvisibilitychange"):"undefined"!=typeof document.webkitHidden&&(i="webkitHidden",o="webkitvisibilitychange",a="webkitVisibilityState")},{}],8:[function(t,e,n){function r(t,e){var n=[],r="",o=0;for(r in t)i.call(t,r)&&(n[o]=e(r,t[r]),o+=1);return n}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],9:[function(t,e,n){function r(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,i=n-e||0,o=Array(i<0?0:i);++r<i;)o[r]=t[e+r];return o}e.exports=r},{}],10:[function(t,e,n){e.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(t,e,n){function r(){}function i(t){function e(t){return t&&t instanceof r?t:t?u(t,c,a):a()}function n(n,r,i,o,a){if(a!==!1&&(a=!0),!l.aborted||o){t&&a&&t(n,r,i);for(var f=e(i),c=v(n),u=c.length,s=0;s<u;s++)c[s].apply(f,r);var p=d[w[n]];return p&&p.push([b,n,r,f]),f}}function o(t,e){y[t]=v(t).concat(e)}function m(t,e){var n=y[t];if(n)for(var r=0;r<n.length;r++)n[r]===e&&n.splice(r,1)}function v(t){return y[t]||[]}function g(t){return p[t]=p[t]||i(n)}function h(t,e){l.aborted||s(t,function(t,n){e=e||"feature",w[n]=e,e in d||(d[e]=[])})}var y={},w={},b={on:o,addEventListener:o,removeEventListener:m,emit:n,get:g,listeners:v,context:e,buffer:h,abort:f,aborted:!1};return b}function o(t){return u(t,c,a)}function a(){return new r}function f(){(d.api||d.feature)&&(l.aborted=!0,d=l.backlog={})}var c="nr@context",u=t("gos"),s=t(8),d={},p={},l=e.exports=i();e.exports.getOrSetContext=o,l.backlog=d},{}],gos:[function(t,e,n){function r(t,e,n){if(i.call(t,e))return t[e];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:r,writable:!0,enumerable:!1}),r}catch(o){}return t[e]=r,r}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],handle:[function(t,e,n){function r(t,e,n,r){i.buffer([t],r),i.emit(t,e,n)}var i=t("ee").get("handle");e.exports=r,r.ee=i},{}],id:[function(t,e,n){function r(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:a(t,o,function(){return i++})}var i=1,o="nr@id",a=t("gos");e.exports=r},{}],loader:[function(t,e,n){function r(){if(!R++){var t=M.info=NREUM.info,e=v.getElementsByTagName("script")[0];if(setTimeout(u.abort,3e4),!(t&&t.licenseKey&&t.applicationID&&e))return u.abort();c(E,function(e,n){t[e]||(t[e]=n)});var n=a();f("mark",["onload",n+M.offset],null,"api"),f("timing",["load",n]);var r=v.createElement("script");0===t.agent.indexOf("http://")||0===t.agent.indexOf("https://")?r.src=t.agent:r.src=l+"://"+t.agent,e.parentNode.insertBefore(r,e)}}function i(){"complete"===v.readyState&&o()}function o(){f("mark",["domContent",a()+M.offset],null,"api")}var a=t(3),f=t("handle"),c=t(8),u=t("ee"),s=t(6),d=t(4),p=t(2),l=p.getConfiguration("ssl")===!1?"http":"https",m=window,v=m.document,g="addEventListener",h="attachEvent",y=m.XMLHttpRequest,w=y&&y.prototype,b=!d(m.location);NREUM.o={ST:setTimeout,SI:m.setImmediate,CT:clearTimeout,XHR:y,REQ:m.Request,EV:m.Event,PR:m.Promise,MO:m.MutationObserver};var x=""+location,E={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1209.min.js"},O=y&&w&&w[g]&&!/CriOS/.test(navigator.userAgent),M=e.exports={offset:a.getLastTimestamp(),now:a,origin:x,features:{},xhrWrappable:O,userAgent:s,disabled:b};if(!b){t(1),t(5),v[g]?(v[g]("DOMContentLoaded",o,!1),m[g]("load",r,!1)):(v[h]("onreadystatechange",i),m[h]("onload",r)),f("mark",["firstbyte",a.getLastTimestamp()],null,"api");var R=0}},{}],"wrap-function":[function(t,e,n){function r(t,e){function n(e,n,r,c,u){function nrWrapper(){var o,a,s,p;try{a=this,o=d(arguments),s="function"==typeof r?r(o,a):r||{}}catch(l){i([l,"",[o,a,c],s],t)}f(n+"start",[o,a,c],s,u);try{return p=e.apply(a,o)}catch(m){throw f(n+"err",[o,a,m],s,u),m}finally{f(n+"end",[o,a,p],s,u)}}return a(e)?e:(n||(n=""),nrWrapper[p]=e,o(e,nrWrapper,t),nrWrapper)}function r(t,e,r,i,o){r||(r="");var f,c,u,s="-"===r.charAt(0);for(u=0;u<e.length;u++)c=e[u],f=t[c],a(f)||(t[c]=n(f,s?c+r:r,i,c,o))}function f(n,r,o,a){if(!m||e){var f=m;m=!0;try{t.emit(n,r,o,e,a)}catch(c){i([c,n,r,o],t)}m=f}}return t||(t=s),n.inPlace=r,n.flag=p,n}function i(t,e){e||(e=s);try{e.emit("internal-error",t)}catch(n){}}function o(t,e,n){if(Object.defineProperty&&Object.keys)try{var r=Object.keys(t);return r.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(o){i([o],n)}for(var a in t)l.call(t,a)&&(e[a]=t[a]);return e}function a(t){return!(t&&t instanceof Function&&t.apply&&!t[p])}function f(t,e){var n=e(t);return n[p]=t,o(t,n,s),n}function c(t,e,n){var r=t[e];t[e]=f(r,n)}function u(){for(var t=arguments.length,e=new Array(t),n=0;n<t;++n)e[n]=arguments[n];return e}var s=t("ee"),d=t(9),p="nr@original",l=Object.prototype.hasOwnProperty,m=!1;e.exports=r,e.exports.wrapFunction=f,e.exports.wrapInPlace=c,e.exports.argsToArray=u},{}]},{},["loader"]);</script>
+<script async src="/sites/default/files/google_analytics/gtag.js?qubv3z"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("config", "UA-34879253-1", {"groups":"default","anonymize_ip":true,"allow_ad_personalization_signals":false});</script>
+<meta name="description" content="By design, UDP is a connection-less protocol that does not validate source Internet Protocol (IP) addresses. Unless the application-layer protocol uses countermeasures such as session initiation in Voice over Internet Protocol, an attacker can easily forge the IP packet datagram (a basic transfer unit associated with a packet-switched network) to include an arbitrary source IP address." />
+<meta name="abstract" content="As part of its mission, CISA leads the effort to enhance the security, resiliency, and reliability of the Nation&#039;s cybersecurity and communications infrastructure." />
+<meta name="keywords" content="uscert, csirt, cert, cybersecurity, cyber security, computer security, U. S. Computer Emergency Readiness, cyber risks" />
+<meta name="Generator" content="Drupal 9 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/sites/default/files/images/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="https://us-cert.cisa.gov/ncas/alerts/TA14-017A" />
+<link rel="shortlink" href="https://us-cert.cisa.gov/node/5777" />
+<link rel="revision" href="https://us-cert.cisa.gov/ncas/alerts/TA14-017A" />
+
+    <title>UDP-Based Amplification Attacks | CISA</title>
+    <link rel="stylesheet" media="all" href="/sites/default/files/css/css_-w-jQbIWIO0ZERqyQMFp9m1ddgDjs5ZGsor0ebo5CG4.css" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_OtQ9QHAYVZDqM__uuCDStHUt38Nwh_1MHX1vxg5dE5c.css" />
+
+    
+    <!-- Google Font -->
+    <style type="text/css">
+/* source-sans-pro-regular - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'),
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.woff') format('woff'), /* Modern Browsers */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.svg#SourceSansPro') format('svg'); /* Legacy iOS */
+}
+    </style>
+    <!--link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet"--> 
+    <!-- Google Font -->
+  </head>
+  <body class="path-node page-node-type-alert has-glyphicons">
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+
+
+<div class="container-fluid top-top">
+      <aside role="complementary">
+        <div class="region region-top">
+    <section id="block-certtoptop" class="block block-block-content block-block-content4d95ffde-0818-4e6b-bd79-d1547b08c0c0 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container">
+<div id="top">
+<div class="row">
+<div class="col-sm-12 flag"><img alt="United States Flag" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/flag.png" style="position: absolute;" /><p style="padding-left: 35px; font-family: Arial; font-size: 11px;">An official website of the United States government <a href="#" id="here-is-how-u-know">Here's how you know <span class="arrow down"> </span></a></p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="usa-banner-content usa-grid usa-accordion-content hidden container" id="gov-banner">
+<div class="usa-banner-guidance-gov usa-width-one-half col-sm-6"><img alt="Dot gov" class="usa-banner-icon usa-media_block-img" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/icon-dot-gov.svg" /><div class="usa-media_block-body"><strong>Official websites use .gov</strong><br />
+A <b>.gov</b> website belongs to an official government organization in the United States.</div>
+</div>
+
+<div class="usa-banner-guidance-ssl usa-width-one-half col-sm-6"><img alt="SSL" class="usa-banner-icon usa-media_block-img" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/icon-https.svg" /><div class="usa-media_block-body"><strong>Secure .gov websites use HTTPS</strong> A <b>lock (<img alt="lock icon" src="/sites/default/files/icons/lock.svg" style="width:15px;" />)</b> or <b>https://</b> means you've safely connected to the .gov website. Share sensitive information only on official, secure websites.</div>
+</div>
+</div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </div>
+
+
+
+<div class="container-fluid hidden-xs hidden-sm banner-region">
+<div class="container">
+<div class="row">
+
+
+  
+
+<section class="col-sm-9">
+
+      <a id="logo-section"></a>
+        <div class="region region-logo">
+    <section id="block-certlogo" class="block block-block-content block-block-content4639a667-debe-4642-bc69-7839662c0187 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="hidden-xs hidden-sm"><a href="/"><img alt="Cybersecurity and Infrastructure Security Agency CISA" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/logo_verbose.png" title="Cybersecurity and Infrastructure Security Agency CISA" /></a></div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </section>
+
+
+
+      <aside class="col-sm-3" role="complementary">
+        <div class="region region-search">
+    <section id="block-certsearch" class="block block-block-content block-block-contentc33bd875-6ea6-42cc-b1ab-348a4e4bdff7 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><form accept-charset="UTF-8" action="https://search.us-cert.gov/search" class="hidden-xs searchbox" method="get"><input name="utf8" type="hidden" value="✓" /><input id="affiliate-desktop" name="affiliate" type="hidden" value="us-cert" /><div class="form-group"><label class="sr-only" for="query-desktop">Enter Search Terms(s):</label>
+<div class="input-group"><input autocomplete="off" class="form-control form-control-custom input-lg" id="query-desktop" name="query" placeholder="Search" type="text" /><div class="input-group-addon input-group-addon-custom"><button class="submit input-lg"><img alt="search icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/search-icon.png" title="search icon" /></button></div>
+</div>
+</div>
+</form>
+<style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+.navbar-default ul.navbar-nav > li.last a{
+display: none;
+
+/*--><!]]>*/
+</style><div style="padding: 16px 12px 8px 12px"><a class="btn btn-primary" href="/services" type="button" style="font-weight: bold; width: 40%">Services</a><a class="btn btn-primary pull-right" href="/report" type="button" style="font-weight: bold; width: 40%">Report</a></div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </div>
+</div>
+<hr class="hidden-xs nav-top-line">
+</div>
+
+
+
+          <header class="navbar navbar-default container-fluid" id="navbar" role="banner">
+        <div class="container ">
+      <div class="navbar-header">
+        
+                          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+            <div class="hidden-lg hidden-md mobile-nav">
+        <a class="" href="/">
+            <img src="/sites/default/files/cert/logo3.png"  alt="US Department of Homeland Security CISA Cyber + Infrastructure" title="US Department of Homeland Security CISA Cyber + Infrastructure">
+          </a>
+        </div>
+      </div>
+
+              <div id="navbar-collapse" class="navbar-collapse collapse">
+            <div class="region region-navigation-collapsible">
+    <section id="block-certsearchmobile" class="block block-block-content block-block-content0da6361c-e31a-4a58-b455-f9ebde1ba544 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><form accept-charset="UTF-8" action="https://search.us-cert.gov/search" class="hidden-lg hidden-md searchbox" method="get"><input name="utf8" type="hidden" value="✓" /><input id="affiliate-mobile" name="affiliate" type="hidden" value="us-cert" /><div class="form-group"><label class="sr-only" for="query-mobile">Enter Search Terms(s):</label>
+<div class="input-group"><input autocomplete="off" class="form-control form-control-custom input-lg" id="query-mobile" name="query" placeholder="Search" type="text" /><div class="input-group-addon input-group-addon-custom"><button class="submit input-lg"><img alt="search icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/search-icon.png" title="search icon" /></button></div>
+</div>
+</div>
+</form>
+<div class="hidden-md hidden-lg" style="padding: 8px"><a class="btn btn-primary btn-block" href="/services" role="button" style="font-weight: bold">Services</a></div>
+
+<div class="hidden-md hidden-lg" style="padding: 8px"><a class="btn btn-primary btn-block" href="/report" role="button" style="font-weight: bold">Report</a></div></div>
+      
+  </section>
+
+<nav role="navigation" aria-labelledby="block-certmainmenu-menu" id="block-certmainmenu">
+            
+  <h2 class="visually-hidden" id="block-certmainmenu-menu">CertMain Menu</h2>
+  
+
+        
+      <ul class="menu menu--certmain-menu nav navbar-nav">
+                      <li class="first">
+                                        <a href="/ncas" title="Alerts and Tips" data-drupal-link-system-path="node/5">Alerts and Tips</a>
+              </li>
+                      <li>
+                                        <a href="/resources" title="Resources" data-drupal-link-system-path="node/12436">Resources</a>
+              </li>
+                      <li>
+                                        <a href="/ics" title="Industrial Control Systems" data-drupal-link-system-path="node/14614">Industrial Control Systems</a>
+              </li>
+                      <li class="last">
+                                        <a href="/report" title="Report" data-drupal-link-system-path="node/5745">Report</a>
+              </li>
+        </ul>
+  
+
+  </nav>
+
+  </div>
+
+        </div>
+                </header>
+  <hr class="hidden-xs hidden-sm nav-bottom-line">
+<div class="visible-xs visible-sm mobile-border"></div>
+
+
+<div class="container">
+    <div id="print-logo"><img alt="US Department of Homeland Security CISA Cyber + Infrastructure" src="/sites/default/files/cert/logo2.png"/></div>
+    <div id="tlp-header"><svg height="30" width="120"> <rect fill="black" height="30" width="120" x="0" y="0"></rect> <text fill="#ffffff" font-size="18px" x="10" y="20">TLP:WHITE</text> </svg></div>
+    <div id="tlp-footer"><svg height="30" width="120"> <rect fill="black" height="30" width="120" x="0" y="0"></rect> <text fill="#ffffff" font-size="18px" x="10" y="20">TLP:WHITE</text> </svg></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  <div role="main" class="main-container container js-quickedit-main-content">
+    <div class="row">
+
+                              <div class="col-sm-12" role="heading" aria-level="1">
+              <div class="region region-header">
+      <div class="container-fluid hidden-xs">
+  <ol class="breadcrumb">
+          <li >
+                  <a href="/ncas">National Cyber Awareness System</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
+              </li>
+          <li >
+                  <a href="/ncas/alerts">Alerts</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
+              </li>
+          <li  class="active">
+                  UDP-Based Amplification Attacks
+              </li>
+      </ol>
+</div>
+
+
+
+  </div>
+
+          </div>
+              
+
+            
+            
+                        
+
+            
+                  <section class="col-sm-12">
+
+                              <div class="highlighted">  <div class="region region-highlighted">
+    <div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+</div>
+              
+                                      
+                  
+                          <a id="main-content"></a>
+            <div class="region region-content">
+                  <div id="ncas-header">
+            <div id="alerts-archive">
+                <a title="View Archives" href="/ncas/alerts/">More Alerts</a>
+            </div>
+            <h1 id="page-title">Alert (TA14-017A)</h1>
+            <h2 id="page-sub-title">UDP-Based Amplification Attacks</h2>
+            <div class="submitted meta-text">
+                                Original release date: January 17, 2014  | Last <a href="#revisions">revised</a>: December 18, 2019
+                                            </div>
+            <div id="social-options">
+	<!-- START PRINT BUTTON -->
+		<div id="print-button">
+			<span id="custom-print-button">
+				<a rel="nofollow" href="javascript:window.print();" title="Click to print."><img src="/sites/default/files/icons/print-button.png" alt="Click to print." /></a>
+			</span>
+		</div>
+    <!-- END PRINT BUTTON -->
+	<!-- START TWEET BUTTON -->
+	<div id="tweet-button">
+		<span id="custom-tweet-button">
+			<a rel="nofollow" target="_blank" href="https://twitter.com/share?url=https%3A%2F%2Fus-cert.cisa.gov%2Fncas%2Falerts%2FTA14-017A" class="popup-twitter" title="Click to Tweet."><img src="/sites/default/files/icons/tweet-button.png" alt="Click to Tweet." /></a>
+		</span>
+	</div>
+	<!-- END TWEET BUTTON -->
+
+	<!-- START FACEBOOK BUTTON -->
+	<div id="facebook-button">
+		<span id="custom-facebook-button">
+		<a rel="nofollow" target="_blank" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fus-cert.cisa.gov%2Fncas%2Falerts%2FTA14-017A" class="popup-facebook" title="Click to send to Facebook."><img src="/sites/default/files/icons/facebook-send-button.png" alt="Click to send to Facebook." /></a>
+		</span>
+	</div>
+	<!-- END FACEBOOK BUTTON -->
+
+	<!-- START SHARE BUTTON -->
+	<div id="share-button">
+		<span id="custom-share-button">
+			<a rel="nofollow" target="_blank" href="http://www.addthis.com/bookmark.php?url=https%3A%2F%2Fus-cert.cisa.gov%2Fncas%2Falerts%2FTA14-017A" class="popup-share" title="Click to Share." ><img src="/sites/default/files/icons/share-button.png" alt="Click to Share." /></a>
+		</span>
+	</div>
+	<!-- END SHARE BUTTON -->
+
+</div>
+        </div>
+    
+  
+<article role="article" about="/ncas/alerts/TA14-017A" class="alert full clearfix">
+
+  
+    
+
+  
+  <div class="content">
+	<div id="ncas-content">
+		<a id="affected"></a>
+		<h3>Systems Affected</h3>
+        
+            <div class="field field--name-field-alert-systems-affected field--type-text-long field--label-hidden field--item"><p>Certain application-layer protocols that rely on the User Datagram Protocol (UDP) have been identified as potential attack vectors. These include</p><ul><li>Domain Name System (DNS),</li><li>Network Time Protocol (NTP),</li><li>Connection-less Lightweight Directory Access Protocol (CLDAP),</li><li>Character Generator Protocol (CharGEN),</li><li>Simple Service Discovery Protocol (SSDP),</li><li>BitTorrent,</li><li>Simple Network Management Protocol version 2 (SNMPv2),</li><li>Kad,</li><li>Portmap/Remote Procedure Call (RPC),</li><li>Quote of the Day (QOTD),</li><li>Multicast Domain Name System (mDNS),</li><li>Network Basic Input/Output System (NetBIOS),</li><li>Quake Network Protocol,</li><li>Steam Protocol,</li><li>Routing Information Protocol version 1 (RIPv1),</li><li>Lightweight Directory Access Protocol (LDAP),</li><li>Trivial File Transfer Protocol (TFTP), and</li><li>Memcached,</li><li> and	Web Services Dynamic Discovery (WS-Discovery).</li></ul></div>
+      
+
+		<a id="overview"></a>
+		<h3>Overview</h3>
+        
+            <div class="field field--name-field-alert-overview field--type-text-long field--label-hidden field--item"><p>A distributed reflective denial-of-service (DRDoS) is a form of distributed denial-of-service (DDoS) attack that relies on publicly accessible UDP servers and bandwidth amplification factors (BAFs) to overwhelm a victim’s system with UDP traffic.</p></div>
+      
+
+		<a id="description"></a>
+		<h3>Description</h3>
+        
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><p>By design, UDP is a connection-less protocol that does not validate source Internet Protocol (IP) addresses. Unless the application-layer protocol uses countermeasures such as session initiation in Voice over Internet Protocol, an attacker can easily forge the IP packet datagram (a basic transfer unit associated with a packet-switched network) to include an arbitrary source IP address. [<a href="https://tools.ietf.org/html/rfc3261">1</a>] When many UDP packets have their source IP address forged to the victim IP address, the destination server (or amplifier) responds to the victim (instead of the attacker), creating a reflected denial-of-service (DoS) attack.</p><p>Certain commands to UDP protocols elicit responses that are much larger than the initial request. Previously, attackers were limited by the linear number of packets directly sent to the target to conduct a DoS attack; now a single packet can generate between 10 and 100 times the original bandwidth. This is called an amplification attack, and when combined with a reflective DoS attack on a large scale, using multiple amplifiers and targeting a single victim, DDoS attacks can be conducted with relative ease.</p><p>The potential effect of an amplification attack can be measured by BAF, which can be calculated as the number of UDP payload bytes that an amplifier sends to answer a request, compared to the number of UDP payload bytes of the request. [<a href="http://www.christian-rossow.de/articles/Amplification_DDoS.php">2</a>] [<a href="http://www.christian-rossow.de/publications/amplification-ndss2014.pdf">3</a>]</p><p>The following is a list of known protocols and their associated BAFs. CISA offers thanks to Christian Rossow for providing this information. For more information on BAFs, please see Christian's <a href="http://www.christian-rossow.de/articles/Amplification_DDoS.php">blog</a> and associated <a href="http://www.christian-rossow.de/publications/amplification-ndss2014.pdf">research paper</a>.</p><table align="center" border="1" cellpadding="1" cellspacing="1" class="general-table" style="width: 600px; height: 312px;"><thead><tr><th scope="col"><strong>Protocol</strong></th><th scope="col"><strong>Bandwidth Amplification Factor</strong></th><th scope="col"><strong>Vulnerable Command</strong></th></tr><tr><td scope="col" style="text-align: left;">DNS</td><td scope="col" style="text-align: left;">28 to 54</td><td scope="col" style="text-align: left;">see:<a href="/ncas/alerts/TA13-088A"> TA13-088A</a> [<a href="/ncas/alerts/TA13-088A">4</a>]</td></tr><tr><td scope="col" style="text-align: left;">NTP</td><td scope="col" style="text-align: left;">556.9</td><td scope="col" style="text-align: left;">see: <a href="/ncas/alerts/TA14-013A">TA14-013A</a> [<a href="/ncas/alerts/TA14-013A">5</a>]</td></tr><tr><td scope="col" style="text-align: left;">SNMPv2</td><td scope="col" style="text-align: left;">6.3</td><td scope="col" style="text-align: left;">GetBulk request</td></tr><tr><td scope="col" style="text-align: left;">NetBIOS</td><td scope="col" style="text-align: left;">3.8</td><td scope="col" style="text-align: left;">Name resolution</td></tr><tr><td scope="col" style="text-align: left;">SSDP</td><td scope="col" style="text-align: left;">30.8</td><td scope="col" style="text-align: left;">SEARCH request</td></tr><tr><td>CharGEN</td><td>358.8</td><td>Character generation request</td></tr><tr><td>QOTD</td><td>140.3</td><td>Quote request</td></tr><tr><td>BitTorrent</td><td>3.8</td><td>File search</td></tr><tr><td>Kad</td><td>16.3</td><td>Peer list exchange</td></tr><tr><td>Quake Network Protocol</td><td>63.9</td><td>Server info exchange</td></tr><tr><td>Steam Protocol</td><td>5.5</td><td>Server info exchange</td></tr><tr><td>Multicast DNS (mDNS)</td><td>2 to 10</td><td>Unicast query</td></tr><tr><td>RIPv1</td><td>131.24</td><td>Malformed request</td></tr><tr><td>Portmap (RPCbind)</td><td>7 to 28</td><td>Malformed request</td></tr><tr><td>LDAP</td><td>46 to 55</td><td><a href="https://ldapscan.shadowserver.org">Malformed request</a> [<a href="https://ldapscan.shadowserver.org/">6</a>]</td></tr><tr><td>CLDAP [<a href="https://www.akamai.com/us/en/about/our-thinking/threat-advisories/connection-less-lightweight-directory-access-protocol-reflection-ddos-threat-advisory.jsp">7</a>]</td><td>56 to 70</td><td>—</td></tr><tr><td>TFTP [<a href="https://www.researchgate.net/publication/284077229_TFTP_DDoS_amplification_attack">23</a>]</td><td>60</td><td>—</td></tr><tr><td>Memcached [<a href="https://memcachedscan.shadowserver.org/">25</a>]</td><td>10,000 to 51,000</td><td>—</td></tr><tr><td>WS-Discovery</td><td>10 to 500</td><td>—</td></tr></thead></table><p>In March 2015, the CERT Coordination Center of the Software Engineering Institute issued Vulnerability Note VU#550620 describing the use of mDNS in DRDoS attacks. Attackers can leverage mDNS by sending more information than can be handled by the device, thereby causing a DoS condition. [<a href="https://www.kb.cert.org/vuls/id/550620">8</a>]</p><p>In July 2015, Akamai Technologies' Prolexic Security Engineering and Research Team (PLXsert) issued a threat advisory describing a surge in DRDoS attacks using RIPv1. Malicious actors are leveraging the behavior of RIPv1 for DDoS reflection through specially crafted request queries. [<a href="http://www.stateoftheinternet.com/">9</a>]</p><p>In August 2015, Level 3 Threat Research Labs reported a new form of DRDoS attack that uses portmap. Attackers are leveraging the behavior of the portmap service through spoofed requests to flood a victim’s network with UDP traffic. [<a href="http://blog.level3.com/security/a-new-ddos-reflection-attack-portmapper-an-early-warning-to-the-industry/">10</a>]</p><p>In October 2016, Corero Network Security reported a new DDoS amplification attack exploiting LDAP directory services servers against its customers. [<a href="https://www.corero.com/company/newsroom/press-releases/corero-warns-of-powerful-new-ddos-attack-vector-with-potential-for-terabit-scale-ddos-events/%5d">11</a>]</p><p>In November 2017, Netlab 360 reported that CLDAP is now the third most common DRDoS attack, behind DNS and NTP attacks. [<a href="http://blog.netlab.360.com/cldap-is-now-the-3rd-reflection-amplified-ddos-attack-vector-surpassing-ssdp-and-chargen-en">12</a>]</p><p>In February 2018, SENKI reported an increase in Memcached-based reflection DDoS attacks (via UDP/TCP port 11211) with an unprecedented amplification factor. [<a href="http://www.senki.org/memcached-on-port-11211-udp-tcp-being-exploited/">24</a>]</p><p>In September 2019, Akamai reported DDoS attacks exploiting WS-Discovery protocol (via TCP/UDP port 3702. [<a href="https://blogs.akamai.com/sitr/2019/09/new-ddos-vector-observed-in-the-wild-wsd-attacks-hitting-35gbps.html/">26</a>]</p></div>
+      
+
+		<a id="impact"></a>
+		<h3>Impact</h3>
+        
+            <div class="field field--name-field-alert-impact field--type-text-long field--label-hidden field--item"><p>Attackers can use the bandwidth and relative trust of large servers that provide the UDP protocols provided in this alert to flood victims with unwanted traffic and create a DDoS attack.</p></div>
+      
+
+		<a id="solution"></a>
+		<h3>Solution</h3>
+        
+            <div class="field field--name-field-alert-solution field--type-text-long field--label-hidden field--item"><h4>Detection</h4><p>Detection of DRDoS attacks is not easy because of their use of large, trusted servers that provide UDP services. Network operators of these exploitable services may apply traditional DoS mitigation techniques. To detect a DRDoS attack, watch out for abnormally large responses to a particular IP address, which may indicate that an attacker is using the service.</p><p>There are a few things victims of DRDoS attacks can do to detect such activity and respond:</p><ol><li>Detect and alert large UDP packets to higher order ports.</li><li>Detect and alert on any non-stateful UDP packets. (A simple Snort example is below. The approach will need to be customized to each environment with a whitelist and known services.)<div style="background: rgb(238, 238, 238); padding: 5px 10px; border: 1px solid rgb(204, 204, 204); border-image: none;">Simple Snort rule example for stateless UDP check</div><div style="background: rgb(238, 238, 238); padding: 5px 10px; border: 1px solid rgb(204, 204, 204); border-image: none;">var HOME_NET [10.10.10.20]<br />preprocessor stream5_global: track_ip yes, track_tcp yes,track_udp yes,track_icmp no,max_tcp 262144, max_udp 131072<br />preprocessor stream5_ip: timeout 180<br />preprocessor stream5_tcp: policy first, use_static_footprint_sizes<br />preprocessor stream5_udp: timeout 180, ignore_any_rules<br />alert udp HOME_NET 1024: -&gt; any any (msg:"UDP Session start"; flowbits:set,logged_in; flowbits:noalert; sid: 1001;)<br />alert udp any any -&gt; HOME_NET 1024: (msg:"UDP Stateless"; flowbits:isnotset,logged_in; sid: 1002)</div></li><li>Upstream providers should maintain updated contacts and methods with downstream customers to send alerts by network.</li></ol><p>In general, network and server administrators for internet service providers (ISPs) should use the following best practices to avoid becoming amplifier nodes:</p><ol><li>Use network flow to detect spoofed packets. (See the Mitigation section below for information on verifying spoofed traffic before blocking that traffic.)</li><li>Use network flow or other summarized network data to monitor for an unusual number of requests to at-risk UDP services.</li><li>Use network flow to detect service anomalies (e.g., bytes-per-packet and packets-per-second anomalies).</li></ol><h4>Mitigation</h4><p>The following steps can help mitigate a DRDoS attack:</p><ol><li>Use stateful UDP inspections—such as reflexive access control lists—to reduce the impact to critical services on border firewalls or border routers. [<a href="https://www.cisco.com/c/en/us/td/docs/ios/12_2/security/configuration/guide/fsecur_c/scfreflx.html">13</a>]</li><li>Use a Border Gateway Protocol (BGP) to create a Remotely Triggered Blackhole, preferably in coordination with upstream providers or ISPs. [<a href="http://packetlife.net/blog/2009/jul/6/remotely-triggered-black-hole-rtbh-routing/">14</a>]</li><li>Maintain a list of primary upstream provider emergency contacts to coordinate responses to attacks. Upstream providers should conduct mitigation in coordination with downstream customers.</li></ol><p>In general, ISP network and server administrators should use the following best practices to avoid becoming amplifier nodes:</p><ol><li>Regularly update software and configurations to deny or limit abuse (e.g., DNS response rate limit). [<a href="https://kb.isc.org/article/AA-01000/0/A-Quick-Introduction-to-Response-Rate-Limiting.html">15</a>] [<a href="https://tools.ietf.org/html/bcp38">16</a>] [<a href="https://tools.ietf.org/html/bcp84">17</a>]</li><li>Disable and remove unwanted services, or deny access to local services over the internet.</li><li>Use UDP-based protocols—e.g., quality of service (QoS) on switching and routing devices—to enable network-based rate-limiting to legitimate services provided over the internet.</li><li>Work with Customer Provider Edge manufacturers for secure configuration and software. [<a href="https://resources.sei.cmu.edu/asset_files/WhitePaper/2014_019_001_312679.pdf">18</a>]</li></ol><p>As a service provider, to avoid any misuse of internet resources:</p><ol><li>Use ingress filtering to block spoofed packets (See the Spoofer Project [<a href="https://spoofer.caida.org/">19</a>], and IETF BCP 38 and BCP 84 guidelines). [<a href="https://resources.sei.cmu.edu/asset_files/WhitePaper/2014_019_001_312679.pdf">20</a>]</li><li>Use traffic shaping on UDP service requests to ensure repeated access to over-the-Internet resources is not abusive. [<a href="https://tools.ietf.org/html/rfc2475">21</a>] [<a href="https://tools.ietf.org/html/rfc3260">22</a>]</li></ol></div>
+      
+
+		<a id="references"></a>
+		<h3>References</h3>
+        
+      <div class="field field--name-field-alert-references field--type-link field--label-hidden field--items">
+              <div class="field--item"><a href="https://tools.ietf.org/html/rfc3261">[1] SIP: Session Initiation Protocol</a></div>
+              <div class="field--item"><a href="http://www.christian-rossow.de/articles/Amplification_DDoS.php">[2] Amplification Hell: Abusing Network Protocols for DDoS</a></div>
+              <div class="field--item"><a href="http://www.christian-rossow.de/publications/amplification-ndss2014.pdf">[3] Ampliﬁcation Hell: Revisiting Network Protocols for DDoS Abuse</a></div>
+              <div class="field--item"><a href="https://www.us-cert.gov/ncas/alerts/TA13-088A">[4] DNS Amplification Attacks</a></div>
+              <div class="field--item"><a href="https://www.us-cert.gov/ncas/alerts/TA14-013A">[5] NTP Amplification Attacks Using CVE-2013-5211</a></div>
+              <div class="field--item"><a href="https://ldapscan.shadowserver.org">[6] Open LDAP Scanning Project</a></div>
+              <div class="field--item"><a href="https://www.akamai.com/us/en/about/our-thinking/threat-advisories/connection-less-lightweight-directory-access-protocol-reflection-ddos-threat-advisory.jsp">[7] CLDAP Reflection DDoS</a></div>
+              <div class="field--item"><a href="https://www.kb.cert.org/vuls/id/550620">[8] VU#550620: Multicast DNS (mDNS) implementations may respond to unicast quer…</a></div>
+              <div class="field--item"><a href="https://www.akamai.com/us/en/multimedia/documents/state-of-the-internet/ripv1-reflection-ddos-threat-advisory.pdf">[9] RIPv1 Reflection DDoS [Medium Risk]</a></div>
+              <div class="field--item"><a href="http://blog.level3.com/security/a-new-ddos-reflection-attack-portmapper-an-early-warning-to-the-industry">[10] A New DDoS Reflection Attack: Portmapper; An Early Warning to the Industry </a></div>
+              <div class="field--item"><a href="https://www.corero.com/company/newsroom/press-releases/corero-warns-of-powerful-new-ddos-attack-vector-with-potential-for-terabit-scale-ddos-events">[11] Corero Warns of Powerful New DDoS Attack Vector </a></div>
+              <div class="field--item"><a href="http://blog.netlab.360.com/cldap-is-now-the-3rd-reflection-amplified-ddos-attack-vector-surpassing-ssdp-and-chargen-en">[12] CLDAP is Now the No.3 Reflection Amplified DDoS Attack Vector, Surpassing …</a></div>
+              <div class="field--item"><a href="https://www.cisco.com/c/en/us/td/docs/ios/12_2/security/configuration/guide/fsecur_c/scfreflx.html">[13] Configuring IP Session Filtering (Reflexive Access Lists)</a></div>
+              <div class="field--item"><a href="http://packetlife.net/blog/2009/jul/6/remotely-triggered-black-hole-rtbh-routing">[14] Remotely-Triggered Black Hole (RTBH) Routing</a></div>
+              <div class="field--item"><a href="https://kb.isc.org/article/AA-01000/0/A-Quick-Introduction-to-Response-Rate-Limiting.html">[15] A Quick Introduction to Response Rate Limiting</a></div>
+              <div class="field--item"><a href="https://tools.ietf.org/html/bcp38">[16] Network Ingress Filtering: Defeating Denial of Service Attacks Which Emplo…</a></div>
+              <div class="field--item"><a href="https://tools.ietf.org/html/bcp84">[17] Ingress Filtering for Multihomed Networks</a></div>
+              <div class="field--item"><a href="https://resources.sei.cmu.edu/asset_files/WhitePaper/2014_019_001_312679.pdf">[18] Abuse of Customer Premise Equipment and Recommended Actions</a></div>
+              <div class="field--item"><a href="https://spoofer.caida.org">[19] The Spoofer Project</a></div>
+              <div class="field--item"><a href="https://resources.sei.cmu.edu/asset_files/WhitePaper/2014_019_001_312679.pdf">[20] Abuse of Customer Premise Equipment and Recommended Actions</a></div>
+              <div class="field--item"><a href="https://tools.ietf.org/html/rfc2475">[21] An Architecture for Differentiated Services</a></div>
+              <div class="field--item"><a href="https://tools.ietf.org/html/rfc3260">[22] New Terminology and Clarifications for Diffserv</a></div>
+              <div class="field--item"><a href="https://www.researchgate.net/publication/284077229_TFTP_DDoS_amplification_attack">[23] TFTP DDoS Amplification Attack</a></div>
+              <div class="field--item"><a href="http://www.senki.org/memcached-on-port-11211-udp-tcp-being-exploited">[24] Memcached on Port 11211 UDP &amp; TCP Being Exploited</a></div>
+              <div class="field--item"><a href="https://memcachedscan.shadowserver.org">[25] Open Memcached Key-Value Store Scanning Project</a></div>
+              <div class="field--item"><a href="https://blogs.akamai.com/sitr/2019/09/new-ddos-vector-observed-in-the-wild-wsd-attacks-hitting-35gbps.html">[26] New DDoS Vector Observed in the Wild: WSD attacks hitting 35/Gbps</a></div>
+          </div>
+  
+
+		<a id="revisions"></a>
+		<h3>Revisions</h3>
+        
+      <div class="field field--name-field-alert-revision-history field--type-text field--label-hidden field--items">
+              <div class="field--item">February 9, 2014 – Initial Release</div>
+              <div class="field--item">March 7, 2014 – Updated page to include research links</div>
+              <div class="field--item">July 13, 2015 – Added RIPv1 as an attack vector</div>
+              <div class="field--item">August 19, 2015 – Added Multicast DNS (mDNS) and Portmap (RPCbind) as attack vectors</div>
+              <div class="field--item">April 13, 2016 – Updated detection and mitigation information</div>
+              <div class="field--item">November 4, 2016 – Updated for LDAP attack vector</div>
+              <div class="field--item">December 4, 2017 – Added information on CLDAP as an attack vector</div>
+              <div class="field--item">December 6, 2017 – Added information on TFTP as an attack vector</div>
+              <div class="field--item">February 27, 2018 – Added information on Memcached as an attack vector</div>
+              <div class="field--item">March 2, 2018 – Updated information on Memcached as an attack vector</div>
+              <div class="field--item">December 18, 2019 – Added information on WS-Discovery as an attack vector</div>
+          </div>
+  
+
+        
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><p class="privacy-and-terms">This product is provided subject to this <a href="/privacy/notification">Notification</a> and this <a href="https://www.dhs.gov/privacy-policy">Privacy &amp; Use</a> policy.</p>
+</div>
+      
+
+	</div>
+                        <div id="document-feedback">
+	<div class="inner-document-feedback center-center">
+        <p><b>Please share your thoughts.</b></p>
+		<p>We recently updated our anonymous <a href="https://www.surveymonkey.com/r/CISA-cyber-survey?product=https://us-cert.cisa.gov/ncas/alerts/TA14-017A">product survey</a>; we'd welcome your feedback.</p>
+	</div>
+</div>
+
+              </div>
+
+</article>
+
+
+  </div>
+
+              </section>
+
+
+                      </div>
+  </div>
+
+
+
+
+
+
+      <footer class="footer container-fluid" role="contentinfo">
+        <div class="region region-footer">
+    <section id="block-certsignup" class="block block-block-content block-block-contentc5846d10-2e2b-4822-aa59-7a5c3262f671 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container-fluid signup">
+<div class="container">
+<div class="row">
+<div class="col-lg-3 contact-icons">
+<h3>Contact Us</h3>
+
+<p class="phone-text"><img alt="phone icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Phone.png" />(888)282-0870</p>
+
+<p><img alt="email icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Email.png" /><a class="mailto" href="mailto:central@cisa.dhs.gov" title="General questions or suggestions">Send us email</a></p>
+
+<p><img alt="lock icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Lock.png" /><a href="/contact-us/" title="Download PGP/GPG keys">Download PGP/GPG keys</a></p>
+
+<p><img alt="feedback icon" data-entity-type="" data-entity-uuid="" height="32" src="/sites/default/files/images/icon-feedback.png" /><a href="/forms/website-feedback" title="Website Feedback">Submit website feedback</a></p>
+</div>
+
+<div class="col-lg-6 sub-alert">
+<h3>Subscribe to Alerts</h3>
+
+<p>Receive security alerts, tips, and other updates.</p>
+
+<form action="https://public.govdelivery.com/accounts/USDHSCISA/subscribers/qualify"><label class="visually-hidden" for="email-address-field">Enter your email address</label> <input class="signup-form" id="email-address-field" name="email" placeholder=" Enter your email address" title="Enter your email address" type="text" /><br /><input class="btn btn-primary" name="submit" title="Sign up for alerts" type="submit" value="Sign Up" /> </form>
+
+<div class="pull-right signup-icon-one"><a href="https://twitter.com/uscert_gov" title="US-CERT Twitter Feed"><img alt="twitter icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/twitter-button.png" /></a></div>
+
+<div class="pull-right signup-icon-two"><a href="/mailing-lists-and-feeds" title="Mailing Lists and Feeds"><img alt="rss icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/rss-button-bottom.png" /></a></div>
+
+<div class="pull-right signup-icon-three"><a href="/hsin" class="btn btn-cert-report" name="button" type="button" id="button">HSIN</a></div>
+</div>
+
+<div class="col-lg-3 cert-report"><a class="btn btn-cert-report btn-lg" href="/report" name="button" type="button" id="button">Report</a></div>
+</div>
+</div>
+</div>
+</div>
+      
+  </section>
+
+<section id="block-certcertfooter" class="block block-block-content block-block-contentd5b85bd2-62d1-485a-b9ae-f040b1ca1a45 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container">
+<hr /><div class="text-center"><a href="/" title="Home">Home</a>   <a href="/sitemap" title="Site Map">Site Map</a>   <a href="/faq/" title="Frequently Asked Questions">FAQ</a>   <a href="/contact-us/" title="Contact Us">Contact Us</a>   <a href="/tlp/" title="Traffic Light Protocol">Traffic Light Protocol</a>   <a href="/pcii" title="PCII">PCII</a>   <a href="https://www.dhs.gov" title="Accountability">Accountability</a>   <a href="/disclaimer" title="Disclaimer">Disclaimer</a>   <a href="/privacy-policy" title="Privacy Policy">Privacy Policy</a>   <a href="https://www.dhs.gov/freedom-information-act-foia" title="FOIA">FOIA</a>   <a href="https://www.dhs.gov/homeland-security-no-fear-act-reporting" title="No Fear Act">No Fear Act</a>   <a href="/accessibility/" title="Accessibility">Accessibility</a><a href="https://www.dhs.gov/plain-writing-dhs" title="Plain Writing">Plain Writing</a><a href="https://www.dhs.gov/plug-information" title="Plug-ins">Plug-ins</a>   <a href="https://www.oig.dhs.gov/" title="Office of the Inspector General">Inspector General</a>   <a href="https://www.whitehouse.gov/" title="The White House">The White House</a>   <a href="https://www.usa.gov/" title="USA.gov">USA.gov</a><br />
+ 
+<p>CISA is part of the <a href="https://www.dhs.gov/" title="Department of Homeland Security">Department of Homeland Security</a></p>
+</div>
+<script type="text/javascript">
+<!--//--><![CDATA[// ><!--
+
+    window.onload = function(){
+            jQuery('body.page-node-type-us-cert-events div#ncas-header').find('img').each(function(){
+                    var $src=jQuery(this).prop('src');
+                    if($src.indexOf('default/files/') == -1)jQuery(this).remove();
+                    });
+            if('Privacy Data Breach' == jQuery('#uscert-utilities-irf-form #item-info-impact option:selected').text()){ 
+                jQuery('#item-info-impact-block').removeClass('collapsed'); 
+            }
+jQuery('#print-logo img').removeAttr('width').removeAttr('height');
+if(jQuery('body.path-frontpage').length > 0)
+{   
+    jQuery('.main-container').find('.col-sm-12').removeAttr('role');
+}
+jQuery('#map area').each(function(){ jQuery(this).click(function(){var idstr=jQuery(this).attr('clickthis'); if(jQuery(idstr).hasClass('open') == false){jQuery(idstr).click();}});});  
+if(jQuery('#document-feedback').length > 0)
+{ 
+    var $url    = window.location.href
+    //var str ='Your feedback is very important to us. Please take a moment to complete this <a href="https://surveymonkey.com/r/G8STDRY?product=' + $url + '">survey.';
+    //var $p = jQuery('#document-feedback div p').html(str);
+}
+    };
+
+//--><!]]>
+</script></div>
+<style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+#views-bootstrap-carousel-block-2 .carousel-inner > .item > a > img {
+  margin:auto;
+}
+button#product-feedback-next {
+    margin-bottom: 10px;
+}
+/*
+.mobile-nav {
+border-bottom: 3px solid #112e51;
+}
+*/
+.cma-banner-container {
+    display: none;
+}
+@media (max-width: 991px) {
+.navbar .navbar-header {
+background: #fff;
+}
+}
+div.banner-region { background: #fff; }
+
+.accordion_fold {
+    padding-bottom: 25px;
+}
+
+h2.accordion.open {
+    background: #f2f2f2;
+}
+
+a { color: #2b72af;}
+
+.navbar-default .navbar-nav > li > a { color: #767676; }
+/* andi */
+.sidebar-widget-orange .orange {
+    background-color: #e77431;
+}
+#block-views-block-ics-announcements-block-1 .views-field-created {
+    color: #565656;
+}
+a#sort-bulletin {
+color: #000;
+background: white;
+position: absolute;
+right: 150px;
+padding: 1px 12px;
+}
+
+/*--><!]]>*/
+</style></div>
+      
+  </section>
+
+
+  </div>
+
+    </footer>
+  
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","scriptPath":null,"pathPrefix":"","currentPath":"node\/5777","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"UA-34879253-1","trackOutbound":true,"trackMailto":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"data":{"extlink":{"extTarget":false,"extTargetNoOverride":false,"extNofollow":false,"extNoreferrer":false,"extFollowNoOverride":false,"extClass":"ext","extLabel":"(link is external)","extImgClass":false,"extSubdomains":true,"extExclude":"(\\.gov|\\.mil|\\.org.*|twitter\\.com\\\/share\\?url\\=.*|www\\.facebook\\.com\\\/sharer\\.php\\?u\\=.*|www\\.addthis\\.com\\\/bookmark\\.php\\?url\\=.*|javascript\\:window\\.print\\(\\)\\;)","extInclude":"","extCssExclude":"","extCssExplicit":"","extAlert":true,"extAlertText":"You are now leaving an official website of the United States Government (USG), the Department of Homeland Security (DHS), and the Cybersecurity and Infrastructure Security Agency (CISA). Links to non-USG, non-DHS, and non-CISA sites are provided for the visitor\u0027s convenience and do not represent an endorsement by USG, DHS, or CISA of any commercial or private issues, products, or services. Note that the privacy policy of the linked site may differ from that of USG, DHS, and CISA.","mailtoClass":"mailto","mailtoLabel":"(link sends email)","extUseFontAwesome":false,"extIconPlacement":"append","extFaLinkClasses":"fa fa-external-link","extFaMailtoClasses":"fa fa-envelope-o","whitelistedDomains":null}},"bootstrap":{"forms_has_error_value_toggle":1,"popover_enabled":1,"popover_animation":1,"popover_auto_close":1,"popover_container":"body","popover_content":"","popover_delay":"0","popover_html":0,"popover_placement":"right","popover_selector":"","popover_title":"","popover_trigger":"click","tooltip_enabled":1,"tooltip_animation":1,"tooltip_container":"body","tooltip_delay":"0","tooltip_html":0,"tooltip_placement":"auto left","tooltip_selector":"","tooltip_trigger":"hover"},"user":{"uid":0,"permissionsHash":"5ac3ae468050ddd0aa4ecea12c34a32977a23244239ed53eb7226f296aed658f"}}</script>
+<script src="/sites/default/files/js/js_xhqBHziEDyCKWlB5IUseaFAGh1B08TPFGmxCf6RvFnM.js"></script>
+<script src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DHS&amp;subagency=US-CERT&amp;pua=0" id="_fed_an_ua_tag"></script>
+<script src="/sites/default/files/js/js_m5CHELy9XHlAx2jnhaYdT2XVeN916TnZL5U2ha7Ln94.js"></script>
+
+  <script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"877b02039c","applicationID":"628657512,979282327","transactionName":"ZFYHMhZSXUpRUkcKDF0cJAUQWlxXH0FSBAZsUAQFDFY=","queueTime":0,"applicationTime":29,"atts":"SBEERF5ITkQ=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

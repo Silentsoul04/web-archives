@@ -1,0 +1,2088 @@
+<!DOCTYPE html>
+<html  lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+    <meta charset="utf-8" /><script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={licenseKey:"877b02039c",applicationID:"628657512"};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var i=e[n]={exports:{}};t[n][0].call(i.exports,function(e){var i=t[n][1][e];return r(i||e)},i,i.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var i=0;i<n.length;i++)r(n[i]);return r}({1:[function(t,e,n){function r(){}function i(t,e,n){return function(){return o(t,[u.now()].concat(f(arguments)),e?null:this,n),e?void 0:this}}var o=t("handle"),a=t(8),f=t(9),c=t("ee").get("tracer"),u=t("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var d=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],p="api-",l=p+"ixn-";a(d,function(t,e){s[e]=i(p+e,!0,"api")}),s.addPageAction=i(p+"addPageAction",!0),s.setCurrentRouteName=i(p+"routeName",!0),e.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(t,e){var n={},r=this,i="function"==typeof e;return o(l+"tracer",[u.now(),t,n],r),function(){if(c.emit((i?"":"no-")+"fn-start",[u.now(),r,i],n),i)try{return e.apply(this,arguments)}catch(t){throw c.emit("fn-err",[arguments,this,t],n),t}finally{c.emit("fn-end",[u.now()],n)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(t,e){m[e]=i(l+e)}),newrelic.noticeError=function(t,e){"string"==typeof t&&(t=new Error(t)),o("err",[t,u.now(),!1,e])}},{}],2:[function(t,e,n){function r(t){if(NREUM.init){for(var e=NREUM.init,n=t.split("."),r=0;r<n.length-1;r++)if(e=e[n[r]],"object"!=typeof e)return;return e=e[n[n.length-1]]}}e.exports={getConfiguration:r}},{}],3:[function(t,e,n){function r(){return f.exists&&performance.now?Math.round(performance.now()):(o=Math.max((new Date).getTime(),o))-a}function i(){return o}var o=(new Date).getTime(),a=o,f=t(10);e.exports=r,e.exports.offset=a,e.exports.getLastTimestamp=i},{}],4:[function(t,e,n){function r(t){return!(!t||!t.protocol||"file:"===t.protocol)}e.exports=r},{}],5:[function(t,e,n){function r(t,e){var n=t.getEntries();n.forEach(function(t){"first-paint"===t.name?d("timing",["fp",Math.floor(t.startTime)]):"first-contentful-paint"===t.name&&d("timing",["fcp",Math.floor(t.startTime)])})}function i(t,e){var n=t.getEntries();n.length>0&&d("lcp",[n[n.length-1]])}function o(t){t.getEntries().forEach(function(t){t.hadRecentInput||d("cls",[t])})}function a(t){if(t instanceof m&&!g){var e=Math.round(t.timeStamp),n={type:t.type};e<=p.now()?n.fid=p.now()-e:e>p.offset&&e<=Date.now()?(e-=p.offset,n.fid=p.now()-e):e=p.now(),g=!0,d("timing",["fi",e,n])}}function f(t){d("pageHide",[p.now(),t])}if(!("init"in NREUM&&"page_view_timing"in NREUM.init&&"enabled"in NREUM.init.page_view_timing&&NREUM.init.page_view_timing.enabled===!1)){var c,u,s,d=t("handle"),p=t("loader"),l=t(7),m=NREUM.o.EV;if("PerformanceObserver"in window&&"function"==typeof window.PerformanceObserver){c=new PerformanceObserver(r);try{c.observe({entryTypes:["paint"]})}catch(v){}u=new PerformanceObserver(i);try{u.observe({entryTypes:["largest-contentful-paint"]})}catch(v){}s=new PerformanceObserver(o);try{s.observe({type:"layout-shift",buffered:!0})}catch(v){}}if("addEventListener"in document){var g=!1,h=["click","keydown","mousedown","pointerdown","touchstart"];h.forEach(function(t){document.addEventListener(t,a,!1)})}l(f)}},{}],6:[function(t,e,n){function r(t,e){if(!i)return!1;if(t!==i)return!1;if(!e)return!0;if(!o)return!1;for(var n=o.split("."),r=e.split("."),a=0;a<r.length;a++)if(r[a]!==n[a])return!1;return!0}var i=null,o=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var f=navigator.userAgent,c=f.match(a);c&&f.indexOf("Chrome")===-1&&f.indexOf("Chromium")===-1&&(i="Safari",o=c[1])}e.exports={agent:i,version:o,match:r}},{}],7:[function(t,e,n){function r(t){function e(){t(a&&document[a]?document[a]:document[i]?"hidden":"visible")}"addEventListener"in document&&o&&document.addEventListener(o,e,!1)}e.exports=r;var i,o,a;"undefined"!=typeof document.hidden?(i="hidden",o="visibilitychange",a="visibilityState"):"undefined"!=typeof document.msHidden?(i="msHidden",o="msvisibilitychange"):"undefined"!=typeof document.webkitHidden&&(i="webkitHidden",o="webkitvisibilitychange",a="webkitVisibilityState")},{}],8:[function(t,e,n){function r(t,e){var n=[],r="",o=0;for(r in t)i.call(t,r)&&(n[o]=e(r,t[r]),o+=1);return n}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],9:[function(t,e,n){function r(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,i=n-e||0,o=Array(i<0?0:i);++r<i;)o[r]=t[e+r];return o}e.exports=r},{}],10:[function(t,e,n){e.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(t,e,n){function r(){}function i(t){function e(t){return t&&t instanceof r?t:t?u(t,c,a):a()}function n(n,r,i,o,a){if(a!==!1&&(a=!0),!l.aborted||o){t&&a&&t(n,r,i);for(var f=e(i),c=v(n),u=c.length,s=0;s<u;s++)c[s].apply(f,r);var p=d[w[n]];return p&&p.push([b,n,r,f]),f}}function o(t,e){y[t]=v(t).concat(e)}function m(t,e){var n=y[t];if(n)for(var r=0;r<n.length;r++)n[r]===e&&n.splice(r,1)}function v(t){return y[t]||[]}function g(t){return p[t]=p[t]||i(n)}function h(t,e){l.aborted||s(t,function(t,n){e=e||"feature",w[n]=e,e in d||(d[e]=[])})}var y={},w={},b={on:o,addEventListener:o,removeEventListener:m,emit:n,get:g,listeners:v,context:e,buffer:h,abort:f,aborted:!1};return b}function o(t){return u(t,c,a)}function a(){return new r}function f(){(d.api||d.feature)&&(l.aborted=!0,d=l.backlog={})}var c="nr@context",u=t("gos"),s=t(8),d={},p={},l=e.exports=i();e.exports.getOrSetContext=o,l.backlog=d},{}],gos:[function(t,e,n){function r(t,e,n){if(i.call(t,e))return t[e];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:r,writable:!0,enumerable:!1}),r}catch(o){}return t[e]=r,r}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],handle:[function(t,e,n){function r(t,e,n,r){i.buffer([t],r),i.emit(t,e,n)}var i=t("ee").get("handle");e.exports=r,r.ee=i},{}],id:[function(t,e,n){function r(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:a(t,o,function(){return i++})}var i=1,o="nr@id",a=t("gos");e.exports=r},{}],loader:[function(t,e,n){function r(){if(!R++){var t=M.info=NREUM.info,e=v.getElementsByTagName("script")[0];if(setTimeout(u.abort,3e4),!(t&&t.licenseKey&&t.applicationID&&e))return u.abort();c(E,function(e,n){t[e]||(t[e]=n)});var n=a();f("mark",["onload",n+M.offset],null,"api"),f("timing",["load",n]);var r=v.createElement("script");0===t.agent.indexOf("http://")||0===t.agent.indexOf("https://")?r.src=t.agent:r.src=l+"://"+t.agent,e.parentNode.insertBefore(r,e)}}function i(){"complete"===v.readyState&&o()}function o(){f("mark",["domContent",a()+M.offset],null,"api")}var a=t(3),f=t("handle"),c=t(8),u=t("ee"),s=t(6),d=t(4),p=t(2),l=p.getConfiguration("ssl")===!1?"http":"https",m=window,v=m.document,g="addEventListener",h="attachEvent",y=m.XMLHttpRequest,w=y&&y.prototype,b=!d(m.location);NREUM.o={ST:setTimeout,SI:m.setImmediate,CT:clearTimeout,XHR:y,REQ:m.Request,EV:m.Event,PR:m.Promise,MO:m.MutationObserver};var x=""+location,E={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1209.min.js"},O=y&&w&&w[g]&&!/CriOS/.test(navigator.userAgent),M=e.exports={offset:a.getLastTimestamp(),now:a,origin:x,features:{},xhrWrappable:O,userAgent:s,disabled:b};if(!b){t(1),t(5),v[g]?(v[g]("DOMContentLoaded",o,!1),m[g]("load",r,!1)):(v[h]("onreadystatechange",i),m[h]("onload",r)),f("mark",["firstbyte",a.getLastTimestamp()],null,"api");var R=0}},{}],"wrap-function":[function(t,e,n){function r(t,e){function n(e,n,r,c,u){function nrWrapper(){var o,a,s,p;try{a=this,o=d(arguments),s="function"==typeof r?r(o,a):r||{}}catch(l){i([l,"",[o,a,c],s],t)}f(n+"start",[o,a,c],s,u);try{return p=e.apply(a,o)}catch(m){throw f(n+"err",[o,a,m],s,u),m}finally{f(n+"end",[o,a,p],s,u)}}return a(e)?e:(n||(n=""),nrWrapper[p]=e,o(e,nrWrapper,t),nrWrapper)}function r(t,e,r,i,o){r||(r="");var f,c,u,s="-"===r.charAt(0);for(u=0;u<e.length;u++)c=e[u],f=t[c],a(f)||(t[c]=n(f,s?c+r:r,i,c,o))}function f(n,r,o,a){if(!m||e){var f=m;m=!0;try{t.emit(n,r,o,e,a)}catch(c){i([c,n,r,o],t)}m=f}}return t||(t=s),n.inPlace=r,n.flag=p,n}function i(t,e){e||(e=s);try{e.emit("internal-error",t)}catch(n){}}function o(t,e,n){if(Object.defineProperty&&Object.keys)try{var r=Object.keys(t);return r.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(o){i([o],n)}for(var a in t)l.call(t,a)&&(e[a]=t[a]);return e}function a(t){return!(t&&t instanceof Function&&t.apply&&!t[p])}function f(t,e){var n=e(t);return n[p]=t,o(t,n,s),n}function c(t,e,n){var r=t[e];t[e]=f(r,n)}function u(){for(var t=arguments.length,e=new Array(t),n=0;n<t;++n)e[n]=arguments[n];return e}var s=t("ee"),d=t(9),p="nr@original",l=Object.prototype.hasOwnProperty,m=!1;e.exports=r,e.exports.wrapFunction=f,e.exports.wrapInPlace=c,e.exports.argsToArray=u},{}]},{},["loader"]);</script>
+<script async src="/sites/default/files/google_analytics/gtag.js?qufkhs"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("config", "UA-34879253-1", {"groups":"default","anonymize_ip":true,"allow_ad_personalization_signals":false});</script>
+<meta name="description" content="/*--&gt;*/
+
+/*--&gt;*/
+
+*/" />
+<meta name="abstract" content="As part of its mission, CISA leads the effort to enhance the security, resiliency, and reliability of the Nation&#039;s cybersecurity and communications infrastructure." />
+<meta name="keywords" content="uscert, csirt, cert, cybersecurity, cyber security, computer security, U. S. Computer Emergency Readiness, cyber risks" />
+<meta name="Generator" content="Drupal 9 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/sites/default/files/images/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="https://us-cert.cisa.gov/ncas/archives/bulletins/SB04-336" />
+<link rel="shortlink" href="https://us-cert.cisa.gov/node/9599" />
+<link rel="revision" href="https://us-cert.cisa.gov/ncas/archives/bulletins/SB04-336" />
+
+    <title>Summary of Security Items from November 24 through November 30, 2004 | CISA</title>
+    <link rel="stylesheet" media="all" href="/sites/default/files/css/css_-w-jQbIWIO0ZERqyQMFp9m1ddgDjs5ZGsor0ebo5CG4.css" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_OtQ9QHAYVZDqM__uuCDStHUt38Nwh_1MHX1vxg5dE5c.css" />
+
+    
+    <!-- Google Font -->
+    <style type="text/css">
+/* source-sans-pro-regular - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'),
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.woff') format('woff'), /* Modern Browsers */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.svg#SourceSansPro') format('svg'); /* Legacy iOS */
+}
+    </style>
+    <!--link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet"--> 
+    <!-- Google Font -->
+  </head>
+  <body class="path-node page-node-type-us-cert-bulletins-archive has-glyphicons">
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+
+
+<div class="container-fluid top-top">
+      <aside role="complementary">
+        <div class="region region-top">
+    <section id="block-certtoptop" class="block block-block-content block-block-content4d95ffde-0818-4e6b-bd79-d1547b08c0c0 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container">
+<div id="top">
+<div class="row">
+<div class="col-sm-12 flag"><img alt="United States Flag" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/flag.png" style="position: absolute;" /><p style="padding-left: 35px; font-family: Arial; font-size: 11px;">An official website of the United States government <a href="#" id="here-is-how-u-know">Here's how you know <span class="arrow down"> </span></a></p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="usa-banner-content usa-grid usa-accordion-content hidden container" id="gov-banner">
+<div class="usa-banner-guidance-gov usa-width-one-half col-sm-6"><img alt="Dot gov" class="usa-banner-icon usa-media_block-img" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/icon-dot-gov.svg" /><div class="usa-media_block-body"><strong>Official websites use .gov</strong><br />
+A <b>.gov</b> website belongs to an official government organization in the United States.</div>
+</div>
+
+<div class="usa-banner-guidance-ssl usa-width-one-half col-sm-6"><img alt="SSL" class="usa-banner-icon usa-media_block-img" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/icon-https.svg" /><div class="usa-media_block-body"><strong>Secure .gov websites use HTTPS</strong> A <b>lock (<img alt="lock icon" src="/sites/default/files/icons/lock.svg" style="width:15px;" />)</b> or <b>https://</b> means you've safely connected to the .gov website. Share sensitive information only on official, secure websites.</div>
+</div>
+</div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </div>
+
+
+
+<div class="container-fluid hidden-xs hidden-sm banner-region">
+<div class="container">
+<div class="row">
+
+
+  
+
+<section class="col-sm-9">
+
+      <a id="logo-section"></a>
+        <div class="region region-logo">
+    <section id="block-certlogo" class="block block-block-content block-block-content4639a667-debe-4642-bc69-7839662c0187 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="hidden-xs hidden-sm"><a href="/"><img alt="Cybersecurity and Infrastructure Security Agency CISA" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/logo_verbose.png" title="Cybersecurity and Infrastructure Security Agency CISA" /></a></div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </section>
+
+
+
+      <aside class="col-sm-3" role="complementary">
+        <div class="region region-search">
+    <section id="block-certsearch" class="block block-block-content block-block-contentc33bd875-6ea6-42cc-b1ab-348a4e4bdff7 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><form accept-charset="UTF-8" action="https://search.us-cert.gov/search" class="hidden-xs searchbox" method="get"><input name="utf8" type="hidden" value="✓" /><input id="affiliate-desktop" name="affiliate" type="hidden" value="us-cert" /><div class="form-group"><label class="sr-only" for="query-desktop">Enter Search Terms(s):</label>
+<div class="input-group"><input autocomplete="off" class="form-control form-control-custom input-lg" id="query-desktop" name="query" placeholder="Search" type="text" /><div class="input-group-addon input-group-addon-custom"><button class="submit input-lg"><img alt="search icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/search-icon.png" title="search icon" /></button></div>
+</div>
+</div>
+</form>
+<style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+.navbar-default ul.navbar-nav > li.last a{
+display: none;
+
+/*--><!]]>*/
+</style><div style="padding: 16px 12px 8px 12px"><a class="btn btn-primary" href="/services" type="button" style="font-weight: bold; width: 40%">Services</a><a class="btn btn-primary pull-right" href="/report" type="button" style="font-weight: bold; width: 40%">Report</a></div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </div>
+</div>
+<hr class="hidden-xs nav-top-line">
+</div>
+
+
+
+          <header class="navbar navbar-default container-fluid" id="navbar" role="banner">
+        <div class="container ">
+      <div class="navbar-header">
+        
+                          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+            <div class="hidden-lg hidden-md mobile-nav">
+        <a class="" href="/">
+            <img src="/sites/default/files/cert/logo3.png"  alt="US Department of Homeland Security CISA Cyber + Infrastructure" title="US Department of Homeland Security CISA Cyber + Infrastructure">
+          </a>
+        </div>
+      </div>
+
+              <div id="navbar-collapse" class="navbar-collapse collapse">
+            <div class="region region-navigation-collapsible">
+    <section id="block-certsearchmobile" class="block block-block-content block-block-content0da6361c-e31a-4a58-b455-f9ebde1ba544 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><form accept-charset="UTF-8" action="https://search.us-cert.gov/search" class="hidden-lg hidden-md searchbox" method="get"><input name="utf8" type="hidden" value="✓" /><input id="affiliate-mobile" name="affiliate" type="hidden" value="us-cert" /><div class="form-group"><label class="sr-only" for="query-mobile">Enter Search Terms(s):</label>
+<div class="input-group"><input autocomplete="off" class="form-control form-control-custom input-lg" id="query-mobile" name="query" placeholder="Search" type="text" /><div class="input-group-addon input-group-addon-custom"><button class="submit input-lg"><img alt="search icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/search-icon.png" title="search icon" /></button></div>
+</div>
+</div>
+</form>
+<div class="hidden-md hidden-lg" style="padding: 8px"><a class="btn btn-primary btn-block" href="/services" role="button" style="font-weight: bold">Services</a></div>
+
+<div class="hidden-md hidden-lg" style="padding: 8px"><a class="btn btn-primary btn-block" href="/report" role="button" style="font-weight: bold">Report</a></div></div>
+      
+  </section>
+
+<nav role="navigation" aria-labelledby="block-certmainmenu-menu" id="block-certmainmenu">
+            
+  <h2 class="visually-hidden" id="block-certmainmenu-menu">CertMain Menu</h2>
+  
+
+        
+      <ul class="menu menu--certmain-menu nav navbar-nav">
+                      <li class="first">
+                                        <a href="/ncas" title="Alerts and Tips" data-drupal-link-system-path="node/5">Alerts and Tips</a>
+              </li>
+                      <li>
+                                        <a href="/resources" title="Resources" data-drupal-link-system-path="node/12436">Resources</a>
+              </li>
+                      <li>
+                                        <a href="/ics" title="Industrial Control Systems" data-drupal-link-system-path="node/14614">Industrial Control Systems</a>
+              </li>
+                      <li class="last">
+                                        <a href="/report" title="Report" data-drupal-link-system-path="node/5745">Report</a>
+              </li>
+        </ul>
+  
+
+  </nav>
+
+  </div>
+
+        </div>
+                </header>
+  <hr class="hidden-xs hidden-sm nav-bottom-line">
+<div class="visible-xs visible-sm mobile-border"></div>
+
+
+<div class="container">
+    <div id="print-logo"><img alt="US Department of Homeland Security CISA Cyber + Infrastructure" src="/sites/default/files/cert/logo2.png"/></div>
+    <div id="tlp-header"><svg height="30" width="120"> <rect fill="black" height="30" width="120" x="0" y="0"></rect> <text fill="#ffffff" font-size="18px" x="10" y="20">TLP:WHITE</text> </svg></div>
+    <div id="tlp-footer"><svg height="30" width="120"> <rect fill="black" height="30" width="120" x="0" y="0"></rect> <text fill="#ffffff" font-size="18px" x="10" y="20">TLP:WHITE</text> </svg></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  <div role="main" class="main-container container js-quickedit-main-content">
+    <div class="row">
+
+                              <div class="col-sm-12" role="heading" aria-level="1">
+              <div class="region region-header">
+      <div class="container-fluid hidden-xs">
+  <ol class="breadcrumb">
+          <li >
+                  <a href="/ncas">National Cyber Awareness System</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
+              </li>
+          <li >
+                  <a href="/ncas/archives/bulletins">Archives Bulletins</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
+              </li>
+          <li  class="active">
+                  Summary of Security Items from November 24 through November 30, 2004
+              </li>
+      </ol>
+</div>
+
+
+
+  </div>
+
+          </div>
+              
+
+            
+            
+                        
+
+            
+                  <section class="col-sm-12">
+
+                              <div class="highlighted">  <div class="region region-highlighted">
+    <section id="block-archivenotice" class="block block-block-content block-block-content839bdf17-ed0e-4a51-b973-21f985c2f0ed clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item">
+	<div id="archive-notice">
+		<img alt="Note: This page is part of the us-cert.gov archive." id="archive-image" class="pull-left" src="/sites/default/files/images/icon_warning.png" /><p>This document is part of the US-CERT website archive. These documents are no longer updated and may contain outdated information. Links may also no longer function. Please contact <a href="mailto:info@us-cert.gov?subject=US-CERT.gov%20Archive" class="mailto">info@us-cert.gov<span class="mailto" aria-label="(link sends email)"></span></a> if you have any questions about the US-CERT website archive.</p>
+  	</div>
+                        </div>
+      
+  </section>
+
+<div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+</div>
+              
+                                      
+                  
+                          <a id="main-content"></a>
+            <div class="region region-content">
+                      <div id="bulletins-archive">
+                <a title="View Archives" href="/ncas/bulletins/">More Bulletins</a>
+            </div>
+	    <h1 id="page-title">Bulletin (SB04-336)</h1>
+	    <h2 id="page-sub-title">Summary of Security Items from November 24 through November 30, 2004</h2>
+        <div class="submitted meta-text">
+                                    Original release date: December 01, 2004
+                        <div id="social-options">
+	<!-- START PRINT BUTTON -->
+		<div id="print-button">
+			<span id="custom-print-button">
+				<a rel="nofollow" href="javascript:window.print();" title="Click to print."><img src="/sites/default/files/icons/print-button.png" alt="Click to print." /></a>
+			</span>
+		</div>
+    <!-- END PRINT BUTTON -->
+	<!-- START TWEET BUTTON -->
+	<div id="tweet-button">
+		<span id="custom-tweet-button">
+			<a rel="nofollow" target="_blank" href="https://twitter.com/share?url=" class="popup-twitter" title="Click to Tweet."><img src="/sites/default/files/icons/tweet-button.png" alt="Click to Tweet." /></a>
+		</span>
+	</div>
+	<!-- END TWEET BUTTON -->
+
+	<!-- START FACEBOOK BUTTON -->
+	<div id="facebook-button">
+		<span id="custom-facebook-button">
+		<a rel="nofollow" target="_blank" href="https://www.facebook.com/sharer.php?u=" class="popup-facebook" title="Click to send to Facebook."><img src="/sites/default/files/icons/facebook-send-button.png" alt="Click to send to Facebook." /></a>
+		</span>
+	</div>
+	<!-- END FACEBOOK BUTTON -->
+
+	<!-- START SHARE BUTTON -->
+	<div id="share-button">
+		<span id="custom-share-button">
+			<a rel="nofollow" target="_blank" href="http://www.addthis.com/bookmark.php?url=" class="popup-share" title="Click to Share." ><img src="/sites/default/files/icons/share-button.png" alt="Click to Share." /></a>
+		</span>
+	</div>
+	<!-- END SHARE BUTTON -->
+
+</div>
+        </div>
+    
+  <div class="cert-content">
+<article role="article" about="/ncas/archives/bulletins/SB04-336" class="us-cert-bulletins-archive full clearfix">
+
+  
+    
+
+  
+  <div class="content">
+        
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><p>The CISA Vulnerability Bulletin provides a summary of new vulnerabilities that have been recorded by the <a href="https://www.nist.gov/">National Institute of Standards and Technology</a> (NIST) <a href="https://nvd.nist.gov/">National Vulnerability Database</a> (NVD) in the past week. NVD is sponsored by CISA. In some cases, the vulnerabilities in the bulletin may not yet have assigned CVSS scores. Please visit NVD for updated vulnerability entries, which include CVSS scores once they are available.</p>
+
+<p>Vulnerabilities are based on the <a href="https://cve.mitre.org/">Common Vulnerabilities and Exposures</a> (CVE) vulnerability naming standard and are organized according to severity, determined by the <a href="https://nvd.nist.gov/cvss.cfm">Common Vulnerability Scoring System</a> (CVSS) standard. The division of high, medium, and low severities correspond to the following scores:</p>
+
+<ul><li><a href="#high">High</a>: vulnerabilities with a CVSS base score of 7.0–10.0</li>
+	<li><a href="#medium">Medium</a>: vulnerabilities with a CVSS base score of 4.0–6.9</li>
+	<li><a href="#low">Low</a>: vulnerabilities with a CVSS base score of 0.0–3.9</li>
+</ul><p>Entries may include additional information provided by organizations and efforts sponsored by CISA. This information may include identifying information, values, definitions, and related links. Patch information is provided when available. Please note that some of the information in the bulletin is compiled from external, open-source reports and is not a direct result of CISA analysis.</p>
+</div>
+      
+
+        
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+
+<!--
+.tabletext {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.highrisk {
+	color: #FF0000;
+	font-size: small;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.exploit {
+	color: #FF0000;
+	font-size: small;
+	font-style: italic;
+}
+.style46 {font-family: Arial, Helvetica, sans-serif}
+-->
+
+/*--><!]]>*/
+</style><style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+
+<!--
+.style49 {
+	font-size: -1;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style50 {font-weight: bold; font-family: Arial, Helvetica, sans-serif;}
+.style51 {font-family: Arial, Helvetica, sans-serif; color: #FF0000;}
+.style52 {color: #000000}
+-->
+
+/*--><!]]>*/
+</style><h1 class="style46"><a name="top" id="top"></a></h1>
+<p class="style46"><font face="Arial, Helvetica, sans-serif">This bulletin provides a summary of new or updated vulnerabilities, exploits, trends, viruses, and trojans. <span class="style50">Updates to items appearing in previous bulletins are listed in bold text.</span> The text in the Risk column appears in red for vulnerabilities ranking <span class="style51">High</span>. The risks levels applied to vulnerabilities in the Cyber Security Bulletin are based on how the "system" may be impacted. The Recent Exploit/Technique table contains a "Workaround or Patch Available" column that indicates whether a workaround or patch has been published for the vulnerability which the script exploits. </font></p>
+<blockquote>
+  <blockquote>
+    <table width="60%" border="0"><tbody><tr><td width="96%"><div align="left"><font face="Arial, Helvetica, sans-serif"><a href="#bugs">Bugs, Holes, &amp; Patches</a></font></div></td>
+        </tr><tr><td width="96%"><div align="left" class="style49">
+              <ul><li><a href="#windows">Windows Operating Systems </a>
+                  <ul class="bulleted"><li><a href="#orbz">21-6 Productions Orbz Password Field Buffer Overflow</a></li>
+                            <li><a href="#altn">Alt-N MDaemon Privilege Escalation </a>
+                    </li>
+                            <li><a href="#CoffeeCup">CoffeeCup Direct/Free FTP ActiveX Component Remote Buffer Overflow </a>
+                    </li>
+                            <li><a href="#desofto">DeSofto MyProxy Arbitrary Ports &amp; Hosts Connection </a>
+                    </li>
+                            <li><a href="#innermedia">InnerMedia DynaZip Library Buffer Overflow </a>
+                    </li>
+                    <li><a href="#ipswitch">IpSwitch WS_FTP Buffer Overflow </a></li>
+                            <li><a href="#starwars">LucasArts Star Wars Battlefront Game Server Remote Denials of Service </a>
+                            </li>
+                            <li><a href="#mailenable">MailEnable Stack Overflow &amp; Pointer Overwrite</a> </li>
+                            <li><a href="#microsoftinfinite">Microsoft Internet Explorer Infinite Array Sort Denial of Service</a></li>
+                            <li><a href="#MSsavepicas">Microsoft Internet Explorer 'Save Picture As' Image Download Spoofing </a>                    </li>
+                    <li><a href="#MSWINS">Microsoft WINS Memory Overwrite</a></li>
+                            <li><a href="#winshell"><strong>Microsoft Windows Shell Remote Code Execution (Updated)</strong></a> 
+                            </li>
+                    <li><a href="#mozillainfinite">Mozilla Firefox Infinite Array Sort Denial of Service</a></li>
+                            <li><a href="#nullsoft"><strong>Nullsoft Winamp 'IN_CDDA.dll' Buffer Overflow (Updated) </strong></a></li>
+                    <li><a href="#Pegasus">Pegasus Mail Mercury Mail Transport System Buffer Overflow</a></li>
+                            <li><a href="#symanteclive"><strong>Symantec LiveUpdate Zip Decompression Routine Denial of Service (Updated)</strong></a>
+                            </li>
+                            <li><a href="#VMWare">VMWare Workstation Format String </a>
+                    </li>
+                            <li><a href="#WeOnlyDo">WeOnlyDo! wodFtpDLX ActiveX Component Remote Buffer Overflow </a>
+                    </li>
+                            <li><a href="#wftpserver">Win FTP Server Information Disclosure </a>
+                    </li>
+                            <li><a href="#YoungZ">YoungZSoft CMailServer Multiple Vulnerabilities</a>                              <br /></li>
+                  </ul></li><li><a href="#unix">UNIX / Linux Operating Systems</a>
+                  <ul class="bulleted"><li>                 <a href="#acpid">ACPID Insecure Umask Directory Permissions</a></li>
+                    <li><a href="#sslcipher"><strong>Apache mod_ssl SSLCipherSuite Access Validation (Updated)</strong></a></li>
+                    <li><a href="#gdgraphicsbuffer"><strong></strong></a><a href="#modinclude"><strong>Apache mod_include Buffer Overflow (Updated)</strong></a></li>
+                    <li><a href="#ical">Apple iCal Calendar Import Alarm Notification Failure</a></li>
+                    <li><a href="#safari">Apple Safari Web Browser Infinite Array Sort Denial of Service</a></li>
+                    <li><a href="#atari">Atari800 Emulator Multiple Buffer Overflows</a></li>
+                    <li><a href="#energymech">EnergyMech ESAY Command Buffer Overflow </a></li>
+                    <li><a href="#gdgraphicsbuffer"><strong>GD Graphics Library Remote Integer Overflow (Updated)</strong></a></li>
+                    <li><a href="#gnu"><strong>GNU a2ps Command Injection (Updated)</strong></a></li>
+                    <li><a href="#GNUinetutils"><strong>GNU InetUtils TFTP Client Remote Buffer Overflow (Updated) </strong></a></li>
+                    <li><a href="#imagemagick"><strong>ImageMagick Remote EXIF Parsing Buffer Overflow (Updated) </strong></a></li>
+                    <li><a href="#infozip"><strong>Info-ZIP Zip Remote Recursive Directory Compression Buffer Overflow (Updated) </strong></a></li>
+                    <li><a href="#ipcop">IPCop 'proxylog.dat' Cross-Site Scripting</a></li>
+                    <li><a href="#jabber">Jabber Server Multiple Remote Buffer Overflows</a></li>
+                    <li><a href="#camino">Mozilla Camino Web Browser Infinite Array Sort Denial of Service</a></li>
+                    <li><a href="#bugzilla"><strong>Mozilla Bugzilla Multiple Authentication Bypass&amp; Information Disclosure (Updated) </strong></a></li>
+                    <li><a href="#imapd">Multiple Vendors Cyrus IMAPD Multiple Remote Vulnerabilities</a></li>
+                    <li><a href="#cyrusimap">Multiple Vendors Cyrus IMAP 'imap magic plus' Buffer Overflow</a></li>
+                    <li><a href="#samba"><strong>Multiple Vendors Samba Remote Wild Card Denial of Service ((Updated)</strong></a></li>
+                    <li><a href="#sambabuffer"><strong>Multiple Vendor Samba 'QFILEPATHINFO' Buffer Overflow (Updated) </strong></a></li>
+                    <li><a href="#libxpm"><strong>Multiple Vendors LibXPM Multiple Vulnerabilities (Updated)</strong></a></li>
+                    <li><a href="#aout">Multiple Vendors Linux Kernel Local DoS &amp; Memory Content Disclosure</a></li>
+                    <li><a href="#linuxdatagram">Multiple Vendors Linux Kernel Datagram Serialization </a></li>
+                    <li><a href="#elf"><strong>Multiple Vendors Linux Kernel BINFMT_ELF Loader Multiple Vulnerabilities (Updated) </strong></a></li>
+                    <li><a href="#smbfs"><strong>Multiple Vendors Linux Kernel smbfs Filesystem Memory Errors Remote Denial of Service (Updated)</strong></a></li>
+                    <li><a href="#mysql"><strong>MySQL 'Mysqlhotcopy' Script Elevated Privileges (Updated)</strong></a></li>
+                    <li><a href="#mysqlab"><strong>MySQL Security Restriction Bypass &amp; Remote Denial of Service (Updated)</strong></a></li>
+                    <li><a href="#phpbb"><strong>PHPBB Remote URLDecode Input Validation (Updated)</strong></a></li>
+                    <li><a href="#phpnews">PHPNews SQL Injection</a></li>
+                    <li><a href="#phpwebsite"><strong>phpWebSite HTTP Response Splitting (Updated)</strong></a></li>
+                    <li><a href="#prozilla">ProZilla Multiple Remote Buffer Overflow </a></li>
+                    <li><a href="#mimedefang"><strong>Roaring Penguin Software MIMEDefang Multiple Vulnerabilities (Updated) </strong></a></li>
+                    <li><a href="#bncbuffer"><strong>BNC Remote Buffer Overflow (Updated) </strong></a></li>
+                    <li><a href="#sudo"><strong>Todd Miller Sudo Restricted Command Execution BypasS (Updated)</strong></a></li>
+                    <li><a href="#twiki"><strong>TWiki Search Shell Metacharacter Remote Arbitrary Command Execution (Updated)</strong></a></li>
+                    <li><a href="#wmfrog">WMFrog Weather Monitor Insecure Temporary Files </a></li>
+                    <li><a href="#xine"><strong>Xine-lib Multiple Buffer Overflows (Updated)</strong></a></li>
+                    <li><a href="#yardradius">Yard Radius Remote Buffer Overflows</a><br /></li>
+                  </ul></li>
+                <li><a href="#multiple">Multiple Operating Systems</a>
+                </li>
+                <ul class="bulleted"><li><a href="#fsecure">F-Secure Anti-Virus ZIP Archive Scanner Bypass</a></li>
+                  <li><a href="#halo">Gearbox Software Halo Game Client Remote Denial of Service</a></li>
+                  <li><a href="#inkra"><strong>Inkra 1504GX Remote Denial of Service (Updated) </strong></a></li>
+                  <li><a href="#jspwiki">JSPWiki Cross-Site Scripting</a></li>
+                  <li><a href="#korweblog">KorWeblog Remote Directory Listing</a></li>
+                  <li><a href="#liferay"><strong>Liferay Cross Site Scripting (Updated) </strong></a></li>
+                  <li><a href="#mozillainfinite">Mozilla Browser Infinite Array Sort Denial of Service</a></li>
+                  <li><a href="#nukedklan">NuKed-Klan Cross-Site Scripting </a></li>
+                  <li><a href="#opendchub">Open DC Hub Remote Buffer Overflow</a></li>
+                  <li><a href="#operaweb">Opera Web Browser Infinite Array Sort Remote Denial of Service </a></li>
+                  <li><a href="#phpbbadmin"><strong>PHPBB Admin_cash.PHP Remote PHP File Include (Updated)</strong></a></li>
+                  <li><a href="#phpbblogin"><strong>PHPBB Login Form Multiple Input Validation (Updated)</strong></a></li>
+                  <li><a href="#phpcms">PHPCMS Cross-Site Scripting</a></li>
+                  <li><a href="#phpkit">PHPKIT Multiple Input Validation </a></li>
+                  <li><a href="#webgui">Plain Black Software WebGUI 'User profile'</a></li>
+                  <li><a href="#raven">Soldier Of Fortune 2 Buffer Overflow Remote Denial of Service</a></li>
+                  <li><a href="#sunjre">Sun Java Applet Invocation Version Specification</a></li>
+                  <li><a href="#sunjava"><strong>Sun Java Plug-in Sandbox Security Bypass (Updated) </strong></a></li>
+                  <li><a href="#yabb">YaBB Shadow BBCode Tag JavaScript Injection</a></li>
+                  <li><a href="#zyxel">ZyXEL Prestige Router HTTP Remote Administration Configuration Reset</a></li>
+                </ul></ul></div></td>
+        </tr><tr><td width="96%"><div align="left"><font face="Arial, Helvetica, sans-serif"><a href="#exploits">Recent Exploit Scripts/Techniques</a></font> </div></td>
+        </tr><tr><td width="96%"><div align="left"><font face="Arial, Helvetica, sans-serif"><a href="#trends">Trends</a></font></div></td>
+        </tr><tr><td width="96%"><div align="left"><font face="Arial, Helvetica, sans-serif"><a href="#viruses">Viruses/Trojans</a></font></div></td>
+        </tr></tbody></table></blockquote>
+</blockquote>
+<hr /><h3><font face="Arial, Helvetica, sans-serif" size="-1"><a name="bugs" id="bugs"></a></font><font face="Arial, Helvetica, sans-serif">Bugs, 
+  Holes, &amp; Patches </font>
+
+<span class="style46"><font face="Arial, Helvetica, sans-serif">The table below summarizes vulnerabilities that have been identified, even if they are not being exploited. Complete details about patches or workarounds are available from the source of the information or from the URL provided in the section. CVE numbers are listed where applicable. Vulnerabilities that affect <strong>both</strong> Windows and Unix Operating Systems are included in the <a href="#multiple">Multiple Operating Systems</a> section.</font> </span>
+</h3><p class="style46"><i>Note: All the information included in the following tables has been discussed in newsgroups and on web sites.</i> </p>
+<h3 class="style46"><font face="Arial, Helvetica, sans-serif">The Risk levels defined below are based on how the system may be impacted:</font></h3>
+<ul class="tabletext"><li class="style46"><font face="Arial, Helvetica, sans-serif"><b>High</b> - A high-risk vulnerability is defined as one that will allow an intruder to immediately gain privileged access (e.g., sysadmin or root) to the system or allow an intruder to execute code or alter arbitrary system files. An example of a high-risk vulnerability is one that allows an unauthorized user to send a sequence of instructions to a machine and the machine responds with a command prompt with administrator privileges.</font></li>
+  <li class="style46"><font face="Arial, Helvetica, sans-serif"><b>Medium</b> - A medium-risk vulnerability is defined as one that will allow an intruder immediate access to a system with less than privileged access. Such vulnerability will allow the intruder the opportunity to continue the attempt to gain privileged access. An example of medium-risk vulnerability is a server configuration error that allows an intruder to capture the password file.</font></li>
+  <li class="style46"><font face="Arial, Helvetica, sans-serif"><b>Low</b> - A low-risk vulnerability is defined as one that will provide information to an intruder that could lead to further compromise attempts or a Denial of Service (DoS) attack. It should be noted that while the DoS attack is deemed low from a threat potential, the frequency of this type of attack is very high. DoS attacks against mission-critical nodes are not included in this rating and any attack of this nature should instead be considered to be a "High" threat.</font></li>
+</ul><table width="95%" border="1"><tr bgcolor="#99ccff"><td colspan="5"><p><font face="Arial, Helvetica, sans-serif" size="+2"><a name="windows" id="windows"></a>Windows Operating Systems Only </font></p></td>
+  </tr><tbody><tr bgcolor="#cccccc"><td><div align="center"><font face="Arial, Helvetica, sans-serif">Vendor &amp; Software Name</font></div></td>
+      <td><div align="center"><font face="Arial, Helvetica, sans-serif">Vulnerability - Impact<br />
+                Patches - Workarounds<br />
+                Attacks Scripts</font></div></td>
+      <td><div align="center"><font face="Arial, Helvetica, sans-serif">Common Name</font></div></td>
+      <td><div align="center"><font face="Arial, Helvetica, sans-serif">Risk</font></div></td>
+      <td><div align="center"><font face="Arial, Helvetica, sans-serif">Source</font></div></td>
+    </tr><tr class="tabletext" valign="top" bgcolor="#ffffff"><td><p><a name="orbz" id="orbz"></a>21-6 Productions </p>
+          <p>Orbz 2.10 and prior </p></td>
+      <td><p>A vulnerability exists due to a boundary error when handling<br />
+          join requests. This can be exploited to cause a buffer overflow by<br />
+          supplying an overly long password. Successful exploitation may allow execution of arbitrary code.</p>
+          <p>No workaround or patch available at time of publishing.</p>
+          <p>Currently we are not aware of any exploits for this vulnerability.</p></td>
+      <td><div align="center">21-6 Productions Orbz Password Field Buffer Overflow</div></td>
+      <td class="tabletext"><div align="center"><span class="highrisk">High</span></div></td>
+      <td>Secunia Advisory ID,  SA13327, November 30, 2004</td>
+    </tr><tr class="tabletext" valign="top" bgcolor="#ffffff"><td><p>Alt-N <a name="altn" id="altn"></a></p>
+          <p>MDaemon 7.2</p></td>
+      <td>A vulnerability exists due to a failure to properly drop privileges prior to executing child process, which could let a malicious user obtain elevated privileges.
+          <p>No workaround or patch available at time of publishing.</p>
+          <p>There is no exploit code required.</p></td>
+      <td><div align="center">
+          <p>Alt-N MDaemon Privilege Escalation </p>
+      </div></td>
+      <td class="tabletext"><div align="center">Medium</div></td>
+      <td>SecurityFocus, November 23, 2004 </td>
+    </tr><tr class="tabletext" valign="top" bgcolor="#ffffff"><td><p>CoffeeCup<a name="CoffeeCup" id="CoffeeCup"></a> Software</p>
+          <p>CoffeeCup Direct FTP 6.0, 6.2, CoffeeCup Free FTP 6.0, 6.2</p></td>
+      <td><p>A buffer overflow vulnerability exists due to the way long buffer file names are handled, which could let a remote malicious user execute arbitrary code.</p>
+          <p><span class="bodytext">No workaround or patch available at time of publishing.</span></p>
+          <p>An exploit script has been published. </p></td>
+      <td><div align="center">CoffeeCup Direct/Free FTP ActiveX Component Remote Buffer Overflow</div></td>
+      <td class="tabletext"><div class="highrisk" align="center">High</div></td>
+      <td>Secunia Advisory, <br />
+        SA13282, November 23, 2004 </td>
+    </tr><tr class="tabletext" valign="top" bgcolor="#ffffff"><td><p>DeSofto<a name="desofto" id="desofto"></a></p>
+          <p>MyProxy 6.58 </p></td>
+      <td>A vulnerability exists because a remote malicious user can connect to the proxy and invoke the CONNECT command to connect to arbitrary ports.
+        <p>No workaround or patch available at time of publishing.</p>
+          <p>Currently we are not aware of any exploits for this vulnerability.</p></td>
+      <td><div align="center">DeSofto MyProxy Arbitrary Ports &amp; Hosts Connection </div></td>
+      <td class="tabletext"><div align="center">Medium</div></td>
+      <td>SecurityTracker Alert ID, 1012322, November 24, 2004 </td>
+    </tr><tr class="tabletext" valign="top" bgcolor="#ffffff"><td><p>Innermedia<a name="innermedia" id="innermedia"></a></p>
+          <p>DynaZip prior to version 5.00.04</p></td>
+      <td><p>Releases compression library contain a buffer overflow that may allow a remote malicious user  to execute arbitrary code. A bounds checking deficiency in DynaZip may allow a buffer overflow. A malicious user  can exploit this vulnerability by creating a zip archive containing files with long names. The DynaZip library is used in a wide variety of applications. </p>
+          <p>The vendor has released a fixed version (5.00.04): <a class="offsite" href="http://www.innermedia.com/dz/index.htm">http://www.innermedia.com/dz/index.htm</a></p>
+          <p>Currently we are not aware of any exploits for this vulnerability.</p></td>
+      <td><div align="center">InnerMedia DynaZip library Buffer Overflow</div></td>
+      <td class="tabletext"><div align="center" class="highrisk">High</div></td>
+      <td>US-CERT Vulnerability Note VU#582498, November 22, 2004 </td>
+    </tr><tr class="tabletext" valign="top" bgcolor="#ffffff"><td><p>IpSwitch<a name="ipswitch" id="ipswitch"></a></p>
+          <p>WS_FTP Server 5.03, 2004.10.14</p></td>
+      <td><p>Several vulnerabilities were reported that could permit a remote authenticated malicious user to execute arbitrary code on the target system. A remote authenticated user can trigger a buffer overflow in several FTP commands. The SITE, XMKD, MKD, and RFNR FTP commands are affected. A remote user can cause the FTP service to crash or execute arbitrary code. </p>
+          <p>No workaround or patch available at time of publishing.</p>
+          <p>A Proof of Concept exploit has been published.</p></td>
+      <td><div align="center">IpSwitch WS_FTP Buffer Overflow </div></td>
+      <td class="tabletext"><div align="center" class="highrisk">High</div></td>
+      <td> SecurityTracker Alert ID: 1012353, November 29, 2004</td>
+    </tr><tr class="tabletext" valign="top" bgcolor="#ffffff"><td><p>LucasArts <a name="starwars" id="starwars"></a></p>
+      <p>Star Wars Battlefront 1.11</p></td>
+      <td>Multiple remote Denial of Service vulnerabilities exist due to insufficient boundary checks on 'nickname' data and the debugging functionality may be leveraged by a malicious client to trigger a server crash. 
+        <p>No workaround or patch available at time of publishing.</p>
+      <p>An exploit script has been published. </p></td>
+      <td><div align="center">LucasArts Star Wars Battlefront Game Server Remote Denials of Service </div></td>
+      <td class="tabletext"><div align="center">Low</div></td>
+      <td>Bugtraq, November 24, 2004 </td>
+    </tr><tr class="tabletext" valign="top" bgcolor="#ffffff"><td><p>MailEnable<a name="mailenable" id="mailenable"></a></p>
+          <p>MailEnable Professional Edition v1.52, MailEnable Enterprise Edition v1.01</p></td>
+      <td><p>Two vulnerabilities exist in the IMAP service that could permit a remote malicious user to execute arbitrary code. A remote user can trigger a stack-based buffer overflow or an object pointer overwrite to execute arbitrary code on the target system. </p>
+          <p> The vendor has issued a fix, available at:<br /><a class="offsite" href="http://mailenable.com/hotfix.asp">http://mailenable.com/hotfix.asp</a></p>
+          <p>A Proof of Concept exploit script has been published.</p></td>
+      <td><div align="center">MailEnable Stack Overflow &amp;  Pointer Overwrite</div></td>
+      <td class="tabletext"><div align="center" class="highrisk">High</div></td>
+      <td>Hat-Squad Security Team Advisory, November 25, 2004 </td>
+    </tr><tr class="tabletext" valign="top" bgcolor="#ffffff"><td><p><a name="microsoftinfinite" id="microsoftinfinite"></a>Microsoft </p>
+        <p>Internet Explorer 6.0, SP1&amp;SP2</p></td>
+      <td><p>A remote Denial of Service vulnerability exists when the browser performs an infinite JavaScript array sort operation.</p>
+        <p>No workaround or patch available at time of publishing.</p>
+      <p>A Proof of Concept exploit has been published. </p></td>
+      <td><div align="center">
+          <p> Microsoft Internet Explorer Infinite Array Sort Denial of Service</p>
+      </div></td>
+      <td class="tabletext"><div align="center">Low</div></td>
+      <td>Bugtraq, November 25, 2004 </td>
+    </tr><tr class="tabletext" valign="top" bgcolor="#ffffff"><td><p><a name="MSsavepicas" id="MSsavepicas"></a>Microsoft </p>
+          <p>Internet Explorer 6.0 with Windows XP SP2</p></td>
+      <td><p>A vulnerability exists which can be exploited by malicious people to trick users 
+          into downloading malicious files. The vulnerability is caused due to Internet Explorer using the file extension from the URL's filename when saving images with the 'Save 
+          Picture As' command and also strips the last file extension if multiple file extensions exist. This can be exploited by a malicious web site to cause a valid image with malicious, embedded script code to be saved with an arbitrary file extension.</p>
+          <p>Workaround: Disable the 'Hide extension for known file types' option and add the proper extension to the file name in the File name box when saving. </p>
+          <p>A Proof of Concept exploit has been published.</p></td>
+      <td><div align="center">Microsoft Internet Explorer 'Save Picture As' Image Download Spoofing<br /></div></td>
+      <td class="tabletext"><div align="center">Medium</div></td>
+      <td>Secunia Advisory ID,  SA13317, November 26, 2004 </td>
+    </tr><tr class="tabletext" valign="top" bgcolor="#ffffff"><td><p>Microsoft<a name="MSWINS" id="MSWINS"></a></p>
+          <p>Windows (Me), Windows (NT), Windows (95), Windows (98), Windows (2000), Windows (2003), Windows (XP)</p></td>
+      <td><p>A vulnerability was reported that could allow a remote user to execute arbitrary code on the target system. A remote user can send a specially crafted WINS packet to the target server on TCP port 42 to modify a memory pointer and write arbitrary contents to arbitrary memory locations.</p>
+          <p>No workaround or patch available at time of publishing.</p>
+          <p>A Proof of Concept exploit has been published.</p></td>
+      <td><div align="center">Microsoft WINS Memory Overwrite </div></td>
+      <td class="tabletext"><div align="center" class="highrisk">High</div></td>
+      <td><p>US-CERT Vulnerability Note VU#145134, November 29, 2004 </p></td>
+    </tr><tr class="tabletext" valign="top" bgcolor="#ffffff"><td><p class="tabletext"><a name="winshell" id="winshell"></a>Microsoft</p>
+          <p class="tabletext">Windows NT Server 4.0, Windows NT Server 4.0 Enterprise Edition, Windows NT Server 4.0 Terminal Server Edition, Windows 2000 Advanced Server, Windows 2000 Datacenter Server, Windows 2000 Server, Windows 2000 Professional, Windows XP Home Edition, Windows XP Professional, Windows Server 2003 Enterprise Edition, Windows Server 2003 Standard Edition, Windows Server 2003 Web Edition, Windows Server 2003 Datacenter Edition, Windows 98, Windows 98 SE, Windows ME;</p>
+          <p class="tabletext">Avaya DefinityOne Media Servers, IP600 Media Servers, Modular Messaging (MSS) 1.1, 2.0, Avaya S3400 Message Application Server<br />
+      Avaya S8100 Media Servers</p></td>
+      <td><p>A Shell vulnerability and Program Group vulnerability exists in Microsoft Windows. These vulnerabilities could allow remote code execution. </p>
+          <p>Updates available at: <a href="http://www.microsoft.com/technet/security/bulletin/MS04-037.mspx"><br />
+          http://www.microsoft.com/technet/security/<br />
+          bulletin/MS04-037.mspx</a></p>
+          <p>Bulletin updated to reduce the scope of a documented workaround to only support Windows XP, Windows XP Service Pack 1, and Windows Server 2003. </p>
+          <p>Avaya: Customers are advised to follow Microsoft's guidance for applying patches. Advisories are located at the following locations: <a href="http://support.avaya.com/japple/css/japple?temp.groupID=128450&amp;temp.selectedFamily=128451&amp;temp.selectedProduct=154235&amp;temp.selectedBucket=126655&amp;temp.feedbackState=askForFeedback&amp;temp.documentID=203487&amp;PAGE=avaya.css.CSSLvl1Detail&amp;executeTransaction=avaya.css.UsageUpdate()">http://support.avaya.com/japple/css/japple?<br />
+      temp.groupID=128450&amp;temp.selectedFamily=<br />
+      128451&amp;temp.selectedProduct=154235&amp;temp.<br />
+      selectedBucket=126655&amp;temp.feedbackState=<br />
+      askForFeedback&amp;temp.documentID=203487&amp;<br />
+      PAGE=avaya.css.CSSLvl1Detail&amp;executeTransaction=<br />
+      avaya.css.UsageUpdate()</a></p>
+          <p><a href="http://support.avaya.com/japple/css/japple?temp.groupID=128450&amp;temp.selectedFamily=128451&amp;temp.selectedProduct=154235&amp;temp.selectedBucket=126655&amp;temp.feedbackState=askForFeedback&amp;temp.documentID=203487&amp;PAGE=avaya.css.CSSLvl1Detail&amp;executeTransaction=avaya.css.UsageUpdate()">http://support.avaya.com/japple/css/japple?temp.groupID<br />
+      =128450&amp;temp.selectedFamily=128451&amp;temp.selectedProduct=<br />
+      154235&amp;temp.selectedBucket=126655&amp;temp.feedbackState=<br />
+      askForFeedback&amp;temp.documentID=203487&amp;PAGE=<br />
+      avaya.css.CSSLvl1Detail&amp;executeTransaction=<br />
+      avaya.css.UsageUpdate()</a></p>
+          <p>We are not aware of any exploits for these vulnerabilities. </p></td>
+      <td><div align="center">
+          <p>Microsoft Windows Shell Remote Code Execution</p>
+          <p>CVE Names: <a href="http://www.cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2004-0214"><br />
+        CAN-2004-0214</a><br /><a href="http://www.cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2004-0572">CAN-2004-0572</a></p>
+      </div></td>
+      <td class="highrisk"><div align="center">High</div></td>
+      <td><div align="left">
+          <p>Microsoft Security Bulletin MS04-037 v1.1, October 25, 2004</p>
+          <p>US-CERT Cyber Security Alert SA04-286A, October 12, 2004 </p>
+          <p>US-CERT Vulnerability Note VU#543864, October 15, 2004</p>
+          <p>SecurityFocus, October 26, 2004 </p>
+          <p><strong>US-CERT Vulnerability Note, VU#616200, November 23, 2004 </strong></p>
+      </div></td>
+    </tr><tr class="tabletext" valign="top" bgcolor="#ffffff"><td><p><a name="firefoxinfinite" id="firefoxinfinite"></a>Mozilla.org</p>
+      <p> Firefox Preview Release,  0.8,  0.9 rc, 0.9-0.9.3, 0.10,  0.10.1</p></td>
+      <td><p>A remote Denial of Service vulnerability exists when the browser performs an infinite JavaScript array sort operation.</p>
+        <p>No workaround or patch available at time of publishing.</p>
+      <p>A Proof of Concept exploit has been published. </p></td>
+      <td><div align="center">Mozilla Firefox Infinite Array Sort Denial of Service</div></td>
+      <td class="tabletext"><div align="center">Low</div></td>
+      <td>Bugtraq, November 25, 2004 </td>
+    </tr><tr class="tabletext" valign="top" bgcolor="#ffffff"><td><p><a name="nullsoft" id="nullsoft"></a>Nullsoft</p>
+          <p>Winamp 5.05</p></td>
+      <td><p>A vulnerability exists which can be exploited by malicious people to compromise a user's system. The vulnerability is caused due to a boundary error in the 'IN_CDDA.dll' file. This can be exploited in various ways to cause a stack-based buffer overflow e.g. by tricking a user into visiting a malicious web site containing a specially crafted '.m3u' playlist. Successful exploitation allows execution of arbitrary code.</p>
+          <p>Update to version 5.0.6: <a class="offsite" href="http://www.winamp.com/player/"><br />
+      http://www.winamp.com/player/</a></p>
+          <p><strong>An exploit script has been published. </strong></p></td>
+      <td><div align="center">Nullsoft Winamp 'IN_CDDA.dll' Buffer Overflow</div></td>
+      <td class="tabletext"><div align="center" class="highrisk">High</div></td>
+      <td><p>Security-Assessment Vulnerability Advisory, November 23, 2004 </p>
+          <p><strong>SecurityFocus, November 24, 2004 </strong></p></td>
+    </tr><tr class="tabletext" valign="top" bgcolor="#ffffff"><td><p>Pegasus Mail<a name="Pegasus" id="Pegasus"></a> </p>
+          <p>Mercury Mail Transport System 4.01 </p></td>
+      <td><p>A vulnerability was reported that could allow a remote authenticated user to execute arbitrary code on the target system. The SELECT command contains a buffer overflow. A remote authenticated user can send a specially crafted command to the IMAP service to trigger the buffer overflow and execute arbitrary code. </p>
+          <p>No workaround or patch available at time of publishing.</p>
+          <p>A Proof of Concept exploit has been published.</p></td>
+      <td><div align="center">Pegasus Mail Mercury Mail Transport System Buffer Overflow </div></td>
+      <td class="tabletext"><div align="center"><span class="highrisk">High</span></div></td>
+      <td> SecurityTracker Alert ID: 1012361, November 30, 2004<br /></td>
+    </tr><tr class="tabletext" valign="top" bgcolor="#ffffff"><td><p>Symantec<a name="symanteclive" id="symanteclive"></a></p>
+          <p>Symantec LiveUpdate 1.80.19.0, 2.5.56.0</p></td>
+      <td><p>A vulnerability exists which may allow a malicious user to cause Denial of Service conditions in certain cases. Tithe LiveUpdate decompression routine does not check for uncompressed file sizes before attempting to decompress a downloaded LiveUpdate zip file and does not properly validate directory names before creating the directories on the target system.</p>
+          <p><strong>Symantec will be adding additional capabilities to mitigate any potential actions of this nature in an update that will be available shortly</strong>.</p>
+          <p>A Proof of Concept exploit has been published.</p></td>
+      <td><div align="center">Symantec LiveUpdate Zip Decompression Routine Denial of Service </div></td>
+      <td class="tabletext"><div align="center">Low</div></td>
+      <td><p>SecurityTracker Alert ID, 1012095, November 5, 2004</p>
+          <p><strong>Symantec Advisory, SYM04-017, November 23, 2004 </strong></p></td>
+    </tr><tr class="tabletext" valign="top" bgcolor="#ffffff"><td><p>VMWare <a name="VMWare" id="VMWare"></a>Incorporated </p>
+          <p>VMWare Workstation 4.5.2</p></td>
+      <td><p>A format string vulnerability exists in the VMWare workstation executable because format specifier characters that are passed as a command line argument are not handled correctly, which could let a malicious user obtain elevated privileges. </p>
+          <p>No workaround or patch available at time of publishing.</p>
+          <p>Currently we are not aware of any exploits for this vulnerability.</p></td>
+      <td><div align="center">VMWare Workstation Format String</div></td>
+      <td class="tabletext"><div align="center">Medium</div></td>
+      <td>SecurityFocus, November 23, 2004 </td>
+    </tr><tr class="tabletext" valign="top" bgcolor="#ffffff"><td><p>WeOnlyDo<a name="WeOnlyDo" id="WeOnlyDo"></a>! </p>
+          <p>wodFtpDLX ActiveX component, wodFtpDLX ActiveX component 2.1.1 8</p></td>
+      <td><p>A buffer overflow vulnerability exists due to the way long buffer file names are handled, which could let a remote malicious user execute arbitrary code.</p>
+          <p>Update available at: <a href="http://www.weonlydo.com/index.asp?showform=FtpDLX"><br />
+          http://www.weonlydo.com/index.asp?showform=FtpDLX</a></p>
+          <p>Exploit scripts have been published. </p></td>
+      <td><div align="center">WeOnlyDo! wodFtpDLX ActiveX Component Remote Buffer Overflow</div></td>
+      <td class="tabletext"><div class="highrisk" align="center">High</div></td>
+      <td>Securiteam, November 23, 2004 </td>
+    </tr><tr class="tabletext" valign="top" bgcolor="#ffffff"><td><p>wftpserver<a name="wftpserver" id="wftpserver"></a>.com</p>
+          <p>WinFTP Server 1.x</p></td>
+      <td><p>A vulnerability exists in the 'data\user.wfd' file because user credentials are stored in clear text, which could let a malicious user obtain sensitive information. </p>
+          <p>No workaround or patch available at time of publishing.</p>
+          <p>There is no exploit code required.</p></td>
+      <td><div align="center">Win FTP Server Information Disclosure </div></td>
+      <td class="tabletext"><div align="center">Medium</div></td>
+      <td>GSSIT - Global Security Solution IT Advisory, November 24, 2004 </td>
+    </tr><tr class="tabletext" valign="top" bgcolor="#ffffff"><td><p>YoungZSoft<a name="YoungZ" id="YoungZ"></a></p>
+          <p>CMailServer 5.2 </p>
+          <p> </p></td>
+      <td><p>Several vulnerabilities exist: a buffer overflow vulnerability exists in 'CMailCom.dll' in the attachment download processing, which could let a remote malicious user execute arbitrary code; a vulnerability exists due to insufficient validation of user-supplied input in certain scripts, which could let a remote malicious user execute arbitrary code; a vulnerability exists in the 'admin.asp' script due to insufficient filtering of HTML code from user-supplied input when displaying a user's personal information, which could let a remote malicious user execute arbitrary code; a vulnerability exists in 'fdelmail.asp' because a remote malicious authenticated user can inject SQL commands to delete a target user's mail metadata; and a vulnerability exists in 'addressc.asp' because a remote malicious user can inject SQL commands to delete a target user's address book contacts. </p>
+          <p>No workaround or patch available at time of publishing.</p>
+          <p>Currently we are not aware of any exploits for these vulnerabilities.</p></td>
+      <td><div align="center">YoungZSoft CMailServer Multiple Vulnerabilities</div></td>
+      <td class="tabletext"><div align="center">
+          <p class="tabletext style52">Medium/ <span class="highrisk">High</span></p>
+          <p class="tabletext style52">(High if arbitrary code can be executed) </p>
+      </div></td>
+      <td>SIG^2 Vulnerability Research Advisory, November 24, 2004 </td>
+    </tr></tbody></table><p><font face="Arial, Helvetica, sans-serif" size="-2"><a href="#top">[back to 
+top]</a></font></p>
+<table width="95%" border="1"><tr bgcolor="#CCFFCC"><td colspan="5"><font size="+2" face="Arial, Helvetica, sans-serif"><a name="unix" id="unix"></a>UNIX / Linux Operating Systems Only </font></td>
+  </tr><tr bgcolor="#CCCCCC"><td><div align="center"><font face="Arial, Helvetica, sans-serif">Vendor &amp; Software Name</font></div></td>
+    <td><div align="center"><font face="Arial, Helvetica, sans-serif">Vulnerability - Impact<br />
+      Patches - Workarounds<br />
+      Attacks Scripts</font></div></td>
+    <td><div align="center"><font face="Arial, Helvetica, sans-serif">Common Name</font></div></td>
+    <td><div align="center"><font face="Arial, Helvetica, sans-serif">Risk</font></div></td>
+    <td><div align="center"><font face="Arial, Helvetica, sans-serif">Source</font></div></td>
+  </tr><tr class="tabletext" valign="top"><td><p><a name="acpid" id="acpid"></a>ACPID </p>
+        <p>ACPID 1.0.1, 1.0.3</p></td>
+    <td align="left"> A vulnerability exists in ACPID due to an insecure umask, which could let a malicious user cause a Denial of Service.
+        <p>SuSE: <span class="bodytext"><br /><a target="_blank" href="ftp://ftp.suse.com/pub/suse/x86_64/update/9.1/rpm/x86_64/acpid-1.0.1-259.4.x86_64.patch.rpm">ftp://ftp.suse.com/pub/suse/</a></span> </p>
+        <p>There is no exploit code required.</p></td>
+    <td><div align="center">ACPID Insecure Umask Directory Permissions</div></td>
+    <td><div align="center">Low</div></td>
+    <td>SUSE Security Summary Report, SUSE-SR:2004:001, November 24, 2004 </td>
+  </tr><tr class="tabletext" valign="top"><td height="820"><p><a name="sslcipher" id="sslcipher"></a>Apache Software Foundation </p>
+        <p>Apache 2.0.35-2.0.52</p></td>
+    <td align="left"><p>A vulnerability exists when the 'SSLCipherSuite' directive is used in a directory or location context to require a restricted set of cipher suites, which could let a remote malicious user bypass security policies and obtain sensitive information. </p>
+        <p><span class="bodytext">OpenPKG: <a href="ftp://ftp.openpkg.org/release/"><br />
+        ftp://ftp.openpkg.org/release/</a></span> </p>
+        <p>Gentoo: <a href="http://security.gentoo.org/glsa/glsa-200410-21.xml"><br />
+    http://security.gentoo.org/glsa/glsa-200410-21.xml</a></p>
+        <p>Slackware: <a href="ftp://ftp.slackware.com/pub/slackware/"><br />
+        ftp://ftp.slackware.com/pub/slackware/</a></p>
+        <p>Conectiva: <a href="ftp://atualizacoes.conectiva.com.br/10/"><br />
+        ftp://atualizacoes.conectiva.com.br/</a></p>
+        <p>Mandrake: <a class="offsite" href="http://www.mandrakesoft.com/security/advisories"><br />
+    http://www.mandrakesoft.com/security/advisories</a></p>
+        <p>Fedora: <a href=" http://download.fedora.redhat.com/pub/fedora/linux/core/updates/2/"> <br />
+        http://download.fedora.redhat.com/pub/fedora<br />
+    /linux/core/updates/2/</a></p>
+        <p>RedHat: <a class="offsite" href="http://rhn.redhat.com/errata/RHSA-2004-562.html"><br />
+    http://rhn.redhat.com/errata/RHSA-2004-562.html</a></p>
+        <p><strong>SuSE: In the process of releasing packages.</strong></p>
+        <p>There is no exploit code required.<br /></p></td>
+    <td><div align="center">
+        <p>Apache mod_ssl SSLCipherSuite Access Validation</p>
+        <p>CVE Name:<br /><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2004-0885">CAN-2004-0885 </a></p>
+    </div></td>
+    <td><div align="center">Medium</div></td>
+    <td><p>OpenPKG Security Advisory, OpenPKG-SA-2004.044, October 15, 2004</p>
+        <p>Gentoo Linux Security Advisory, GLSA 200410-21, October 22, 2004 </p>
+        <p>Slackware Security Advisory, SSA:2004-299-01, October 26, 2004 </p>
+        <p>Mandrakelinux Security Update Advisory, MDKSA-2004:122, November 2, 2004 </p>
+        <p>Conectiva Linux Security Announcement, CLA-2004:885, November 4, 2004 </p>
+        <p>Fedora Update Notification,<br />
+    FEDORA-2004-420, November 12, 2004 </p>
+        <p>RedHat Security Advisory, RHSA-2004:562-11, November 12, 2004 </p>
+        <p><strong>SUSE Security Summary Report, SUSE-SR:2004:001, November 24, 2004 </strong></p></td>
+  </tr><tr class="tabletext" valign="top"><td><p><a name="modinclude" id="modinclude"></a>Apache Software Foundation</p>
+        <p>Apache 1.3, 1.3.1, 1.3.3, 1.3.4, 1.3.46, 1.3.7 -dev, 1.3.9, 1.3.11, 1.3.12, 1.3.14, 1.3.17-1.3.20, 1.3.22-1.3.29, 1.3.31</p></td>
+    <td align="left"><p>A buffer overflow vulnerability exists in the 'get_tag()' function, which could let a malicious user execute arbitrary code. </p>
+        <p>Gentoo:<br /><a class="offsite" href="http://security.gentoo.org/glsa/glsa-200411-03.xml">http://security.gentoo.org/glsa/glsa-200411-03.xml</a></p>
+        <p>Slackware: <a href="ftp://ftp.slackware.com/pub/slackware/s"><br />
+    ftp://ftp.slackware.com/pub/slackware/s</a></p>
+        <p>Trustix: <a class="offsite" href="http://http.trustix.org/pub/trustix/updates/"><br />
+    http://http.trustix.org/pub/trustix/updates/</a></p>
+        <p>TurboLinux: <a href="ftp://ftp.turbolinux.co.jp/pub/TurboLinux/TurboLinux/ia32/"><br />
+    ftp://ftp.turbolinux.co.jp/pub/<br />
+    TurboLinux/TurboLinux/ia32/</a></p>
+        <p><strong>SuSE: In the process of releasing packages.</strong></p>
+        <p>Exploit scripts have been published. </p></td>
+    <td><div align="center">
+        <p>Apache mod_include Buffer Overflow</p>
+        <p>CVE Name:<br /><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2004-0940">CAN-2004-0940</a> </p>
+    </div></td>
+    <td><div class="highrisk" align="center">High</div></td>
+    <td><p>SecurityFocus, October 20, 2004</p>
+        <p>Slackware Security Advisory, SA:2004-305-01, November 1, 2004 </p>
+        <p>Gentoo Linux Security Advisory, GLSA 200411-03, November 2, 2004 </p>
+        <p>Trustix Secure Linux Security Advisory, TSLSA-2004-0056, November 5, 2004</p>
+        <p>Mandrakelinux Security Update Advisory, MDKSA-2004:134, November 17,2004 </p>
+        <p>Turbolinux Security Announcement, November 18, 2004 </p>
+        <p><strong>SUSE Security Summary Report, SUSE-SR:2004:001, November 24, 2004 </strong> </p></td>
+  </tr><tr class="tabletext" valign="top"><td><p><a name="ical" id="ical"></a>Apple </p>
+        <p>iCal 1.5.3</p></td>
+    <td align="left"><p>A vulnerability exists in the iCal calendar software due to a failure to warn an end user if the calendar contains an alarm, which could let a remote malicious user obtain/modify user information or execute arbitrary code. </p>
+        <p>Upgrade available at: <span class="bodytext"><br /><a target="_blank" href="http://www.apple.com/ical/download/">http://www.apple.com/ical/download/</a></span> </p>
+        <p>There is no exploit code required.</p></td>
+    <td><div align="center">
+        <p>Apple iCal Calendar Import Alarm Notification Failure</p>
+        <p>CVE Name:<br /><a class="offsite" href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2004-1021">CAN-2004-1021</a> </p>
+    </div></td>
+    <td><div align="center">
+        <p>Medium/ <span class="highrisk">High</span></p>
+        <p>(High if arbitrary code can be executed) </p>
+    </div></td>
+    <td>Apple Security Advisory, APPLE-SA-2004-11-22, November 22, 2004 </td>
+  </tr><tr class="tabletext" valign="top"><td><p><a name="safari" id="safari"></a>Apple</p>
+        <p>Safari Beta 2, 1.0-1.2.3</p></td>
+    <td align="left"><p>A Denial of Service vulnerability exists when an infinity JavaScript array sort operation is performed. </p>
+        <p><span class="bodytext">No workaround or patch available at time of publishing. </span></p>
+        <p>A Proof of Concept exploit has been published. </p></td>
+    <td><div align="center">Apple Safari Web Browser Infinite Array Sort Denial of Service</div></td>
+    <td class="highrisk"><div align="center" class="tabletext"><span class="style52">Low</span></div></td>
+    <td>Bugtraq, November 25, 2004 </td>
+  </tr><tr valign="top" class="tabletext"><td><p><a name="atari" id="atari"></a>Atari</p>
+        <p>Atari800 1.3.1 &amp; prior </p></td>
+    <td align="left"><p>Several buffer overflow vulnerabilities exist in the 'log.c' and 'rt-config.c' files due to insufficient boundary checks, which could let a malicious user execute arbitrary code with root privileges. </p>
+        <p>The vendor reports that the vulnerability described in 'log.c' is fixed in versions after 2003-11-13, and that they are currently looking into the issue in 'rt-config.c'. </p>
+        <p>An exploit script has been published. </p></td>
+    <td><div align="center">Atari800 Emulator Multiple Buffer Overflows</div></td>
+    <td class="highrisk"><div align="center">High</div></td>
+    <td>Securiteam, November 25, 2004 </td>
+  </tr><tr valign="top" class="tabletext"><td><p>energymech. net<a name="energymech" id="energymech"></a></p>
+        <p>EnergyMech 2.99.79 &amp; prior </p></td>
+    <td>A buffer overflow vulnerability exists when a remote authenticated malicious user submits a specially crafted 'ESAY' command. The impact was not specified.
+        <p>Update available at: <a href=" http://www.energymech.net/download.html"> <br />
+        http://www.energymech.net/download.html</a></p>
+        <p>Currently we are not aware of any exploits for this vulnerability.</p></td>
+    <td><div align="center">EnergyMech ESAY Command Buffer Overflow </div></td>
+    <td class="highrisk"><div align="center" class="tabletext"><span class="style52">Not Specified </span></div></td>
+    <td>SecurityTracker Alert ID, 1012360, November 30, 2004 </td>
+  </tr><tr class="tabletext" valign="top"><td><p><a name="gdgraphicsbuffer" id="gdgraphicsbuffer"></a>GD Graphics Library </p>
+        <p>gdlib 2.0.23, 2.0.26-2.0.28</p></td>
+    <td>A vulnerability exists in the 'gdImageCreateFromPngCtx()' function when processing PNG images due to insufficient sanity checking on size values, which could let a remote malicious user execute arbitrary code.
+        <p>OpenPKG: <a href="ftp://ftp.openpkg.org/release/"><br />
+    ftp://ftp.openpkg.org/release/</a></p>
+        <p>Ubuntu: <span class="bodytext"><br /></span><a class="offsite" href="http://security.ubuntu.com/ubuntu/pool/main/libg/libgd2/ ">http://security.ubuntu.com/ubuntu/pool/main/libg/libgd2/ </a></p>
+        <p>Gentoo: <a href=" http://security.gentoo.org/glsa/glsa-200411-08.xml"> <br />
+    http://security.gentoo.org/glsa/glsa-200411-08.xml</a></p>
+        <p>Debian: <a class="offsite" href="http://security.debian.org/pool/updates/main/libg/libgd/"><br />
+    http://security.debian.org/pool/updates/main/libg</a></p>
+        <p>Fedora: <a class="offsite" href="http://download.fedora.redhat.com/pub/fedora/linux/core/updates/2/"><br />
+    http://download.fedora.redhat.com/pub/<br />
+    fedora/linux/core/updates/</a></p>
+        <p>Mandrake: <a href="http://www.mandrakesecure.net/en/ftp.php"><br />
+    http://www.mandrakesecure.net/en/ftp.php</a></p>
+        <p>Trustix: <a class="offsite" href="http://http.trustix.org/pub/trustix/updates/"><br />
+    http://http.trustix.org/pub/trustix/updates/</a></p>
+        <p><strong>SuSE: <a href="ftp://ftp.suse.com/pub/suse">ftp://ftp.suse.com/pub/suse</a></strong></p>
+        <p>An exploit script has been published. </p></td>
+    <td><div align="center">
+        <p>GD Graphics Library Remote Integer Overflow</p>
+        <p>CVE Name:<br /><a class="offsite" href="http://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=CAN-2004-0990">CAN-2004-0990</a> </p>
+    </div></td>
+    <td><div align="center" class="highrisk">High</div></td>
+    <td><p>Secunia Advisory, <br />
+    SA12996, October 28, 2004</p>
+        <p>Gentoo Linux Security Advisory, GLSA 200411-08, November 3, 2004 </p>
+        <p>Ubuntu Security Notice, USN-21-1, November 9, 2004 </p>
+        <p>Debian Security Advisories, DSA 589-1 &amp; 591-1, November 9, 2004 </p>
+        <p>Fedora Update Notifications,<br />
+    FEDORA-2004-411 &amp; 412, November 11, 2004 </p>
+        <p>Mandrakelinux Security Update Advisory, MDKSA-2004:132, November 15, 2004 </p>
+        <p>Trustix Secure Linux Security Advisory, TSLSA-2004-0058, November 16, 2004 </p>
+        <p>Ubuntu Security Notice, USN-25-1, November 16, 2004 </p>
+        <p><strong>SUSE Security Summary Report, SUSE-SR:2004:001, November 24, 2004 </strong></p></td>
+  </tr><tr valign="top" class="tabletext"><td height="281"><p><a name="gnu" id="gnu"></a>GNU </p>
+        <p>a2ps 4.13</p></td>
+    <td><p>A vulnerability exists in filenames due to insufficient validation of shell escape characters, which could let a malicious user execute arbitrary commands. </p>
+        <p>FreeBSD: <span class="bodytext"><br /><a href="http://www.freebsd.org/cgi/cvsweb.cgi/~checkout~/ports/print/a2ps-letter/files/patch-select.c?rev=1.1&amp;content-type=text/plain">http://www.freebsd.org/cgi/cvsweb.cgi/~checkout~/<br />
+    ports/print/a2ps-letter/files/patch-select.c?rev=1.1&amp;<br />
+    content-type=text/plain</a></span> </p>
+        <p>SuSE: <a href="ftp://ftp.suse.com/pub/suse/"><br />
+        ftp://ftp.suse.com/pub/suse/</a></p>
+        <p>Sun: <a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-26-57649-1&amp;searchclause="><br />
+        http://sunsolve.sun.com/search/document.do?<br />
+        assetkey=1-26-57649-1&amp;searchclause=</a></p>
+        <p><strong>Mandrake: <span class="bodytext"><a href="http://www.mandrakesecure.net/en/ftp.php" target="_blank"><br />
+    http://www.mandrakesecure.net/en/ftp.php</a></span> </strong></p>
+        <p>There is no exploit code required; however, a Proof of Concept exploit has been published. </p></td>
+    <td><div align="center">GNU a2ps Command Injection</div></td>
+    <td><div class="highrisk" align="center">High</div></td>
+    <td><p>Securiteam, August 29, 2004 </p>
+        <p>SUSE Security Announcement, SUSE-SA:2004:034, September 17, 2004 </p>
+        <p> Sun(sm) Alert Notification, 57649, September 23, 2004 </p>
+        <p><strong>Mandrakelinux Security Update Advisory, MDKSA-2004:140, November 26, 2004 </strong></p></td>
+  </tr><tr class="tabletext" valign="top"><td><p><a name="gnuinetutils" id="gnuinetutils"></a>GNU</p>
+        <p>InetUtils 1.4.2</p></td>
+    <td><p>A buffer overflow vulnerability exists in 'main.c' due to boundary errors when handling DNS responses, which could let a remote malicious user execute arbitrary code. </p>
+        <p><strong>SuSE: <a href="ftp://ftp.suse.com/pub/suse"><br />
+        ftp://ftp.suse.com/pub/suse</a></strong></p>
+        <p>We are not aware of any exploits for this vulnerability.</p></td>
+    <td><div align="center">
+        <p> GNU InetUtils TFTP Client Remote Buffer Overflow</p>
+    </div></td>
+    <td><div align="center" class="highrisk">High</div></td>
+    <td><p>Bugtraq, October 26, 2004 </p>
+        <p><strong>SUSE Security Summary Report, SUSE-SR:2004:001, November 24, 2004 </strong></p></td>
+  </tr><tr class="tabletext" valign="top"><td><p>ImageMagick <a name="imagemagick" id="imagemagick"></a></p>
+        <p>ImageMagick 5.3.3, 5.4.3, 5.4.4.5, 5.4.7, 5.4.8 .2-1.1.0, 5.4.8, <br />
+    5.5.3 .2-1.2.0, 5.5.6 .0-20030409, 5.5.7, 6.0, 6.0.1, 6.0.3-6.0.8</p></td>
+    <td><p>A buffer overflow vulnerability exists in the 'EXIF' parsing routine due to a boundary error, which could let a remote malicious user execute arbitrary code.</p>
+        <p>Upgrades available at: <span class="bodytext"><br /><a target="_blank" href="http://sourceforge.net/project/showfiles.php?group_id=24099">http://sourceforge.net/project/showfiles.php?group_id=24099</a></span> </p>
+        <p>Redhat:<a class="offsite" href="http://rhn.redhat.com/errata/RHSA-2004-480.html"> <br />
+    http://rhn.redhat.com/errata/RHSA-2004-480.html</a></p>
+        <p>Ubuntu: <a href=" http://security.ubuntu.com/ubuntu/pool/main/i/imagemagick/"> <br />
+    http://security.ubuntu.com/ubuntu/pool/main/<br />
+    i/imagemagick/</a></p>
+        <p>Gentoo: <a class="offsite" href="http://security.gentoo.org/glsa/glsa-200411-11.xml"><br />
+    http://security.gentoo.org/glsa/glsa-200411-11.xml</a></p>
+        <p>Debian: <a class="offsite" href="http://security.debian.org/pool/updates/main/i/imagemagick/"><br />
+    http://security.debian.org/pool/<br />
+    updates/main/i/imagemagick/</a></p>
+        <p>SuSE: <a href="ftp://ftp.suse.com/pub/suse/i386/update/"><br />
+    ftp://ftp.suse.com/pub/suse/i386/update/</a></p>
+        <p>Currently we are not aware of any exploits for this vulnerability.</p></td>
+    <td><div align="center">
+        <p>ImageMagick Remote EXIF Parsing Buffer Overflow</p>
+        <p>CVE Name:<br /><a class="offsite" href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2004-0981">CAN-2004-0981 </a> </p>
+    </div></td>
+    <td><div align="center" class="highrisk">High</div></td>
+    <td><p>SecurityTracker Alert ID, 1011946, October 26, 2004</p>
+        <p>Gentoo Linux Security Advisory, GLSA 200411-11:01, November 6, 2004 </p>
+        <p>Debian Security Advisory DSA 593-1, November 16, 2004 </p>
+        <p> SUSE Security Announcement, SUSE-SA:2004:041, November 17, 2004 </p>
+        <p><strong>SUSE Security Summary Report, USE-SR:2004:001, November 24, 2004 </strong></p></td>
+  </tr><tr class="tabletext" valign="top"><td><p><a name="infozip" id="infozip"></a>Info-ZIP</p>
+        <p>Zip 2.3</p></td>
+    <td>A buffer overflow vulnerability exists due to a boundary error when doing recursive compression of directories with 'zip,' which could let a remote malicious user execute arbitrary code.
+        <p>Ubuntu: <span class="bodytext"><br /><a target="_blank" href="http://security.ubuntu.com/ubuntu/pool/main/z/zip/zip_2.30-6ubuntu0.1_amd64.deb">http://security.ubuntu.com/ubuntu/pool/main/z/zip/</a></span> </p>
+        <p>Fedora: <a class="offsite" href="http://download.fedora.redhat.com/pub/fedora/linux/core/updates/2/"><br />
+        http://download.fedora.redhat.com/pub<br />
+    /fedora/linux/core/updates/</a></p>
+        <p>Gentoo: <a class="offsite" href="http://security.gentoo.org/glsa/glsa-200411-16.xml"><br />
+        http://security.gentoo.org/glsa/<br />
+    glsa-200411-16.xml</a></p>
+        <p><strong>Mandrake: <span class="bodytext"><a href="http://www.mandrakesecure.net/en/ftp.php" target="_blank"><br />
+    http://www.mandrakesecure.net/en/ftp.php</a></span> </strong></p>
+        <p>Currently we are not aware of any exploits for this vulnerability.</p></td>
+    <td><div align="center">
+        <p>Info-ZIP Zip Remote Recursive Directory Compression Buffer Overflow</p>
+        <p>CVE Name:<br /><a class="offsite" href="http://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=CAN-2004-1010">CAN-2004-1010</a> </p>
+    </div></td>
+    <td><div align="center" class="highrisk">High</div></td>
+    <td><p>Bugtraq, November 3, 2004 </p>
+        <p>Ubuntu Security Notice, USN-18-1, November 5, 2004 </p>
+        <p>Fedora Update Notification,<br />
+    FEDORA-2004-399 &amp; FEDORA-2004-400, November 8 &amp; 9, 2004 </p>
+        <p>Gentoo Linux Security Advisory, GLSA 200411-16, November 9, 2004 </p>
+        <p><strong>Mandrakelinux Security Update Advisory, MDKSA-2004:141, November 26, 2004 </strong></p></td>
+  </tr><tr class="tabletext" valign="top"><td><p><a name="ipcop" id="ipcop"></a>ipcop.org</p>
+        <p>IPCop 1.4.1, possibly older versions </p></td>
+    <td>A Cross-Site Scripting vulnerability exists in 'proxylog.dat' due to insufficient input validation, which could let a remote malicious user execute arbitrary HTML and script code.
+        <p>No workaround or patch available at time of publishing.</p>
+        <p>A Proof of Concept exploit has been published. </p></td>
+    <td><div align="center">IPCop 'proxylog.dat' Cross-Site Scripting</div></td>
+    <td class="highrisk"><div align="center">High</div></td>
+    <td>SecurityTracker Alert ID, 1012362, November 30, 2004 </td>
+  </tr><tr class="tabletext" valign="top"><td><p><a name="jabber" id="jabber"></a>Jabber Software Foundation </p>
+        <p>Jabber Server 2.0</p></td>
+    <td align="left"><p>Multiple buffer overflow vulnerabilities exists due to insufficient validation of user-supplied strings prior to copying them into finite process buffers, which could let a remote malicious user execute arbitrary code.</p>
+        <p> <span class="bodytext">No workaround or patch available at time of publishing. </span> </p>
+        <p>A Proof of Concept exploit has been published. </p></td>
+    <td><div align="center">
+        <p>Jabber Server Multiple Remote Buffer Overflows</p>
+        <p>CVE Name:<br /><a class="offsite" href="http://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=CAN-2004-0953">CAN-2004-0953 </a> </p>
+    </div></td>
+    <td class="highrisk"><div align="center">High</div></td>
+    <td>Bugtraq, November 24, 2004 </td>
+  </tr><tr class="tabletext" valign="top"><td><p><a name="camino" id="camino"></a>Mozilla.org</p>
+        <p> Camino 0.7.0, 0.8</p></td>
+    <td align="left"><p>A Denial of Service vulnerability exists when the browser performs an infinite JavaScript array sort operation. </p>
+        <p>No workaround or patch available at time of publishing. </p>
+        <p>A Proof of Concept exploit has been published. </p></td>
+    <td><div align="center">Mozilla Camino Web Browser Infinite Array Sort Denial of Service</div></td>
+    <td class="highrisk"><div align="center" class="tabletext"><span class="style52">Low</span></div></td>
+    <td>Bugtraq, November 25, 2004 </td>
+  </tr><tr class="tabletext" valign="top"><td><p><a name="bugzilla" id="bugzilla"></a>Mozilla.org</p>
+        <p>Bugzilla 2.4, 2.6, 2.8, 2.10, 2.12, 2.14-2.14.5, 2.16-2.16.5, 2.17-2.17.7, 2.18 rc1&amp;rc2</p></td>
+    <td>Multiple vulnerabilities exist: a vulnerability exists in 'process_bug.cgi' when a specially crafted HTTP POST request to remove keywords from a bug is submitted, which could let a remote malicious user obtain sensitive information: a vulnerability exists when exporting bugs to XML, which could let a remote malicious user obtain sensitive information; and a vulnerability exists because various private attachment metadata is disclosed, which could let a remote malicious user see private attachments.
+        <p>Upgrades available at: <span class="bodytext"><br /></span><a class="offsite" href="http://www.bugzilla.org/download/ ">http://www.bugzilla.org/download/ </a></p>
+        <p><strong>Conectiva: <a href="ftp://atualizacoes.conectiva.com.br/"><br />
+        ftp://atualizacoes.conectiva.com.br/</a></strong></p>
+        <p>There is no exploit code required.</p></td>
+    <td><div align="center">
+        <p>Mozilla Bugzilla Multiple Authentication Bypass&amp; Information Disclosure </p>
+    </div></td>
+    <td><div align="center">Medium</div></td>
+    <td><p>Bugzilla Security Advisory, October 24, 2004 </p>
+        <p><strong>Conectiva Linux Security Announcement, CLA-2004:896, November 23, 2004 </strong></p></td>
+  </tr><tr class="tabletext" valign="top"><td><p><a name="imapd" id="imapd"></a>Multiple Vendors </p>
+        <p>Carnegie Mellon University Cyrus IMAP Server 2.1.7, 2.1.9, 2.1.10, 2.1.16, 2.2 .0 ALPHA, 2.2.1 BETA, 2.2.2 BETA, 2.2.3-2.2.8; Trustix Secure Enterprise Linux 2.0, Secure Linux 2.0-2.2;<br />
+    Ubuntu Linux 4.1 ppc, 4.1 ia64, 4.1 ia32</p></td>
+    <td align="left"><p>Multiple vulnerabilities exist: a buffer overflow vulnerability exists in the 'PROXY' and 'LOGIN' commands if the 'IMAPMAGICPLUS' option is enabled, which could let a remote malicious user execute arbitrary code; an input validation vulnerability exists in the argument parser for the 'PARTIAL' command, which could let a remote malicious user execute arbitrary code; an input validation vulnerability exists in the argument handler for the 'FETCH' command, which could let a remote malicious user execute arbitrary code; and a vulnerability exists in the handler for the 'APPEND' command, which could let a remote malicious user execute arbitrary code. </p>
+        <p>Carnegie Mellon University: <span class="bodytext"><br /><a target="_blank" href="ftp://ftp.andrew.cmu.edu/pub/cyrus/cyrus-imapd-2.1.17.tar.gz">ftp://ftp.andrew.cmu.edu/pub/cyrus/</a></span></p>
+        <p>Debian: <a class="offsite" href="http://security.debian.org/pool/updates/main/c/cyrus-imapd/"><br />
+        http://security.debian.org/pool/updates/main/c/cyrus-imapd/</a></p>
+        <p>Gentoo: <a class="offsite" href="http://security.gentoo.org/glsa/glsa-200411-34.xml   "><br />
+        http://security.gentoo.org/glsa/glsa-200411-34.xml </a></p>
+        <p>Mandrake: <a class="offsite" href="http://www.mandrakesecure.net/en/ftp.php"><br />
+        http://www.mandrakesecure.net/en/ftp.php</a></p>
+        <p>Trustix: <a class="offsite" href="http://http.trustix.org/pub/trustix/updates/"><br />
+        http://http.trustix.org/pub/trustix/updates/</a></p>
+        <p>Ubuntu: <span class="bodytext"><br /><a target="_blank" href="http://security.ubuntu.com/ubuntu/pool/main/c/cyrus21-imapd/cyrus21-admin_2.1.16-6ubuntu0.1_all.deb">http://security.ubuntu.com/ubuntu/pool/main/c/cyrus21-imapd/</a></span> </p>
+        <p>Currently we are not aware of any exploits for these vulnerabilities.</p></td>
+    <td><div align="center">
+        <p>Cyrus IMAPD Multiple Remote Vulnerabilities</p>
+        <p>CVE Names:<br /><a class="offsite" href="http://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=CAN-2004-1011">CAN-2004-1011</a> <br /><a class="offsite" href="http://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=CAN-2004-1012">CAN-2004-1012</a><br /><a class="offsite" href="http://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=CAN-2004-1013">CAN-2004-1013</a> </p>
+    </div></td>
+    <td><div align="center" class="highrisk">High</div></td>
+    <td><p>Securiteam, November 23, 2004 </p>
+        <p>Debian Security Advisory, DSA 597-1, November 25, 2004 </p>
+        <p>Gentoo Linux Security Advisory, GLSA 200411-34, November 25, 2004 </p>
+        <p>Mandrakelinux Security Update Advisory, MDKSA-2004:139, November 26, 2004</p>
+        <p>Trustix Secure Linux Advisory, TSL-2004-0063. November 29,2 004 </p></td>
+  </tr><tr class="tabletext" valign="top"><td><p><a name="cyrusimap" id="cyrusimap"></a>Multiple Vendors </p>
+        <p>Carnegie Mellon University Cyrus IMAP Server 2.2.9 &amp; prior </p></td>
+    <td align="left"><p>A buffer overflow vulnerability exists in the 'imap magic plus' support code, which could let a remote malicious user execute arbitrary code. </p>
+        <p>Update available at: <a href=" http://asg.web.cmu.edu/cyrus/download/"> <br />
+        http://asg.web.cmu.edu/cyrus/download/</a></p>
+        <p>Gentoo: <a class="offsite" href="http://security.gentoo.org/glsa/glsa-200411-34.xml   "><br />
+        http://security.gentoo.org/glsa/glsa-200411-34.xml </a></p>
+        <p>Mandrake: <a class="offsite" href="http://www.mandrakesecure.net/en/ftp.php"><br />
+        http://www.mandrakesecure.net/en/ftp.php</a></p>
+        <p>Currently we are not aware of any exploits for this vulnerability.</p></td>
+    <td><div align="center">
+        <p>Cyrus IMAP 'imap magic plus' Buffer Overflow</p>
+        <p>CVE Name:<br /><a class="offsite" href="http://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=CAN-2004-1015">CAN-2004-1015</a> </p>
+    </div></td>
+    <td><div align="center" class="highrisk">High</div></td>
+    <td><p>Gentoo Linux Security Advisory, GLSA 200411-34, November 25, 2004 </p>
+        <p>Mandrakelinux Security Update Advisory, MDKSA-2004:139, November 26, 2004</p></td>
+  </tr><tr class="tabletext" valign="top"><td><p><a name="samba" id="samba"></a>Multiple Vendors</p>
+        <p> Gentoo Linux;<br />
+    Samba Samba 3.0-3.0.7 </p>
+        <p> </p></td>
+    <td align="left"><p>A remote Denial of Service vulnerability exists in 'ms_fnmatch()' function due to insufficient input validation. </p>
+        <p>Patch available at: <span class="bodytext"><br /><a target="_blank" href="http://us4.samba.org/samba/ftp/patches/security/samba-3.0.7-CAN-2004-0930.patch">http://us4.samba.org/samba/ftp/patches/security<br />
+    /samba-3.0.7-CAN-2004-0930.patch</a></span> </p>
+        <p>Gentoo: <a class="offsite" href="http://security.gentoo.org/glsa/glsa-200411-21.xml"><br />
+    http://security.gentoo.org/glsa/glsa-200411-21.xml</a></p>
+        <p>Mandrake: <a href="http://www.mandrakesecure.net/en/ftp.php"><br />
+    http://www.mandrakesecure.net/en/ftp.php</a></p>
+        <p>SuSE: <a href="ftp://ftp.suse.com/pub/suse/i386/update/"><br />
+    ftp://ftp.suse.com/pub/suse/i386/update/</a></p>
+        <p>Ubuntu: <span class="bodytext"><br /><a target="_blank" href="http://security.ubuntu.com/ubuntu/pool/main/s/samba/samba-doc_3.0.7-1ubuntu6.1_all.deb">http://security.ubuntu.com/ubuntu/pool/main/s/samba/</a></span> </p>
+        <p>RedHat: <a class="offsite" href="http://rhn.redhat.com/errata/RHSA-2004-632.html"><br />
+    http://rhn.redhat.com/errata/RHSA-2004-632.html</a></p>
+        <p>Trustix: <a class="offsite" href="http://http.trustix.org/pub/trustix/updates/"><br />
+    http://http.trustix.org/pub/trustix/updates/</a></p>
+        <p><strong>Conectiva: <a href="ftp://atualizacoes.conectiva.com.br/"><br />
+        ftp://atualizacoes.conectiva.com.br/</a></strong></p>
+        <p><strong>Fedora: <a class="offsite" href="http://download.fedora.redhat.com/pub/fedora/linux/core/updates/2/"><br />
+        http://download.fedora.redhat.com/<br />
+        pub/fedora/linux/core/updates/</a></strong></p>
+        <p>There is no exploit code required.</p></td>
+    <td><div align="center">
+        <p> Samba Remote Wild Card Denial of Service</p>
+        <p>CVE Name:<br /><a class="offsite" href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2004-0930">CAN-2004-0930</a> </p>
+    </div></td>
+    <td><div align="center">Low</div></td>
+    <td><p>SecurityFocus, November 15, 2004 </p>
+        <p>Trustix Secure Linux Security Advisory, TSLSA-2004-0058, November 16, 2004 </p>
+        <p>RedHat Security Advisory, RHSA-2004:632-17, November 16, 2004 </p>
+        <p><strong>Conectiva Linux Security Announcement, CLA-2004:899, November 25, 2004 </strong></p>
+        <p><strong>Fedora Update Notifications,<br />
+    FEDORA-2004-459 &amp; 460, November 29, 2004 </strong></p></td>
+  </tr><tr class="tabletext" valign="top"><td><p><a name="sambabuffer" id="sambabuffer"></a>Multiple Vendors </p>
+        <p>Samba 3.0 - 3.0.7; RedHat Advanced Workstation for the Itanium Processor 2.1, IA64, Desktop 3.0, Enterprise Linux WS 3, WS 2.1 IA64, 2.1, ES 3, 2.1 IA64, 2.1, AS 3, 2.1 IA64, 2.1; Ubuntu Linux 4.1 ppc, ia64, ia32 </p></td>
+    <td>A buffer overflow vulnerability exists in the 'QFILEPATHINFO' request handler when constructing 
+  'TRANSACT2_QFILEPATHINFO' responses, which could let a remote malicious user execute arbitrary code.
+    <p>Update available at: <a href="ttp://www.samba.org/samba/download/"><br />
+    http://www.samba.org/samba/download/</a></p>
+    <p>Mandrake: <a href="http://www.mandrakesecure.net/en/ftp.php"><br />
+    http://www.mandrakesecure.net/en/ftp.php</a></p>
+    <p>SuSE: <span class="bodytext"><br /><a target="_blank" href="ftp://ftp.suse.com/pub/suse/x86_64/update/9.2/rpm/x86_64/samba-3.0.7-5.2.x86_64.patch.rpm">ftp://ftp.suse.com/pub/suse/</a></span> </p>
+    <p>Trustix: <a href="ftp://ftp.trustix.org/pub/trustix/updates/"><br />
+    ftp://ftp.trustix.org/pub/trustix/updates/</a></p>
+    <p>Ubuntu: <a href="file:///C|/Documents%20and%20Settings/Donna1/Desktop/%20%20%20%20Ubuntu%20Upgrade%20samba-doc_3.0.7-1ubuntu6.2_all.deb"> <br />
+    Ubuntu Upgrade samba-doc_<br />
+    3.0.7-1ubuntu6.2_all.deb</a></p>
+    <p><strong>Conectiva: <a href="ftp://atualizacoes.conectiva.com.br/"><br />
+      ftp://atualizacoes.conectiva.com.br/</a></strong></p>
+    <p><strong>Fedora: <a class="offsite" href="http://download.fedora.redhat.com/pub/fedora/linux/core/updates/2/"><br />
+      http://download.fedora.redhat.com/<br />
+      pub/fedora/linux/core/updates/</a></strong></p>
+    <p>Currently we are not aware of any exploits for this vulnerability.</p></td>
+    <td><div align="center">
+        <p>Samba 'QFILEPATHINFO' Buffer Overflow</p>
+        <p>CVE Name:<br /><a class="offsite" href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2004-0882">CAN-2004-0882 </a> </p>
+    </div></td>
+    <td class="highrisk"><div align="center">High</div></td>
+    <td><p>e-matters GmbH Security Advisory, November 14, 2004</p>
+        <p>SuSE Security Announcement, SUSE-SA:2004:040, November 15, 2004 </p>
+        <p>Trustix Secure Linux Security Advisory, TSLSA-2004-0058, November 16, 2004 </p>
+        <p>Ubuntu Security Notice, USN-29-1, November 18, 2004</p>
+        <p>Mandrakelinux Security Update Advisory, MDKSA-2004:136, November 19, 2004 </p>
+        <p>US-CERT Vulnerability Note VU#457622, November 19, 2004 </p>
+        <p><strong>Conectiva Linux Security Announcement, CLA-2004:899, November 25, 2004 </strong></p>
+        <p><strong>Fedora Update Notifications,<br />
+    FEDORA-2004-459 &amp; 460, November 29, 2004 </strong></p></td>
+  </tr><tr class="tabletext" valign="top"><td><p>Multiple Vendors<a name="libxpm" id="libxpm"></a></p>
+        <p>Gentoo Linux;<br />
+    RedHat Fedora Core3, Core2; <br />
+    SuSE Linux 8.1, 8.2, 9.0-9.2, Desktop 1.0, Enterprise Server 9, 8, Novell Linux Desktop 1.0;<br />
+    X.org X11R6 6.7 .0, 6.8, 6.8.1;<br />
+    XFree86 X11R6 3.3, 3.3.2-3.3.6, 4.0-4.0.3, 4.1 .0, 4.1 -12, 4.1 -11, 4.2 .0, 4.2.1 Errata, 4.2.1<br />
+    4.3 .0</p></td>
+    <td align="left"><p>Multiple vulnerabilities exist due to integer overflows, memory access errors, input validation errors, and logic errors, which could let a remote malicious user execute arbitrary code, obtain sensitive information or cause a Denial of Service. </p>
+        <p>Fedora: <span class="bodytext"><br /><a target="_blank" href="http://download.fedora.redhat.com/pub/fedora/linux/core/updates/2/">http://download.fedora.redhat.com<br />
+    /pub/fedora/linux/core/updates</a></span> </p>
+        <p>Gentoo: <a class="offsite" href="http://security.gentoo.org/glsa/glsa-200411-28.xml"><br />
+    http://security.gentoo.org/glsa/glsa-200411-28.xml</a></p>
+        <p>SuSE: <span class="bodytext"><br /><a target="_blank" href="ftp://ftp.suse.com/pub/suse/i386/update/9.2/rpm/i586/xorg-x11-libs-6.8.1-15.3.i586.rpm">ftp://ftp.suse.com/pub/suse</a></span> </p>
+        <p>X.org: <br /><a class="offsite" href="http://www.x.org/pub/">http://www.x.org/pub/</a></p>
+        <p><strong>Mandrake: <span class="bodytext"><a href="http://www.mandrakesecure.net/en/ftp.php" target="_blank"><br />
+    http://www.mandrakesecure.net/en/ftp.php</a></span> </strong></p>
+        <p>Currently we are not aware of any exploits for these vulnerabilities</p></td>
+    <td><div align="center">
+        <p> LibXPM Multiple Vulnerabilities</p>
+        <p>CVE Name:<br /><a class="offsite" href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2004-0914">CAN-2004-0914 </a> </p>
+    </div></td>
+    <td><div align="center">
+        <p>Low/ Medium/ <span class="highrisk">High</span></p>
+        <p>(Low if a DoS; Medium if sensitive information can be obtained; and High if arbitrary code can be executed) </p>
+    </div></td>
+    <td><p>X.Org Foundation Security Advisory, November 17, 2004</p>
+        <p>Fedora Update Notifications,<br />
+    FEDORA-2004-433 &amp; 434, November 17 &amp; 18, 2004 </p>
+        <p>SUSE Security Announcement, SUSE-SA:2004:041, November 17, 2004</p>
+        <p> Gentoo Linux Security Advisory, GLSA 200411-28, November 19, 2004</p>
+        <p><strong>Mandrakelinux Security Update Advisories, MDKSA-2004:137 &amp; 138, November 23, 2004 </strong></p></td>
+  </tr><tr class="tabletext" valign="top"><td><p><a name="aout" id="aout"></a>Multiple Vendors</p>
+        <p>Linux kernel 2.6.x, 2.4.x </p></td>
+    <td align="left"><p>Two vulnerabilities exist: a Denial of Service vulnerability exists via a specially crafted 'a.out' binary; and a vulnerability exists due to a race condition in the memory management, which could let a malicious user obtain sensitive information. </p>
+        <p><span class="bodytext">No workaround or patch available at time of publishing. </span></p>
+        <p>Currently we are not aware of any exploits for these vulnerabilities.</p></td>
+    <td><div align="center">Linux Kernel Local DoS &amp; Memory Content Disclosure</div></td>
+    <td class="highrisk"><div align="center" class="tabletext">
+        <p class="style52">Low/ Medium</p>
+        <p class="style52">(Medium if sensitive information can be obtained) </p>
+    </div></td>
+    <td>Secunia Advisory, <br />
+  SA13308, November 25, 2004 </td>
+  </tr><tr valign="top" class="tabletext"><td><p><a name="linuxdatagram" id="linuxdatagram"></a>Multiple Vendors</p>
+        <p>Linux Kernel 2.4.28 &amp; prior </p></td>
+    <td>A vulnerability exists due to improper serialization of datagrams, which could let a malicious user obtain elevated privileges.
+        <p>Update available at: <font link="#999999" vlink="#999999" alink="#999999"><font face="Arial, Helvetica" size="-1"><br /></font></font><a class="offsite" href="http://linux.bkbits.net:8080/linux-2.4/cset@4199284dnTPrPLR-yhP_rOBHXJlltA ">http://linux.bkbits.net:8080/linux-2.4/<br />
+      cset@4199284dnTPrPLR-yhP_rOBHXJlltA </a></p>
+        <p>Currently we are not aware of any exploits for this vulnerability.</p></td>
+    <td><div align="center">
+        <p>Linux Kernel Datagram Serialization </p>
+        <p>CVE Name:<br /><a class="offsite" href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2004-1068">CAN-2004-1068 </a> </p>
+    </div></td>
+    <td class="highrisk"><div align="center" class="tabletext"><span class="style52">Medium</span></div></td>
+    <td>SecurityTracker Alert ID, 1012363, November 30, 2004 </td>
+  </tr><tr valign="top" class="tabletext"><td><p><a name="elf" id="elf"></a>Multiple Vendors</p>
+        <p>Linux Kernel 2.4-2.4.27, 2.6-2.6.8 </p></td>
+    <td align="left">Multiple vulnerabilities exist due to various errors in the 'load_elf_binary' function of the 'binfmt_elf.c' file, which could let a malicious user obtain elevated privileges and potentially execute arbitrary code.
+        <p>Patch available at: <a class="offsite" href="http://linux.bkbits.net:8080/linux-2.6/gnupatch@41925edcVccsXZXObG444GFvEJ94GQ"><br />
+    http://linux.bkbits.net:8080/<br />
+    linux-2.6/gnupatch@41925edcVccs<br />
+    XZXObG444GFvEJ94GQ</a></p>
+        <p>Trustix: <a class="offsite" href="http://http.trustix.org/pub/trustix/updates/"><br />
+        http://http.trustix.org/pub/trustix/updates/</a></p>
+        <p><strong>Fedora: <a class="offsite" href="http://download.fedora.redhat.com/pub/fedora/linux/core/updates/2/"><br />
+        http://download.fedora.redhat.com/<br />
+        pub/fedora/linux/core/updates/</a></strong></p>
+        <p>Proofs of Concept exploit scripts have been published. </p></td>
+    <td><div align="center">
+        <p> Linux Kernel BINFMT_ELF Loader Multiple Vulnerabilities </p>
+    </div></td>
+    <td><div align="center">
+        <p>Medium/ <span class="highrisk">High</span></p>
+        <p>(High if arbitrary code can be executed) </p>
+    </div></td>
+    <td><p>Bugtraq, November 11, 2004 </p>
+        <p><strong>Fedora Update Notifications,<br />
+    FEDORA-2004-450 &amp; 451, November 23, 2004 </strong></p></td>
+  </tr><tr class="tabletext" valign="top"><td><p>Multiple Vendors<a name="smbfs" id="smbfs"></a></p>
+        <p>Linux Kernel 2.4-2.4.27, 2.6-2.6.9; Trustix Secure Enterprise Linux 2.0, Secure Linux 1.5, 2.0-2.2;<br />
+    Ubuntu Linux 4.1 ppc, 4.1 ia64, 4.1 ia32</p></td>
+    <td align="left">Multiple remote Denial of Service vulnerabilities exist in the SMB filesystem (SMBFS) implementation due to various errors when handling server responses. This could also possibly lead to the execution of arbitrary code.
+        <p>Upgrades available at: <span class="bodytext"><br /><a target="_blank" href="http://kernel.org/pub/linux/kernel/v2.4/linux-2.4.28.tar.bz2">http://kernel.org/pub/linux/kernel/v2.4/linux-2.4.28.tar.bz2</a></span> </p>
+        <p>Trustix: <a href="ftp://ftp.trustix.org/pub/trustix/updates/"><br />
+    ftp://ftp.trustix.org/pub/trustix/updates/</a></p>
+        <p>Ubuntu: <span class="bodytext"><br /><a target="_blank" href="http://security.ubuntu.com/ubuntu/pool/main/l/linux-source-2.6.8.1/linux-doc-2.6.8.1_2.6.8.1-16.1_all.deb">http://security.ubuntu.com/ubuntu/pool/main/l/</a></span></p>
+        <p><strong>Fedora: <a class="offsite" href="http://download.fedora.redhat.com/pub/fedora/linux/core/updates/2/"><br />
+        http://download.fedora.redhat.com/<br />
+        pub/fedora/linux/core/updates/</a></strong></p>
+        <p>Currently we are not aware of any exploits for these vulnerabilities</p></td>
+    <td><div align="center">
+        <p>Linux Kernel smbfs Filesystem Memory Errors Remote Denial of Service </p>
+        <p>CVE Names: <br /><a class="offsite" href="http://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=CAN-2004-0883">CAN-2004-0883</a> <br /><a class="offsite" href="http://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=CAN-2004-0949">CAN-2004-0949 </a> </p>
+    </div></td>
+    <td><div align="center">
+        <p>Low/<span class="highrisk">High</span></p>
+        <p>(High if arbitrary code can be executed) </p>
+    </div></td>
+    <td><p>e-matters GmbH Security Advisory, November 11, 2004 </p>
+        <p><strong>Fedora Update Notifications,<br />
+    FEDORA-2004-450 &amp; 451, November 23, 2004 </strong></p></td>
+  </tr><tr class="tabletext" valign="top"><td><p><a name="mysql" id="mysql"></a>MySQL AB </p>
+        <p>MySQL 3.23.49, 4.0.20</p></td>
+    <td align="left"><p>A vulnerability exists in the 'mysqlhotcopy' script due to predictable files names of temporary files, which could let a malicious user obtain elevated privileges.</p>
+        <p>Debian: <a href="http://security.debian.org/pool/updates/main/m/"><br />
+        http://security.debian.org/pool/updates/main/m/</a></p>
+        <p>Gentoo: <a href="http://security.gentoo.org/glsa/glsa-200409-02.xml"><br />
+        http://security.gentoo.org/glsa/glsa-200409-02.xml</a></p>
+        <p>SuSE: <a href="ftp://ftp.suse.com/pub/suse/"><br />
+        ftp://ftp.suse.com/pub/suse/</a></p>
+        <p>RedHat: <a href="http://rhn.redhat.com/errata/RHSA-2004-569.html"><br />
+        http://rhn.redhat.com/errata/RHSA-2004-569.html</a></p>
+        <p>OpenPKG: <a href="ftp://ftp.openpkg.org/release/"><br />
+        ftp://ftp.openpkg.org/release/</a></p>
+        <p>Mandrake:<br /><a class="offsite" href="http://www.mandrakesoft.com/security/advisories">http://www.mandrakesoft.com/security/advisories</a></p>
+        <p>There is no exploit code required.</p></td>
+    <td><div align="center">
+        <p>MySQL <br />
+      'Mysqlhotcopy' Script Elevated Privileges </p>
+        <p>CVE Name: <br /><a href="http://www.cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2004-0457">CAN-2004-0457</a></p>
+        <p> </p>
+    </div></td>
+    <td><div align="center">Medium</div></td>
+    <td><p>Debian Security Advisory, DSA 540-1, August 18, 2004 </p>
+        <p>Gentoo Linux Security Advisory GLSA 200409-02, September 1, 2004 </p>
+        <p>SUSE Security Announcement, SUSE-SA:2004:030, September 6, 2004 </p>
+        <p>RedHat Security Advisory, ,RHSA-2004:569-16, October 20, 2004</p>
+        <p>Mandrakelinux Security Update Advisory, MDKSA-2004:119, November 1, 2004 </p>
+        <p><strong>SUSE Security Summary Report, USE-SR:2004:001, November 24, 2004 </strong></p></td>
+  </tr><tr class="tabletext" valign="top"><td><p><a name="mysqlab" id="mysqlab"></a>MySQL AB </p>
+        <p>MySQL 3.x, 4.x </p>
+        <p> </p></td>
+    <td><p>Two vulnerabilities exist: a vulnerability exists due to an error in 'ALTER TABLE ... RENAME' operations because the 'CREATE/INSERT' rights of old tables are checked, which potentially could let a remote malicious user bypass security restrictions; and a remote Denial of Service vulnerability exists when multiple threads issue 'alter' commands against 'merge' tables to modify the 'union.'</p>
+        <p>Updates available at: <a class="offsite" href="http://dev.mysql.com/downloads/mysql/"><br />
+    http://dev.mysql.com/downloads/mysql/</a></p>
+        <p>Debian: <a href=" http://security.debian.org/pool/updates/main/m/mysql"> <br />
+    http://security.debian.org/pool/updates/main/m/mysql</a></p>
+        <p>Trustix: <a class="offsite" href="http://http.trustix.org/pub/trustix/updates/"><br />
+    http://http.trustix.org/pub/trustix/updates/</a></p>
+        <p>Mandrake: <a class="offsite" href="http://www.mandrakesoft.com/security/advisories"><br />
+    http://www.mandrakesoft.com/security/advisories</a></p>
+        <p>Conectiva: <a href="ftp://atualizacoes.conectiva.com.br/1"><br />
+    ftp://atualizacoes.conectiva.com.br/</a></p>
+        <p><strong>Ubuntu: <a class="offsite" href="http://security.ubuntu.com/ubuntu/pool/main/m/mysql-dfsg/"><br />
+        http://security.ubuntu.com/ubuntu/<br />
+        pool/main/m/mysql-dfsg/</a></strong></p>
+        <p><strong>SuSE:<br /><a href="ftp://ftp.suse.com/pub/suse">ftp://ftp.suse.com/pub/suse</a></strong></p>
+        <p>We are not aware of any exploits for these vulnerabilities. </p></td>
+    <td><div align="center">
+        <p>MySQL Security Restriction Bypass &amp; Remote Denial of Service </p>
+        <p>CVE Names:<br /><a class="offsite" href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2004-0835">CAN-2004-0835</a><a class="offsite" href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2004-0837"><br />
+      CAN-2004-0837 </a> </p>
+    </div></td>
+    <td class="highrisk"><div align="center" class="tabletext style52">
+        <p class="tabletext ">Low/ Medium</p>
+        <p>(Low if a DoS; and Medium if security restrictions can be bypassed) </p>
+    </div></td>
+    <td><p>Secunia Advisory, SA12783, October 11, 2004 </p>
+        <p>Trustix Secure Linux Security Advisory, TSLSA-2004-0054, October 15, 2004</p>
+        <p>Mandrakelinux Security Update Advisory, MDKSA-2004:119, November 1, 2004</p>
+        <p>Conectiva Linux Security Announcement, CLA-2004:892, November 18, 2004 </p>
+        <p><strong>Ubuntu Security Notice, USN-32-1, November 25, 2004 </strong></p>
+        <p><strong>SUSE Security Summary Report, SUSE-SR:2004:001, November 24, 2004 </strong> </p></td>
+  </tr><tr valign="top" class="tabletext"><td><p><a name="phpbb" id="phpbb"></a>phpBB Group </p>
+        <p>phpBB 2.0.0-2.0.10</p></td>
+    <td align="left">A vulnerability exists in the 'urldecode' function due to insufficient input validation, which could let a remote malicious user execute arbitrary PHP script.
+        <p>No workaround or patch available at time of publishing.</p>
+        <p><strong>An exploit script has been published. </strong><br /></p></td>
+    <td><div align="center">PHPBB Remote URLDecode Input Validation </div></td>
+    <td><div align="center" class="highrisk">High</div></td>
+    <td><p>Bugtraq, November 13, 2004 </p>
+        <p><strong>SecurityFocus, November 23, 2004 </strong></p></td>
+  </tr><tr class="tabletext" valign="top"><td><p><a name="phpnews" id="phpnews"></a>PHPNews</p>
+        <p> PHPNews 1.2.3</p></td>
+    <td align="left"><p>A vulnerability exists in 'sendtofriend.php' due to insufficient sanitization of the 'mid' parameter, which could let a remote malicious user manipulate data. </p>
+        <p>Upgrade available at: <span class="bodytext"><br /><a target="_blank" href="http://prdownloads.sourceforge.net/newsphp/phpnews_1-2-4.zip?download">http://prdownloads.sourceforge.net/<br />
+      newsphp/phpnews_1-2-4.zip?download</a></span> </p>
+        <p>There is no exploit code required.</p></td>
+    <td><div align="center">
+        <p> PHPNews SQL Injection</p>
+    </div></td>
+    <td class="highrisk"><div align="center" class="tabletext style52">Medium</div></td>
+    <td>Secunia Advisory, <br />
+  SA13300, November 24, 2004 </td>
+  </tr><tr class="tabletext" valign="top"><td><p><a name="phpwebsite" id="phpwebsite"></a>phpWebSite Development Team</p>
+        <p>phpWebsite 0.7.3, 0.8.2, 0.8.3, 0.9.3, -1-4</p></td>
+    <td>A vulnerability exists in the 'index.php' script due to insufficient validation of user-supplied input in several parameters, which could let a remote malicious user execute arbitrary HTML and script code.
+        <p>Patches available at: <span class="bodytext"><br /><a target="_blank" href="http://phpwebsite.appstate.edu/downloads/security/phpwebsite-core-security-patch2.tar.gz">http://phpwebsite.appstate.edu/downloads/<br />
+    security/phpwebsite-core-security-patch2.tar.gz</a></span> </p>
+        <p><strong>Gentoo: <a class="offsite" href="http://security.gentoo.org/glsa/glsa-200411-35.xml"><br />
+        http://security.gentoo.org/glsa/<br />
+        glsa-200411-35.xml</a></strong></p>
+        <p>An exploit script is not required; however, a Proof of Concept exploit has been published. <br /></p></td>
+    <td><div align="center">phpWebSite HTTP Response Splitting </div></td>
+    <td><div align="center" class="highrisk">High</div></td>
+    <td><p>Secunia Advisory, <br />
+    SA13172, November 12, 2004 </p>
+        <p><strong>Gentoo Linux Security Advisory, GLSA 200411-35:02, November 26, 2004 </strong></p></td>
+  </tr><tr valign="top" class="tabletext"><td><p><a name="prozilla" id="prozilla"></a>ProZIlla </p>
+        <p>ProZilla Download Accelerator 1.0 x, 1.3.0-1.3.4, 1.3.5.2, 1.3.5 .1, 1.3.5, 1.3.6</p></td>
+    <td align="left">Multiple buffer overflow vulnerabilities exist due to boundary errors in the<br />
+  communication handling, which could let a remote malicious user execute arbitrary code. 
+    <p>Gentoo: <a class="offsite" href="http://security.gentoo.org/glsa/glsa-200411-31.xml"><br />
+      http://security.gentoo.org/glsa/glsa-200411-31.xml</a></p>
+    <p>Exploit scripts have been published. </p></td>
+    <td><div align="center">ProZilla Multiple Remote Buffer Overflow </div></td>
+    <td><div align="center" class="highrisk">High</div></td>
+    <td>Secunia Advisory, <br />
+  SA13294, November 24, 2004 </td>
+  </tr><tr class="tabletext" valign="top"><td><p><a name="mimedefang" id="mimedefang"></a>Roaring Penguin Software </p>
+        <p>MIMEDefang 2.4, 2.14, 2.20, 2.21, 2.38, 2.39, 2.41-4.47</p></td>
+    <td><p>Multiple vulnerabilities exists due to insufficient validation of I/O 
+    operations in 'mimedefang.pl.in' and an unspecified input validation 
+    error exists in 'mimedefang.c.' The impact was not specified. </p>
+        <p>Upgrades available at: <span class="bodytext"><br /><a target="_blank" href="http://www.mimedefang.org/static/mimedefang-2.48.tar.gz">http://www.mimedefang.org/static/mimedefang-2.48.tar.gz</a></span> </p>
+        <p>Gentoo: <a class="offsite" href="http://security.gentoo.org/glsa/glsa-200411-06.xml"><br />
+        http://security.gentoo.org/glsa/glsa-200411-06.xml</a></p>
+        <p>Mandrake: <span class="bodytext"><a href="http://www.mandrakesecure.net/en/ftp.php" target="_blank"><br />
+    http://www.mandrakesecure.net/en/ftp.php</a></span> </p>
+        <p><strong>SuSE: <a href="ftp://ftp.suse.com/pub/suse"><br />
+        ftp://ftp.suse.com/pub/suse</a></strong></p>
+        <p>We are not aware of any exploits for these vulnerabilities.</p></td>
+    <td><div align="center">
+        <p> Roaring Penguin Software MIMEDefang Multiple Vulnerabilities </p>
+    </div></td>
+    <td><div align="center">Not Specified </div></td>
+    <td><p>SecurityTracker Alert ID, 1011996, October 29, 2004</p>
+        <p><strong>SUSE Security Summary Report, SUSE-SR:2004:001, November 24, 2004 </strong> </p></td>
+  </tr><tr valign="top" class="tabletext"><td><p><a name="bncbuffer" id="bncbuffer"></a>The BNC Project</p>
+        <p>BNC 2.2.4, 2.4.6, 2.4.8, 2.6, 2.6.2, 2.8.8, 2.8.9</p></td>
+    <td align="left">A buffer overflow vulnerability exists in ' getnickuserhost' when a malformed IRC server response is handled by the proxy, which could let a remote malicious user execute arbitrary code.
+        <p>Upgrades available at: <br /><a class="offsite" href="http://www.gotbnc.com/files/bnc2.9.1.tar.gz">http://www.gotbnc.com/files/bnc2.9.1.tar.gz</a></p>
+        <p>Gentoo: <a class="offsite" href="http://security.gentoo.org/glsa/glsa-200411-24.xml"><br />
+    http://security.gentoo.org/<br />
+    glsa/glsa-200411-24.xml</a></p>
+        <p><strong>Debian:<br /><a class="offsite" href="http://security.debian.org/pool/updates/main/b/bnc/">http://security.debian.org/pool/updates/main/b/bnc/</a></strong></p>
+        <p>Currently we are not aware of any exploits for this vulnerability.</p></td>
+    <td><div align="center">
+        <p>BNC Remote Buffer Overflow</p>
+        <p>CVE Name:<br /><a class="offsite" href="http://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=CAN-2004-1052">CAN-2004-1052</a> </p>
+    </div></td>
+    <td><div align="center" class="highrisk">High</div></td>
+    <td><p>LSS Security Advisory #LSS-2004-11-3, November 10, 2004 </p>
+        <p>Gentoo Linux Security Advisory, GLSA 200411-24, November 16, 2004 </p>
+        <p><strong>Debian Security Advisory, DSA 595-1, November 24, 2004 </strong></p></td>
+  </tr><tr valign="top" class="tabletext"><td><p><a name="sudo" id="sudo"></a>Todd Miller </p>
+        <p>Sudo 1.5.6-1.5.9, 1.6-1.6.8</p></td>
+    <td align="left"><p>A vulnerability exists due to an error in the environment cleaning, which could let a malicious user execute arbitrary commands. </p>
+        <p>Patch available at: <span class="bodytext"><br /><a target="_blank" href="http://www.courtesan.com/sudo/download.html">http://www.courtesan.com/sudo/download.html</a></span> </p>
+        <p>Mandrake: <span class="bodytext"><a href="http://www.mandrakesecure.net/en/ftp.php" target="_blank"><br />
+    http://www.mandrakesecure.net/en/ftp.php</a></span> </p>
+        <p>Trustix: <a class="offsite" href="http://http.trustix.org/pub/trustix/updates/"><br />
+    http://http.trustix.org/pub/trustix/updates/</a></p>
+        <p>Ubuntu:<br /><a class="offsite" href="http://security.ubuntu.com/ubuntu/pool/main/s/sudo/">http://security.ubuntu.com/<br />
+    ubuntu/pool/main/s/sudo/</a></p>
+        <p><strong>Debian: <a class="offsite" href="http://security.debian.org/pool/updates/main/s/sudo/"><br />
+        http://security.debian.org/pool<br />
+        /updates/main/s/sudo/</a></strong></p>
+        <p>There is no exploit code required.<br /></p></td>
+    <td><div align="center">Sudo Restricted Command Execution Bypass</div></td>
+    <td><div align="center" class="highrisk">High</div></td>
+    <td><p>Secunia Advisory, <br />
+    SA13199, November 15, 2004 </p>
+        <p>Mandrakelinux Security Update Advisory, MDKSA-2004:133, November 15, 2004 </p>
+        <p>Trustix Secure Linux Security Advisories, TSLSA-2004-0058 &amp; 061, November 16 &amp; 19, 2004 </p>
+        <p>Ubuntu Security Notice, USN-28-1, November 17, 2004</p>
+        <p><strong>Debian Security Advisory, DSA 596-1, November 24, 2004 </strong></p></td>
+  </tr><tr valign="top" class="tabletext"><td><p><a name="twiki" id="twiki"></a>TWiki </p>
+        <p>TWiki 20030201</p></td>
+    <td align="left"><p>A vulnerability exists in 'Search.pn' due to an input validation error when handling search requests, which could let a remote malicious user execute arbitrary commands. </p>
+        <p>Hotfix available at: <font link="#999999" vlink="#999999" alink="#999999"><font face="Arial, Helvetica" size="-1"><br /></font></font><a class="offsite" href="http://twiki.org/cgi-bin/view/Codev/SecurityAlertExecuteCommandsWithSearch ">http://twiki.org/cgi-bin/view/Codev/SecurityAlert<br />
+    Execute CommandsWithSearch </a></p>
+        <p><strong>Gentoo: <a class="offsite" href="http://security.gentoo.org/glsa/glsa-200411-33.xml"><br />
+        http://security.gentoo.org/<br />
+        glsa/glsa-200411-33.xml</a></strong></p>
+        <p>An exploit script has been published.</p></td>
+    <td><div align="center">
+        <p> TWiki Search Shell Metacharacter Remote Arbitrary Command Execution</p>
+        <p>CVE Name:<br /><a class="offsite" href="http://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=CAN-2004-1037">CAN-2004-1037</a> </p>
+    </div></td>
+    <td><div align="center" class="highrisk">High</div></td>
+    <td><p>Securiteam, November 15, 2004 </p>
+        <p>PacketStorm, November 20, 2004 </p>
+        <p><strong>Gentoo Linux Security Advisory, GLSA 200411-33, November 24, 2004 </strong></p></td>
+  </tr><tr valign="top" class="tabletext"><td><p><a name="wmfrog" id="wmfrog"></a>wmFrog </p>
+        <p>Weather Monitor 0.1.6</p></td>
+    <td align="left">A vulnerability exists due to insecure creation of temporary files, which could let a malicious user overwrite arbitrary files on the system.
+        <p><span class="bodytext">No workaround or patch available at time of publishing. </span></p>
+        <p>There is no exploit code required.<br /></p></td>
+    <td><div align="center">WMFrog Weather Monitor Insecure Temporary Files </div></td>
+    <td class="highrisk"><div align="center" class="tabletext"><span class="style52">Medium</span></div></td>
+    <td>Secunia Advisory, <br />
+  SA13259, November 24, 2004 </td>
+  </tr><tr valign="top" class="tabletext"><td><p><a name="xine" id="xine"></a>xinehq.de</p>
+        <p>xine 0.5.2 - 0.5.x; 0.9.x; 1-alpha.x; 1-beta.x; 1-rc - 1-rc5 </p></td>
+    <td><p>Multiple vulnerabilities exist: a buffer overflow vulnerability exists in the DVD subpicture component, which could let a remote malicious user execute arbitrary code; a buffer overflow vulnerability exists in the VideoCD functionality when reading ISO disk labels, which could let a remote malicious user execute arbitrary code; and a buffer overflow vulnerability exists when handling text subtitles, which could let a remote malicious user execute arbitrary code. </p>
+        <p>Upgrades available at: <span class="bodytext"><br /></span><a href="http://prdownloads.sourceforge.net/xine/xine-lib-1-rc6a.tar.gz?download">http://prdownloads.sourceforge.net/<br />
+      xine/xine-lib-1-rc6a.tar.gz?download</a> </p>
+        <p>Gentoo: <a class="offsite" href="http://security.gentoo.org/glsa/glsa-200409-30.xml"><br />
+        http://security.gentoo.org/glsa/glsa-200409-30.xml</a></p>
+        <p>Mandrake: <span class="style48"><a href="http://www.mandrakesecure.net/en/ftp.php"><br />
+        http://www.mandrakesecure.net/en/ftp.php</a></span></p>
+        <p><strong>SuSE: <a href="ftp://ftp.suse.com/pub/suse"><br />
+        ftp://ftp.suse.com/pub/suse</a></strong></p>
+        <p>We are not aware of any exploits for these vulnerabilities.</p></td>
+    <td><div align="center">Xine-lib <br />
+    Multiple Buffer Overflows </div></td>
+    <td><div class="highrisk" align="center">High</div></td>
+    <td><p>Secunia Advisory, SA12602 September 20, 2004 </p>
+        <p>Gentoo Linux Security Advisory, GLSA 200409-30, September 22, 2004 </p>
+        <p>Mandrakelinux Security Update Advisory, MDKSA-2004:105, October 6, 2004</p>
+        <p><strong>SUSE Security Summary Report, SUSE-SR:2004:001, November 24, 2004 </strong> </p></td>
+  </tr><tr valign="top" class="tabletext"><td><p><a name="yardradius" id="yardradius"></a>Yard RADIUS</p>
+        <p> Yard RADIUS 1.0 pre13-pre15, 1.0.16-1.0.20</p></td>
+    <td align="left">A buffer overflow vulnerability exists in the 'process_menu()' function and the 'calc_acctreq()' function, which could let a remote malicious user execute arbitrary code.
+        <p>Upgrades available at: <span class="bodytext"><br /><a target="_blank" href="http://sourceforge.net/project/showfiles.php?group_id=10594&amp;package_id=10142">http://sourceforge.net/project/showfiles.<br />
+      php?group_id=10594&amp;package_id=10142</a></span> </p>
+        <p>Debian: <span class="bodytext"><br /><a target="_blank" href="http://security.debian.org/pool/updates/main/y/yardradius/yardradius_1.0.20-2woody1_sparc.deb">http://security.debian.org/pool/updates/main/y/yardradius/</a></span> </p>
+        <p>Currently we are not aware of any exploits for this vulnerability.<br /></p></td>
+    <td><div align="center">
+        <p>Yard Radius Remote Buffer Overflows</p>
+        <p>CVE Name:<br /><a class="offsite" href="http://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=CAN-2004-0987">CAN-2004-0987</a> </p>
+    </div></td>
+    <td class="highrisk"><div align="center" class="highrisk">High</div></td>
+    <td>Debian Security Advisory, DSA 598-1, November 25, 2004 </td>
+  </tr></table><p><font face="Arial, Helvetica, sans-serif" size="-2"><a href="#top">[back to 
+top]</a></font><font size="-2" face="Arial, Helvetica, sans-serif"> </font></p>
+<table width="95%" border="1"><tr bgcolor="#FFFF99"><td colspan="5"><font size="+2" face="Arial, Helvetica, sans-serif"><a name="multiple" id="multiple"></a>Multiple Operating Systems - Windows / UNIX / Linux / Other </font></td>
+  </tr><tr bgcolor="#CCCCCC"><td><div align="center"><font face="Arial, Helvetica, sans-serif">Vendor &amp; Software Name</font></div></td>
+    <td><div align="center"><font face="Arial, Helvetica, sans-serif">Vulnerability - Impact<br />
+      Patches - Workarounds<br />
+      Attacks Scripts</font></div></td>
+    <td><div align="center"><font face="Arial, Helvetica, sans-serif">Common Name</font></div></td>
+    <td><div align="center"><font face="Arial, Helvetica, sans-serif">Risk</font></div></td>
+    <td><div align="center"><font face="Arial, Helvetica, sans-serif">Source</font></div></td>
+  </tr><tr valign="top" class="tabletext"><td><p><a name="fsecure" id="fsecure"></a>F-Secure </p>
+        <p>Internet Security 2004, Anti-Virus 2004, 2005, Anti-Virus Client Security 5.50, 5.52, 5.55, Anti-Virus for Linux Gateways 4.51, 4.52, 4.61, Anti-Virus for Linux Servers 4.51, 4.52, 4.61, Anti-Virus for Linux Workstations 4.51, 4.52, Anti-Virus for MIMEsweeper 5.41, 5.42, 5.50, Anti-Virus for MS Exchange 6.0 1, 6.2, 6.3, 6.21 6.30 Service Release 1, 6.31, Anti-Virus for Samba Servers 4.60, Anti-Virus for Windows Servers 5.41, 5.42, 5.50, Anti-Virus for Workstations 5.41, 5.42, 5.43, Anti-Virus Linux Client Security 5.0, Anti-Virus Linux Server Security 5.0, F-Secure for Firewalls 6.20, Internet Gatekeeper 6.3, 6.4, 6.31, 6.32, 6.41, Internet Gatekeeper for Linux 2.6, Internet Security 2005, Personal Express 4.5, 4.6, 4.7, 5.0</p></td>
+    <td>A vulnerability exists due to an error when parsing '.zip' archives, which could let a remote malicious user bypass certain scanning functionality that results in a false sense of security and the execution of malicious applications.
+        <p>Hotfixes available at: <span class="bodytext"><br /><a target="_blank" href="http://support.f-secure.com/enu/corporate/downloads/hotfixes/av-igk-hotfixes.shtml">http://support.f-secure.com/enu/corporate/downloads/hotfixes</a></span></p>
+        <p>Currently we are not aware of any exploits for this vulnerability.</p></td>
+    <td><div align="center">F-Secure Anti-Virus ZIP Archive Scanner Bypass</div></td>
+    <td class="highrisk"><div align="center" class="highrisk">High</div></td>
+    <td>F-Secure Security Bulletin FSC-2004-3, November 23, 2004 </td>
+  </tr><tr class="tabletext" valign="top"><td><p><a name="halo" id="halo"></a>Gearbox Software </p>
+        <p>Halo Combat Evolved 1.2, 1.4, 1.5, 1.31</p></td>
+    <td><p>A remote Denial of Service vulnerability exists when a malicious user submits a specially crafted packet. </p>
+        <p>The vendor has issued a fixed version (1.06).</p>
+        <p>An exploit script has been published. </p></td>
+    <td><div align="center">
+        <p>Gearbox Software Halo Game Client Remote Denial of Service</p>
+    </div></td>
+    <td><div align="center">Low</div></td>
+    <td>Securiteam, November 23, 2004 </td>
+  </tr><tr valign="top" class="tabletext"><td><p><a name="inkra" id="inkra"></a>Inkra Networks Corporation</p>
+        <p>1504GX VSM 2.1.4.b003</p></td>
+    <td><p>A remote Denial of Service vulnerability exists due to insufficient validation of IP<br />
+    options.</p>
+        <p><strong>The vendor has released an update to address this vulnerability. Customers are advised to contact the vendor </strong><strong>for further information in regard to obtaining and applying an appropriate patch. </strong></p>
+        <p>There is no exploit code required; however, Proof of Concept exploit has been published.</p></td>
+    <td><div align="center">Inkra 1504GX Remote Denial of Service</div></td>
+    <td class="highrisk"><div class="tabletext style52" align="center">Low</div></td>
+    <td><p>Secunia Advisory, SA12538, September 17, 2004 </p>
+        <p><strong>SecurityFocus, November 23, 2004 </strong></p></td>
+  </tr><tr valign="top" class="tabletext"><td><p><a name="jspwiki" id="jspwiki"></a>jspwiki.org</p>
+        <p>JSPWiki 2.1.120, 2.1.121, 2.1.122</p></td>
+    <td align="left"><p>A Cross-Site Scripting vulnerability exists in 'Search.jsp' due to insufficient sanitization of the 'query' parameter, which could let a remote malicious user execute arbitrary HTML and script code. </p>
+        <p>Upgrades available at: <span class="bodytext"><br /><a target="_blank" href="http://www.ecyrd.com/%7Ejalkanen/JSPWiki/nightly/JSPWiki-latest.zip">http://www.ecyrd.com/~jalkanen/JSPWiki/nightly/JSPWiki-latest.zip</a></span> </p>
+        <p>A Proof of Concept exploit has been published. </p></td>
+    <td><div align="center">JSPWiki Cross-Site Scripting </div></td>
+    <td><div align="center" class="highrisk">High</div></td>
+    <td>STG Security Advisory, SSA-20041122-11, November 24, 2004 </td>
+  </tr><tr valign="top" class="tabletext"><td><p><a name="korweblog" id="korweblog"></a>KorWeblog</p>
+        <p>KorWeblog 1.6.2-cvs</p></td>
+    <td align="left">A vulnerability exists in 'viewimg.php' due to insufficient verification of the 'path' parameter before being used to list directories inside the web root, which could let a remote malicious user obtain sensitive information.
+        <p><span class="bodytext">No workaround or patch available at time of publishing. </span></p>
+        <p>A Proof of Concept exploit has been published. </p></td>
+    <td><div align="center">
+        <p> KorWeblog Remote Directory Listing</p>
+    </div></td>
+    <td><div align="center">Medium</div></td>
+    <td>STG Security Advisory, SSA-20041122-10, November 24, 2004 </td>
+  </tr><tr valign="top" class="tabletext"><td><a name="liferay" id="liferay"></a>Liferay
+        <p>Enterprise Portal version 2.1.1 &amp; prior</p></td>
+    <td><p>Almost all fields that take input from the user's browser are prone to XSS attacks. Inadequate filtering makes it easy for a malicious user  to cause the victim's browser to execute script code.</p>
+        <p><strong>Upgrade available at: <span class="bodytext"><br /><a target="_blank" href="http://prdownloads.sourceforge.net/lportal/liferay-ep-2.2.0-src.zip?download">http://prdownloads.sourceforge<br />
+                .net/lportal/liferay-ep-2.2.0-src.zip?download</a></span> </strong></p>
+        <p>Currently we are not aware of any exploits for this vulnerability.</p></td>
+    <td><div align="center">Liferay Cross Site Scripting </div></td>
+    <td class="highrisk"><div align="center">High</div></td>
+    <td><p>Securiteam, May 24, 2004</p>
+        <p><strong>Bugtraq, November 25, 2004 </strong></p></td>
+  </tr><tr valign="top" class="tabletext"><td><p><a name="mozillainfinite" id="mozillainfinite"></a>Mozilla.org</p>
+        <p>Mozilla Browser M16, M15, 0.8, 0.9.2 .1, 0.9.2-0.9.9, 0.9.35, 0.9.48, 1.0, RC1, 1.0.1, 1.0.2, 1.1, Beta, Alpha, 1.2, Beta, Alpha, 1.2.1, 1.3, 1.3.1, 1.4 b, 1.4 a, 1.4, 1.4.1, 1.4.2, 1.5, 1.5.1, 1.6, 1.7, alpha, beta, rc1-rc3, 1.7.1-1.7.3, 1.8 Alpha 1-Alpha 4</p></td>
+    <td align="left"><p>A Denial of Service vulnerability exists when the browser performs an infinite JavaScript array sort operation. </p>
+        <p>No workaround or patch available at time of publishing. </p>
+        <p>A Proof of Concept exploit has been published. </p></td>
+    <td><div align="center">Mozilla Browser Infinite Array Sort Denial of Service</div></td>
+    <td><div align="center">Low</div></td>
+    <td>Bugtraq, November 25, 2004 </td>
+  </tr><tr valign="top" class="tabletext"><td><p><a name="nukedklan" id="nukedklan"></a>Nuked-Klan </p>
+        <p>Nuked-Klan 1.2 beta, 1.2, 1.3 beta, 1.3, 1.4, 1.5 SP2, 1.5</p></td>
+    <td><p>A Cross-Site Scripting vulnerability exists in the 'submit URI link' function due to insufficient input validation, which could let a remote malicious user execute arbitrary HTML and script code. </p>
+        <p>No workaround or patch available at time of publishing.</p>
+        <p>A Proof of Concept exploit has been published. </p></td>
+    <td><div align="center">NuKed-Klan Cross-Site Scripting </div></td>
+    <td class="tabletext"><div align="center" class="highrisk">High</div></td>
+    <td>SecurityTracker Alert ID, 1012305, November 23, 2004</td>
+  </tr><tr valign="top" class="tabletext"><td><p>opendchub.sourceforge. net<a name="opendchub" id="opendchub"></a></p>
+        <p>Open DC Hub Direct Connect Peer-to-peer Client 0.7.14</p></td>
+    <td align="left">A buffer overflow vulnerability exists in the 'RedirectAll' command due to a boundary error, which could let a remote malicious user execute arbitrary code.
+        <p>Gentoo: <a class="offsite" href="http://security.gentoo.org/glsa/glsa-200411-37.xml"><br />
+        http://security.gentoo.org/glsa/glsa-200411-37.xml</a></p>
+        <p>A Proof of Concept exploit script has been published. </p></td>
+    <td><div align="center">Open DC Hub Remote Buffer Overflow</div></td>
+    <td><div align="center" class="highrisk">High</div></td>
+    <td>Gentoo Linux Security Advisory, GLSA 200411-37, November 29, 2004 </td>
+  </tr><tr class="tabletext" valign="top" bgcolor="#ffffff"><td><p>Opera Software<a name="operaweb" id="operaweb"></a> </p>
+    <p>Opera Web Browser 5.0 2 win32, 5.0 Mac, 5.0 Linux, 5.1 0-5.12 win32,  5.1, 6.0 win32, 6.0 6, 6.0.6win32,  6.0, 6.0.1 win32, 6.0.1 linux, 6.0.1, 6.0.2 win32, 6.0.2 linux, 6.0.3 win32, 6.0.3 linux, 6.0.4 win32, 6.0.5 win32, 6.10 linux, 7.0 win32 Beta 1&amp;2, 7.0 win32, 7.03win32, 7.0 2win32,  7.0 1win32, 7.10, 7.11 j, 7.11 b, 7.11, 7.20 Beta 1 build 2981, 7.20-7.23, 7.50-7.54</p></td>
+    <td><p>A remote Denial of Service vulnerability exists when the browser performs an infinite JavaScript array sort operation.</p>
+      <p>No workaround or patch available at time of publishing.</p>
+    <p>A Proof of Concept exploit has been published.  </p></td>
+    <td><div align="center">Opera Web Browser Infinite Array Sort Remote Denial of Service </div></td>
+    <td class="tabletext"><div align="center">Low</div></td>
+    <td>Bugtraq, November 25, 2004 </td>
+  </tr><tr valign="top" class="tabletext"><td><p><a name="phpbbadmin" id="phpbbadmin"></a>phpBB Group</p>
+        <p>phpBB 1.0 .0, 1.2 .0, 1.2.1, 1.4 .0-1.4.2, 1.4.4, 2.0 .0, rc1-rc4, Beta 1, 2.0.1-2.0.10</p></td>
+    <td>A vulnerability exists in the 'Cash_Mod' module due to insufficient verification of the input passed to the 'phpbb_root_path' parameter, which could let a remote malicious user execute arbitrary code.
+        <p>Upgrades available at: <span class="bodytext"><br /><a target="_blank" href="http://www.phpbb.com/phpBB/catdb.php?mode=download&amp;id=539420">http://www.phpbb.com/phpBB/catdb.php<br />
+    ?mode=download&amp;id=539420</a></span> </p>
+        <p><strong>Gentoo: <a class="offsite" href="http://security.gentoo.org/glsa/glsa-200411-32.xml"><br />
+        http://security.gentoo.org/glsa/<br />
+        glsa-200411-32.xml</a></strong></p>
+        <p>There is no exploit code required; however, a Proof of Concept exploit script has been published. </p></td>
+    <td><div align="center">PHPBB Admin_cash.PHP Remote PHP File Include</div></td>
+    <td class="highrisk"><div align="center">
+        <p>High</p>
+        <p> </p>
+    </div></td>
+    <td><p>Secunia Advisory ID, SA1324, November 19, 2004 </p>
+        <p><strong>Gentoo Security Advisory, GLSA 200411-32, November 24, 2004 </strong></p></td>
+  </tr><tr valign="top" class="tabletext"><td><p><a name="phpbblogin" id="phpbblogin"></a>phpBB Group</p>
+        <p>phpBB 2.0.0-2.0.9</p></td>
+    <td><p>Multiple vulnerabilities exist: a vulnerability exists in 'viewtopic.php' due to insufficient sanitization of the 'highlight' parameter, which could let a malicious user obtain sensitive information or execute arbitrary code; a vulnerability exists due to insufficient sanitization of input passed to the username handling, which could let a remote malicious user execute arbitrary HTML or script code; and a vulnerability exists due to insufficient sanitization of input passed to the username handling before being used in an SQL query, which could let a malicious user execute arbitrary code. </p>
+        <p>Upgrades available at: <span class="bodytext"><br /><a target="_blank" href="http://www.phpbb.com/downloads.php">http://www.phpbb.com/downloads.php</a></span> </p>
+        <p><strong>Gentoo: <a class="offsite" href="http://security.gentoo.org/glsa/glsa-200411-32.xml"><br />
+        http://security.gentoo.org/<br />
+        glsa/glsa-200411-32.xml</a></strong></p>
+        <p>There is no exploit code required; however, a Proof of Concept exploit script has been published.</p></td>
+    <td><div align="center">PHPBB Login Form Multiple Input Validation </div></td>
+    <td class="highrisk"><div align="center">High</div></td>
+    <td><p>SECUNIA ADVISORY ID:<br />
+    SA13239, November 19, 2004 </p>
+        <p><strong>Gentoo Linux Security Advisory, GLSA 200411-32, November 24, 2004 </strong></p></td>
+  </tr><tr valign="top" class="tabletext"><td><p><a name="phpcms" id="phpcms"></a>phpcms.de</p>
+        <p>phpCMS 1.1.9, 1.2 .0, 1.2.1</p></td>
+    <td align="left"><p>A Cross-Site Scripting vulnerability exists when configured with one or both of the 'STEALTH' or 'STEALTH_SECURE' modes disabled due to insufficient sanitization of user-supplied input, which could let a remote malicious user execute arbitrary HTML and script code. </p>
+        <p>Upgrades available at: <span class="bodytext"><br /><a target="_blank" href="http://prdownloads.sourceforge.net/phpcms/phpcms-1.2.1pl1.tar.gz?download">http://prdownloads.sourceforge.net/phpcms/phpcms-1.2.1pl1.tar.gz?download</a></span> </p>
+        <p>A Proof of Concept exploit has been published. </p></td>
+    <td><div align="center">PHPCMS Cross-Site Scripting</div></td>
+    <td><div align="center" class="highrisk">High</div></td>
+    <td>Bugtraq, November 26, 2004 </td>
+  </tr><tr valign="top" class="tabletext"><td><p><a name="phpkit" id="phpkit"></a>phpkit.de</p>
+        <p>PHPKIT 1.6.1, 1.6.03, 1.6.02</p></td>
+    <td><p>Several vulnerabilities exist: a Cross-Site Scripting vulnerability exists in 'popup.php' due to insufficient sanitization of the 'img' parameter, which could let a remote malicious user execute arbitrary HTML and script code; and a vulnerability exists in 'include.php' due to insufficient sanitization of the 'id' parameter, which could let a remote malicious user manipulate SQL queries. </p>
+        <p><span class="bodytext">No workaround or patch available at time of publishing. </span></p>
+        <p>Proofs of Concept exploits have been published. </p></td>
+    <td><div align="center">PHPKIT Multiple Input Validation </div></td>
+    <td><div align="center">
+        <p>Medium/ <span class="highrisk">High</span></p>
+        <p>(High if arbitrary code can be executed) </p>
+    </div></td>
+    <td>Bugtraq, November 22, 2004 </td>
+  </tr><tr valign="top" class="tabletext"><td><p><a name="webgui" id="webgui"></a>Plain Black Software</p>
+        <p> WebGUI 6.2-6.2.8</p></td>
+    <td align="left">A vulnerability exists due to an unspecified error in the 'user profile.' The impact was not specified.
+        <p>Upgrades available at: <span class="bodytext"><br /><a target="_blank" href="http://sourceforge.net/project/showfiles.php?group_id=51417">http://sourceforge.net/project/<br />
+      showfiles.php?group_id=51417</a></span> </p>
+        <p>Currently we are not aware of any exploits for this vulnerability.</p></td>
+    <td><div align="center">Plain Black Software WebGUI 'User profile'</div></td>
+    <td><div align="center">Not Specified </div></td>
+    <td>Security Focus, November 22, 2004 </td>
+  </tr><tr valign="top" class="tabletext"><td><p><a name="raven" id="raven"></a>Raven Software</p>
+        <p>Soldier Of Fortune 2 1.0 3, 21.0 2</p></td>
+    <td><p>A buffer overflow vulnerability exists when a remote malicious user submits a specially crafted query (to a client), which could cause a Denial of Service. </p>
+        <p>No workaround or patch available at time of publishing.</p>
+        <p>A Proof of Concept exploit script has been published. </p></td>
+    <td><div align="center">Soldier Of Fortune 2 Buffer Overflow Remote Denial of Service </div></td>
+    <td class="tabletext"><div align="center">Low</div></td>
+    <td>SecurityTracker Alert ID, 1012316, November 24, 2004 </td>
+  </tr><tr valign="top" class="tabletext"><td><p>Sun Microsystems, Inc.<a name="sunjre" id="sunjre"></a></p>
+        <p>Sun JRE (Linux Production Release)1.2.2 _010-1.2.2_015, 1.2.2 _003-1.2.2_007, 1.2.2, 1.3 .0-1.3.0_05, 1.3.1-1.3.1 _03, 1.3.1 _05-1.3.1 _09, 1.4, 1.4 .0_02-1.4 .0_04, 1.4.1-1.4.1_03, 1.4.2-1.4.2 _06, JRE (Solaris Production Release) 1.1.6, 1.1.7 B, 1.1.8, 1.1.8 _009, 1.1.8 _010, 1.1.8 _12-1.1.8_14, 1.1.8 _009, 1.1.8, 1.2,  1.2.1, 1.2.2_11,  1.2.2 _07, 1.2.2 _05a, .2.2 _010-2.2._014,  1.2.2, 1.3.0_05, 1.3 .0_02, 1.3, 1.3.1 _01-1.3.1 _09, 1.4.0_011.4.0_04, 
+      1.4, 1.4.1 _03,  1.4.1 _02, 1.4.1 _01, .4.1, 1.4.2_01-1.4.2 _06,  1.4.2, Windows Production Release) 1.1.6 _009, 1.1.7 B_007,  1.1.8 _009,  1.1.8 _008, 1.1.8 _007, 1.1.8 _005,  1.1.8, 1.2, 1.2.1, 1.2.2 _12, 1.2.2_015,  1.2.2 _014, 1.2.2 _013,  1.2.2 _011, 1.2.2 _010,  1.2.2 _007, 1.2.2, 1.3 .0_05, 1.30_04, 1.3 .0_02, 1.3, 1.3.1 _01-1.3.1 _09, 1.4.0_01-1.4.0_04, 1.4, 1.4.1 _07,  1.4.1 _03, 1.4.1 _02,  1.4.1 _01, 1.4.1, 1.4.2 _01-1.4.2_06,  1.4.2</p>
+        <p>  </p></td>
+    <td align="left">A vulnerability exists because it is possible to cause a previous version of a plug-in, that is known to be prone to security vulnerabilities, to be loaded in lieu of a more recent version that has been patched, which could result in a false sense of security.
+        <p>No workaround or patch available at time of publishing. </p>
+        <p>An exploit script is not required; however, a Proof of Concept exploit has been published. </p></td>
+    <td><div align="center">
+        <p> Sun Java Applet Invocation Version Specification</p>
+    </div></td>
+    <td><div align="center">Medium</div></td>
+    <td>SecurityFocus, November 25, 2004 </td>
+  </tr><tr class="tabletext" valign="top"><td><p>Sun Microsystems, Inc.<a name="sunjava" id="sunjava"></a> </p>
+        <p>Sun Java JRE 1.3.x, 1.4.x, <br />
+    Sun Java SDK 1.3.x, 1.4.x; <strong>Conectiva Linux 10.0</strong></p></td>
+    <td align="left"><p>A vulnerability exists due to a design error because untrusted applets for some private and restricted classes used internally can create and transfer objects, which could let a remote malicious user turn off the Java security manager and disable the sandbox restrictions for untrusted applets. </p>
+        <p>Updates available at: <a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-26-57591-1"><br />
+        http://sunsolve.sun.com/search/<br />
+        document.do?assetkey=1-26-57591-1</a></p>
+        <p><strong>Conectiva: <a href="ftp://atualizacoes.conectiva.com.br/10/"><br />
+        ftp://atualizacoes.conectiva.com.br/10/</a></strong></p>
+        <p>Currently we are not aware of any exploits for this vulnerability.</p></td>
+    <td><div align="center">
+        <p>Sun Java Plug-in Sandbox Security Bypass </p>
+        <p>CVE Name:<br /><a class="offsite" href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2004-1029">CAN-2004-1029</a> </p>
+    </div></td>
+    <td><div align="center">Medium</div></td>
+    <td><p>Sun(sm) Alert Notification, 57591, November 22, 2004 </p>
+        <p>US-CERT Vulnerability Note, VU#760344, November 23, 2004 </p>
+        <p><strong>Conectiva Linux Security Announcement, CLA-2004:900, November 26, 2004 </strong></p>
+        <p>  </p>
+        <p>  </p></td>
+  </tr><tr class="tabletext" valign="top"><td><p><a name="yabb" id="yabb"></a>YaBB </p>
+        <p>YaBB 1 Gold Release, SP 1, SP 1.2, SP 1.3-1.3.2, YaBB 1.40, 1.41, 9.1.2000, 9.11.2000</p></td>
+    <td align="left"> A vulnerability exists due to insufficient sanitization of 'shadow' tags, which could let a malicious user execute arbitrary code.
+        <p>Upgrades available at: <span class="bodytext"><br /><a target="_blank" href="http://www.yabbforum.com/downloads.php">http://www.yabbforum.com/downloads.php</a></span> </p>
+        <p>An exploit script is not required.</p></td>
+    <td><div align="center">YaBB Shadow BBCode Tag JavaScript Injection</div></td>
+    <td><div align="center" class="highrisk">High</div></td>
+    <td>Secunia Advisory, <br />
+  SA13319, November 26, 2004 </td>
+  </tr><tr class="tabletext" valign="top"><td><p>ZyXEL Communications Corp.<a name="zyxel" id="zyxel"></a></p>
+        <p>Prestige 645R-A1, 650H, 650HW, 650HW-31, 650R, ZyNOS V3.40(ES.5), IS.5, IS.3, 3.40</p></td>
+    <td><p>A vulnerability exists due to a failure to restrict access to a configuration page that is part of the remote administration service, which could let a remote malicious user reset the configuration. </p>
+        <p>No workaround or patch available at time of publishing.</p>
+        <p>A Proof of Concept exploit has been published. </p></td>
+    <td><div align="center"> ZyXEL Prestige Router HTTP Remote Administration Configuration Reset</div></td>
+    <td class="highrisk"><div align="center" class="tabletext"><span class="style52">Medium</span></div></td>
+    <td>Bugtraq, November 21, 2004 </td>
+  </tr></table><h3><font face="Arial, Helvetica, sans-serif"><a name="exploits" id="exploits"></a>Recent Exploit Scripts/Techniques</font>
+<span class="style46">The table below contains a sample of exploit scripts and "how to" guides identified during this period. The "Workaround or Patch Available" column indicates if vendors, security vulnerability listservs, or Computer Emergency Response Teams (CERTs) have published workarounds or patches. </span>
+</h3><p class="style46"><font face="Arial, Helvetica, sans-serif"><i>Note: At times, scripts/techniques may contain names or content that may be considered offensive.</i> </font>
+<font face="Arial, Helvetica, sans-serif">
+<p>
+</p></font>
+</p><table align="center" border="1"><tbody><tr bgcolor="#ffffcc"><td><p align="center"><strong><font face="Arial, Helvetica, sans-serif">Date of Script <br />
+          (Reverse</font></strong><strong><font face="Arial, Helvetica, sans-serif"> Chronological Order)</font></strong></p></td>
+      <td><div align="center"><strong><font face="Arial, Helvetica, sans-serif">Script name</font></strong></div></td>
+      <td><div align="center" class="style46"><strong> Workaround or Patch Available </strong></div></td>
+      <td><div align="center"><strong><font face="Arial, Helvetica, sans-serif">Script Description</font></strong></div></td>
+    </tr><tr class="tabletext" valign="top"><td height="23">November 26, 2004 </td>
+      <td>101_mEna.c<br /></td>
+      <td><div align="center">No</div></td>
+      <td>Script that exploits the MailEnable IMAP Service Multiple Remote Pre-Authentication Buffer Overflow vulnerabilities. </td>
+    </tr><tr class="tabletext" valign="top"><td height="23">November 26, 2004 </td>
+      <td>atari800.c</td>
+      <td><div align="center">Yes</div></td>
+      <td>Exploit for the Atari800 Emulator Multiple Local Buffer Overflow vulnerabilities. </td>
+    </tr><tr class="tabletext" valign="top"><td height="23">November 24, 2004 </td>
+      <td>evil_server.pl<br />
+  prozillaBufferOverflowExploitSerkanAkpolat.c<br />
+  proz_ex.c</td>
+      <td><div align="center">Yes</div></td>
+      <td>Scripts that exploit the ProZilla Multiple Remote Buffer Overflow vulnerabilities. </td>
+    </tr><tr class="tabletext" valign="top"><td height="23">November 24, 2004 </td>
+      <td>openDCHubBufferOverflowPOC.java</td>
+      <td><div align="center">Yes</div></td>
+      <td>A Proof of Concept exploit for the Open DC Hub Remote Buffer Overflow vulnerability. </td>
+    </tr><tr class="tabletext" valign="top"><td height="23">November 24, 2004 </td>
+      <td>sof2boom.zip</td>
+      <td><div align="center">No </div></td>
+      <td>A Proof of Concept exploit for the Soldier Of Fortune 2 Buffer Overflow Remote Denial of Service vulnerability. </td>
+    </tr><tr class="tabletext" valign="top"><td height="23">November 24, 2004 </td>
+      <td>swbfp.zip</td>
+      <td><div align="center">No </div></td>
+      <td>Exploit for the LucasArts Star Wars Battlefront Game Server Remote Denials of Service vulnerabilities. </td>
+    </tr><tr class="tabletext" valign="top"><td height="23">November 24, 2004 </td>
+      <td>winAmpIN_CDDALibExploit.c</td>
+      <td><div align="center">Yes</div></td>
+      <td>Scripts that exploit the Nullsoft Winamp 'IN_CDDA.dll' Buffer Overflow vulnerability.</td>
+    </tr><tr class="tabletext" valign="top"><td height="23">November 23, 2004 </td>
+      <td>coffeeCupFTPBufferOverflowExpl.c</td>
+      <td><div align="center">No</div></td>
+      <td>Script that exploits the CoffeeCup Direct/Free FTP ActiveX Component Remote Buffer Overflow vulnerability.</td>
+    </tr><tr class="tabletext" valign="top"><td height="23">November 23, 2004 </td>
+      <td>haloCboom.zip<br /></td>
+      <td><div align="center">Yes</div></td>
+      <td>Exploit for the Gearbox Software Halo Game Client Remote Denial of Service vulnerability. </td>
+    </tr><tr class="tabletext" valign="top"><td height="23">November 23, 2004 </td>
+      <td>phpBBCodeExecExploitRUSH.pl</td>
+      <td><div align="center">No</div></td>
+      <td>Exploit for the PHPBB Remote URLDecode Input Validation vulnerability. </td>
+    </tr><tr class="tabletext" valign="top"><td height="23">November 23, 2004 </td>
+      <td>WodFtpDLXBufferOverflowExpl.c<br /></td>
+      <td><div align="center">Yes</div></td>
+      <td>Script that exploits the WeOnlyDo! wodFtpDLX ActiveX Component Remote Buffer Overflow vulnerability. </td>
+    </tr></tbody></table><font face="Arial, Helvetica, sans-serif">
+<p>
+<font face="Arial, Helvetica, sans-serif">
+<p><font face="Arial, Helvetica, sans-serif" size="-2"><a href="#top">[back to 
+top]</a></font>
+</p></font>
+</p><h3><font face="Arial, Helvetica, sans-serif"><a name="trends" id="trends"></a>Trends</font>
+<ul><li class="style46">Microsoft is clamping down on software pirates in the UK after discovering that  a large volume of high quality counterfeit versions of Windows XP.
+ Kicking off its Windows XP Counterfeit Project, the software giant has invited "anyone unsure as to the legitimacy of their Windows XP software" to submit their products for analysis. For more information see: <a class="offsite" href="http://www.vnunet.com/news/1159640">http://www.vnunet.com/news/1159640</a>. </li>
+  <li class="style46">Computer criminals are making phishing more potent by automating attacks. Anti-Phishing Working Group (APWG) analysts suspect fraudsters are using automated tools and botnets to ramp up attacks. It estimates attacks grew by an average of 36 per cent a month between July and October. The US is home to the majority of these baiting sites, hosting 29 per cent of those reported to the APWG in October, a slight decrease over the month. China, Korea, and Russia are next on the list with 16 per cent, nine per cent, and eight per cent respectively of the total sites hosted. For more information, see APWG's report, jointly written by security researchers at Websense and Tumbleweed Communications, at: <a class="offsite" href="http://www.antiphishing.org/APWG_Phishing_Activity_Report-Oct2004.pdf">http://www.antiphishing.org/APWG_Phishing_Activity_Report-Oct2004.pdf</a></li>
+</ul></h3><p class="style3"><font face="Arial, Helvetica, sans-serif" size="-2"><a href="#top">[back to top]</a></font></p>
+<h3><font face="Arial, Helvetica, sans-serif"><a name="viruses" id="viruses"></a>Viruses/Trojans </font>
+<h4 class="style46">Top Ten Virus Threats </h4>
+</h3><p class="style46"><font face="Arial, Helvetica, sans-serif">A list of high threat viruses, as reported to various anti-virus vendors and virus incident reporting organizations, has been ranked and categorized in the table below. For the purposes of collecting and collating data, infections involving multiple systems at a single location are considered a single infection. It is therefore possible that a virus has infected hundreds of machines but has only been counted once. With the number of viruses that appear each month, it is possible that a new virus will become widely distributed before the next edition of this publication. To limit the possibility of infection, readers are reminded to update their anti-virus packages as soon as updates become available. The table lists the viruses by ranking (number of sites affected), common virus name, type of virus code (i.e., boot, file, macro, multi-partite, script), trends (based on number of infections reported since last week), and approximate date first found. </font></p>
+<table border="1" align="center"><tr bgcolor="#ffffcc"><td><div align="center"><strong><font face="Arial, Helvetica, sans-serif">Rank</font></strong></div></td>
+    <td><div align="center"><strong><font face="Arial, Helvetica, sans-serif">Common Name</font></strong></div></td>
+    <td><div align="center"><strong><font face="Arial, Helvetica, sans-serif">Type of Code </font></strong></div></td>
+    <td><div align="center"><strong><font face="Arial, Helvetica, sans-serif">Trends</font></strong></div></td>
+    <td><div align="center"><strong><font face="Arial, Helvetica, sans-serif">Date</font></strong></div></td>
+  </tr><tr><td><div class="style45 style46" align="center">1</div></td>
+    <td class="style45 style46">Netsky-P</td>
+    <td class="style45 style46">Win32 Worm</td>
+    <td class="style45 style46">Stable</td>
+    <td class="style45 style46">March 2004</td>
+  </tr><tr><td><div class="style45 style46" align="center">2</div></td>
+    <td class="style45 style46">Netsky-Z</td>
+    <td class="style45 style46">Win32 Worm</td>
+    <td class="style45 style46">Stable</td>
+    <td class="style45 style46">April 2004</td>
+  </tr><tr><td><div class="style45 style46" align="center">3</div></td>
+    <td class="style45 style46"><font face="Arial, Helvetica, sans-serif">Netsky-B</font></td>
+    <td class="style45 style46">Win32 Worm</td>
+    <td class="style45 style46">Stable</td>
+    <td class="style45 style46"><font face="Arial, Helvetica, sans-serif">March </font> 2004</td>
+  </tr><tr><td><div class="style45 style46" align="center">4</div></td>
+    <td class="style45 style46">Zafi-B</td>
+    <td class="style45 style46">Win32 Worm</td>
+    <td class="style45 style46">Stable</td>
+    <td class="style45 style46"><font face="Arial, Helvetica, sans-serif">June</font> 2004</td>
+  </tr><tr><td><div class="style45 style46" align="center">5</div></td>
+    <td class="style45 style46">Bagle-AA</td>
+    <td class="style45 style46">Win32 Worm</td>
+    <td class="style45 style46">Stable</td>
+    <td class="style45 style46">April 2004</td>
+  </tr><tr><td><div class="style45 style46" align="center">6</div></td>
+    <td class="style45 style46">Netsky-B</td>
+    <td class="style45 style46">Win32 Worm</td>
+    <td class="style45 style46">Stable</td>
+    <td class="style45 style46">February 2004</td>
+  </tr><tr><td><div class="style45 style46" align="center">7</div></td>
+    <td class="style45 style46">Bagle-AT</td>
+    <td class="style45 style46">Win32 Worm</td>
+    <td class="style45 style46">Stable</td>
+    <td class="style45 style46"><font face="Arial, Helvetica, sans-serif">October 2004 </font></td>
+  </tr><tr><td><div class="style45 style46" align="center">8</div></td>
+    <td class="style45 style46">Netsky-Q</td>
+    <td class="style45 style46">Win32 Worm</td>
+    <td class="style45 style46">Stable</td>
+    <td class="style45 style46">March 2004 </td>
+  </tr><tr><td><div class="style45 style46" align="center">9</div></td>
+    <td class="style45 style46">Bagle-Z</td>
+    <td class="style45 style46">Win32 Worm</td>
+    <td class="style45 style46">Stable</td>
+    <td class="style45 style46"><font face="Arial, Helvetica, sans-serif">April 2004 </font></td>
+  </tr><tr><td><div class="style45 style46" align="center">10</div></td>
+    <td class="style46"><font face="Arial, Helvetica, sans-serif">Netsky-C</font></td>
+    <td class="style45 style46">Win32 Worm</td>
+    <td class="style45 style46">Stable</td>
+    <td class="style45 style46">July 2004</td>
+  </tr></table><p align="center" class="style46"><font face="Arial, Helvetica, sans-serif">Table Updated November 29, 2004</font></p>
+<p class="style46"><b>Viruses or Trojans Considered to be a High Level of Threat</b> </p>
+<ul class="bulleted"><li class="style46"><a href="#skulls">Skulls.B</a>: A second version of the "Skulls" Trojan horse for cell phones has been detected. The hybrid Skulls.B Trojan horse displays images of skulls instead of the program icons on handsets running the Symbian operating system, software maker F-Secure said. Skulls also releases the Cabir.B worm. F-Secure said that cell phones from manufacturers such as Nokia, Siemens, Panasonic and Sendo were vulnerable. F-Secure said that Skulls represents only a mild threat to mobile device users at this point, based on its Trojan horse design. But he said the program is indicative of a growing effort among virus writers to target wireless handsets. For more information see: <a class="offsite" href="http://news.com.com/Skulls+program+carries+Cabir+worm+into+phones/2100-7349_3-5469691.html">http://news.com.com/Skulls+program+carries+Cabir+worm+into+phones/2100-7349_3-5469691.html</a></li>
+</ul><p class="style46"><font face="Arial, Helvetica, sans-serif">The following table provides, in alphabetical order, a list of new viruses, variations of previously encountered viruses, and Trojans that have been discovered during the period covered by this bulletin. This information has been compiled from the following anti-virus vendors: Sophos, Trend Micro, Symantec, McAfee, Network Associates, Central Command, F-Secure, Kaspersky Labs, MessageLabs, Panda Software, Computer Associates, and The WildList Organization International. Users should keep anti-virus software up to date and should contact their anti-virus vendors to obtain specific information on the Trojans and Trojan variants that anti-virus software detects. </font></p>
+<p><span class="style46"><font face="Arial, Helvetica, sans-serif"><i>NOTE: At times, viruses and Trojans may contain names or content that may be considered offensive.</i></font></span>
+</p><table border="1" align="center" class="tabletext"><tbody><tr bgcolor="#ffffcc"><td><div align="center" class="style3 "><strong>Name</strong></div></td>
+      <td><div align="center"><strong><font face="Arial, Helvetica, sans-serif">Aliases</font></strong></div></td>
+      <td><div align="center"><strong><font face="Arial, Helvetica, sans-serif">Type</font></strong></div></td>
+    </tr><tr valign="top" bgcolor="#ffffff"><td>Backdoor.Berbew.M</td>
+      <td> </td>
+      <td>Trojan</td>
+    </tr><tr valign="top" bgcolor="#ffffff"><td> Backdoor.Ranky.M </td>
+      <td> </td>
+      <td>Trojan</td>
+    </tr><tr valign="top" bgcolor="#ffffff"><td>Jabbit.A<br /></td>
+      <td>JS.Jabbit.a<br />
+    JS/Jabbit.A</td>
+      <td>Java Script Worm </td>
+    </tr><tr valign="top" bgcolor="#ffffff"><td> JS.Jabbit </td>
+      <td> </td>
+      <td>Javascript Virus </td>
+    </tr><tr valign="top" bgcolor="#ffffff"><td> PE_LOVEGATE.AC</td>
+      <td> </td>
+      <td>Trojan</td>
+    </tr><tr valign="top" bgcolor="#ffffff"><td>QLowZones-2</td>
+      <td> </td>
+      <td>Trojan</td>
+    </tr><tr valign="top" bgcolor="#ffffff"><td><a name="skulls" id="skulls"></a>Skulls.B</td>
+      <td> SymbOS/Skulls.B</td>
+      <td>Symbian OS virus </td>
+    </tr><tr valign="top" bgcolor="#ffffff"><td>Spawn-C</td>
+      <td> </td>
+      <td>JavaScript Worm </td>
+    </tr><tr valign="top" bgcolor="#ffffff"><td>StartPage-FK</td>
+      <td> </td>
+      <td>Trojan</td>
+    </tr><tr valign="top" bgcolor="#ffffff"><td>StartPage-FN</td>
+      <td> </td>
+      <td>Trojan</td>
+    </tr><tr valign="top" bgcolor="#ffffff"><td>Symb/Cabir-B</td>
+      <td> </td>
+      <td>Win32 Worm</td>
+    </tr><tr valign="top" bgcolor="#ffffff"><td>Troj/Bancban-AH</td>
+      <td>TrojanSpy.Win32.Banker.di<br />
+    PWS-Bancban.gen.b</td>
+      <td>Trojan</td>
+    </tr><tr valign="top" bgcolor="#ffffff"><td>Troj/Banker-AN</td>
+      <td> TrojanSpy.Win32.Banker.cy<br />
+    PWS-Bancban</td>
+      <td>Trojan</td>
+    </tr><tr valign="top" bgcolor="#ffffff"><td>Troj/Dloader-EP</td>
+      <td>Trojan-Downloader.Win32.Delf.ep</td>
+      <td>Trojan</td>
+    </tr><tr valign="top" bgcolor="#ffffff"><td>Trojan.Favadd</td>
+      <td> </td>
+      <td>Trojan</td>
+    </tr><tr valign="top" bgcolor="#ffffff"><td>W32.Garroch@mm</td>
+      <td> I-Worm.generic <br />
+    W32/Generic.a@MM</td>
+      <td>Win32 Worm</td>
+    </tr><tr valign="top" bgcolor="#ffffff"><td> W32.Myfip.K </td>
+      <td> </td>
+      <td>Win32 Worm </td>
+    </tr><tr valign="top" bgcolor="#ffffff"><td>W32/Anzae-C</td>
+      <td>IWorm.Pawur.b<br />
+    Email-Worm.Win32.Pawur.a<br />
+    W32/Anzae.worm.c<br />
+    W32/Anzae.worm.d<br />
+    W32/Tasin.B.worm<br />
+    W32/Tasin.C.worm<br />
+    W32/Anzae-B <br />
+    W32.Inzae.B@mm</td>
+      <td>Win32 Worm </td>
+    </tr><tr valign="top" bgcolor="#ffffff"><td>W32/Delf-IV</td>
+      <td> </td>
+      <td>Win32 Worm </td>
+    </tr><tr valign="top" bgcolor="#ffffff"><td>W32/Forbot-CW</td>
+      <td> Backdoor.Win32.Wootbot.gen </td>
+      <td>Win32 Worm </td>
+    </tr><tr valign="top" bgcolor="#ffffff"><td> W32/Mugly.a@MM</td>
+      <td> Mugly.A</td>
+      <td>Win32 Worm</td>
+    </tr><tr valign="top" bgcolor="#ffffff"><td>W32/Mugly.b@MM</td>
+      <td> </td>
+      <td>Win32 Worm</td>
+    </tr><tr valign="top" bgcolor="#ffffff"><td>W32/Netsky-AE</td>
+      <td>I-Worm.NetSky.aa<br />
+    WORM_NETSKY.Z<br />
+    W32/Netsky.z@MM</td>
+      <td>Win32 Worm </td>
+    </tr><tr valign="top" bgcolor="#ffffff"><td>W32/Sality-H</td>
+      <td> </td>
+      <td>Win32 Worm </td>
+    </tr><tr valign="top" bgcolor="#ffffff"><td>W32/Tibick-A</td>
+      <td> </td>
+      <td>Win32 Worm </td>
+    </tr><tr valign="top" bgcolor="#ffffff"><td>Win32.Dluca.V</td>
+      <td> TrojanDownloader.Win32.Dluca.gen<br />
+    Win32/Dluca.V.Trojan </td>
+      <td>Win32 Worm </td>
+    </tr><tr valign="top" bgcolor="#ffffff"><td>Win32.Siboco.B</td>
+      <td>Adware-OMI<br />
+    Trojan.Win32.Small.i <br />
+    Win32/Siboco.B.Trojan</td>
+      <td>Win32 Worm </td>
+    </tr><tr valign="top" bgcolor="#ffffff"><td>Win32.Wintrim.AG</td>
+      <td>TrojanSpy.Win32.Mslagent <br />
+    Win32/TrojanDownloader.Wintrim.NAE<br />
+    Win32/Wintirm.AG.DLL.Trojan</td>
+      <td>Win32 Worm </td>
+    </tr><tr valign="top" bgcolor="#ffffff"><td>Win32.Zlob.A</td>
+      <td>Win32/Agent.BU.Downloader.Trojan<br />
+    W32/Agent.BU@dl<br />
+    StartPage-EH<br />
+    Trojan.StartPage<br />
+    TrojanDownloader.Win32.Agent.bh</td>
+      <td>Win32 Worm </td>
+    </tr></tbody></table><p>
+</p><p><font face="Arial, Helvetica, sans-serif" size="-2"><a href="#top">[back to 
+top]</a></font></p>
+<p> </p>
+<p>
+
+</p></font><td width="10"><p> </p>
+<p> </p></td>
+    <tr><td colspan="4">
+        <center>
+          <font color="#ffffff" face="Arial, Helvetica, sans-serif"><small><b>Last updated
+          <!--#config timefmt="%B  %d, %Y"-->
+          <!--#echo var="LAST_MODIFIED"-->
+          </b></small></font>
+        </center>
+      </td>
+    </tr><!--#include virtual="/include/terms-cas.html"--></div>
+      
+
+        
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><p class="privacy-and-terms">This product is provided subject to this <a href="/privacy/notification">Notification</a> and this <a href="https://www.dhs.gov/privacy-policy">Privacy &amp; Use</a> policy.</p>
+</div>
+      
+
+                        <div id="document-feedback">
+	<div class="inner-document-feedback center-center">
+        <p><b>Please share your thoughts.</b></p>
+		<p>We recently updated our anonymous <a href="https://www.surveymonkey.com/r/CISA-cyber-survey?product=https://us-cert.cisa.gov/ncas/archives/bulletins/SB04-336">product survey</a>; we'd welcome your feedback.</p>
+	</div>
+</div>
+
+              </div>
+
+</article>
+</div>
+
+
+  </div>
+
+              </section>
+
+
+                      </div>
+  </div>
+
+
+
+
+
+
+      <footer class="footer container-fluid" role="contentinfo">
+        <div class="region region-footer">
+    <section id="block-certsignup" class="block block-block-content block-block-contentc5846d10-2e2b-4822-aa59-7a5c3262f671 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container-fluid signup">
+<div class="container">
+<div class="row">
+<div class="col-lg-3 contact-icons">
+<h3>Contact Us</h3>
+
+<p class="phone-text"><img alt="phone icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Phone.png" />(888)282-0870</p>
+
+<p><img alt="email icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Email.png" /><a class="mailto" href="mailto:central@cisa.dhs.gov" title="General questions or suggestions">Send us email</a></p>
+
+<p><img alt="lock icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Lock.png" /><a href="/contact-us/" title="Download PGP/GPG keys">Download PGP/GPG keys</a></p>
+
+<p><img alt="feedback icon" data-entity-type="" data-entity-uuid="" height="32" src="/sites/default/files/images/icon-feedback.png" /><a href="/forms/website-feedback" title="Website Feedback">Submit website feedback</a></p>
+</div>
+
+<div class="col-lg-6 sub-alert">
+<h3>Subscribe to Alerts</h3>
+
+<p>Receive security alerts, tips, and other updates.</p>
+
+<form action="https://public.govdelivery.com/accounts/USDHSCISA/subscribers/qualify"><label class="visually-hidden" for="email-address-field">Enter your email address</label> <input class="signup-form" id="email-address-field" name="email" placeholder=" Enter your email address" title="Enter your email address" type="text" /><br /><input class="btn btn-primary" name="submit" title="Sign up for alerts" type="submit" value="Sign Up" /> </form>
+
+<div class="pull-right signup-icon-one"><a href="https://twitter.com/uscert_gov" title="US-CERT Twitter Feed"><img alt="twitter icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/twitter-button.png" /></a></div>
+
+<div class="pull-right signup-icon-two"><a href="/mailing-lists-and-feeds" title="Mailing Lists and Feeds"><img alt="rss icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/rss-button-bottom.png" /></a></div>
+
+<div class="pull-right signup-icon-three"><a href="/hsin" class="btn btn-cert-report" name="button" type="button" id="button">HSIN</a></div>
+</div>
+
+<div class="col-lg-3 cert-report"><a class="btn btn-cert-report btn-lg" href="/report" name="button" type="button" id="button">Report</a></div>
+</div>
+</div>
+</div>
+</div>
+      
+  </section>
+
+<section id="block-certcertfooter" class="block block-block-content block-block-contentd5b85bd2-62d1-485a-b9ae-f040b1ca1a45 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container">
+<hr /><div class="text-center"><a href="/" title="Home">Home</a>   <a href="/sitemap" title="Site Map">Site Map</a>   <a href="/faq/" title="Frequently Asked Questions">FAQ</a>   <a href="/contact-us/" title="Contact Us">Contact Us</a>   <a href="/tlp/" title="Traffic Light Protocol">Traffic Light Protocol</a>   <a href="/pcii" title="PCII">PCII</a>   <a href="https://www.dhs.gov" title="Accountability">Accountability</a>   <a href="/disclaimer" title="Disclaimer">Disclaimer</a>   <a href="/privacy-policy" title="Privacy Policy">Privacy Policy</a>   <a href="https://www.dhs.gov/freedom-information-act-foia" title="FOIA">FOIA</a>   <a href="https://www.dhs.gov/homeland-security-no-fear-act-reporting" title="No Fear Act">No Fear Act</a>   <a href="/accessibility/" title="Accessibility">Accessibility</a><a href="https://www.dhs.gov/plain-writing-dhs" title="Plain Writing">Plain Writing</a><a href="https://www.dhs.gov/plug-information" title="Plug-ins">Plug-ins</a>   <a href="https://www.oig.dhs.gov/" title="Office of the Inspector General">Inspector General</a>   <a href="https://www.whitehouse.gov/" title="The White House">The White House</a>   <a href="https://www.usa.gov/" title="USA.gov">USA.gov</a><br />
+ 
+<p>CISA is part of the <a href="https://www.dhs.gov/" title="Department of Homeland Security">Department of Homeland Security</a></p>
+</div>
+<script type="text/javascript">
+<!--//--><![CDATA[// ><!--
+
+    window.onload = function(){
+            jQuery('body.page-node-type-us-cert-events div#ncas-header').find('img').each(function(){
+                    var $src=jQuery(this).prop('src');
+                    if($src.indexOf('default/files/') == -1)jQuery(this).remove();
+                    });
+            if('Privacy Data Breach' == jQuery('#uscert-utilities-irf-form #item-info-impact option:selected').text()){ 
+                jQuery('#item-info-impact-block').removeClass('collapsed'); 
+            }
+jQuery('#print-logo img').removeAttr('width').removeAttr('height');
+if(jQuery('body.path-frontpage').length > 0)
+{   
+    jQuery('.main-container').find('.col-sm-12').removeAttr('role');
+}
+jQuery('#map area').each(function(){ jQuery(this).click(function(){var idstr=jQuery(this).attr('clickthis'); if(jQuery(idstr).hasClass('open') == false){jQuery(idstr).click();}});});  
+if(jQuery('#document-feedback').length > 0)
+{ 
+    var $url    = window.location.href
+    //var str ='Your feedback is very important to us. Please take a moment to complete this <a href="https://surveymonkey.com/r/G8STDRY?product=' + $url + '">survey.';
+    //var $p = jQuery('#document-feedback div p').html(str);
+}
+    };
+
+//--><!]]>
+</script></div>
+<style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+#views-bootstrap-carousel-block-2 .carousel-inner > .item > a > img {
+  margin:auto;
+}
+button#product-feedback-next {
+    margin-bottom: 10px;
+}
+/*
+.mobile-nav {
+border-bottom: 3px solid #112e51;
+}
+*/
+.cma-banner-container {
+    display: none;
+}
+@media (max-width: 991px) {
+.navbar .navbar-header {
+background: #fff;
+}
+}
+div.banner-region { background: #fff; }
+
+.accordion_fold {
+    padding-bottom: 25px;
+}
+
+h2.accordion.open {
+    background: #f2f2f2;
+}
+
+a { color: #2b72af;}
+
+.navbar-default .navbar-nav > li > a { color: #767676; }
+/* andi */
+.sidebar-widget-orange .orange {
+    background-color: #e77431;
+}
+#block-views-block-ics-announcements-block-1 .views-field-created {
+    color: #565656;
+}
+a#sort-bulletin {
+color: #000;
+background: white;
+position: absolute;
+right: 150px;
+padding: 1px 12px;
+}
+
+/*--><!]]>*/
+</style></div>
+      
+  </section>
+
+
+  </div>
+
+    </footer>
+  
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","scriptPath":null,"pathPrefix":"","currentPath":"node\/9599","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"UA-34879253-1","trackOutbound":true,"trackMailto":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"data":{"extlink":{"extTarget":false,"extTargetNoOverride":false,"extNofollow":false,"extNoreferrer":false,"extFollowNoOverride":false,"extClass":"ext","extLabel":"(link is external)","extImgClass":false,"extSubdomains":true,"extExclude":"(\\.gov|\\.mil|\\.org.*|twitter\\.com\\\/share\\?url\\=.*|www\\.facebook\\.com\\\/sharer\\.php\\?u\\=.*|www\\.addthis\\.com\\\/bookmark\\.php\\?url\\=.*|javascript\\:window\\.print\\(\\)\\;)","extInclude":"","extCssExclude":"","extCssExplicit":"","extAlert":true,"extAlertText":"You are now leaving an official website of the United States Government (USG), the Department of Homeland Security (DHS), and the Cybersecurity and Infrastructure Security Agency (CISA). Links to non-USG, non-DHS, and non-CISA sites are provided for the visitor\u0027s convenience and do not represent an endorsement by USG, DHS, or CISA of any commercial or private issues, products, or services. Note that the privacy policy of the linked site may differ from that of USG, DHS, and CISA.","mailtoClass":"mailto","mailtoLabel":"(link sends email)","extUseFontAwesome":false,"extIconPlacement":"append","extFaLinkClasses":"fa fa-external-link","extFaMailtoClasses":"fa fa-envelope-o","whitelistedDomains":null}},"bootstrap":{"forms_has_error_value_toggle":1,"popover_enabled":1,"popover_animation":1,"popover_auto_close":1,"popover_container":"body","popover_content":"","popover_delay":"0","popover_html":0,"popover_placement":"right","popover_selector":"","popover_title":"","popover_trigger":"click","tooltip_enabled":1,"tooltip_animation":1,"tooltip_container":"body","tooltip_delay":"0","tooltip_html":0,"tooltip_placement":"auto left","tooltip_selector":"","tooltip_trigger":"hover"},"user":{"uid":0,"permissionsHash":"5ac3ae468050ddd0aa4ecea12c34a32977a23244239ed53eb7226f296aed658f"}}</script>
+<script src="/sites/default/files/js/js_xhqBHziEDyCKWlB5IUseaFAGh1B08TPFGmxCf6RvFnM.js"></script>
+<script src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DHS&amp;subagency=US-CERT&amp;pua=0" id="_fed_an_ua_tag"></script>
+<script src="/sites/default/files/js/js_m5CHELy9XHlAx2jnhaYdT2XVeN916TnZL5U2ha7Ln94.js"></script>
+
+  <script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"877b02039c","applicationID":"628657512,979282327","transactionName":"ZFYHMhZSXUpRUkcKDF0cJAUQWlxXH3VBFhNSXzkIC1dWZXNeXRcRXF8JAxZvfVZUVGUKBkRwCggQQVxVXFRBTl1FWgAR","queueTime":0,"applicationTime":467,"atts":"SBEERF5ITkQ=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

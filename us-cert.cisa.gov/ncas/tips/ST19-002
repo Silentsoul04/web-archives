@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html  lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+    <meta charset="utf-8" /><script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={licenseKey:"877b02039c",applicationID:"628657512"};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var i=e[n]={exports:{}};t[n][0].call(i.exports,function(e){var i=t[n][1][e];return r(i||e)},i,i.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var i=0;i<n.length;i++)r(n[i]);return r}({1:[function(t,e,n){function r(){}function i(t,e,n){return function(){return o(t,[u.now()].concat(f(arguments)),e?null:this,n),e?void 0:this}}var o=t("handle"),a=t(8),f=t(9),c=t("ee").get("tracer"),u=t("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var d=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],p="api-",l=p+"ixn-";a(d,function(t,e){s[e]=i(p+e,!0,"api")}),s.addPageAction=i(p+"addPageAction",!0),s.setCurrentRouteName=i(p+"routeName",!0),e.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(t,e){var n={},r=this,i="function"==typeof e;return o(l+"tracer",[u.now(),t,n],r),function(){if(c.emit((i?"":"no-")+"fn-start",[u.now(),r,i],n),i)try{return e.apply(this,arguments)}catch(t){throw c.emit("fn-err",[arguments,this,t],n),t}finally{c.emit("fn-end",[u.now()],n)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(t,e){m[e]=i(l+e)}),newrelic.noticeError=function(t,e){"string"==typeof t&&(t=new Error(t)),o("err",[t,u.now(),!1,e])}},{}],2:[function(t,e,n){function r(t){if(NREUM.init){for(var e=NREUM.init,n=t.split("."),r=0;r<n.length-1;r++)if(e=e[n[r]],"object"!=typeof e)return;return e=e[n[n.length-1]]}}e.exports={getConfiguration:r}},{}],3:[function(t,e,n){function r(){return f.exists&&performance.now?Math.round(performance.now()):(o=Math.max((new Date).getTime(),o))-a}function i(){return o}var o=(new Date).getTime(),a=o,f=t(10);e.exports=r,e.exports.offset=a,e.exports.getLastTimestamp=i},{}],4:[function(t,e,n){function r(t){return!(!t||!t.protocol||"file:"===t.protocol)}e.exports=r},{}],5:[function(t,e,n){function r(t,e){var n=t.getEntries();n.forEach(function(t){"first-paint"===t.name?d("timing",["fp",Math.floor(t.startTime)]):"first-contentful-paint"===t.name&&d("timing",["fcp",Math.floor(t.startTime)])})}function i(t,e){var n=t.getEntries();n.length>0&&d("lcp",[n[n.length-1]])}function o(t){t.getEntries().forEach(function(t){t.hadRecentInput||d("cls",[t])})}function a(t){if(t instanceof m&&!g){var e=Math.round(t.timeStamp),n={type:t.type};e<=p.now()?n.fid=p.now()-e:e>p.offset&&e<=Date.now()?(e-=p.offset,n.fid=p.now()-e):e=p.now(),g=!0,d("timing",["fi",e,n])}}function f(t){d("pageHide",[p.now(),t])}if(!("init"in NREUM&&"page_view_timing"in NREUM.init&&"enabled"in NREUM.init.page_view_timing&&NREUM.init.page_view_timing.enabled===!1)){var c,u,s,d=t("handle"),p=t("loader"),l=t(7),m=NREUM.o.EV;if("PerformanceObserver"in window&&"function"==typeof window.PerformanceObserver){c=new PerformanceObserver(r);try{c.observe({entryTypes:["paint"]})}catch(v){}u=new PerformanceObserver(i);try{u.observe({entryTypes:["largest-contentful-paint"]})}catch(v){}s=new PerformanceObserver(o);try{s.observe({type:"layout-shift",buffered:!0})}catch(v){}}if("addEventListener"in document){var g=!1,h=["click","keydown","mousedown","pointerdown","touchstart"];h.forEach(function(t){document.addEventListener(t,a,!1)})}l(f)}},{}],6:[function(t,e,n){function r(t,e){if(!i)return!1;if(t!==i)return!1;if(!e)return!0;if(!o)return!1;for(var n=o.split("."),r=e.split("."),a=0;a<r.length;a++)if(r[a]!==n[a])return!1;return!0}var i=null,o=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var f=navigator.userAgent,c=f.match(a);c&&f.indexOf("Chrome")===-1&&f.indexOf("Chromium")===-1&&(i="Safari",o=c[1])}e.exports={agent:i,version:o,match:r}},{}],7:[function(t,e,n){function r(t){function e(){t(a&&document[a]?document[a]:document[i]?"hidden":"visible")}"addEventListener"in document&&o&&document.addEventListener(o,e,!1)}e.exports=r;var i,o,a;"undefined"!=typeof document.hidden?(i="hidden",o="visibilitychange",a="visibilityState"):"undefined"!=typeof document.msHidden?(i="msHidden",o="msvisibilitychange"):"undefined"!=typeof document.webkitHidden&&(i="webkitHidden",o="webkitvisibilitychange",a="webkitVisibilityState")},{}],8:[function(t,e,n){function r(t,e){var n=[],r="",o=0;for(r in t)i.call(t,r)&&(n[o]=e(r,t[r]),o+=1);return n}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],9:[function(t,e,n){function r(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,i=n-e||0,o=Array(i<0?0:i);++r<i;)o[r]=t[e+r];return o}e.exports=r},{}],10:[function(t,e,n){e.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(t,e,n){function r(){}function i(t){function e(t){return t&&t instanceof r?t:t?u(t,c,a):a()}function n(n,r,i,o,a){if(a!==!1&&(a=!0),!l.aborted||o){t&&a&&t(n,r,i);for(var f=e(i),c=v(n),u=c.length,s=0;s<u;s++)c[s].apply(f,r);var p=d[w[n]];return p&&p.push([b,n,r,f]),f}}function o(t,e){y[t]=v(t).concat(e)}function m(t,e){var n=y[t];if(n)for(var r=0;r<n.length;r++)n[r]===e&&n.splice(r,1)}function v(t){return y[t]||[]}function g(t){return p[t]=p[t]||i(n)}function h(t,e){l.aborted||s(t,function(t,n){e=e||"feature",w[n]=e,e in d||(d[e]=[])})}var y={},w={},b={on:o,addEventListener:o,removeEventListener:m,emit:n,get:g,listeners:v,context:e,buffer:h,abort:f,aborted:!1};return b}function o(t){return u(t,c,a)}function a(){return new r}function f(){(d.api||d.feature)&&(l.aborted=!0,d=l.backlog={})}var c="nr@context",u=t("gos"),s=t(8),d={},p={},l=e.exports=i();e.exports.getOrSetContext=o,l.backlog=d},{}],gos:[function(t,e,n){function r(t,e,n){if(i.call(t,e))return t[e];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:r,writable:!0,enumerable:!1}),r}catch(o){}return t[e]=r,r}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],handle:[function(t,e,n){function r(t,e,n,r){i.buffer([t],r),i.emit(t,e,n)}var i=t("ee").get("handle");e.exports=r,r.ee=i},{}],id:[function(t,e,n){function r(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:a(t,o,function(){return i++})}var i=1,o="nr@id",a=t("gos");e.exports=r},{}],loader:[function(t,e,n){function r(){if(!R++){var t=M.info=NREUM.info,e=v.getElementsByTagName("script")[0];if(setTimeout(u.abort,3e4),!(t&&t.licenseKey&&t.applicationID&&e))return u.abort();c(E,function(e,n){t[e]||(t[e]=n)});var n=a();f("mark",["onload",n+M.offset],null,"api"),f("timing",["load",n]);var r=v.createElement("script");0===t.agent.indexOf("http://")||0===t.agent.indexOf("https://")?r.src=t.agent:r.src=l+"://"+t.agent,e.parentNode.insertBefore(r,e)}}function i(){"complete"===v.readyState&&o()}function o(){f("mark",["domContent",a()+M.offset],null,"api")}var a=t(3),f=t("handle"),c=t(8),u=t("ee"),s=t(6),d=t(4),p=t(2),l=p.getConfiguration("ssl")===!1?"http":"https",m=window,v=m.document,g="addEventListener",h="attachEvent",y=m.XMLHttpRequest,w=y&&y.prototype,b=!d(m.location);NREUM.o={ST:setTimeout,SI:m.setImmediate,CT:clearTimeout,XHR:y,REQ:m.Request,EV:m.Event,PR:m.Promise,MO:m.MutationObserver};var x=""+location,E={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1209.min.js"},O=y&&w&&w[g]&&!/CriOS/.test(navigator.userAgent),M=e.exports={offset:a.getLastTimestamp(),now:a,origin:x,features:{},xhrWrappable:O,userAgent:s,disabled:b};if(!b){t(1),t(5),v[g]?(v[g]("DOMContentLoaded",o,!1),m[g]("load",r,!1)):(v[h]("onreadystatechange",i),m[h]("onload",r)),f("mark",["firstbyte",a.getLastTimestamp()],null,"api");var R=0}},{}],"wrap-function":[function(t,e,n){function r(t,e){function n(e,n,r,c,u){function nrWrapper(){var o,a,s,p;try{a=this,o=d(arguments),s="function"==typeof r?r(o,a):r||{}}catch(l){i([l,"",[o,a,c],s],t)}f(n+"start",[o,a,c],s,u);try{return p=e.apply(a,o)}catch(m){throw f(n+"err",[o,a,m],s,u),m}finally{f(n+"end",[o,a,p],s,u)}}return a(e)?e:(n||(n=""),nrWrapper[p]=e,o(e,nrWrapper,t),nrWrapper)}function r(t,e,r,i,o){r||(r="");var f,c,u,s="-"===r.charAt(0);for(u=0;u<e.length;u++)c=e[u],f=t[c],a(f)||(t[c]=n(f,s?c+r:r,i,c,o))}function f(n,r,o,a){if(!m||e){var f=m;m=!0;try{t.emit(n,r,o,e,a)}catch(c){i([c,n,r,o],t)}m=f}}return t||(t=s),n.inPlace=r,n.flag=p,n}function i(t,e){e||(e=s);try{e.emit("internal-error",t)}catch(n){}}function o(t,e,n){if(Object.defineProperty&&Object.keys)try{var r=Object.keys(t);return r.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(o){i([o],n)}for(var a in t)l.call(t,a)&&(e[a]=t[a]);return e}function a(t){return!(t&&t instanceof Function&&t.apply&&!t[p])}function f(t,e){var n=e(t);return n[p]=t,o(t,n,s),n}function c(t,e,n){var r=t[e];t[e]=f(r,n)}function u(){for(var t=arguments.length,e=new Array(t),n=0;n<t;++n)e[n]=arguments[n];return e}var s=t("ee"),d=t(9),p="nr@original",l=Object.prototype.hasOwnProperty,m=!1;e.exports=r,e.exports.wrapFunction=f,e.exports.wrapInPlace=c,e.exports.argsToArray=u},{}]},{},["loader"]);</script>
+<script async src="/sites/default/files/google_analytics/gtag.js?qubv3z"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("config", "UA-34879253-1", {"groups":"default","anonymize_ip":true,"allow_ad_personalization_signals":false});</script>
+<meta name="description" content="By adhering to cybersecurity best practices, election organizations—including state, local, tribal, and territorial (SLTT) governments—can improve the security of their election systems. The Cybersecurity and Infrastructure Security Agency (CISA) developed the best practices in this tip from lessons learned through engagements with SLTT governments, election stakeholders, and others. Organizations can implement these best practices, which harden enterprise networks and strengthen election infrastructure, at little or no cost." />
+<meta name="abstract" content="As part of its mission, CISA leads the effort to enhance the security, resiliency, and reliability of the Nation&#039;s cybersecurity and communications infrastructure." />
+<meta name="keywords" content="uscert, csirt, cert, cybersecurity, cyber security, computer security, U. S. Computer Emergency Readiness, cyber risks" />
+<meta name="Generator" content="Drupal 9 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/sites/default/files/images/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="https://us-cert.cisa.gov/ncas/tips/ST19-002" />
+<link rel="shortlink" href="https://us-cert.cisa.gov/node/12372" />
+<link rel="revision" href="https://us-cert.cisa.gov/ncas/tips/ST19-002" />
+
+    <title>Best Practices for Securing Election Systems | CISA</title>
+    <link rel="stylesheet" media="all" href="/sites/default/files/css/css_-w-jQbIWIO0ZERqyQMFp9m1ddgDjs5ZGsor0ebo5CG4.css" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_OtQ9QHAYVZDqM__uuCDStHUt38Nwh_1MHX1vxg5dE5c.css" />
+
+    
+    <!-- Google Font -->
+    <style type="text/css">
+/* source-sans-pro-regular - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'),
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.woff') format('woff'), /* Modern Browsers */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.svg#SourceSansPro') format('svg'); /* Legacy iOS */
+}
+    </style>
+    <!--link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet"--> 
+    <!-- Google Font -->
+  </head>
+  <body class="path-node page-node-type-tip has-glyphicons">
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+
+
+<div class="container-fluid top-top">
+      <aside role="complementary">
+        <div class="region region-top">
+    <section id="block-certtoptop" class="block block-block-content block-block-content4d95ffde-0818-4e6b-bd79-d1547b08c0c0 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container">
+<div id="top">
+<div class="row">
+<div class="col-sm-12 flag"><img alt="United States Flag" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/flag.png" style="position: absolute;" /><p style="padding-left: 35px; font-family: Arial; font-size: 11px;">An official website of the United States government <a href="#" id="here-is-how-u-know">Here's how you know <span class="arrow down"> </span></a></p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="usa-banner-content usa-grid usa-accordion-content hidden container" id="gov-banner">
+<div class="usa-banner-guidance-gov usa-width-one-half col-sm-6"><img alt="Dot gov" class="usa-banner-icon usa-media_block-img" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/icon-dot-gov.svg" /><div class="usa-media_block-body"><strong>Official websites use .gov</strong><br />
+A <b>.gov</b> website belongs to an official government organization in the United States.</div>
+</div>
+
+<div class="usa-banner-guidance-ssl usa-width-one-half col-sm-6"><img alt="SSL" class="usa-banner-icon usa-media_block-img" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/icon-https.svg" /><div class="usa-media_block-body"><strong>Secure .gov websites use HTTPS</strong> A <b>lock (<img alt="lock icon" src="/sites/default/files/icons/lock.svg" style="width:15px;" />)</b> or <b>https://</b> means you've safely connected to the .gov website. Share sensitive information only on official, secure websites.</div>
+</div>
+</div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </div>
+
+
+
+<div class="container-fluid hidden-xs hidden-sm banner-region">
+<div class="container">
+<div class="row">
+
+
+  
+
+<section class="col-sm-9">
+
+      <a id="logo-section"></a>
+        <div class="region region-logo">
+    <section id="block-certlogo" class="block block-block-content block-block-content4639a667-debe-4642-bc69-7839662c0187 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="hidden-xs hidden-sm"><a href="/"><img alt="Cybersecurity and Infrastructure Security Agency CISA" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/logo_verbose.png" title="Cybersecurity and Infrastructure Security Agency CISA" /></a></div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </section>
+
+
+
+      <aside class="col-sm-3" role="complementary">
+        <div class="region region-search">
+    <section id="block-certsearch" class="block block-block-content block-block-contentc33bd875-6ea6-42cc-b1ab-348a4e4bdff7 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><form accept-charset="UTF-8" action="https://search.us-cert.gov/search" class="hidden-xs searchbox" method="get"><input name="utf8" type="hidden" value="✓" /><input id="affiliate-desktop" name="affiliate" type="hidden" value="us-cert" /><div class="form-group"><label class="sr-only" for="query-desktop">Enter Search Terms(s):</label>
+<div class="input-group"><input autocomplete="off" class="form-control form-control-custom input-lg" id="query-desktop" name="query" placeholder="Search" type="text" /><div class="input-group-addon input-group-addon-custom"><button class="submit input-lg"><img alt="search icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/search-icon.png" title="search icon" /></button></div>
+</div>
+</div>
+</form>
+<style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+.navbar-default ul.navbar-nav > li.last a{
+display: none;
+
+/*--><!]]>*/
+</style><div style="padding: 16px 12px 8px 12px"><a class="btn btn-primary" href="/services" type="button" style="font-weight: bold; width: 40%">Services</a><a class="btn btn-primary pull-right" href="/report" type="button" style="font-weight: bold; width: 40%">Report</a></div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </div>
+</div>
+<hr class="hidden-xs nav-top-line">
+</div>
+
+
+
+          <header class="navbar navbar-default container-fluid" id="navbar" role="banner">
+        <div class="container ">
+      <div class="navbar-header">
+        
+                          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+            <div class="hidden-lg hidden-md mobile-nav">
+        <a class="" href="/">
+            <img src="/sites/default/files/cert/logo3.png"  alt="US Department of Homeland Security CISA Cyber + Infrastructure" title="US Department of Homeland Security CISA Cyber + Infrastructure">
+          </a>
+        </div>
+      </div>
+
+              <div id="navbar-collapse" class="navbar-collapse collapse">
+            <div class="region region-navigation-collapsible">
+    <section id="block-certsearchmobile" class="block block-block-content block-block-content0da6361c-e31a-4a58-b455-f9ebde1ba544 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><form accept-charset="UTF-8" action="https://search.us-cert.gov/search" class="hidden-lg hidden-md searchbox" method="get"><input name="utf8" type="hidden" value="✓" /><input id="affiliate-mobile" name="affiliate" type="hidden" value="us-cert" /><div class="form-group"><label class="sr-only" for="query-mobile">Enter Search Terms(s):</label>
+<div class="input-group"><input autocomplete="off" class="form-control form-control-custom input-lg" id="query-mobile" name="query" placeholder="Search" type="text" /><div class="input-group-addon input-group-addon-custom"><button class="submit input-lg"><img alt="search icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/search-icon.png" title="search icon" /></button></div>
+</div>
+</div>
+</form>
+<div class="hidden-md hidden-lg" style="padding: 8px"><a class="btn btn-primary btn-block" href="/services" role="button" style="font-weight: bold">Services</a></div>
+
+<div class="hidden-md hidden-lg" style="padding: 8px"><a class="btn btn-primary btn-block" href="/report" role="button" style="font-weight: bold">Report</a></div></div>
+      
+  </section>
+
+<nav role="navigation" aria-labelledby="block-certmainmenu-menu" id="block-certmainmenu">
+            
+  <h2 class="visually-hidden" id="block-certmainmenu-menu">CertMain Menu</h2>
+  
+
+        
+      <ul class="menu menu--certmain-menu nav navbar-nav">
+                      <li class="first">
+                                        <a href="/ncas" title="Alerts and Tips" data-drupal-link-system-path="node/5">Alerts and Tips</a>
+              </li>
+                      <li>
+                                        <a href="/resources" title="Resources" data-drupal-link-system-path="node/12436">Resources</a>
+              </li>
+                      <li>
+                                        <a href="/ics" title="Industrial Control Systems" data-drupal-link-system-path="node/14614">Industrial Control Systems</a>
+              </li>
+                      <li class="last">
+                                        <a href="/report" title="Report" data-drupal-link-system-path="node/5745">Report</a>
+              </li>
+        </ul>
+  
+
+  </nav>
+
+  </div>
+
+        </div>
+                </header>
+  <hr class="hidden-xs hidden-sm nav-bottom-line">
+<div class="visible-xs visible-sm mobile-border"></div>
+
+
+<div class="container">
+    <div id="print-logo"><img alt="US Department of Homeland Security CISA Cyber + Infrastructure" src="/sites/default/files/cert/logo2.png"/></div>
+    <div id="tlp-header"><svg height="30" width="120"> <rect fill="black" height="30" width="120" x="0" y="0"></rect> <text fill="#ffffff" font-size="18px" x="10" y="20">TLP:WHITE</text> </svg></div>
+    <div id="tlp-footer"><svg height="30" width="120"> <rect fill="black" height="30" width="120" x="0" y="0"></rect> <text fill="#ffffff" font-size="18px" x="10" y="20">TLP:WHITE</text> </svg></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  <div role="main" class="main-container container js-quickedit-main-content">
+    <div class="row">
+
+                              <div class="col-sm-12" role="heading" aria-level="1">
+              <div class="region region-header">
+      <div class="container-fluid hidden-xs">
+  <ol class="breadcrumb">
+          <li >
+                  <a href="/ncas">National Cyber Awareness System</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
+              </li>
+          <li >
+                  <a href="/ncas/tips">Tips</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
+              </li>
+          <li  class="active">
+                  Best Practices for Securing Election Systems
+              </li>
+      </ol>
+</div>
+
+
+
+  </div>
+
+          </div>
+              
+
+            
+            
+                        
+
+            
+                  <section class="col-sm-12">
+
+                              <div class="highlighted">  <div class="region region-highlighted">
+    <div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+</div>
+              
+                                      
+                  
+                          <a id="main-content"></a>
+            <div class="region region-content">
+                      <div id="tips-archive">
+                <a title="View Archives" href="/ncas/tips/">View Previous Tips</a>
+            </div>
+	    <h1 id="page-title">Security Tip (ST19-002)</h1>
+	    <h2 id="page-sub-title">Best Practices for Securing Election Systems</h2>
+        <div class="submitted meta-text">
+                        Original release date: May 21, 2019  | Last revised: November 02, 2020
+                                    <div id="social-options">
+	<!-- START PRINT BUTTON -->
+		<div id="print-button">
+			<span id="custom-print-button">
+				<a rel="nofollow" href="javascript:window.print();" title="Click to print."><img src="/sites/default/files/icons/print-button.png" alt="Click to print." /></a>
+			</span>
+		</div>
+    <!-- END PRINT BUTTON -->
+	<!-- START TWEET BUTTON -->
+	<div id="tweet-button">
+		<span id="custom-tweet-button">
+			<a rel="nofollow" target="_blank" href="https://twitter.com/share?url=https%3A%2F%2Fus-cert.cisa.gov%2Fncas%2Ftips%2FST19-002" class="popup-twitter" title="Click to Tweet."><img src="/sites/default/files/icons/tweet-button.png" alt="Click to Tweet." /></a>
+		</span>
+	</div>
+	<!-- END TWEET BUTTON -->
+
+	<!-- START FACEBOOK BUTTON -->
+	<div id="facebook-button">
+		<span id="custom-facebook-button">
+		<a rel="nofollow" target="_blank" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fus-cert.cisa.gov%2Fncas%2Ftips%2FST19-002" class="popup-facebook" title="Click to send to Facebook."><img src="/sites/default/files/icons/facebook-send-button.png" alt="Click to send to Facebook." /></a>
+		</span>
+	</div>
+	<!-- END FACEBOOK BUTTON -->
+
+	<!-- START SHARE BUTTON -->
+	<div id="share-button">
+		<span id="custom-share-button">
+			<a rel="nofollow" target="_blank" href="http://www.addthis.com/bookmark.php?url=https%3A%2F%2Fus-cert.cisa.gov%2Fncas%2Ftips%2FST19-002" class="popup-share" title="Click to Share." ><img src="/sites/default/files/icons/share-button.png" alt="Click to Share." /></a>
+		</span>
+	</div>
+	<!-- END SHARE BUTTON -->
+
+</div>
+        </div>
+    
+  <div class="cert-content">
+<article role="article" about="/ncas/tips/ST19-002" class="tip full clearfix">
+
+  
+    
+
+  
+  <div class="content">
+        		<p class="tip-intro">CISA developed the Election Infrastructure Questionnaire (see References) to assist organizational documentation of election infrastructure cybersecurity posture and to identify key interdependencies.
+</p>
+                
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><p>By adhering to cybersecurity best practices, election organizations—including state, local, tribal, and territorial (SLTT) governments—can improve the security of their election systems. The Cybersecurity and Infrastructure Security Agency (CISA) developed the best practices in this tip from lessons learned through engagements with SLTT governments, election stakeholders, and others. Organizations can implement these best practices, which harden enterprise networks and strengthen election infrastructure, at little or no cost. CISA’s election systems best practices cover the following topics:</p>
+
+<div class="accordion-enclosure">
+
+<h2 class="accordion"><strong>Software and Patch Management</strong></h2>
+
+<p>Implementing an enterprise-wide software and patch management program reduces the likelihood of an organization experiencing significant cybersecurity incidents. A software and patch management program includes the establishment of an enterprise-wide inventory list, which provides an organization with greater insight into the software running on its networks and associated vulnerabilities. The organization can then use the inventory list to help identify and mitigate the risks to its election-related information technology (IT) infrastructure. Mitigations often include implementing application whitelisting, a best practice. (See <a href="https://www.cyber.gov.au/publications/implementing-application-whitelisting">Implementing Application Whitelisting</a>.)</p>
+
+<p>CISA has observed a correlation between the absence of a patch management program and the partial or complete compromise of an enterprise network due to the presence of commodity malware. Commodity malware is widely available, has minimal or no customization, and is used by a wide range of threat actors. A partial or complete compromise could lead to additional impacts, including ransomware infection and the theft of sensitive data, which may include personally identifiable information.</p>
+
+<p>Failure to deploy patches in a timely manner can make an organization a target of opportunity, even for less sophisticated actors, increasing the risk of compromise. If an enterprise-wide patch management solution is too costly, an organization should consider enabling automatic updates. CISA recommends organizations subscribe to the <a href="/ncas">National Cybersecurity Awareness System</a> for alerts about security updates, threats, and vulnerabilities. This will assist organizations in maintaining situational awareness of critical vulnerabilities present in software widely used throughout their enterprise environments. It is vital to act quickly to apply patches, especially if there is an associated vulnerability being exploited.</p>
+
+<h2 class="accordion"><strong>Log Management</strong></h2>
+
+<p>Retaining and adequately securing logs from both network devices and local hosts supports triage and remediation of cybersecurity events. An organization can analyze the logs to determine the impact of cybersecurity events and ascertain whether an incident has occurred.</p>
+
+<h4>Centralized Log Management</h4>
+
+<p>Organizations should set up centralized log management:</p>
+
+<ul><li>Forward logs from local hosts to a centralized log management server—often referred to as a security information and event management (SIEM) tool. CISA has observed threat actors attempting to delete local logs to remove on-site evidence of their activities. By sending logs to a SIEM tool, an organization can reduce the likelihood of malicious log deletion.</li>
+	<li>Correlate logs from both network and host security devices. By reviewing logs from multiple sources, an organization can better triage an individual event and determine its impact to the organization as a whole.</li>
+	<li>Review both centralized and local log management policies to maximize efficiency and retain historical data. CISA recommends that organizations retain critical logs for a minimum of one year, if possible.</li>
+</ul><h4>Update PowerShell and Enable Advanced Logging</h4>
+
+<p>In addition to setting up centralized logging, organizations should ensure that instances of PowerShell are logging activity. PowerShell is a cross-platform command-line shell and scripting language that is a component of Microsoft Windows. CISA has observed threat actors, including advanced persistent threat (APT) actors, using PowerShell to hide their malicious activities.  </p>
+
+<ul><li>Update PowerShell instances to version 5.0 or later and uninstall all earlier PowerShell versions. Logs from PowerShell prior to version 5.0 are either non-existent or do not record enough detail to aid in enterprise monitoring and incident response activities.</li>
+	<li>Ensure PowerShell 5.0 instances have module, script block, and transcription logging enabled.</li>
+</ul><h2 class="accordion"><strong>Network Segmentation</strong></h2>
+
+<p>Organizations can limit the impact of a cybersecurity incident by enforcing network segmentation. Proper network segmentation is an effective security mechanism to prevent an intruder from propagating exploits or laterally moving around an internal network. On a poorly segmented network, intruders are able to extend their impact to control critical devices or gain access to sensitive data and intellectual property. Segregation separates network segments based on role and functionality. A securely segregated network can contain malicious occurrences, reducing the impact from intruders in the event they gain a foothold somewhere inside the network. (See <a href="/ncas/tips/ST18-001">Securing Network Infrastructure Devices</a>.) During on-site engagements, CISA has observed organizations without effective network segmentation suffer commodity malware compromises of all Windows hosts in their environments.</p>
+
+<p>Organizations should define their distinct organizational components (e.g., human resources, IT administration, demilitarized zone, elections) and create a separate Virtual Local Area Network (VLAN) for each component. Alternatively, if feasible, organizations should implement physical network segmentation for each component. CISA recommends that organizations restrict traffic between VLANs following the principle of least privilege. See below for additional guidance for protecting elections-specific VLANs.</p>
+
+<h4>Segment Elections-Related Hosts from the General User Network</h4>
+
+<ul><li>Use dedicated servers and workstations for elections-related tasks. Organizations should never allow workstations with elections-related roles—such as submitting election results to a reporting server—to be used for general purpose computing, such as browsing the internet. Organizations should ensure up-to-date patching of workstations and servers dedicated to elections-related tasks.</li>
+	<li>Follow the principle of least privilege. Organizations should only allow elections-related VLANs to communicate with machines unrelated to elections on an as-needed basis. Other network traffic should be explicitly denied (e.g., by using a <code>DENY/DENY</code> ruleset).</li>
+	<li>Apply the appropriate technical controls (e.g., implement Group Policy Object [GPO] and firewall rules) to restrict general internet browsing from elections-related workstations and servers.</li>
+</ul><h2 class="accordion"><strong>Block Suspicious Activity</strong></h2>
+
+<p>Many organizations set their security devices to alert on suspicious activity instead of blocking it. When an organization does not block suspicious activity by default, it increases the likelihood of adverse events that allow an adversary to compromise IT resources. Organizations should follow best practices in disabling network protocols known to spread malware, such as Server Message Block version 1 (SMB v1). (See <a href="/ncas/current-activity/2017/01/16/SMB-Security-Best-Practices">SMB Security Best Practices</a>.)</p>
+
+<h4>Prevent Malware and Malicious Traffic</h4>
+
+<p>Organizations should perform the following actions to block malicious traffic and malware:</p>
+
+<ul><li>Enable security features. Many network appliances, cloud services, and security software (e.g., host intrusion prevention systems) have features—not enabled by default—that block malicious traffic. CISA recommends that organizations enable these features. Note: organizations should thoroughly test changes before implementing them in production environments.</li>
+	<li>Scan all incoming emails for malicious attachments and links prior to delivery, and quarantine emails, as necessary.</li>
+	<li>Train employees to recognize phishing attempts and ensure a process exists for reporting and triaging phishing emails.</li>
+	<li>Block macros from running in documents throughout enterprise. (See <a href="https://insights.sei.cmu.edu/cert/2016/06/who-needs-to-exploit-vulnerabilities-when-you-have-macros.html">Who Needs to Exploit Vulnerabilities When You Have Macros?</a> for more information.)
+	<ul><li>Before restricting macro-enabled documents, determine if any users need macro-enabled documents to perform their work functions. If macros are not used, disable them by GPO.</li>
+		<li>If blocking macro-enabled documents across an organization is too restrictive, consider alternative solutions, such as only allowing macro-enabled documents for specific users or blocking macros from running when received as email attachments from external users.</li>
+	</ul></li>
+</ul><h4>Disable SMB v1</h4>
+
+<p>In the course of recent engagements, CISA has observed threat actors using SMB v1 to spread malware across organizations. Based on this specific threat, CISA recommends organizations consider the following actions to protect their networks:</p>
+
+<ul><li>Disable SMB v1 internally on their network.</li>
+	<li>Block all versions of SMB at the network boundary by blocking Transmission Control Protocol (TCP) port 445 with related protocols on User Datagram Protocol ports 137–138 and TCP port 139.</li>
+</ul><h2 class="accordion"><strong>Credential Management</strong></h2>
+
+<p>Managing passwords and using strong passwords are important steps in preventing unauthorized access to databases, applications, and other election infrastructure assets. Multi-factor authentication (MFA), in particular, can help prevent adversaries from gaining access to an organization’s assets even if passwords are compromised through phishing attacks or other means. Threat actors have the capability to defeat single-factor authentication, especially when passwords are weak (e.g., common or trivial passwords) or—taking into account credential reuse—have been exposed in unrelated third-party breaches. CISA has published the following guidance to assist organizations with preventing unauthorized access:</p>
+
+<ul><li>Implement MFA to prevent unauthorized access, particularly by external users (including APT actors). (See <a href="/ncas/alerts/TA18-276A">Using Rigorous Credential Control to Mitigate Trusted Network Exploitation</a> and <a href="/ncas/tips/ST05-012">Supplementing Passwords</a>.) MFA requires users to present two or more credentials (e.g., a password and the use of a hardware token) at login to verify their identity before being granted access to a given system. Organizations should consider implementing MFA for voter registration, election night reporting, and associated enterprise IT systems.</li>
+	<li>Enforce password best practices, including the use of unique and complex passwords to access different systems and accounts. Accounts with additional privileges (e.g., administrator accounts) should have password requirements that are more stringent than those for standard users. (See <a href="/ncas/tips/ST04-002">Choosing and Protecting Passwords</a>.)</li>
+	<li>If possible, use a local administration password solution. (See <a href="https://docs.microsoft.com/en-us/previous-versions/mt227395(v=msdn.10)">Local Administrator Password Solution</a>.)</li>
+</ul><h2 class="accordion"><strong>Establish a Baseline for Host and Network Activity</strong></h2>
+
+<p>An organization’s IT personnel are critical in determining what is and is not normal and expected host or network activity. With the appropriate tools, IT personnel are well positioned to determine whether observed anomalous activity warrants further investigation. During on-site engagements, CISA uses the following metrics to establish a baseline for expected network- and host-based activity:</p>
+
+<h4>Network Baseline</h4>
+
+<ul><li>Specific metrics should include expected bandwidth usage for
+	<ul><li>The organization,</li>
+		<li>Each user (if possible),</li>
+		<li>Remote access,</li>
+		<li>Ports,</li>
+		<li>Protocols, and</li>
+		<li>File types.</li>
+	</ul></li>
+	<li>Organizations should consider variables such as the time of day traffic occurs, i.e., remote access is more suspicious occurring at 1 a.m. than during standard business hours.</li>
+	<li>Including additional metrics—such as the destination of network traffic and the destination Internet Protocol (IP) address’s geographic location—establishes a more detailed baseline.</li>
+	<li>Once a baseline is established, an organization should review the results to determine if they align with industry best practices. (See <a href="https://www.cisecurity.org/elections-resources-best-practices/">Handbook for Elections Infrastructure Security</a>.)</li>
+	<li>Organizations should compare their baseline traffic with the rules from their boundary firewalls to ensure that the rules are acting as intended and align with industry best practices.</li>
+</ul><h4>Host Baseline</h4>
+
+<ul><li>Organizations can establish a baseline by creating a “gold image” for workstations and servers. A gold image contains an organization’s standard set of necessary, trusted applications installed for the set of systems for which it is designed. Once created, the organization should document the gold image’s configuration. Organizations should also document approved variations from the gold image, such as tools used by the organization’s network or security teams. Examples of configuration information that may be useful in identifying anomalous activity include
+	<ul><li>Hashes of critical operating system files;</li>
+		<li>Software used for remote host access (e.g., a Virtual Private Network client);</li>
+		<li>An organization-wide approved software list, which can help determine if detected software is not approved for the organization; and</li>
+		<li>Information on configurations and settings that can be used to automatically launch software after a reboot, including services, scheduled tasks, and autorun programs.  </li>
+	</ul></li>
+	<li>In addition to reviewing files on a system, organizations should review the location of file installation and the validity of the files’ digital certificate, if possible.</li>
+</ul><h2 class="accordion"><strong>Organization-Wide IT Guidance and Policies</strong></h2>
+
+<p>Developing and maintaining guidance and policies targeted to specific situations and that assist in implementing best practices throughout the organization benefits an organization’s IT ecosystem. Guidance and policies that can significantly benefit an organization’s cyber hygiene include</p>
+
+<ul><li>A cybersecurity incident response plan and corresponding communications plan (see <a href="https://www.dhs.gov/sites/default/files/publications/Incident Handling Elections Final 508.pdf">Incident Handling Overview for Election Officials</a>, <a href="https://www.cisecurity.org/elections-resources-best-practices/">Handbook for Elections Infrastructure Security</a>, and <a href="https://www.belfercenter.org/publication/election-cyber-incident-communications-plan-template">Election Cyber Incident Communications Plan Template</a>);
+
+	<ul><li>At a minimum, include
+		<ul><li>Roles and responsibilities of the parties in regard to the plans;</li>
+			<li>24/7 contact information for the parties with critical roles;</li>
+			<li>Incident severity thresholds and associated role-based actions taken at those thresholds;</li>
+			<li>A policy establishing a user’s responsibility to notify IT personnel of an IT security event; and</li>
+			<li>Guidance that helps determine when the organization should notify external parties, such as CISA, the Federal Bureau of Investigation, or the Election Infrastructure Information Sharing and Analysis Center (EI-ISAC) (see Election Infrastructure Subsector Communications Protocol, EI-ISAC Formalized Notification Process, both available from CISA upon request, and <a href="https://www.dhs.gov/publication/cyber-incident-reporting-unified-message-reporting-federal-government">Cyber Incident Reporting Unified Message</a>).</li>
+		</ul></li>
+	</ul></li>
+	<li>Patch management policies;</li>
+	<li>Password management policies; and</li>
+	<li>An approved software list.</li>
+</ul><p>Guidance and policies like these help formalize expectations for users and IT personnel. Organizations should formally document any exceptions to official guidance and policies.</p>
+
+<h4>CISA On-Site Engagement Preparation</h4>
+
+<p>CISA provides expert intrusion analysis and mitigation guidance to clients who lack in-house capability or require additional assistance with responding to a cyber incident. CISA supports federal departments and agencies, state and local governments, the private sector (industry and critical infrastructure asset owners and operators), academia, and international organizations.</p>
+
+<p>Before CISA can approve an organization’s Request for Technical Assistance (RTA) to provide on-network assistance to SLTT government agencies as part of a hunt or incident response, CISA requires proof that the organization has implemented login consent banners that appear on the screens of all servers and workstations accessed by the organization’s staff and within the scope of the assistance. This login consent banner cannot conflict with other IT resource policies, procedures, or trainings. In many situations, CISA has successfully helped government organizations update their banners in a way that allows CISA assistance. CISA cannot approve deployment to an on-site SLTT engagement involving on-network assistance unless the RTA and login consent banners are approved. For more information regarding consent banners, see the <a href="/sites/default/files/publications/Elections%20Infrastructure%20Questionnaire.pdf">Election Infrastructure Questionnaire</a>.</p>
+
+<p>CISA also strongly recommends that organizations maintain current internal documentation related to the <a href="/sites/default/files/publications/Elections%20Infrastructure%20Questionnaire.pdf">Election Infrastructure Questionnaire</a>. CISA developed the questionnaire to assist organizational documentation of election infrastructure cybersecurity posture and to identify key interdependencies.</p>
+
+<h2 class="accordion"><strong>Notice and Consent Banners for Computer Systems</strong></h2>
+
+<p>This section identifies recommended elements in computing system notice and consent banners and provides an example banner. This section does not include legal advice, and the information it contains is not guaranteed to be accurate or complete. Anyone reviewing or developing a notice and consent banner should consider consulting an attorney and should note that laws can change rapidly, differ from jurisdiction to jurisdiction, and can be subject to various interpretations by various entities. Further, notice and consent banners can require tailoring based on the specific circumstances and legal jurisdiction at issue. The elements or the examples may be inadvisable depending on the entity or situation. Applicable laws may include the Fourth Amendment to the U.S. Constitution, any similar provisions in state constitutions, and relevant federal- and state-level statutes.</p>
+
+<h4>Notice and Consent Banner Elements</h4>
+
+<ol><li>The banner expressly covers monitoring of data and communications in transit rather than just accessing data at rest.
+	<ul><li>Example: “You consent to the unrestricted monitoring, interception, recording, and searching of all communications and data transiting, traveling to or from, or stored on this system.”</li>
+	</ul></li>
+	<li>The banner provides that information in transit or stored on the system may be disclosed to any entity, including to government entities.
+	<ul><li>Example: “You consent, without restriction, to all communications and data transiting, traveling to or from, or stored on this system being disclosed to any entity, including to government entities.”</li>
+	</ul></li>
+	<li>The banner states that monitoring will be for any purpose.
+	<ul><li>Example: “…at any time and for any purpose.”</li>
+	</ul></li>
+	<li>The banner states that monitoring may be done by the entity or any person or entity authorized by the entity.
+	<ul><li>Example: “…monitoring or disclosure to any entity authorized by [ENTITY].”</li>
+	</ul></li>
+	<li>The banner explains to users that they have “no reasonable expectation of privacy” regarding communications or data in transit or stored on the system.
+	<ul><li>Example: “You are acknowledging that you have no reasonable expectation of privacy regarding your use of this system.”</li>
+	</ul></li>
+	<li>The banner clarifies that the given consent covers personal use of the system (such as personal emails or websites, or use on breaks or after hours) as well as official or work-related use.
+	<ul><li>Example: “…including work-related use and personal use without exception….”</li>
+	</ul></li>
+	<li>The banner is definitive about the fact of monitoring, rather than being conditional or speculative.
+	<ul><li>Example: “…will be monitored…”</li>
+	</ul></li>
+	<li>The banner expressly obtains consent from the user and does not merely provide notification.
+	<ul><li>Note: click-through banners can be best because they force the user to interact with the language.</li>
+		<li>Note: supporting processes should generally also preserve/provide evidence of the user’s agreement to the terms.</li>
+		<li>Example: “By using this system, you are acknowledging and consenting to…”</li>
+		<li>Example: “By clicking [ACCEPT] below…you consent to…”</li>
+	</ul></li>
+	<li>Nothing in the remainder of the banner or associated policies, agreements, training, etc., is inconsistent with, or otherwise undercuts, the elements of the banner.</li>
+</ol><h4>Example Banner</h4>
+
+<p>By clicking [ACCEPT] below you acknowledge and consent to the following:</p>
+
+<p>All communications and data transiting, traveling to or from, or stored on this system will be monitored. You consent to the unrestricted monitoring, interception, recording, and searching of all communications and data transiting, traveling to or from, or stored on this system at any time and for any purpose by [the ENTITY] and by any person or entity, including government entities, authorized by [the ENTITY]. You also consent to the unrestricted disclosure of all communications and data transiting, traveling to or from, or stored on this system at any time and for any purpose to any person or entity, including government entities, authorized by [the ENTITY]. You are acknowledging that you have no reasonable expectation of privacy regarding your use of this system. These acknowledgments and consents cover all use of the system, including work-related use and personal use without exception.</p>
+
+<h2 class="accordion"><strong>Additional Resources</strong></h2>
+
+<h4>Elections-Specific Guidance</h4>
+
+<p>CISA Election Security Information:<br /><a href="https://www.dhs.gov/cisa/election-security">https://www.dhs.gov/cisa/election-security</a></p>
+
+<p>Incident Handling for Elections:<br /><a href="https://www.dhs.gov/sites/default/files/publications/Incident%20Handling%20Elections%20Final%20508.pdf">https://www.dhs.gov/sites/default/files/publications/Incident%20Handling%20Elections%20Final%20508.pdf</a></p>
+
+<p>Election Cyber Incident Communications Plan Template for State and Local Officials:<br /><a href="https://www.belfercenter.org/publication/election-cyber-incident-communications-plan-template">https://www.belfercenter.org/publication/election-cyber-incident-communications-plan-template</a></p>
+
+<p>Election Infrastructure Questionnaire:<br /><a href="/sites/default/files/publications/Elections%20Infrastructure%20Questionnaire.pdf">https://www.us-cert.gov/sites/default/files/publications/Elections%20Infrastructure%20Questionnaire.pdf</a>  </p>
+
+<p>Securing Voter Registration Data:<br /><a href="/ncas/tips/ST16-001">https://www.us-cert.gov/ncas/tips/ST16-001</a></p>
+
+<p>Center for Internet Security (CIS) Handbook for Elections Infrastructure Security:<br /><a href="https://www.cisecurity.org/elections-resources-best-practices/">https://www.cisecurity.org/elections-resources-best-practices/</a></p>
+
+<h4>Patch Management Best Practices</h4>
+
+<p>Understanding Patches and Software Updates:<br /><a href="/ncas/tips/ST04-006">https://www.us-cert.gov/ncas/tips/ST04-006</a></p>
+
+<p>National Institute of Standards and Technology (NIST) Special Publication (SP) 800-40 Rev. 3: Guide to Enterprise Patch Management Technologies:<br /><a href="https://csrc.nist.gov/publications/detail/sp/800-40/rev-3/final">https://csrc.nist.gov/publications/detail/sp/800-40/rev-3/final</a></p>
+
+<p>CIS Top 20 Security Controls:<br /><a href="https://www.cisecurity.org/controls/">https://www.cisecurity.org/controls/</a></p>
+
+<h4>Ransomware Best Practices</h4>
+
+<p>Protecting Against Ransomware:<br /><a href="/ncas/tips/ST19-001">https://www.us-cert.gov/ncas/tips/ST19-001</a></p>
+
+<h4>Password Best Practices</h4>
+
+<p>Choosing and Protecting Passwords:<br /><a href="/ncas/tips/ST04-002">https://www.us-cert.gov/ncas/tips/ST04-002</a></p>
+
+<p>Supplementing Passwords:<br /><a href="/ncas/tips/ST05-012">https://www.us-cert.gov/ncas/tips/ST05-012</a></p>
+
+<p>NIST SP 800-63B Digital Identity Guidelines Authentication and Lifecycle Management:<br /><a href="https://pages.nist.gov/800-63-3/sp800-63b.html">https://pages.nist.gov/800-63-3/sp800-63b.html</a></p>
+
+<h4>Enterprise Best Practices</h4>
+
+<p>Securing Enterprise Wireless Networks:<br /><a href="/ncas/tips/ST18-247">https://www.us-cert.gov/ncas/tips/ST18-247</a></p>
+
+<p>Website Security:<br /><a href="/ncas/tips/ST18-006">https://www.us-cert.gov/ncas/tips/ST18-006</a></p>
+
+</div>
+
+<p><em>Note: due to variances among enterprise networks and associated election infrastructure, organizations should not consider these best practices a prescriptive solution for all cybersecurity risks.</em></p>
+</div>
+      
+
+        		    <div id="tip-references">
+		    	<a id="tipreferences"></a>
+		    	<h3>References</h3>
+                
+      <div class="field field--name-field-tip-reference field--type-link field--label-hidden field--items">
+              <div class="field--item"><a href="http://www.us-cert.gov/sites/default/files/publications/Elections%20Infrastructure%20Questionnaire.pdf">Election Infrastructure Questionnaire</a></div>
+          </div>
+  
+		    </div>
+        
+        		    <div id="tip-authors">
+		    	<a id="tipauthors"></a>
+                <h3>Authors</h3>
+		    	CISA
+		    </div>
+        
+        
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><p class="privacy-and-terms">This product is provided subject to this <a href="/privacy/notification">Notification</a> and this <a href="https://www.dhs.gov/privacy-policy">Privacy &amp; Use</a> policy.</p>
+</div>
+      
+
+                        <div id="document-feedback">
+	<div class="inner-document-feedback center-center">
+        <p><b>Please share your thoughts.</b></p>
+		<p>We recently updated our anonymous <a href="https://www.surveymonkey.com/r/CISA-cyber-survey?product=https://us-cert.cisa.gov/ncas/tips/ST19-002">product survey</a>; we'd welcome your feedback.</p>
+	</div>
+</div>
+
+              </div>
+
+</article>
+</div>
+
+
+  </div>
+
+              </section>
+
+
+                      </div>
+  </div>
+
+
+
+
+
+
+      <footer class="footer container-fluid" role="contentinfo">
+        <div class="region region-footer">
+    <section id="block-certsignup" class="block block-block-content block-block-contentc5846d10-2e2b-4822-aa59-7a5c3262f671 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container-fluid signup">
+<div class="container">
+<div class="row">
+<div class="col-lg-3 contact-icons">
+<h3>Contact Us</h3>
+
+<p class="phone-text"><img alt="phone icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Phone.png" />(888)282-0870</p>
+
+<p><img alt="email icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Email.png" /><a class="mailto" href="mailto:central@cisa.dhs.gov" title="General questions or suggestions">Send us email</a></p>
+
+<p><img alt="lock icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Lock.png" /><a href="/contact-us/" title="Download PGP/GPG keys">Download PGP/GPG keys</a></p>
+
+<p><img alt="feedback icon" data-entity-type="" data-entity-uuid="" height="32" src="/sites/default/files/images/icon-feedback.png" /><a href="/forms/website-feedback" title="Website Feedback">Submit website feedback</a></p>
+</div>
+
+<div class="col-lg-6 sub-alert">
+<h3>Subscribe to Alerts</h3>
+
+<p>Receive security alerts, tips, and other updates.</p>
+
+<form action="https://public.govdelivery.com/accounts/USDHSCISA/subscribers/qualify"><label class="visually-hidden" for="email-address-field">Enter your email address</label> <input class="signup-form" id="email-address-field" name="email" placeholder=" Enter your email address" title="Enter your email address" type="text" /><br /><input class="btn btn-primary" name="submit" title="Sign up for alerts" type="submit" value="Sign Up" /> </form>
+
+<div class="pull-right signup-icon-one"><a href="https://twitter.com/uscert_gov" title="US-CERT Twitter Feed"><img alt="twitter icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/twitter-button.png" /></a></div>
+
+<div class="pull-right signup-icon-two"><a href="/mailing-lists-and-feeds" title="Mailing Lists and Feeds"><img alt="rss icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/rss-button-bottom.png" /></a></div>
+
+<div class="pull-right signup-icon-three"><a href="/hsin" class="btn btn-cert-report" name="button" type="button" id="button">HSIN</a></div>
+</div>
+
+<div class="col-lg-3 cert-report"><a class="btn btn-cert-report btn-lg" href="/report" name="button" type="button" id="button">Report</a></div>
+</div>
+</div>
+</div>
+</div>
+      
+  </section>
+
+<section id="block-certcertfooter" class="block block-block-content block-block-contentd5b85bd2-62d1-485a-b9ae-f040b1ca1a45 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container">
+<hr /><div class="text-center"><a href="/" title="Home">Home</a>   <a href="/sitemap" title="Site Map">Site Map</a>   <a href="/faq/" title="Frequently Asked Questions">FAQ</a>   <a href="/contact-us/" title="Contact Us">Contact Us</a>   <a href="/tlp/" title="Traffic Light Protocol">Traffic Light Protocol</a>   <a href="/pcii" title="PCII">PCII</a>   <a href="https://www.dhs.gov" title="Accountability">Accountability</a>   <a href="/disclaimer" title="Disclaimer">Disclaimer</a>   <a href="/privacy-policy" title="Privacy Policy">Privacy Policy</a>   <a href="https://www.dhs.gov/freedom-information-act-foia" title="FOIA">FOIA</a>   <a href="https://www.dhs.gov/homeland-security-no-fear-act-reporting" title="No Fear Act">No Fear Act</a>   <a href="/accessibility/" title="Accessibility">Accessibility</a><a href="https://www.dhs.gov/plain-writing-dhs" title="Plain Writing">Plain Writing</a><a href="https://www.dhs.gov/plug-information" title="Plug-ins">Plug-ins</a>   <a href="https://www.oig.dhs.gov/" title="Office of the Inspector General">Inspector General</a>   <a href="https://www.whitehouse.gov/" title="The White House">The White House</a>   <a href="https://www.usa.gov/" title="USA.gov">USA.gov</a><br />
+ 
+<p>CISA is part of the <a href="https://www.dhs.gov/" title="Department of Homeland Security">Department of Homeland Security</a></p>
+</div>
+<script type="text/javascript">
+<!--//--><![CDATA[// ><!--
+
+    window.onload = function(){
+            jQuery('body.page-node-type-us-cert-events div#ncas-header').find('img').each(function(){
+                    var $src=jQuery(this).prop('src');
+                    if($src.indexOf('default/files/') == -1)jQuery(this).remove();
+                    });
+            if('Privacy Data Breach' == jQuery('#uscert-utilities-irf-form #item-info-impact option:selected').text()){ 
+                jQuery('#item-info-impact-block').removeClass('collapsed'); 
+            }
+jQuery('#print-logo img').removeAttr('width').removeAttr('height');
+if(jQuery('body.path-frontpage').length > 0)
+{   
+    jQuery('.main-container').find('.col-sm-12').removeAttr('role');
+}
+jQuery('#map area').each(function(){ jQuery(this).click(function(){var idstr=jQuery(this).attr('clickthis'); if(jQuery(idstr).hasClass('open') == false){jQuery(idstr).click();}});});  
+if(jQuery('#document-feedback').length > 0)
+{ 
+    var $url    = window.location.href
+    //var str ='Your feedback is very important to us. Please take a moment to complete this <a href="https://surveymonkey.com/r/G8STDRY?product=' + $url + '">survey.';
+    //var $p = jQuery('#document-feedback div p').html(str);
+}
+    };
+
+//--><!]]>
+</script></div>
+<style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+#views-bootstrap-carousel-block-2 .carousel-inner > .item > a > img {
+  margin:auto;
+}
+button#product-feedback-next {
+    margin-bottom: 10px;
+}
+/*
+.mobile-nav {
+border-bottom: 3px solid #112e51;
+}
+*/
+.cma-banner-container {
+    display: none;
+}
+@media (max-width: 991px) {
+.navbar .navbar-header {
+background: #fff;
+}
+}
+div.banner-region { background: #fff; }
+
+.accordion_fold {
+    padding-bottom: 25px;
+}
+
+h2.accordion.open {
+    background: #f2f2f2;
+}
+
+a { color: #2b72af;}
+
+.navbar-default .navbar-nav > li > a { color: #767676; }
+/* andi */
+.sidebar-widget-orange .orange {
+    background-color: #e77431;
+}
+#block-views-block-ics-announcements-block-1 .views-field-created {
+    color: #565656;
+}
+a#sort-bulletin {
+color: #000;
+background: white;
+position: absolute;
+right: 150px;
+padding: 1px 12px;
+}
+
+/*--><!]]>*/
+</style></div>
+      
+  </section>
+
+
+  </div>
+
+    </footer>
+  
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","scriptPath":null,"pathPrefix":"","currentPath":"node\/12372","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"UA-34879253-1","trackOutbound":true,"trackMailto":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"data":{"extlink":{"extTarget":false,"extTargetNoOverride":false,"extNofollow":false,"extNoreferrer":false,"extFollowNoOverride":false,"extClass":"ext","extLabel":"(link is external)","extImgClass":false,"extSubdomains":true,"extExclude":"(\\.gov|\\.mil|\\.org.*|twitter\\.com\\\/share\\?url\\=.*|www\\.facebook\\.com\\\/sharer\\.php\\?u\\=.*|www\\.addthis\\.com\\\/bookmark\\.php\\?url\\=.*|javascript\\:window\\.print\\(\\)\\;)","extInclude":"","extCssExclude":"","extCssExplicit":"","extAlert":true,"extAlertText":"You are now leaving an official website of the United States Government (USG), the Department of Homeland Security (DHS), and the Cybersecurity and Infrastructure Security Agency (CISA). Links to non-USG, non-DHS, and non-CISA sites are provided for the visitor\u0027s convenience and do not represent an endorsement by USG, DHS, or CISA of any commercial or private issues, products, or services. Note that the privacy policy of the linked site may differ from that of USG, DHS, and CISA.","mailtoClass":"mailto","mailtoLabel":"(link sends email)","extUseFontAwesome":false,"extIconPlacement":"append","extFaLinkClasses":"fa fa-external-link","extFaMailtoClasses":"fa fa-envelope-o","whitelistedDomains":null}},"bootstrap":{"forms_has_error_value_toggle":1,"popover_enabled":1,"popover_animation":1,"popover_auto_close":1,"popover_container":"body","popover_content":"","popover_delay":"0","popover_html":0,"popover_placement":"right","popover_selector":"","popover_title":"","popover_trigger":"click","tooltip_enabled":1,"tooltip_animation":1,"tooltip_container":"body","tooltip_delay":"0","tooltip_html":0,"tooltip_placement":"auto left","tooltip_selector":"","tooltip_trigger":"hover"},"user":{"uid":0,"permissionsHash":"5ac3ae468050ddd0aa4ecea12c34a32977a23244239ed53eb7226f296aed658f"}}</script>
+<script src="/sites/default/files/js/js_xhqBHziEDyCKWlB5IUseaFAGh1B08TPFGmxCf6RvFnM.js"></script>
+<script src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DHS&amp;subagency=US-CERT&amp;pua=0" id="_fed_an_ua_tag"></script>
+<script src="/sites/default/files/js/js_m5CHELy9XHlAx2jnhaYdT2XVeN916TnZL5U2ha7Ln94.js"></script>
+
+  <script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"877b02039c","applicationID":"628657512,979282327","transactionName":"ZFYHMhZSXUpRUkcKDF0cJAUQWlxXH0FSBAZsUAQFDFY=","queueTime":0,"applicationTime":30,"atts":"SBEERF5ITkQ=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

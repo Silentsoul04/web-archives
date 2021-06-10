@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html  lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+    <meta charset="utf-8" /><script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={licenseKey:"877b02039c",applicationID:"628657512"};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var i=e[n]={exports:{}};t[n][0].call(i.exports,function(e){var i=t[n][1][e];return r(i||e)},i,i.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var i=0;i<n.length;i++)r(n[i]);return r}({1:[function(t,e,n){function r(){}function i(t,e,n){return function(){return o(t,[u.now()].concat(f(arguments)),e?null:this,n),e?void 0:this}}var o=t("handle"),a=t(8),f=t(9),c=t("ee").get("tracer"),u=t("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var d=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],p="api-",l=p+"ixn-";a(d,function(t,e){s[e]=i(p+e,!0,"api")}),s.addPageAction=i(p+"addPageAction",!0),s.setCurrentRouteName=i(p+"routeName",!0),e.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(t,e){var n={},r=this,i="function"==typeof e;return o(l+"tracer",[u.now(),t,n],r),function(){if(c.emit((i?"":"no-")+"fn-start",[u.now(),r,i],n),i)try{return e.apply(this,arguments)}catch(t){throw c.emit("fn-err",[arguments,this,t],n),t}finally{c.emit("fn-end",[u.now()],n)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(t,e){m[e]=i(l+e)}),newrelic.noticeError=function(t,e){"string"==typeof t&&(t=new Error(t)),o("err",[t,u.now(),!1,e])}},{}],2:[function(t,e,n){function r(t){if(NREUM.init){for(var e=NREUM.init,n=t.split("."),r=0;r<n.length-1;r++)if(e=e[n[r]],"object"!=typeof e)return;return e=e[n[n.length-1]]}}e.exports={getConfiguration:r}},{}],3:[function(t,e,n){function r(){return f.exists&&performance.now?Math.round(performance.now()):(o=Math.max((new Date).getTime(),o))-a}function i(){return o}var o=(new Date).getTime(),a=o,f=t(10);e.exports=r,e.exports.offset=a,e.exports.getLastTimestamp=i},{}],4:[function(t,e,n){function r(t){return!(!t||!t.protocol||"file:"===t.protocol)}e.exports=r},{}],5:[function(t,e,n){function r(t,e){var n=t.getEntries();n.forEach(function(t){"first-paint"===t.name?d("timing",["fp",Math.floor(t.startTime)]):"first-contentful-paint"===t.name&&d("timing",["fcp",Math.floor(t.startTime)])})}function i(t,e){var n=t.getEntries();n.length>0&&d("lcp",[n[n.length-1]])}function o(t){t.getEntries().forEach(function(t){t.hadRecentInput||d("cls",[t])})}function a(t){if(t instanceof m&&!g){var e=Math.round(t.timeStamp),n={type:t.type};e<=p.now()?n.fid=p.now()-e:e>p.offset&&e<=Date.now()?(e-=p.offset,n.fid=p.now()-e):e=p.now(),g=!0,d("timing",["fi",e,n])}}function f(t){d("pageHide",[p.now(),t])}if(!("init"in NREUM&&"page_view_timing"in NREUM.init&&"enabled"in NREUM.init.page_view_timing&&NREUM.init.page_view_timing.enabled===!1)){var c,u,s,d=t("handle"),p=t("loader"),l=t(7),m=NREUM.o.EV;if("PerformanceObserver"in window&&"function"==typeof window.PerformanceObserver){c=new PerformanceObserver(r);try{c.observe({entryTypes:["paint"]})}catch(v){}u=new PerformanceObserver(i);try{u.observe({entryTypes:["largest-contentful-paint"]})}catch(v){}s=new PerformanceObserver(o);try{s.observe({type:"layout-shift",buffered:!0})}catch(v){}}if("addEventListener"in document){var g=!1,h=["click","keydown","mousedown","pointerdown","touchstart"];h.forEach(function(t){document.addEventListener(t,a,!1)})}l(f)}},{}],6:[function(t,e,n){function r(t,e){if(!i)return!1;if(t!==i)return!1;if(!e)return!0;if(!o)return!1;for(var n=o.split("."),r=e.split("."),a=0;a<r.length;a++)if(r[a]!==n[a])return!1;return!0}var i=null,o=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var f=navigator.userAgent,c=f.match(a);c&&f.indexOf("Chrome")===-1&&f.indexOf("Chromium")===-1&&(i="Safari",o=c[1])}e.exports={agent:i,version:o,match:r}},{}],7:[function(t,e,n){function r(t){function e(){t(a&&document[a]?document[a]:document[i]?"hidden":"visible")}"addEventListener"in document&&o&&document.addEventListener(o,e,!1)}e.exports=r;var i,o,a;"undefined"!=typeof document.hidden?(i="hidden",o="visibilitychange",a="visibilityState"):"undefined"!=typeof document.msHidden?(i="msHidden",o="msvisibilitychange"):"undefined"!=typeof document.webkitHidden&&(i="webkitHidden",o="webkitvisibilitychange",a="webkitVisibilityState")},{}],8:[function(t,e,n){function r(t,e){var n=[],r="",o=0;for(r in t)i.call(t,r)&&(n[o]=e(r,t[r]),o+=1);return n}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],9:[function(t,e,n){function r(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,i=n-e||0,o=Array(i<0?0:i);++r<i;)o[r]=t[e+r];return o}e.exports=r},{}],10:[function(t,e,n){e.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(t,e,n){function r(){}function i(t){function e(t){return t&&t instanceof r?t:t?u(t,c,a):a()}function n(n,r,i,o,a){if(a!==!1&&(a=!0),!l.aborted||o){t&&a&&t(n,r,i);for(var f=e(i),c=v(n),u=c.length,s=0;s<u;s++)c[s].apply(f,r);var p=d[w[n]];return p&&p.push([b,n,r,f]),f}}function o(t,e){y[t]=v(t).concat(e)}function m(t,e){var n=y[t];if(n)for(var r=0;r<n.length;r++)n[r]===e&&n.splice(r,1)}function v(t){return y[t]||[]}function g(t){return p[t]=p[t]||i(n)}function h(t,e){l.aborted||s(t,function(t,n){e=e||"feature",w[n]=e,e in d||(d[e]=[])})}var y={},w={},b={on:o,addEventListener:o,removeEventListener:m,emit:n,get:g,listeners:v,context:e,buffer:h,abort:f,aborted:!1};return b}function o(t){return u(t,c,a)}function a(){return new r}function f(){(d.api||d.feature)&&(l.aborted=!0,d=l.backlog={})}var c="nr@context",u=t("gos"),s=t(8),d={},p={},l=e.exports=i();e.exports.getOrSetContext=o,l.backlog=d},{}],gos:[function(t,e,n){function r(t,e,n){if(i.call(t,e))return t[e];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:r,writable:!0,enumerable:!1}),r}catch(o){}return t[e]=r,r}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],handle:[function(t,e,n){function r(t,e,n,r){i.buffer([t],r),i.emit(t,e,n)}var i=t("ee").get("handle");e.exports=r,r.ee=i},{}],id:[function(t,e,n){function r(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:a(t,o,function(){return i++})}var i=1,o="nr@id",a=t("gos");e.exports=r},{}],loader:[function(t,e,n){function r(){if(!R++){var t=M.info=NREUM.info,e=v.getElementsByTagName("script")[0];if(setTimeout(u.abort,3e4),!(t&&t.licenseKey&&t.applicationID&&e))return u.abort();c(E,function(e,n){t[e]||(t[e]=n)});var n=a();f("mark",["onload",n+M.offset],null,"api"),f("timing",["load",n]);var r=v.createElement("script");0===t.agent.indexOf("http://")||0===t.agent.indexOf("https://")?r.src=t.agent:r.src=l+"://"+t.agent,e.parentNode.insertBefore(r,e)}}function i(){"complete"===v.readyState&&o()}function o(){f("mark",["domContent",a()+M.offset],null,"api")}var a=t(3),f=t("handle"),c=t(8),u=t("ee"),s=t(6),d=t(4),p=t(2),l=p.getConfiguration("ssl")===!1?"http":"https",m=window,v=m.document,g="addEventListener",h="attachEvent",y=m.XMLHttpRequest,w=y&&y.prototype,b=!d(m.location);NREUM.o={ST:setTimeout,SI:m.setImmediate,CT:clearTimeout,XHR:y,REQ:m.Request,EV:m.Event,PR:m.Promise,MO:m.MutationObserver};var x=""+location,E={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1209.min.js"},O=y&&w&&w[g]&&!/CriOS/.test(navigator.userAgent),M=e.exports={offset:a.getLastTimestamp(),now:a,origin:x,features:{},xhrWrappable:O,userAgent:s,disabled:b};if(!b){t(1),t(5),v[g]?(v[g]("DOMContentLoaded",o,!1),m[g]("load",r,!1)):(v[h]("onreadystatechange",i),m[h]("onload",r)),f("mark",["firstbyte",a.getLastTimestamp()],null,"api");var R=0}},{}],"wrap-function":[function(t,e,n){function r(t,e){function n(e,n,r,c,u){function nrWrapper(){var o,a,s,p;try{a=this,o=d(arguments),s="function"==typeof r?r(o,a):r||{}}catch(l){i([l,"",[o,a,c],s],t)}f(n+"start",[o,a,c],s,u);try{return p=e.apply(a,o)}catch(m){throw f(n+"err",[o,a,m],s,u),m}finally{f(n+"end",[o,a,p],s,u)}}return a(e)?e:(n||(n=""),nrWrapper[p]=e,o(e,nrWrapper,t),nrWrapper)}function r(t,e,r,i,o){r||(r="");var f,c,u,s="-"===r.charAt(0);for(u=0;u<e.length;u++)c=e[u],f=t[c],a(f)||(t[c]=n(f,s?c+r:r,i,c,o))}function f(n,r,o,a){if(!m||e){var f=m;m=!0;try{t.emit(n,r,o,e,a)}catch(c){i([c,n,r,o],t)}m=f}}return t||(t=s),n.inPlace=r,n.flag=p,n}function i(t,e){e||(e=s);try{e.emit("internal-error",t)}catch(n){}}function o(t,e,n){if(Object.defineProperty&&Object.keys)try{var r=Object.keys(t);return r.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(o){i([o],n)}for(var a in t)l.call(t,a)&&(e[a]=t[a]);return e}function a(t){return!(t&&t instanceof Function&&t.apply&&!t[p])}function f(t,e){var n=e(t);return n[p]=t,o(t,n,s),n}function c(t,e,n){var r=t[e];t[e]=f(r,n)}function u(){for(var t=arguments.length,e=new Array(t),n=0;n<t;++n)e[n]=arguments[n];return e}var s=t("ee"),d=t(9),p="nr@original",l=Object.prototype.hasOwnProperty,m=!1;e.exports=r,e.exports.wrapFunction=f,e.exports.wrapInPlace=c,e.exports.argsToArray=u},{}]},{},["loader"]);</script>
+<script async src="/sites/default/files/google_analytics/gtag.js?qubv3z"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("config", "UA-34879253-1", {"groups":"default","anonymize_ip":true,"allow_ad_personalization_signals":false});</script>
+<meta name="description" content="This Alert is the result of recent collaboration between the Department of the Treasury Financial Sector Cyber Information Group (CIG) and the Department of the Treasury’s Financial Crimes Enforcement Network (FinCEN) to identify and share information with the financial services sector. Treasury and the Cybersecurity and Infrastructure Security Agency (CISA) are providing this report to inform the sector about the Dridex malware and variants." />
+<meta name="abstract" content="As part of its mission, CISA leads the effort to enhance the security, resiliency, and reliability of the Nation&#039;s cybersecurity and communications infrastructure." />
+<meta name="keywords" content="uscert, csirt, cert, cybersecurity, cyber security, computer security, U. S. Computer Emergency Readiness, cyber risks" />
+<meta name="Generator" content="Drupal 9 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/sites/default/files/images/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="https://us-cert.cisa.gov/ncas/alerts/aa19-339a" />
+<link rel="shortlink" href="https://us-cert.cisa.gov/node/13290" />
+<link rel="revision" href="https://us-cert.cisa.gov/ncas/alerts/aa19-339a" />
+
+    <title>Dridex Malware | CISA</title>
+    <link rel="stylesheet" media="all" href="/sites/default/files/css/css_-w-jQbIWIO0ZERqyQMFp9m1ddgDjs5ZGsor0ebo5CG4.css" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_OtQ9QHAYVZDqM__uuCDStHUt38Nwh_1MHX1vxg5dE5c.css" />
+
+    
+    <!-- Google Font -->
+    <style type="text/css">
+/* source-sans-pro-regular - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'),
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.woff') format('woff'), /* Modern Browsers */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.svg#SourceSansPro') format('svg'); /* Legacy iOS */
+}
+    </style>
+    <!--link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet"--> 
+    <!-- Google Font -->
+  </head>
+  <body class="path-node page-node-type-activity-alert has-glyphicons">
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+
+
+<div class="container-fluid top-top">
+      <aside role="complementary">
+        <div class="region region-top">
+    <section id="block-certtoptop" class="block block-block-content block-block-content4d95ffde-0818-4e6b-bd79-d1547b08c0c0 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container">
+<div id="top">
+<div class="row">
+<div class="col-sm-12 flag"><img alt="United States Flag" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/flag.png" style="position: absolute;" /><p style="padding-left: 35px; font-family: Arial; font-size: 11px;">An official website of the United States government <a href="#" id="here-is-how-u-know">Here's how you know <span class="arrow down"> </span></a></p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="usa-banner-content usa-grid usa-accordion-content hidden container" id="gov-banner">
+<div class="usa-banner-guidance-gov usa-width-one-half col-sm-6"><img alt="Dot gov" class="usa-banner-icon usa-media_block-img" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/icon-dot-gov.svg" /><div class="usa-media_block-body"><strong>Official websites use .gov</strong><br />
+A <b>.gov</b> website belongs to an official government organization in the United States.</div>
+</div>
+
+<div class="usa-banner-guidance-ssl usa-width-one-half col-sm-6"><img alt="SSL" class="usa-banner-icon usa-media_block-img" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/icon-https.svg" /><div class="usa-media_block-body"><strong>Secure .gov websites use HTTPS</strong> A <b>lock (<img alt="lock icon" src="/sites/default/files/icons/lock.svg" style="width:15px;" />)</b> or <b>https://</b> means you've safely connected to the .gov website. Share sensitive information only on official, secure websites.</div>
+</div>
+</div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </div>
+
+
+
+<div class="container-fluid hidden-xs hidden-sm banner-region">
+<div class="container">
+<div class="row">
+
+
+  
+
+<section class="col-sm-9">
+
+      <a id="logo-section"></a>
+        <div class="region region-logo">
+    <section id="block-certlogo" class="block block-block-content block-block-content4639a667-debe-4642-bc69-7839662c0187 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="hidden-xs hidden-sm"><a href="/"><img alt="Cybersecurity and Infrastructure Security Agency CISA" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/logo_verbose.png" title="Cybersecurity and Infrastructure Security Agency CISA" /></a></div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </section>
+
+
+
+      <aside class="col-sm-3" role="complementary">
+        <div class="region region-search">
+    <section id="block-certsearch" class="block block-block-content block-block-contentc33bd875-6ea6-42cc-b1ab-348a4e4bdff7 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><form accept-charset="UTF-8" action="https://search.us-cert.gov/search" class="hidden-xs searchbox" method="get"><input name="utf8" type="hidden" value="✓" /><input id="affiliate-desktop" name="affiliate" type="hidden" value="us-cert" /><div class="form-group"><label class="sr-only" for="query-desktop">Enter Search Terms(s):</label>
+<div class="input-group"><input autocomplete="off" class="form-control form-control-custom input-lg" id="query-desktop" name="query" placeholder="Search" type="text" /><div class="input-group-addon input-group-addon-custom"><button class="submit input-lg"><img alt="search icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/search-icon.png" title="search icon" /></button></div>
+</div>
+</div>
+</form>
+<style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+.navbar-default ul.navbar-nav > li.last a{
+display: none;
+
+/*--><!]]>*/
+</style><div style="padding: 16px 12px 8px 12px"><a class="btn btn-primary" href="/services" type="button" style="font-weight: bold; width: 40%">Services</a><a class="btn btn-primary pull-right" href="/report" type="button" style="font-weight: bold; width: 40%">Report</a></div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </div>
+</div>
+<hr class="hidden-xs nav-top-line">
+</div>
+
+
+
+          <header class="navbar navbar-default container-fluid" id="navbar" role="banner">
+        <div class="container ">
+      <div class="navbar-header">
+        
+                          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+            <div class="hidden-lg hidden-md mobile-nav">
+        <a class="" href="/">
+            <img src="/sites/default/files/cert/logo3.png"  alt="US Department of Homeland Security CISA Cyber + Infrastructure" title="US Department of Homeland Security CISA Cyber + Infrastructure">
+          </a>
+        </div>
+      </div>
+
+              <div id="navbar-collapse" class="navbar-collapse collapse">
+            <div class="region region-navigation-collapsible">
+    <section id="block-certsearchmobile" class="block block-block-content block-block-content0da6361c-e31a-4a58-b455-f9ebde1ba544 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><form accept-charset="UTF-8" action="https://search.us-cert.gov/search" class="hidden-lg hidden-md searchbox" method="get"><input name="utf8" type="hidden" value="✓" /><input id="affiliate-mobile" name="affiliate" type="hidden" value="us-cert" /><div class="form-group"><label class="sr-only" for="query-mobile">Enter Search Terms(s):</label>
+<div class="input-group"><input autocomplete="off" class="form-control form-control-custom input-lg" id="query-mobile" name="query" placeholder="Search" type="text" /><div class="input-group-addon input-group-addon-custom"><button class="submit input-lg"><img alt="search icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/search-icon.png" title="search icon" /></button></div>
+</div>
+</div>
+</form>
+<div class="hidden-md hidden-lg" style="padding: 8px"><a class="btn btn-primary btn-block" href="/services" role="button" style="font-weight: bold">Services</a></div>
+
+<div class="hidden-md hidden-lg" style="padding: 8px"><a class="btn btn-primary btn-block" href="/report" role="button" style="font-weight: bold">Report</a></div></div>
+      
+  </section>
+
+<nav role="navigation" aria-labelledby="block-certmainmenu-menu" id="block-certmainmenu">
+            
+  <h2 class="visually-hidden" id="block-certmainmenu-menu">CertMain Menu</h2>
+  
+
+        
+      <ul class="menu menu--certmain-menu nav navbar-nav">
+                      <li class="first">
+                                        <a href="/ncas" title="Alerts and Tips" data-drupal-link-system-path="node/5">Alerts and Tips</a>
+              </li>
+                      <li>
+                                        <a href="/resources" title="Resources" data-drupal-link-system-path="node/12436">Resources</a>
+              </li>
+                      <li>
+                                        <a href="/ics" title="Industrial Control Systems" data-drupal-link-system-path="node/14614">Industrial Control Systems</a>
+              </li>
+                      <li class="last">
+                                        <a href="/report" title="Report" data-drupal-link-system-path="node/5745">Report</a>
+              </li>
+        </ul>
+  
+
+  </nav>
+
+  </div>
+
+        </div>
+                </header>
+  <hr class="hidden-xs hidden-sm nav-bottom-line">
+<div class="visible-xs visible-sm mobile-border"></div>
+
+
+<div class="container">
+    <div id="print-logo"><img alt="US Department of Homeland Security CISA Cyber + Infrastructure" src="/sites/default/files/cert/logo2.png"/></div>
+    <div id="tlp-header"><svg height="30" width="120"> <rect fill="black" height="30" width="120" x="0" y="0"></rect> <text fill="#ffffff" font-size="18px" x="10" y="20">TLP:WHITE</text> </svg></div>
+    <div id="tlp-footer"><svg height="30" width="120"> <rect fill="black" height="30" width="120" x="0" y="0"></rect> <text fill="#ffffff" font-size="18px" x="10" y="20">TLP:WHITE</text> </svg></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  <div role="main" class="main-container container js-quickedit-main-content">
+    <div class="row">
+
+                              <div class="col-sm-12" role="heading" aria-level="1">
+              <div class="region region-header">
+      <div class="container-fluid hidden-xs">
+  <ol class="breadcrumb">
+          <li >
+                  <a href="/ncas">National Cyber Awareness System</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
+              </li>
+          <li >
+                  <a href="/ncas/alerts">Alerts</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
+              </li>
+          <li  class="active">
+                  Dridex Malware
+              </li>
+      </ol>
+</div>
+
+
+
+  </div>
+
+          </div>
+              
+
+            
+            
+                        
+
+            
+                  <section class="col-sm-12">
+
+                              <div class="highlighted">  <div class="region region-highlighted">
+    <div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+</div>
+              
+                                      
+                  
+                          <a id="main-content"></a>
+            <div class="region region-content">
+                  <div id="ncas-header">
+            <div id="alerts-archive">
+                <a title="View Archives" href="/ncas/alerts/">More Alerts</a>
+            </div>
+            <h1 id="page-title">Alert (AA19-339A)</h1>
+            <h2 id="page-sub-title">Dridex Malware</h2>
+            <div class="submitted meta-text">
+                                Original release date: December 05, 2019  | Last <a href="#revisions">revised</a>: June 30, 2020
+                                            </div>
+            <div id="social-options">
+	<!-- START PRINT BUTTON -->
+		<div id="print-button">
+			<span id="custom-print-button">
+				<a rel="nofollow" href="javascript:window.print();" title="Click to print."><img src="/sites/default/files/icons/print-button.png" alt="Click to print." /></a>
+			</span>
+		</div>
+    <!-- END PRINT BUTTON -->
+	<!-- START TWEET BUTTON -->
+	<div id="tweet-button">
+		<span id="custom-tweet-button">
+			<a rel="nofollow" target="_blank" href="https://twitter.com/share?url=https%3A%2F%2Fus-cert.cisa.gov%2Fncas%2Falerts%2Faa19-339a" class="popup-twitter" title="Click to Tweet."><img src="/sites/default/files/icons/tweet-button.png" alt="Click to Tweet." /></a>
+		</span>
+	</div>
+	<!-- END TWEET BUTTON -->
+
+	<!-- START FACEBOOK BUTTON -->
+	<div id="facebook-button">
+		<span id="custom-facebook-button">
+		<a rel="nofollow" target="_blank" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fus-cert.cisa.gov%2Fncas%2Falerts%2Faa19-339a" class="popup-facebook" title="Click to send to Facebook."><img src="/sites/default/files/icons/facebook-send-button.png" alt="Click to send to Facebook." /></a>
+		</span>
+	</div>
+	<!-- END FACEBOOK BUTTON -->
+
+	<!-- START SHARE BUTTON -->
+	<div id="share-button">
+		<span id="custom-share-button">
+			<a rel="nofollow" target="_blank" href="http://www.addthis.com/bookmark.php?url=https%3A%2F%2Fus-cert.cisa.gov%2Fncas%2Falerts%2Faa19-339a" class="popup-share" title="Click to Share." ><img src="/sites/default/files/icons/share-button.png" alt="Click to Share." /></a>
+		</span>
+	</div>
+	<!-- END SHARE BUTTON -->
+
+</div>
+        </div>
+    
+  
+<article role="article" about="/ncas/alerts/aa19-339a" class="activity-alert full clearfix">
+
+  
+    
+
+  
+  <div class="content">
+	<div id="ncas-content">
+        		<a id="summary"></a>
+		<h3>Summary</h3>
+        
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><p>This Alert is the result of recent collaboration between the Department of the Treasury Financial Sector Cyber Information Group (CIG) and the Department of the Treasury’s Financial Crimes Enforcement Network (FinCEN) to identify and share information with the financial services sector. Treasury and the Cybersecurity and Infrastructure Security Agency (CISA) are providing this report to inform the sector about the Dridex malware and variants. The report provides an overview of the malware, related activity, and a list of previously unreported indicators of compromise derived from information reported to FinCEN by private sector financial institutions. Because actors using Dridex malware and its derivatives continue to target the financial services sector, including financial institutions and customers, the techniques, tactics, and procedures contained in this report warrant renewed attention. Treasury and CISA encourage network security specialists to incorporate these indicators into existing Dridex-related network defense capabilities and planning. For information regarding the malicious cyber actors responsible for the development and distribution of the Dridex malware, see the Treasury press release, <a href="https://home.treasury.gov/news/press-releases/sm845">Treasury Sanctions Evil Corp, the Russia-Based Cybercriminal Group Behind Dridex Malware</a> and the FBI press release, <a href="https://www.justice.gov/opa/pr/russian-national-charged-decade-long-series-hacking-and-bank-fraud-offenses-resulting-tens?hootPostID=629d449ac4fd1b12d37f66d6551dbec1">Russian National Charged with Decade-Long Series of Hacking and Bank Fraud Offenses Resulting in Tens of Millions in Losses and Second Russian National Charged with Involvement in Deployment of “Bugat” Malware</a>.</p>
+
+<p><em>This Alert does not introduce a new regulatory interpretation, nor impose any new requirements on regulated entities. Except where noted, there is no indication that the actual owner of the email address was involved in the suspicious or malicious activity. If activity related to these indicators of compromise is detected, please notify appropriate law enforcement and the CIG.</em></p>
+
+<p>For a downloadable copy of IOCs, see:</p>
+
+<ul><li><a href="https://www.us-cert.gov/sites/default/files/publications/AA19-339A_WHITE.csv">AA19-339A_WHITE.csv</a></li>
+	<li><a href="https://www.us-cert.gov/sites/default/files/publications/AA19-339A_WHITE_stix.xml">AA19-339A_WHITE.stix</a></li>
+</ul></div>
+      
+        
+        
+        		    <a id="technical-details"></a>
+		    <h3>Technical Details</h3>
+            
+            <div class="field field--name-field-aa-technical-details field--type-text-long field--label-hidden field--item"><p>The Dridex malware, and its various iterations, has the capability to impact confidentiality of customer data and availability of data and systems for business processes. According to industry reporting, the original version of Dridex first appeared in 2012, and by 2015 had become one of the most prevalent financial Trojans. We expect actors using Dridex malware and its derivatives to continue targeting the financial services sector, including both financial institutions and customers.</p>
+
+<h2>Dridex-related Phishing Attributes</h2>
+
+<p>Actors typically distribute Dridex malware through phishing e-mail spam campaigns. Phishing messages employ a combination of legitimate business names and domains, professional terminology, and language implying urgency to persuade victims to activate open attachments. Sender e-mail addresses can simulate individuals (name@domain.com), administrative (admin@domain.com, support@domain.com), or common “do not reply” local parts (noreply@domain.com). Subject and attachment titles can include typical terms such as “invoice”, “order”, “scan”, “receipt”, “debit note”, “itinerary”, and others.</p>
+
+<p>The e-mail messages vary widely. The e-mail body may contain no text at all, except to include attachments with names that are strings of numbers, apparently relying on the subject line and victim curiosity to coerce the opening of the malicious file. Where there is a message body, the body may specifically state that the contents of the e-mail underwent virus scanning or simply directs the victim toward the link or attachment. In other cases, the body may include a long, substantive message, providing multiple points of contact and context for the malicious attachment. Attachment and hyperlink names vary from random sets of numbers or imitation automatic filenames from scanners to filenames purporting to reference financial records. Attachments may or may not have direct references using the same file name or strings of numbers in the bodies of the e-mails.</p>
+
+<p><strong>Example Links and Filenames </strong>(Note: link information is representative. Italicized statements are automatically generated by the cloud storage provider. # represents a random number.):</p>
+
+<ul><li>Link: HTTPS://WWW.GOOGLE[.]COM/URL?Q=HTTPS://WWW.(<em>Cloud Services Provider</em>)[.]COM/S/(<em>Cloud Account Value</em>) /RECENT%20WIRE%20PAYMENT %######.SCR?(<em>Cloud Provided Sequence</em>)</li>
+	<li>
+	<p>Link: HTTPS://WWW.GOOGLE[.]COM/URL?Q=HTTPS://WWW.(<em>Cloud Services Provider</em>) [.]COM/S/ <em>Cloud Account Value</em>/AUTOMATEDCLEARINGHOUSE%20 PAYMENT####.DOC? (<em>Cloud Provided Sequence</em>)</p>
+	</li>
+	<li>
+	<p>Link: Malicious File: ID201NLD0012192016.DOC</p>
+	</li>
+</ul><p>Attachments or eventual downloads can take a variety of formats. In some instances, malware downloaders are concealed in compressed files using the ZIP or RAR file formats.  Occasionally compressed files within compressed files (double zipped) are used. The compressed files can include extensible markup language (.xml), Microsoft Office (.doc, .xls), Visual Basic (.vbs), JavaScript (.jar), or portable document format (.pdf) files. Many of the files, rather than containing the actual malware, contain hidden or obfuscated macros. Upon activation, the macros reach to a command and control server, FTP server, or cloud storage site to download the actual Dridex malware. In other cases, macros launch scripts that extract executables imbedded in the document as opposed to downloading the payload.</p>
+
+<p>By default, software generally prevents execution of macros without user permission. Attached files, particularly .doc and .xls files, contain instructions on how a user should enable content and specifically macros, effectively using social engineering to facilitate the download. Malicious files sometimes even include screenshots of the necessary actions to enable macros.</p>
+
+<h2>Malware Capabilities</h2>
+
+<p>Dridex malware operates from multiple modules that may be downloaded together or following the initial download of a “loader” module. Modules include provisions for capturing screenshots, acting as a virtual machine, or incorporating the victim machine into a botnet. Through its history and development, Dridex has used several exploits and methods for execution, including modification of directory files, using system recovery to escalate privileges, and modification of firewall rules to facilitate peer-to-peer communication for extraction of data. Recent versions of Dridex exploit vulnerability CVE-2017-0199, which allows remote execution of code. This vulnerability is specific to Microsoft Office and WordPad. Microsoft released a patch in 2017.</p>
+
+<p>Once downloaded and active, Dridex has a wide range of capabilities, from downloading additional software to establishing a virtual network to deletion of files.  The primary threat to financial activity is the Dridex’s ability to infiltrate browsers, detect access to online banking applications and websites, and inject malware or keylogging software, via API hooking, to steal customer login information. Dridex modules package, encrypt, and transmit captured information, screenshots, etc., via peer-to-peer (P2P) networks in the XML format or in binary format, as seen in newer versions. After stealing the login data, the attackers have the potential to facilitate fraudulent automated clearing house (ACH) and wire transfers, open fraudulent accounts, and potentially adapt victim accounts for other scams involving business e-mail compromise or money mule activity.</p>
+
+<p>The Dridex malware has evolved through several versions since its inception, partially to adapt to updated browsers. Although the characteristics described reflect some of the most recent configurations, actors continue to identify and exploit vulnerabilities in widely used software.</p>
+
+<h2>Dridex Malware and Variants</h2>
+
+<p>While Dridex is among the most prevalent sources of infection, previous variants and similar malware continue to represent a threat. Dridex is itself an improved variant of the Cridex and Bugat Trojans that preceded it, and it shares some of their codes. Although the previous variants’ theft activities operate in mostly the same way, the P2P communication aspects of Dridex improve its concealment and redundancy.</p>
+
+<h3>Ransomware</h3>
+
+<p>Actors distributing Dridex likely employ ransomware with similar configurations. Code for BitPaymer, also known as Friedex, includes numerous similarities to Dridex, despite its function as ransomware rather than data extraction. The two malwares use the same mechanics for several functions, and the authors compiled the codes at nearly the same time. The ransomware distributed through these malwares has targeted U.S. financial institutions and resulted in data and financial loss.</p>
+
+<p>Locky ransomware operates using the same delivery method for the downloader, with similar subject lines and attachments. Attackers also use the same botnets to deliver both Dridex and Locky ransomware, sometimes simultaneously. Variants of Locky include Zepto and Osiris. Locky ransomware and its variants have a wide footprint, with varying impact depending on victim IT policies and practices and network configurations.</p>
+
+<h2>Dridex-related Activity</h2>
+
+<p>Although the highest infection rates took place in late 2015 and early 2016, concurrent with Locky ransomware distribution, Dridex continues to impact numerous countries. The Dridex hackers appear to direct the majority of attacks at English-speaking countries. Cybersecurity industry reporting attributes Dridex, BitPaymer, and Locky campaigns, as well as other massive malware spam (malspam) campaigns to actors known alternately as Evil Corp or TA505. (Note: some cybersecurity industry reporting simply refers to the actors as “Dridex” or the “Dridex hackers.”) Actors distribute the malware via massive spam campaigns, sending up to millions of messages per day, although volume of messages varies widely.</p>
+
+<h2>Indicators of Compromise</h2>
+
+<p>The following indicators are associated with the activity described in this report:</p>
+
+<table border="1" cellpadding="1" cellspacing="1" class="general-table" style="width: 600px; height: 312px;"><thead><tr><th scope="col"><strong>Indicator Type</strong></th>
+			<th scope="col"><strong>Indicator Value</strong></th>
+			<th scope="col"><strong>Associated Activity</strong></th>
+		</tr><tr><td scope="col" style="text-align: left;">Email address</td>
+			<td scope="col" style="text-align: left;">info[@]antonioscognamiglio[.]it</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">Email address</td>
+			<td scope="col" style="text-align: left;">info[@]golfprogroup[.]com</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">Email address</td>
+			<td scope="col" style="text-align: left;">cariola72[@]teletu[.]it</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">Email address</td>
+			<td scope="col" style="text-align: left;">faturamento[@]sudestecaminhoes[.]com.br</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">Email address</td>
+			<td scope="col" style="text-align: left;">info[@]melvale[.]co.uk</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">Email address</td>
+			<td scope="col" style="text-align: left;">fabianurquiza[@]correo.dalvear[.]com.ar</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">Email address</td>
+			<td scope="col" style="text-align: left;">web1587p16[@]mail.flw-buero[.]at</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">Email address</td>
+			<td scope="col" style="text-align: left;">bounce[@]bestvaluestore[.]org</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">Email address</td>
+			<td scope="col" style="text-align: left;">farid[@]abc-telecom[.]az</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">Email address</td>
+			<td scope="col" style="text-align: left;">bounce[@]bestvaluestore[.]org</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">Email address</td>
+			<td scope="col" style="text-align: left;">admin[@]sevpazarlama[.]com</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">Email address</td>
+			<td scope="col" style="text-align: left;">faturamento[@]sudestecaminhoes[.]com.br</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">Email address</td>
+			<td scope="col" style="text-align: left;">pranab[@]pdrassocs[.]com</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">Email address</td>
+			<td scope="col" style="text-align: left;">tom[@]blackburnpowerltd[.]co.uk</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">Email address</td>
+			<td scope="col" style="text-align: left;">yportocarrero[@]elevenca[.]com</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">Email address</td>
+			<td scope="col" style="text-align: left;">s.palani[@]itifsl.co[.]in</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">Email address</td>
+			<td scope="col" style="text-align: left;">faber[@]imaba[.]nl</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">Email address</td>
+			<td scope="col" style="text-align: left;">admin[@]belpay[.]by</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">IP address</td>
+			<td scope="col" style="text-align: left;">62[.]149[.]158[.]252</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">IP address</td>
+			<td scope="col" style="text-align: left;">177[.]34[.]32[.]109</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">IP address</td>
+			<td scope="col" style="text-align: left;">2[.]138[.]111[.]86</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">IP address</td>
+			<td scope="col" style="text-align: left;">122[.]172[.]96[.]18</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">IP address</td>
+			<td scope="col" style="text-align: left;">69[.]93[.]243[.]5</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">IP address</td>
+			<td scope="col" style="text-align: left;">200[.]43[.]183[.]102</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">IP address</td>
+			<td scope="col" style="text-align: left;">79[.]124[.]76[.]30</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">IP address</td>
+			<td scope="col" style="text-align: left;">188[.]125[.]166[.]114</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">IP address</td>
+			<td scope="col" style="text-align: left;">37[.]59[.]52[.]64</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">IP address</td>
+			<td scope="col" style="text-align: left;">50[.]28[.]35[.]36</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">IP address</td>
+			<td scope="col" style="text-align: left;">154[.]70[.]39[.]158</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">IP address</td>
+			<td scope="col" style="text-align: left;">108[.]29[.]37[.]11</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr><tr><td scope="col" style="text-align: left;">IP address</td>
+			<td scope="col" style="text-align: left;">65[.]112[.]218[.]2</td>
+			<td scope="col" style="text-align: left;">Dridex</td>
+		</tr></thead></table><p> </p>
+</div>
+      
+        
+        		    <a id="mitigations"></a>
+		    <h3>Mitigations</h3>
+            
+            <div class="field field--name-field-aa-mitigations field--type-text-long field--label-hidden field--item"><p>Treasury and CISA encourage users and organizations to:</p>
+
+<ol><li>Contact law enforcement immediately report regarding any identified activity related to Dridex malware or its derivatives. Please see contact information for FBI and CISA at the end of this report.</li>
+	<li>Incorporate the indicators of compromise identified in this report into intrusion detection systems and security alert systems to enable active blocking or reporting of suspected malicious activity. Note that the above list is not a comprehensive list of all indicators associated with this activity.</li>
+	<li>Report suspicious activity, highlighting the presence of “Cyber Event Indicators.” Indicators of Compromise, such as suspicious e-mail addresses, file names, hashes, domains, and IP addresses, can be provided under Item 44 of the Suspicious Activity Report (SAR) form. FinCEN welcomes voluntary SAR filing in circumstances where reporting is not required.</li>
+</ol><h2>Recommendations for All Organizations</h2>
+
+<p>The following mitigation recommendations respond directly to Dridex TTPs:</p>
+
+<ul><li>Ensuring systems are set by default to prevent execution of macros.</li>
+	<li>Inform and educate employees on the appearance of phishing messages, especially those used by the hackers for distribution of malware in the past.</li>
+	<li>Update intrusion detection and prevention systems frequently to ensure the latest variants of malware and downloaders are included.</li>
+	<li>Conduct regular backup of data, ensuring backups are protected from potential ransomware attack.</li>
+	<li>Exercise employees’ response to phishing messages and unauthorized intrusion.</li>
+	<li>If there is any doubt about message validity, call and confirm the message with the sender using a number or e-mail address already on file.</li>
+	<li>Treasury and CISA remind users and administrators to use the following best practices to strengthen the security posture of their organization’s systems:</li>
+	<li>Maintain up-to-date antivirus signatures and engines.</li>
+	<li>Keep operating system patches up-to-date.</li>
+	<li>Disable file and printer sharing services. If these services are required, use strong passwords or Active Directory authentication.</li>
+	<li>Restrict users’ ability (permissions) to install and run unwanted software applications. Do not add users to the local administrators group unless required.</li>
+	<li>Enforce a strong password policy and require regular password changes.</li>
+	<li>Exercise caution when opening email attachments even if the attachment is expected and the sender appears to be known.</li>
+	<li>Enable a personal firewall on workstations, and configure it to deny unsolicited connection requests.</li>
+	<li>Disable unnecessary services on agency workstations and servers.</li>
+	<li>Scan for and remove suspicious email attachments; ensure the scanned attachment is its “true file type” (i.e., the extension matches the file header).</li>
+	<li>Monitor users' web browsing habits; restrict access to sites with unfavorable content.</li>
+	<li>Exercise caution when using removable media (e.g., USB thumb drives, external drives, CDs).</li>
+	<li>Scan all software downloaded from the Internet before executing.</li>
+	<li>Maintain situational awareness of the latest threats.</li>
+	<li>Implement appropriate access control lists.</li>
+	<li>Exercise cybersecurity procedures and continuity of operations plans to enhance and maintain ability to respond during and following a cyber incident.</li>
+</ul><p>The National Institute of Standards and Technology (NIST) has published additional information on malware incident prevention and handling in their Special Publication 800-83, Guide to Malware Incident Prevention and Handling for Desktops and Laptops:</p>
+
+<ul><li><a href="https://www.nist.gov/publications/guide-malware-incident-prevention-and-handling-desktops-and-laptops">https://www.nist.gov/publications/guide-malware-incident-prevention-and-handling-desktops-and-laptops</a></li>
+</ul><h2>Why Best Practices Matter</h2>
+
+<p>The National Security Agency (NSA) recently published its <em>Top Ten Cybersecurity Mitigation Strategies</em> (This is the current website for Top 10 mitigation strategies: <a href="https://www.nsa.gov/Portals/70/documents/what-we-do/cybersecurity/professional-resources/csi-nsas-top10-cybersecurity-mitigation-strategies.pdf?v=1">https://www.nsa.gov/Portals/70/documents/what-we-do/cybersecurity/professional-resources/csi-nsas-top10-cybersecurity-mitigation-strategies.pdf?v=1</a>). Aligned with the NIST Cybersecurity Framework, the Strategies offer a risk-based approach to mitigating exploitation techniques used by Advance Persistent Threat (APT) actors.</p>
+
+<p>The <em>Strategies </em>counter a broad range of exploitation techniques used by malicious cyber actors. NSA’s mitigations set priorities for enterprise organizations to minimize mission impact. The mitigations also build upon the NIST Cybersecurity Framework functions to manage cybersecurity risk and promote a defense-in-depth security posture. The mitigation strategies are ranked by effectiveness against known APT tactics. Additional strategies and best practices will be required to mitigate the occurrence of new tactics.</p>
+
+<ol><li><strong>Update and Upgrade Software Immediately. </strong>Apply all available software updates, automate the process to the extent possible, and use an update service provided directly from the vendor. Automation is necessary because threat actors study patches and create exploits, often soon after a patch is released. These “N-day” exploits can be as damaging as a zero-day. Vendor updates must also be authentic; updates are typically signed and delivered over protected links to assure the integrity of the content. Without rapid and thorough patch application, threat actors can operate inside a defender’s patch cycle.</li>
+	<li><strong>Defend Privileges and Accounts. </strong>Assign privileges based on risk exposure and as required to maintain operations. Use a Privileged Access Management (PAM) solution to automate credential management and fine-grained access control. Another way to manage privilege is through tiered administrative access in which each higher tier provides additional access, but is limited to fewer personnel. Create procedures to securely reset credentials (e.g., passwords, tokens, tickets). Privileged accounts and services must be controlled because threat actors continue to target administrator credentials to access high-value assets, and to move laterally through the network.</li>
+	<li><strong>Enforce Signed Software Execution Policies.</strong> Use a modern operating system that enforces signed software execution policies for scripts, executables, device drivers, and system firmware. Maintain a list of trusted certificates to prevent and detect the use and injection of illegitimate executables. Execution policies, when used in conjunction with a secure boot capability, can assure system integrity. Application Allow listing should be used with signed software execution policies to provide greater control. Allowing unsigned software enables threat actors to gain a foothold and establish persistence through embedded malicious code.</li>
+	<li><strong>Exercise a System Recovery Plan. </strong>Create, review, and exercise a system recovery plan to ensure the restoration of data as part of a comprehensive disaster recovery strategy. The plan must protect critical data, configurations, and logs to ensure continuity of operations due to unexpected events. For additional protection, backups should be encrypted, stored offsite, offline when possible, and support complete recovery and reconstitution of systems and devices. Perform periodic testing and evaluate the backup plan. Update the plan as necessary to accommodate the ever-changing network environment. A recovery plan is a necessary mitigation for natural disasters as well as malicious threats including ransomware.</li>
+	<li><strong>Actively Manage Systems and Configurations. </strong>Take inventory of network devices and software. Remove unwanted, unneeded, or unexpected hardware and software from the network. Starting from a known baseline reduces the attack surface and establishes control of the operational environment. Thereafter, actively manage devices, applications, operating systems, and security configurations. Active enterprise management ensures that systems can adapt to dynamic threat environments while scaling and streamlining administrative operations.</li>
+	<li><strong>Continuously Hunt for Network Intrusions.</strong> Take proactive steps to detect, contain, and remove any malicious presence within the network. Enterprise organizations should assume that a compromise has taken place and use dedicated teams to continuously seek out, contain, and remove threat actors within the network. Passive detection mechanisms, such as logs, Security Information and Event Management (SIEM) products, Endpoint Detection and Response (EDR) solutions, and other data analytic capabilities are invaluable tools to find malicious or anomalous behaviors. Active pursuits should also include hunt operations and penetration testing using well documented incident response procedures to address any discovered breaches in security. Establishing proactive steps will transition the organization beyond basic detection methods, enabling real-time threat detection and remediation using a continuous monitoring and mitigation strategy.</li>
+	<li><strong>Leverage Modern Hardware Security Features. </strong>Use hardware security features like Unified Extensible Firmware Interface (UEFI) Secure Boot, Trusted Platform Module (TPM), and hardware virtualization. Schedule older devices for a hardware refresh. Modern hardware features increase the integrity of the boot process, provide system attestation, and support features for high-risk application containment. Using a modern operating system on outdated hardware results in a reduced ability to protect the system, critical data, and user credentials from threat actors.</li>
+	<li>Segregate Networks Using Application-Aware Defenses. Segregate critical networks and services. Deploy application-aware network defenses to block improperly formed traffic and restrict content, according to policy and legal authorizations. Traditional intrusion detection based on known-bad signatures is quickly decreasing in effectiveness due to encryption and obfuscation techniques. Threat actors hide malicious actions and remove data over common protocols, making the need for sophisticated, application-aware defensive mechanisms critical for modern network defenses.</li>
+	<li><strong>Integrate Threat Reputation Services. </strong>Leverage multi-sourced threat reputation services for files, DNS, URLs, IPs, and email addresses. Reputation services assist in the detection and prevention of malicious events and allow for rapid global responses to threats, a reduction of exposure from known threats, and provide access to a much larger threat analysis and tipping capability than an organization can provide on its own. Emerging threats, whether targeted or global campaigns, occur faster than most organizations can handle, resulting in poor coverage of new threats. Multi-source reputation and information sharing services can provide a more timely and effective security posture against dynamic threat actors.</li>
+	<li><strong>Transition to Multi-Factor Authentication. </strong>Prioritize protection for accounts with elevated privileges, remote access, and/or used on high value assets. Physical token-based authentication systems should be used to supplement knowledge-based factors such as passwords and PINs. Organizations should migrate away from single factor authentication, such as password-based systems, which are subject to poor user choices and susceptible to credential theft, forgery, and reuse across multiple systems.</li>
+</ol><p> </p>
+</div>
+      
+        
+        		    <a id="contact-information"></a>
+		    <h3>Contact Information</h3>
+            
+            <div class="field field--name-field-aa-contact-info field--type-text-long field--label-hidden field--item"><p><strong>Reporting Suspected Malicious Activity</strong></p>
+
+<p>To report an intrusion and request resources for incident response or technical assistance, contact CISA (<a href="mailto:CISAservicedesk@cisa.dhs.gov">CISAservicedesk@cisa.dhs.gov</a> or 888-282-0870), FBI through a local field office (<a href="https://www.fbi.gov/contact-us/field-offices">https://www.fbi.gov/contact-us/field-offices</a>), or FBI’s Cyber Division (CyWatch@fbi.gov or 855-292-3937).</p>
+
+<p>Institutions should determine whether filing of a Suspicious Activity Report (“SAR”) is required under Bank Secrecy Act regulations.  In instances where filing is not required, institutions may file a SAR voluntarily to aid FinCEN and law enforcement efforts in protecting the financial sector.  Financial institutions are encouraged to provide relevant cyber-related information and indicators in their SAR reporting.  For questions regarding cyber SAR filing, please contact the FinCEN Resource Center (FRC@fincen.gov or 1-800-767-2825).</p>
+
+<h2><strong>Open-Source Reporting On Dridex</strong></h2>
+
+<p>The following represents an alphabetized selection of open-source reporting by U.S. government and industry sources on Dridex malware and its derivatives:</p>
+
+<ul><li>“Dridex P2P Malware,” US-CERT Alert (TA15-286A), <a href="https://www.us-cert.gov/ncas/alerts/TA15-286A, 13 October 2015">https://www.us-cert.gov/ncas/alerts/TA15-286A, 13 October 2015</a>.</li>
+	<li>“Dridex Threat Profile,” New Jersey Cybersecurity &amp; Communications Integration Cell, <a href="https://www.cyber.nj.gov/threat-profiles/trojan-variants/dridex">https://www.cyber.nj.gov/threat-profiles/trojan-variants/dridex</a>, accessed 15 April 2019.</li>
+	<li>Alert Logic, “Dridex malware has evolved to Locky Ransomware,” No date, <a href="https://www.alertlogic.com/resources/threat-reports/dridex-malware-has-evolved-to-locky-ransomware/">https://www.alertlogic.com/resources/threat-reports/dridex-malware-has-evolved-to-locky-ransomware/</a>, accessed 11 March 2019.</li>
+	<li>Avast Blog, “A closer look at the Locky ransomware,” 10 March 2016, <a href="https://blog.avast.com/a-closer-look-at-the-locky-ransomware">https://blog.avast.com/a-closer-look-at-the-locky-ransomware</a>, accessed 6 February 2019.</li>
+	<li>Brett Stone-Gross, Ph.D., “Dridex (Bugat v5) Botnet Takeover Operation, Secureworks, 13 October 2015, <a href="https://www.secureworks.com/research/dridex-bugat-v5-botnet-takeover-operation">https://www.secureworks.com/research/dridex-bugat-v5-botnet-takeover-operation</a>, accessed 6 February 2019.</li>
+	<li>Brewster, Thomas, “Cops Knock Down Dridex Malware that Earned ‘Evil Corp’ Cybercriminals At Least $50 Million,” Forbes, 13 October 2015, <a href="https://www.forbes.com/sites/thomasbrewster/2015/10/13/dridex-botnet-takedown/#2b883f00415b">https://www.forbes.com/sites/thomasbrewster/2015/10/13/dridex-botnet-takedown/#2b883f00415b</a>.</li>
+	<li>Chandler, Andy, “FBI announces Dridex gang indictment and praises Fox-IT,” Fox-IT, 13 October 2015, <a href="https://www.fox-it.com/en/about-fox-it/corporate/news/fbi-announces-dridex-gang-indictments-praises-fox/">https://www.fox-it.com/en/about-fox-it/corporate/news/fbi-announces-dridex-gang-indictments-praises-fox/</a>, accessed 7 February 2019.</li>
+	<li>DHS CISA, “Alert (TA15-286A), Dridex P2P Malware,” <a href="https://www.us-cert.gov/ncas/alerts/TA15-286A">https://www.us-cert.gov/ncas/alerts/TA15-286A</a>, accessed 4 June 2019.</li>
+	<li>Eduard Kovacs, “Dridex still active after takedown attempt,” Security Week, 19 October 2015, <a href="https://www.securityweek.com/dridex-still-active-after-takedown-attempt">https://www.securityweek.com/dridex-still-active-after-takedown-attempt</a>, accessed 11 March 2019.</li>
+	<li>Geoff White, “How the Dridex Gang makes millions from bespoke ransomware,” Forbes, 26 September 2018, <a href="https://www.forbes.com/sites/geoffwhite/2018/09/26/how-the-dridex-gang-makes-millions-from-bespoke-ransomware/">https://www.forbes.com/sites/geoffwhite/2018/09/26/how-the-dridex-gang-makes-millions-from-bespoke-ransomware/</a>, accessed 11 March 2019.</li>
+	<li>MS-ISAC, “Cybercrime Technical Desk Reference,” 31 August 2018, <a href="https://www.cisecurity.org/wp-content/uploads/2018/09/MS-ISAC-Cyber-Crime-Technical-Desk-Reference.pdf">https://www.cisecurity.org/wp-content/uploads/2018/09/MS-ISAC-Cyber-Crime-Technical-Desk-Reference.pdf</a>, accessed 6 February 2019.</li>
+	<li>O’Brien, Dick. “Dridex: Tidal waves of spam pushing dangerous financial Trojan,” Symantec, February 2016, <a href="http://www.symantec.com/content/en/us/enterprise/media/security_response/whitepapers/dridex-financial-trojan.pdf">http://www.symantec.com/content/en/us/enterprise/media/security_response/whitepapers/dridex-financial-trojan.pdf</a>, accessed 4 February 2019.</li>
+	<li>Poslušný, Michal, “FriedEx: BitPaymer ransomware the work of Dridex authors, welivesecurity by ESET, 26 January 2018, <a href="https://www.welivesecurity.com/2018/01/26/friedex-bitpaymer-ransomware-work-dridex-authors/">https://www.welivesecurity.com/2018/01/26/friedex-bitpaymer-ransomware-work-dridex-authors/</a>, accessed 6 February 2019.</li>
+	<li>Proofpoint, “Dridex Campaigns Hitting Millions of Recipients Using Unpatched Microsoft Zero-Day,” <a href="https://www.proofpoint.com/us/threat-insight/post/dridex-campaigns-millions-recipients-unpatched-microsoft-zero-day">https://www.proofpoint.com/us/threat-insight/post/dridex-campaigns-millions-recipients-unpatched-microsoft-zero-day</a>, accessed 5 February 2019.</li>
+	<li>Proofpoint, “High-Volume Dridex Banking Trojan Campaigns Return.” <a href="https://www.proofpoint.com/us/threat-insight/post/high-volume-dridex-campaigns-return">https://www.proofpoint.com/us/threat-insight/post/high-volume-dridex-campaigns-return</a>, accessed 1 February 2019.</li>
+	<li>Proofpoint, “Threat Actor Profile: TA505, From Dridex to GlobeImposter,”<a href=" https://www.proofpoint.com/us/threat-insight/post/threat-actor-profile-ta505-dridex-globeimposter"> </a><a href="https://www.proofpoint.com/us/threat-insight/post/threat-actor-profile-ta505-dridex-globeimposter">https://www.proofpoint.com/us/threat-insight/post/threat-actor-profile-ta505-dridex-globeimposter</a>, accessed 6 February 2019.</li>
+	<li>Roland Dela Paz and Ran Mosessco. “New year, new look – Dridex via compromised FTP,” ForcePoint, 18 January 2018, <a href="https://blogs.forcepoint.com/blog/security-labs/new-year-new-look-dridex-compromised-ftp">https://blogs.forcepoint.com/blog/security-labs/new-year-new-look-dridex-compromised-ftp</a>, accessed 4 February 2019.</li>
+	<li>Sanghavi, Mithun. “DRIDEX and how to overcome it.” Symantec Official Blog, 30 March 2015, <a href="https://www.symantec.com/connect/blogs/dridex-and-how-overcome-it">https://www.symantec.com/connect/blogs/dridex-and-how-overcome-it</a>, accessed 4 February 2019.</li>
+	<li>Security Intelligence Blog, “URSNIF, EMOTET, DRIDEX and BitPaymer Gangs Linked by a Similar Loader,” Trend Micro, 18 December 2018, <a href="https://blog.trendmicro.com/trendlabs-security-intelligence/ursnif-emotet-dridex-and-bitpaymer-gangs-linked-by-a-similar-loader/">https://blog.trendmicro.com/trendlabs-security-intelligence/ursnif-emotet-dridex-and-bitpaymer-gangs-linked-by-a-similar-loader/</a>, accessed 6 February 2019.</li>
+	<li>Talos Group, “Threat Spotlight: Spam Served With a Side of Dridex,” Cisco Blogs, 6 April 2015, <a href="https://blogs.cisco.com/security/talos/spam-dridex">https://blogs.cisco.com/security/talos/spam-dridex</a>, accessed 4 February 2019.</li>
+</ul><p> </p>
+</div>
+      
+        
+        
+        		    <a id="revisions"></a>
+		    <h3>Revisions</h3>
+            
+      <div class="field field--name-field-aa-revisions field--type-string field--label-hidden field--items">
+              <div class="field--item">December 5, 2019: Initial version</div>
+              <div class="field--item">December 5, 2019: Added links to Treasury and FBI press releases</div>
+              <div class="field--item">January 2, 2020: Updated CISA contact information </div>
+          </div>
+  
+        
+        
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><p class="privacy-and-terms">This product is provided subject to this <a href="/privacy/notification">Notification</a> and this <a href="https://www.dhs.gov/privacy-policy">Privacy &amp; Use</a> policy.</p>
+</div>
+      
+
+	</div>
+                        <div id="document-feedback">
+	<div class="inner-document-feedback center-center">
+        <p><b>Please share your thoughts.</b></p>
+		<p>We recently updated our anonymous <a href="https://www.surveymonkey.com/r/CISA-cyber-survey?product=https://us-cert.cisa.gov/ncas/alerts/aa19-339a">product survey</a>; we'd welcome your feedback.</p>
+	</div>
+</div>
+
+              </div>
+
+</article>
+
+
+  </div>
+
+              </section>
+
+
+                      </div>
+  </div>
+
+
+
+
+
+
+      <footer class="footer container-fluid" role="contentinfo">
+        <div class="region region-footer">
+    <section id="block-certsignup" class="block block-block-content block-block-contentc5846d10-2e2b-4822-aa59-7a5c3262f671 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container-fluid signup">
+<div class="container">
+<div class="row">
+<div class="col-lg-3 contact-icons">
+<h3>Contact Us</h3>
+
+<p class="phone-text"><img alt="phone icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Phone.png" />(888)282-0870</p>
+
+<p><img alt="email icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Email.png" /><a class="mailto" href="mailto:central@cisa.dhs.gov" title="General questions or suggestions">Send us email</a></p>
+
+<p><img alt="lock icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Lock.png" /><a href="/contact-us/" title="Download PGP/GPG keys">Download PGP/GPG keys</a></p>
+
+<p><img alt="feedback icon" data-entity-type="" data-entity-uuid="" height="32" src="/sites/default/files/images/icon-feedback.png" /><a href="/forms/website-feedback" title="Website Feedback">Submit website feedback</a></p>
+</div>
+
+<div class="col-lg-6 sub-alert">
+<h3>Subscribe to Alerts</h3>
+
+<p>Receive security alerts, tips, and other updates.</p>
+
+<form action="https://public.govdelivery.com/accounts/USDHSCISA/subscribers/qualify"><label class="visually-hidden" for="email-address-field">Enter your email address</label> <input class="signup-form" id="email-address-field" name="email" placeholder=" Enter your email address" title="Enter your email address" type="text" /><br /><input class="btn btn-primary" name="submit" title="Sign up for alerts" type="submit" value="Sign Up" /> </form>
+
+<div class="pull-right signup-icon-one"><a href="https://twitter.com/uscert_gov" title="US-CERT Twitter Feed"><img alt="twitter icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/twitter-button.png" /></a></div>
+
+<div class="pull-right signup-icon-two"><a href="/mailing-lists-and-feeds" title="Mailing Lists and Feeds"><img alt="rss icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/rss-button-bottom.png" /></a></div>
+
+<div class="pull-right signup-icon-three"><a href="/hsin" class="btn btn-cert-report" name="button" type="button" id="button">HSIN</a></div>
+</div>
+
+<div class="col-lg-3 cert-report"><a class="btn btn-cert-report btn-lg" href="/report" name="button" type="button" id="button">Report</a></div>
+</div>
+</div>
+</div>
+</div>
+      
+  </section>
+
+<section id="block-certcertfooter" class="block block-block-content block-block-contentd5b85bd2-62d1-485a-b9ae-f040b1ca1a45 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container">
+<hr /><div class="text-center"><a href="/" title="Home">Home</a>   <a href="/sitemap" title="Site Map">Site Map</a>   <a href="/faq/" title="Frequently Asked Questions">FAQ</a>   <a href="/contact-us/" title="Contact Us">Contact Us</a>   <a href="/tlp/" title="Traffic Light Protocol">Traffic Light Protocol</a>   <a href="/pcii" title="PCII">PCII</a>   <a href="https://www.dhs.gov" title="Accountability">Accountability</a>   <a href="/disclaimer" title="Disclaimer">Disclaimer</a>   <a href="/privacy-policy" title="Privacy Policy">Privacy Policy</a>   <a href="https://www.dhs.gov/freedom-information-act-foia" title="FOIA">FOIA</a>   <a href="https://www.dhs.gov/homeland-security-no-fear-act-reporting" title="No Fear Act">No Fear Act</a>   <a href="/accessibility/" title="Accessibility">Accessibility</a><a href="https://www.dhs.gov/plain-writing-dhs" title="Plain Writing">Plain Writing</a><a href="https://www.dhs.gov/plug-information" title="Plug-ins">Plug-ins</a>   <a href="https://www.oig.dhs.gov/" title="Office of the Inspector General">Inspector General</a>   <a href="https://www.whitehouse.gov/" title="The White House">The White House</a>   <a href="https://www.usa.gov/" title="USA.gov">USA.gov</a><br />
+ 
+<p>CISA is part of the <a href="https://www.dhs.gov/" title="Department of Homeland Security">Department of Homeland Security</a></p>
+</div>
+<script type="text/javascript">
+<!--//--><![CDATA[// ><!--
+
+    window.onload = function(){
+            jQuery('body.page-node-type-us-cert-events div#ncas-header').find('img').each(function(){
+                    var $src=jQuery(this).prop('src');
+                    if($src.indexOf('default/files/') == -1)jQuery(this).remove();
+                    });
+            if('Privacy Data Breach' == jQuery('#uscert-utilities-irf-form #item-info-impact option:selected').text()){ 
+                jQuery('#item-info-impact-block').removeClass('collapsed'); 
+            }
+jQuery('#print-logo img').removeAttr('width').removeAttr('height');
+if(jQuery('body.path-frontpage').length > 0)
+{   
+    jQuery('.main-container').find('.col-sm-12').removeAttr('role');
+}
+jQuery('#map area').each(function(){ jQuery(this).click(function(){var idstr=jQuery(this).attr('clickthis'); if(jQuery(idstr).hasClass('open') == false){jQuery(idstr).click();}});});  
+if(jQuery('#document-feedback').length > 0)
+{ 
+    var $url    = window.location.href
+    //var str ='Your feedback is very important to us. Please take a moment to complete this <a href="https://surveymonkey.com/r/G8STDRY?product=' + $url + '">survey.';
+    //var $p = jQuery('#document-feedback div p').html(str);
+}
+    };
+
+//--><!]]>
+</script></div>
+<style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+#views-bootstrap-carousel-block-2 .carousel-inner > .item > a > img {
+  margin:auto;
+}
+button#product-feedback-next {
+    margin-bottom: 10px;
+}
+/*
+.mobile-nav {
+border-bottom: 3px solid #112e51;
+}
+*/
+.cma-banner-container {
+    display: none;
+}
+@media (max-width: 991px) {
+.navbar .navbar-header {
+background: #fff;
+}
+}
+div.banner-region { background: #fff; }
+
+.accordion_fold {
+    padding-bottom: 25px;
+}
+
+h2.accordion.open {
+    background: #f2f2f2;
+}
+
+a { color: #2b72af;}
+
+.navbar-default .navbar-nav > li > a { color: #767676; }
+/* andi */
+.sidebar-widget-orange .orange {
+    background-color: #e77431;
+}
+#block-views-block-ics-announcements-block-1 .views-field-created {
+    color: #565656;
+}
+a#sort-bulletin {
+color: #000;
+background: white;
+position: absolute;
+right: 150px;
+padding: 1px 12px;
+}
+
+/*--><!]]>*/
+</style></div>
+      
+  </section>
+
+
+  </div>
+
+    </footer>
+  
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","scriptPath":null,"pathPrefix":"","currentPath":"node\/13290","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"UA-34879253-1","trackOutbound":true,"trackMailto":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"data":{"extlink":{"extTarget":false,"extTargetNoOverride":false,"extNofollow":false,"extNoreferrer":false,"extFollowNoOverride":false,"extClass":"ext","extLabel":"(link is external)","extImgClass":false,"extSubdomains":true,"extExclude":"(\\.gov|\\.mil|\\.org.*|twitter\\.com\\\/share\\?url\\=.*|www\\.facebook\\.com\\\/sharer\\.php\\?u\\=.*|www\\.addthis\\.com\\\/bookmark\\.php\\?url\\=.*|javascript\\:window\\.print\\(\\)\\;)","extInclude":"","extCssExclude":"","extCssExplicit":"","extAlert":true,"extAlertText":"You are now leaving an official website of the United States Government (USG), the Department of Homeland Security (DHS), and the Cybersecurity and Infrastructure Security Agency (CISA). Links to non-USG, non-DHS, and non-CISA sites are provided for the visitor\u0027s convenience and do not represent an endorsement by USG, DHS, or CISA of any commercial or private issues, products, or services. Note that the privacy policy of the linked site may differ from that of USG, DHS, and CISA.","mailtoClass":"mailto","mailtoLabel":"(link sends email)","extUseFontAwesome":false,"extIconPlacement":"append","extFaLinkClasses":"fa fa-external-link","extFaMailtoClasses":"fa fa-envelope-o","whitelistedDomains":null}},"bootstrap":{"forms_has_error_value_toggle":1,"popover_enabled":1,"popover_animation":1,"popover_auto_close":1,"popover_container":"body","popover_content":"","popover_delay":"0","popover_html":0,"popover_placement":"right","popover_selector":"","popover_title":"","popover_trigger":"click","tooltip_enabled":1,"tooltip_animation":1,"tooltip_container":"body","tooltip_delay":"0","tooltip_html":0,"tooltip_placement":"auto left","tooltip_selector":"","tooltip_trigger":"hover"},"user":{"uid":0,"permissionsHash":"5ac3ae468050ddd0aa4ecea12c34a32977a23244239ed53eb7226f296aed658f"}}</script>
+<script src="/sites/default/files/js/js_xhqBHziEDyCKWlB5IUseaFAGh1B08TPFGmxCf6RvFnM.js"></script>
+<script src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DHS&amp;subagency=US-CERT&amp;pua=0" id="_fed_an_ua_tag"></script>
+<script src="/sites/default/files/js/js_m5CHELy9XHlAx2jnhaYdT2XVeN916TnZL5U2ha7Ln94.js"></script>
+
+  <script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"877b02039c","applicationID":"628657512,979282327","transactionName":"ZFYHMhZSXUpRUkcKDF0cJAUQWlxXH0FSBAZsUAQFDFY=","queueTime":0,"applicationTime":25,"atts":"SBEERF5ITkQ=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

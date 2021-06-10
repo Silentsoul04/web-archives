@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html  lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+    <meta charset="utf-8" /><script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={licenseKey:"877b02039c",applicationID:"628657512"};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var i=e[n]={exports:{}};t[n][0].call(i.exports,function(e){var i=t[n][1][e];return r(i||e)},i,i.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var i=0;i<n.length;i++)r(n[i]);return r}({1:[function(t,e,n){function r(){}function i(t,e,n){return function(){return o(t,[u.now()].concat(f(arguments)),e?null:this,n),e?void 0:this}}var o=t("handle"),a=t(8),f=t(9),c=t("ee").get("tracer"),u=t("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var d=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],p="api-",l=p+"ixn-";a(d,function(t,e){s[e]=i(p+e,!0,"api")}),s.addPageAction=i(p+"addPageAction",!0),s.setCurrentRouteName=i(p+"routeName",!0),e.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(t,e){var n={},r=this,i="function"==typeof e;return o(l+"tracer",[u.now(),t,n],r),function(){if(c.emit((i?"":"no-")+"fn-start",[u.now(),r,i],n),i)try{return e.apply(this,arguments)}catch(t){throw c.emit("fn-err",[arguments,this,t],n),t}finally{c.emit("fn-end",[u.now()],n)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(t,e){m[e]=i(l+e)}),newrelic.noticeError=function(t,e){"string"==typeof t&&(t=new Error(t)),o("err",[t,u.now(),!1,e])}},{}],2:[function(t,e,n){function r(t){if(NREUM.init){for(var e=NREUM.init,n=t.split("."),r=0;r<n.length-1;r++)if(e=e[n[r]],"object"!=typeof e)return;return e=e[n[n.length-1]]}}e.exports={getConfiguration:r}},{}],3:[function(t,e,n){function r(){return f.exists&&performance.now?Math.round(performance.now()):(o=Math.max((new Date).getTime(),o))-a}function i(){return o}var o=(new Date).getTime(),a=o,f=t(10);e.exports=r,e.exports.offset=a,e.exports.getLastTimestamp=i},{}],4:[function(t,e,n){function r(t){return!(!t||!t.protocol||"file:"===t.protocol)}e.exports=r},{}],5:[function(t,e,n){function r(t,e){var n=t.getEntries();n.forEach(function(t){"first-paint"===t.name?d("timing",["fp",Math.floor(t.startTime)]):"first-contentful-paint"===t.name&&d("timing",["fcp",Math.floor(t.startTime)])})}function i(t,e){var n=t.getEntries();n.length>0&&d("lcp",[n[n.length-1]])}function o(t){t.getEntries().forEach(function(t){t.hadRecentInput||d("cls",[t])})}function a(t){if(t instanceof m&&!g){var e=Math.round(t.timeStamp),n={type:t.type};e<=p.now()?n.fid=p.now()-e:e>p.offset&&e<=Date.now()?(e-=p.offset,n.fid=p.now()-e):e=p.now(),g=!0,d("timing",["fi",e,n])}}function f(t){d("pageHide",[p.now(),t])}if(!("init"in NREUM&&"page_view_timing"in NREUM.init&&"enabled"in NREUM.init.page_view_timing&&NREUM.init.page_view_timing.enabled===!1)){var c,u,s,d=t("handle"),p=t("loader"),l=t(7),m=NREUM.o.EV;if("PerformanceObserver"in window&&"function"==typeof window.PerformanceObserver){c=new PerformanceObserver(r);try{c.observe({entryTypes:["paint"]})}catch(v){}u=new PerformanceObserver(i);try{u.observe({entryTypes:["largest-contentful-paint"]})}catch(v){}s=new PerformanceObserver(o);try{s.observe({type:"layout-shift",buffered:!0})}catch(v){}}if("addEventListener"in document){var g=!1,h=["click","keydown","mousedown","pointerdown","touchstart"];h.forEach(function(t){document.addEventListener(t,a,!1)})}l(f)}},{}],6:[function(t,e,n){function r(t,e){if(!i)return!1;if(t!==i)return!1;if(!e)return!0;if(!o)return!1;for(var n=o.split("."),r=e.split("."),a=0;a<r.length;a++)if(r[a]!==n[a])return!1;return!0}var i=null,o=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var f=navigator.userAgent,c=f.match(a);c&&f.indexOf("Chrome")===-1&&f.indexOf("Chromium")===-1&&(i="Safari",o=c[1])}e.exports={agent:i,version:o,match:r}},{}],7:[function(t,e,n){function r(t){function e(){t(a&&document[a]?document[a]:document[i]?"hidden":"visible")}"addEventListener"in document&&o&&document.addEventListener(o,e,!1)}e.exports=r;var i,o,a;"undefined"!=typeof document.hidden?(i="hidden",o="visibilitychange",a="visibilityState"):"undefined"!=typeof document.msHidden?(i="msHidden",o="msvisibilitychange"):"undefined"!=typeof document.webkitHidden&&(i="webkitHidden",o="webkitvisibilitychange",a="webkitVisibilityState")},{}],8:[function(t,e,n){function r(t,e){var n=[],r="",o=0;for(r in t)i.call(t,r)&&(n[o]=e(r,t[r]),o+=1);return n}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],9:[function(t,e,n){function r(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,i=n-e||0,o=Array(i<0?0:i);++r<i;)o[r]=t[e+r];return o}e.exports=r},{}],10:[function(t,e,n){e.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(t,e,n){function r(){}function i(t){function e(t){return t&&t instanceof r?t:t?u(t,c,a):a()}function n(n,r,i,o,a){if(a!==!1&&(a=!0),!l.aborted||o){t&&a&&t(n,r,i);for(var f=e(i),c=v(n),u=c.length,s=0;s<u;s++)c[s].apply(f,r);var p=d[w[n]];return p&&p.push([b,n,r,f]),f}}function o(t,e){y[t]=v(t).concat(e)}function m(t,e){var n=y[t];if(n)for(var r=0;r<n.length;r++)n[r]===e&&n.splice(r,1)}function v(t){return y[t]||[]}function g(t){return p[t]=p[t]||i(n)}function h(t,e){l.aborted||s(t,function(t,n){e=e||"feature",w[n]=e,e in d||(d[e]=[])})}var y={},w={},b={on:o,addEventListener:o,removeEventListener:m,emit:n,get:g,listeners:v,context:e,buffer:h,abort:f,aborted:!1};return b}function o(t){return u(t,c,a)}function a(){return new r}function f(){(d.api||d.feature)&&(l.aborted=!0,d=l.backlog={})}var c="nr@context",u=t("gos"),s=t(8),d={},p={},l=e.exports=i();e.exports.getOrSetContext=o,l.backlog=d},{}],gos:[function(t,e,n){function r(t,e,n){if(i.call(t,e))return t[e];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:r,writable:!0,enumerable:!1}),r}catch(o){}return t[e]=r,r}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],handle:[function(t,e,n){function r(t,e,n,r){i.buffer([t],r),i.emit(t,e,n)}var i=t("ee").get("handle");e.exports=r,r.ee=i},{}],id:[function(t,e,n){function r(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:a(t,o,function(){return i++})}var i=1,o="nr@id",a=t("gos");e.exports=r},{}],loader:[function(t,e,n){function r(){if(!R++){var t=M.info=NREUM.info,e=v.getElementsByTagName("script")[0];if(setTimeout(u.abort,3e4),!(t&&t.licenseKey&&t.applicationID&&e))return u.abort();c(E,function(e,n){t[e]||(t[e]=n)});var n=a();f("mark",["onload",n+M.offset],null,"api"),f("timing",["load",n]);var r=v.createElement("script");0===t.agent.indexOf("http://")||0===t.agent.indexOf("https://")?r.src=t.agent:r.src=l+"://"+t.agent,e.parentNode.insertBefore(r,e)}}function i(){"complete"===v.readyState&&o()}function o(){f("mark",["domContent",a()+M.offset],null,"api")}var a=t(3),f=t("handle"),c=t(8),u=t("ee"),s=t(6),d=t(4),p=t(2),l=p.getConfiguration("ssl")===!1?"http":"https",m=window,v=m.document,g="addEventListener",h="attachEvent",y=m.XMLHttpRequest,w=y&&y.prototype,b=!d(m.location);NREUM.o={ST:setTimeout,SI:m.setImmediate,CT:clearTimeout,XHR:y,REQ:m.Request,EV:m.Event,PR:m.Promise,MO:m.MutationObserver};var x=""+location,E={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1209.min.js"},O=y&&w&&w[g]&&!/CriOS/.test(navigator.userAgent),M=e.exports={offset:a.getLastTimestamp(),now:a,origin:x,features:{},xhrWrappable:O,userAgent:s,disabled:b};if(!b){t(1),t(5),v[g]?(v[g]("DOMContentLoaded",o,!1),m[g]("load",r,!1)):(v[h]("onreadystatechange",i),m[h]("onload",r)),f("mark",["firstbyte",a.getLastTimestamp()],null,"api");var R=0}},{}],"wrap-function":[function(t,e,n){function r(t,e){function n(e,n,r,c,u){function nrWrapper(){var o,a,s,p;try{a=this,o=d(arguments),s="function"==typeof r?r(o,a):r||{}}catch(l){i([l,"",[o,a,c],s],t)}f(n+"start",[o,a,c],s,u);try{return p=e.apply(a,o)}catch(m){throw f(n+"err",[o,a,m],s,u),m}finally{f(n+"end",[o,a,p],s,u)}}return a(e)?e:(n||(n=""),nrWrapper[p]=e,o(e,nrWrapper,t),nrWrapper)}function r(t,e,r,i,o){r||(r="");var f,c,u,s="-"===r.charAt(0);for(u=0;u<e.length;u++)c=e[u],f=t[c],a(f)||(t[c]=n(f,s?c+r:r,i,c,o))}function f(n,r,o,a){if(!m||e){var f=m;m=!0;try{t.emit(n,r,o,e,a)}catch(c){i([c,n,r,o],t)}m=f}}return t||(t=s),n.inPlace=r,n.flag=p,n}function i(t,e){e||(e=s);try{e.emit("internal-error",t)}catch(n){}}function o(t,e,n){if(Object.defineProperty&&Object.keys)try{var r=Object.keys(t);return r.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(o){i([o],n)}for(var a in t)l.call(t,a)&&(e[a]=t[a]);return e}function a(t){return!(t&&t instanceof Function&&t.apply&&!t[p])}function f(t,e){var n=e(t);return n[p]=t,o(t,n,s),n}function c(t,e,n){var r=t[e];t[e]=f(r,n)}function u(){for(var t=arguments.length,e=new Array(t),n=0;n<t;++n)e[n]=arguments[n];return e}var s=t("ee"),d=t(9),p="nr@original",l=Object.prototype.hasOwnProperty,m=!1;e.exports=r,e.exports.wrapFunction=f,e.exports.wrapInPlace=c,e.exports.argsToArray=u},{}]},{},["loader"]);</script>
+<script async src="/sites/default/files/google_analytics/gtag.js?qufkhs"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("config", "UA-34879253-1", {"groups":"default","anonymize_ip":true,"allow_ad_personalization_signals":false});</script>
+<meta name="abstract" content="As part of its mission, CISA leads the effort to enhance the security, resiliency, and reliability of the Nation&#039;s cybersecurity and communications infrastructure." />
+<meta name="keywords" content="uscert, csirt, cert, cybersecurity, cyber security, computer security, U. S. Computer Emergency Readiness, cyber risks" />
+<meta name="Generator" content="Drupal 9 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/sites/default/files/images/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="https://us-cert.cisa.gov/ncas/current-activity" />
+<link rel="shortlink" href="https://us-cert.cisa.gov/node/14620" />
+<link rel="revision" href="https://us-cert.cisa.gov/ncas/current-activity" />
+
+    <title>Current Activity | CISA</title>
+    <link rel="stylesheet" media="all" href="/sites/default/files/css/css_lGKmNyJAo-J3IHIJDrwuiOYK7LTbmv6BdN1zGhf42YA.css" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_OtQ9QHAYVZDqM__uuCDStHUt38Nwh_1MHX1vxg5dE5c.css" />
+
+    
+    <!-- Google Font -->
+    <style type="text/css">
+/* source-sans-pro-regular - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'),
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.woff') format('woff'), /* Modern Browsers */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.svg#SourceSansPro') format('svg'); /* Legacy iOS */
+}
+    </style>
+    <!--link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet"--> 
+    <!-- Google Font -->
+  </head>
+  <body class="path-node page-node-type-site-page has-glyphicons">
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+
+
+<div class="container-fluid top-top">
+      <aside role="complementary">
+        <div class="region region-top">
+    <section id="block-certtoptop" class="block block-block-content block-block-content4d95ffde-0818-4e6b-bd79-d1547b08c0c0 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container">
+<div id="top">
+<div class="row">
+<div class="col-sm-12 flag"><img alt="United States Flag" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/flag.png" style="position: absolute;" /><p style="padding-left: 35px; font-family: Arial; font-size: 11px;">An official website of the United States government <a href="#" id="here-is-how-u-know">Here's how you know <span class="arrow down"> </span></a></p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="usa-banner-content usa-grid usa-accordion-content hidden container" id="gov-banner">
+<div class="usa-banner-guidance-gov usa-width-one-half col-sm-6"><img alt="Dot gov" class="usa-banner-icon usa-media_block-img" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/icon-dot-gov.svg" /><div class="usa-media_block-body"><strong>Official websites use .gov</strong><br />
+A <b>.gov</b> website belongs to an official government organization in the United States.</div>
+</div>
+
+<div class="usa-banner-guidance-ssl usa-width-one-half col-sm-6"><img alt="SSL" class="usa-banner-icon usa-media_block-img" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/icon-https.svg" /><div class="usa-media_block-body"><strong>Secure .gov websites use HTTPS</strong> A <b>lock (<img alt="lock icon" src="/sites/default/files/icons/lock.svg" style="width:15px;" />)</b> or <b>https://</b> means you've safely connected to the .gov website. Share sensitive information only on official, secure websites.</div>
+</div>
+</div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </div>
+
+
+
+<div class="container-fluid hidden-xs hidden-sm banner-region">
+<div class="container">
+<div class="row">
+
+
+  
+
+<section class="col-sm-9">
+
+      <a id="logo-section"></a>
+        <div class="region region-logo">
+    <section id="block-certlogo" class="block block-block-content block-block-content4639a667-debe-4642-bc69-7839662c0187 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="hidden-xs hidden-sm"><a href="/"><img alt="Cybersecurity and Infrastructure Security Agency CISA" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/logo_verbose.png" title="Cybersecurity and Infrastructure Security Agency CISA" /></a></div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </section>
+
+
+
+      <aside class="col-sm-3" role="complementary">
+        <div class="region region-search">
+    <section id="block-certsearch" class="block block-block-content block-block-contentc33bd875-6ea6-42cc-b1ab-348a4e4bdff7 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><form accept-charset="UTF-8" action="https://search.us-cert.gov/search" class="hidden-xs searchbox" method="get"><input name="utf8" type="hidden" value="✓" /><input id="affiliate-desktop" name="affiliate" type="hidden" value="us-cert" /><div class="form-group"><label class="sr-only" for="query-desktop">Enter Search Terms(s):</label>
+<div class="input-group"><input autocomplete="off" class="form-control form-control-custom input-lg" id="query-desktop" name="query" placeholder="Search" type="text" /><div class="input-group-addon input-group-addon-custom"><button class="submit input-lg"><img alt="search icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/search-icon.png" title="search icon" /></button></div>
+</div>
+</div>
+</form>
+<style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+.navbar-default ul.navbar-nav > li.last a{
+display: none;
+
+/*--><!]]>*/
+</style><div style="padding: 16px 12px 8px 12px"><a class="btn btn-primary" href="/services" type="button" style="font-weight: bold; width: 40%">Services</a><a class="btn btn-primary pull-right" href="/report" type="button" style="font-weight: bold; width: 40%">Report</a></div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </div>
+</div>
+<hr class="hidden-xs nav-top-line">
+</div>
+
+
+
+          <header class="navbar navbar-default container-fluid" id="navbar" role="banner">
+        <div class="container ">
+      <div class="navbar-header">
+        
+                          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+            <div class="hidden-lg hidden-md mobile-nav">
+        <a class="" href="/">
+            <img src="/sites/default/files/cert/logo3.png"  alt="US Department of Homeland Security CISA Cyber + Infrastructure" title="US Department of Homeland Security CISA Cyber + Infrastructure">
+          </a>
+        </div>
+      </div>
+
+              <div id="navbar-collapse" class="navbar-collapse collapse">
+            <div class="region region-navigation-collapsible">
+    <section id="block-certsearchmobile" class="block block-block-content block-block-content0da6361c-e31a-4a58-b455-f9ebde1ba544 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><form accept-charset="UTF-8" action="https://search.us-cert.gov/search" class="hidden-lg hidden-md searchbox" method="get"><input name="utf8" type="hidden" value="✓" /><input id="affiliate-mobile" name="affiliate" type="hidden" value="us-cert" /><div class="form-group"><label class="sr-only" for="query-mobile">Enter Search Terms(s):</label>
+<div class="input-group"><input autocomplete="off" class="form-control form-control-custom input-lg" id="query-mobile" name="query" placeholder="Search" type="text" /><div class="input-group-addon input-group-addon-custom"><button class="submit input-lg"><img alt="search icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/search-icon.png" title="search icon" /></button></div>
+</div>
+</div>
+</form>
+<div class="hidden-md hidden-lg" style="padding: 8px"><a class="btn btn-primary btn-block" href="/services" role="button" style="font-weight: bold">Services</a></div>
+
+<div class="hidden-md hidden-lg" style="padding: 8px"><a class="btn btn-primary btn-block" href="/report" role="button" style="font-weight: bold">Report</a></div></div>
+      
+  </section>
+
+<nav role="navigation" aria-labelledby="block-certmainmenu-menu" id="block-certmainmenu">
+            
+  <h2 class="visually-hidden" id="block-certmainmenu-menu">CertMain Menu</h2>
+  
+
+        
+      <ul class="menu menu--certmain-menu nav navbar-nav">
+                      <li class="expanded dropdown active active-trail first">
+                                                                    <a href="/ncas" title="Alerts and Tips" class="dropdown-toggle active-trail" data-toggle="dropdown" data-drupal-link-system-path="node/5">Alerts and Tips <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                      <li class="first">
+                                        <a href="/ncas/alerts" title="Alerts" data-drupal-link-system-path="ncas/alerts">Alerts</a>
+              </li>
+                      <li>
+                                        <a href="/ncas/analysis-reports" title="Analysis Reports" data-drupal-link-system-path="ncas/analysis-reports">Analysis Reports</a>
+              </li>
+                      <li class="active active-trail">
+                                        <a href="/ncas/current-activity" title="Current Activity" class="active-trail" data-drupal-link-system-path="node/14620">Current Activity</a>
+              </li>
+                      <li>
+                                        <a href="/ncas/bulletins" title="Security Bulletins" data-drupal-link-system-path="ncas/bulletins">Security Bulletins</a>
+              </li>
+                      <li class="last">
+                                        <a href="/ncas/tips" title="Tips" data-drupal-link-system-path="ncas/tips">Tips</a>
+              </li>
+        </ul>
+  
+              </li>
+                      <li>
+                                        <a href="/resources" title="Resources" data-drupal-link-system-path="node/12436">Resources</a>
+              </li>
+                      <li>
+                                        <a href="/ics" title="Industrial Control Systems" data-drupal-link-system-path="node/14614">Industrial Control Systems</a>
+              </li>
+                      <li class="last">
+                                        <a href="/report" title="Report" data-drupal-link-system-path="node/5745">Report</a>
+              </li>
+        </ul>
+  
+
+  </nav>
+
+  </div>
+
+        </div>
+                </header>
+  <hr class="hidden-xs hidden-sm nav-bottom-line">
+<div class="visible-xs visible-sm mobile-border"></div>
+
+
+<div class="container">
+    <div id="print-logo"><img alt="US Department of Homeland Security CISA Cyber + Infrastructure" src="/sites/default/files/cert/logo2.png"/></div>
+    <div id="tlp-header"><svg height="30" width="120"> <rect fill="black" height="30" width="120" x="0" y="0"></rect> <text fill="#ffffff" font-size="18px" x="10" y="20">TLP:WHITE</text> </svg></div>
+    <div id="tlp-footer"><svg height="30" width="120"> <rect fill="black" height="30" width="120" x="0" y="0"></rect> <text fill="#ffffff" font-size="18px" x="10" y="20">TLP:WHITE</text> </svg></div>
+</div>
+
+
+
+
+      <aside class="container-fluid cert-title hidden-xs">
+      <div class="container">
+        <div class="banner-title">
+        <div class="region region-banner">
+                  <h1 class="page-header">Current Activity</h1>
+    
+
+  </div>
+
+        <hr class="cert-line" width="10%"/>
+        </div>
+      </div>
+    </aside>
+    <aside class="container-fluid cert-title-mobile visible-xs">
+      <div class="container">
+        <div class="banner-title">
+        <div class="region region-banner">
+                  <h1 class="page-header">Current Activity</h1>
+    
+
+  </div>
+
+        </div>
+      </div>
+    </aside>
+  
+
+
+
+
+
+
+
+  <div role="main" class="main-container container js-quickedit-main-content">
+    <div class="row">
+
+                              <div class="col-sm-12" role="heading" aria-level="1">
+              <div class="region region-header">
+      <div class="container-fluid hidden-xs">
+  <ol class="breadcrumb">
+          <li >
+                  <a href="/ncas">National Cyber Awareness System</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
+              </li>
+          <li  class="active">
+                  Current Activity
+              </li>
+      </ol>
+</div>
+
+
+
+  </div>
+
+          </div>
+              
+
+            
+            
+                        
+
+            
+                  <section class="col-sm-9">
+
+                              <div class="highlighted">  <div class="region region-highlighted">
+    <div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+</div>
+              
+                                      
+                  
+                          <a id="main-content"></a>
+            <div class="region region-content">
+      <div class="cert-content">
+<article role="article" about="/ncas/current-activity" class="site-page full clearfix">
+
+  
+    
+
+  
+  <div class="content">
+    
+  </div>
+
+</article>
+</div>
+
+<section class="views-element-container block block-views block-views-blockus-cert-current-activity-block-4 clearfix" id="block-views-block-us-cert-current-activity-block-4">
+  
+    
+
+      <div class="form-group"><div class="current-activity-landing-page-block view view-us-cert-current-activity view-id-us_cert_current_activity view-display-id-block_4 js-view-dom-id-23660e1e46a5adc5e207e9291449dea75d8552cfb58e92f0591f7b0a6b792ab7">
+  
+    
+      <div class="view-header">
+      <div id="current-activity-header">
+<h2 class="hidden-lg hidden-md hidden-sm title-color">Current Activity</h2>
+<div class="rss">
+<a href="/ncas/current-activity.xml"></a>
+</div>
+</div>
+<p class="page-description">The US-CERT Current Activity web page is a regularly updated summary of the most frequent, high-impact types of security incidents currently being reported to the US-CERT.</p>
+<div id="chronological-listing">
+            <div class="rss"><a href="/ncas/current-activity.xml"><img src="/profiles/uscertd8_gov/themes/custom/cert/images/common/rss-icon.png" alt="RSS feed for current activities" /></a></div>
+ </div>
+    </div>
+      
+      <div class="view-content">
+          <div class="views-row"><h3 class="entry-title"><span><a href="/ncas/current-activity/2010/10/21/Apple-Releases-Java-Mac-OS-X-105-Update-8-and-Java-Mac-OS-X-106" hreflang="en">Apple Releases Java for Mac OS X 10.5 Update 8 and Java for Mac OS X 10.6 Update 3</a></span></h3><div class="entry-date"><span>Published: </span><span>Thursday, October 21, 2010</span></div><div class="views-field views-field-body"><div class="field-content"><p>   Apple has released Java for Mac OS X 10.5 update 8 and Java for Mac OS X 10.6 update 3 to address multiple vulnerabilities affecting the Java package. Exploitation of these vulnerabilities may allow an attacker to execute arbitrary code or cause a denial-of-service condition.<br /><br />
+US-CERT encourages users and administrators to review Apple articles <a href="http://support.apple.com/kb/HT4417" target="_self">HT4417</a> and <a href="http://support.apple.com/kb/HT4418" target="_self">HT4418</a> and apply any necessary updates to help mitigate the risks.<br /></p>
+
+</div></div><div class="views-field views-field-view-node read-more"><span class="field-content"><a href="/ncas/current-activity/2010/10/21/Apple-Releases-Java-Mac-OS-X-105-Update-8-and-Java-Mac-OS-X-106" title="Apple Releases Java for Mac OS X 10.5 Update 8 and Java for Mac OS X 10.6 Update 3" hreflang="en">Read Full Entry »</a></span></div></div>
+    <div class="views-row"><h3 class="entry-title"><span><a href="/ncas/current-activity/2010/10/20/Google-Releases-Chrome-7051741" hreflang="en">Google Releases Chrome 7.0.517.41</a></span></h3><div class="entry-date"><span>Published: </span><span>Wednesday, October 20, 2010</span></div><div class="views-field views-field-body"><div class="field-content"><p>   Google has released Chrome 7.0.517.41 for Linux, Mac, and Windows to address multiple vulnerabilities. These vulnerabilities may allow an attacker to execute arbitrary code, cause a denial-of-service condition, conduct URL spoofing, or bypass security restrictions.<br /><br />
+US-CERT encourages users and administrators to review the Google Chrome Releases <a href="http://googlechromereleases.blogspot.com/2010/10/stable-channel-update.html" target="_self">blog entry</a> and apply any necessary updates to help mitigate the risks.<br /></p>
+
+</div></div><div class="views-field views-field-view-node read-more"><span class="field-content"><a href="/ncas/current-activity/2010/10/20/Google-Releases-Chrome-7051741" title="Google Releases Chrome 7.0.517.41" hreflang="en">Read Full Entry »</a></span></div></div>
+    <div class="views-row"><h3 class="entry-title"><span><a href="/ncas/current-activity/2010/10/20/Mozilla-Releases-Firefox-3611" hreflang="en">Mozilla Releases Firefox 3.6.11</a></span></h3><div class="entry-date"><span>Published: </span><span>Wednesday, October 20, 2010</span></div><div class="views-field views-field-body"><div class="field-content"><p>     The Mozilla Foundation has released Firefox 3.6.11 to address multiple vulnerabilities. These vulnerabilities may allow an attacker to execute arbitrary code, obtain sensitive information, or cause a denial-of-service condition. The Mozilla Foundation has also released Firefox 3.5.14 to address these same vulnerabilities. Some of these vulnerabilities also affect Thunderbird and SeaMonkey and are addressed in Thunderbird 3.1.5 and 3.0.9 and SeaMonkey 2.0.9.<br /></p></div></div><div class="views-field views-field-view-node read-more"><span class="field-content"><a href="/ncas/current-activity/2010/10/20/Mozilla-Releases-Firefox-3611" title="Mozilla Releases Firefox 3.6.11" hreflang="en">Read Full Entry »</a></span></div></div>
+    <div class="views-row"><h3 class="entry-title"><span><a href="/ncas/current-activity/2010/10/18/RealNetworks-Releases-Security-Update-RealPlayer-Vulnerabilities" hreflang="en">RealNetworks Releases Security Update for RealPlayer Vulnerabilities</a></span></h3><div class="entry-date"><span>Published: </span><span>Monday, October 18, 2010</span></div><div class="views-field views-field-body"><div class="field-content"><p>   RealNetworks has issued a Security Update to address multiple vulnerabilities affecting RealPlayer. Exploitation of these vulnerabilities may allow an attacker to execute arbitrary code.<br /><br />
+US-CERT encourages users and administrators to review the RealNetworks <a href="http://service.real.com/realplayer/security/10152010_player/en/" target="_self">security advisory</a> and apply any necessary updates to help mitigate the risks.<br /></p>
+
+</div></div><div class="views-field views-field-view-node read-more"><span class="field-content"><a href="/ncas/current-activity/2010/10/18/RealNetworks-Releases-Security-Update-RealPlayer-Vulnerabilities" title="RealNetworks Releases Security Update for RealPlayer Vulnerabilities" hreflang="en">Read Full Entry »</a></span></div></div>
+    <div class="views-row"><h3 class="entry-title"><span><a href="/ncas/current-activity/2010/10/14/RIM-Releases-Security-Advisory-BlackBerry-Enterprise-Server" hreflang="en">RIM Releases Security Advisory for BlackBerry Enterprise Server</a></span></h3><div class="entry-date"><span>Published: </span><span>Thursday, October 14, 2010</span></div><div class="views-field views-field-body"><div class="field-content"><p>  RIM has released a security advisory to address a vulnerability in the PDF distiller of the BlackBerry attachment service for the BlackBerry Enterprise Server. This vulnerability may allow an attacker to execute arbitrary code or cause a denial-of-service condition.<br /><br />
+US-CERT encourages users and administrators to review BlackBerry security advisory <a href="http://www.blackberry.com/btsc/search.do?cmd=displayKC&amp;docType=kc&amp;externalId=KB24547" target="_self">KB24547</a> and apply any necessary updates to help mitigate the risks.<br /></p>
+
+</div></div><div class="views-field views-field-view-node read-more"><span class="field-content"><a href="/ncas/current-activity/2010/10/14/RIM-Releases-Security-Advisory-BlackBerry-Enterprise-Server" title="RIM Releases Security Advisory for BlackBerry Enterprise Server" hreflang="en">Read Full Entry »</a></span></div></div>
+    <div class="views-row"><h3 class="entry-title"><span><a href="/ncas/current-activity/2010/10/13/Oracle-Releases-Critical-Patch-October-2010" hreflang="en">Oracle Releases Critical Patch for October 2010</a></span></h3><div class="entry-date"><span>Published: </span><span>Wednesday, October 13, 2010</span></div><div class="views-field views-field-body"><div class="field-content"><p>     Oracle has released its <a href="http://www.oracle.com/technetwork/topics/security/cpuoct2010-175626.html" target="_self">Critical Patch Update</a> for October 2010 to address 85 vulnerabilities across multiple products. This update contains the following security fixes:</p></div></div><div class="views-field views-field-view-node read-more"><span class="field-content"><a href="/ncas/current-activity/2010/10/13/Oracle-Releases-Critical-Patch-October-2010" title="Oracle Releases Critical Patch for October 2010" hreflang="en">Read Full Entry »</a></span></div></div>
+
+    </div>
+  
+        <nav class="pager-nav text-center" role="navigation" aria-labelledby="pagination-heading">
+    <h4 id="pagination-heading" class="visually-hidden">Pagination</h4>
+    <ul class="pagination js-pager__items">
+
+                    <li class="pager__item pager__item--first">
+          <a href="?page=0" title="Go to first page" rel="first">
+            <span class="visually-hidden">First page</span>
+            <span aria-hidden="true">« First</span>
+          </a>
+        </li>
+      
+                    <li class="pager__item pager__item--previous">
+          <a href="?page=383" title="Go to previous page" rel="prev">
+            <span class="visually-hidden">Previous page</span>
+            <span aria-hidden="true">‹ Previous</span>
+          </a>
+        </li>
+      
+                    <li class="pager__item">
+                                          <a href="?page=380" title="Go to page 381">
+            <span class="visually-hidden">
+              Page
+            </span>381</a>
+        </li>
+              <li class="pager__item">
+                                          <a href="?page=381" title="Go to page 382">
+            <span class="visually-hidden">
+              Page
+            </span>382</a>
+        </li>
+              <li class="pager__item">
+                                          <a href="?page=382" title="Go to page 383">
+            <span class="visually-hidden">
+              Page
+            </span>383</a>
+        </li>
+              <li class="pager__item">
+                                          <a href="?page=383" title="Go to page 384">
+            <span class="visually-hidden">
+              Page
+            </span>384</a>
+        </li>
+              <li class="pager__item is-active active">
+                                          <a href="?page=384" title="Current page">
+            <span class="visually-hidden">
+              Current page
+            </span>385</a>
+        </li>
+              <li class="pager__item">
+                                          <a href="?page=385" title="Go to page 386">
+            <span class="visually-hidden">
+              Page
+            </span>386</a>
+        </li>
+              <li class="pager__item">
+                                          <a href="?page=386" title="Go to page 387">
+            <span class="visually-hidden">
+              Page
+            </span>387</a>
+        </li>
+              <li class="pager__item">
+                                          <a href="?page=387" title="Go to page 388">
+            <span class="visually-hidden">
+              Page
+            </span>388</a>
+        </li>
+              <li class="pager__item">
+                                          <a href="?page=388" title="Go to page 389">
+            <span class="visually-hidden">
+              Page
+            </span>389</a>
+        </li>
+      
+                    <li class="pager__item pager__item--next">
+          <a href="?page=385" title="Go to next page" rel="next">
+            <span class="visually-hidden">Next page</span>
+            <span aria-hidden="true">Next ›</span>
+          </a>
+        </li>
+      
+                  <li class="pager__item pager__item--last">
+        <a href="?page=409" title="Go to last page" rel="last">
+          <span class="visually-hidden">Last page</span>
+          <span aria-hidden="true">Last »</span>
+        </a>
+      </li>
+      
+    </ul>
+  </nav>
+
+          </div>
+</div>
+
+  </section>
+
+
+  </div>
+
+              </section>
+
+
+                                    <aside class="col-sm-3 bumper-sidebar" role="complementary">
+              <div class="region region-sidebar-second">
+    <section class="views-element-container block block-views block-views-blockus-cert-alerts-block-3 clearfix" id="block-views-block-us-cert-alerts-block-3-2">
+  
+      <h2 class="block-title">Latest Alerts</h2>
+    
+
+      <div class="form-group"><div class="sidebar-widget sidebar-widget-red recent-alerts-current-activity-page view view-us-cert-alerts view-id-us_cert_alerts view-display-id-block_3 js-view-dom-id-f3078753b7cd5fe31b6f9e30307cea00dc5e65db0a10d129f317069d28e80fbc">
+  
+    
+      
+      <div class="view-content">
+      <div class="item-list">
+  
+  <ul>
+
+          <li><div class="alert-title"><span><a href="/ncas/alerts/aa21-148a" hreflang="en">Sophisticated Spearphishing Campaign Targets Government Organizations, IGOs, and NGOs</a></span></div><span class="published"><span>Friday, May 28, 2021</span></span></li>
+          <li><div class="alert-title"><span><a href="/ncas/alerts/aa21-131a" hreflang="en">DarkSide Ransomware: Best Practices for Preventing Business Disruption from Ransomware Attacks</a></span></div><span class="published"><span>Tuesday, May 11, 2021</span></span></li>
+          <li><div class="alert-title"><span><a href="/ncas/alerts/aa21-116a" hreflang="en">Russian Foreign Intelligence Service (SVR) Cyber Operations: Trends and Best Practices for Network Defenders</a></span></div><span class="published"><span>Monday, April 26, 2021</span></span></li>
+    
+  </ul>
+
+</div>
+
+    </div>
+  
+            <div class="view-footer">
+      <div class="sidebar-widget-footer-more">
+<a href="/ncas/alerts/">More Alerts »</a>
+</div>
+    </div>
+    </div>
+</div>
+
+  </section>
+
+<section class="views-element-container block block-views block-views-blockus-cert-recent-vulnerability-notes-block-3 clearfix" id="block-views-block-us-cert-recent-vulnerability-notes-block-3">
+  
+    
+
+      <div class="form-group"><div class="sidebar-widget sidebar-widget-orange recent-vulnerabilities-homepage view view-us-cert-recent-vulnerability-notes view-id-us_cert_recent_vulnerability_notes view-display-id-block_3 js-view-dom-id-a6212be29aab2ef3e717819b928ea052743988f3e8a7ddad6bf3a423d00b85f9">
+  
+    
+      <div class="view-header">
+      <div id="recent-vulnerabilities"><h3><a href="https://www.kb.cert.org/vuls/">Recent Vulnerabilities</a></h3></div>
+    </div>
+      
+      <div class="view-content">
+      <div class="item-list">
+  
+  <ul>
+
+          <li><div class="vul-title"><span><a href="https://kb.cert.org/vuls/id/799380">VU#799380: Devices supporting Bluetooth Core and Mesh Specifications are vulnerable to impersonation attacks and AuthValue disclosure</a></span></div><span class="published"><span>Thursday, June 3, 2021 at 9:37 AM</span></span></li>
+          <li><div class="vul-title"><span><a href="https://kb.cert.org/vuls/id/434904">VU#434904: Dnsmasq is vulnerable to memory corruption and cache poisoning</a></span></div><span class="published"><span>Wednesday, June 2, 2021 at 11:10 AM</span></span></li>
+          <li><div class="vul-title"><span><a href="https://kb.cert.org/vuls/id/667933">VU#667933: Pulse Connect Secure Samba buffer overflow</a></span></div><span class="published"><span>Wednesday, May 26, 2021 at 1:48 PM</span></span></li>
+          <li><div class="vul-title"><span><a href="https://kb.cert.org/vuls/id/706695">VU#706695: Checkbox Survey insecurely deserializes ASP.NET View State data</a></span></div><span class="published"><span>Tuesday, May 25, 2021 at 4:29 PM</span></span></li>
+          <li><div class="vul-title"><span><a href="https://kb.cert.org/vuls/id/213092">VU#213092: Pulse Connect Secure contains a use-after-free vulnerability</a></span></div><span class="published"><span>Wednesday, May 19, 2021 at 9:47 AM</span></span></li>
+    
+  </ul>
+
+</div>
+
+    </div>
+  
+            <div class="view-footer">
+      <div class="sidebar-widget-footer-more"><a href="http://www.kb.cert.org/vuls/">More Vulnerability Notes »</a></div>
+    </div>
+    </div>
+</div>
+
+  </section>
+
+
+  </div>
+
+          </aside>
+                  </div>
+  </div>
+
+
+
+      <aside class="container-fluid">
+        <div class="region region-fluid-content">
+    <section id="block-certprivacyandtermsofuseblock-2" class="block block-block-content block-block-content9deafffe-305c-4079-8202-18d50964196b clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><p class="privacy-and-terms">This product is provided subject to this <a href="/privacy/notification">Notification</a> and this <a href="https://www.dhs.gov/privacy-policy">Privacy &amp; Use</a> policy.</p>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  
+
+
+      <footer class="footer container-fluid" role="contentinfo">
+        <div class="region region-footer">
+    <section id="block-certsignup" class="block block-block-content block-block-contentc5846d10-2e2b-4822-aa59-7a5c3262f671 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container-fluid signup">
+<div class="container">
+<div class="row">
+<div class="col-lg-3 contact-icons">
+<h3>Contact Us</h3>
+
+<p class="phone-text"><img alt="phone icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Phone.png" />(888)282-0870</p>
+
+<p><img alt="email icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Email.png" /><a class="mailto" href="mailto:central@cisa.dhs.gov" title="General questions or suggestions">Send us email</a></p>
+
+<p><img alt="lock icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Lock.png" /><a href="/contact-us/" title="Download PGP/GPG keys">Download PGP/GPG keys</a></p>
+
+<p><img alt="feedback icon" data-entity-type="" data-entity-uuid="" height="32" src="/sites/default/files/images/icon-feedback.png" /><a href="/forms/website-feedback" title="Website Feedback">Submit website feedback</a></p>
+</div>
+
+<div class="col-lg-6 sub-alert">
+<h3>Subscribe to Alerts</h3>
+
+<p>Receive security alerts, tips, and other updates.</p>
+
+<form action="https://public.govdelivery.com/accounts/USDHSCISA/subscribers/qualify"><label class="visually-hidden" for="email-address-field">Enter your email address</label> <input class="signup-form" id="email-address-field" name="email" placeholder=" Enter your email address" title="Enter your email address" type="text" /><br /><input class="btn btn-primary" name="submit" title="Sign up for alerts" type="submit" value="Sign Up" /> </form>
+
+<div class="pull-right signup-icon-one"><a href="https://twitter.com/uscert_gov" title="US-CERT Twitter Feed"><img alt="twitter icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/twitter-button.png" /></a></div>
+
+<div class="pull-right signup-icon-two"><a href="/mailing-lists-and-feeds" title="Mailing Lists and Feeds"><img alt="rss icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/rss-button-bottom.png" /></a></div>
+
+<div class="pull-right signup-icon-three"><a href="/hsin" class="btn btn-cert-report" name="button" type="button" id="button">HSIN</a></div>
+</div>
+
+<div class="col-lg-3 cert-report"><a class="btn btn-cert-report btn-lg" href="/report" name="button" type="button" id="button">Report</a></div>
+</div>
+</div>
+</div>
+</div>
+      
+  </section>
+
+<section id="block-certcertfooter" class="block block-block-content block-block-contentd5b85bd2-62d1-485a-b9ae-f040b1ca1a45 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container">
+<hr /><div class="text-center"><a href="/" title="Home">Home</a>   <a href="/sitemap" title="Site Map">Site Map</a>   <a href="/faq/" title="Frequently Asked Questions">FAQ</a>   <a href="/contact-us/" title="Contact Us">Contact Us</a>   <a href="/tlp/" title="Traffic Light Protocol">Traffic Light Protocol</a>   <a href="/pcii" title="PCII">PCII</a>   <a href="https://www.dhs.gov" title="Accountability">Accountability</a>   <a href="/disclaimer" title="Disclaimer">Disclaimer</a>   <a href="/privacy-policy" title="Privacy Policy">Privacy Policy</a>   <a href="https://www.dhs.gov/freedom-information-act-foia" title="FOIA">FOIA</a>   <a href="https://www.dhs.gov/homeland-security-no-fear-act-reporting" title="No Fear Act">No Fear Act</a>   <a href="/accessibility/" title="Accessibility">Accessibility</a><a href="https://www.dhs.gov/plain-writing-dhs" title="Plain Writing">Plain Writing</a><a href="https://www.dhs.gov/plug-information" title="Plug-ins">Plug-ins</a>   <a href="https://www.oig.dhs.gov/" title="Office of the Inspector General">Inspector General</a>   <a href="https://www.whitehouse.gov/" title="The White House">The White House</a>   <a href="https://www.usa.gov/" title="USA.gov">USA.gov</a><br />
+ 
+<p>CISA is part of the <a href="https://www.dhs.gov/" title="Department of Homeland Security">Department of Homeland Security</a></p>
+</div>
+<script type="text/javascript">
+<!--//--><![CDATA[// ><!--
+
+    window.onload = function(){
+            jQuery('body.page-node-type-us-cert-events div#ncas-header').find('img').each(function(){
+                    var $src=jQuery(this).prop('src');
+                    if($src.indexOf('default/files/') == -1)jQuery(this).remove();
+                    });
+            if('Privacy Data Breach' == jQuery('#uscert-utilities-irf-form #item-info-impact option:selected').text()){ 
+                jQuery('#item-info-impact-block').removeClass('collapsed'); 
+            }
+jQuery('#print-logo img').removeAttr('width').removeAttr('height');
+if(jQuery('body.path-frontpage').length > 0)
+{   
+    jQuery('.main-container').find('.col-sm-12').removeAttr('role');
+}
+jQuery('#map area').each(function(){ jQuery(this).click(function(){var idstr=jQuery(this).attr('clickthis'); if(jQuery(idstr).hasClass('open') == false){jQuery(idstr).click();}});});  
+if(jQuery('#document-feedback').length > 0)
+{ 
+    var $url    = window.location.href
+    //var str ='Your feedback is very important to us. Please take a moment to complete this <a href="https://surveymonkey.com/r/G8STDRY?product=' + $url + '">survey.';
+    //var $p = jQuery('#document-feedback div p').html(str);
+}
+    };
+
+//--><!]]>
+</script></div>
+<style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+#views-bootstrap-carousel-block-2 .carousel-inner > .item > a > img {
+  margin:auto;
+}
+button#product-feedback-next {
+    margin-bottom: 10px;
+}
+/*
+.mobile-nav {
+border-bottom: 3px solid #112e51;
+}
+*/
+.cma-banner-container {
+    display: none;
+}
+@media (max-width: 991px) {
+.navbar .navbar-header {
+background: #fff;
+}
+}
+div.banner-region { background: #fff; }
+
+.accordion_fold {
+    padding-bottom: 25px;
+}
+
+h2.accordion.open {
+    background: #f2f2f2;
+}
+
+a { color: #2b72af;}
+
+.navbar-default .navbar-nav > li > a { color: #767676; }
+/* andi */
+.sidebar-widget-orange .orange {
+    background-color: #e77431;
+}
+#block-views-block-ics-announcements-block-1 .views-field-created {
+    color: #565656;
+}
+a#sort-bulletin {
+color: #000;
+background: white;
+position: absolute;
+right: 150px;
+padding: 1px 12px;
+}
+
+/*--><!]]>*/
+</style></div>
+      
+  </section>
+
+
+  </div>
+
+    </footer>
+  
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","scriptPath":null,"pathPrefix":"","currentPath":"node\/14620","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en","currentQuery":{"page":"384"}},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"UA-34879253-1","trackOutbound":true,"trackMailto":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"data":{"extlink":{"extTarget":false,"extTargetNoOverride":false,"extNofollow":false,"extNoreferrer":false,"extFollowNoOverride":false,"extClass":"ext","extLabel":"(link is external)","extImgClass":false,"extSubdomains":true,"extExclude":"(\\.gov|\\.mil|\\.org.*|twitter\\.com\\\/share\\?url\\=.*|www\\.facebook\\.com\\\/sharer\\.php\\?u\\=.*|www\\.addthis\\.com\\\/bookmark\\.php\\?url\\=.*|javascript\\:window\\.print\\(\\)\\;)","extInclude":"","extCssExclude":"","extCssExplicit":"","extAlert":true,"extAlertText":"You are now leaving an official website of the United States Government (USG), the Department of Homeland Security (DHS), and the Cybersecurity and Infrastructure Security Agency (CISA). Links to non-USG, non-DHS, and non-CISA sites are provided for the visitor\u0027s convenience and do not represent an endorsement by USG, DHS, or CISA of any commercial or private issues, products, or services. Note that the privacy policy of the linked site may differ from that of USG, DHS, and CISA.","mailtoClass":"mailto","mailtoLabel":"(link sends email)","extUseFontAwesome":false,"extIconPlacement":"append","extFaLinkClasses":"fa fa-external-link","extFaMailtoClasses":"fa fa-envelope-o","whitelistedDomains":null}},"bootstrap":{"forms_has_error_value_toggle":1,"popover_enabled":1,"popover_animation":1,"popover_auto_close":1,"popover_container":"body","popover_content":"","popover_delay":"0","popover_html":0,"popover_placement":"right","popover_selector":"","popover_title":"","popover_trigger":"click","tooltip_enabled":1,"tooltip_animation":1,"tooltip_container":"body","tooltip_delay":"0","tooltip_html":0,"tooltip_placement":"auto left","tooltip_selector":"","tooltip_trigger":"hover"},"user":{"uid":0,"permissionsHash":"5ac3ae468050ddd0aa4ecea12c34a32977a23244239ed53eb7226f296aed658f"}}</script>
+<script src="/sites/default/files/js/js_xhqBHziEDyCKWlB5IUseaFAGh1B08TPFGmxCf6RvFnM.js"></script>
+<script src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DHS&amp;subagency=US-CERT&amp;pua=0" id="_fed_an_ua_tag"></script>
+<script src="/sites/default/files/js/js_m5CHELy9XHlAx2jnhaYdT2XVeN916TnZL5U2ha7Ln94.js"></script>
+
+  <script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"877b02039c","applicationID":"628657512,979282327","transactionName":"ZFYHMhZSXUpRUkcKDF0cJAUQWlxXH3VBFhNSXzkIC1dWZXNeXRcRXF8JAxZvfVZUVGUKBkRwCggQQVxVXFRBTl1FWgAR","queueTime":0,"applicationTime":628,"atts":"SBEERF5ITkQ=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

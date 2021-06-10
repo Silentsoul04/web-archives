@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html  lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+    <meta charset="utf-8" /><script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={licenseKey:"877b02039c",applicationID:"628657512"};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var i=e[n]={exports:{}};t[n][0].call(i.exports,function(e){var i=t[n][1][e];return r(i||e)},i,i.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var i=0;i<n.length;i++)r(n[i]);return r}({1:[function(t,e,n){function r(){}function i(t,e,n){return function(){return o(t,[u.now()].concat(f(arguments)),e?null:this,n),e?void 0:this}}var o=t("handle"),a=t(8),f=t(9),c=t("ee").get("tracer"),u=t("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var d=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],p="api-",l=p+"ixn-";a(d,function(t,e){s[e]=i(p+e,!0,"api")}),s.addPageAction=i(p+"addPageAction",!0),s.setCurrentRouteName=i(p+"routeName",!0),e.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(t,e){var n={},r=this,i="function"==typeof e;return o(l+"tracer",[u.now(),t,n],r),function(){if(c.emit((i?"":"no-")+"fn-start",[u.now(),r,i],n),i)try{return e.apply(this,arguments)}catch(t){throw c.emit("fn-err",[arguments,this,t],n),t}finally{c.emit("fn-end",[u.now()],n)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(t,e){m[e]=i(l+e)}),newrelic.noticeError=function(t,e){"string"==typeof t&&(t=new Error(t)),o("err",[t,u.now(),!1,e])}},{}],2:[function(t,e,n){function r(t){if(NREUM.init){for(var e=NREUM.init,n=t.split("."),r=0;r<n.length-1;r++)if(e=e[n[r]],"object"!=typeof e)return;return e=e[n[n.length-1]]}}e.exports={getConfiguration:r}},{}],3:[function(t,e,n){function r(){return f.exists&&performance.now?Math.round(performance.now()):(o=Math.max((new Date).getTime(),o))-a}function i(){return o}var o=(new Date).getTime(),a=o,f=t(10);e.exports=r,e.exports.offset=a,e.exports.getLastTimestamp=i},{}],4:[function(t,e,n){function r(t){return!(!t||!t.protocol||"file:"===t.protocol)}e.exports=r},{}],5:[function(t,e,n){function r(t,e){var n=t.getEntries();n.forEach(function(t){"first-paint"===t.name?d("timing",["fp",Math.floor(t.startTime)]):"first-contentful-paint"===t.name&&d("timing",["fcp",Math.floor(t.startTime)])})}function i(t,e){var n=t.getEntries();n.length>0&&d("lcp",[n[n.length-1]])}function o(t){t.getEntries().forEach(function(t){t.hadRecentInput||d("cls",[t])})}function a(t){if(t instanceof m&&!g){var e=Math.round(t.timeStamp),n={type:t.type};e<=p.now()?n.fid=p.now()-e:e>p.offset&&e<=Date.now()?(e-=p.offset,n.fid=p.now()-e):e=p.now(),g=!0,d("timing",["fi",e,n])}}function f(t){d("pageHide",[p.now(),t])}if(!("init"in NREUM&&"page_view_timing"in NREUM.init&&"enabled"in NREUM.init.page_view_timing&&NREUM.init.page_view_timing.enabled===!1)){var c,u,s,d=t("handle"),p=t("loader"),l=t(7),m=NREUM.o.EV;if("PerformanceObserver"in window&&"function"==typeof window.PerformanceObserver){c=new PerformanceObserver(r);try{c.observe({entryTypes:["paint"]})}catch(v){}u=new PerformanceObserver(i);try{u.observe({entryTypes:["largest-contentful-paint"]})}catch(v){}s=new PerformanceObserver(o);try{s.observe({type:"layout-shift",buffered:!0})}catch(v){}}if("addEventListener"in document){var g=!1,h=["click","keydown","mousedown","pointerdown","touchstart"];h.forEach(function(t){document.addEventListener(t,a,!1)})}l(f)}},{}],6:[function(t,e,n){function r(t,e){if(!i)return!1;if(t!==i)return!1;if(!e)return!0;if(!o)return!1;for(var n=o.split("."),r=e.split("."),a=0;a<r.length;a++)if(r[a]!==n[a])return!1;return!0}var i=null,o=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var f=navigator.userAgent,c=f.match(a);c&&f.indexOf("Chrome")===-1&&f.indexOf("Chromium")===-1&&(i="Safari",o=c[1])}e.exports={agent:i,version:o,match:r}},{}],7:[function(t,e,n){function r(t){function e(){t(a&&document[a]?document[a]:document[i]?"hidden":"visible")}"addEventListener"in document&&o&&document.addEventListener(o,e,!1)}e.exports=r;var i,o,a;"undefined"!=typeof document.hidden?(i="hidden",o="visibilitychange",a="visibilityState"):"undefined"!=typeof document.msHidden?(i="msHidden",o="msvisibilitychange"):"undefined"!=typeof document.webkitHidden&&(i="webkitHidden",o="webkitvisibilitychange",a="webkitVisibilityState")},{}],8:[function(t,e,n){function r(t,e){var n=[],r="",o=0;for(r in t)i.call(t,r)&&(n[o]=e(r,t[r]),o+=1);return n}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],9:[function(t,e,n){function r(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,i=n-e||0,o=Array(i<0?0:i);++r<i;)o[r]=t[e+r];return o}e.exports=r},{}],10:[function(t,e,n){e.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(t,e,n){function r(){}function i(t){function e(t){return t&&t instanceof r?t:t?u(t,c,a):a()}function n(n,r,i,o,a){if(a!==!1&&(a=!0),!l.aborted||o){t&&a&&t(n,r,i);for(var f=e(i),c=v(n),u=c.length,s=0;s<u;s++)c[s].apply(f,r);var p=d[w[n]];return p&&p.push([b,n,r,f]),f}}function o(t,e){y[t]=v(t).concat(e)}function m(t,e){var n=y[t];if(n)for(var r=0;r<n.length;r++)n[r]===e&&n.splice(r,1)}function v(t){return y[t]||[]}function g(t){return p[t]=p[t]||i(n)}function h(t,e){l.aborted||s(t,function(t,n){e=e||"feature",w[n]=e,e in d||(d[e]=[])})}var y={},w={},b={on:o,addEventListener:o,removeEventListener:m,emit:n,get:g,listeners:v,context:e,buffer:h,abort:f,aborted:!1};return b}function o(t){return u(t,c,a)}function a(){return new r}function f(){(d.api||d.feature)&&(l.aborted=!0,d=l.backlog={})}var c="nr@context",u=t("gos"),s=t(8),d={},p={},l=e.exports=i();e.exports.getOrSetContext=o,l.backlog=d},{}],gos:[function(t,e,n){function r(t,e,n){if(i.call(t,e))return t[e];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:r,writable:!0,enumerable:!1}),r}catch(o){}return t[e]=r,r}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],handle:[function(t,e,n){function r(t,e,n,r){i.buffer([t],r),i.emit(t,e,n)}var i=t("ee").get("handle");e.exports=r,r.ee=i},{}],id:[function(t,e,n){function r(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:a(t,o,function(){return i++})}var i=1,o="nr@id",a=t("gos");e.exports=r},{}],loader:[function(t,e,n){function r(){if(!R++){var t=M.info=NREUM.info,e=v.getElementsByTagName("script")[0];if(setTimeout(u.abort,3e4),!(t&&t.licenseKey&&t.applicationID&&e))return u.abort();c(E,function(e,n){t[e]||(t[e]=n)});var n=a();f("mark",["onload",n+M.offset],null,"api"),f("timing",["load",n]);var r=v.createElement("script");0===t.agent.indexOf("http://")||0===t.agent.indexOf("https://")?r.src=t.agent:r.src=l+"://"+t.agent,e.parentNode.insertBefore(r,e)}}function i(){"complete"===v.readyState&&o()}function o(){f("mark",["domContent",a()+M.offset],null,"api")}var a=t(3),f=t("handle"),c=t(8),u=t("ee"),s=t(6),d=t(4),p=t(2),l=p.getConfiguration("ssl")===!1?"http":"https",m=window,v=m.document,g="addEventListener",h="attachEvent",y=m.XMLHttpRequest,w=y&&y.prototype,b=!d(m.location);NREUM.o={ST:setTimeout,SI:m.setImmediate,CT:clearTimeout,XHR:y,REQ:m.Request,EV:m.Event,PR:m.Promise,MO:m.MutationObserver};var x=""+location,E={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1209.min.js"},O=y&&w&&w[g]&&!/CriOS/.test(navigator.userAgent),M=e.exports={offset:a.getLastTimestamp(),now:a,origin:x,features:{},xhrWrappable:O,userAgent:s,disabled:b};if(!b){t(1),t(5),v[g]?(v[g]("DOMContentLoaded",o,!1),m[g]("load",r,!1)):(v[h]("onreadystatechange",i),m[h]("onload",r)),f("mark",["firstbyte",a.getLastTimestamp()],null,"api");var R=0}},{}],"wrap-function":[function(t,e,n){function r(t,e){function n(e,n,r,c,u){function nrWrapper(){var o,a,s,p;try{a=this,o=d(arguments),s="function"==typeof r?r(o,a):r||{}}catch(l){i([l,"",[o,a,c],s],t)}f(n+"start",[o,a,c],s,u);try{return p=e.apply(a,o)}catch(m){throw f(n+"err",[o,a,m],s,u),m}finally{f(n+"end",[o,a,p],s,u)}}return a(e)?e:(n||(n=""),nrWrapper[p]=e,o(e,nrWrapper,t),nrWrapper)}function r(t,e,r,i,o){r||(r="");var f,c,u,s="-"===r.charAt(0);for(u=0;u<e.length;u++)c=e[u],f=t[c],a(f)||(t[c]=n(f,s?c+r:r,i,c,o))}function f(n,r,o,a){if(!m||e){var f=m;m=!0;try{t.emit(n,r,o,e,a)}catch(c){i([c,n,r,o],t)}m=f}}return t||(t=s),n.inPlace=r,n.flag=p,n}function i(t,e){e||(e=s);try{e.emit("internal-error",t)}catch(n){}}function o(t,e,n){if(Object.defineProperty&&Object.keys)try{var r=Object.keys(t);return r.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(o){i([o],n)}for(var a in t)l.call(t,a)&&(e[a]=t[a]);return e}function a(t){return!(t&&t instanceof Function&&t.apply&&!t[p])}function f(t,e){var n=e(t);return n[p]=t,o(t,n,s),n}function c(t,e,n){var r=t[e];t[e]=f(r,n)}function u(){for(var t=arguments.length,e=new Array(t),n=0;n<t;++n)e[n]=arguments[n];return e}var s=t("ee"),d=t(9),p="nr@original",l=Object.prototype.hasOwnProperty,m=!1;e.exports=r,e.exports.wrapFunction=f,e.exports.wrapInPlace=c,e.exports.argsToArray=u},{}]},{},["loader"]);</script>
+<script async src="/sites/default/files/google_analytics/gtag.js?qubv3z"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("config", "UA-34879253-1", {"groups":"default","anonymize_ip":true,"allow_ad_personalization_signals":false});</script>
+<meta name="description" content="Risk EvaluationNCCIC Cyber Incident Scoring System (NCISS) Rating Priority Level (Color) Yellow (Medium)A medium priority incident may affect public health or safety, national security, economic security, foreign relations, civil liberties, or public confidence." />
+<meta name="abstract" content="As part of its mission, CISA leads the effort to enhance the security, resiliency, and reliability of the Nation&#039;s cybersecurity and communications infrastructure." />
+<meta name="keywords" content="uscert, csirt, cert, cybersecurity, cyber security, computer security, U. S. Computer Emergency Readiness, cyber risks" />
+<meta name="Generator" content="Drupal 9 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/sites/default/files/images/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="https://us-cert.cisa.gov/ncas/alerts/TA17-117A" />
+<link rel="shortlink" href="https://us-cert.cisa.gov/node/8841" />
+<link rel="revision" href="https://us-cert.cisa.gov/ncas/alerts/TA17-117A" />
+
+    <title>Intrusions Affecting Multiple Victims Across Multiple Sectors | CISA</title>
+    <link rel="stylesheet" media="all" href="/sites/default/files/css/css_-w-jQbIWIO0ZERqyQMFp9m1ddgDjs5ZGsor0ebo5CG4.css" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_OtQ9QHAYVZDqM__uuCDStHUt38Nwh_1MHX1vxg5dE5c.css" />
+
+    
+    <!-- Google Font -->
+    <style type="text/css">
+/* source-sans-pro-regular - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'),
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.woff') format('woff'), /* Modern Browsers */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.svg#SourceSansPro') format('svg'); /* Legacy iOS */
+}
+    </style>
+    <!--link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet"--> 
+    <!-- Google Font -->
+  </head>
+  <body class="path-node page-node-type-alert has-glyphicons">
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+
+
+<div class="container-fluid top-top">
+      <aside role="complementary">
+        <div class="region region-top">
+    <section id="block-certtoptop" class="block block-block-content block-block-content4d95ffde-0818-4e6b-bd79-d1547b08c0c0 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container">
+<div id="top">
+<div class="row">
+<div class="col-sm-12 flag"><img alt="United States Flag" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/flag.png" style="position: absolute;" /><p style="padding-left: 35px; font-family: Arial; font-size: 11px;">An official website of the United States government <a href="#" id="here-is-how-u-know">Here's how you know <span class="arrow down"> </span></a></p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="usa-banner-content usa-grid usa-accordion-content hidden container" id="gov-banner">
+<div class="usa-banner-guidance-gov usa-width-one-half col-sm-6"><img alt="Dot gov" class="usa-banner-icon usa-media_block-img" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/icon-dot-gov.svg" /><div class="usa-media_block-body"><strong>Official websites use .gov</strong><br />
+A <b>.gov</b> website belongs to an official government organization in the United States.</div>
+</div>
+
+<div class="usa-banner-guidance-ssl usa-width-one-half col-sm-6"><img alt="SSL" class="usa-banner-icon usa-media_block-img" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/icon-https.svg" /><div class="usa-media_block-body"><strong>Secure .gov websites use HTTPS</strong> A <b>lock (<img alt="lock icon" src="/sites/default/files/icons/lock.svg" style="width:15px;" />)</b> or <b>https://</b> means you've safely connected to the .gov website. Share sensitive information only on official, secure websites.</div>
+</div>
+</div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </div>
+
+
+
+<div class="container-fluid hidden-xs hidden-sm banner-region">
+<div class="container">
+<div class="row">
+
+
+  
+
+<section class="col-sm-9">
+
+      <a id="logo-section"></a>
+        <div class="region region-logo">
+    <section id="block-certlogo" class="block block-block-content block-block-content4639a667-debe-4642-bc69-7839662c0187 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="hidden-xs hidden-sm"><a href="/"><img alt="Cybersecurity and Infrastructure Security Agency CISA" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/logo_verbose.png" title="Cybersecurity and Infrastructure Security Agency CISA" /></a></div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </section>
+
+
+
+      <aside class="col-sm-3" role="complementary">
+        <div class="region region-search">
+    <section id="block-certsearch" class="block block-block-content block-block-contentc33bd875-6ea6-42cc-b1ab-348a4e4bdff7 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><form accept-charset="UTF-8" action="https://search.us-cert.gov/search" class="hidden-xs searchbox" method="get"><input name="utf8" type="hidden" value="✓" /><input id="affiliate-desktop" name="affiliate" type="hidden" value="us-cert" /><div class="form-group"><label class="sr-only" for="query-desktop">Enter Search Terms(s):</label>
+<div class="input-group"><input autocomplete="off" class="form-control form-control-custom input-lg" id="query-desktop" name="query" placeholder="Search" type="text" /><div class="input-group-addon input-group-addon-custom"><button class="submit input-lg"><img alt="search icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/search-icon.png" title="search icon" /></button></div>
+</div>
+</div>
+</form>
+<style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+.navbar-default ul.navbar-nav > li.last a{
+display: none;
+
+/*--><!]]>*/
+</style><div style="padding: 16px 12px 8px 12px"><a class="btn btn-primary" href="/services" type="button" style="font-weight: bold; width: 40%">Services</a><a class="btn btn-primary pull-right" href="/report" type="button" style="font-weight: bold; width: 40%">Report</a></div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </div>
+</div>
+<hr class="hidden-xs nav-top-line">
+</div>
+
+
+
+          <header class="navbar navbar-default container-fluid" id="navbar" role="banner">
+        <div class="container ">
+      <div class="navbar-header">
+        
+                          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+            <div class="hidden-lg hidden-md mobile-nav">
+        <a class="" href="/">
+            <img src="/sites/default/files/cert/logo3.png"  alt="US Department of Homeland Security CISA Cyber + Infrastructure" title="US Department of Homeland Security CISA Cyber + Infrastructure">
+          </a>
+        </div>
+      </div>
+
+              <div id="navbar-collapse" class="navbar-collapse collapse">
+            <div class="region region-navigation-collapsible">
+    <section id="block-certsearchmobile" class="block block-block-content block-block-content0da6361c-e31a-4a58-b455-f9ebde1ba544 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><form accept-charset="UTF-8" action="https://search.us-cert.gov/search" class="hidden-lg hidden-md searchbox" method="get"><input name="utf8" type="hidden" value="✓" /><input id="affiliate-mobile" name="affiliate" type="hidden" value="us-cert" /><div class="form-group"><label class="sr-only" for="query-mobile">Enter Search Terms(s):</label>
+<div class="input-group"><input autocomplete="off" class="form-control form-control-custom input-lg" id="query-mobile" name="query" placeholder="Search" type="text" /><div class="input-group-addon input-group-addon-custom"><button class="submit input-lg"><img alt="search icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/search-icon.png" title="search icon" /></button></div>
+</div>
+</div>
+</form>
+<div class="hidden-md hidden-lg" style="padding: 8px"><a class="btn btn-primary btn-block" href="/services" role="button" style="font-weight: bold">Services</a></div>
+
+<div class="hidden-md hidden-lg" style="padding: 8px"><a class="btn btn-primary btn-block" href="/report" role="button" style="font-weight: bold">Report</a></div></div>
+      
+  </section>
+
+<nav role="navigation" aria-labelledby="block-certmainmenu-menu" id="block-certmainmenu">
+            
+  <h2 class="visually-hidden" id="block-certmainmenu-menu">CertMain Menu</h2>
+  
+
+        
+      <ul class="menu menu--certmain-menu nav navbar-nav">
+                      <li class="first">
+                                        <a href="/ncas" title="Alerts and Tips" data-drupal-link-system-path="node/5">Alerts and Tips</a>
+              </li>
+                      <li>
+                                        <a href="/resources" title="Resources" data-drupal-link-system-path="node/12436">Resources</a>
+              </li>
+                      <li>
+                                        <a href="/ics" title="Industrial Control Systems" data-drupal-link-system-path="node/14614">Industrial Control Systems</a>
+              </li>
+                      <li class="last">
+                                        <a href="/report" title="Report" data-drupal-link-system-path="node/5745">Report</a>
+              </li>
+        </ul>
+  
+
+  </nav>
+
+  </div>
+
+        </div>
+                </header>
+  <hr class="hidden-xs hidden-sm nav-bottom-line">
+<div class="visible-xs visible-sm mobile-border"></div>
+
+
+<div class="container">
+    <div id="print-logo"><img alt="US Department of Homeland Security CISA Cyber + Infrastructure" src="/sites/default/files/cert/logo2.png"/></div>
+    <div id="tlp-header"><svg height="30" width="120"> <rect fill="black" height="30" width="120" x="0" y="0"></rect> <text fill="#ffffff" font-size="18px" x="10" y="20">TLP:WHITE</text> </svg></div>
+    <div id="tlp-footer"><svg height="30" width="120"> <rect fill="black" height="30" width="120" x="0" y="0"></rect> <text fill="#ffffff" font-size="18px" x="10" y="20">TLP:WHITE</text> </svg></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  <div role="main" class="main-container container js-quickedit-main-content">
+    <div class="row">
+
+                              <div class="col-sm-12" role="heading" aria-level="1">
+              <div class="region region-header">
+      <div class="container-fluid hidden-xs">
+  <ol class="breadcrumb">
+          <li >
+                  <a href="/ncas">National Cyber Awareness System</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
+              </li>
+          <li >
+                  <a href="/ncas/alerts">Alerts</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
+              </li>
+          <li  class="active">
+                  Intrusions Affecting Multiple Victims Across Multiple Sectors
+              </li>
+      </ol>
+</div>
+
+
+
+  </div>
+
+          </div>
+              
+
+            
+            
+                        
+
+            
+                  <section class="col-sm-12">
+
+                              <div class="highlighted">  <div class="region region-highlighted">
+    <div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+</div>
+              
+                                      
+                  
+                          <a id="main-content"></a>
+            <div class="region region-content">
+                  <div id="ncas-header">
+            <div id="alerts-archive">
+                <a title="View Archives" href="/ncas/alerts/">More Alerts</a>
+            </div>
+            <h1 id="page-title">Alert (TA17-117A)</h1>
+            <h2 id="page-sub-title">Intrusions Affecting Multiple Victims Across Multiple Sectors</h2>
+            <div class="submitted meta-text">
+                                Original release date: April 27, 2017  | Last <a href="#revisions">revised</a>: December 20, 2018
+                                            </div>
+            <div id="social-options">
+	<!-- START PRINT BUTTON -->
+		<div id="print-button">
+			<span id="custom-print-button">
+				<a rel="nofollow" href="javascript:window.print();" title="Click to print."><img src="/sites/default/files/icons/print-button.png" alt="Click to print." /></a>
+			</span>
+		</div>
+    <!-- END PRINT BUTTON -->
+	<!-- START TWEET BUTTON -->
+	<div id="tweet-button">
+		<span id="custom-tweet-button">
+			<a rel="nofollow" target="_blank" href="https://twitter.com/share?url=https%3A%2F%2Fus-cert.cisa.gov%2Fncas%2Falerts%2FTA17-117A" class="popup-twitter" title="Click to Tweet."><img src="/sites/default/files/icons/tweet-button.png" alt="Click to Tweet." /></a>
+		</span>
+	</div>
+	<!-- END TWEET BUTTON -->
+
+	<!-- START FACEBOOK BUTTON -->
+	<div id="facebook-button">
+		<span id="custom-facebook-button">
+		<a rel="nofollow" target="_blank" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fus-cert.cisa.gov%2Fncas%2Falerts%2FTA17-117A" class="popup-facebook" title="Click to send to Facebook."><img src="/sites/default/files/icons/facebook-send-button.png" alt="Click to send to Facebook." /></a>
+		</span>
+	</div>
+	<!-- END FACEBOOK BUTTON -->
+
+	<!-- START SHARE BUTTON -->
+	<div id="share-button">
+		<span id="custom-share-button">
+			<a rel="nofollow" target="_blank" href="http://www.addthis.com/bookmark.php?url=https%3A%2F%2Fus-cert.cisa.gov%2Fncas%2Falerts%2FTA17-117A" class="popup-share" title="Click to Share." ><img src="/sites/default/files/icons/share-button.png" alt="Click to Share." /></a>
+		</span>
+	</div>
+	<!-- END SHARE BUTTON -->
+
+</div>
+        </div>
+    
+  
+<article role="article" about="/ncas/alerts/TA17-117A" class="alert full clearfix">
+
+  
+    
+
+  
+  <div class="content">
+	<div id="ncas-content">
+		<a id="affected"></a>
+		<h3>Systems Affected</h3>
+        
+            <div class="field field--name-field-alert-systems-affected field--type-text-long field--label-hidden field--item"><p>Networked Systems</p></div>
+      
+
+		<a id="overview"></a>
+		<h3>Overview</h3>
+        
+            <div class="field field--name-field-alert-overview field--type-text-long field--label-hidden field--item"><p><strong>This Alert has been updated to reflect the U.S. Government's public attribution of this activity to the Chinese government.</strong></p><p><em>The U.S. Government announced that a group of Chinese cyber actors associated with the Chinese Ministry of State Security have carried out a campaign of cyber-enabled theft targeting global technology service providers and their customers. Over the past four years, these actors have gained access to multiple U.S. and global IT service providers and their customers in an effort to steal the intellectual property and sensitive data of companies located in at least 12 countries. The U.S. Government is taking steps to hold the Chinese government accountable for these unacceptable actions and help victim organizations secure their networks and data.  </em></p><p><em>For more information related to this activity, go to <a href="/china">https://www.us-cert.gov/china</a>. </em></p><p>The National Cybersecurity and Communications Integration Center (NCCIC), a part of the Cybersecurity and Infrastructure Security Agency (CISA), has become aware of an emerging sophisticated campaign, occurring since at least May 2016, that uses multiple malware implants. Initial victims have been identified in several sectors, including Information Technology, Energy, Healthcare and Public Health, Communications, and Critical Manufacturing.</p><p>According to preliminary analysis, threat actors appear to be leveraging stolen administrative credentials (local and domain) and certificates, along with placing sophisticated malware implants on critical systems. Some of the campaign victims have been IT service providers, where credential compromises could potentially be leveraged to access customer environments. Depending on the defensive mitigations in place, the threat actor could possibly gain full access to networks and data in a way that appears legitimate to existing monitoring tools.</p><p>Although this activity is still under investigation, NCCIC is sharing this information to provide organizations information for the detection of potential compromises within their organizations.</p><p>NCCIC will update this document as information becomes available.</p><p>For a downloadable copy of this report and listings of IOCs, see:</p><ul><li><a href="/sites/default/files/publications/IR-ALERT-MED-17-093-01C-Intrusions_Affecting_Multiple_Victims_Across_Multiple_Sectors.pdf">Report (.pdf)</a></li><li><a href="/sites/default/files/publications/IR-ALERT-MED-17-093-01C.xlsx">IOCs (.xlsx)</a></li><li><a href="/sites/default/files/publications/IR-ALERT-MED-17-093-01-C.XML">IOCs (STIX)</a></li></ul><p>To report activity related to this Incident Report Alert, please contact NCCIC at <a href="mailto:NCCICCustomerService@hq.dhs.gov">NCCICCustomerService@hq.dhs.gov</a> or 1-888-282-0870.</p></div>
+      
+
+		<a id="description"></a>
+		<h3>Description</h3>
+        
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><h3>Risk Evaluation</h3><table border="1" cellpadding="0" cellspacing="0" class="general-table" style="width: 100%;"><tbody><tr><td style="width: 100%; height: 19px;"><p align="center"><strong>NCCIC Cyber Incident Scoring System (NCISS) Rating Priority Level (Color) </strong></p></td></tr><tr><td style="width: 100%; height: 19px;"><p>Yellow (Medium)</p></td></tr><tr><td style="width: 100%; height: 10px;"><p>A medium priority incident may affect public health or safety, national security, economic security, foreign relations, civil liberties, or public confidence.</p></td></tr></tbody></table><h3>Details</h3><p>While NCCIC continues to work with a variety of victims across different sectors, the adversaries in this campaign continue to affect several IT service providers. To achieve operational efficiencies and effectiveness, many IT service providers often leverage common core infrastructure that should be logically isolated to support multiple clients.</p><p>Intrusions into these providers create opportunities for the adversary to leverage stolen credentials to access customer environments within the provider network.</p><p><img align="middle" alt="Figure 1: Structure of a traditional business network and an IT service provider network" src="/sites/default/files/publications/IT%20service%20provider%20network.png" style="width: 631px; height: 402px;" /></p><p><em>Figure 1: Structure of a traditional business network and an IT service provider network</em></p><h3>Technical Analysis</h3><p>The threat actors in this campaign have been observed employing a variety of tactics, techniques, and procedures (TTPs). The actors use malware implants to acquire legitimate credentials then leverage those credentials to pivot throughout the local environment. NCCIC is aware of several compromises involving the exploitation of system administrators’ credentials to access trusted domains as well as the malicious use of certificates. Additionally, the adversary makes heavy use of PowerShell and the open source PowerSploit tool to enable assessment, reconnaissance, and lateral movement.</p><p>Command and Control (C2) primarily occurs using RC4 cipher communications over port 443 to domains that change IP addresses. Many of these domains spoof legitimate sites and content, with a particular focus on spoofing Windows update sites. Most of the known domains leverage dynamic DNS services, and this pattern adds to the complexity of tracking this activity. Listings of observed domains are found in this document’s associated STIX package and .xlsx file. The indicators should be used to observe potential malicious activity on your network.</p><p>User impersonation via compromised credentials is the primary mechanism used by the adversary. However, a secondary technique to maintain persistence and provide additional access into the victim network is the use of malware implants left behind on key relay and staging machines. In some instances, the malware has only been found within memory with no on-disk evidence available for examination. To date, the actors have deployed multiple malware families and variants, some of which are currently not detected by anti-virus signatures. The observed malware includes PLUGX/SOGU and REDLEAVES. Although the observed malware is based on existing malware code, the actors have modified it to improve effectiveness and avoid detection by existing signatures.</p><p>Both REDLEAVES and PLUGX have been observed being executed on systems via dynamic-link library (DLL) side-loading. The DLL side-loading technique utilized by these malware families typically involves three files: a non-malicious executable, a malicious DLL loader, and an encoded payload file. The malicious DLL is named as one of the DLLs that the executable would normally load and is responsible for decoding and executing the payload into memory.</p><h3>REDLEAVES Malware</h3><p>The most unique implant observed in this campaign is the REDLEAVES malware. The REDLEAVES implant consists of three parts: an executable, a loader, and the implant shellcode. The REDLEAVES implant is a remote administration Trojan (RAT) that is built in Visual C++ and makes heavy use of thread generation during its execution. The implant contains a number of functions typical of RATs, including system enumeration and creating a remote shell back to the C2.</p><h4>Capabilities</h4><p><strong>System Enumeration</strong>. The implant is capable of enumerating the following information about the victim system and passing it back to the C2:</p><ul><li>system name,</li><li>system architecture (x86 or x64),</li><li>operating system major and minor versions,</li><li>amount of available memory,</li><li>processor specifications,</li><li>language of the user,</li><li>privileges of the current process,</li><li>group permissions of the current user,</li><li>system uptime,</li><li>IP address, and</li><li>primary drive storage utilization.</li></ul><p><strong>Command Execution.</strong> The implant can execute a command directly inside a command shell using native Windows functionality by passing the command to run to cmd.exe with the “/c” option (“cmd.exe /c &lt;command&gt;”).</p><p><strong>Command Window Generation.</strong> The implant can also execute commands via a remote shell that is generated and passed through a named pipe. A command window is piped back to the C2 over the network as a remote shell or alternatively to another process or thread that can communicate with that pipe. The implant uses the mutexRedLeavesCMDSimulatorMutex.</p><p><strong>File System Enumeration.</strong> The implant has the ability to enumerate data within a specified directory, where it gathers filenames, last file write times, and file sizes.</p><p><strong>Network Traffic Compression and Encryption.</strong> The implant uses a form of LZO compression to compress data that is sent to its C2. After compression, the data for this implant sample is then RC4-ciphered with the key 0x6A6F686E3132333400 (this corresponds to the string “john1234” with the null byte appended).</p><p>Network Communications REDLEAVES connects to the C2 over TCP port 443, but does not use the secure flag when calling the API function InternetOpenUrlW. The data is not encrypted and there is no SSL handshake as would normally occur with port 443 traffic, but rather the data is transmitted in the form that is generated by the RC4 cipher.</p><p>Current REDLEAVES samples that have been examined have a hard-coded C2. Inside the implant’s configuration block in memory were the strings in Table 1.</p><div style="clear: both;"><em>Table 1: REDLEAVES Sample Strings Found in C2</em></div><div style="clear: both;"> </div><div style="clear: both;"><table align="center" border="1" cellpadding="0" cellspacing="0" class="general-table" style="width: 100%;"><tbody><tr><td style="width: 100%; height: 71px;"><p><code>QN4869MD ­­– mutex used to determine if the implant is already running (Varies from sample to sample)</code></p><p><code>2016-5-1-INCO –Unknown</code></p><p><code>%windir.\system32\svchost.exe - process that the implant was injected into</code></p><p><code>john1234 (with the null byte afterward) – RC4 Key</code></p></td></tr></tbody></table><div style="clear: both;"> </div></div><p>While the name of the initial mutex, QN4869MD in this sample, varies among REDLEAVES samples, the RedLeavesCMDSimulatorMutex mutex name appears to be consistent. Table 2 contains a sample of the implant communications to the domain windowsupdates.dnset[.]com over TCP port 443.</p><p><em>Table 2: REDLEAVES Sample Beacon</em></p><table align="center" border="1" cellpadding="0" cellspacing="0" class="general-table" style="width: 100%;" width="100%"><tbody><tr><td style="width: 100%; height: 232px;"><p><code>--- BEGIN SAMPLE BEACON ---</code></p><p><code>00000000 c1 0c 00 00 7a 8d 9b dc 88 00 00 00 ....z... ....</code></p><p><code>0000000C 14 6f 68 6e 16 6f 68 6e c4 a4 b1 d1 c4 e6 24 eb .ohn.ohn ......$.</code></p><p><code>0000001C cf 49 81 a7 a1 c7 96 ff 6d 31 b4 48 8b 3e a3 c1 .I...... m1.H.&gt;..</code></p><p><code>0000002C 92 e2 c3 7c e4 4c cf e9 e1 fa fb 6a fa 66 2c bf ...|.L.. ...j.f,.</code></p><p><code>0000004C 7b 13 a7 30 17 3d eb fb d3 16 0e 96 83 21 2e 73 {..0.=.. .....!.s</code></p><p><code>0000005C dc 44 a2 72 fb f4 5e d0 4d b7 85 be 33 cd 13 21 .D.r..^. M...3..!</code></p><p><code>0000006C 3f e2 63 da da 5b 5e 52 9a 9c 20 36 69 cb cd 79 ?.c..[^R .. 6i..y</code></p><p><code>0000007C 13 79 7a d4 ed 63 b7 41 5d 38 b4 c2 84 74 98 cd .yz..c.A ]8...t..</code></p><p><code>0000008C f8 32 49 ef 2d e7 f2 ed .2I.-...</code></p><p><code>0000003C 5e 4b 72 6a f9 47 86 cd f1 cd 6d b5 24 79 3c 59 ^Krj.G.. ..m.$y</code></p><p><code>--- END SAMPLE BEACON ---</code></p></td></tr></tbody></table><div style="clear: both;"> </div><p>REDLEAVES network traffic has two 12-byte fixed-length headers in front of each RC4-encrypted compressed payload. The first header comes in its own packet, with the second header and the payload following in a separate packet within the same TCP stream. The last four bytes of the first header contain the number of the remaining bytes in little-endian format (0x88 in the sample beacon above).</p><p>The second header, starting at position 0x0C, is XOR’d with the first four bytes of the key that is used to encrypt the payload. In the case of this sample, those first four bytes would be “john” (or 0x6a6f686e using the ASCII hex codes). After the XOR operation, the bytes in positions 0x0C through 0x0F contain the length of the decrypted and decompressed payload. The bytes in positions 0x10 through 0x13 contain the length of the encrypted and compressed payload.</p><p>To demonstrate, in the sample beacon, the second header follows:</p><p>0000000C 14 6f 68 6e 16 6f 68 6e c4 a4 b1 d1</p><p>The length of the decrypted and decompressed payload is 0x7e000000 in little-endian format (0x146f686e XOR 0x6a6f686e). The length of the encrypted and compressed payload is 0x7c000000 in little-endian (0x166f686e XOR 0x6a6f686e). This is verified by referring back to the sample beacon which had the number of remaining bytes set to 0x88 and subtracting the length of the second header (0x88 – 0xC = 0x7c).</p><h4>Strings</h4><p><em>Note: Use caution when searching based on strings, as common strings may cause a large number of false positives.</em></p><p><em>Table 3: Strings Appearing in the Analyzed Sample of REDLEAVES</em></p><table align="center" border="1" cellpadding="0" cellspacing="0" class="general-table" style="width: 100%;" width="100%"><tbody><tr><td style="width: 100%; height: 49px;"><p><code>[ Unique Ascii strings ] --------------------</code></p><p><code>red_autumnal_leaves_dllmain.dll</code></p><p><code>windowsupdates.dnset.com windowsupdates.dnset.com</code></p><p><code>windowsupdates.dnset.com</code></p><p><code>2016-5-10-INCO</code></p><p><code>john1234</code></p><p><code>Feb 04 2015</code></p><p><code>127.0.0.1 169.254</code></p><p><code>tcp</code></p><p><code>https</code></p><p><code>http</code></p><p><code>[ Unique Unicode strings ] ------------------</code></p><p><code>RedLeavesCMDSimulatorMutex</code></p><p><code>QN4869MD</code></p><p><code>\\\\.\\pipe\\NamePipe_MoreWindows</code></p><p><code>network.proxy.type</code></p><p><code>network.proxy.http_port</code></p><p><code>network.proxy.http network.proxy.autoconfig_url</code></p><p><code>network.proxy.</code></p><p><code>a([a-zA-Z0-9])</code></p><p><code>b([ \\t])</code></p><p><code>c([a-zA-Z])</code></p><p><code>d([0-9])</code></p><p><code>h([0-9a-fA-F])</code></p><p><code>n(\r|(\r?\n)) q(\"[^\"]*\")|('[^']*')</code></p><p><code>w([a-zA-Z]+)</code></p><p><code>z([0-9]+)</code></p></td></tr></tbody></table><div style="clear: both;"> </div><h4>Malware Execution Analysis</h4><p><strong>File Name: VeetlePlayer.exe</strong></p><p><strong>MD5</strong>: 9d0da088d2bb135611b5450554c99672</p><p><strong>File Size</strong>: 25704 bytes (25.1 KB)</p><p><strong>Description</strong>: This is the executable that calls the exports located within libvlc.dll</p><p> </p><p><strong>File Name: libvlc.dll</strong></p><p><strong>MD5</strong>: 9A8C76271210324D97A232974CA0A6A3</p><p><strong>File Size</strong>: 33792 bytes (33.0 KB)</p><p><strong>Description</strong>: This is the loader and decoder for mtcReport.ktc, the combined shellcode and implant file.</p><p> </p><p><strong>File Name: mtcReport.ktc</strong></p><p><strong>MD5</strong>: 3045E77E1E9CF9D9657AEA71AB5E8947</p><p><strong>File Size</strong>: 231076 bytes (225.7 KB)</p><p><strong>Description</strong>: This is the encoded shellcode and implant file. When this file is decoded, the shellcode precedes the actual implant, which resides at offset 0x1292 from the beginning of the shellcode in memory. The implant has the MZ and PE flags replaced with the value 0xFF.</p><p> </p><p>All three of these files must be present for execution of the malware to succeed.</p><p>When all files are present and the VeetlePlayer.exe file is executed, it will make calls to the following DLL exports within the libvlc.dll file:</p><ul><li>VLC_Version checks to see if its calling file is named “VeetlePlayer.exe”. If the calling file is named something else, execution will terminate and no shellcode will be loaded.</li><li>VLC_Create reads in the contents of the file mtcReport.ktc.</li><li>VLC_Init takes in the offset in which the encoded shellcode/implant file is located and deobfuscates it. After deobfuscation, this export executes the shellcode.</li><li>VLC_Destroy does nothing other than perform a return 0.</li><li>VLC_AddIntf and VLC_CleanUp simply call the export VLC_Destroy, which returns 0.</li></ul><p>When the libvlc.dll decodes the shellcode/implant, it calls the shellcode at the beginning of the data blob in memory. The shellcode then activates a new instance of svchost.exe and suspends it. It then makes a call to WriteProcessMemory() and inserts the implant with the damaged MZ and PE headers into its memory space. It then resumes execution of svchost.exe, which runs the implant.</p><p>The resulting decoded shellcode with the implant file below it can have a variable MD5 based on how it is dumped from memory. The MD5 checksums of two instances of decoded shellcode are:</p><ol><li>ba4b4087370780dc988d55cbb9de885d</li><li>3d032ba5f73cbc398f1a77af92077cd8</li></ol><p>Table 4 contains the implant resulting from the original implant’s separation from the shellcode and the repair of its MZ and PE flags.</p><p><em>Table 4: Resulting Implant from Shellcode Separation</em></p><table align="center" border="1" cellpadding="0" cellspacing="0" class="general-table" style="width: 100%;" width="100%"><tbody><tr><td style="width: 100%; height: 142px;"><p><code><strong>File Name</strong>: red_autumnal_leaves_dllmain.dll</code></p><p><code><strong>MD5</strong>: 3EBBFEEE3A832C92BB60B531F749230E</code></p><p><code><strong>File Size</strong>: 226304 bytes (221.0 KB)</code></p><p><code><strong>PE Compile Date</strong>: 10 May 2016</code></p><p><code>During execution, the file will create two mutexes called RedLeavesCMDSimulatorMutex and QN4869MD. It checks the QN4869MD mutex to see if it is already running. It will then perform initial enumeration of the system to include operating system versions, number of processors, RAM, and CPU information.</code></p></td></tr></tbody></table><div style="clear: both;"> </div><h4>PLUGX</h4><p>PLUGX is a sophisticated Remote Access Tool (RAT) operating since approximately 2012. Although there are now many variants of this RAT in existence today, there are still characteristics common to most variants.</p><p>Typically, PLUGX uses three components to install itself.</p><ol><li>A non-malicious executable</li><li>A malicious DLL/installer</li><li>An encoded payload – the PLUGX RAT.</li></ol><p>A non-malicious executable with one or more imports is used to start the installation process. The executable will likely exist in a directory not normally associated with its use. In some cases, the actor may use an executable signed with a valid certificate, and rename the DLL and encoded payload with file names that suggest they are related to the trusted file. Importantly, the actor seems to vary the encoding scheme used to protect the encoded payload to stifle techniques used by AV vendors to develop patterns to detect it. The payload is either encoded with a single byte or encrypted and decompressed. Recently, NCCIC has observed a case where the encoded payload contains a decoding stub within itself, beginning at byte zero. The malware simply reads this payload and executes it starting at byte zero. The stub then decodes and executes the rest of itself in memory. Notably, this stub varies in its structure and algorithm, again stifling detection by signature based security software. The PLUGX malware is never stored on disk in an unencrypted or decoded format.</p><p>When the initial executable is launched, the imported library, usually a separate DLL, is replaced with a malicious version that in turn decodes and installs the third and final component, which is the PLUGX rat itself. Typically, the PLUGX component is obfuscated and contains no visible executable code until it is unpacked in memory, protecting it from AV/YARA scans while static. During the evolution of these PLUGX compromises, NCCIC noted an increasing implementation of protections of the actual decoded PLUGX in memory. For example, the most recent version we looked at implements a secure strings method, which hides the majority of the common commands used by PLUGX. This is an additional feature designed to thwart signature based security tools.</p><p>Once the PLUGX RAT is installed on the victim, the actors has complete C2 capabilities of the victim system, including the ability to take screenshots and download files from the compromised system. The communications between the RAT (installed on the victim system) and the PLUGX C2 server are encoded to secure the communication and stifle detection by signature based network signature tools.</p><p>The advanced capabilities of PLUGX are implemented via a plugin framework. Each plugin operates independently in its own unique thread within the service. The modules may vary based on variants. Table 5 lists the modules and capabilities contained within one sample recently analyzed by NCCIC.</p><p><em>Table 5: Modules and Capabilities of PLUGX</em></p><table border="1" cellpadding="0" cellspacing="0" class="general-table" style="width: 100%;"><thead><tr><th style="width: 132px;"><p><strong>Module Name</strong></p></th><th style="width: 499px;"><p><strong>Capability</strong></p></th></tr></thead><tbody><tr><td style="width: 132px;"><p>Disk</p></td><td style="width: 499px;"><p>wide range of system-related capabilities including file / directory / drive enumeration, file / directory creation, create process, and obtain environment variables</p></td></tr><tr><td style="width: 132px;"><p>Keylog</p></td><td style="width: 499px;"><p>logs keystrokes and saves data to log file</p></td></tr><tr><td style="width: 132px;"><p>Nethood</p></td><td style="width: 499px;"><p>enumerates the host's network resources via the Windows multiple provider router DLL</p></td></tr><tr><td style="width: 132px;"><p>Netstat</p></td><td style="width: 499px;"><p>set the state of a TCP connection or obtain the extended TCP or UDP tables (lists of network endpoints available to a process) of each active process on the host</p></td></tr><tr><td style="width: 132px;"><p>Option</p></td><td style="width: 499px;"><p>provides the ability to initiate a system shutdown, adjust shutdown-related privileges for a given process, and lock the user's workstation</p></td></tr><tr><td style="width: 132px;"><p>Portmap</p></td><td style="width: 499px;"><p>port mapping</p></td></tr><tr><td style="width: 132px;"><p>Process</p></td><td style="width: 499px;"><p>process enumeration, termination, and capability to obtain more in-depth information pertaining to each process (e.g. CompanyName, FileDescription, FileVersion of each module loaded by the process)</p></td></tr><tr><td style="width: 132px;"><p>Regedit</p></td><td style="width: 499px;"><p>create, read, update &amp; delete registry entries</p></td></tr><tr><td style="width: 132px;"><p>Screen</p></td><td style="width: 499px;"><p>capability to capture screenshots of the system</p></td></tr><tr><td style="width: 132px;"><p>Service</p></td><td style="width: 499px;"><p>start, stop, remove, configure &amp; query services</p></td></tr><tr><td style="width: 132px;"><p>Shell</p></td><td style="width: 499px;"><p>remote shell access</p></td></tr><tr><td style="width: 132px;"><p>SQL</p></td><td style="width: 499px;"><p>enumerate SQL databases and available drivers; execute SQL queries</p></td></tr><tr><td style="width: 132px;"><p>Telnet</p></td><td style="width: 499px;"><p>provides a telnet interface</p></td></tr></tbody></table><p>The PLUGX operator may dynamically add, remove, or update PLUGX plugins during runtime. This provides the ability to dynamically adjust C2 capabilities based on the requirements of the C2 operator.</p><p>Network activity is often seen as POST requests similar to that shown in table 6. Network defenders can look to detect non-SSL HTTP traffic on port 443, which can be indicative of malware traffic. The PLUGX malware is also seen using TCP ports 80, 8080, and 53.</p><p><em>Table 6: Sample PLUGX Beacon</em></p><table align="center" border="1" cellpadding="0" cellspacing="0" class="general-table" style="width: 100%;" width="100%"><tbody><tr><td style="width: 100%; height: 229px;"><div><code>POST /D15DB9E25ADA34EC9E559736 HTTP/1.1          </code></div><div><code>Accept:             */*</code></div><div><code>HX1:     0</code></div><div><code>HX2:     0</code></div><div><code>HX3:     61456</code></div><div><code>HX4:     1</code></div><div><code>User-Agent:       Mozilla/4.0 (compatible; MSIE 9.0; Windows NT 6.1; SLCC2; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)</code></div><div><code>Host:    sc.weboot.info:443</code></div><div><code>Content-Length:             0</code></div><div><code>Cache-Control: no-cache</code></div></td></tr></tbody></table><p>Even though the beacon went to port 443, which is commonly used for encrypted HTTP communications, this traffic was plaintext HTTP, as is common for this variant of PLUGX.</p><h4>For IT Service Providers</h4><p>All organizations that provide IT services as a commodity for other organizations should evaluate their infrastructure to determine if related activity has taken place. Active monitoring of network traffic for the indicators of compromise (IOCs) provided in this report, as well as behavior analysis for similar activity, should be conducted to identify C2 traffic. In addition, frequency analysis should be conducted at the lowest level possible to determine any unusual fluctuation in bandwidth indicative of a potential data exfiltration. Both management and client systems should be evaluated for host indicators provided. If an intrusion is suspected, please reach out to the NCCIC at the contact information provided at the end of this report.</p><h4>For Private Organizations and Government Agencies</h4><p>All organizations should include the IOCs provided in their normal intrusion detection systems for continual analysis. Organizations that determine their risk to be elevated due to alignment to the sectors being targeted, unusual detected activity, or other factors, should conduct a dedicated investigation to identify any related activity. Organizations which leverage external IT service providers should validate with their providers that due diligence is being conducted to validate if there are security concerns with their specific provider. If an intrusion is suspected, please reach out to the NCCIC at the contact information provided at the end of this report.<a name="3_1_U__FOUO__Implant_Capabilities" id="3_1_U__FOUO__Implant_Capabilities"></a></p><h4>Detection</h4><p>NCCIC is providing a compilation of IOCs from a variety of sources to aid in the detection of this malware. The IOCs provided in the associated STIX package and .xlsx file were derived from various government, commercial, and publically available sources. The sources provided does not constitute an exhaustive list and the U.S. Government does not endorse or support any particular product or vendor’s information listed in this report. However, NCCIC includes this compilation here to ensure the distribution of the most comprehensive information. This alert will be updated as additional details become available.</p><p><em>Table 7: Sources Referenced</em></p><table border="1" cellpadding="0" cellspacing="0" class="general-table" style="width: 100%;"><tbody><tr><td style="width: 132px;"><p><strong>Source </strong></p></td><td style="width: 499px;"><p><strong>Title</strong></p></td></tr><tr><td style="width: 132px;"><p>PaloAltoNetworks</p></td><td style="width: 499px;"><p>“menuPass Returns with New Malware and New Attacks Against Japanese Academics and Organizations”</p></td></tr><tr><td style="width: 132px;"><p>FireEye</p></td><td style="width: 499px;"><p>“APT10 (Menupass Team) Renews Operations Focused on Nordic Private Industry; operations Extend to Global Partners”. February 23, 2017 10:14:00 AM,17-00001858, Version: 2</p></td></tr><tr><td style="width: 132px;"><p>CyLance</p></td><td style="width: 499px;"><p>“The Deception Project: A New Japanese-Centric Threat”</p></td></tr><tr><td style="width: 132px;"><p>PwC/BAE Systems</p></td><td style="width: 499px;"><p>“Operation Cloud Hopper: Exposing a systematic hacking operation with an</p><p>unprecedented web of global victims: April 2017”</p></td></tr><tr><td style="width: 132px;"><p>JPCERT/CC</p></td><td style="width: 499px;"><p>“RedLeaves-Malware Based on Open Source Rat”</p><p><a href="http://blog.jpcert.or.jp/2017/04/redleaves---malware-based-on-open-source-rat.html">http://blog.jpcert.or.jp/2017/04/redleaves---malware-based-on-open-source-rat.html</a></p></td></tr><tr><td style="width: 132px;"><p>NCC Group</p></td><td style="width: 499px;"><p>“RedLeaves Implant-Overview”</p></td></tr><tr><td style="width: 132px;"><p>National Cyber Security Centre</p></td><td style="width: 499px;"><p>“Infrastructure Update Version 1.0” Reference: March 17, 2017</p></td></tr><tr><td style="width: 132px;"><p>FireEye</p></td><td style="width: 499px;"><p>“BUGJUICE Malware Profile”. April 05, 2017 11:45:00 AM, 17-00003261, Version: 1</p></td></tr><tr><td style="width: 132px;"><p>JPCERT/CC</p></td><td style="width: 499px;"><p>“ChChes- Malware that Communicates with C&amp;C Servers Using Cookie Headers”</p><p><a href="http://blog.jpcert.or.jp/2017/02/chches-malware--93d6.html">http://blog.jpcert.or.jp/2017/02/chches-malware--93d6.html</a></p></td></tr></tbody></table><p>NCCIC recommends monitoring activity to the following domains and IP addresses, and scanning for evidence of the file hashes as potential indicators of infection. Some of the IOCs provided may be associated with legitimate traffic. Nevertheless, closer evaluation is warranted if the IOCs are observed. If these IOCs are found, NCCIC can provide additional assistance in further investigations. A comprehensive listing of IOCs can be found in the associated STIX package and .xlsx file.</p><h4>Network Signatures</h4><p><em>Table 8: REDLEAVES Network Signatures</em></p><table align="center" border="1" cellpadding="0" cellspacing="0" class="general-table" style="width: 100%;" width="100%"><tbody><tr><td style="width: 100%; height: 46px;"><p> <code>alert tcp any any -&gt; any any (msg: "REDLEAVES Implant"; content: "|00 00 7a 8d 9b dc|"; offset: 2; depth: 6; content: "|00 00|"; offset: 10; depth: 2; sid: 314;)</code></p><p> </p><p><code>alert tcp any -&gt; any any (msg:”Suspicious PLUGX URI String”; content:”POST”; http_method; content:”/update?id=”; http_uri; fast_pattern:only; pcre:”/update\?id=[a-fA-F0-9]{8} HTTP/”; sid:101;)</code></p></td></tr></tbody></table><div style="clear: both;"> </div><p><em>Table 9: REDLEAVES YARA Signatures</em></p><table align="center" border="1" cellpadding="0" cellspacing="0" class="general-table" style="width: 100%;" width="100%"><tbody><tr><td style="width: 100%; height: 60px;"><p><code>rule Dropper_DeploysMalwareViaSideLoading {</code></p><p><code>    meta:</code></p><p><code>            description = "Detect a dropper used to deploy an implant via side loading. This dropper has specifically been observed deploying REDLEAVES &amp; PlugX"</code></p><p><code>            author = "USG"</code></p><p><code>            true_positive = "5262cb9791df50fafcb2fbd5f93226050b51efe400c2924eecba97b7ce437481: drops REDLEAVES. 6392e0701a77ea25354b1f40f5b867a35c0142abde785a66b83c9c8d2c14c0c3: drops plugx. "</code></p><p><code>    strings:        </code></p><p><code>            $UniqueString = {2e 6c 6e 6b [0-14] 61 76 70 75 69 2e 65 78 65} // ".lnk" near "avpui.exe"</code></p><p><code>            $PsuedoRandomStringGenerator = {b9 1a [0-6] f7 f9 46 80 c2 41 88 54 35 8b 83 fe 64} // Unique function that generates a 100 character pseudo random string.</code></p><p><code>    condition:</code></p><p><code>            any of them</code></p><p><code>}</code></p></td></tr><tr><td style="width: 100%; height: 60px;"><p><code>rule REDLEAVES_DroppedFile_ImplantLoader_Starburn {</code></p><p><code>    meta:</code></p><p><code>            description = "Detect the DLL responsible for loading and deobfuscating the DAT file containing shellcode and core REDLEAVES RAT"</code></p><p><code>            author = "USG"</code></p><p><code>            true_positive = "7f8a867a8302fe58039a6db254d335ae" // StarBurn.dll</code></p><p><code>    strings:</code></p><p><code>            $XOR_Loop = {32 0c 3a 83 c2 02 88 0e 83 fa 08 [4-14] 32 0c 3a 83 c2 02 88 0e 83 fa 10} // Deobfuscation loop</code></p><p><code>    condition:</code></p><p><code>            any of them</code></p><p><code>}</code></p></td></tr><tr><td style="width: 100%; height: 60px;"><p><code>rule REDLEAVES_DroppedFile_ObfuscatedShellcodeAndRAT_handkerchief {</code></p><p><code>    meta:</code></p><p><code>        description = "Detect obfuscated .dat file containing shellcode and core REDLEAVES RAT"</code></p><p><code>        author = "USG"</code></p><p><code>        true_positive = "fb0c714cd2ebdcc6f33817abe7813c36" // handkerchief.dat</code></p><p><code>    strings:</code></p><p><code>        $RedleavesStringObfu = {73 64 65 5e 60 74 75 74 6c 6f 60 6d 5e 6d 64 60 77 64 72 5e 65 6d 6d 6c 60 68 6f 2f 65 6d 6d} // This is 'red_autumnal_leaves_dllmain.dll' XOR'd with 0x01</code></p><p><code>    condition:</code></p><p><code>        any of them</code></p><p><code>}</code></p></td></tr><tr><td style="width: 100%; height: 27px;"><p><code>rule REDLEAVES_CoreImplant_UniqueStrings {</code></p><p><code>    meta:</code></p><p><code>        description = "Strings identifying the core REDLEAVES RAT in its deobfuscated state"</code></p><p><code>        author = "USG"</code></p><p><code>    strings:</code></p><p><code>        $unique2 = "RedLeavesSCMDSimulatorMutex" nocase wide ascii</code></p><p><code>        $unique4 = "red_autumnal_leaves_dllmain.dll" wide ascii</code></p><p><code>        $unique7 = "\\NamePipe_MoreWindows" wide ascii</code></p><p><code>    condition:</code></p><p><code>      any of them</code></p><p><code>}</code></p></td></tr></tbody></table><div style="clear: both;"> </div><p><em>Table 10: PLUGX Network Signatures</em></p><table align="center" border="1" cellpadding="0" cellspacing="0" class="general-table" style="width: 100%;" width="100%"><tbody><tr><td style="width: 100%; height: 60px;"><p><code>alert tcp any any -&gt; any any (msg:"Non-Std TCP Client Traffic contains 'HX1|3a|' 'HX2|3a|' 'HX3|3a|' 'HX4|3a|' (PLUGX Variant)"; sid:XX; rev:1; flow:established,to_server; content:"Accept|3a 20 2a 2f 2a|"; nocase; content:"HX1|3a|"; distance:0; within:6; fast_pattern; content:"HX2|3a|"; nocase; distance:0; content:"HX3|3a|"; nocase; distance:0; content:"HX4|3a|"; nocase; distance:0; classtype:nonstd-tcp; priority:X;)</code></p></td></tr><tr><td style="width: 100%; height: 60px;"><p><code>alert tcp any any -&gt; any any (msg:"Non-Std TCP Client Traffic contains 'X-Session|3a|''X-Status|3a|''X-Size|3a|''X-Sn|3a|'(PLUGX)"; sid:XX; rev:1; flow:established,to_server; content:"X-Session|3a|"; nocase; fast_pattern; content:"X-Status|3a|"; nocase; distance:0; content:"X-Size|3a|"; nocase; distance:0; content:"X-Sn|3a|"; nocase; distance:0; classtype:nonstd-tcp; priority:X;)</code></p></td></tr><tr><td style="width: 100%; height: 60px;"><p><code>alert tcp any any -&gt; any any (msg:"Non-Std TCP Client Traffic contains 'MJ1X|3a|' 'MJ2X|3a|' 'MJ3X|3a|' 'MJ4X|3a|' (PLUGX Variant)"; sid:XX; rev:1; flow:established,to_server; content:"MJ1X|3a|"; nocase; fast_pattern; content:"MJ2X|3a|"; nocase; distance:0; content:"MJ3X|3a|"; nocase; distance:0; content:"MJ4X|3a|"; nocase; distance:0; classtype:nonstd-tcp; priority:X;)</code></p></td></tr><tr><td style="width: 100%; height: 60px;"><p><code>alert tcp any any -&gt; any any (msg:"Non-Std TCP Client Traffic contains 'Cookies|3a|' 'Sym1|2e|' '|2c|Sym2|2e|' '|2c|Sym3|2e|' '|2c|Sym4|2e|' (Chches Variant)"; sid:XX; rev:1; flow:established,to_server; content:"Cookies|3a|"; nocase; content:"Sym1|2e|0|3a|"; nocase; distance:0; fast_pattern; content:"|2c|Sym2|2e|"; nocase; distance:0; content:"|2c|Sym3|2e|"; nocase; distance:0; content:"|2c|Sym4|2e|"; nocase; distance:0; classtype:nonstd-tcp; priority:X;)</code></p></td></tr></tbody></table><div style="clear: both;"> </div><h4>Host Signatures</h4><p><em>Table 11: PLUGX and REDLEAVES YARA Signatures</em></p><table align="center" border="1" cellpadding="0" cellspacing="0" class="general-table" style="width: 100%;" width="100%"><tbody><tr><td style="width: 100%; height: 60px;"><p><code>rule PLUGX_RedLeaves</code></p><p><code>{</code></p><p><code>meta:</code></p><p><code>author = "US-CERT Code Analysis Team"</code></p><p><code>date = "03042017"</code></p><p><code>incident = "10118538"</code></p><p><code>date = "2017/04/03"</code></p><p><code>MD5_1 = "598FF82EA4FB52717ACAFB227C83D474"</code></p><p><code>MD5_2 = "7D10708A518B26CC8C3CBFBAA224E032"</code></p><p><code>MD5_3 = "AF406D35C77B1E0DF17F839E36BCE630"</code></p><p><code>MD5_4 = "6EB9E889B091A5647F6095DCD4DE7C83"</code></p><p><code>MD5_5 = "566291B277534B63EAFC938CDAAB8A399E41AF7D"</code></p><p><code>info = "Detects specific RedLeaves and PlugX binaries"</code></p><p><code>strings:</code></p><p><code>$s0 = { 80343057403D2FD0010072F433C08BFF80343024403D2FD0010072F4 }</code></p><p><code>$s1 = "C:\\Users\\user\\Desktop\\my_OK_2014\\bit9\\runsna\\Release\\runsna.pdb"</code></p><p><code>$s2 = "d:\\work\\plug4.0(shellcode)"</code></p><p><code>$s3 = "\\shellcode\\shellcode\\XSetting.h"</code></p><p><code>$s4 = { 42AFF4276A45AA58474D4C4BE03D5B395566BEBCBDEDE9972872C5C4C5498228 }</code></p><p><code>$s5 = { 8AD32AD002D180C23830140E413BCB7CEF6A006A006A00566A006A00 }</code></p><p><code>$s6 = { EB055F8BC7EB05E8F6FFFFFF558BEC81ECC8040000535657 }</code></p><p><code>$s7 = { 8A043233C932043983C10288043283F90A7CF242890D18AA00103BD37CE2891514AA00106A006A006A0056 }</code></p><p><code>$s8 = { 293537675A402A333557B05E04D09CB05EB3ADA4A4A40ED0B7DAB7935F5B5B08 }</code></p><p><code>$s9 = "RedLeavesCMDSimulatorMutex"</code></p><p><code>condition:</code></p><p><code>$s0 or $s1 or $s2 and $s3 or $s4 or $s5 or $s6 or $s7 or $s8 or $s9</code></p><p><code>}</code></p></td></tr></tbody></table><div style="clear: both;"> </div><h4>Other Detection Methods</h4><p><strong>Examine Port/Protocol Mismatches:</strong> Examine network traffic where the network port and protocol do not match, such as plaintext HTTP over port 443.</p><p><strong>Administrative Share Mapping:</strong> When a malicious actor tries to move laterally on a network, one of the techniques is to mount administrative shares to perform operations like uploading and downloading resources or executing commands. In addition, tools like System Internals PSEXEC will mount the shares automatically for the user. Since administrators may map administrative shares legitimately while managing components of the network, this must be taken into account.</p><ul><li>Filter network traffic for SMB mapping events and group the events by source IP, destination IP, the mounted path (providing a count of total mounts to that path), the first map time, and the last map time</li><li>Collect Windows Event Logs – Event ID 5140 (network share object was accessed) can be used to track C$ and ADMIN$ mounts by searching the Share Name field</li></ul><p><strong>VPN User authentication mismatch:</strong> A VPN user authentication match occurs when a user account authenticates to an IP address but once connected the internal IP address requests authentication tokens for other users. This may create false positives for legitimate network administrators but if this is detected, organizations should verify that the administrative accounts were legitimately used.</p><p><strong>VPN activity from VPS providers:</strong> While this may also produce false positives, VPN logins from Virtual Private Server (VPS) providers may be an indicator of VPN users attempting to hide their source IP and should be investigated.</p></div>
+      
+
+		<a id="impact"></a>
+		<h3>Impact</h3>
+        
+            <div class="field field--name-field-alert-impact field--type-text-long field--label-hidden field--item"><p>A successful network intrusion can have severe impacts, particularly if the compromise becomes public and sensitive information is exposed. Possible impacts include:</p><ul><li>temporary or permanent loss of sensitive or proprietary information,</li><li>disruption to regular operations,</li><li>financial losses incurred to restore systems and files, and</li><li>potential harm to an organization’s reputation.</li></ul></div>
+      
+
+		<a id="solution"></a>
+		<h3>Solution</h3>
+        
+            <div class="field field--name-field-alert-solution field--type-text-long field--label-hidden field--item"><p>Properly implemented defensive techniques and programs make it more difficult for an adversary to gain access to a network and remain persistent yet undetected. When an effective defensive program is in place, actors should encounter complex defensive barriers. Actor activity should also trigger detection and prevention mechanisms that enable organizations to contain and respond to the intrusion more rapidly. There is no single or set of defensive techniques or programs that will completely avert all malicious activities. Multiple defensive techniques and programs should be adopted and implemented in a layered approach to provide a complex barrier to entry, increase the likelihood of detection, and decrease the likelihood of a successful compromise. This layered mitigation approach is known as defense-in-depth.</p><p>NCCIC mitigations and recommendations are based on observations made during the hunt, analysis, and network monitoring for threat actor activity, combined with client interaction.</p><h4>Whitelisting</h4><ul><li>Enable application directory whitelisting through Microsoft Software Restriction Policy (SRP) or AppLocker;</li><li>Use directory whitelisting rather than trying to list every possible permutation of applications in an environment. Safe defaults allow applications to run from PROGRAMFILES, PROGRAMFILES(X86), and SYSTEM32. All other locations should be disallowed unless an exception is granted.</li><li>Prevent the execution of unauthorized software by using application whitelisting as part of the security hardening of operating systems insulating.</li><li>Enable application directory whitelisting via the Microsoft SRP or AppLocker.</li></ul><h4>Account Control</h4><ul><li>Decrease a threat actor’s ability to access key network resources by implementing the principle of least privilege.</li><li>Limit the ability of a local administrator account to login from a local interactive session (e.g., “Deny access to this computer from the network”) and prevent access via a Remote Desktop Protocol session.</li><li>Remove unnecessary accounts, groups, and restrict root access.</li><li>Control and limit local administration.</li><li>Make use of the Protected Users Active Directory group in Windows Domains to further secure privileged user accounts against pass-the-hash compromises.</li></ul><h4>Workstation Management</h4><ul><li>Create a secure system baseline image and deploy to all workstations.</li><li>Mitigate potential exploitation by threat actors by following a normal patching cycle for all operating systems, applications, software, and all third-party software.</li><li>Apply asset and patch management processes.</li><li>Reduce the number of cached credentials to one if a laptop, or zero if a desktop or fixed asset.</li></ul><h4>Host-Based Intrusion Detection</h4><ul><li>Configure and monitor system logs through host-based intrusion detection system (HIDS) and firewall.</li><li>Deploy an anti-malware solution to prevent spyware, adware, and malware as part of the operating system security baseline.</li><li>Monitor antivirus scan results on a regular basis.</li></ul><h4>Server Management</h4><ul><li>Create a secure system baseline image, and deploy to all servers.</li><li>Upgrade or decommission end-of-life non Windows servers.</li><li>Upgrade or decommission servers running Windows Server 2003 and older versions.</li><li>Implement asset and patch management processes.</li><li>Audit for and disable unnecessary services.</li></ul><h4>Server Configuration and Logging</h4><ul><li>Establish remote server logging and retention.</li><li>Reduce the number of cached credentials to zero.</li><li>Configure and monitor system logs via a centralized security information and event management (SIEM) appliance.</li><li>Add an explicit DENY for “%USERPROFILE%”.</li><li>Restrict egress web traffic from servers.</li><li>In Windows environments, utilize Restricted Admin mode or remote credential guard to further secure remote desktop sessions against pass-the-hash compromises.</li><li>Restrict anonymous shares.</li><li>Limit remote access by only using jump servers for such access.</li></ul><h4>Change Control</h4><ul><li>Create a change control process for all implemented changes.</li></ul><h4>Network Security</h4><ul><li>An Intrusion Detection System (IDS) should:<ul style="list-style-type: circle;"><li>Implement continuous monitoring.</li><li>Send alerts to a SIEM tool.</li><li>Monitor internal activity (this tool may use the same tap points as the netflow generation tools).</li></ul></li><li>Netflow Capture should:<ul style="list-style-type: circle;"><li>Set a minimum retention period of 180 days.</li><li>Capture netflow on all ingress and egress points of network segments, not just at the Managed Trusted Internet Protocol Services (MTIPS) or Trusted Internet Connections (TIC) locations.</li></ul></li><li>Network Packet Capture (PCAP):<ul style="list-style-type: circle;"><li>Retain PCAP data for a minimum of 24 hours.</li><li>Capture traffic on all ingress and egress points of the network.</li></ul></li><li>Use a virtual private network (VPN):<ul style="list-style-type: circle;"><li>Maintain site-to-site VPN with customers.</li><li>Authenticate users utilizing site-to-site VPNs through adaptive security appliance (ASA).</li></ul></li><li>Use authentication, authorization, and accounting (AAA) for controlling network access.<ul style="list-style-type: circle;"><li>Require Personal Identity Verification (PIV) authentication to an HTTPS page on the ASA in order to control access. Authentication should also require explicit rostering of PIV distinguished names (DNs) that are permitted to enhance the security posture on both networks participating in the site-to-site VPN.</li><li>Establish appropriate secure tunneling protocol and encryption.</li><li>Strengthen router configuration (e.g., avoid enabling remote management over the Internet and using default IP ranges; automatically logout after configuring routers; use encryption).</li><li>Turn off Wi-Fi protected setup (WPS), enforce the use of strong passwords, keep router firmware up-to-date; and</li><li>Improve firewall security (e.g., enable auto updates, revise firewall rules as appropriate, implement whitelists, establish packet filtering, enforce the use of strong passwords, and encrypt networks).</li></ul></li><li>Conduct regular vulnerability scans of the internal and external networks and hosted content to identify and mitigate vulnerabilities.</li><li>Define areas within the network that should be segmented to increase visibility of lateral movement by an adversary and increase the defense in-depth posture.</li><li>Develop a process to block traffic to IP addresses and domain names that have been identified as being used to aid previous malicious activities.</li></ul><h4>Network Infrastructure Recommendations</h4><ul><li>Ensure you are following National Security Agency (NSA) network device integrity (NDI) <a href="https://www.iad.gov/iad/library/reports/network-device-integrity-ndi-methodology.cfm">best practices</a>.</li><li>Ensure your networking equipment has the latest available operating system and patches.</li></ul><h4>Host Recommendations</h4><ul><li>Implement policies to block workstations-to-workstation remote desktop protocol (RDP) connections through group policy object (GPO) on Windows, or a similar mechanism.</li><li>Store system logs of mission critical systems for at least one year within a SIEM.</li><li>Review the configuration of application logs to verify fields being recorded will contribute to an incident response investigation.</li></ul><h4>Users Management</h4><ul><li>Immediately set the password policy to require complex passwords for all users (minimum of 15 characters); this new requirement should be enforced as user passwords expire.</li><li>Reduce the number of domain and enterprise administrator accounts.</li><li>Create non-privileged accounts for privileged users and ensure they use the non-privileged account for all non-privileged access (e.g., web browsing, email access);</li><li>If possible, use technical methods to detect or prevent browsing by privileged accounts (authentication to web proxies would enable blocking of domain administrators).</li><li>Use two-factor authentication (e.g., security tokens for remote access and to any sensitive data repositories);</li><li>If soft tokens are used, they should not exist on the same device that is requesting remote access (laptop), and instead should be on a telephone or other out-of-band device.</li><li>Create privileged role tracking;<ul style="list-style-type: circle;"><li>Create a change control process to all privilege escalations and role changes on user accounts;</li><li>Enable alerts on privilege escalations and role changes; and</li><li>Log privileged user changes in the environment and alert on unusual events.</li></ul></li><li>Establish least privilege controls; and</li><li>Implement a security-awareness training program.</li></ul><h4>Best Practices</h4><ul><li>Implement a vulnerability assessment and remediation program.</li><li>Encrypt all sensitive data in transit and at rest.</li><li>Create an insider threat program.</li><li>Assign additional personnel to review logging and alerting data.</li><li>Complete independent security (not compliance) audit.</li><li>Create an information sharing program.</li><li>Complete and maintain network and system documentation to aid in timely incident response, including:<ul style="list-style-type: circle;"><li>network diagrams,</li><li>asset owners,</li><li>type of asset, and</li><li>an up-to-date incident response plan.</li></ul></li></ul></div>
+      
+
+		<a id="references"></a>
+		<h3>References</h3>
+        
+      <div class="field field--name-field-alert-references field--type-link field--label-hidden field--items">
+              <div class="field--item"><a href="">PaloAltoNetworks: “menuPass Returns with New Malware and New Attacks Against Ja…</a></div>
+              <div class="field--item"><a href="">FireEye: “APT10 (Menupass Team) Renews Operations Focused on Nordic Private Ind…</a></div>
+              <div class="field--item"><a href="">CyLance: “The Deception Project: A New Japanese-Centric Threat” </a></div>
+              <div class="field--item"><a href="">PwC/BAE Systems: “Operation Cloud Hopper: Exposing a systematic hacking operati…</a></div>
+              <div class="field--item"><a href="http://blog.jpcert.or.jp/2017/04/redleaves---malware-based-on-open-source-rat.html">JPCERT/CC: “RedLeaves-Malware Based on Open Source Rat” </a></div>
+              <div class="field--item"><a href="">NCC Group: “RedLeaves Implant-Overview” </a></div>
+              <div class="field--item"><a href="">National Cyber Security Centre: “Infrastructure Update Version 1.0&quot; Reference: …</a></div>
+              <div class="field--item"><a href="">FireEye: “BUGJUICE Malware Profile”. April 05, 2017 11:45:00 AM, 17-00003261, V…</a></div>
+              <div class="field--item"><a href="http://blog.jpcert.or.jp/2017/02/chches-malware--93d6.html">JPCERT/CC: “ChChes- Malware that Communicates with C&amp;C Servers Using Cookie Hea…</a></div>
+          </div>
+  
+
+		<a id="revisions"></a>
+		<h3>Revisions</h3>
+        
+      <div class="field field--name-field-alert-revision-history field--type-text field--label-hidden field--items">
+              <div class="field--item"><p>April 27, 2017: Initial post</p>
+</div>
+              <div class="field--item"><p>April 28, 2017: Updated guidance under the sub-section: Network Infrastructure Recommendations</p>
+</div>
+              <div class="field--item"><p>May 2, 2017: In table 11, fixed trailing quote on date</p>
+</div>
+              <div class="field--item"><p>May 11, 2017: STIX and XLSX package was updated</p>
+</div>
+              <div class="field--item"><p>December 20, 2018: Added attribution of activity covered in this Alert to Chinese cyber actors associated with the Chinese Ministry of State Security</p>
+</div>
+          </div>
+  
+
+        
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><p class="privacy-and-terms">This product is provided subject to this <a href="/privacy/notification">Notification</a> and this <a href="https://www.dhs.gov/privacy-policy">Privacy &amp; Use</a> policy.</p>
+</div>
+      
+
+	</div>
+                        <div id="document-feedback">
+	<div class="inner-document-feedback center-center">
+        <p><b>Please share your thoughts.</b></p>
+		<p>We recently updated our anonymous <a href="https://www.surveymonkey.com/r/CISA-cyber-survey?product=https://us-cert.cisa.gov/ncas/alerts/TA17-117A">product survey</a>; we'd welcome your feedback.</p>
+	</div>
+</div>
+
+              </div>
+
+</article>
+
+
+  </div>
+
+              </section>
+
+
+                      </div>
+  </div>
+
+
+
+
+
+
+      <footer class="footer container-fluid" role="contentinfo">
+        <div class="region region-footer">
+    <section id="block-certsignup" class="block block-block-content block-block-contentc5846d10-2e2b-4822-aa59-7a5c3262f671 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container-fluid signup">
+<div class="container">
+<div class="row">
+<div class="col-lg-3 contact-icons">
+<h3>Contact Us</h3>
+
+<p class="phone-text"><img alt="phone icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Phone.png" />(888)282-0870</p>
+
+<p><img alt="email icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Email.png" /><a class="mailto" href="mailto:central@cisa.dhs.gov" title="General questions or suggestions">Send us email</a></p>
+
+<p><img alt="lock icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Lock.png" /><a href="/contact-us/" title="Download PGP/GPG keys">Download PGP/GPG keys</a></p>
+
+<p><img alt="feedback icon" data-entity-type="" data-entity-uuid="" height="32" src="/sites/default/files/images/icon-feedback.png" /><a href="/forms/website-feedback" title="Website Feedback">Submit website feedback</a></p>
+</div>
+
+<div class="col-lg-6 sub-alert">
+<h3>Subscribe to Alerts</h3>
+
+<p>Receive security alerts, tips, and other updates.</p>
+
+<form action="https://public.govdelivery.com/accounts/USDHSCISA/subscribers/qualify"><label class="visually-hidden" for="email-address-field">Enter your email address</label> <input class="signup-form" id="email-address-field" name="email" placeholder=" Enter your email address" title="Enter your email address" type="text" /><br /><input class="btn btn-primary" name="submit" title="Sign up for alerts" type="submit" value="Sign Up" /> </form>
+
+<div class="pull-right signup-icon-one"><a href="https://twitter.com/uscert_gov" title="US-CERT Twitter Feed"><img alt="twitter icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/twitter-button.png" /></a></div>
+
+<div class="pull-right signup-icon-two"><a href="/mailing-lists-and-feeds" title="Mailing Lists and Feeds"><img alt="rss icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/rss-button-bottom.png" /></a></div>
+
+<div class="pull-right signup-icon-three"><a href="/hsin" class="btn btn-cert-report" name="button" type="button" id="button">HSIN</a></div>
+</div>
+
+<div class="col-lg-3 cert-report"><a class="btn btn-cert-report btn-lg" href="/report" name="button" type="button" id="button">Report</a></div>
+</div>
+</div>
+</div>
+</div>
+      
+  </section>
+
+<section id="block-certcertfooter" class="block block-block-content block-block-contentd5b85bd2-62d1-485a-b9ae-f040b1ca1a45 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container">
+<hr /><div class="text-center"><a href="/" title="Home">Home</a>   <a href="/sitemap" title="Site Map">Site Map</a>   <a href="/faq/" title="Frequently Asked Questions">FAQ</a>   <a href="/contact-us/" title="Contact Us">Contact Us</a>   <a href="/tlp/" title="Traffic Light Protocol">Traffic Light Protocol</a>   <a href="/pcii" title="PCII">PCII</a>   <a href="https://www.dhs.gov" title="Accountability">Accountability</a>   <a href="/disclaimer" title="Disclaimer">Disclaimer</a>   <a href="/privacy-policy" title="Privacy Policy">Privacy Policy</a>   <a href="https://www.dhs.gov/freedom-information-act-foia" title="FOIA">FOIA</a>   <a href="https://www.dhs.gov/homeland-security-no-fear-act-reporting" title="No Fear Act">No Fear Act</a>   <a href="/accessibility/" title="Accessibility">Accessibility</a><a href="https://www.dhs.gov/plain-writing-dhs" title="Plain Writing">Plain Writing</a><a href="https://www.dhs.gov/plug-information" title="Plug-ins">Plug-ins</a>   <a href="https://www.oig.dhs.gov/" title="Office of the Inspector General">Inspector General</a>   <a href="https://www.whitehouse.gov/" title="The White House">The White House</a>   <a href="https://www.usa.gov/" title="USA.gov">USA.gov</a><br />
+ 
+<p>CISA is part of the <a href="https://www.dhs.gov/" title="Department of Homeland Security">Department of Homeland Security</a></p>
+</div>
+<script type="text/javascript">
+<!--//--><![CDATA[// ><!--
+
+    window.onload = function(){
+            jQuery('body.page-node-type-us-cert-events div#ncas-header').find('img').each(function(){
+                    var $src=jQuery(this).prop('src');
+                    if($src.indexOf('default/files/') == -1)jQuery(this).remove();
+                    });
+            if('Privacy Data Breach' == jQuery('#uscert-utilities-irf-form #item-info-impact option:selected').text()){ 
+                jQuery('#item-info-impact-block').removeClass('collapsed'); 
+            }
+jQuery('#print-logo img').removeAttr('width').removeAttr('height');
+if(jQuery('body.path-frontpage').length > 0)
+{   
+    jQuery('.main-container').find('.col-sm-12').removeAttr('role');
+}
+jQuery('#map area').each(function(){ jQuery(this).click(function(){var idstr=jQuery(this).attr('clickthis'); if(jQuery(idstr).hasClass('open') == false){jQuery(idstr).click();}});});  
+if(jQuery('#document-feedback').length > 0)
+{ 
+    var $url    = window.location.href
+    //var str ='Your feedback is very important to us. Please take a moment to complete this <a href="https://surveymonkey.com/r/G8STDRY?product=' + $url + '">survey.';
+    //var $p = jQuery('#document-feedback div p').html(str);
+}
+    };
+
+//--><!]]>
+</script></div>
+<style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+#views-bootstrap-carousel-block-2 .carousel-inner > .item > a > img {
+  margin:auto;
+}
+button#product-feedback-next {
+    margin-bottom: 10px;
+}
+/*
+.mobile-nav {
+border-bottom: 3px solid #112e51;
+}
+*/
+.cma-banner-container {
+    display: none;
+}
+@media (max-width: 991px) {
+.navbar .navbar-header {
+background: #fff;
+}
+}
+div.banner-region { background: #fff; }
+
+.accordion_fold {
+    padding-bottom: 25px;
+}
+
+h2.accordion.open {
+    background: #f2f2f2;
+}
+
+a { color: #2b72af;}
+
+.navbar-default .navbar-nav > li > a { color: #767676; }
+/* andi */
+.sidebar-widget-orange .orange {
+    background-color: #e77431;
+}
+#block-views-block-ics-announcements-block-1 .views-field-created {
+    color: #565656;
+}
+a#sort-bulletin {
+color: #000;
+background: white;
+position: absolute;
+right: 150px;
+padding: 1px 12px;
+}
+
+/*--><!]]>*/
+</style></div>
+      
+  </section>
+
+
+  </div>
+
+    </footer>
+  
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","scriptPath":null,"pathPrefix":"","currentPath":"node\/8841","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"UA-34879253-1","trackOutbound":true,"trackMailto":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"data":{"extlink":{"extTarget":false,"extTargetNoOverride":false,"extNofollow":false,"extNoreferrer":false,"extFollowNoOverride":false,"extClass":"ext","extLabel":"(link is external)","extImgClass":false,"extSubdomains":true,"extExclude":"(\\.gov|\\.mil|\\.org.*|twitter\\.com\\\/share\\?url\\=.*|www\\.facebook\\.com\\\/sharer\\.php\\?u\\=.*|www\\.addthis\\.com\\\/bookmark\\.php\\?url\\=.*|javascript\\:window\\.print\\(\\)\\;)","extInclude":"","extCssExclude":"","extCssExplicit":"","extAlert":true,"extAlertText":"You are now leaving an official website of the United States Government (USG), the Department of Homeland Security (DHS), and the Cybersecurity and Infrastructure Security Agency (CISA). Links to non-USG, non-DHS, and non-CISA sites are provided for the visitor\u0027s convenience and do not represent an endorsement by USG, DHS, or CISA of any commercial or private issues, products, or services. Note that the privacy policy of the linked site may differ from that of USG, DHS, and CISA.","mailtoClass":"mailto","mailtoLabel":"(link sends email)","extUseFontAwesome":false,"extIconPlacement":"append","extFaLinkClasses":"fa fa-external-link","extFaMailtoClasses":"fa fa-envelope-o","whitelistedDomains":null}},"bootstrap":{"forms_has_error_value_toggle":1,"popover_enabled":1,"popover_animation":1,"popover_auto_close":1,"popover_container":"body","popover_content":"","popover_delay":"0","popover_html":0,"popover_placement":"right","popover_selector":"","popover_title":"","popover_trigger":"click","tooltip_enabled":1,"tooltip_animation":1,"tooltip_container":"body","tooltip_delay":"0","tooltip_html":0,"tooltip_placement":"auto left","tooltip_selector":"","tooltip_trigger":"hover"},"user":{"uid":0,"permissionsHash":"5ac3ae468050ddd0aa4ecea12c34a32977a23244239ed53eb7226f296aed658f"}}</script>
+<script src="/sites/default/files/js/js_xhqBHziEDyCKWlB5IUseaFAGh1B08TPFGmxCf6RvFnM.js"></script>
+<script src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DHS&amp;subagency=US-CERT&amp;pua=0" id="_fed_an_ua_tag"></script>
+<script src="/sites/default/files/js/js_m5CHELy9XHlAx2jnhaYdT2XVeN916TnZL5U2ha7Ln94.js"></script>
+
+  <script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"877b02039c","applicationID":"628657512,979282327","transactionName":"ZFYHMhZSXUpRUkcKDF0cJAUQWlxXH0FSBAZsUAQFDFY=","queueTime":0,"applicationTime":13,"atts":"SBEERF5ITkQ=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

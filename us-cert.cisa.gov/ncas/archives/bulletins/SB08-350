@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html  lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+    <meta charset="utf-8" /><script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={licenseKey:"877b02039c",applicationID:"628657512"};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var i=e[n]={exports:{}};t[n][0].call(i.exports,function(e){var i=t[n][1][e];return r(i||e)},i,i.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var i=0;i<n.length;i++)r(n[i]);return r}({1:[function(t,e,n){function r(){}function i(t,e,n){return function(){return o(t,[u.now()].concat(f(arguments)),e?null:this,n),e?void 0:this}}var o=t("handle"),a=t(8),f=t(9),c=t("ee").get("tracer"),u=t("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var d=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],p="api-",l=p+"ixn-";a(d,function(t,e){s[e]=i(p+e,!0,"api")}),s.addPageAction=i(p+"addPageAction",!0),s.setCurrentRouteName=i(p+"routeName",!0),e.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(t,e){var n={},r=this,i="function"==typeof e;return o(l+"tracer",[u.now(),t,n],r),function(){if(c.emit((i?"":"no-")+"fn-start",[u.now(),r,i],n),i)try{return e.apply(this,arguments)}catch(t){throw c.emit("fn-err",[arguments,this,t],n),t}finally{c.emit("fn-end",[u.now()],n)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(t,e){m[e]=i(l+e)}),newrelic.noticeError=function(t,e){"string"==typeof t&&(t=new Error(t)),o("err",[t,u.now(),!1,e])}},{}],2:[function(t,e,n){function r(t){if(NREUM.init){for(var e=NREUM.init,n=t.split("."),r=0;r<n.length-1;r++)if(e=e[n[r]],"object"!=typeof e)return;return e=e[n[n.length-1]]}}e.exports={getConfiguration:r}},{}],3:[function(t,e,n){function r(){return f.exists&&performance.now?Math.round(performance.now()):(o=Math.max((new Date).getTime(),o))-a}function i(){return o}var o=(new Date).getTime(),a=o,f=t(10);e.exports=r,e.exports.offset=a,e.exports.getLastTimestamp=i},{}],4:[function(t,e,n){function r(t){return!(!t||!t.protocol||"file:"===t.protocol)}e.exports=r},{}],5:[function(t,e,n){function r(t,e){var n=t.getEntries();n.forEach(function(t){"first-paint"===t.name?d("timing",["fp",Math.floor(t.startTime)]):"first-contentful-paint"===t.name&&d("timing",["fcp",Math.floor(t.startTime)])})}function i(t,e){var n=t.getEntries();n.length>0&&d("lcp",[n[n.length-1]])}function o(t){t.getEntries().forEach(function(t){t.hadRecentInput||d("cls",[t])})}function a(t){if(t instanceof m&&!g){var e=Math.round(t.timeStamp),n={type:t.type};e<=p.now()?n.fid=p.now()-e:e>p.offset&&e<=Date.now()?(e-=p.offset,n.fid=p.now()-e):e=p.now(),g=!0,d("timing",["fi",e,n])}}function f(t){d("pageHide",[p.now(),t])}if(!("init"in NREUM&&"page_view_timing"in NREUM.init&&"enabled"in NREUM.init.page_view_timing&&NREUM.init.page_view_timing.enabled===!1)){var c,u,s,d=t("handle"),p=t("loader"),l=t(7),m=NREUM.o.EV;if("PerformanceObserver"in window&&"function"==typeof window.PerformanceObserver){c=new PerformanceObserver(r);try{c.observe({entryTypes:["paint"]})}catch(v){}u=new PerformanceObserver(i);try{u.observe({entryTypes:["largest-contentful-paint"]})}catch(v){}s=new PerformanceObserver(o);try{s.observe({type:"layout-shift",buffered:!0})}catch(v){}}if("addEventListener"in document){var g=!1,h=["click","keydown","mousedown","pointerdown","touchstart"];h.forEach(function(t){document.addEventListener(t,a,!1)})}l(f)}},{}],6:[function(t,e,n){function r(t,e){if(!i)return!1;if(t!==i)return!1;if(!e)return!0;if(!o)return!1;for(var n=o.split("."),r=e.split("."),a=0;a<r.length;a++)if(r[a]!==n[a])return!1;return!0}var i=null,o=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var f=navigator.userAgent,c=f.match(a);c&&f.indexOf("Chrome")===-1&&f.indexOf("Chromium")===-1&&(i="Safari",o=c[1])}e.exports={agent:i,version:o,match:r}},{}],7:[function(t,e,n){function r(t){function e(){t(a&&document[a]?document[a]:document[i]?"hidden":"visible")}"addEventListener"in document&&o&&document.addEventListener(o,e,!1)}e.exports=r;var i,o,a;"undefined"!=typeof document.hidden?(i="hidden",o="visibilitychange",a="visibilityState"):"undefined"!=typeof document.msHidden?(i="msHidden",o="msvisibilitychange"):"undefined"!=typeof document.webkitHidden&&(i="webkitHidden",o="webkitvisibilitychange",a="webkitVisibilityState")},{}],8:[function(t,e,n){function r(t,e){var n=[],r="",o=0;for(r in t)i.call(t,r)&&(n[o]=e(r,t[r]),o+=1);return n}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],9:[function(t,e,n){function r(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,i=n-e||0,o=Array(i<0?0:i);++r<i;)o[r]=t[e+r];return o}e.exports=r},{}],10:[function(t,e,n){e.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(t,e,n){function r(){}function i(t){function e(t){return t&&t instanceof r?t:t?u(t,c,a):a()}function n(n,r,i,o,a){if(a!==!1&&(a=!0),!l.aborted||o){t&&a&&t(n,r,i);for(var f=e(i),c=v(n),u=c.length,s=0;s<u;s++)c[s].apply(f,r);var p=d[w[n]];return p&&p.push([b,n,r,f]),f}}function o(t,e){y[t]=v(t).concat(e)}function m(t,e){var n=y[t];if(n)for(var r=0;r<n.length;r++)n[r]===e&&n.splice(r,1)}function v(t){return y[t]||[]}function g(t){return p[t]=p[t]||i(n)}function h(t,e){l.aborted||s(t,function(t,n){e=e||"feature",w[n]=e,e in d||(d[e]=[])})}var y={},w={},b={on:o,addEventListener:o,removeEventListener:m,emit:n,get:g,listeners:v,context:e,buffer:h,abort:f,aborted:!1};return b}function o(t){return u(t,c,a)}function a(){return new r}function f(){(d.api||d.feature)&&(l.aborted=!0,d=l.backlog={})}var c="nr@context",u=t("gos"),s=t(8),d={},p={},l=e.exports=i();e.exports.getOrSetContext=o,l.backlog=d},{}],gos:[function(t,e,n){function r(t,e,n){if(i.call(t,e))return t[e];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:r,writable:!0,enumerable:!1}),r}catch(o){}return t[e]=r,r}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],handle:[function(t,e,n){function r(t,e,n,r){i.buffer([t],r),i.emit(t,e,n)}var i=t("ee").get("handle");e.exports=r,r.ee=i},{}],id:[function(t,e,n){function r(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:a(t,o,function(){return i++})}var i=1,o="nr@id",a=t("gos");e.exports=r},{}],loader:[function(t,e,n){function r(){if(!R++){var t=M.info=NREUM.info,e=v.getElementsByTagName("script")[0];if(setTimeout(u.abort,3e4),!(t&&t.licenseKey&&t.applicationID&&e))return u.abort();c(E,function(e,n){t[e]||(t[e]=n)});var n=a();f("mark",["onload",n+M.offset],null,"api"),f("timing",["load",n]);var r=v.createElement("script");0===t.agent.indexOf("http://")||0===t.agent.indexOf("https://")?r.src=t.agent:r.src=l+"://"+t.agent,e.parentNode.insertBefore(r,e)}}function i(){"complete"===v.readyState&&o()}function o(){f("mark",["domContent",a()+M.offset],null,"api")}var a=t(3),f=t("handle"),c=t(8),u=t("ee"),s=t(6),d=t(4),p=t(2),l=p.getConfiguration("ssl")===!1?"http":"https",m=window,v=m.document,g="addEventListener",h="attachEvent",y=m.XMLHttpRequest,w=y&&y.prototype,b=!d(m.location);NREUM.o={ST:setTimeout,SI:m.setImmediate,CT:clearTimeout,XHR:y,REQ:m.Request,EV:m.Event,PR:m.Promise,MO:m.MutationObserver};var x=""+location,E={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1209.min.js"},O=y&&w&&w[g]&&!/CriOS/.test(navigator.userAgent),M=e.exports={offset:a.getLastTimestamp(),now:a,origin:x,features:{},xhrWrappable:O,userAgent:s,disabled:b};if(!b){t(1),t(5),v[g]?(v[g]("DOMContentLoaded",o,!1),m[g]("load",r,!1)):(v[h]("onreadystatechange",i),m[h]("onload",r)),f("mark",["firstbyte",a.getLastTimestamp()],null,"api");var R=0}},{}],"wrap-function":[function(t,e,n){function r(t,e){function n(e,n,r,c,u){function nrWrapper(){var o,a,s,p;try{a=this,o=d(arguments),s="function"==typeof r?r(o,a):r||{}}catch(l){i([l,"",[o,a,c],s],t)}f(n+"start",[o,a,c],s,u);try{return p=e.apply(a,o)}catch(m){throw f(n+"err",[o,a,m],s,u),m}finally{f(n+"end",[o,a,p],s,u)}}return a(e)?e:(n||(n=""),nrWrapper[p]=e,o(e,nrWrapper,t),nrWrapper)}function r(t,e,r,i,o){r||(r="");var f,c,u,s="-"===r.charAt(0);for(u=0;u<e.length;u++)c=e[u],f=t[c],a(f)||(t[c]=n(f,s?c+r:r,i,c,o))}function f(n,r,o,a){if(!m||e){var f=m;m=!0;try{t.emit(n,r,o,e,a)}catch(c){i([c,n,r,o],t)}m=f}}return t||(t=s),n.inPlace=r,n.flag=p,n}function i(t,e){e||(e=s);try{e.emit("internal-error",t)}catch(n){}}function o(t,e,n){if(Object.defineProperty&&Object.keys)try{var r=Object.keys(t);return r.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(o){i([o],n)}for(var a in t)l.call(t,a)&&(e[a]=t[a]);return e}function a(t){return!(t&&t instanceof Function&&t.apply&&!t[p])}function f(t,e){var n=e(t);return n[p]=t,o(t,n,s),n}function c(t,e,n){var r=t[e];t[e]=f(r,n)}function u(){for(var t=arguments.length,e=new Array(t),n=0;n<t;++n)e[n]=arguments[n];return e}var s=t("ee"),d=t(9),p="nr@original",l=Object.prototype.hasOwnProperty,m=!1;e.exports=r,e.exports.wrapFunction=f,e.exports.wrapInPlace=c,e.exports.argsToArray=u},{}]},{},["loader"]);</script>
+<script async src="/sites/default/files/google_analytics/gtag.js?qubv3z"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("config", "UA-34879253-1", {"groups":"default","anonymize_ip":true,"allow_ad_personalization_signals":false});</script>
+<meta name="description" content="" />
+<meta name="abstract" content="As part of its mission, CISA leads the effort to enhance the security, resiliency, and reliability of the Nation&#039;s cybersecurity and communications infrastructure." />
+<meta name="keywords" content="uscert, csirt, cert, cybersecurity, cyber security, computer security, U. S. Computer Emergency Readiness, cyber risks" />
+<meta name="Generator" content="Drupal 9 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/sites/default/files/images/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="https://us-cert.cisa.gov/ncas/archives/bulletins/SB08-350" />
+<link rel="shortlink" href="https://us-cert.cisa.gov/node/9808" />
+<link rel="revision" href="https://us-cert.cisa.gov/ncas/archives/bulletins/SB08-350" />
+
+    <title>Vulnerability  Summary for the Week of December 8, 2008 | CISA</title>
+    <link rel="stylesheet" media="all" href="/sites/default/files/css/css_-w-jQbIWIO0ZERqyQMFp9m1ddgDjs5ZGsor0ebo5CG4.css" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_OtQ9QHAYVZDqM__uuCDStHUt38Nwh_1MHX1vxg5dE5c.css" />
+
+    
+    <!-- Google Font -->
+    <style type="text/css">
+/* source-sans-pro-regular - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'),
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.woff') format('woff'), /* Modern Browsers */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.svg#SourceSansPro') format('svg'); /* Legacy iOS */
+}
+    </style>
+    <!--link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet"--> 
+    <!-- Google Font -->
+  </head>
+  <body class="path-node page-node-type-us-cert-bulletins-archive has-glyphicons">
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+
+
+<div class="container-fluid top-top">
+      <aside role="complementary">
+        <div class="region region-top">
+    <section id="block-certtoptop" class="block block-block-content block-block-content4d95ffde-0818-4e6b-bd79-d1547b08c0c0 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container">
+<div id="top">
+<div class="row">
+<div class="col-sm-12 flag"><img alt="United States Flag" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/flag.png" style="position: absolute;" /><p style="padding-left: 35px; font-family: Arial; font-size: 11px;">An official website of the United States government <a href="#" id="here-is-how-u-know">Here's how you know <span class="arrow down"> </span></a></p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="usa-banner-content usa-grid usa-accordion-content hidden container" id="gov-banner">
+<div class="usa-banner-guidance-gov usa-width-one-half col-sm-6"><img alt="Dot gov" class="usa-banner-icon usa-media_block-img" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/icon-dot-gov.svg" /><div class="usa-media_block-body"><strong>Official websites use .gov</strong><br />
+A <b>.gov</b> website belongs to an official government organization in the United States.</div>
+</div>
+
+<div class="usa-banner-guidance-ssl usa-width-one-half col-sm-6"><img alt="SSL" class="usa-banner-icon usa-media_block-img" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/icon-https.svg" /><div class="usa-media_block-body"><strong>Secure .gov websites use HTTPS</strong> A <b>lock (<img alt="lock icon" src="/sites/default/files/icons/lock.svg" style="width:15px;" />)</b> or <b>https://</b> means you've safely connected to the .gov website. Share sensitive information only on official, secure websites.</div>
+</div>
+</div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </div>
+
+
+
+<div class="container-fluid hidden-xs hidden-sm banner-region">
+<div class="container">
+<div class="row">
+
+
+  
+
+<section class="col-sm-9">
+
+      <a id="logo-section"></a>
+        <div class="region region-logo">
+    <section id="block-certlogo" class="block block-block-content block-block-content4639a667-debe-4642-bc69-7839662c0187 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="hidden-xs hidden-sm"><a href="/"><img alt="Cybersecurity and Infrastructure Security Agency CISA" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/logo_verbose.png" title="Cybersecurity and Infrastructure Security Agency CISA" /></a></div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </section>
+
+
+
+      <aside class="col-sm-3" role="complementary">
+        <div class="region region-search">
+    <section id="block-certsearch" class="block block-block-content block-block-contentc33bd875-6ea6-42cc-b1ab-348a4e4bdff7 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><form accept-charset="UTF-8" action="https://search.us-cert.gov/search" class="hidden-xs searchbox" method="get"><input name="utf8" type="hidden" value="✓" /><input id="affiliate-desktop" name="affiliate" type="hidden" value="us-cert" /><div class="form-group"><label class="sr-only" for="query-desktop">Enter Search Terms(s):</label>
+<div class="input-group"><input autocomplete="off" class="form-control form-control-custom input-lg" id="query-desktop" name="query" placeholder="Search" type="text" /><div class="input-group-addon input-group-addon-custom"><button class="submit input-lg"><img alt="search icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/search-icon.png" title="search icon" /></button></div>
+</div>
+</div>
+</form>
+<style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+.navbar-default ul.navbar-nav > li.last a{
+display: none;
+
+/*--><!]]>*/
+</style><div style="padding: 16px 12px 8px 12px"><a class="btn btn-primary" href="/services" type="button" style="font-weight: bold; width: 40%">Services</a><a class="btn btn-primary pull-right" href="/report" type="button" style="font-weight: bold; width: 40%">Report</a></div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </div>
+</div>
+<hr class="hidden-xs nav-top-line">
+</div>
+
+
+
+          <header class="navbar navbar-default container-fluid" id="navbar" role="banner">
+        <div class="container ">
+      <div class="navbar-header">
+        
+                          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+            <div class="hidden-lg hidden-md mobile-nav">
+        <a class="" href="/">
+            <img src="/sites/default/files/cert/logo3.png"  alt="US Department of Homeland Security CISA Cyber + Infrastructure" title="US Department of Homeland Security CISA Cyber + Infrastructure">
+          </a>
+        </div>
+      </div>
+
+              <div id="navbar-collapse" class="navbar-collapse collapse">
+            <div class="region region-navigation-collapsible">
+    <section id="block-certsearchmobile" class="block block-block-content block-block-content0da6361c-e31a-4a58-b455-f9ebde1ba544 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><form accept-charset="UTF-8" action="https://search.us-cert.gov/search" class="hidden-lg hidden-md searchbox" method="get"><input name="utf8" type="hidden" value="✓" /><input id="affiliate-mobile" name="affiliate" type="hidden" value="us-cert" /><div class="form-group"><label class="sr-only" for="query-mobile">Enter Search Terms(s):</label>
+<div class="input-group"><input autocomplete="off" class="form-control form-control-custom input-lg" id="query-mobile" name="query" placeholder="Search" type="text" /><div class="input-group-addon input-group-addon-custom"><button class="submit input-lg"><img alt="search icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/search-icon.png" title="search icon" /></button></div>
+</div>
+</div>
+</form>
+<div class="hidden-md hidden-lg" style="padding: 8px"><a class="btn btn-primary btn-block" href="/services" role="button" style="font-weight: bold">Services</a></div>
+
+<div class="hidden-md hidden-lg" style="padding: 8px"><a class="btn btn-primary btn-block" href="/report" role="button" style="font-weight: bold">Report</a></div></div>
+      
+  </section>
+
+<nav role="navigation" aria-labelledby="block-certmainmenu-menu" id="block-certmainmenu">
+            
+  <h2 class="visually-hidden" id="block-certmainmenu-menu">CertMain Menu</h2>
+  
+
+        
+      <ul class="menu menu--certmain-menu nav navbar-nav">
+                      <li class="first">
+                                        <a href="/ncas" title="Alerts and Tips" data-drupal-link-system-path="node/5">Alerts and Tips</a>
+              </li>
+                      <li>
+                                        <a href="/resources" title="Resources" data-drupal-link-system-path="node/12436">Resources</a>
+              </li>
+                      <li>
+                                        <a href="/ics" title="Industrial Control Systems" data-drupal-link-system-path="node/14614">Industrial Control Systems</a>
+              </li>
+                      <li class="last">
+                                        <a href="/report" title="Report" data-drupal-link-system-path="node/5745">Report</a>
+              </li>
+        </ul>
+  
+
+  </nav>
+
+  </div>
+
+        </div>
+                </header>
+  <hr class="hidden-xs hidden-sm nav-bottom-line">
+<div class="visible-xs visible-sm mobile-border"></div>
+
+
+<div class="container">
+    <div id="print-logo"><img alt="US Department of Homeland Security CISA Cyber + Infrastructure" src="/sites/default/files/cert/logo2.png"/></div>
+    <div id="tlp-header"><svg height="30" width="120"> <rect fill="black" height="30" width="120" x="0" y="0"></rect> <text fill="#ffffff" font-size="18px" x="10" y="20">TLP:WHITE</text> </svg></div>
+    <div id="tlp-footer"><svg height="30" width="120"> <rect fill="black" height="30" width="120" x="0" y="0"></rect> <text fill="#ffffff" font-size="18px" x="10" y="20">TLP:WHITE</text> </svg></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  <div role="main" class="main-container container js-quickedit-main-content">
+    <div class="row">
+
+                              <div class="col-sm-12" role="heading" aria-level="1">
+              <div class="region region-header">
+      <div class="container-fluid hidden-xs">
+  <ol class="breadcrumb">
+          <li >
+                  <a href="/ncas">National Cyber Awareness System</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
+              </li>
+          <li >
+                  <a href="/ncas/archives/bulletins">Archives Bulletins</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
+              </li>
+          <li  class="active">
+                  Vulnerability  Summary for the Week of December 8, 2008
+              </li>
+      </ol>
+</div>
+
+
+
+  </div>
+
+          </div>
+              
+
+            
+            
+                        
+
+            
+                  <section class="col-sm-12">
+
+                              <div class="highlighted">  <div class="region region-highlighted">
+    <section id="block-archivenotice" class="block block-block-content block-block-content839bdf17-ed0e-4a51-b973-21f985c2f0ed clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item">
+	<div id="archive-notice">
+		<img alt="Note: This page is part of the us-cert.gov archive." id="archive-image" class="pull-left" src="/sites/default/files/images/icon_warning.png" /><p>This document is part of the US-CERT website archive. These documents are no longer updated and may contain outdated information. Links may also no longer function. Please contact <a href="mailto:info@us-cert.gov?subject=US-CERT.gov%20Archive" class="mailto">info@us-cert.gov<span class="mailto" aria-label="(link sends email)"></span></a> if you have any questions about the US-CERT website archive.</p>
+  	</div>
+                        </div>
+      
+  </section>
+
+<div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+</div>
+              
+                                      
+                  
+                          <a id="main-content"></a>
+            <div class="region region-content">
+                      <div id="bulletins-archive">
+                <a title="View Archives" href="/ncas/bulletins/">More Bulletins</a>
+            </div>
+	    <h1 id="page-title">Bulletin (SB08-350)</h1>
+	    <h2 id="page-sub-title">Vulnerability  Summary for the Week of December 8, 2008</h2>
+        <div class="submitted meta-text">
+                                    Original release date: December 15, 2008
+                        <div id="social-options">
+	<!-- START PRINT BUTTON -->
+		<div id="print-button">
+			<span id="custom-print-button">
+				<a rel="nofollow" href="javascript:window.print();" title="Click to print."><img src="/sites/default/files/icons/print-button.png" alt="Click to print." /></a>
+			</span>
+		</div>
+    <!-- END PRINT BUTTON -->
+	<!-- START TWEET BUTTON -->
+	<div id="tweet-button">
+		<span id="custom-tweet-button">
+			<a rel="nofollow" target="_blank" href="https://twitter.com/share?url=" class="popup-twitter" title="Click to Tweet."><img src="/sites/default/files/icons/tweet-button.png" alt="Click to Tweet." /></a>
+		</span>
+	</div>
+	<!-- END TWEET BUTTON -->
+
+	<!-- START FACEBOOK BUTTON -->
+	<div id="facebook-button">
+		<span id="custom-facebook-button">
+		<a rel="nofollow" target="_blank" href="https://www.facebook.com/sharer.php?u=" class="popup-facebook" title="Click to send to Facebook."><img src="/sites/default/files/icons/facebook-send-button.png" alt="Click to send to Facebook." /></a>
+		</span>
+	</div>
+	<!-- END FACEBOOK BUTTON -->
+
+	<!-- START SHARE BUTTON -->
+	<div id="share-button">
+		<span id="custom-share-button">
+			<a rel="nofollow" target="_blank" href="http://www.addthis.com/bookmark.php?url=" class="popup-share" title="Click to Share." ><img src="/sites/default/files/icons/share-button.png" alt="Click to Share." /></a>
+		</span>
+	</div>
+	<!-- END SHARE BUTTON -->
+
+</div>
+        </div>
+    
+  <div class="cert-content">
+<article role="article" about="/ncas/archives/bulletins/SB08-350" class="us-cert-bulletins-archive full clearfix">
+
+  
+    
+
+  
+  <div class="content">
+        
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><p>The CISA Vulnerability Bulletin provides a summary of new vulnerabilities that have been recorded by the <a href="https://www.nist.gov/">National Institute of Standards and Technology</a> (NIST) <a href="https://nvd.nist.gov/">National Vulnerability Database</a> (NVD) in the past week. NVD is sponsored by CISA. In some cases, the vulnerabilities in the bulletin may not yet have assigned CVSS scores. Please visit NVD for updated vulnerability entries, which include CVSS scores once they are available.</p>
+
+<p>Vulnerabilities are based on the <a href="https://cve.mitre.org/">Common Vulnerabilities and Exposures</a> (CVE) vulnerability naming standard and are organized according to severity, determined by the <a href="https://nvd.nist.gov/cvss.cfm">Common Vulnerability Scoring System</a> (CVSS) standard. The division of high, medium, and low severities correspond to the following scores:</p>
+
+<ul><li><a href="#high">High</a>: vulnerabilities with a CVSS base score of 7.0–10.0</li>
+	<li><a href="#medium">Medium</a>: vulnerabilities with a CVSS base score of 4.0–6.9</li>
+	<li><a href="#low">Low</a>: vulnerabilities with a CVSS base score of 0.0–3.9</li>
+</ul><p>Entries may include additional information provided by organizations and efforts sponsored by CISA. This information may include identifying information, values, definitions, and related links. Patch information is provided when available. Please note that some of the information in the bulletin is compiled from external, open-source reports and is not a direct result of CISA analysis.</p>
+</div>
+      
+
+        
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><a name="top" id="top"></a>
+
+<table align="center"><tr><td>
+<p>
+<a name="high" id="high"></a>
+</p><div id="high_v">
+<table align="center" border="1" class="vul_tables" summary="High Vulnerabilities"><thead><tr><th colspan="5" scope="col" id="high_v_title" class="titles">High Vulnerabilities</th></tr><tr><th scope="col" style="width:20%;" class="headers">Primary<br />Vendor -- Product</th>
+	<th scope="col" style="width:45%;" class="headers">Description</th>
+	<th scope="col" style="width:10%;" class="headers">Published </th>
+	<th scope="col" style="width:5%;" class="headers">CVSS Score</th>
+	<th scope="col" style="width:10%;" class="headers">Source &amp; Patch Info</th>
+	</tr></thead><tbody><tr><td width="20%" style="text-align: left;">
+apple -- itunes<br />apple -- quicktime<br /></td>
+		<td width="45%" style="text-align: left;">
+Stack-based buffer overflow in Apple QuickTime Player 7.5.5 and iTunes 8.0.2.20 allows remote attackers to cause a denial of service (application crash) and possibly execute arbitrary code via a MOV file with "long arguments," related to an "off by one overflow."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5406&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5406">CVE-2008-5406</a><br /><a class="offsite" href="http://xforce.iss.net/xforce/xfdb/46984" target="_blank">XF</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32540" target="_blank">BID</a><br /><a class="offsite" href="http://www.milw0rm.com/exploits/7296" target="_blank">MILW0RM</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+asterisk -- zaptel<br /></td>
+		<td width="45%" style="text-align: left;">
+Array index error in the (1) torisa.c and (2) dahdi/tor2.c drivers in Zaptel (aka DAHDI) 1.4.11 and earlier allows local users in the dialout group to overwrite an integer value in kernel memory by writing to /dev/zap/ctl, related to missing validation of the sync field associated with the ZT_SPANCONFIG ioctl.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5396&amp;vector=(AV:L/AC:L/Au:N/C:C/I:C/A:C)">7.2</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5396">CVE-2008-5396</a><br /><a class="offsite" href="http://www.openwall.com/lists/oss-security/2008/12/03/10" target="_blank">MLIST</a><br /><a class="offsite" href="http://bugs.digium.com/view.php?id=13954" target="_blank">CONFIRM</a><br /><a class="offsite" href="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=507459" target="_blank">CONFIRM</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+bandsitecms -- bandsite_cms<br /></td>
+		<td width="45%" style="text-align: left;">
+BandSite CMS 1.1.4 allows remote attackers to bypass authentication and gain administrative access by setting the login_auth cookie to true.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-12</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5497&amp;vector=(AV:N/AC:L/Au:N/C:P/I:P/A:P)">7.5</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5497">CVE-2008-5497</a><br /><a class="offsite" href="http://xforce.iss.net/xforce/xfdb/46601" target="_blank">XF</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32295" target="_blank">BID</a><br /><a class="offsite" href="http://www.milw0rm.com/exploits/7113" target="_blank">MILW0RM</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+bitdefender -- antivirus<br />bitdefender -- bitdefender<br />bullguard -- internet_security<br />software602 -- groupware_server<br /></td>
+		<td width="45%" style="text-align: left;">
+Unspecified vulnerability in the pdf.xmd module in (1) BitDefender Free Edition 10 and Antivirus Standard 10, (2) BullGuard Internet Security 8.5, and (3) Software602 Groupware Server 6.0.08.1118 allows remote attackers to cause a denial of service (application crash) or possibly execute arbitrary code via a crafted PDF file, possibly related to included compressed streams that were processed with the ASCIIHexDecode filter.  NOTE: some of these details are obtained from third party information.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5409&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5409">CVE-2008-5409</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32396" target="_blank">BID</a><br /><a class="offsite" href="http://secunia.com/advisories/32814" adv="1" target="_blank">SECUNIA</a><br /><a class="offsite" href="http://secunia.com/advisories/32789" adv="1" target="_blank">SECUNIA</a><br /><a class="offsite" href="http://secunia.com/advisories/27805" adv="1" target="_blank">SECUNIA</a><br /><a class="offsite" href="http://osvdb.org/50205" target="_blank">OSVDB</a><br /><a class="offsite" href="http://osvdb.org/50103" target="_blank">OSVDB</a><br /><a class="offsite" href="http://milw0rm.com/sploits/2008-BitDefenderDOS.zip" target="_blank">MISC</a><br /><a class="offsite" href="http://milw0rm.com/exploits/7178" target="_blank">MILW0RM</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+ca -- arcserve_backup<br /></td>
+		<td width="45%" style="text-align: left;">
+The LDBserver service in the server in CA ARCserve Backup 11.1 through 12.0 on Windows does not properly verify client data, which allows remote attackers to execute arbitrary code via unspecified vectors.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-11</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5415&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)">10.0</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5415">CVE-2008-5415</a><br /><a class="offsite" href="https://support.ca.com/irj/portal/anonymous/phpsupcontent?contentID=194293" adv="1" target="_blank">CONFIRM</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+cerulean_studios -- trillian<br />cerulean_studios -- trillian_pro<br />ceruleanstudios -- trillian<br />ceruleanstudios -- trillian_pro<br /></td>
+		<td width="45%" style="text-align: left;">
+Stack-based buffer overflow in the image tooltip implementation in Trillian before 3.1.12.0 allows remote attackers to execute arbitrary code via a long image filename, related to "AIM IMG Tag Parsing."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5401&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)">10.0</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5401">CVE-2008-5401</a><br /><a class="offsite" href="http://www.frsirt.com/english/advisories/2008/3348" adv="1" target="_blank">FRSIRT</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+cerulean_studios -- trillian<br />cerulean_studios -- trillian_pro<br />ceruleanstudios -- trillian<br />ceruleanstudios -- trillian_pro<br /></td>
+		<td width="45%" style="text-align: left;">
+Double free vulnerability in the XML parser in Trillian before 3.1.12.0 allows remote attackers to execute arbitrary code via a crafted XML expression, related to the "IMG SRC ID."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5402&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)">10.0</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5402">CVE-2008-5402</a><br /><a class="offsite" href="http://xforce.iss.net/xforce/xfdb/47098" target="_blank">XF</a><br /><a class="offsite" href="http://www.zerodayinitiative.com/advisories/ZDI-08-078" target="_blank">MISC</a><br /><a class="offsite" href="http://www.securitytracker.com/id?1021334" target="_blank">SECTRACK</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32645" target="_blank">BID</a><br /><a class="offsite" href="http://www.securityfocus.com/archive/1/archive/1/498933/100/0/threaded" target="_blank">BUGTRAQ</a><br /><a class="offsite" href="http://www.frsirt.com/english/advisories/2008/3348" target="_blank">FRSIRT</a><br /><a class="offsite" href="http://secunia.com/advisories/33001" target="_blank">SECUNIA</a><br /><a class="offsite" href="http://blog.ceruleanstudios.com/?p=404" target="_blank">MISC</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+cerulean_studios -- trillian<br />cerulean_studios -- trillian_pro<br />ceruleanstudios -- trillian<br />ceruleanstudios -- trillian_pro<br /></td>
+		<td width="45%" style="text-align: left;">
+Heap-based buffer overflow in the XML parser in the AIM plugin in Trillian before 3.1.12.0 allows remote attackers to execute arbitrary code via a malformed XML tag.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5403&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)">10.0</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5403">CVE-2008-5403</a><br /><a class="offsite" href="http://www.frsirt.com/english/advisories/2008/3348" adv="1" target="_blank">FRSIRT</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+cisco -- wvc54gc<br /></td>
+		<td width="45%" style="text-align: left;">
+The Cisco Linksys WVC54GC wireless video camera before firmware 1.25 sends cleartext configuration data in response to a Setup Wizard remote-management command, which allows remote attackers to obtain sensitive information such as passwords by sniffing the network.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4390&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)">10.0</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4390">CVE-2008-4390</a><br /><a class="offsite" href="http://www.kb.cert.org/vuls/id/528993" target="_blank">CERT-VN</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+cisco -- wvc54gc<br /></td>
+		<td width="45%" style="text-align: left;">
+Stack-based buffer overflow in the SetSource method in the NetCamPlayerWeb11gv2 ActiveX control in NetCamPlayerWeb11gv2.ocx on the Cisco Linksys WVC54GC wireless video camera before firmware 1.25 allows remote attackers to execute arbitrary code via long invalid arguments.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4391&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4391">CVE-2008-4391</a><br /><a class="offsite" href="http://www.kb.cert.org/vuls/id/639345" target="_blank">CERT-VN</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+clip-share -- clipshare<br /></td>
+		<td width="45%" style="text-align: left;">
+SQL injection vulnerability in channel_detail.php in ClipShare Pro 4, and 2006 through 2007, allows remote attackers to execute arbitrary SQL commands via the chid parameter.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-12</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5489&amp;vector=(AV:N/AC:L/Au:N/C:P/I:P/A:P)">7.5</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5489">CVE-2008-5489</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32311" target="_blank">BID</a><br /><a class="offsite" href="http://www.milw0rm.com/exploits/7128" target="_blank">MILW0RM</a><br /><a class="offsite" href="http://www.frsirt.com/english/advisories/2008/3170" adv="1" target="_blank">FRSIRT</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+debian -- shadow<br /></td>
+		<td width="45%" style="text-align: left;">
+/bin/login in shadow 4.0.18.1 in Debian GNU/Linux, and probably other Linux distributions, allows local users in the utmp group to overwrite arbitrary files via a symlink attack on a temporary file referenced in a line (aka ut_line) field in a utmp entry.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5394&amp;vector=(AV:L/AC:L/Au:N/C:C/I:C/A:C)">7.2</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5394">CVE-2008-5394</a><br /><a class="offsite" href="http://xforce.iss.net/xforce/xfdb/47037" target="_blank">XF</a><br /><a class="offsite" href="http://www.securityfocus.com/archive/1/archive/1/498769/100/0/threaded" target="_blank">BUGTRAQ</a><br /><a class="offsite" href="http://www.milw0rm.com/exploits/7313" target="_blank">MILW0RM</a><br /><a class="offsite" href="http://bugs.debian.org/505271" target="_blank">CONFIRM</a><br /><a class="offsite" href="http://bugs.debian.org/505071" target="_blank">CONFIRM</a><br /><a class="offsite" href="http://bugs.debian.org/332198" target="_blank">CONFIRM</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+digitalgreys -- com_contactinfo<br /></td>
+		<td width="45%" style="text-align: left;">
+SQL injection vulnerability in the Contact Information Module (com_contactinfo) component 1.0 for Joomla! allows remote attackers to execute arbitrary SQL commands via the catid parameter to index.php.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-12</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5494&amp;vector=(AV:N/AC:L/Au:N/C:P/I:P/A:P)">7.5</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5494">CVE-2008-5494</a><br /><a class="offsite" href="http://xforce.iss.net/xforce/xfdb/46563" target="_blank">XF</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32260" target="_blank">BID</a><br /><a class="offsite" href="http://www.milw0rm.com/exploits/7093" target="_blank">MILW0RM</a><br /><a class="offsite" href="http://www.frsirt.com/english/advisories/2008/3122" adv="1" target="_blank">FRSIRT</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+e-topbiz -- domain_shop<br /></td>
+		<td width="45%" style="text-align: left;">
+SQL injection vulnerability in admin.php in E-topbiz Domain Shop 2 allows remote attackers to execute arbitrary SQL commands via the passfromform parameter.  NOTE: the provenance of this information is unknown; the details are obtained solely from third party information.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-12</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5488&amp;vector=(AV:N/AC:L/Au:N/C:P/I:P/A:P)">7.5</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5488">CVE-2008-5488</a><br /><a class="offsite" href="http://xforce.iss.net/xforce/xfdb/46435" target="_blank">XF</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32170" target="_blank">BID</a><br /><a class="offsite" href="http://www.frsirt.com/english/advisories/2008/3048" adv="1" target="_blank">FRSIRT</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+emc -- control_center<br /></td>
+		<td width="45%" style="text-align: left;">
+Stack-based buffer overflow in SAN Manager Master Agent service (aka msragent.exe) in EMC Control Center 5.2 SP5 and 6.0 allows remote attackers to execute arbitrary code via multiple SST_CTGTRANS requests.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5419&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)">10.0</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5419">CVE-2008-5419</a><br /><a class="offsite" href="http://www.zerodayinitiative.com/advisories/ZDI-08-075" target="_blank">MISC</a><br /><a class="offsite" href="http://www.securitytracker.com/id?1021262" target="_blank">SECTRACK</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32389" target="_blank">BID</a><br /><a class="offsite" href="http://www.securityfocus.com/archive/1/archive/1/498555/100/0/threaded" target="_blank">BUGTRAQ</a><br /><a class="offsite" href="http://www.frsirt.com/english/advisories/2008/3220" adv="1" target="_blank">FRSIRT</a><br /><a class="offsite" href="http://secunia.com/advisories/32801" adv="1" target="_blank">SECUNIA</a><br /><a class="offsite" href="http://osvdb.org/50031" target="_blank">OSVDB</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+emc -- control_center<br /></td>
+		<td width="45%" style="text-align: left;">
+The SAN Manager Master Agent service (aka msragent.exe) in EMC Control Center before 6.1 does not properly authenticate SST_SENDFILE requests, which allows remote attackers to read arbitrary files.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5420&amp;vector=(AV:N/AC:L/Au:N/C:C/I:N/A:N)">7.8</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5420">CVE-2008-5420</a><br /><a class="offsite" href="http://xforce.iss.net/xforce/xfdb/46753" target="_blank">XF</a><br /><a class="offsite" href="http://www.zerodayinitiative.com/advisories/ZDI-08-076/" target="_blank">MISC</a><br /><a class="offsite" href="http://www.securitytracker.com/id?1021263" target="_blank">SECTRACK</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32392" target="_blank">BID</a><br /><a class="offsite" href="http://www.securityfocus.com/archive/1/archive/1/498556/100/0/threaded" target="_blank">BUGTRAQ</a><br /><a class="offsite" href="http://www.frsirt.com/english/advisories/2008/3220" adv="1" target="_blank">FRSIRT</a><br /><a class="offsite" href="http://secunia.com/advisories/32801" adv="1" target="_blank">SECUNIA</a><br /><a class="offsite" href="http://osvdb.org/50032" target="_blank">OSVDB</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+ffdshow-tryout -- ffdshow<br /></td>
+		<td width="45%" style="text-align: left;">
+Buffer overflow in the URL processing in ffdshow (aka ffdshow-tryout) before SVN revision 2347 allows remote attackers to execute arbitrary code via a long URL.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5381&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5381">CVE-2008-5381</a><br /><a class="offsite" href="http://www.securityfocus.com/archive/1/archive/1/498585/100/0/threaded" target="_blank">BUGTRAQ</a><br /><a class="offsite" href="http://www.frsirt.com/english/advisories/2008/3249" adv="1" target="_blank">FRSIRT</a><br /><a class="offsite" href="http://security.bkis.vn/?p=277" target="_blank">MISC</a><br /><a class="offsite" href="http://secunia.com/advisories/32881" adv="1" target="_blank">SECUNIA</a><br /><a class="offsite" href="http://secunia.com/advisories/32846" target="_blank">SECUNIA</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+grid2000 -- flexcell_grid_control<br /></td>
+		<td width="45%" style="text-align: left;">
+Insecure method vulnerability in the FlexCell.Grid ActiveX control in FlexCell.ocx 5.7.0.1 in FlexCell Grid ActiveX Component allows remote attackers to create and overwrite arbitrary files via the HttpDownloadFile method.  NOTE: this could be leveraged for code execution by creating executable files in Startup folders or by accessing files using hcp:// URLs.  NOTE: the provenance of this information is unknown; the details are obtained solely from third party information.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5404&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)">10.0</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5404">CVE-2008-5404</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32443" target="_blank">BID</a><br /><a class="offsite" href="http://secunia.com/advisories/32829" adv="1" target="_blank">SECUNIA</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+gungho -- loadprgax_control<br /></td>
+		<td width="45%" style="text-align: left;">
+Unspecified vulnerability in the GungHo LoadPrgAx ActiveX control 1.0.0.6 and earlier allows remote attackers to execute arbitrary Java applications via unknown vectors.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-12</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5495&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5495">CVE-2008-5495</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32318" target="_blank">BID</a><br /><a class="offsite" href="http://secunia.com/advisories/32743" adv="1" target="_blank">SECUNIA</a><br /><a class="offsite" href="http://jvndb.jvn.jp/ja/contents/2008/JVNDB-2008-000077.html" target="_blank">JVNDB</a><br /><a class="offsite" href="http://jvn.jp/en/jp/JVN47875752/index.html" target="_blank">JVN</a><br /><a class="offsite" href="http://gungho.jp/" target="_blank">CONFIRM</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+hp -- hp-ux<br /></td>
+		<td width="45%" style="text-align: left;">
+Unspecified vulnerability in DCE in HP HP-UX B.11.11, B.11.23, and B.11.31 allows remote attackers to cause a denial of service via unknown vectors.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-11</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4418&amp;vector=(AV:N/AC:L/Au:N/C:N/I:N/A:C)">7.8</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4418">CVE-2008-4418</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32754" target="_blank">BID</a><br /><a class="offsite" href="http://securitytracker.com/id?1021377" target="_blank">SECTRACK</a><br /><a class="offsite" href="http://marc.info/?l=bugtraq&amp;m=122893704624601&amp;w=2" target="_blank">HP</a><br /><a class="offsite" href="http://marc.info/?l=bugtraq&amp;m=122893704624601&amp;w=2" target="_blank">HP</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+ibm -- websphere_application_server<br /></td>
+		<td width="45%" style="text-align: left;">
+Unspecified vulnerability in IBM WebSphere Application Server (WAS) 7 before 7.0.0.1 on Windows has unknown impact and attack vectors related to JSPs.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-09</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5412&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)">10.0</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5412">CVE-2008-5412</a><br /><a class="offsite" href="http://www-01.ibm.com/support/docview.wss?uid=swg27014463" target="_blank">CONFIRM</a><br /><a class="offsite" href="http://secunia.com/advisories/33022" adv="1" target="_blank">SECUNIA</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+ibm -- websphere_application_server<br /></td>
+		<td width="45%" style="text-align: left;">
+Unspecified vulnerability in the Feature Pack for Web Services in the Web Services Security component in IBM WebSphere Application Server (WAS) 7 before 7.0.0.1 has unknown impact and attack vectors related to "userNameToken."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-09</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5414&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)">10.0</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5414">CVE-2008-5414</a><br /><a class="offsite" href="http://www-01.ibm.com/support/docview.wss?uid=swg27014463" target="_blank">CONFIRM</a><br /><a class="offsite" href="http://secunia.com/advisories/33022" target="_blank">SECUNIA</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- windows_2000<br />microsoft -- windows_2003_server<br />microsoft -- windows_server_2003<br />microsoft -- windows_server_2008<br />microsoft -- windows_vista<br />microsoft -- windows_xp<br /></td>
+		<td width="45%" style="text-align: left;">
+Integer overflow in GDI in Microsoft Windows 2000 SP4, XP SP2 and SP3, Server 2003 SP1 and SP2, Vista Gold and SP1, and Server 2008 allows remote attackers to execute arbitrary code via a malformed header in a crafted WMF file, which triggers a buffer overflow, aka "GDI Integer Overflow Vulnerability."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-2249&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-2249">CVE-2008-2249</a><br /><a class="offsite" href="http://www.microsoft.com/technet/security/Bulletin/MS08-071.mspx" adv="1" target="_blank">MS</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- windows_media_format_runtime<br />microsoft -- windows_media_player<br />microsoft -- windows_media_services<br /></td>
+		<td width="45%" style="text-align: left;">
+Microsoft Windows Media Player 6.4, Windows Media Format Runtime 7.1 through 11, and Windows Media Services 4.1, 9, and 2008 do not properly use the Service Principal Name (SPN) identifier when validating replies to authentication requests, which allows remote servers to execute arbitrary code via vectors that employ NTLM credential reflection, aka "SPN Vulnerability."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-3009&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)">10.0</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-3009">CVE-2008-3009</a><br /><a class="offsite" href="http://www.microsoft.com/technet/security/Bulletin/MS08-076.mspx" adv="1" target="_blank">MS</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- windows_media_player<br /></td>
+		<td width="45%" style="text-align: left;">
+Microsoft Windows Media Player 6.4, Windows Media Format Runtime 7.1 through 11, and Windows Media Services 4.1 and 9 incorrectly associate ISATAP addresses with the Local Intranet zone, which allows remote servers to capture NTLM credentials, and execute arbitrary code through credential-reflection attacks, by sending an authentication request, aka "ISATAP Vulnerability."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-3010&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)">10.0</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-3010">CVE-2008-3010</a><br /><a class="offsite" href="http://www.microsoft.com/technet/security/Bulletin/MS08-076.mspx" adv="1" target="_blank">MS</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- windows_2000<br />microsoft -- windows_2003_server<br />microsoft -- windows_server_2003<br />microsoft -- windows_server_2008<br />microsoft -- windows_vista<br />microsoft -- windows_xp<br /></td>
+		<td width="45%" style="text-align: left;">
+Heap-based buffer overflow in an API in GDI in Microsoft Windows 2000 SP4, XP SP2 and SP3, Server 2003 SP1 and SP2, Vista Gold and SP1, and Server 2008 allows context-dependent attackers to cause a denial of service or execute arbitrary code via a WMF file with a malformed file-size parameter, which would not be properly handled by a third-party application that uses this API for a copy operation, aka "GDI Heap Overflow Vulnerability."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-3465&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-3465">CVE-2008-3465</a><br /><a class="offsite" href="http://www.microsoft.com/technet/security/Bulletin/MS08-071.mspx" adv="1" target="_blank">MS</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- office<br />microsoft -- office_compatibility_pack_for_word_excel_ppt_2007<br />microsoft -- office_outlook<br />microsoft -- office_word<br />microsoft -- office_word_viewer<br />microsoft -- open_xml_file_format_converter<br />microsoft -- works<br /></td>
+		<td width="45%" style="text-align: left;">
+Microsoft Office Word 2000 SP3 and 2002 SP3 and Office 2004 for Mac allow remote attackers to execute arbitrary code via a crafted Word document that contains a malformed record, which triggers memory corruption, aka "Word Memory Corruption Vulnerability."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4024&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4024">CVE-2008-4024</a><br /><a class="offsite" href="http://www.microsoft.com/technet/security/Bulletin/MS08-072.mspx" adv="1" target="_blank">MS</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- office<br />microsoft -- office_compatibility_pack_for_word_excel_ppt_2007<br />microsoft -- office_outlook<br />microsoft -- office_word<br />microsoft -- office_word_viewer<br />microsoft -- open_xml_file_format_converter<br />microsoft -- works<br /></td>
+		<td width="45%" style="text-align: left;">
+Microsoft Office Word 2000 SP3, 2002 SP3, 2003 SP3, and 2007 Gold and SP1; Outlook 2007 Gold and SP1; Word Viewer 2003 Gold and SP3; Office Compatibility Pack for Word, Excel, and PowerPoint 2007 File Formats Gold and SP1; Office 2004 and 2008 for Mac; and Open XML File Format Converter for Mac allow remote attackers to execute arbitrary code via a malformed control word in (1) an RTF file or (2) a rich text e-mail message, which triggers incorrect memory allocation and memory corruption, aka "Word RTF Object Parsing Vulnerability."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4025&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4025">CVE-2008-4025</a><br /><a class="offsite" href="http://www.microsoft.com/technet/security/Bulletin/MS08-072.mspx" adv="1" target="_blank">MS</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- office<br />microsoft -- office_compatibility_pack_for_word_excel_ppt_2007<br />microsoft -- office_outlook<br />microsoft -- office_word<br />microsoft -- office_word_viewer<br />microsoft -- open_xml_file_format_converter<br />microsoft -- works<br /></td>
+		<td width="45%" style="text-align: left;">
+Microsoft Office Word 2000 SP3, 2002 SP3, 2003 SP3, and 2007 Gold and SP1; Word Viewer 2003 Gold and SP3; Office Compatibility Pack for Word, Excel, and PowerPoint 2007 File Formats Gold and SP1; Office 2004 and 2008 for Mac; and Open XML File Format Converter for Mac allow remote attackers to execute arbitrary code via a crafted Word document that contains a malformed value, which triggers memory corruption, aka "Word Memory Corruption Vulnerability."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4026&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4026">CVE-2008-4026</a><br /><a class="offsite" href="http://www.microsoft.com/technet/security/Bulletin/MS08-072.mspx" adv="1" target="_blank">MS</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- office<br />microsoft -- office_compatibility_pack_for_word_excel_ppt_2007<br />microsoft -- office_outlook<br />microsoft -- office_word<br />microsoft -- office_word_viewer<br />microsoft -- open_xml_file_format_converter<br />microsoft -- works<br /></td>
+		<td width="45%" style="text-align: left;">
+Microsoft Office Word 2000 SP3, 2002 SP3, 2003 SP3, and 2007 Gold and SP1; Outlook 2007 Gold and SP1; Word Viewer 2003 Gold and SP3; Office Compatibility Pack for Word, Excel, and PowerPoint 2007 File Formats Gold and SP1; and Office 2004 for Mac allow remote attackers to execute arbitrary code via malformed control words in (1) an RTF file or (2) a rich text e-mail message, which triggers a "memory calculation error" and memory corruption, aka "Word RTF Object Parsing Vulnerability."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4027&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4027">CVE-2008-4027</a><br /><a class="offsite" href="http://www.microsoft.com/technet/security/Bulletin/MS08-072.mspx" adv="1" target="_blank">MS</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- office<br />microsoft -- office_compatibility_pack_for_word_excel_ppt_2007<br />microsoft -- office_outlook<br />microsoft -- office_word<br />microsoft -- office_word_viewer<br />microsoft -- open_xml_file_format_converter<br />microsoft -- works<br /></td>
+		<td width="45%" style="text-align: left;">
+Microsoft Office Word 2000 SP3, 2002 SP3, 2003 SP3, and 2007 Gold and SP1; Outlook 2007 Gold and SP1; Word Viewer 2003 Gold and SP3; Office Compatibility Pack for Word, Excel, and PowerPoint 2007 File Formats Gold and SP1; Office 2004 and 2008 for Mac; and Open XML File Format Converter for Mac allow remote attackers to execute arbitrary code via crafted control words in (1) an RTF file or (2) a rich text e-mail message, which triggers incorrect memory allocation and memory corruption, aka "Word RTF Object Parsing Vulnerability," a different vulnerability than CVE-2008-4030.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4028&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4028">CVE-2008-4028</a><br /><a class="offsite" href="http://www.microsoft.com/technet/security/Bulletin/MS08-072.mspx" adv="1" target="_blank">MS</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- office<br />microsoft -- office_compatibility_pack_for_word_excel_ppt_2007<br />microsoft -- office_outlook<br />microsoft -- office_word<br />microsoft -- office_word_viewer<br />microsoft -- open_xml_file_format_converter<br />microsoft -- works<br /></td>
+		<td width="45%" style="text-align: left;">
+Microsoft Office Word 2000 SP3, 2002 SP3, 2003 SP3, and 2007 Gold and SP1; Outlook 2007 Gold and SP1; Word Viewer 2003 Gold and SP3; and Office Compatibility Pack for Word, Excel, and PowerPoint 2007 File Formats Gold and SP1 allow remote attackers to execute arbitrary code via crafted control words in (1) an RTF file or (2) a rich text e-mail message, which triggers incorrect memory allocation and memory corruption, aka "Word RTF Object Parsing Vulnerability," a different vulnerability than CVE-2008-4028.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4030&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4030">CVE-2008-4030</a><br /><a class="offsite" href="http://www.microsoft.com/technet/security/Bulletin/MS08-072.mspx" adv="1" target="_blank">MS</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- office<br />microsoft -- office_compatibility_pack_for_word_excel_ppt_2007<br />microsoft -- office_outlook<br />microsoft -- office_word<br />microsoft -- office_word_viewer<br />microsoft -- open_xml_file_format_converter<br />microsoft -- works<br /></td>
+		<td width="45%" style="text-align: left;">
+Microsoft Office Word 2000 SP3, 2002 SP3, 2003 SP3, and 2007 Gold and SP1; Outlook 2007 Gold and SP1; Word Viewer 2003 Gold and SP3; Office Compatibility Pack for Word, Excel, and PowerPoint 2007 File Formats Gold and SP1; Office 2004 and 2008 for Mac; and Open XML File Format Converter for Mac allow remote attackers to execute arbitrary code via a malformed string in (1) an RTF file or (2) a rich text e-mail message, which triggers incorrect memory allocation and memory corruption, aka "Word RTF Object Parsing Vulnerability."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4031&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4031">CVE-2008-4031</a><br /><a class="offsite" href="http://www.microsoft.com/technet/security/Bulletin/MS08-072.mspx" adv="1" target="_blank">MS</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- office_sharepoint_server<br />microsoft -- search_server<br /></td>
+		<td width="45%" style="text-align: left;">
+Microsoft Office SharePoint Server 2007 Gold and SP1 and Microsoft Search Server 2008 do not properly perform authentication and authorization for administrative functions, which allows remote attackers to cause a denial of service (server load), obtain sensitive information, and "create scripts that would run in the context of the site" via requests to administrative URIs, aka "Access Control Vulnerability."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4032&amp;vector=(AV:N/AC:L/Au:N/C:P/I:P/A:P)">7.5</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4032">CVE-2008-4032</a><br /><a class="offsite" href="http://www.microsoft.com/technet/security/Bulletin/MS08-077.mspx" adv="1" target="_blank">MS</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- office_frontpage<br />microsoft -- project<br />microsoft -- visual_basic<br />microsoft -- visual_foxpro<br />microsoft -- visual_studio_.net<br /></td>
+		<td width="45%" style="text-align: left;">
+The DataGrid ActiveX control in Microsoft Visual Basic 6.0 and Visual FoxPro 8.0 SP1 and 9.0 SP1 and SP2 does not properly handle errors during access to incorrectly initialized objects, which allows remote attackers to execute arbitrary code via a crafted HTML document, related to corruption of the "system state," aka "DataGrid Control Memory Corruption Vulnerability."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4252&amp;vector=(AV:N/AC:M/Au:S/C:C/I:C/A:C)">8.5</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4252">CVE-2008-4252</a><br /><a class="offsite" href="http://www.microsoft.com/technet/security/Bulletin/MS08-070.mspx" target="_blank">MS</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- office_frontpage<br />microsoft -- project<br />microsoft -- visual_basic<br />microsoft -- visual_foxpro<br />microsoft -- visual_studio_.net<br /></td>
+		<td width="45%" style="text-align: left;">
+The FlexGrid ActiveX control in Microsoft Visual Basic 6.0, Visual FoxPro 8.0 SP1 and 9.0 SP1 and SP2, Office FrontPage 2002 SP3, and Office Project 2003 SP3 does not properly handle errors during access to incorrectly initialized objects, which allows remote attackers to execute arbitrary code via a crafted HTML document, related to corruption of the "system state," aka "FlexGrid Control Memory Corruption Vulnerability."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4253&amp;vector=(AV:N/AC:M/Au:S/C:C/I:C/A:C)">8.5</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4253">CVE-2008-4253</a><br /><a class="offsite" href="http://www.microsoft.com/technet/security/Bulletin/MS08-070.mspx" adv="1" target="_blank">MS</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- office_frontpage<br />microsoft -- project<br />microsoft -- visual_basic<br />microsoft -- visual_foxpro<br />microsoft -- visual_studio_.net<br /></td>
+		<td width="45%" style="text-align: left;">
+The Hierarchical FlexGrid ActiveX control in Microsoft Visual Basic 6.0 and Visual FoxPro 8.0 SP1 and 9.0 SP1 and SP2 does not properly handle errors during access to incorrectly initialized objects, which allows remote attackers to execute arbitrary code via a crafted HTML document, related to corruption of the "system state," aka "Hierarchical FlexGrid Control Memory Corruption Vulnerability."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4254&amp;vector=(AV:N/AC:M/Au:S/C:C/I:C/A:C)">8.5</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4254">CVE-2008-4254</a><br /><a class="offsite" href="http://www.microsoft.com/technet/security/Bulletin/MS08-070.mspx" adv="1" target="_blank">MS</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- office_frontpage<br />microsoft -- project<br />microsoft -- visual_basic<br />microsoft -- visual_foxpro<br />microsoft -- visual_studio_.net<br /></td>
+		<td width="45%" style="text-align: left;">
+The Windows Common ActiveX control in Microsoft Visual Basic 6.0, Visual Studio .NET 2002 SP1 and 2003 SP1, Visual FoxPro 8.0 SP1 and 9.0 SP1 and SP2, and Office Project 2003 SP3 and 2007 Gold and SP1 allows remote attackers to execute arbitrary code via an AVI file with a crafted stream length, which triggers an "allocation error" and memory corruption, aka "Windows Common AVI Parsing Overflow Vulnerability."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4255&amp;vector=(AV:N/AC:M/Au:S/C:C/I:C/A:C)">8.5</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4255">CVE-2008-4255</a><br /><a class="offsite" href="http://www.microsoft.com/technet/security/Bulletin/MS08-070.mspx" adv="1" target="_blank">MS</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- office_frontpage<br />microsoft -- project<br />microsoft -- visual_basic<br />microsoft -- visual_foxpro<br />microsoft -- visual_studio_.net<br /></td>
+		<td width="45%" style="text-align: left;">
+The Charts ActiveX control in Microsoft Visual Basic 6.0, Visual Studio .NET 2002 SP1 and 2003 SP1, and Visual FoxPro 8.0 SP1 and 9.0 SP1 and SP2 does not properly handle errors during access to incorrectly initialized objects, which allows remote attackers to execute arbitrary code via a crafted HTML document, related to corruption of the "system state," aka "Charts Control Memory Corruption Vulnerability."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4256&amp;vector=(AV:N/AC:M/Au:S/C:C/I:C/A:C)">8.5</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4256">CVE-2008-4256</a><br /><a class="offsite" href="http://www.microsoft.com/technet/security/Bulletin/MS08-070.mspx" adv="1" target="_blank">MS</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- internet_explorer<br /></td>
+		<td width="45%" style="text-align: left;">
+Microsoft Internet Explorer 5.01 SP4 and 6 SP1 does not properly validate parameters during calls to navigation methods, which allows remote attackers to execute arbitrary code via a crafted HTML document that triggers memory corruption, aka "Parameter Validation Memory Corruption Vulnerability."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4258&amp;vector=(AV:N/AC:M/Au:S/C:C/I:C/A:C)">8.5</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4258">CVE-2008-4258</a><br /><a class="offsite" href="http://www.microsoft.com/technet/security/Bulletin/MS08-073.mspx" adv="1" target="_blank">MS</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- internet_explorer<br /></td>
+		<td width="45%" style="text-align: left;">
+Microsoft Internet Explorer 7 sometimes attempts to access uninitialized memory locations, which allows remote attackers to execute arbitrary code via a crafted HTML document that triggers memory corruption, aka "HTML Objects Memory Corruption Vulnerability."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4259&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4259">CVE-2008-4259</a><br /><a class="offsite" href="http://www.microsoft.com/technet/security/Bulletin/MS08-073.mspx" adv="1" target="_blank">MS</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- internet_explorer<br /></td>
+		<td width="45%" style="text-align: left;">
+Microsoft Internet Explorer 7 sometimes attempts to access a deleted object, which allows remote attackers to execute arbitrary code via a crafted HTML document that triggers memory corruption, aka "Uninitialized Memory Corruption Vulnerability."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4260&amp;vector=(AV:N/AC:M/Au:S/C:C/I:C/A:C)">8.5</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4260">CVE-2008-4260</a><br /><a class="offsite" href="http://www.microsoft.com/technet/security/Bulletin/MS08-073.mspx" adv="1" target="_blank">MS</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- internet_explorer<br /></td>
+		<td width="45%" style="text-align: left;">
+Microsoft Internet Explorer 5.01 SP4, 6 SP1 on Windows 2000, and 6 on Windows XP and Server 2003 does not properly handle extraneous data associated with an object embedded in a web page, which allows remote attackers to execute arbitrary code via a crafted HTML document that triggers memory corruption, aka "HTML Rendering Memory Corruption Vulnerability."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4261&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4261">CVE-2008-4261</a><br /><a class="offsite" href="http://www.microsoft.com/technet/security/Bulletin/MS08-073.mspx" adv="1" target="_blank">MS</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- office<br />microsoft -- office_compatibility_pack_for_word_excel_ppt_2007<br />microsoft -- office_excel<br />microsoft -- office_excel_viewer<br />microsoft -- open_xml_file_format_converter<br /></td>
+		<td width="45%" style="text-align: left;">
+Microsoft Office Excel 2000 SP3, 2002 SP3, 2003 SP3, and 2007 Gold and SP1; Excel Viewer 2003 Gold and SP3; Excel Viewer; Office Compatibility Pack for Word, Excel, and PowerPoint 2007 File Formats Gold and SP1; Office 2004 and 2008 for Mac; and Open XML File Format Converter for Mac allow remote attackers to execute arbitrary code via a crafted Excel spreadsheet that contains a malformed formula, which triggers "pointer corruption" during the loading of formulas from this spreadsheet, aka "File Format Parsing Vulnerability."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4264&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4264">CVE-2008-4264</a><br /><a class="offsite" href="http://www.microsoft.com/technet/security/Bulletin/MS08-074.mspx" adv="1" target="_blank">MS</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- office<br />microsoft -- office_compatibility_pack_for_word_excel_ppt_2007<br />microsoft -- office_excel<br />microsoft -- office_excel_viewer<br />microsoft -- open_xml_file_format_converter<br /></td>
+		<td width="45%" style="text-align: left;">
+Microsoft Office Excel 2000 SP3 allows remote attackers to execute arbitrary code via a crafted Excel spreadsheet that contains a malformed object, which triggers memory corruption during the loading of records from this spreadsheet, aka "File Format Parsing Vulnerability."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4265&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4265">CVE-2008-4265</a><br /><a class="offsite" href="http://www.microsoft.com/technet/security/Bulletin/MS08-074.mspx" adv="1" target="_blank">MS</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- office<br />microsoft -- office_compatibility_pack_for_word_excel_ppt_2007<br />microsoft -- office_excel<br />microsoft -- office_excel_viewer<br />microsoft -- open_xml_file_format_converter<br /></td>
+		<td width="45%" style="text-align: left;">
+Microsoft Office Excel 2000 SP3, 2002 SP3, and 2003 SP3; Excel Viewer 2003 Gold and SP3; Office 2004 and 2008 for Mac; and Open XML File Format Converter for Mac allow remote attackers to execute arbitrary code via a crafted Excel spreadsheet that contains a malformed object, which triggers stack corruption during the loading of records from this spreadsheet, aka "Excel Global Array Memory Corruption Vulnerability."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4266&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4266">CVE-2008-4266</a><br /><a class="offsite" href="http://www.microsoft.com/technet/security/Bulletin/MS08-074.mspx" adv="1" target="_blank">MS</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- windows_server_2008<br />microsoft -- windows_vista<br /></td>
+		<td width="45%" style="text-align: left;">
+The Windows Search component in Microsoft Windows Vista Gold and SP1 and Server 2008 does not properly free memory during a save operation for a Windows Search file, which allows remote attackers to execute arbitrary code via a crafted saved-search file, aka "Windows Saved Search Vulnerability."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4268&amp;vector=(AV:N/AC:M/Au:S/C:C/I:C/A:C)">8.5</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4268">CVE-2008-4268</a><br /><a class="offsite" href="http://www.microsoft.com/technet/security/Bulletin/MS08-075.mspx" adv="1" target="_blank">MS</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- windows_server_2008<br />microsoft -- windows_vista<br /></td>
+		<td width="45%" style="text-align: left;">
+The search-ms protocol handler in Windows Explorer in Microsoft Windows Vista Gold and SP1 and Server 2008 uses untrusted parameter data obtained from incorrect parsing, which allows remote attackers to execute arbitrary code via a crafted HTML document, aka "Windows Search Parsing Vulnerability."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4269&amp;vector=(AV:N/AC:M/Au:S/C:C/I:C/A:C)">8.5</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4269">CVE-2008-4269</a><br /><a class="offsite" href="http://www.microsoft.com/technet/security/Bulletin/MS08-075.mspx" adv="1" target="_blank">MS</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- office<br />microsoft -- office_compatibility_pack_for_word_excel_ppt_2007<br />microsoft -- office_outlook<br />microsoft -- office_word<br />microsoft -- office_word_viewer<br />microsoft -- open_xml_file_format_converter<br />microsoft -- works<br /></td>
+		<td width="45%" style="text-align: left;">
+Microsoft Office Word 2000 SP3, 2002 SP3, 2003 SP3, and 2007 Gold and SP1; Word Viewer 2003 Gold and SP3; Office Compatibility Pack for Word, Excel, and PowerPoint 2007 File Formats Gold and SP1; and Microsoft Works 8 allow remote attackers to execute arbitrary code via a crafted Word document that contains a malformed record value, which triggers memory corruption, aka "Word Memory Corruption Vulnerability."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4837&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4837">CVE-2008-4837</a><br /><a class="offsite" href="http://www.microsoft.com/technet/security/Bulletin/MS08-072.mspx" adv="1" target="_blank">MS</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- wordpad<br /></td>
+		<td width="45%" style="text-align: left;">
+The WordPad Text Converter for Word 97 files in Microsoft Windows 2000 SP4, XP SP2, and Server 2003 SP1 and SP2 allows remote attackers to execute arbitrary code via a crafted (1) .doc, (2) .wri, or (3) .rtf Word 97 file that triggers memory corruption, as exploited in the wild in December 2008.  NOTE: As of 20081210, it is unclear whether this vulnerability is related to a WordPad issue disclosed on 20080925 with a 2008-crash.doc.rar example, but there are insufficient details to be sure.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4841&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4841">CVE-2008-4841</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32718" target="_blank">BID</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/31399" target="_blank">BID</a><br /><a class="offsite" href="http://www.milw0rm.com/exploits/6560" target="_blank">MILW0RM</a><br /><a class="offsite" href="http://www.microsoft.com/technet/security/advisory/960906.mspx" adv="1" target="_blank">CONFIRM</a><br /><a class="offsite" href="http://securitytracker.com/id?1021376" target="_blank">SECTRACK</a><br /><a class="offsite" href="http://secunia.com/advisories/32997" adv="1" target="_blank">SECUNIA</a><br /><a class="offsite" href="http://milw0rm.com/sploits/2008-crash.doc.rar" target="_blank">MISC</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- sql_server<br /></td>
+		<td width="45%" style="text-align: left;">
+Heap-based buffer overflow in Microsoft SQL Server 2000 8.00.2050, 8.00.2039, and earlier allows remote authenticated users to cause a denial of service (access violation exception) or execute arbitrary code by calling the sp_replwritetovarbin extended stored procedure with a set of crafted parameters that trigger memory overwrite.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5416&amp;vector=(AV:N/AC:L/Au:S/C:C/I:C/A:C)">9.0</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5416">CVE-2008-5416</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32710" target="_blank">BID</a><br /><a class="offsite" href="http://www.securityfocus.com/archive/1/archive/1/499042/100/0/threaded" target="_blank">BUGTRAQ</a><br /><a class="offsite" href="http://www.sec-consult.com/files/20081209_mssql-2000-sp_replwritetovarbin_memwrite.txt" target="_blank">MISC</a><br /><a class="offsite" href="http://securitytracker.com/id?1021363" target="_blank">SECTRACK</a><br /><a class="offsite" href="http://secunia.com/advisories/33034" adv="1" target="_blank">SECUNIA</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- internet_explorer<br /></td>
+		<td width="45%" style="text-align: left;">
+Use-after-free vulnerability in mshtml.dll in Microsoft Internet Explorer 7 on Windows XP SP2 and SP3, Server 2003 SP1 and SP2, Vista Gold and SP1, and Server 2008 allows remote attackers to execute arbitrary code via a crafted XML document containing nested SPAN elements, as exploited in the wild in December 2008.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-11</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4844&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4844">CVE-2008-4844</a><br /><a class="offsite" href="http://www.kb.cert.org/vuls/id/493881" target="_blank">CERT-VN</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32721" target="_blank">BID</a><br /><a class="offsite" href="http://www.scanw.com/blog/archives/303" target="_blank">MISC</a><br /><a class="offsite" href="http://www.milw0rm.com/exploits/7410" target="_blank">MILW0RM</a><br /><a class="offsite" href="http://www.milw0rm.com/exploits/7403" target="_blank">MILW0RM</a><br /><a class="offsite" href="http://www.microsoft.com/technet/security/advisory/961051.mspx" adv="1" target="_blank">CONFIRM</a><br /><a class="offsite" href="http://www.breakingpointsystems.com/community/blog/patch-tuesdays-and-drive-by-sundays" target="_blank">MISC</a><br /><a class="offsite" href="http://www.avertlabs.com/research/blog/index.php/2008/12/09/yet-another-unpatched-drive-by-exploit-found-on-the-web/" target="_blank">MISC</a><br /><a class="offsite" href="http://secunia.com/advisories/33089" adv="1" target="_blank">SECUNIA</a><br /><a class="offsite" href="http://isc.sans.org/diary.html?storyid=5458" target="_blank">MISC</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+national_instruments -- electronics_workbench<br /></td>
+		<td width="45%" style="text-align: left;">
+Stack-based buffer overflow in National Instruments Electronics Workbench allows user-assisted attackers to cause a denial of service (application crash) and possibly execute arbitrary code via a crafted .ewb file.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5383&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5383">CVE-2008-5383</a><br /><a class="offsite" href="http://xforce.iss.net/xforce/xfdb/46996" target="_blank">XF</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32542" target="_blank">BID</a><br /><a class="offsite" href="http://www.milw0rm.com/exploits/7307" target="_blank">MILW0RM</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+oxid -- cain_and_abel<br /></td>
+		<td width="45%" style="text-align: left;">
+Stack-based buffer overflow in the RDP protocol password decoder in Cain &amp; Abel 4.9.23 and 4.9.24, and possibly earlier, allows remote attackers to execute arbitrary code via an RDP file containing a long string.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5405&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5405">CVE-2008-5405</a><br /><a class="offsite" href="http://xforce.iss.net/xforce/xfdb/46940" target="_blank">XF</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32543" target="_blank">BID</a><br /><a class="offsite" href="http://www.milw0rm.com/exploits/7309" target="_blank">MILW0RM</a><br /><a class="offsite" href="http://www.milw0rm.com/exploits/7297" target="_blank">MILW0RM</a><br /><a class="offsite" href="http://www.frsirt.com/english/advisories/2008/3286" adv="1" target="_blank">FRSIRT</a><br /><a class="offsite" href="http://secunia.com/advisories/32794" adv="1" target="_blank">SECUNIA</a><br /><a class="offsite" href="http://oxid.netsons.org/phpBB2/viewtopic.php?t=2750" target="_blank">CONFIRM</a><br /><a class="offsite" href="http://osvdb.org/50342" target="_blank">OSVDB</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+phpstore -- yahoo_answers<br /></td>
+		<td width="45%" style="text-align: left;">
+SQL injection vulnerability in index.php in PHPStore Yahoo Answers allows remote attackers to execute arbitrary SQL commands via the id parameter.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-12</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5490&amp;vector=(AV:N/AC:L/Au:N/C:P/I:P/A:P)">7.5</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5490">CVE-2008-5490</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32316" target="_blank">BID</a><br /><a class="offsite" href="http://www.milw0rm.com/exploits/7131" target="_blank">MILW0RM</a><br /><a class="offsite" href="http://www.frsirt.com/english/advisories/2008/3169" adv="1" target="_blank">FRSIRT</a><br /><a class="offsite" href="http://secunia.com/advisories/32717" adv="1" target="_blank">SECUNIA</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+phpstore -- wholesale<br />phpstore -- wholesales<br /></td>
+		<td width="45%" style="text-align: left;">
+SQL injection vulnerability in track.php in PHPStore Wholesales (aka Wholesale) allows remote attackers to execute arbitrary SQL commands via the id parameter.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-12</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5493&amp;vector=(AV:N/AC:L/Au:N/C:P/I:P/A:P)">7.5</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5493">CVE-2008-5493</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32314" target="_blank">BID</a><br /><a class="offsite" href="http://www.milw0rm.com/exploits/7134" target="_blank">MILW0RM</a><br /><a class="offsite" href="http://www.frsirt.com/english/advisories/2008/3167" adv="1" target="_blank">FRSIRT</a><br /><a class="offsite" href="http://secunia.com/advisories/32741" adv="1" target="_blank">SECUNIA</a><br /><a class="offsite" href="http://packetstorm.linuxsecurity.com/0811-exploits/wholesale-sql.txt" target="_blank">MISC</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+pozscripts -- business_directory_script<br /></td>
+		<td width="45%" style="text-align: left;">
+SQL injection vulnerability in showcategory.php in PozScripts Business Directory Script allows remote attackers to execute arbitrary SQL commands via the cid parameter.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-12</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5496&amp;vector=(AV:N/AC:L/Au:N/C:P/I:P/A:P)">7.5</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5496">CVE-2008-5496</a><br /><a class="offsite" href="http://xforce.iss.net/xforce/xfdb/46558" target="_blank">XF</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32264" target="_blank">BID</a><br /><a class="offsite" href="http://www.milw0rm.com/exploits/7098" target="_blank">MILW0RM</a><br /><a class="offsite" href="http://www.frsirt.com/english/advisories/2008/3118" adv="1" target="_blank">FRSIRT</a><br /><a class="offsite" href="http://secunia.com/advisories/32647" adv="1" target="_blank">SECUNIA</a><br /><a class="offsite" href="http://osvdb.org/49822" target="_blank">OSVDB</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+privacy-cd -- unbuntu_privacy_remix<br /></td>
+		<td width="45%" style="text-align: left;">
+UPR-Kernel in Ubuntu Privacy Remix (UPR) before 8.04_r1 includes kernel support for mounting RAID arrays, which might allow remote attackers to bypass intended isolation mechanisms by (1) reading from or (2) writing to these arrays.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5393&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)">10.0</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5393">CVE-2008-5393</a><br /><a class="offsite" href="https://bugs.launchpad.net/bugs/301285" target="_blank">CONFIRM</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32629" target="_blank">BID</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+ruby-lang -- ruby<br /></td>
+		<td width="45%" style="text-align: left;">
+httputils.rb in WEBrick in Ruby 1.8.1 and 1.8.5 allows remote attackers to cause a denial of service (CPU consumption) via a crafted HTTP request.  NOTE: this issue exists because of an incomplete fix for CVE-2008-3656.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4310&amp;vector=(AV:N/AC:L/Au:N/C:N/I:N/A:C)">7.8</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4310">CVE-2008-4310</a><br /><a class="offsite" href="https://bugzilla.redhat.com/show_bug.cgi?id=470252" target="_blank">CONFIRM</a><br /><a class="offsite" href="http://www.redhat.com/support/errata/RHSA-2008-0981.html" target="_blank">REDHAT</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+slimcms -- slimcms<br /></td>
+		<td width="45%" style="text-align: left;">
+SQL injection vulnerability in edit.php in SlimCMS 1.0.0 and earlier allows remote attackers to execute arbitrary SQL commands via the pageID parameter.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-12</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5491&amp;vector=(AV:N/AC:L/Au:N/C:P/I:P/A:P)">7.5</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5491">CVE-2008-5491</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32300" target="_blank">BID</a><br /><a class="offsite" href="http://www.milw0rm.com/exploits/7121" target="_blank">MILW0RM</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+sun -- jdk<br />sun -- jre<br />sun -- sdk<br /></td>
+		<td width="45%" style="text-align: left;">
+Unspecified vulnerability in Java Web Start (JWS) and Java Plug-in with Sun JDK and JRE 6 Update 10 and earlier; JDK and JRE 5.0 Update 16 and earlier; and SDK and JRE 1.4.2_18 and earlier allows untrusted JWS applications to gain privileges to access local files or applications via unknown vectors.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-05</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5340&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)">10.0</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5340">CVE-2008-5340</a><br /><a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-26-244988-1" adv="1" target="_blank">SUNALERT</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+sun -- jdk<br />sun -- jre<br />sun -- sdk<br /></td>
+		<td width="45%" style="text-align: left;">
+Unspecified vulnerability in Java Web Start (JWS) and Java Plug-in with Sun JDK and JRE 6 Update 10 and earlier; JDK and JRE 5.0 Update 16 and earlier; and SDK and JRE 1.4.2_18 and earlier allows "hidden code" to make unauthorized network connections and "hijack HTTP sessions using cookies stored in the browser" via unknown vectors.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-05</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5343&amp;vector=(AV:N/AC:L/Au:N/C:C/I:P/A:P)">9.0</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5343">CVE-2008-5343</a><br /><a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-26-244988-1" adv="1" target="_blank">SUNALERT</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+sun -- jdk<br />sun -- jre<br />sun -- sdk<br /></td>
+		<td width="45%" style="text-align: left;">
+Unspecified vulnerability in Java Web Start (JWS) and Java Plug-in with Sun JDK and JRE 6 Update 10 and earlier; JDK and JRE 5.0 Update 16 and earlier; and SDK and JRE 1.4.2_18 and earlier allows untrusted applets to read arbitrary files and make unauthorized network connections via unknown vectors related to applet classloading.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-05</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5344&amp;vector=(AV:N/AC:L/Au:N/C:P/I:P/A:P)">7.5</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5344">CVE-2008-5344</a><br /><a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-26-244988-1" adv="1" target="_blank">SUNALERT</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+sun -- jdk<br />sun -- jre<br />sun -- sdk<br /></td>
+		<td width="45%" style="text-align: left;">
+Unspecified vulnerability in Java Runtime Environment (JRE) with Sun JDK and JRE 6 Update 10 and earlier; JDK and JRE 5.0 Update 16 and earlier; SDK and JRE 1.4.2_18 and earlier; and SDK and JRE 1.3.1_23 and earlier allows code that is loaded from a local filesystem to read arbitrary files and make unauthorized connections to localhost via unknown vectors.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-05</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5345&amp;vector=(AV:N/AC:L/Au:N/C:P/I:P/A:P)">7.5</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5345">CVE-2008-5345</a><br /><a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-26-246387-1" target="_blank">SUNALERT</a><br /><a class="offsite" href="http://secunia.com/advisories/33015" target="_blank">SECUNIA</a><br /><a class="offsite" href="http://secunia.com/advisories/32991" target="_blank">SECUNIA</a><br /><a class="offsite" href="http://rhn.redhat.com/errata/RHSA-2008-1025.html" target="_blank">REDHAT</a><br /><a class="offsite" href="http://rhn.redhat.com/errata/RHSA-2008-1018.html" target="_blank">REDHAT</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+sun -- jdk<br />sun -- jre<br />sun -- sdk<br /></td>
+		<td width="45%" style="text-align: left;">
+Unspecified vulnerability in Java Runtime Environment (JRE) for Sun JDK and JRE 5.0 Update 16 and earlier; SDK and JRE 1.4.2_18 and earlier; and SDK and JRE 1.3.1_23 or earlier allows untrusted applets and applications to read arbitrary memory via a crafted ZIP file.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-05</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5346&amp;vector=(AV:N/AC:M/Au:N/C:C/I:N/A:N)">7.1</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5346">CVE-2008-5346</a><br /><a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-26-246386-1" adv="1" target="_blank">SUNALERT</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+sun -- jdk<br />sun -- jre<br /></td>
+		<td width="45%" style="text-align: left;">
+Multiple unspecified vulnerabilities in Java Runtime Environment (JRE) for Sun JDK and JRE 6 Update 10 and earlier allow untrusted applets and applications to gain privileges via vectors related to access to inner classes in the (1) JAX-WS and (2) JAXB packages.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-05</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5347&amp;vector=(AV:N/AC:L/Au:N/C:P/I:P/A:P)">7.5</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5347">CVE-2008-5347</a><br /><a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-26-246366-1" adv="1" target="_blank">SUNALERT</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+sun -- jdk<br />sun -- jre<br />sun -- sdk<br /></td>
+		<td width="45%" style="text-align: left;">
+Unspecified vulnerability in Java Runtime Environment (JRE) for Sun JDK and JRE 6 Update 10 and earlier; JDK and JRE 5.0 Update 16 and earlier; and SDK and JRE 1.4.2_18 and earlier, when using Kerberos authentication, allows remote attackers to cause a denial of service (OS resource consumption) via unknown vectors.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-05</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5348&amp;vector=(AV:N/AC:M/Au:N/C:N/I:N/A:C)">7.1</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5348">CVE-2008-5348</a><br /><a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-26-246346-1" adv="1" target="_blank">SUNALERT</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+sun -- jdk<br />sun -- jre<br /></td>
+		<td width="45%" style="text-align: left;">
+Unspecified vulnerability in Java Runtime Environment (JRE) for Sun JDK and JRE 6 Update 10 and earlier, and JDK and JRE 5.0 Update 16 and earlier, allows remote attackers to cause a denial of service (CPU consumption) via a crafted RSA public key.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-05</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5349&amp;vector=(AV:N/AC:M/Au:N/C:N/I:N/A:C)">7.1</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5349">CVE-2008-5349</a><br /><a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-26-246286-1" adv="1" target="_blank">SUNALERT</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+sun -- jdk<br />sun -- jre<br />sun -- sdk<br /></td>
+		<td width="45%" style="text-align: left;">
+Java Runtime Environment (JRE) for Sun JDK and JRE 6 Update 10 and earlier; JDK and JRE 5.0 Update 16 and earlier; and SDK and JRE 1.4.2_18 and earlier accepts UTF-8 encodings that are not the "shortest" form, which makes it easier for attackers to bypass protection mechanisms for other applications that rely on shortest-form UTF-8 encodings.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-05</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5351&amp;vector=(AV:N/AC:L/Au:N/C:P/I:P/A:P)">7.5</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5351">CVE-2008-5351</a><br /><a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-26-245246-1" adv="1" target="_blank">SUNALERT</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+sun -- jdk<br />sun -- jre<br /></td>
+		<td width="45%" style="text-align: left;">
+Integer overflow in the JAR unpacking utility (unpack200) in the unpack library (unpack.dll) in Java Runtime Environment (JRE) for Sun JDK and JRE 6 Update 10 and earlier, and JDK and JRE 5.0 Update 16 and earlier, allows untrusted applications and applets to gain privileges via a Pack200 compressed JAR file that triggers a heap-based buffer overflow.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-05</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5352&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5352">CVE-2008-5352</a><br /><a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-26-244992-1" adv="1" target="_blank">SUNALERT</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+sun -- jdk<br />sun -- jre<br />sun -- sdk<br /></td>
+		<td width="45%" style="text-align: left;">
+Unspecified vulnerability in Java Runtime Environment (JRE) for Sun JDK and JRE 6 Update 10 and earlier; JDK and JRE 5.0 Update 16 and earlier; and SDK and JRE 1.4.2_18 and earlier allows untrusted applets and applications to gain privileges via unknown vectors related to "deserializing calendar objects."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-05</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5353&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)">10.0</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5353">CVE-2008-5353</a><br /><a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-26-244991-1" adv="1" target="_blank">SUNALERT</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+sun -- jdk<br />sun -- jre<br />sun -- sdk<br /></td>
+		<td width="45%" style="text-align: left;">
+Stack-based buffer overflow in Java Runtime Environment (JRE) for Sun JDK and JRE 6 Update 10 and earlier; JDK and JRE 5.0 Update 16 and earlier; and SDK and JRE 1.4.2_18 and earlier allows locally-launched and possibly remote untrusted Java applications to execute arbitrary code via a JAR file with a long Main-Class manifest entry.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-05</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5354&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5354">CVE-2008-5354</a><br /><a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-26-244990-1" adv="1" target="_blank">SUNALERT</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+sun -- jdk<br />sun -- jre<br />sun -- sdk<br /></td>
+		<td width="45%" style="text-align: left;">
+Heap-based buffer overflow in Java Runtime Environment (JRE) for Sun JDK and JRE 6 Update 10 and earlier; JDK and JRE 5.0 Update 16 and earlier; and SDK and JRE 1.4.2_18 and earlier might allow remote attackers to execute arbitrary code via a crafted TrueType font file.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-05</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5356&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5356">CVE-2008-5356</a><br /><a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-26-244987-1" adv="1" target="_blank">SUNALERT</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+sun -- jdk<br />sun -- jre<br />sun -- sdk<br /></td>
+		<td width="45%" style="text-align: left;">
+Integer overflow in Java Runtime Environment (JRE) for Sun JDK and JRE 6 Update 10 and earlier; JDK and JRE 5.0 Update 16 and earlier; SDK and JRE 1.4.2_18 and earlier; and SDK and JRE 1.3.1_23 and earlier might allow remote attackers to execute arbitrary code via a crafted TrueType font file, which triggers a heap-based buffer overflow.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-05</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5357&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5357">CVE-2008-5357</a><br /><a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-26-244987-1" adv="1" target="_blank">SUNALERT</a><br /><a class="offsite" href="http://labs.idefense.com/intelligence/vulnerabilities/display.php?id=760" adv="1" target="_blank">IDEFENSE</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+sun -- jdk<br />sun -- jre<br /></td>
+		<td width="45%" style="text-align: left;">
+Java Runtime Environment (JRE) for Sun JDK and JRE 6 Update 10 and earlier might allow remote attackers to execute arbitrary code via a crafted GIF file that triggers memory corruption during display of the splash screen, possibly related to splashscreen.dll.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-05</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5358&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5358">CVE-2008-5358</a><br /><a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-26-244987-1" adv="1" target="_blank">SUNALERT</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+sun -- jdk<br />sun -- jre<br />sun -- sdk<br /></td>
+		<td width="45%" style="text-align: left;">
+Buffer overflow in Java Runtime Environment (JRE) for Sun JDK and JRE 6 Update 10 and earlier; JDK and JRE 5.0 Update 16 and earlier; SDK and JRE 1.4.2_18 and earlier; and SDK and JRE 1.3.1_23 and earlier might allow remote attackers to execute arbitrary code via unknown vectors related to "image processing code."</td>
+		<td width="10%" style="text-align:center;">
+2008-12-05</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5359&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5359">CVE-2008-5359</a><br /><a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-26-244987-1" adv="1" target="_blank">SUNALERT</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+sun -- solaris<br /></td>
+		<td width="45%" style="text-align: left;">
+The PK11_SESSION cache in the OpenSSL PKCS#11 engine in Sun Solaris 10 does not maintain reference counts for operations with asymmetric keys, which allows context-dependent attackers to cause a denial of service (failed cryptographic operations) via unspecified vectors, related to the (1) RSA_sign and (2) RSA_verify functions.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-09</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5410&amp;vector=(AV:N/AC:L/Au:N/C:N/I:N/A:C)">7.8</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5410">CVE-2008-5410</a><br /><a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-21-139459-01-1" target="_blank">CONFIRM</a><br /><a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-21-138863-02-1" target="_blank">CONFIRM</a><br /><a class="offsite" href="http://secunia.com/advisories/33050" adv="1" target="_blank">SECUNIA</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+sun -- ray_server_software<br /></td>
+		<td width="45%" style="text-align: left;">
+Sun Sun Ray Server Software 3.1 through 4.0 does not properly restrict access, which allows remote attackers to discover the Sun Ray administration password, and obtain admin access to the Data Store and Administration GUI, via unspecified vectors.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-11</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5422&amp;vector=(AV:N/AC:L/Au:N/C:P/I:P/A:P)">7.5</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5422">CVE-2008-5422</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32769" target="_blank">BID</a><br /><a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-26-240365-1" target="_blank">SUNALERT</a><br /><a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-21-127553-04-1" target="_blank">CONFIRM</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+symantec -- backup_exec_for_windows_server<br /></td>
+		<td width="45%" style="text-align: left;">
+Multiple unspecified vulnerabilities in the Backup Exec remote-agent logon process in Symantec Backup Exec for Windows Servers 11.0 (aka 11d) builds 6235 and 7170, 12.0 build 1364, and 12.5 build 2213 allow remote attackers to bypass authentication, and read or delete files, via unknown vectors.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5407&amp;vector=(AV:N/AC:L/Au:N/C:C/I:N/A:C)">9.4</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5407">CVE-2008-5407</a><br /><a class="offsite" href="http://seer.entsupport.symantec.com/docs/314528.htm" adv="1" target="_blank">CONFIRM</a><br /><a class="offsite" href="http://securityresponse.symantec.com/avcenter/security/Content/2008.11.19.html" adv="1" target="_blank">CONFIRM</a><br /><a class="offsite" href="http://secunia.com/advisories/32810" adv="1" target="_blank">SECUNIA</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+symantec -- backup_exec_for_windows_server<br /></td>
+		<td width="45%" style="text-align: left;">
+Buffer overflow in the data management protocol in Symantec Backup Exec for Windows Servers 11.0 (aka 11d) builds 6235 and 7170, 12.0 build 1364, and 12.5 build 2213 allows remote authenticated users to cause a denial of service (application crash) and possibly execute arbitrary code via unknown vectors.  NOTE: this can be exploited by unauthenticated remote attackers by leveraging CVE-2008-5407.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5408&amp;vector=(AV:N/AC:L/Au:S/C:C/I:C/A:C)">9.0</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5408">CVE-2008-5408</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32346" target="_blank">BID</a><br /><a class="offsite" href="http://seer.entsupport.symantec.com/docs/314528.htm" adv="1" target="_blank">CONFIRM</a><br /><a class="offsite" href="http://securityresponse.symantec.com/avcenter/security/Content/2008.11.19.html" adv="1" target="_blank">CONFIRM</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+tor -- tor<br /></td>
+		<td width="45%" style="text-align: left;">
+Tor before 0.2.0.32 does not properly process the (1) User and (2) Group configuration options, which might allow local users to gain privileges by leveraging unintended supplementary group memberships of the Tor process.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5397&amp;vector=(AV:L/AC:L/Au:N/C:C/I:C/A:C)">7.2</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5397">CVE-2008-5397</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32648" target="_blank">BID</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+tor -- tor<br /></td>
+		<td width="45%" style="text-align: left;">
+Tor before 0.2.0.32 does not properly process the ClientDNSRejectInternalAddresses configuration option in situations where an exit relay issues a policy-based refusal of a stream, which allows remote exit relays to have an unknown impact by mapping an internal IP address to the destination hostname of a refused stream.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5398&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5398">CVE-2008-5398</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32648" target="_blank">BID</a><br /><a class="offsite" href="http://blog.torproject.org/blog/tor-0.2.0.32-released" target="_blank">CONFIRM</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+turnkeyforms -- text_link_sales<br /></td>
+		<td width="45%" style="text-align: left;">
+SQL injection vulnerability in admin.php in TurnkeyForms Text Link Sales allows remote attackers to execute arbitrary SQL commands via the id parameter.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-12</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5486&amp;vector=(AV:N/AC:L/Au:N/C:P/I:P/A:P)">7.5</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5486">CVE-2008-5486</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32308" target="_blank">BID</a><br /><a class="offsite" href="http://www.milw0rm.com/exploits/7124" target="_blank">MILW0RM</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+twiki -- twiki<br /></td>
+		<td width="45%" style="text-align: left;">
+Eval injection vulnerability in TWiki before 4.2.4 allows remote attackers to execute arbitrary Perl code via the %SEARCH{}% variable.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-09</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5305&amp;vector=(AV:N/AC:L/Au:N/C:C/I:C/A:C)">10.0</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5305">CVE-2008-5305</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32668" target="_blank">BID</a><br /><a class="offsite" href="http://twiki.org/cgi-bin/view/Codev/SecurityAlert-CVE-2008-5305" adv="1" target="_blank">CONFIRM</a><br /><a class="offsite" href="http://securitytracker.com/id?1021352" target="_blank">SECTRACK</a><br /><a class="offsite" href="http://secunia.com/advisories/33040" adv="1" target="_blank">SECUNIA</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+verypdf -- verydoc_pdf_viewer<br /></td>
+		<td width="45%" style="text-align: left;">
+Heap-based buffer overflow in the PDFVIEW.PdfviewCtrl.1 ActiveX control in pdfview.ocx 2.0.0.1 in VeryDOC PDF Viewer OCX Control allows remote attackers to execute arbitrary code via a long first argument to the OpenPDF method.  NOTE: some of these details are obtained from third party information.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-12</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5492&amp;vector=(AV:N/AC:M/Au:N/C:C/I:C/A:C)">9.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5492">CVE-2008-5492</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32313" target="_blank">BID</a><br /><a class="offsite" href="http://www.milw0rm.com/exploits/7126" target="_blank">MILW0RM</a><br /><a class="offsite" href="http://www.bmgsec.com.au/advisories/openpdf.txt" target="_blank">MISC</a><br /><a class="offsite" href="http://secunia.com/advisories/32725" adv="1" target="_blank">SECUNIA</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+vmware -- esx<br />vmware -- esxi<br />vmware -- player<br />vmware -- server<br />vmware -- vmware_workstation<br /></td>
+		<td width="45%" style="text-align: left;">
+Unspecified vulnerability in VMware Workstation 5.5.8 and earlier, and 6.0.5 and earlier 6.x versions; VMware Player 1.0.8 and earlier, and 2.0.5 and earlier 2.x versions; VMware Server 1.0.9 and earlier; VMware ESXi 3.5; and VMware ESX 3.0.2 through 3.5 allows guest OS users to have an unknown impact by sending the virtual hardware a request that triggers an arbitrary physical-memory write operation, leading to memory corruption.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4917&amp;vector=(AV:L/AC:L/Au:N/C:C/I:C/A:C)">7.2</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4917">CVE-2008-4917</a><br /><a class="offsite" href="http://secunia.com/advisories/32965" adv="1" target="_blank">SECUNIA</a><br /><a class="offsite" href="http://kb.vmware.com/kb/1006980" target="_blank">CONFIRM</a><br /></td>
+	</tr></tbody><tfoot><tr><td colspan="5"><a href="#top">Back to top</a></td>
+	</tr></tfoot></table></div>
+<a name="medium" id="medium"></a>
+<div id="medium_v">
+<table align="center" border="1" class="vul_tables" summary="Medium Vulnerabilities"><thead><tr><th colspan="5" scope="col" id="medium_v_title" class="titles">Medium Vulnerabilities</th></tr><tr><th scope="col" style="width:20%;" class="headers">Primary<br />Vendor -- Product</th>
+	<th scope="col" style="width:45%;" class="headers">Description</th>
+	<th scope="col" style="width:10%;" class="headers">Published </th>
+	<th scope="col" style="width:5%;" class="headers">CVSS Score</th>
+	<th scope="col" style="width:10%;" class="headers">Source &amp; Patch Info</th>
+	</tr></thead><tbody><tr><td width="20%" style="text-align: left;">
+5e5 -- teamtek_universal_ftp_server<br /></td>
+		<td width="45%" style="text-align: left;">
+Teamtek Universal FTP Server 1.0.50 allows remote attackers to cause a denial of service (daemon crash or hang) via (1) multiple STOR (aka PUT) commands, or an MKD command followed by (2) a '*' argument, (3) a '|' argument, (4) spaces, or (5) a long string.  NOTE: the provenance of this information is unknown; the details are obtained solely from third party information.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-11</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2006-7235&amp;vector=(AV:N/AC:L/Au:N/C:N/I:N/A:P)">5.0</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2006-7235">CVE-2006-7235</a><br /><a class="offsite" href="http://xforce.iss.net/xforce/xfdb/30297" target="_blank">XF</a><br /><a class="offsite" href="http://www.vupen.com/english/advisories/2006/4520" adv="1" target="_blank">FRSIRT</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/21085" target="_blank">BID</a><br /><a class="offsite" href="http://secunia.com/advisories/22553" adv="1" target="_blank">SECUNIA</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+5e5 -- teamtek_universal_ftp_server<br /></td>
+		<td width="45%" style="text-align: left;">
+Teamtek Universal FTP Server 1.0.44 allows remote attackers to cause a denial of service via (1) a certain CWD command, (2) a long LIST command, or (3) a certain PORT command.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-11</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5431&amp;vector=(AV:N/AC:L/Au:N/C:N/I:N/A:P)">5.0</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5431">CVE-2008-5431</a><br /><a class="offsite" href="http://www.securityfocus.com/archive/1/archive/1/488142/100/200/threaded" target="_blank">BUGTRAQ</a><br /><a class="offsite" href="http://secunia.com/advisories/22553" adv="1" target="_blank">SECUNIA</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+apple -- cups<br /></td>
+		<td width="45%" style="text-align: left;">
+pstopdf in CUPS 1.3.8 allows local users to overwrite arbitrary files via a symlink attack on the /tmp/pstopdf.log temporary file, a different vulnerability than CVE-2001-1333.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5377&amp;vector=(AV:L/AC:M/Au:N/C:C/I:C/A:C)">6.9</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5377">CVE-2008-5377</a><br /><a class="offsite" href="http://uvw.ru/report.sid.txt" target="_blank">MISC</a><br /><a class="offsite" href="http://lists.debian.org/debian-devel/2008/08/msg00347.html" target="_blank">MLIST</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+cmus -- cmus<br /></td>
+		<td width="45%" style="text-align: left;">
+cmus-status-display in cmus 2.2.0 allows local users to overwrite arbitrary files via a symlink attack on the /tmp/cmus-status temporary file.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5375&amp;vector=(AV:L/AC:M/Au:N/C:C/I:C/A:C)">6.9</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5375">CVE-2008-5375</a><br /><a class="offsite" href="http://uvw.ru/report.sid.txt" target="_blank">MISC</a><br /><a class="offsite" href="http://lists.debian.org/debian-devel/2008/08/msg00347.html" target="_blank">MLIST</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+crip -- crip<br /></td>
+		<td width="45%" style="text-align: left;">
+editcomment in crip 3.7 allows local users to overwrite arbitrary files via a symlink attack on a /tmp/*.tag.tmp temporary file.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5376&amp;vector=(AV:L/AC:M/Au:N/C:C/I:C/A:C)">6.9</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5376">CVE-2008-5376</a><br /><a class="offsite" href="http://uvw.ru/report.sid.txt" target="_blank">MISC</a><br /><a class="offsite" href="http://lists.debian.org/debian-devel/2008/08/msg00347.html" target="_blank">MLIST</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+eset -- nod32_antivirus<br /></td>
+		<td width="45%" style="text-align: left;">
+ESet NOD32 2.70.0039.0000 does not properly handle (1) multipart/mixed e-mail messages with many MIME parts and possibly (2) e-mail messages with many "Content-type: message/rfc822;" headers, which allows remote attackers to cause a denial of service (stack consumption or other resource consumption) via a large e-mail message, a related issue to CVE-2006-1173.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-11</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5425&amp;vector=(AV:N/AC:M/Au:N/C:N/I:N/A:P)">4.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5425">CVE-2008-5425</a><br /><a class="offsite" href="http://www.securityfocus.com/archive/1/archive/1/499045/100/0/threaded" target="_blank">BUGTRAQ</a><br /><a class="offsite" href="http://www.securityfocus.com/archive/1/archive/1/499038/100/0/threaded" target="_blank">BUGTRAQ</a><br /><a class="offsite" href="http://mime.recurity.com/cgi-bin/twiki/view/Main/AttackIntro" target="_blank">MISC</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+freedesktop -- dbus<br /></td>
+		<td width="45%" style="text-align: left;">
+The default configuration of system.conf in D-Bus (aka DBus) before 1.2.6 omits the send_type attribute in certain rules, which allows local users to bypass intended access restrictions by (1) sending messages, related to send_requested_reply; and possibly (2) receiving messages, related to receive_requested_reply.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-09</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-4311&amp;vector=(AV:L/AC:L/Au:N/C:P/I:P/A:P)">4.6</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-4311">CVE-2008-4311</a><br /><a class="offsite" href="https://www.redhat.com/archives/fedora-package-announce/2008-December/msg00436.html" target="_blank">FEDORA</a><br /><a class="offsite" href="https://bugzilla.redhat.com/show_bug.cgi?id=474895" target="_blank">CONFIRM</a><br /><a class="offsite" href="https://bugs.freedesktop.org/show_bug.cgi?id=18229" target="_blank">CONFIRM</a><br /><a class="offsite" href="http://xforce.iss.net/xforce/xfdb/47138" target="_blank">XF</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32674" target="_blank">BID</a><br /><a class="offsite" href="http://www.frsirt.com/english/advisories/2008/3355" adv="1" target="_blank">FRSIRT</a><br /><a class="offsite" href="http://secunia.com/advisories/33055" adv="1" target="_blank">SECUNIA</a><br /><a class="offsite" href="http://secunia.com/advisories/33047" adv="1" target="_blank">SECUNIA</a><br /><a class="offsite" href="http://lists.freedesktop.org/archives/dbus/2008-December/010702.html" target="_blank">MLIST</a><br /><a class="offsite" href="http://forums.fedoraforum.org/showthread.php?t=206797" target="_blank">CONFIRM</a><br /><a class="offsite" href="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=503532" target="_blank">CONFIRM</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+gpsdrive -- gpsdrive<br /></td>
+		<td width="45%" style="text-align: left;">
+gpsdrive (aka gpsdrive-scripts) 2.09 allows local users to overwrite arbitrary files via a symlink attack on an (a) /tmp/geo#####, a (b) /tmp/geocaching.loc, a (c) /tmp/geo#####.*, or a (d) /tmp/geo.* temporary file, related to the (1) geo-code and (2) geo-nearest scripts, different vectors than CVE-2008-4959.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5380&amp;vector=(AV:L/AC:M/Au:N/C:C/I:C/A:C)">6.9</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5380">CVE-2008-5380</a><br /><a class="offsite" href="http://lists.debian.org/debian-devel/2008/08/msg00285.html" target="_blank">MLIST</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+i-o_data -- hlf-f160<br />i-o_data -- hlf-f250<br />i-o_data -- hlf-f300<br />i-o_data -- hlf-f320<br /></td>
+		<td width="45%" style="text-align: left;">
+Cross-site request forgery (CSRF) vulnerability in I-O DATA DEVICE HDL-F160, HDL-F250, HDL-F300, and HDL-F320 firmware before 1.02 allows remote attackers to (1) change a configuration or (2) delete files as an authenticated user via unknown vectors.  NOTE: the provenance of this information is unknown; the details are obtained solely from third party information.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5382&amp;vector=(AV:N/AC:M/Au:N/C:P/I:P/A:P)">6.8</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5382">CVE-2008-5382</a><br /><a class="offsite" href="http://www.iodata.jp/news/2008/important/hdl-f.htm" target="_blank">CONFIRM</a><br /><a class="offsite" href="http://secunia.com/advisories/32836" adv="1" target="_blank">SECUNIA</a><br /><a class="offsite" href="http://osvdb.org/50183" target="_blank">OSVDB</a><br /><a class="offsite" href="http://jvn.jp/en/jp/JVN70599814/index.html" target="_blank">JVN</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+ibm -- aix<br /></td>
+		<td width="45%" style="text-align: left;">
+crontab in bos.rte.cron in IBM AIX 6.1.0 through 6.1.2 allows local users with aix.system.config.cron authorization to gain privileges by launching an editor.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5384&amp;vector=(AV:L/AC:M/Au:N/C:C/I:C/A:C)">6.9</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5384">CVE-2008-5384</a><br /><a class="offsite" href="http://www-01.ibm.com/support/docview.wss?uid=isg1IZ34783" adv="1" target="_blank">AIXAPAR</a><br /><a class="offsite" href="http://www-01.ibm.com/support/docview.wss?uid=isg1IZ34478" adv="1" target="_blank">AIXAPAR</a><br /><a class="offsite" href="http://www-01.ibm.com/support/docview.wss?uid=isg1IZ30248" adv="1" target="_blank">AIXAPAR</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+ibm -- aix<br /></td>
+		<td width="45%" style="text-align: left;">
+enq in bos.rte.printers in IBM AIX 6.1.0 through 6.1.2, when a print queue is defined in /etc/qconfig, allows local users to delete arbitrary files via unspecified vectors.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5385&amp;vector=(AV:L/AC:M/Au:N/C:C/I:C/A:C)">6.9</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5385">CVE-2008-5385</a><br /><a class="offsite" href="http://www-01.ibm.com/support/docview.wss?uid=isg1IZ34785" adv="1" target="_blank">AIXAPAR</a><br /><a class="offsite" href="http://www-01.ibm.com/support/docview.wss?uid=isg1IZ34481" adv="1" target="_blank">AIXAPAR</a><br /><a class="offsite" href="http://www-01.ibm.com/support/docview.wss?uid=isg1IZ33088" adv="1" target="_blank">AIXAPAR</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+ibm -- aix<br /></td>
+		<td width="45%" style="text-align: left;">
+Buffer overflow in ndp in IBM AIX 6.1.0 through 6.1.2, when the netcd daemon is running, allows local users to gain privileges via unspecified vectors.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5386&amp;vector=(AV:L/AC:M/Au:N/C:C/I:C/A:C)">6.9</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5386">CVE-2008-5386</a><br /><a class="offsite" href="http://www-01.ibm.com/support/docview.wss?uid=isg1IZ35209" adv="1" target="_blank">AIXAPAR</a><br /><a class="offsite" href="http://www-01.ibm.com/support/docview.wss?uid=isg1IZ35181" adv="1" target="_blank">AIXAPAR</a><br /><a class="offsite" href="http://www-01.ibm.com/support/docview.wss?uid=isg1IZ35170" adv="1" target="_blank">AIXAPAR</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+ibm -- aix<br /></td>
+		<td width="45%" style="text-align: left;">
+Buffer overflow in autoconf6 in IBM AIX 6.1.0 through 6.1.2, when Role-Based Access Control is enabled, allows local users with aix.network.config.tcpip authorization to gain privileges via unspecified vectors.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5387&amp;vector=(AV:L/AC:H/Au:N/C:C/I:C/A:C)">6.2</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5387">CVE-2008-5387</a><br /><a class="offsite" href="http://www-01.ibm.com/support/docview.wss?uid=isg1IZ34753" adv="1" target="_blank">AIXAPAR</a><br /><a class="offsite" href="http://www-01.ibm.com/support/docview.wss?uid=isg1IZ34393" adv="1" target="_blank">AIXAPAR</a><br /><a class="offsite" href="http://www-01.ibm.com/support/docview.wss?uid=isg1IZ30231" adv="1" target="_blank">AIXAPAR</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+ibm -- websphere_application_server<br /></td>
+		<td width="45%" style="text-align: left;">
+IBM WebSphere Application Server (WAS) 7 before 7.0.0.1 sends SSL traffic over "unsecured TCP," which makes it easier for remote attackers to obtain sensitive information by sniffing the network.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-09</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5411&amp;vector=(AV:N/AC:L/Au:N/C:P/I:N/A:N)">5.0</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5411">CVE-2008-5411</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32679" target="_blank">BID</a><br /><a class="offsite" href="http://www.frsirt.com/english/advisories/2008/3370" adv="1" target="_blank">FRSIRT</a><br /><a class="offsite" href="http://www-01.ibm.com/support/docview.wss?uid=swg27014463" target="_blank">CONFIRM</a><br /><a class="offsite" href="http://secunia.com/advisories/33022" adv="1" target="_blank">SECUNIA</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+ibm -- websphere_application_server<br /></td>
+		<td width="45%" style="text-align: left;">
+PerfServlet in the PMI/Performance Tools component in IBM WebSphere Application Server (WAS) 7 before 7.0.0.1 allows attackers to obtain sensitive information by reading the (1) systemout.log and (2) ffdc files.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-09</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5413&amp;vector=(AV:N/AC:L/Au:N/C:P/I:N/A:N)">5.0</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5413">CVE-2008-5413</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32679" target="_blank">BID</a><br /><a class="offsite" href="http://www.frsirt.com/english/advisories/2008/3370" adv="1" target="_blank">FRSIRT</a><br /><a class="offsite" href="http://www-01.ibm.com/support/docview.wss?uid=swg27014463" adv="1" target="_blank">CONFIRM</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+incredimail -- incredimail<br /></td>
+		<td width="45%" style="text-align: left;">
+Incredimail build 5853710 does not properly handle (1) multipart/mixed e-mail messages with many MIME parts and possibly (2) e-mail messages with many "Content-type: message/rfc822;" headers, which allows remote attackers to cause a denial of service (stack consumption or other resource consumption) via a large e-mail message, a related issue to CVE-2006-1173.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-11</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5429&amp;vector=(AV:N/AC:M/Au:N/C:N/I:N/A:P)">4.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5429">CVE-2008-5429</a><br /><a class="offsite" href="http://www.securityfocus.com/archive/1/archive/1/499045/100/0/threaded" target="_blank">BUGTRAQ</a><br /><a class="offsite" href="http://www.securityfocus.com/archive/1/archive/1/499038/100/0/threaded" target="_blank">BUGTRAQ</a><br /><a class="offsite" href="http://mime.recurity.com/cgi-bin/twiki/view/Main/AttackIntro" target="_blank">MISC</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+jonas_smedegaard -- sdm-terminal<br /></td>
+		<td width="45%" style="text-align: left;">
+sdm-login in sdm-terminal 0.4.0b allows local users to overwrite arbitrary files via a symlink attack on the /tmp/sdm.autologin.once temporary file.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5372&amp;vector=(AV:L/AC:M/Au:N/C:C/I:C/A:C)">6.9</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5372">CVE-2008-5372</a><br /><a class="offsite" href="http://lists.debian.org/debian-devel/2008/08/msg00283.html" target="_blank">MLIST</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+jose_luis_tallon -- bacula_common<br /></td>
+		<td width="45%" style="text-align: left;">
+mtx-changer.Adic-Scalar-24 in bacula-common 2.4.2 allows local users to overwrite arbitrary files via a symlink attack on a /tmp/mtx.##### temporary file, probably a related issue to CVE-2005-2995.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5373&amp;vector=(AV:L/AC:M/Au:N/C:C/I:C/A:C)">6.9</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5373">CVE-2008-5373</a><br /><a class="offsite" href="http://uvw.ru/report.sid.txt" target="_blank">MISC</a><br /><a class="offsite" href="http://lists.debian.org/debian-devel/2008/08/msg00347.html" target="_blank">MLIST</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+justin_roy -- punportal_module<br /></td>
+		<td width="45%" style="text-align: left;">
+Directory traversal vulnerability in login.php in the PunPortal module before 2.0 for PunBB allows remote attackers to include and execute arbitrary local files via a .. (dot dot) in the pun_user[language] parameter.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5418&amp;vector=(AV:N/AC:H/Au:N/C:P/I:P/A:P)">5.1</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5418">CVE-2008-5418</a><br /><a class="offsite" href="http://xforce.iss.net/xforce/xfdb/46774" target="_blank">XF</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32380" target="_blank">BID</a><br /><a class="offsite" href="http://www.milw0rm.com/exploits/7168" target="_blank">MILW0RM</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+kaspersky_lab -- kaspersky_internet_security_suite<br /></td>
+		<td width="45%" style="text-align: left;">
+Kaspersky Internet Security Suite 2009 does not properly handle (1) multipart/mixed e-mail messages with many MIME parts and possibly (2) e-mail messages with many "Content-type: message/rfc822;" headers, which allows remote attackers to cause a denial of service (stack consumption or other resource consumption) via a large e-mail message, a related issue to CVE-2006-1173.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-11</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5426&amp;vector=(AV:N/AC:M/Au:N/C:N/I:N/A:P)">4.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5426">CVE-2008-5426</a><br /><a class="offsite" href="http://www.securityfocus.com/archive/1/archive/1/499045/100/0/threaded" target="_blank">BUGTRAQ</a><br /><a class="offsite" href="http://www.securityfocus.com/archive/1/archive/1/499038/100/0/threaded" target="_blank">BUGTRAQ</a><br /><a class="offsite" href="http://mime.recurity.com/cgi-bin/twiki/view/Main/AttackIntro" target="_blank">MISC</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+lehrstuhl_fur_mikrobiologie -- arb<br /></td>
+		<td width="45%" style="text-align: left;">
+arb-kill in arb 0.0.20071207.1 allows local users to overwrite arbitrary files via a symlink attack on a /tmp/arb_pids_*_* temporary file.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5378&amp;vector=(AV:L/AC:M/Au:N/C:C/I:C/A:C)">6.9</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5378">CVE-2008-5378</a><br /><a class="offsite" href="http://lists.debian.org/debian-devel/2008/08/msg00285.html" target="_blank">MLIST</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+linux -- kernel<br /></td>
+		<td width="45%" style="text-align: left;">
+net/atm/svc.c in the ATM subsystem in the Linux kernel 2.6.27.8 and earlier allows local users to cause a denial of service (kernel infinite loop) by making two calls to svc_listen for the same socket, and then reading a /proc/net/atm/*vc file, related to corruption of the vcc table.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5079&amp;vector=(AV:L/AC:L/Au:N/C:N/I:N/A:C)">4.9</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5079">CVE-2008-5079</a><br /><a class="offsite" href="http://www.securityfocus.com/archive/1/archive/1/498943/100/0/threaded" target="_blank">BUGTRAQ</a><br /><a class="offsite" href="http://secunia.com/advisories/32913" adv="1" target="_blank">SECUNIA</a><br /><a class="offsite" href="http://marc.info/?l=linux-netdev&amp;m=122841256115780&amp;w=2" target="_blank">MLIST</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+linux -- kernel<br /></td>
+		<td width="45%" style="text-align: left;">
+The parisc_show_stack function in arch/parisc/kernel/traps.c in the Linux kernel before 2.6.28-rc7 on PA-RISC allows local users to cause a denial of service (system crash) via vectors associated with an attempt to unwind a stack that contains userspace addresses.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5395&amp;vector=(AV:L/AC:L/Au:N/C:N/I:N/A:C)">4.9</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5395">CVE-2008-5395</a><br /><a class="offsite" href="http://xforce.iss.net/xforce/xfdb/47075" target="_blank">XF</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32636" target="_blank">BID</a><br /><a class="offsite" href="http://secunia.com/advisories/32933" adv="1" target="_blank">SECUNIA</a><br /><a class="offsite" href="http://marc.info/?l=linux-parisc&amp;m=121736357203624&amp;w=2" target="_blank">MLIST</a><br /><a class="offsite" href="http://kernel.org/pub/linux/kernel/v2.6/testing/ChangeLog-2.6.28-rc7" target="_blank">CONFIRM</a><br /><a class="offsite" href="http://git.kernel.org/?p=linux/kernel/git/stable/linux-2.6.27.y.git;a=commit;h=7a3f5134a8f5bd7fa38b5645eef05e8a4eb62951" target="_blank">CONFIRM</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+lukas_ruf -- muttprint<br /></td>
+		<td width="45%" style="text-align: left;">
+muttprint in muttprint 0.72d allows local users to overwrite arbitrary files via a symlink attack on the /tmp/muttprint.log temporary file.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5368&amp;vector=(AV:L/AC:M/Au:N/C:C/I:C/A:C)">6.9</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5368">CVE-2008-5368</a><br /><a class="offsite" href="http://lists.debian.org/debian-devel/2008/08/msg00283.html" target="_blank">MLIST</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+marc_gloor -- screenie<br /></td>
+		<td width="45%" style="text-align: left;">
+screenie in screenie 1.30.0 allows local users to overwrite arbitrary files via a symlink attack on a /tmp/.screenie.##### temporary file.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5371&amp;vector=(AV:L/AC:M/Au:N/C:C/I:C/A:C)">6.9</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5371">CVE-2008-5371</a><br /><a class="offsite" href="http://lists.debian.org/debian-devel/2008/08/msg00283.html" target="_blank">MLIST</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+marco_d'itri -- ppp<br /></td>
+		<td width="45%" style="text-align: left;">
+The postinst script in ppp 2.4.4rel on Debian GNU/Linux allows local users to overwrite arbitrary files via a symlink attack on the (1) /tmp/probe-finished or (2) /tmp/ppp-errors temporary file.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5366&amp;vector=(AV:L/AC:M/Au:N/C:C/I:C/A:C)">6.9</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5366">CVE-2008-5366</a><br /><a class="offsite" href="http://lists.debian.org/debian-devel/2008/08/msg00283.html" target="_blank">MLIST</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+marco_d'itri -- ppp-udeb<br /></td>
+		<td width="45%" style="text-align: left;">
+ip-up in ppp-udeb 2.4.4rel on Debian GNU/Linux allows local users to overwrite arbitrary files via a symlink attack on the /tmp/resolv.conf.tmp temporary file.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5367&amp;vector=(AV:L/AC:M/Au:N/C:C/I:C/A:C)">6.9</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5367">CVE-2008-5367</a><br /><a class="offsite" href="http://lists.debian.org/debian-devel/2008/08/msg00283.html" target="_blank">MLIST</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+matthias_klose -- bash-doc<br /></td>
+		<td width="45%" style="text-align: left;">
+bash-doc 3.2 allows local users to overwrite arbitrary files via a symlink attack on a /tmp/cb#####.? temporary file, related to the (1) aliasconv.sh, (2) aliasconv.bash, and (3) cshtobash scripts.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5374&amp;vector=(AV:L/AC:M/Au:N/C:C/I:C/A:C)">6.9</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5374">CVE-2008-5374</a><br /><a class="offsite" href="http://uvw.ru/report.sid.txt" target="_blank">MISC</a><br /><a class="offsite" href="http://lists.debian.org/debian-devel/2008/08/msg00347.html" target="_blank">MLIST</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+microsoft -- outlook_express<br /></td>
+		<td width="45%" style="text-align: left;">
+The MimeOleClearDirtyTree function in InetComm.dll in Microsoft Outlook Express 6.00.2900.5512 does not properly handle (1) multipart/mixed e-mail messages with many MIME parts and possibly (2) e-mail messages with many "Content-type: message/rfc822;" headers, which allows remote attackers to cause a denial of service (infinite loop) via a large e-mail message, a related issue to CVE-2006-1173.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-11</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5424&amp;vector=(AV:N/AC:M/Au:N/C:N/I:N/A:P)">4.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5424">CVE-2008-5424</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32702" target="_blank">BID</a><br /><a class="offsite" href="http://www.securityfocus.com/archive/1/archive/1/499045/100/0/threaded" target="_blank">BUGTRAQ</a><br /><a class="offsite" href="http://www.securityfocus.com/archive/1/archive/1/499038/100/0/threaded" target="_blank">BUGTRAQ</a><br /><a class="offsite" href="http://mime.recurity.com/cgi-bin/twiki/view/Main/AttackIntro" target="_blank">MISC</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+moodle -- moodle<br /></td>
+		<td width="45%" style="text-align: left;">
+Cross-site scripting (XSS) vulnerability in Moodle before 1.6.8, 1.7 before 1.7.6, 1.8 before 1.8.7, and 1.9 before 1.9.3 allows remote attackers to inject arbitrary web script or HTML via a Wiki page name (aka page title).</td>
+		<td width="10%" style="text-align:center;">
+2008-12-11</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5432&amp;vector=(AV:N/AC:M/Au:N/C:N/I:P/A:N)">4.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5432">CVE-2008-5432</a><br /><a class="offsite" href="http://www.openwall.com/lists/oss-security/2008/12/09/4" target="_blank">MLIST</a><br /><a class="offsite" href="http://moodle.org/mod/forum/discuss.php?d=108590" target="_blank">CONFIRM</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+mvnforum -- mvnforum<br /></td>
+		<td width="45%" style="text-align: left;">
+Cross-site scripting (XSS) vulnerability in the listonlineusers (aka "Who's online") component in mvnForum before 1.2.1 GA allows remote attackers to inject arbitrary web script or HTML via unspecified parameters.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5399&amp;vector=(AV:N/AC:M/Au:N/C:N/I:P/A:N)">4.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5399">CVE-2008-5399</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32605" target="_blank">BID</a><br /><a class="offsite" href="http://www.securityfocus.com/archive/1/archive/1/498872/100/0/threaded" target="_blank">BUGTRAQ</a><br /><a class="offsite" href="http://www.mvnforum.com/mvnforum/viewthread_thread,4361" target="_blank">CONFIRM</a><br /><a class="offsite" href="http://security.bkis.vn/?p=286" target="_blank">MISC</a><br /><a class="offsite" href="http://secunia.com/advisories/32931" adv="1" target="_blank">SECUNIA</a><br /><a class="offsite" href="http://osvdb.org/50403" target="_blank">OSVDB</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+mvnforum -- mvnforum<br /></td>
+		<td width="45%" style="text-align: left;">
+Multiple cross-site request forgery (CSRF) vulnerabilities in mvnForum before 1.2.1 GA allow remote attackers to (1) create forums, (2) change account privileges, (3) enable accounts, or (4) disable accounts as a product administrator via unspecified vectors, possibly related to HTTP Referer headers.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5400&amp;vector=(AV:N/AC:M/Au:N/C:P/I:P/A:P)">6.8</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5400">CVE-2008-5400</a><br /><a class="offsite" href="http://www.mvnforum.com/mvnforum/viewthread_thread,4361" adv="1" target="_blank">CONFIRM</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+netwin -- smsgate<br /></td>
+		<td width="45%" style="text-align: left;">
+The SSL web administration service in NetWin SmsGate 1.1n and earlier allows remote attackers to cause a denial of service (hang) via (1) a large integer in the Content-Length HTTP header; (2) an invalid value in the Content-Length HTTP header, as demonstrated by a negative integer; or (3) a missing Content-Length HTTP header.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-11</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5421&amp;vector=(AV:N/AC:L/Au:N/C:N/I:N/A:P)">5.0</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5421">CVE-2008-5421</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/28048" target="_blank">BID</a><br /><a class="offsite" href="http://secunia.com/advisories/29149" adv="1" target="_blank">SECUNIA</a><br /><a class="offsite" href="http://aluigi.altervista.org/adv/smsgheit-adv.txt" target="_blank">MISC</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+no-ip -- no-ip2<br /></td>
+		<td width="45%" style="text-align: left;">
+noip2 in noip2 2.1.7 allows local users to overwrite arbitrary files via a symlink attack on the /tmp/noip2 temporary file.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5369&amp;vector=(AV:L/AC:M/Au:N/C:C/I:C/A:C)">6.9</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5369">CVE-2008-5369</a><br /><a class="offsite" href="http://lists.debian.org/debian-devel/2008/08/msg00283.html" target="_blank">MLIST</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+oliver_gorwits -- netdisco_mibs_installer<br /></td>
+		<td width="45%" style="text-align: left;">
+netdisco-mibs-installer 1.0 allows local users to overwrite arbitrary files via a symlink attack on the /tmp/netdisco-mibs-0.6.tar.gz temporary file, related to the (1) netdisco-mibs-install and (2) netdisco-mibs-download scripts.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5379&amp;vector=(AV:L/AC:M/Au:N/C:C/I:C/A:C)">6.9</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5379">CVE-2008-5379</a><br /><a class="offsite" href="http://lists.debian.org/debian-devel/2008/08/msg00285.html" target="_blank">MLIST</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+opera -- opera<br /></td>
+		<td width="45%" style="text-align: left;">
+Opera 9.51 on Windows XP does not properly handle (1) multipart/mixed e-mail messages with many MIME parts and possibly (2) e-mail messages with many "Content-type: message/rfc822;" headers, which allows remote attackers to cause a denial of service (stack consumption or other resource consumption) via a large e-mail message, a related issue to CVE-2006-1173.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-11</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5428&amp;vector=(AV:N/AC:M/Au:N/C:N/I:N/A:P)">4.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5428">CVE-2008-5428</a><br /><a class="offsite" href="http://www.securityfocus.com/archive/1/archive/1/499045/100/0/threaded" target="_blank">BUGTRAQ</a><br /><a class="offsite" href="http://www.securityfocus.com/archive/1/archive/1/499038/100/0/threaded" target="_blank">BUGTRAQ</a><br /><a class="offsite" href="http://mime.recurity.com/cgi-bin/twiki/view/Main/AttackIntro" target="_blank">MISC</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+punbb -- punbb<br /></td>
+		<td width="45%" style="text-align: left;">
+Cross-site scripting (XSS) vulnerability in login.php in PunBB 1.3 and 1.3.1 allows remote attackers to inject arbitrary web script or HTML via the password field.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-11</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5433&amp;vector=(AV:N/AC:M/Au:N/C:N/I:P/A:N)">4.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5433">CVE-2008-5433</a><br /><a class="offsite" href="http://www.openwall.com/lists/oss-security/2008/12/09/3" target="_blank">MLIST</a><br /><a class="offsite" href="http://punbb.informer.com/wiki/punbb13/bugs#possible_xss_in_login" target="_blank">CONFIRM</a><br /><a class="offsite" href="http://punbb.informer.com/" adv="1" target="_blank">CONFIRM</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+punbb -- punbb<br /></td>
+		<td width="45%" style="text-align: left;">
+Multiple SQL injection vulnerabilities in PunBB 1.3 and 1.3.1 allow remote authenticated administrators to execute arbitrary SQL commands via the (1) order_by or (2) direction parameter to admin/users.php, or (3) configuration options to admin/settings.php.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-11</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5434&amp;vector=(AV:N/AC:L/Au:S/C:P/I:P/A:P)">6.5</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5434">CVE-2008-5434</a><br /><a class="offsite" href="http://www.openwall.com/lists/oss-security/2008/12/09/3" target="_blank">MLIST</a><br /><a class="offsite" href="http://punbb.informer.com/wiki/punbb13/bugs#potential_sql-injections_in_adminsettings.php_via_configuration_values" target="_blank">CONFIRM</a><br /><a class="offsite" href="http://punbb.informer.com/wiki/punbb13/bugs#potential_sql-injections_at_adminusers.php_page" target="_blank">CONFIRM</a><br /><a class="offsite" href="http://punbb.informer.com/" adv="1" target="_blank">CONFIRM</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+punbb -- punbb<br /></td>
+		<td width="45%" style="text-align: left;">
+Cross-site scripting (XSS) vulnerability in moderate.php in PunBB before 1.3.1 allows remote attackers to inject arbitrary web script or HTML via a topic subject.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-11</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5435&amp;vector=(AV:N/AC:M/Au:N/C:N/I:P/A:N)">4.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5435">CVE-2008-5435</a><br /><a class="offsite" href="http://www.openwall.com/lists/oss-security/2008/12/09/3" target="_blank">MLIST</a><br /><a class="offsite" href="http://punbb.informer.com/" adv="1" target="_blank">CONFIRM</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+pvpgn -- pvpgn<br /></td>
+		<td width="45%" style="text-align: left;">
+pvpgn-support-installer in pvpgn 1.8.1 allows local users to overwrite arbitrary files via a symlink attack on the /tmp/pvpgn-support-1.0.tar.gz temporary file.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-08</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5370&amp;vector=(AV:L/AC:M/Au:N/C:C/I:C/A:C)">6.9</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5370">CVE-2008-5370</a><br /><a class="offsite" href="http://lists.debian.org/debian-devel/2008/08/msg00283.html" target="_blank">MLIST</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+sun -- jdk<br />sun -- jre<br />sun -- sdk<br /></td>
+		<td width="45%" style="text-align: left;">
+Unspecified vulnerability in Java Web Start (JWS) and Java Plug-in with Sun JDK and JRE 6 Update 10 and earlier; JDK and JRE 5.0 Update 16 and earlier; and SDK and JRE 1.4.2_18 and earlier allows untrusted JWS applications to perform network connections to unauthorized hosts via unknown vectors.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-05</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5339&amp;vector=(AV:N/AC:L/Au:N/C:N/I:N/A:P)">5.0</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5339">CVE-2008-5339</a><br /><a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-26-244988-1" adv="1" target="_blank">SUNALERT</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+sun -- jdk<br />sun -- jre<br />sun -- sdk<br /></td>
+		<td width="45%" style="text-align: left;">
+Unspecified vulnerability in Java Web Start (JWS) and Java Plug-in with Sun JDK and JRE 6 Update 10 and earlier, and JDK and JRE 5.0 Update 16 and earlier, allows untrusted JWS applications to obtain the pathname of the JWS cache and the application username via unknown vectors.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-05</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5341&amp;vector=(AV:N/AC:L/Au:N/C:P/I:N/A:N)">5.0</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5341">CVE-2008-5341</a><br /><a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-26-244988-1" adv="1" target="_blank">SUNALERT</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+sun -- jdk<br />sun -- jre<br />sun -- sdk<br /></td>
+		<td width="45%" style="text-align: left;">
+Unspecified vulnerability in the BasicService for Java Web Start (JWS) and Java Plug-in with Sun JDK and JRE 6 Update 10 and earlier; JDK and JRE 5.0 Update 16 and earlier; and SDK and JRE 1.4.2_18 and earlier allows untrusted downloaded applications to cause local files to be displayed in the browser of the user of the untrusted application via unknown vectors.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-05</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5342&amp;vector=(AV:N/AC:L/Au:N/C:P/I:N/A:N)">5.0</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5342">CVE-2008-5342</a><br /><a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-26-244988-1" adv="1" target="_blank">SUNALERT</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+sun -- jdk<br />sun -- jre<br />sun -- sdk<br /></td>
+		<td width="45%" style="text-align: left;">
+Unspecified vulnerability in Java Runtime Environment (JRE) for Sun JDK and JRE 6 Update 10 and earlier; JDK and JRE 5.0 Update 16 and earlier; and SDK and JRE 1.4.2_18 and earlier allows untrusted applications and applets to list the contents of the operating user's directory via unknown vectors.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-05</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5350&amp;vector=(AV:N/AC:L/Au:N/C:P/I:N/A:N)">5.0</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5350">CVE-2008-5350</a><br /><a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-26-246266-1" adv="1" target="_blank">SUNALERT</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+sun -- jdk<br />sun -- jre<br />sun -- sdk<br /></td>
+		<td width="45%" style="text-align: left;">
+Java Runtime Environment (JRE) for Sun JDK and JRE 6 Update 10 and earlier; JDK and JRE 5.0 Update 16 and earlier; SDK and JRE 1.4.2_18 and earlier; and SDK and JRE 1.3.1_23 and earlier creates temporary files with predictable file names, which allows attackers to write malicious JAR files via unknown vectors.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-05</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5360&amp;vector=(AV:N/AC:L/Au:N/C:P/I:P/A:N)">6.4</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5360">CVE-2008-5360</a><br /><a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-26-244986-1" adv="1" target="_blank">SUNALERT</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+sun -- ray_server_software<br /></td>
+		<td width="45%" style="text-align: left;">
+Sun Sun Ray Server Software 3.x and 4.0 and Sun Ray Windows Connector 1.1 and 2.0 expose the LDAP password during a configuration step, which allows local users to discover the Sun Ray administration password, and obtain admin access to the Data Store and Administration GUI, via unspecified vectors related to the utconfig component of the Server Software and the uttscadm component of the Windows Connector.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-11</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5423&amp;vector=(AV:L/AC:L/Au:S/C:P/I:P/A:P)">4.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5423">CVE-2008-5423</a><br /><a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-26-240506-1" target="_blank">SUNALERT</a><br /><a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-21-127556-03-1" target="_blank">CONFIRM</a><br /><a class="offsite" href="http://sunsolve.sun.com/search/document.do?assetkey=1-21-127553-04-1" target="_blank">CONFIRM</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+symantec -- norton_internet_security<br /></td>
+		<td width="45%" style="text-align: left;">
+Norton Antivirus in Norton Internet Security 15.5.0.23 does not properly handle (1) multipart/mixed e-mail messages with many MIME parts and possibly (2) e-mail messages with many "Content-type: message/rfc822;" headers, which allows remote attackers to cause a denial of service (stack consumption or other resource consumption) via a large e-mail message, a related issue to CVE-2006-1173.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-11</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5427&amp;vector=(AV:N/AC:M/Au:N/C:N/I:N/A:P)">4.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5427">CVE-2008-5427</a><br /><a class="offsite" href="http://www.securityfocus.com/archive/1/archive/1/499045/100/0/threaded" target="_blank">BUGTRAQ</a><br /><a class="offsite" href="http://www.securityfocus.com/archive/1/archive/1/499038/100/0/threaded" target="_blank">BUGTRAQ</a><br /><a class="offsite" href="http://mime.recurity.com/cgi-bin/twiki/view/Main/AttackIntro" target="_blank">MISC</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+turnkeyforms -- text_link_sales<br /></td>
+		<td width="45%" style="text-align: left;">
+Cross-site scripting (XSS) vulnerability in admin.php in TurnkeyForms Text Link Sales allows remote attackers to inject arbitrary web script or HTML via the id parameter.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-12</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5487&amp;vector=(AV:N/AC:M/Au:N/C:N/I:P/A:N)">4.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5487">CVE-2008-5487</a><br /><a class="offsite" href="http://www.securityfocus.com/bid/32308" target="_blank">BID</a><br /><a class="offsite" href="http://www.milw0rm.com/exploits/7124" target="_blank">MILW0RM</a><br /></td>
+	</tr><tr><td width="20%" style="text-align: left;">
+twiki -- twiki<br /></td>
+		<td width="45%" style="text-align: left;">
+Cross-site scripting (XSS) vulnerability in TWiki before 4.2.4 allows remote attackers to inject arbitrary web script or HTML via the %URLPARAM{}% variable.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-09</td>
+		<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5304&amp;vector=(AV:N/AC:M/Au:N/C:N/I:P/A:N)">4.3</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5304">CVE-2008-5304</a><br /><a class="offsite" href="http://twiki.org/cgi-bin/view/Codev/SecurityAlert-CVE-2008-5304" adv="1" target="_blank">CONFIRM</a><br /></td>
+	</tr></tbody><tfoot><tr><td colspan="5"><a href="#top">Back to top</a></td>
+	</tr></tfoot></table></div>
+<a name="low" id="low"></a>
+<div id="low_v">
+<table align="center" border="1" class="vul_tables" summary="Low Vulnerabilities"><thead><tr><th colspan="5" scope="col" id="low_v_title" class="titles">Low Vulnerabilities</th></tr><tr><th scope="col" style="width:20%;" class="headers">Primary<br />Vendor -- Product</th>
+	<th scope="col" style="width:45%;" class="headers">Description</th>
+	<th scope="col" style="width:10%;" class="headers">Published </th>
+	<th scope="col" style="width:5%;" class="headers">CVSS Score</th>
+	<th scope="col" style="width:10%;" class="headers">Source &amp; Patch Info</th>
+	</tr></thead><tbody><tr><td width="20%" style="text-align: left;">
+hp -- decnet_plus_for_openvms<br /></td>
+		<td width="45%" style="text-align: left;">
+HP DECnet-Plus 8.3 before ECO03 for OpenVMS on the Alpha platform uses world-writable permissions for the OSIT$NAMES logical name table, which allows local users to bypass intended access restrictions and modify this table via the (1) SYS$CRELNM and (2) SYS$DELLNM system services.</td>
+		<td width="10%" style="text-align:center;">
+2008-12-10</td>
+<td style="text-align:center; width: 5%;"><a class="offsite" href="http://nvd.nist.gov/cvss.cfm?version=2&amp;name=CVE-2008-5417&amp;vector=(AV:L/AC:L/Au:N/C:N/I:P/A:N)">2.1</a></td>
+		<td width="10%"><a class="offsite" href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2008-5417">CVE-2008-5417</a><br /><a class="offsite" href="http://securitytracker.com/id?1021364" target="_blank">SECTRACK</a><br /><a class="offsite" href="http://secunia.com/advisories/33028" adv="1" target="_blank">SECUNIA</a><br /><a href="ftp://ftp.itrc.hp.com/openvms_patches/alpha/V8.3/AXP_DNVOSIECO03-V83.txt" target="_blank">CONFIRM</a><br /></td>
+	</tr></tbody><tfoot><tr><td colspan="5"><a href="#top">Back to top</a></td>
+	</tr></tfoot></table></div>
+<br /><br /><!--#include virtual="/include/terms-cas.html"--></td></tr></table></div>
+      
+
+        
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><p class="privacy-and-terms">This product is provided subject to this <a href="/privacy/notification">Notification</a> and this <a href="https://www.dhs.gov/privacy-policy">Privacy &amp; Use</a> policy.</p>
+</div>
+      
+
+                        <div id="document-feedback">
+	<div class="inner-document-feedback center-center">
+        <p><b>Please share your thoughts.</b></p>
+		<p>We recently updated our anonymous <a href="https://www.surveymonkey.com/r/CISA-cyber-survey?product=https://us-cert.cisa.gov/ncas/archives/bulletins/SB08-350">product survey</a>; we'd welcome your feedback.</p>
+	</div>
+</div>
+
+              </div>
+
+</article>
+</div>
+
+
+  </div>
+
+              </section>
+
+
+                      </div>
+  </div>
+
+
+
+
+
+
+      <footer class="footer container-fluid" role="contentinfo">
+        <div class="region region-footer">
+    <section id="block-certsignup" class="block block-block-content block-block-contentc5846d10-2e2b-4822-aa59-7a5c3262f671 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container-fluid signup">
+<div class="container">
+<div class="row">
+<div class="col-lg-3 contact-icons">
+<h3>Contact Us</h3>
+
+<p class="phone-text"><img alt="phone icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Phone.png" />(888)282-0870</p>
+
+<p><img alt="email icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Email.png" /><a class="mailto" href="mailto:central@cisa.dhs.gov" title="General questions or suggestions">Send us email</a></p>
+
+<p><img alt="lock icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Lock.png" /><a href="/contact-us/" title="Download PGP/GPG keys">Download PGP/GPG keys</a></p>
+
+<p><img alt="feedback icon" data-entity-type="" data-entity-uuid="" height="32" src="/sites/default/files/images/icon-feedback.png" /><a href="/forms/website-feedback" title="Website Feedback">Submit website feedback</a></p>
+</div>
+
+<div class="col-lg-6 sub-alert">
+<h3>Subscribe to Alerts</h3>
+
+<p>Receive security alerts, tips, and other updates.</p>
+
+<form action="https://public.govdelivery.com/accounts/USDHSCISA/subscribers/qualify"><label class="visually-hidden" for="email-address-field">Enter your email address</label> <input class="signup-form" id="email-address-field" name="email" placeholder=" Enter your email address" title="Enter your email address" type="text" /><br /><input class="btn btn-primary" name="submit" title="Sign up for alerts" type="submit" value="Sign Up" /> </form>
+
+<div class="pull-right signup-icon-one"><a href="https://twitter.com/uscert_gov" title="US-CERT Twitter Feed"><img alt="twitter icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/twitter-button.png" /></a></div>
+
+<div class="pull-right signup-icon-two"><a href="/mailing-lists-and-feeds" title="Mailing Lists and Feeds"><img alt="rss icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/rss-button-bottom.png" /></a></div>
+
+<div class="pull-right signup-icon-three"><a href="/hsin" class="btn btn-cert-report" name="button" type="button" id="button">HSIN</a></div>
+</div>
+
+<div class="col-lg-3 cert-report"><a class="btn btn-cert-report btn-lg" href="/report" name="button" type="button" id="button">Report</a></div>
+</div>
+</div>
+</div>
+</div>
+      
+  </section>
+
+<section id="block-certcertfooter" class="block block-block-content block-block-contentd5b85bd2-62d1-485a-b9ae-f040b1ca1a45 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container">
+<hr /><div class="text-center"><a href="/" title="Home">Home</a>   <a href="/sitemap" title="Site Map">Site Map</a>   <a href="/faq/" title="Frequently Asked Questions">FAQ</a>   <a href="/contact-us/" title="Contact Us">Contact Us</a>   <a href="/tlp/" title="Traffic Light Protocol">Traffic Light Protocol</a>   <a href="/pcii" title="PCII">PCII</a>   <a href="https://www.dhs.gov" title="Accountability">Accountability</a>   <a href="/disclaimer" title="Disclaimer">Disclaimer</a>   <a href="/privacy-policy" title="Privacy Policy">Privacy Policy</a>   <a href="https://www.dhs.gov/freedom-information-act-foia" title="FOIA">FOIA</a>   <a href="https://www.dhs.gov/homeland-security-no-fear-act-reporting" title="No Fear Act">No Fear Act</a>   <a href="/accessibility/" title="Accessibility">Accessibility</a><a href="https://www.dhs.gov/plain-writing-dhs" title="Plain Writing">Plain Writing</a><a href="https://www.dhs.gov/plug-information" title="Plug-ins">Plug-ins</a>   <a href="https://www.oig.dhs.gov/" title="Office of the Inspector General">Inspector General</a>   <a href="https://www.whitehouse.gov/" title="The White House">The White House</a>   <a href="https://www.usa.gov/" title="USA.gov">USA.gov</a><br />
+ 
+<p>CISA is part of the <a href="https://www.dhs.gov/" title="Department of Homeland Security">Department of Homeland Security</a></p>
+</div>
+<script type="text/javascript">
+<!--//--><![CDATA[// ><!--
+
+    window.onload = function(){
+            jQuery('body.page-node-type-us-cert-events div#ncas-header').find('img').each(function(){
+                    var $src=jQuery(this).prop('src');
+                    if($src.indexOf('default/files/') == -1)jQuery(this).remove();
+                    });
+            if('Privacy Data Breach' == jQuery('#uscert-utilities-irf-form #item-info-impact option:selected').text()){ 
+                jQuery('#item-info-impact-block').removeClass('collapsed'); 
+            }
+jQuery('#print-logo img').removeAttr('width').removeAttr('height');
+if(jQuery('body.path-frontpage').length > 0)
+{   
+    jQuery('.main-container').find('.col-sm-12').removeAttr('role');
+}
+jQuery('#map area').each(function(){ jQuery(this).click(function(){var idstr=jQuery(this).attr('clickthis'); if(jQuery(idstr).hasClass('open') == false){jQuery(idstr).click();}});});  
+if(jQuery('#document-feedback').length > 0)
+{ 
+    var $url    = window.location.href
+    //var str ='Your feedback is very important to us. Please take a moment to complete this <a href="https://surveymonkey.com/r/G8STDRY?product=' + $url + '">survey.';
+    //var $p = jQuery('#document-feedback div p').html(str);
+}
+    };
+
+//--><!]]>
+</script></div>
+<style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+#views-bootstrap-carousel-block-2 .carousel-inner > .item > a > img {
+  margin:auto;
+}
+button#product-feedback-next {
+    margin-bottom: 10px;
+}
+/*
+.mobile-nav {
+border-bottom: 3px solid #112e51;
+}
+*/
+.cma-banner-container {
+    display: none;
+}
+@media (max-width: 991px) {
+.navbar .navbar-header {
+background: #fff;
+}
+}
+div.banner-region { background: #fff; }
+
+.accordion_fold {
+    padding-bottom: 25px;
+}
+
+h2.accordion.open {
+    background: #f2f2f2;
+}
+
+a { color: #2b72af;}
+
+.navbar-default .navbar-nav > li > a { color: #767676; }
+/* andi */
+.sidebar-widget-orange .orange {
+    background-color: #e77431;
+}
+#block-views-block-ics-announcements-block-1 .views-field-created {
+    color: #565656;
+}
+a#sort-bulletin {
+color: #000;
+background: white;
+position: absolute;
+right: 150px;
+padding: 1px 12px;
+}
+
+/*--><!]]>*/
+</style></div>
+      
+  </section>
+
+
+  </div>
+
+    </footer>
+  
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","scriptPath":null,"pathPrefix":"","currentPath":"node\/9808","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"UA-34879253-1","trackOutbound":true,"trackMailto":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"data":{"extlink":{"extTarget":false,"extTargetNoOverride":false,"extNofollow":false,"extNoreferrer":false,"extFollowNoOverride":false,"extClass":"ext","extLabel":"(link is external)","extImgClass":false,"extSubdomains":true,"extExclude":"(\\.gov|\\.mil|\\.org.*|twitter\\.com\\\/share\\?url\\=.*|www\\.facebook\\.com\\\/sharer\\.php\\?u\\=.*|www\\.addthis\\.com\\\/bookmark\\.php\\?url\\=.*|javascript\\:window\\.print\\(\\)\\;)","extInclude":"","extCssExclude":"","extCssExplicit":"","extAlert":true,"extAlertText":"You are now leaving an official website of the United States Government (USG), the Department of Homeland Security (DHS), and the Cybersecurity and Infrastructure Security Agency (CISA). Links to non-USG, non-DHS, and non-CISA sites are provided for the visitor\u0027s convenience and do not represent an endorsement by USG, DHS, or CISA of any commercial or private issues, products, or services. Note that the privacy policy of the linked site may differ from that of USG, DHS, and CISA.","mailtoClass":"mailto","mailtoLabel":"(link sends email)","extUseFontAwesome":false,"extIconPlacement":"append","extFaLinkClasses":"fa fa-external-link","extFaMailtoClasses":"fa fa-envelope-o","whitelistedDomains":null}},"bootstrap":{"forms_has_error_value_toggle":1,"popover_enabled":1,"popover_animation":1,"popover_auto_close":1,"popover_container":"body","popover_content":"","popover_delay":"0","popover_html":0,"popover_placement":"right","popover_selector":"","popover_title":"","popover_trigger":"click","tooltip_enabled":1,"tooltip_animation":1,"tooltip_container":"body","tooltip_delay":"0","tooltip_html":0,"tooltip_placement":"auto left","tooltip_selector":"","tooltip_trigger":"hover"},"user":{"uid":0,"permissionsHash":"5ac3ae468050ddd0aa4ecea12c34a32977a23244239ed53eb7226f296aed658f"}}</script>
+<script src="/sites/default/files/js/js_xhqBHziEDyCKWlB5IUseaFAGh1B08TPFGmxCf6RvFnM.js"></script>
+<script src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DHS&amp;subagency=US-CERT&amp;pua=0" id="_fed_an_ua_tag"></script>
+<script src="/sites/default/files/js/js_m5CHELy9XHlAx2jnhaYdT2XVeN916TnZL5U2ha7Ln94.js"></script>
+
+  <script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"877b02039c","applicationID":"628657512,979282327","transactionName":"ZFYHMhZSXUpRUkcKDF0cJAUQWlxXH0FSBAZsUAQFDFY=","queueTime":0,"applicationTime":25,"atts":"SBEERF5ITkQ=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

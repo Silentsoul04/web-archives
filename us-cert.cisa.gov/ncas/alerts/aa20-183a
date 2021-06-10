@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html  lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+    <meta charset="utf-8" /><script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={licenseKey:"877b02039c",applicationID:"628657512"};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var i=e[n]={exports:{}};t[n][0].call(i.exports,function(e){var i=t[n][1][e];return r(i||e)},i,i.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var i=0;i<n.length;i++)r(n[i]);return r}({1:[function(t,e,n){function r(){}function i(t,e,n){return function(){return o(t,[u.now()].concat(f(arguments)),e?null:this,n),e?void 0:this}}var o=t("handle"),a=t(8),f=t(9),c=t("ee").get("tracer"),u=t("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var d=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],p="api-",l=p+"ixn-";a(d,function(t,e){s[e]=i(p+e,!0,"api")}),s.addPageAction=i(p+"addPageAction",!0),s.setCurrentRouteName=i(p+"routeName",!0),e.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(t,e){var n={},r=this,i="function"==typeof e;return o(l+"tracer",[u.now(),t,n],r),function(){if(c.emit((i?"":"no-")+"fn-start",[u.now(),r,i],n),i)try{return e.apply(this,arguments)}catch(t){throw c.emit("fn-err",[arguments,this,t],n),t}finally{c.emit("fn-end",[u.now()],n)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(t,e){m[e]=i(l+e)}),newrelic.noticeError=function(t,e){"string"==typeof t&&(t=new Error(t)),o("err",[t,u.now(),!1,e])}},{}],2:[function(t,e,n){function r(t){if(NREUM.init){for(var e=NREUM.init,n=t.split("."),r=0;r<n.length-1;r++)if(e=e[n[r]],"object"!=typeof e)return;return e=e[n[n.length-1]]}}e.exports={getConfiguration:r}},{}],3:[function(t,e,n){function r(){return f.exists&&performance.now?Math.round(performance.now()):(o=Math.max((new Date).getTime(),o))-a}function i(){return o}var o=(new Date).getTime(),a=o,f=t(10);e.exports=r,e.exports.offset=a,e.exports.getLastTimestamp=i},{}],4:[function(t,e,n){function r(t){return!(!t||!t.protocol||"file:"===t.protocol)}e.exports=r},{}],5:[function(t,e,n){function r(t,e){var n=t.getEntries();n.forEach(function(t){"first-paint"===t.name?d("timing",["fp",Math.floor(t.startTime)]):"first-contentful-paint"===t.name&&d("timing",["fcp",Math.floor(t.startTime)])})}function i(t,e){var n=t.getEntries();n.length>0&&d("lcp",[n[n.length-1]])}function o(t){t.getEntries().forEach(function(t){t.hadRecentInput||d("cls",[t])})}function a(t){if(t instanceof m&&!g){var e=Math.round(t.timeStamp),n={type:t.type};e<=p.now()?n.fid=p.now()-e:e>p.offset&&e<=Date.now()?(e-=p.offset,n.fid=p.now()-e):e=p.now(),g=!0,d("timing",["fi",e,n])}}function f(t){d("pageHide",[p.now(),t])}if(!("init"in NREUM&&"page_view_timing"in NREUM.init&&"enabled"in NREUM.init.page_view_timing&&NREUM.init.page_view_timing.enabled===!1)){var c,u,s,d=t("handle"),p=t("loader"),l=t(7),m=NREUM.o.EV;if("PerformanceObserver"in window&&"function"==typeof window.PerformanceObserver){c=new PerformanceObserver(r);try{c.observe({entryTypes:["paint"]})}catch(v){}u=new PerformanceObserver(i);try{u.observe({entryTypes:["largest-contentful-paint"]})}catch(v){}s=new PerformanceObserver(o);try{s.observe({type:"layout-shift",buffered:!0})}catch(v){}}if("addEventListener"in document){var g=!1,h=["click","keydown","mousedown","pointerdown","touchstart"];h.forEach(function(t){document.addEventListener(t,a,!1)})}l(f)}},{}],6:[function(t,e,n){function r(t,e){if(!i)return!1;if(t!==i)return!1;if(!e)return!0;if(!o)return!1;for(var n=o.split("."),r=e.split("."),a=0;a<r.length;a++)if(r[a]!==n[a])return!1;return!0}var i=null,o=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var f=navigator.userAgent,c=f.match(a);c&&f.indexOf("Chrome")===-1&&f.indexOf("Chromium")===-1&&(i="Safari",o=c[1])}e.exports={agent:i,version:o,match:r}},{}],7:[function(t,e,n){function r(t){function e(){t(a&&document[a]?document[a]:document[i]?"hidden":"visible")}"addEventListener"in document&&o&&document.addEventListener(o,e,!1)}e.exports=r;var i,o,a;"undefined"!=typeof document.hidden?(i="hidden",o="visibilitychange",a="visibilityState"):"undefined"!=typeof document.msHidden?(i="msHidden",o="msvisibilitychange"):"undefined"!=typeof document.webkitHidden&&(i="webkitHidden",o="webkitvisibilitychange",a="webkitVisibilityState")},{}],8:[function(t,e,n){function r(t,e){var n=[],r="",o=0;for(r in t)i.call(t,r)&&(n[o]=e(r,t[r]),o+=1);return n}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],9:[function(t,e,n){function r(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,i=n-e||0,o=Array(i<0?0:i);++r<i;)o[r]=t[e+r];return o}e.exports=r},{}],10:[function(t,e,n){e.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(t,e,n){function r(){}function i(t){function e(t){return t&&t instanceof r?t:t?u(t,c,a):a()}function n(n,r,i,o,a){if(a!==!1&&(a=!0),!l.aborted||o){t&&a&&t(n,r,i);for(var f=e(i),c=v(n),u=c.length,s=0;s<u;s++)c[s].apply(f,r);var p=d[w[n]];return p&&p.push([b,n,r,f]),f}}function o(t,e){y[t]=v(t).concat(e)}function m(t,e){var n=y[t];if(n)for(var r=0;r<n.length;r++)n[r]===e&&n.splice(r,1)}function v(t){return y[t]||[]}function g(t){return p[t]=p[t]||i(n)}function h(t,e){l.aborted||s(t,function(t,n){e=e||"feature",w[n]=e,e in d||(d[e]=[])})}var y={},w={},b={on:o,addEventListener:o,removeEventListener:m,emit:n,get:g,listeners:v,context:e,buffer:h,abort:f,aborted:!1};return b}function o(t){return u(t,c,a)}function a(){return new r}function f(){(d.api||d.feature)&&(l.aborted=!0,d=l.backlog={})}var c="nr@context",u=t("gos"),s=t(8),d={},p={},l=e.exports=i();e.exports.getOrSetContext=o,l.backlog=d},{}],gos:[function(t,e,n){function r(t,e,n){if(i.call(t,e))return t[e];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:r,writable:!0,enumerable:!1}),r}catch(o){}return t[e]=r,r}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],handle:[function(t,e,n){function r(t,e,n,r){i.buffer([t],r),i.emit(t,e,n)}var i=t("ee").get("handle");e.exports=r,r.ee=i},{}],id:[function(t,e,n){function r(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:a(t,o,function(){return i++})}var i=1,o="nr@id",a=t("gos");e.exports=r},{}],loader:[function(t,e,n){function r(){if(!R++){var t=M.info=NREUM.info,e=v.getElementsByTagName("script")[0];if(setTimeout(u.abort,3e4),!(t&&t.licenseKey&&t.applicationID&&e))return u.abort();c(E,function(e,n){t[e]||(t[e]=n)});var n=a();f("mark",["onload",n+M.offset],null,"api"),f("timing",["load",n]);var r=v.createElement("script");0===t.agent.indexOf("http://")||0===t.agent.indexOf("https://")?r.src=t.agent:r.src=l+"://"+t.agent,e.parentNode.insertBefore(r,e)}}function i(){"complete"===v.readyState&&o()}function o(){f("mark",["domContent",a()+M.offset],null,"api")}var a=t(3),f=t("handle"),c=t(8),u=t("ee"),s=t(6),d=t(4),p=t(2),l=p.getConfiguration("ssl")===!1?"http":"https",m=window,v=m.document,g="addEventListener",h="attachEvent",y=m.XMLHttpRequest,w=y&&y.prototype,b=!d(m.location);NREUM.o={ST:setTimeout,SI:m.setImmediate,CT:clearTimeout,XHR:y,REQ:m.Request,EV:m.Event,PR:m.Promise,MO:m.MutationObserver};var x=""+location,E={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1209.min.js"},O=y&&w&&w[g]&&!/CriOS/.test(navigator.userAgent),M=e.exports={offset:a.getLastTimestamp(),now:a,origin:x,features:{},xhrWrappable:O,userAgent:s,disabled:b};if(!b){t(1),t(5),v[g]?(v[g]("DOMContentLoaded",o,!1),m[g]("load",r,!1)):(v[h]("onreadystatechange",i),m[h]("onload",r)),f("mark",["firstbyte",a.getLastTimestamp()],null,"api");var R=0}},{}],"wrap-function":[function(t,e,n){function r(t,e){function n(e,n,r,c,u){function nrWrapper(){var o,a,s,p;try{a=this,o=d(arguments),s="function"==typeof r?r(o,a):r||{}}catch(l){i([l,"",[o,a,c],s],t)}f(n+"start",[o,a,c],s,u);try{return p=e.apply(a,o)}catch(m){throw f(n+"err",[o,a,m],s,u),m}finally{f(n+"end",[o,a,p],s,u)}}return a(e)?e:(n||(n=""),nrWrapper[p]=e,o(e,nrWrapper,t),nrWrapper)}function r(t,e,r,i,o){r||(r="");var f,c,u,s="-"===r.charAt(0);for(u=0;u<e.length;u++)c=e[u],f=t[c],a(f)||(t[c]=n(f,s?c+r:r,i,c,o))}function f(n,r,o,a){if(!m||e){var f=m;m=!0;try{t.emit(n,r,o,e,a)}catch(c){i([c,n,r,o],t)}m=f}}return t||(t=s),n.inPlace=r,n.flag=p,n}function i(t,e){e||(e=s);try{e.emit("internal-error",t)}catch(n){}}function o(t,e,n){if(Object.defineProperty&&Object.keys)try{var r=Object.keys(t);return r.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(o){i([o],n)}for(var a in t)l.call(t,a)&&(e[a]=t[a]);return e}function a(t){return!(t&&t instanceof Function&&t.apply&&!t[p])}function f(t,e){var n=e(t);return n[p]=t,o(t,n,s),n}function c(t,e,n){var r=t[e];t[e]=f(r,n)}function u(){for(var t=arguments.length,e=new Array(t),n=0;n<t;++n)e[n]=arguments[n];return e}var s=t("ee"),d=t(9),p="nr@original",l=Object.prototype.hasOwnProperty,m=!1;e.exports=r,e.exports.wrapFunction=f,e.exports.wrapInPlace=c,e.exports.argsToArray=u},{}]},{},["loader"]);</script>
+<script async src="/sites/default/files/google_analytics/gtag.js?qubv3z"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("config", "UA-34879253-1", {"groups":"default","anonymize_ip":true,"allow_ad_personalization_signals":false});</script>
+<meta name="description" content="This advisory uses the MITRE Adversarial Tactics, Techniques, and Common Knowledge (ATT&amp;CK®) and Pre-ATT&amp;CK framework. See the ATT&amp;CK for Enterprise and Pre-ATT&amp;CK frameworks for referenced threat actor techniques." />
+<meta name="abstract" content="As part of its mission, CISA leads the effort to enhance the security, resiliency, and reliability of the Nation&#039;s cybersecurity and communications infrastructure." />
+<meta name="keywords" content="uscert, csirt, cert, cybersecurity, cyber security, computer security, U. S. Computer Emergency Readiness, cyber risks" />
+<meta name="Generator" content="Drupal 9 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/sites/default/files/images/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="https://us-cert.cisa.gov/ncas/alerts/aa20-183a" />
+<link rel="shortlink" href="https://us-cert.cisa.gov/node/14617" />
+<link rel="revision" href="https://us-cert.cisa.gov/ncas/alerts/aa20-183a" />
+
+    <title>Defending Against Malicious Cyber Activity Originating from Tor  | CISA</title>
+    <link rel="stylesheet" media="all" href="/sites/default/files/css/css_-w-jQbIWIO0ZERqyQMFp9m1ddgDjs5ZGsor0ebo5CG4.css" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_OtQ9QHAYVZDqM__uuCDStHUt38Nwh_1MHX1vxg5dE5c.css" />
+
+    
+    <!-- Google Font -->
+    <style type="text/css">
+/* source-sans-pro-regular - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'),
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.woff') format('woff'), /* Modern Browsers */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.svg#SourceSansPro') format('svg'); /* Legacy iOS */
+}
+    </style>
+    <!--link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet"--> 
+    <!-- Google Font -->
+  </head>
+  <body class="path-node page-node-type-activity-alert has-glyphicons">
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+
+
+<div class="container-fluid top-top">
+      <aside role="complementary">
+        <div class="region region-top">
+    <section id="block-certtoptop" class="block block-block-content block-block-content4d95ffde-0818-4e6b-bd79-d1547b08c0c0 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container">
+<div id="top">
+<div class="row">
+<div class="col-sm-12 flag"><img alt="United States Flag" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/flag.png" style="position: absolute;" /><p style="padding-left: 35px; font-family: Arial; font-size: 11px;">An official website of the United States government <a href="#" id="here-is-how-u-know">Here's how you know <span class="arrow down"> </span></a></p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="usa-banner-content usa-grid usa-accordion-content hidden container" id="gov-banner">
+<div class="usa-banner-guidance-gov usa-width-one-half col-sm-6"><img alt="Dot gov" class="usa-banner-icon usa-media_block-img" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/icon-dot-gov.svg" /><div class="usa-media_block-body"><strong>Official websites use .gov</strong><br />
+A <b>.gov</b> website belongs to an official government organization in the United States.</div>
+</div>
+
+<div class="usa-banner-guidance-ssl usa-width-one-half col-sm-6"><img alt="SSL" class="usa-banner-icon usa-media_block-img" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/icon-https.svg" /><div class="usa-media_block-body"><strong>Secure .gov websites use HTTPS</strong> A <b>lock (<img alt="lock icon" src="/sites/default/files/icons/lock.svg" style="width:15px;" />)</b> or <b>https://</b> means you've safely connected to the .gov website. Share sensitive information only on official, secure websites.</div>
+</div>
+</div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </div>
+
+
+
+<div class="container-fluid hidden-xs hidden-sm banner-region">
+<div class="container">
+<div class="row">
+
+
+  
+
+<section class="col-sm-9">
+
+      <a id="logo-section"></a>
+        <div class="region region-logo">
+    <section id="block-certlogo" class="block block-block-content block-block-content4639a667-debe-4642-bc69-7839662c0187 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="hidden-xs hidden-sm"><a href="/"><img alt="Cybersecurity and Infrastructure Security Agency CISA" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/logo_verbose.png" title="Cybersecurity and Infrastructure Security Agency CISA" /></a></div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </section>
+
+
+
+      <aside class="col-sm-3" role="complementary">
+        <div class="region region-search">
+    <section id="block-certsearch" class="block block-block-content block-block-contentc33bd875-6ea6-42cc-b1ab-348a4e4bdff7 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><form accept-charset="UTF-8" action="https://search.us-cert.gov/search" class="hidden-xs searchbox" method="get"><input name="utf8" type="hidden" value="✓" /><input id="affiliate-desktop" name="affiliate" type="hidden" value="us-cert" /><div class="form-group"><label class="sr-only" for="query-desktop">Enter Search Terms(s):</label>
+<div class="input-group"><input autocomplete="off" class="form-control form-control-custom input-lg" id="query-desktop" name="query" placeholder="Search" type="text" /><div class="input-group-addon input-group-addon-custom"><button class="submit input-lg"><img alt="search icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/search-icon.png" title="search icon" /></button></div>
+</div>
+</div>
+</form>
+<style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+.navbar-default ul.navbar-nav > li.last a{
+display: none;
+
+/*--><!]]>*/
+</style><div style="padding: 16px 12px 8px 12px"><a class="btn btn-primary" href="/services" type="button" style="font-weight: bold; width: 40%">Services</a><a class="btn btn-primary pull-right" href="/report" type="button" style="font-weight: bold; width: 40%">Report</a></div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </div>
+</div>
+<hr class="hidden-xs nav-top-line">
+</div>
+
+
+
+          <header class="navbar navbar-default container-fluid" id="navbar" role="banner">
+        <div class="container ">
+      <div class="navbar-header">
+        
+                          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+            <div class="hidden-lg hidden-md mobile-nav">
+        <a class="" href="/">
+            <img src="/sites/default/files/cert/logo3.png"  alt="US Department of Homeland Security CISA Cyber + Infrastructure" title="US Department of Homeland Security CISA Cyber + Infrastructure">
+          </a>
+        </div>
+      </div>
+
+              <div id="navbar-collapse" class="navbar-collapse collapse">
+            <div class="region region-navigation-collapsible">
+    <section id="block-certsearchmobile" class="block block-block-content block-block-content0da6361c-e31a-4a58-b455-f9ebde1ba544 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><form accept-charset="UTF-8" action="https://search.us-cert.gov/search" class="hidden-lg hidden-md searchbox" method="get"><input name="utf8" type="hidden" value="✓" /><input id="affiliate-mobile" name="affiliate" type="hidden" value="us-cert" /><div class="form-group"><label class="sr-only" for="query-mobile">Enter Search Terms(s):</label>
+<div class="input-group"><input autocomplete="off" class="form-control form-control-custom input-lg" id="query-mobile" name="query" placeholder="Search" type="text" /><div class="input-group-addon input-group-addon-custom"><button class="submit input-lg"><img alt="search icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/search-icon.png" title="search icon" /></button></div>
+</div>
+</div>
+</form>
+<div class="hidden-md hidden-lg" style="padding: 8px"><a class="btn btn-primary btn-block" href="/services" role="button" style="font-weight: bold">Services</a></div>
+
+<div class="hidden-md hidden-lg" style="padding: 8px"><a class="btn btn-primary btn-block" href="/report" role="button" style="font-weight: bold">Report</a></div></div>
+      
+  </section>
+
+<nav role="navigation" aria-labelledby="block-certmainmenu-menu" id="block-certmainmenu">
+            
+  <h2 class="visually-hidden" id="block-certmainmenu-menu">CertMain Menu</h2>
+  
+
+        
+      <ul class="menu menu--certmain-menu nav navbar-nav">
+                      <li class="first">
+                                        <a href="/ncas" title="Alerts and Tips" data-drupal-link-system-path="node/5">Alerts and Tips</a>
+              </li>
+                      <li>
+                                        <a href="/resources" title="Resources" data-drupal-link-system-path="node/12436">Resources</a>
+              </li>
+                      <li>
+                                        <a href="/ics" title="Industrial Control Systems" data-drupal-link-system-path="node/14614">Industrial Control Systems</a>
+              </li>
+                      <li class="last">
+                                        <a href="/report" title="Report" data-drupal-link-system-path="node/5745">Report</a>
+              </li>
+        </ul>
+  
+
+  </nav>
+
+  </div>
+
+        </div>
+                </header>
+  <hr class="hidden-xs hidden-sm nav-bottom-line">
+<div class="visible-xs visible-sm mobile-border"></div>
+
+
+<div class="container">
+    <div id="print-logo"><img alt="US Department of Homeland Security CISA Cyber + Infrastructure" src="/sites/default/files/cert/logo2.png"/></div>
+    <div id="tlp-header"><svg height="30" width="120"> <rect fill="black" height="30" width="120" x="0" y="0"></rect> <text fill="#ffffff" font-size="18px" x="10" y="20">TLP:WHITE</text> </svg></div>
+    <div id="tlp-footer"><svg height="30" width="120"> <rect fill="black" height="30" width="120" x="0" y="0"></rect> <text fill="#ffffff" font-size="18px" x="10" y="20">TLP:WHITE</text> </svg></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  <div role="main" class="main-container container js-quickedit-main-content">
+    <div class="row">
+
+                              <div class="col-sm-12" role="heading" aria-level="1">
+              <div class="region region-header">
+      <div class="container-fluid hidden-xs">
+  <ol class="breadcrumb">
+          <li >
+                  <a href="/ncas">National Cyber Awareness System</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
+              </li>
+          <li >
+                  <a href="/ncas/alerts">Alerts</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
+              </li>
+          <li  class="active">
+                  Defending Against Malicious Cyber Activity Originating from Tor 
+              </li>
+      </ol>
+</div>
+
+
+
+  </div>
+
+          </div>
+              
+
+            
+            
+                        
+
+            
+                  <section class="col-sm-12">
+
+                              <div class="highlighted">  <div class="region region-highlighted">
+    <div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+</div>
+              
+                                      
+                  
+                          <a id="main-content"></a>
+            <div class="region region-content">
+                  <div id="ncas-header">
+            <div id="alerts-archive">
+                <a title="View Archives" href="/ncas/alerts/">More Alerts</a>
+            </div>
+            <h1 id="page-title">Alert (AA20-183A)</h1>
+            <h2 id="page-sub-title">Defending Against Malicious Cyber Activity Originating from Tor </h2>
+            <div class="submitted meta-text">
+                                Original release date: July 01, 2020  | Last <a href="#revisions">revised</a>: May 20, 2021
+                                            </div>
+            <div id="social-options">
+	<!-- START PRINT BUTTON -->
+		<div id="print-button">
+			<span id="custom-print-button">
+				<a rel="nofollow" href="javascript:window.print();" title="Click to print."><img src="/sites/default/files/icons/print-button.png" alt="Click to print." /></a>
+			</span>
+		</div>
+    <!-- END PRINT BUTTON -->
+	<!-- START TWEET BUTTON -->
+	<div id="tweet-button">
+		<span id="custom-tweet-button">
+			<a rel="nofollow" target="_blank" href="https://twitter.com/share?url=https%3A%2F%2Fus-cert.cisa.gov%2Fncas%2Falerts%2Faa20-183a" class="popup-twitter" title="Click to Tweet."><img src="/sites/default/files/icons/tweet-button.png" alt="Click to Tweet." /></a>
+		</span>
+	</div>
+	<!-- END TWEET BUTTON -->
+
+	<!-- START FACEBOOK BUTTON -->
+	<div id="facebook-button">
+		<span id="custom-facebook-button">
+		<a rel="nofollow" target="_blank" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fus-cert.cisa.gov%2Fncas%2Falerts%2Faa20-183a" class="popup-facebook" title="Click to send to Facebook."><img src="/sites/default/files/icons/facebook-send-button.png" alt="Click to send to Facebook." /></a>
+		</span>
+	</div>
+	<!-- END FACEBOOK BUTTON -->
+
+	<!-- START SHARE BUTTON -->
+	<div id="share-button">
+		<span id="custom-share-button">
+			<a rel="nofollow" target="_blank" href="http://www.addthis.com/bookmark.php?url=https%3A%2F%2Fus-cert.cisa.gov%2Fncas%2Falerts%2Faa20-183a" class="popup-share" title="Click to Share." ><img src="/sites/default/files/icons/share-button.png" alt="Click to Share." /></a>
+		</span>
+	</div>
+	<!-- END SHARE BUTTON -->
+
+</div>
+        </div>
+    
+  
+<article role="article" about="/ncas/alerts/aa20-183a" class="activity-alert full clearfix">
+
+  
+    
+
+  
+  <div class="content">
+	<div id="ncas-content">
+        		<a id="summary"></a>
+		<h3>Summary</h3>
+        
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><p class="tip-intro" style="font-size: 15px;"><em>This advisory uses the MITRE Adversarial Tactics, Techniques, and Common Knowledge (ATT&amp;CK®) and Pre-ATT&amp;CK framework. See the <a href="https://attack.mitre.org/versions/v7/matrices/enterprise/">ATT&amp;CK for Enterprise</a> and <a href="https://attack.mitre.org/versions/v7/techniques/pre/">Pre-ATT&amp;CK</a> frameworks for referenced threat actor techniques.</em></p>
+
+<p>This advisory—written by the Cybersecurity Security and Infrastructure Security Agency (CISA) with contributions from the Federal Bureau of Investigation (FBI)—highlights risks associated with Tor, along with technical details and recommendations for mitigation. Cyber threat actors can use Tor software and network infrastructure for anonymity and obfuscation purposes to clandestinely conduct malicious cyber operations.[<a href="https://www.us-cert.gov/ncas/alerts/aa20-107a">1</a>],[<a href="https://www.us-cert.gov/sites/default/files/publications/AR-17-20045_Enhanced_Analysis_of_GRIZZLY_STEPPE_Activity.pdf">2</a>],[<a href="https://www.fbi.gov/news/pressrel/press-releases/more-than-400-.onion-addresses-including-dozens-of-dark-market-sites-targeted-as-part-of-global-enforcement-action-on-tor-network">3</a>]</p>
+
+<p>Tor (aka The Onion Router) is software that allows users to browse the web anonymously by encrypting and routing requests through multiple relay layers or nodes. This software is maintained by the <a href="https://www.torproject.org/">Tor Project</a>, a nonprofit organization that provides internet anonymity and anti-censorship tools. While Tor can be used to promote democracy and free, anonymous use of the internet, it also provides an avenue for malicious actors to conceal their activity because identity and point of origin cannot be determined for a Tor software user. Using the Onion Routing Protocol, Tor software obfuscates a user’s identity from anyone seeking to monitor online activity (e.g., nation states, surveillance organizations, information security tools). This is possible because the online activity of someone using Tor software appears to originate from the Internet Protocol (IP) address of a Tor exit node, as opposed to the IP address of the user’s computer.</p>
+
+<p>CISA and the FBI recommend that organizations assess their individual risk of compromise via Tor and take appropriate mitigations to block or closely monitor inbound and outbound traffic from known Tor nodes.</p>
+
+<p><a href="/sites/default/files/publications/AA20-183A_Defending_Against_Malicious_Cyber_Activity_Originating_from_Tor_S508C.pdf">Click here</a> for a PDF version of this report.</p>
+</div>
+      
+        
+        		    <a id="risk-evalution"></a>
+		    <h3>Risk Evaluation</h3>
+            
+            <div class="field field--name-field-aa-risk-evaluation field--type-text-long field--label-hidden field--item"><p>Malicious cyber actors use Tor to mask their identity when engaging in malicious cyber activity impacting the confidentiality, integrity, and availability of an organization’s information systems and data. Examples of this activity include performing reconnaissance, penetrating systems, exfiltrating and manipulating data, and taking services offline through denial-of-service attacks and delivery of ransomware payloads. Threat actors have relayed their command and control (C2) server communications—used to control systems infected with malware—through Tor, obscuring the identity (location and ownership) of those servers.</p>
+
+<p>The use of Tor in this context allows threat actors to remain anonymous, making it difficult for network defenders and authorities to perform system recovery and respond to cyberattacks. Organizations that do not take steps to block or monitor Tor traffic are at heightened risk of being targeted and exploited by threat actors hiding their identity and intentions using Tor.</p>
+
+<p>The risk of being the target of malicious activity routed through Tor is unique to each organization. An organization should determine its individual risk by assessing the likelihood that a threat actor will target its systems or data and the probability of the threat actor’s success given current mitigations and controls. This assessment should consider legitimate reasons that non-malicious users may prefer to, or need to, use Tor for accessing the network. Organizations should evaluate their mitigation decisions against threats to their organization from advanced persistent threats (APTs), moderately sophisticated attackers, and low-skilled individual hackers, all of whom have leveraged Tor to carry out reconnaissance and attacks in the past.</p>
+</div>
+      
+        
+        		    <a id="technical-details"></a>
+		    <h3>Technical Details</h3>
+            
+            <div class="field field--name-field-aa-technical-details field--type-text-long field--label-hidden field--item"><p style="margin-bottom: 8px;">Tor obfuscates the source and destination of a web request. This allows users to conceal information about their activities on the web—such as their location and network usage—from the recipients of that traffic, as well as third parties who may conduct network surveillance or traffic analysis. Tor encrypts a user’s traffic and routes the traffic through at least three Tor nodes, or relays, so that the user’s starting IP address and request is masked from network and traffic observers during transit. Once the request reaches its intended destination, it exits Tor through a public Tor exit node. Anyone conducting monitoring or analysis will only see the traffic coming from the Tor exit node and will not be able to determine the original IP address of the request.</p>
+
+<p style="margin-bottom: 8px;"> </p>
+
+<p align="center" style="margin-bottom: 8px;"><span style="page-break-after: avoid;"><font color="#000000"><font face="Times New Roman"><font size="3"><img alt="" data-entity-type="" data-entity-uuid="" src="data:image/png;base64,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y2Txp5kEsfmOm5QUd0CEfXL/APfBrT/tLTEIl+02ytKPvFgCwXrn6fpT5dTtIZpI5JUXy1BZiwwMnAHXOfw70X8hW8zD/wCElumjtiPsubg/MB1t+HO18sBn5QOo5zxXQWM73NhbzyKqvJGrsqtuAJGeD3qFLjTp5PISS2kaYCTYMHfxkH34Gau0pNdhoKKKKkoKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKpWGkWOly3UljbJC93KZpyufnc9zV2ii4HO3fhGK6EX+lSJthaJwF4kJ+6x9xkj3BxUg8NuUYGeNWlSVJiqN/GFwwJYnIKL1zW9RVc7J5Uc/beFzYMstpd5njkDoZY8qMoVbgEdSzP16mkHg+1NktpJNI8PnLKw6FsQ+Xgkfn+nSuhoo55Byoyb7R57uKHF2omS3e3eRoshlcAMQM8HKg+nWqY8JJmVDODE+5lJUllZhhurYx+Hf2roqKFNoOVGNd6C88kssN0Y5HYtgrxyUJBwQcfJjgjrS2Ph9LOGWNpy6yxPE21duAzu5xyf7+PwrYoo5naw+VGNZaC9vcQzzXIeSHYq7I9oKIjquRk8/vCSaiv/DTX1zcsbryop+WWNWG5uMbhuwcbRyAD2zW9RRzO9w5UYtr4djjaVrhlczwyRSqqkA7yMnJJPRQOTUKeGZIfImW9Ml3Cq/vJY8iRwzEswB77iPbiugoo52LlRiWvh77PqIuXmSQeYJmGwqfMCBMgBtoGB6Z681t0UUm29xpWCiiikMKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP//Z" style="width: 614px; height: 371px;" /></font></font></font></span></p>
+
+<p class="text-align-center" style="margin-top: 8px; margin-bottom: 13px;"><em>Figure 1: Malicious tactics and techniques aided by Tor, mapped to the <a href="https://attack.mitre.org/">MITRE ATT&amp;CK framework</a></em></p>
+
+<h2>Malicious Tactics and Techniques Aided by Tor</h2>
+
+<p>Threat actors use Tor to create a layer of anonymity to conceal malicious activity at different stages of network compromise. Their tactics and techniques—illustrated in figure 1 above—include:</p>
+
+<h3>Pre-ATT&amp;CK</h3>
+
+<ul><li>Target Selection <a href="https://attack.mitre.org/versions/v7/tactics/TA0014/">[TA0014]</a></li>
+	<li>Technical Information Gathering <a href="https://attack.mitre.org/versions/v7/tactics/TA0015/">[TA0015]</a>
+	<ul><li>Conduct Active Scanning <a href="https://attack.mitre.org/versions/v7/techniques/T1254/">[T1254]</a></li>
+		<li>Conduct Passive Scanning <a href="https://attack.mitre.org/versions/v7/techniques/T1253/">[T1253]</a></li>
+		<li>Determine domain and IP address space <a href="https://attack.mitre.org/versions/v7/techniques/T1250/">[T1250]</a></li>
+		<li>Identify security defensive capabilities <a href="https://attack.mitre.org/versions/v7/techniques/T1263">[T1263]</a></li>
+	</ul></li>
+	<li>Technical Weakness Identification <a href="https://attack.mitre.org/versions/v7/tactics/TA0018/">[TA0018]</a></li>
+</ul><h3>ATT&amp;CK</h3>
+
+<ul><li>Initial Access <a href="https://attack.mitre.org/versions/v7/tactics/TA0001/">[TA0001]</a>
+
+	<ul><li>Exploit Public-Facing Applications <a href="https://attack.mitre.org/versions/v7/techniques/T1190/">[T1190]</a></li>
+	</ul></li>
+	<li>Command and Control <a href="https://attack.mitre.org/versions/v7/tactics/TA0011/">[TA0011]</a>
+	<ul><li>Commonly Used Port <a href="https://attack.mitre.org/versions/v7/techniques/T1043">[T1043]</a></li>
+		<li>Connection Proxy <a href="https://attack.mitre.org/versions/v7/techniques/T1090/">[T1090]</a></li>
+		<li>Custom Command and Control Protocol <a href="https://attack.mitre.org/versions/v7/techniques/T1094/">[T1094]</a></li>
+		<li>Custom Cryptographic Protocol <a href="https://attack.mitre.org/versions/v7/techniques/T1024/">[T1024]</a></li>
+		<li>Multi-hop Proxy <a href="https://attack.mitre.org/versions/v7/techniques/T1188/">[T1188]</a></li>
+		<li>Multilayer Encryption <a href="https://attack.mitre.org/versions/v7/techniques/T1079/">[T1079]</a></li>
+		<li>Standard Application Layer Protocol <a href="https://attack.mitre.org/versions/v7/techniques/T1071/">[T1071]</a></li>
+	</ul></li>
+	<li>Exfiltration <a href="https://attack.mitre.org/versions/v7/tactics/TA0010/">[TA0010]</a></li>
+	<li>Impact <a href="https://attack.mitre.org/versions/v7/tactics/TA0040/">[TA0040]</a>
+	<ul><li>Data Encrypted for Impact <a href="https://attack.mitre.org/versions/v7/techniques/T1486">[T1486]</a></li>
+		<li>Endpoint Denial of Service <a href="https://attack.mitre.org/versions/v7/techniques/T1499/">[T1499]</a></li>
+		<li>Network Denial of Service <a href="https://attack.mitre.org/versions/v7/techniques/T1498/">[T1498]</a></li>
+	</ul></li>
+</ul><h3>Key Indicators of Malicious Activity via Tor</h3>
+
+<p>While Tor obfuscates a user from being identified through standard security tools, network defenders can leverage various network, endpoint, and security appliance logs to detect the use of Tor, including potentially malicious activity involving Tor, through indicator- or behavior-based analysis.</p>
+
+<p>Using an indicator-based approach, network defenders can leverage security information and event management (SIEM) tools and other log analysis platforms to flag suspicious activities involving the IP addresses of Tor exit nodes. The list of Tor exit node IP addresses is actively maintained by the Tor Project’s Exit List Service, which offers both real-time query and bulk download interfaces (see <a href="https://blog.torproject.org/changes-tor-exit-list-service">https://blog.torproject.org/changes-tor-exit-list-service</a>). Organizations preferring bulk download may consider automated data ingest solutions, given the highly dynamic nature of the Tor exit list, which is updated hourly. Network defenders should closely inspect evidence of substantial transactions with Tor exit nodes—revealed in netflow, packet capture (PCAP), and web server logs—to infer the context of the activity and to discern any malicious behavior that could represent reconnaissance, exploitation, C2, or data exfiltration.</p>
+
+<p>Using a behavior-based approach, network defenders can uncover suspicious Tor activity by searching for the operational patterns of Tor client software and protocols. Transmission Control Protocol (TCP) and User Datagram Protocol (UDP) ports commonly affiliated with Tor include 9001, 9030, 9040, 9050, 9051, and 9150. Highly structured Domain Name Service (DNS) queries for domain names ending with the suffix torproject.org is another behavior exhibited by hosts running Tor software. In addition, DNS queries for domains ending in .onion is a behavior exhibited by misconfigured Tor clients, which may be attempting to beacon to malicious Tor hidden services.</p>
+
+<p>Organizations should research and enable the pre-existing Tor detection and mitigation capabilities within their existing endpoint and network security solutions, as these often employ effective detection logic. Solutions such as web application firewalls, router firewalls, and host/network intrusion detection systems may already provide some level of Tor detection capability.</p>
+</div>
+      
+        
+        		    <a id="mitigations"></a>
+		    <h3>Mitigations</h3>
+            
+            <div class="field field--name-field-aa-mitigations field--type-text-long field--label-hidden field--item"><p>Organizations can implement mitigations of varying complexity and restrictiveness to reduce the risk posed by threat actors who use Tor to carry out malicious activities. However, mitigation actions can also impact the access of legitimate users who leverage Tor to protect their privacy when visiting an organization’s internet-facing assets. Organizations should evaluate their probable risk, available resources, and impact to legitimate, non-malicious, Tor users before applying mitigation actions. </p>
+
+<ul><li><strong>Most restrictive approach: Block all web traffic to and from public Tor entry and exit nodes. </strong>Organizations that wish to take a conservative or less resource-intensive approach to reduce the risk posed by threat actors’ use of Tor should implement tools that restrict all traffic—malicious and legitimate—to and from Tor entry and exit nodes. Of note, blocking known Tor nodes does not completely eliminate the threat of malicious actors using Tor for anonymity, as additional Tor network access points, or bridges, are not all listed publicly. See table 1 for the most restrictive mitigation practices.</li>
+</ul><table align="center" border="1" cellpadding="1" cellspacing="1" style="width: 1000px;"><caption>
+	<p class="text-align-center"><em>Table 1: Most restrictive mitigation practices</em></p>
+	</caption>
+	<tbody><tr><td><strong>Type</strong></td>
+			<td><strong>Level of Effort</strong></td>
+			<td><strong>Technical Implementation</strong></td>
+			<td>
+			<p><strong>Impact </strong></p>
+			</td>
+		</tr><tr><td><strong>Baseline Activity</strong></td>
+			<td>Low/Medium</td>
+			<td>
+			<p>Require organization to maintain up-to-date lists of known Tor exit and entry node IP addresses.</p>
+
+			<p>Public lists are available on the internet, but frequency of updates and accuracy varies depending on the source. The Tor Project maintains an authoritative <a href="https://blog.torproject.org/changes-tor-exit-list-service">list</a>. </p>
+			</td>
+			<td>Up-to-date awareness of known Tor nodes to enable blocking</td>
+		</tr><tr><td><strong>External Policies</strong></td>
+			<td>Medium</td>
+			<td>
+			<p>Set external policies to block incoming traffic from known Tor exit nodes to prevent malicious reconnaissance and exploit attempts.</p>
+
+			<p>Network security tools (e.g., next-generation firewalls, proxies) may have configuration settings to apply these policies.</p>
+			</td>
+			<td>Block inbound network traffic, both malicious and legitimate, from reaching the organization’s domain from known Tor exit nodes</td>
+		</tr><tr><td><strong>Internal Policies</strong></td>
+			<td>Medium</td>
+			<td>
+			<p>Set internal policies to block outgoing traffic to Tor entry nodes to prevent data exfiltration and C2 traffic.</p>
+
+			<p>Network security tools (e.g., next-generation firewalls, proxies) may have configuration settings to apply these policies.</p>
+			</td>
+			<td>Block outbound network traffic, both malicious and legitimate, from leaving the organization’s domain into known Tor entry nodes</td>
+		</tr></tbody></table><p> </p>
+
+<ul><li><strong>Less restrictive approach: Tailor monitoring, analysis, and blocking of web traffic to and from public Tor entry and exit nodes. </strong>There are instances in which legitimate users may leverage Tor for internet browsing and other non-malicious purposes. For example, deployed military or other overseas voters may use Tor as part of the voting process to escape monitoring by foreign governments. Such users may use Tor when visiting elections-related websites, to check voter registration status, or to mark and then cast absentee ballots via email or web portal. Similarly, some users may use Tor to avoid tracking by advertisers when browsing the internet. Organizations that do not wish to block legitimate traffic to/from Tor entry/exit nodes should consider adopting practices that allow for network monitoring and traffic analysis for traffic from those nodes, and then consider appropriate blocking. This approach can be resource intensive but will allow greater flexibility and adaptation of defensive.</li>
+</ul><table align="center" border="1" cellpadding="1" cellspacing="1" style="width: 1000px;"><caption>
+	<p class="text-align-center"><em>Table 2: Less restrictive mitigation practices</em></p>
+	</caption>
+	<tbody><tr><td><strong>Type</strong></td>
+			<td><strong>Level of Effort</strong></td>
+			<td><strong>Technical Implementation</strong></td>
+			<td><strong>Impact</strong></td>
+		</tr><tr><td><strong>Known Tor Nodes</strong></td>
+			<td>Low/Medium</td>
+			<td>
+			<p>Require the organization to maintain up-to-date lists of known Tor exit and entry node IP addresses.</p>
+
+			<p>The Tor Project maintains an authoritative <a href="https://blog.torproject.org/changes-tor-exit-list-service">list</a>. </p>
+			</td>
+			<td>Up-to-date awareness of known Tor nodes to enable baselining/allow blocking</td>
+		</tr><tr><td><strong>SIEM Correlation</strong></td>
+			<td>Low/Medium</td>
+			<td>Integrate network security and SIEM tools that correlate logs.</td>
+			<td>Enhanced understanding of legitimate/expected Tor use for inbound/outbound traffic</td>
+		</tr><tr><td><strong>Baseline</strong></td>
+			<td>Medium</td>
+			<td>
+			<p>Analyze traffic to determine normal patterns of behavior; legitimate vs. anomalous uses of Tor.</p>
+
+			<p>Baseline existing Tor traffic to/from known entry/exit nodes over a period of months.</p>
+
+			<p>Inspect traffic to understand legitimate traffic; level-set the organization’s risk tolerance for blocking or allowing Tor traffic to/from specific services.</p>
+			</td>
+			<td>Baseline understanding of legitimate vs. potentially anomalous Tor uses.</td>
+		</tr><tr><td><strong>Internal / External Policies</strong></td>
+			<td>Medium/High</td>
+			<td>
+			<p>Institute behavioral signatures/rules to block unexpected/potentially malicious activity and allow legitimate activity.</p>
+
+			<p>Examine activity between any ephemeral port and Tor IP—this could be malicious data exfiltration or C2 traffic (except where use of outbound Tor entry nodes is expected).</p>
+
+			<p>Monitor for use of TCP/UDP ports 9001, 9030, 9040, 9050, 9051, 9150, and TCP ports 443* and 8443.</p>
+
+			<p>Monitor and/or block inbound connections from Tor exit nodes to IP addresses and ports for which external connections are not expected (i.e., other than VPN gateways, mail ports, web ports).</p>
+
+			<p>Associated ports are applicable for client -&gt; guard/relay traffic monitoring and analysis but not monitoring for exit node -&gt; a network destination.</p>
+
+			<p>Monitor and examine any large dataflows between networks and Tor IP addresses, regardless of port, as this could be unauthorized data exfiltration.</p>
+
+			<p>*Since port 443 is the most common port for secure web traffic, generically monitoring 443 may produce a high volume of false positives; network traffic tools can be used to assist in this analysis.</p>
+			</td>
+			<td>Legitimate traffic via Tor entry/exit nodes is permitted and unexpected/potentially malicious activity via Tor entry/exit nodes is blocked</td>
+		</tr></tbody></table><p> </p>
+
+<ul><li><strong>Blended approach: Block all Tor traffic to some resources, allow and monitor for others.</strong> Given the various licit and illicit uses of Tor, a blended approach may be an appropriate risk mitigation strategy for some organizations (i.e., intentionally allowing traffic to/from Tor only for specific websites and services where legitimate use may be expected and blocking all Tor traffic to/from non-excepted processes/services). This may require continuous re-evaluation as an entity considers its own risk tolerance associated with different applications. The level of effort to implement this approach is high.</li>
+</ul><h3>Considerations for Blocking Use of Tor</h3>
+
+<p>Sophisticated threat actors may leverage additional anonymization technologies—such as virtual private networks (VPNs)—and configurable features within Tor—such as Tor bridges and pluggable transports—to circumvent detection and blocking. Blocking the use of known Tor nodes may not effectively mitigate all hazards but may protect against less sophisticated actors. For example, blocking outbound traffic to known Tor entry nodes could have an appreciable impact in blocking less sophisticated malware from successfully beaconing out to hidden C2 machines obfuscated by Tor. Ultimately, each entity must consider its own internal thresholds and risk tolerance when determining a risk mitigation approach associated with Tor.</p>
+</div>
+      
+        
+        		    <a id="contact-information"></a>
+		    <h3>Contact Information</h3>
+            
+            <div class="field field--name-field-aa-contact-info field--type-text-long field--label-hidden field--item"><p>To report suspicious or criminal activity related to information found in this Joint Cybersecurity Advisory, contact your local FBI field office at <a href="http://www.fbi.gov/contact-us/field">www.fbi.gov/contact-us/field</a>, or the FBI’s 24/7 Cyber Watch (CyWatch) at (855) 292-3937 or by e-mail at <a href="mailto: CyWatch@fbi.gov">CyWatch@fbi.gov</a>. When available, please include the following information regarding the incident: date, time, and location of the incident; type of activity; number of people affected; type of equipment used for the activity; the name of the submitting company or organization; and a designated point of contact. To request incident response resources or technical assistance related to these threats, contact CISA at <a href="mailto: CISAServiceDesk@cisa.dhs.gov">CISAServiceDesk@cisa.dhs.gov</a>.</p>
+
+<h2>Disclaimer</h2>
+
+<p><em>This document is marked TLP:WHITE. Disclosure is not limited. Sources may use TLP:WHITE when information carries minimal or no foreseeable risk of misuse, in accordance with applicable rules and procedures for public release. Subject to standard copyright rules, TLP:WHITE information may be distributed without restriction. For more information on the Traffic Light Protocol, see <a href="http://www.us-cert.gov/tlp/">http://www.us-cert.gov/tlp/</a>.</em></p>
+</div>
+      
+        
+        		    <a id="references"></a>
+		    <h3>References</h3>
+            
+      <div class="field field--name-field-aa-references field--type-link field--label-hidden field--items">
+              <div class="field--item"><a href="https://www.us-cert.gov/ncas/alerts/aa20-107a">[1] CISA Alert: Continued Threat Actor Exploitation Post Pulse Secure VPN Patch…</a></div>
+              <div class="field--item"><a href="https://www.us-cert.gov/sites/default/files/publications/AR-17-20045_Enhanced_Analysis_of_GRIZZLY_STEPPE_Activity.pdf">[2] CISA Analysis Report: Enhanced Analysis of GRIZZLY STEPPE Activity. Februar…</a></div>
+              <div class="field--item"><a href="https://www.fbi.gov/news/pressrel/press-releases/more-than-400-.onion-addresses-including-dozens-of-dark-market-sites-targeted-as-part-of-global-enforcement-action-on-tor-network">[3] FBI Press Release: More Than 400 .Onion Addresses, Including Dozens of ‘Dar…</a></div>
+          </div>
+  
+        
+        		    <a id="revisions"></a>
+		    <h3>Revisions</h3>
+            
+      <div class="field field--name-field-aa-revisions field--type-string field--label-hidden field--items">
+              <div class="field--item">July 1, 2020: Initial Version</div>
+              <div class="field--item">May 20, 2021: Corrected link in table 2</div>
+          </div>
+  
+        
+        
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><p class="privacy-and-terms">This product is provided subject to this <a href="/privacy/notification">Notification</a> and this <a href="https://www.dhs.gov/privacy-policy">Privacy &amp; Use</a> policy.</p>
+</div>
+      
+
+	</div>
+                        <div id="document-feedback">
+	<div class="inner-document-feedback center-center">
+        <p><b>Please share your thoughts.</b></p>
+		<p>We recently updated our anonymous <a href="https://www.surveymonkey.com/r/CISA-cyber-survey?product=https://us-cert.cisa.gov/ncas/alerts/aa20-183a">product survey</a>; we'd welcome your feedback.</p>
+	</div>
+</div>
+
+              </div>
+
+</article>
+
+
+  </div>
+
+              </section>
+
+
+                      </div>
+  </div>
+
+
+
+
+
+
+      <footer class="footer container-fluid" role="contentinfo">
+        <div class="region region-footer">
+    <section id="block-certsignup" class="block block-block-content block-block-contentc5846d10-2e2b-4822-aa59-7a5c3262f671 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container-fluid signup">
+<div class="container">
+<div class="row">
+<div class="col-lg-3 contact-icons">
+<h3>Contact Us</h3>
+
+<p class="phone-text"><img alt="phone icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Phone.png" />(888)282-0870</p>
+
+<p><img alt="email icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Email.png" /><a class="mailto" href="mailto:central@cisa.dhs.gov" title="General questions or suggestions">Send us email</a></p>
+
+<p><img alt="lock icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Lock.png" /><a href="/contact-us/" title="Download PGP/GPG keys">Download PGP/GPG keys</a></p>
+
+<p><img alt="feedback icon" data-entity-type="" data-entity-uuid="" height="32" src="/sites/default/files/images/icon-feedback.png" /><a href="/forms/website-feedback" title="Website Feedback">Submit website feedback</a></p>
+</div>
+
+<div class="col-lg-6 sub-alert">
+<h3>Subscribe to Alerts</h3>
+
+<p>Receive security alerts, tips, and other updates.</p>
+
+<form action="https://public.govdelivery.com/accounts/USDHSCISA/subscribers/qualify"><label class="visually-hidden" for="email-address-field">Enter your email address</label> <input class="signup-form" id="email-address-field" name="email" placeholder=" Enter your email address" title="Enter your email address" type="text" /><br /><input class="btn btn-primary" name="submit" title="Sign up for alerts" type="submit" value="Sign Up" /> </form>
+
+<div class="pull-right signup-icon-one"><a href="https://twitter.com/uscert_gov" title="US-CERT Twitter Feed"><img alt="twitter icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/twitter-button.png" /></a></div>
+
+<div class="pull-right signup-icon-two"><a href="/mailing-lists-and-feeds" title="Mailing Lists and Feeds"><img alt="rss icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/rss-button-bottom.png" /></a></div>
+
+<div class="pull-right signup-icon-three"><a href="/hsin" class="btn btn-cert-report" name="button" type="button" id="button">HSIN</a></div>
+</div>
+
+<div class="col-lg-3 cert-report"><a class="btn btn-cert-report btn-lg" href="/report" name="button" type="button" id="button">Report</a></div>
+</div>
+</div>
+</div>
+</div>
+      
+  </section>
+
+<section id="block-certcertfooter" class="block block-block-content block-block-contentd5b85bd2-62d1-485a-b9ae-f040b1ca1a45 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container">
+<hr /><div class="text-center"><a href="/" title="Home">Home</a>   <a href="/sitemap" title="Site Map">Site Map</a>   <a href="/faq/" title="Frequently Asked Questions">FAQ</a>   <a href="/contact-us/" title="Contact Us">Contact Us</a>   <a href="/tlp/" title="Traffic Light Protocol">Traffic Light Protocol</a>   <a href="/pcii" title="PCII">PCII</a>   <a href="https://www.dhs.gov" title="Accountability">Accountability</a>   <a href="/disclaimer" title="Disclaimer">Disclaimer</a>   <a href="/privacy-policy" title="Privacy Policy">Privacy Policy</a>   <a href="https://www.dhs.gov/freedom-information-act-foia" title="FOIA">FOIA</a>   <a href="https://www.dhs.gov/homeland-security-no-fear-act-reporting" title="No Fear Act">No Fear Act</a>   <a href="/accessibility/" title="Accessibility">Accessibility</a><a href="https://www.dhs.gov/plain-writing-dhs" title="Plain Writing">Plain Writing</a><a href="https://www.dhs.gov/plug-information" title="Plug-ins">Plug-ins</a>   <a href="https://www.oig.dhs.gov/" title="Office of the Inspector General">Inspector General</a>   <a href="https://www.whitehouse.gov/" title="The White House">The White House</a>   <a href="https://www.usa.gov/" title="USA.gov">USA.gov</a><br />
+ 
+<p>CISA is part of the <a href="https://www.dhs.gov/" title="Department of Homeland Security">Department of Homeland Security</a></p>
+</div>
+<script type="text/javascript">
+<!--//--><![CDATA[// ><!--
+
+    window.onload = function(){
+            jQuery('body.page-node-type-us-cert-events div#ncas-header').find('img').each(function(){
+                    var $src=jQuery(this).prop('src');
+                    if($src.indexOf('default/files/') == -1)jQuery(this).remove();
+                    });
+            if('Privacy Data Breach' == jQuery('#uscert-utilities-irf-form #item-info-impact option:selected').text()){ 
+                jQuery('#item-info-impact-block').removeClass('collapsed'); 
+            }
+jQuery('#print-logo img').removeAttr('width').removeAttr('height');
+if(jQuery('body.path-frontpage').length > 0)
+{   
+    jQuery('.main-container').find('.col-sm-12').removeAttr('role');
+}
+jQuery('#map area').each(function(){ jQuery(this).click(function(){var idstr=jQuery(this).attr('clickthis'); if(jQuery(idstr).hasClass('open') == false){jQuery(idstr).click();}});});  
+if(jQuery('#document-feedback').length > 0)
+{ 
+    var $url    = window.location.href
+    //var str ='Your feedback is very important to us. Please take a moment to complete this <a href="https://surveymonkey.com/r/G8STDRY?product=' + $url + '">survey.';
+    //var $p = jQuery('#document-feedback div p').html(str);
+}
+    };
+
+//--><!]]>
+</script></div>
+<style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+#views-bootstrap-carousel-block-2 .carousel-inner > .item > a > img {
+  margin:auto;
+}
+button#product-feedback-next {
+    margin-bottom: 10px;
+}
+/*
+.mobile-nav {
+border-bottom: 3px solid #112e51;
+}
+*/
+.cma-banner-container {
+    display: none;
+}
+@media (max-width: 991px) {
+.navbar .navbar-header {
+background: #fff;
+}
+}
+div.banner-region { background: #fff; }
+
+.accordion_fold {
+    padding-bottom: 25px;
+}
+
+h2.accordion.open {
+    background: #f2f2f2;
+}
+
+a { color: #2b72af;}
+
+.navbar-default .navbar-nav > li > a { color: #767676; }
+/* andi */
+.sidebar-widget-orange .orange {
+    background-color: #e77431;
+}
+#block-views-block-ics-announcements-block-1 .views-field-created {
+    color: #565656;
+}
+a#sort-bulletin {
+color: #000;
+background: white;
+position: absolute;
+right: 150px;
+padding: 1px 12px;
+}
+
+/*--><!]]>*/
+</style></div>
+      
+  </section>
+
+
+  </div>
+
+    </footer>
+  
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","scriptPath":null,"pathPrefix":"","currentPath":"node\/14617","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"UA-34879253-1","trackOutbound":true,"trackMailto":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"data":{"extlink":{"extTarget":false,"extTargetNoOverride":false,"extNofollow":false,"extNoreferrer":false,"extFollowNoOverride":false,"extClass":"ext","extLabel":"(link is external)","extImgClass":false,"extSubdomains":true,"extExclude":"(\\.gov|\\.mil|\\.org.*|twitter\\.com\\\/share\\?url\\=.*|www\\.facebook\\.com\\\/sharer\\.php\\?u\\=.*|www\\.addthis\\.com\\\/bookmark\\.php\\?url\\=.*|javascript\\:window\\.print\\(\\)\\;)","extInclude":"","extCssExclude":"","extCssExplicit":"","extAlert":true,"extAlertText":"You are now leaving an official website of the United States Government (USG), the Department of Homeland Security (DHS), and the Cybersecurity and Infrastructure Security Agency (CISA). Links to non-USG, non-DHS, and non-CISA sites are provided for the visitor\u0027s convenience and do not represent an endorsement by USG, DHS, or CISA of any commercial or private issues, products, or services. Note that the privacy policy of the linked site may differ from that of USG, DHS, and CISA.","mailtoClass":"mailto","mailtoLabel":"(link sends email)","extUseFontAwesome":false,"extIconPlacement":"append","extFaLinkClasses":"fa fa-external-link","extFaMailtoClasses":"fa fa-envelope-o","whitelistedDomains":null}},"bootstrap":{"forms_has_error_value_toggle":1,"popover_enabled":1,"popover_animation":1,"popover_auto_close":1,"popover_container":"body","popover_content":"","popover_delay":"0","popover_html":0,"popover_placement":"right","popover_selector":"","popover_title":"","popover_trigger":"click","tooltip_enabled":1,"tooltip_animation":1,"tooltip_container":"body","tooltip_delay":"0","tooltip_html":0,"tooltip_placement":"auto left","tooltip_selector":"","tooltip_trigger":"hover"},"user":{"uid":0,"permissionsHash":"5ac3ae468050ddd0aa4ecea12c34a32977a23244239ed53eb7226f296aed658f"}}</script>
+<script src="/sites/default/files/js/js_xhqBHziEDyCKWlB5IUseaFAGh1B08TPFGmxCf6RvFnM.js"></script>
+<script src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DHS&amp;subagency=US-CERT&amp;pua=0" id="_fed_an_ua_tag"></script>
+<script src="/sites/default/files/js/js_m5CHELy9XHlAx2jnhaYdT2XVeN916TnZL5U2ha7Ln94.js"></script>
+
+  <script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"877b02039c","applicationID":"628657512,979282327","transactionName":"ZFYHMhZSXUpRUkcKDF0cJAUQWlxXH0FSBAZsUAQFDFY=","queueTime":0,"applicationTime":11,"atts":"SBEERF5ITkQ=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

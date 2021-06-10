@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html  lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+    <meta charset="utf-8" /><script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={licenseKey:"877b02039c",applicationID:"628657512"};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var i=e[n]={exports:{}};t[n][0].call(i.exports,function(e){var i=t[n][1][e];return r(i||e)},i,i.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var i=0;i<n.length;i++)r(n[i]);return r}({1:[function(t,e,n){function r(){}function i(t,e,n){return function(){return o(t,[u.now()].concat(f(arguments)),e?null:this,n),e?void 0:this}}var o=t("handle"),a=t(8),f=t(9),c=t("ee").get("tracer"),u=t("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var d=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],p="api-",l=p+"ixn-";a(d,function(t,e){s[e]=i(p+e,!0,"api")}),s.addPageAction=i(p+"addPageAction",!0),s.setCurrentRouteName=i(p+"routeName",!0),e.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(t,e){var n={},r=this,i="function"==typeof e;return o(l+"tracer",[u.now(),t,n],r),function(){if(c.emit((i?"":"no-")+"fn-start",[u.now(),r,i],n),i)try{return e.apply(this,arguments)}catch(t){throw c.emit("fn-err",[arguments,this,t],n),t}finally{c.emit("fn-end",[u.now()],n)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(t,e){m[e]=i(l+e)}),newrelic.noticeError=function(t,e){"string"==typeof t&&(t=new Error(t)),o("err",[t,u.now(),!1,e])}},{}],2:[function(t,e,n){function r(t){if(NREUM.init){for(var e=NREUM.init,n=t.split("."),r=0;r<n.length-1;r++)if(e=e[n[r]],"object"!=typeof e)return;return e=e[n[n.length-1]]}}e.exports={getConfiguration:r}},{}],3:[function(t,e,n){function r(){return f.exists&&performance.now?Math.round(performance.now()):(o=Math.max((new Date).getTime(),o))-a}function i(){return o}var o=(new Date).getTime(),a=o,f=t(10);e.exports=r,e.exports.offset=a,e.exports.getLastTimestamp=i},{}],4:[function(t,e,n){function r(t){return!(!t||!t.protocol||"file:"===t.protocol)}e.exports=r},{}],5:[function(t,e,n){function r(t,e){var n=t.getEntries();n.forEach(function(t){"first-paint"===t.name?d("timing",["fp",Math.floor(t.startTime)]):"first-contentful-paint"===t.name&&d("timing",["fcp",Math.floor(t.startTime)])})}function i(t,e){var n=t.getEntries();n.length>0&&d("lcp",[n[n.length-1]])}function o(t){t.getEntries().forEach(function(t){t.hadRecentInput||d("cls",[t])})}function a(t){if(t instanceof m&&!g){var e=Math.round(t.timeStamp),n={type:t.type};e<=p.now()?n.fid=p.now()-e:e>p.offset&&e<=Date.now()?(e-=p.offset,n.fid=p.now()-e):e=p.now(),g=!0,d("timing",["fi",e,n])}}function f(t){d("pageHide",[p.now(),t])}if(!("init"in NREUM&&"page_view_timing"in NREUM.init&&"enabled"in NREUM.init.page_view_timing&&NREUM.init.page_view_timing.enabled===!1)){var c,u,s,d=t("handle"),p=t("loader"),l=t(7),m=NREUM.o.EV;if("PerformanceObserver"in window&&"function"==typeof window.PerformanceObserver){c=new PerformanceObserver(r);try{c.observe({entryTypes:["paint"]})}catch(v){}u=new PerformanceObserver(i);try{u.observe({entryTypes:["largest-contentful-paint"]})}catch(v){}s=new PerformanceObserver(o);try{s.observe({type:"layout-shift",buffered:!0})}catch(v){}}if("addEventListener"in document){var g=!1,h=["click","keydown","mousedown","pointerdown","touchstart"];h.forEach(function(t){document.addEventListener(t,a,!1)})}l(f)}},{}],6:[function(t,e,n){function r(t,e){if(!i)return!1;if(t!==i)return!1;if(!e)return!0;if(!o)return!1;for(var n=o.split("."),r=e.split("."),a=0;a<r.length;a++)if(r[a]!==n[a])return!1;return!0}var i=null,o=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var f=navigator.userAgent,c=f.match(a);c&&f.indexOf("Chrome")===-1&&f.indexOf("Chromium")===-1&&(i="Safari",o=c[1])}e.exports={agent:i,version:o,match:r}},{}],7:[function(t,e,n){function r(t){function e(){t(a&&document[a]?document[a]:document[i]?"hidden":"visible")}"addEventListener"in document&&o&&document.addEventListener(o,e,!1)}e.exports=r;var i,o,a;"undefined"!=typeof document.hidden?(i="hidden",o="visibilitychange",a="visibilityState"):"undefined"!=typeof document.msHidden?(i="msHidden",o="msvisibilitychange"):"undefined"!=typeof document.webkitHidden&&(i="webkitHidden",o="webkitvisibilitychange",a="webkitVisibilityState")},{}],8:[function(t,e,n){function r(t,e){var n=[],r="",o=0;for(r in t)i.call(t,r)&&(n[o]=e(r,t[r]),o+=1);return n}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],9:[function(t,e,n){function r(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,i=n-e||0,o=Array(i<0?0:i);++r<i;)o[r]=t[e+r];return o}e.exports=r},{}],10:[function(t,e,n){e.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(t,e,n){function r(){}function i(t){function e(t){return t&&t instanceof r?t:t?u(t,c,a):a()}function n(n,r,i,o,a){if(a!==!1&&(a=!0),!l.aborted||o){t&&a&&t(n,r,i);for(var f=e(i),c=v(n),u=c.length,s=0;s<u;s++)c[s].apply(f,r);var p=d[w[n]];return p&&p.push([b,n,r,f]),f}}function o(t,e){y[t]=v(t).concat(e)}function m(t,e){var n=y[t];if(n)for(var r=0;r<n.length;r++)n[r]===e&&n.splice(r,1)}function v(t){return y[t]||[]}function g(t){return p[t]=p[t]||i(n)}function h(t,e){l.aborted||s(t,function(t,n){e=e||"feature",w[n]=e,e in d||(d[e]=[])})}var y={},w={},b={on:o,addEventListener:o,removeEventListener:m,emit:n,get:g,listeners:v,context:e,buffer:h,abort:f,aborted:!1};return b}function o(t){return u(t,c,a)}function a(){return new r}function f(){(d.api||d.feature)&&(l.aborted=!0,d=l.backlog={})}var c="nr@context",u=t("gos"),s=t(8),d={},p={},l=e.exports=i();e.exports.getOrSetContext=o,l.backlog=d},{}],gos:[function(t,e,n){function r(t,e,n){if(i.call(t,e))return t[e];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:r,writable:!0,enumerable:!1}),r}catch(o){}return t[e]=r,r}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],handle:[function(t,e,n){function r(t,e,n,r){i.buffer([t],r),i.emit(t,e,n)}var i=t("ee").get("handle");e.exports=r,r.ee=i},{}],id:[function(t,e,n){function r(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:a(t,o,function(){return i++})}var i=1,o="nr@id",a=t("gos");e.exports=r},{}],loader:[function(t,e,n){function r(){if(!R++){var t=M.info=NREUM.info,e=v.getElementsByTagName("script")[0];if(setTimeout(u.abort,3e4),!(t&&t.licenseKey&&t.applicationID&&e))return u.abort();c(E,function(e,n){t[e]||(t[e]=n)});var n=a();f("mark",["onload",n+M.offset],null,"api"),f("timing",["load",n]);var r=v.createElement("script");0===t.agent.indexOf("http://")||0===t.agent.indexOf("https://")?r.src=t.agent:r.src=l+"://"+t.agent,e.parentNode.insertBefore(r,e)}}function i(){"complete"===v.readyState&&o()}function o(){f("mark",["domContent",a()+M.offset],null,"api")}var a=t(3),f=t("handle"),c=t(8),u=t("ee"),s=t(6),d=t(4),p=t(2),l=p.getConfiguration("ssl")===!1?"http":"https",m=window,v=m.document,g="addEventListener",h="attachEvent",y=m.XMLHttpRequest,w=y&&y.prototype,b=!d(m.location);NREUM.o={ST:setTimeout,SI:m.setImmediate,CT:clearTimeout,XHR:y,REQ:m.Request,EV:m.Event,PR:m.Promise,MO:m.MutationObserver};var x=""+location,E={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1209.min.js"},O=y&&w&&w[g]&&!/CriOS/.test(navigator.userAgent),M=e.exports={offset:a.getLastTimestamp(),now:a,origin:x,features:{},xhrWrappable:O,userAgent:s,disabled:b};if(!b){t(1),t(5),v[g]?(v[g]("DOMContentLoaded",o,!1),m[g]("load",r,!1)):(v[h]("onreadystatechange",i),m[h]("onload",r)),f("mark",["firstbyte",a.getLastTimestamp()],null,"api");var R=0}},{}],"wrap-function":[function(t,e,n){function r(t,e){function n(e,n,r,c,u){function nrWrapper(){var o,a,s,p;try{a=this,o=d(arguments),s="function"==typeof r?r(o,a):r||{}}catch(l){i([l,"",[o,a,c],s],t)}f(n+"start",[o,a,c],s,u);try{return p=e.apply(a,o)}catch(m){throw f(n+"err",[o,a,m],s,u),m}finally{f(n+"end",[o,a,p],s,u)}}return a(e)?e:(n||(n=""),nrWrapper[p]=e,o(e,nrWrapper,t),nrWrapper)}function r(t,e,r,i,o){r||(r="");var f,c,u,s="-"===r.charAt(0);for(u=0;u<e.length;u++)c=e[u],f=t[c],a(f)||(t[c]=n(f,s?c+r:r,i,c,o))}function f(n,r,o,a){if(!m||e){var f=m;m=!0;try{t.emit(n,r,o,e,a)}catch(c){i([c,n,r,o],t)}m=f}}return t||(t=s),n.inPlace=r,n.flag=p,n}function i(t,e){e||(e=s);try{e.emit("internal-error",t)}catch(n){}}function o(t,e,n){if(Object.defineProperty&&Object.keys)try{var r=Object.keys(t);return r.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(o){i([o],n)}for(var a in t)l.call(t,a)&&(e[a]=t[a]);return e}function a(t){return!(t&&t instanceof Function&&t.apply&&!t[p])}function f(t,e){var n=e(t);return n[p]=t,o(t,n,s),n}function c(t,e,n){var r=t[e];t[e]=f(r,n)}function u(){for(var t=arguments.length,e=new Array(t),n=0;n<t;++n)e[n]=arguments[n];return e}var s=t("ee"),d=t(9),p="nr@original",l=Object.prototype.hasOwnProperty,m=!1;e.exports=r,e.exports.wrapFunction=f,e.exports.wrapInPlace=c,e.exports.argsToArray=u},{}]},{},["loader"]);</script>
+<script async src="/sites/default/files/google_analytics/gtag.js?qubv3z"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("config", "UA-34879253-1", {"groups":"default","anonymize_ip":true,"allow_ad_personalization_signals":false});</script>
+<meta name="description" content="Important: Category 3 organizations should use out-of-band communications for all mitigation and remediation communications and documentation, i.e., do not use any compromised systems to internally or externally communicate remediation plans or actions.
+
+Remediation plans for dealing with malicious compromises are necessarily unique to every organization, and success requires careful consideration. There are three phases for evicting the actor:" />
+<meta name="abstract" content="As part of its mission, CISA leads the effort to enhance the security, resiliency, and reliability of the Nation&#039;s cybersecurity and communications infrastructure." />
+<meta name="keywords" content="uscert, csirt, cert, cybersecurity, cyber security, computer security, U. S. Computer Emergency Readiness, cyber risks" />
+<meta name="Generator" content="Drupal 9 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/sites/default/files/images/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="https://us-cert.cisa.gov/ncas/analysis-reports/ar21-134a" />
+<link rel="shortlink" href="https://us-cert.cisa.gov/node/16558" />
+<link rel="revision" href="https://us-cert.cisa.gov/ncas/analysis-reports/ar21-134a" />
+
+    <title>Eviction Guidance for Networks Affected by the SolarWinds and Active Directory/M365 Compromise  | CISA</title>
+    <link rel="stylesheet" media="all" href="/sites/default/files/css/css_-w-jQbIWIO0ZERqyQMFp9m1ddgDjs5ZGsor0ebo5CG4.css" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_OtQ9QHAYVZDqM__uuCDStHUt38Nwh_1MHX1vxg5dE5c.css" />
+
+    
+    <!-- Google Font -->
+    <style type="text/css">
+/* source-sans-pro-regular - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'),
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.woff') format('woff'), /* Modern Browsers */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('/profiles/uscertd8_gov/themes/custom/cert/fonts/source-sans-pro-v12-latin-regular.svg#SourceSansPro') format('svg'); /* Legacy iOS */
+}
+    </style>
+    <!--link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet"--> 
+    <!-- Google Font -->
+  </head>
+  <body class="path-node page-node-type-analysis-report has-glyphicons">
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+
+
+<div class="container-fluid top-top">
+      <aside role="complementary">
+        <div class="region region-top">
+    <section id="block-certtoptop" class="block block-block-content block-block-content4d95ffde-0818-4e6b-bd79-d1547b08c0c0 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container">
+<div id="top">
+<div class="row">
+<div class="col-sm-12 flag"><img alt="United States Flag" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/flag.png" style="position: absolute;" /><p style="padding-left: 35px; font-family: Arial; font-size: 11px;">An official website of the United States government <a href="#" id="here-is-how-u-know">Here's how you know <span class="arrow down"> </span></a></p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="usa-banner-content usa-grid usa-accordion-content hidden container" id="gov-banner">
+<div class="usa-banner-guidance-gov usa-width-one-half col-sm-6"><img alt="Dot gov" class="usa-banner-icon usa-media_block-img" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/icon-dot-gov.svg" /><div class="usa-media_block-body"><strong>Official websites use .gov</strong><br />
+A <b>.gov</b> website belongs to an official government organization in the United States.</div>
+</div>
+
+<div class="usa-banner-guidance-ssl usa-width-one-half col-sm-6"><img alt="SSL" class="usa-banner-icon usa-media_block-img" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/icon-https.svg" /><div class="usa-media_block-body"><strong>Secure .gov websites use HTTPS</strong> A <b>lock (<img alt="lock icon" src="/sites/default/files/icons/lock.svg" style="width:15px;" />)</b> or <b>https://</b> means you've safely connected to the .gov website. Share sensitive information only on official, secure websites.</div>
+</div>
+</div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </div>
+
+
+
+<div class="container-fluid hidden-xs hidden-sm banner-region">
+<div class="container">
+<div class="row">
+
+
+  
+
+<section class="col-sm-9">
+
+      <a id="logo-section"></a>
+        <div class="region region-logo">
+    <section id="block-certlogo" class="block block-block-content block-block-content4639a667-debe-4642-bc69-7839662c0187 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="hidden-xs hidden-sm"><a href="/"><img alt="Cybersecurity and Infrastructure Security Agency CISA" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/logo_verbose.png" title="Cybersecurity and Infrastructure Security Agency CISA" /></a></div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </section>
+
+
+
+      <aside class="col-sm-3" role="complementary">
+        <div class="region region-search">
+    <section id="block-certsearch" class="block block-block-content block-block-contentc33bd875-6ea6-42cc-b1ab-348a4e4bdff7 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><form accept-charset="UTF-8" action="https://search.us-cert.gov/search" class="hidden-xs searchbox" method="get"><input name="utf8" type="hidden" value="✓" /><input id="affiliate-desktop" name="affiliate" type="hidden" value="us-cert" /><div class="form-group"><label class="sr-only" for="query-desktop">Enter Search Terms(s):</label>
+<div class="input-group"><input autocomplete="off" class="form-control form-control-custom input-lg" id="query-desktop" name="query" placeholder="Search" type="text" /><div class="input-group-addon input-group-addon-custom"><button class="submit input-lg"><img alt="search icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/search-icon.png" title="search icon" /></button></div>
+</div>
+</div>
+</form>
+<style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+.navbar-default ul.navbar-nav > li.last a{
+display: none;
+
+/*--><!]]>*/
+</style><div style="padding: 16px 12px 8px 12px"><a class="btn btn-primary" href="/services" type="button" style="font-weight: bold; width: 40%">Services</a><a class="btn btn-primary pull-right" href="/report" type="button" style="font-weight: bold; width: 40%">Report</a></div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+    </aside>
+  </div>
+</div>
+<hr class="hidden-xs nav-top-line">
+</div>
+
+
+
+          <header class="navbar navbar-default container-fluid" id="navbar" role="banner">
+        <div class="container ">
+      <div class="navbar-header">
+        
+                          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+            <div class="hidden-lg hidden-md mobile-nav">
+        <a class="" href="/">
+            <img src="/sites/default/files/cert/logo3.png"  alt="US Department of Homeland Security CISA Cyber + Infrastructure" title="US Department of Homeland Security CISA Cyber + Infrastructure">
+          </a>
+        </div>
+      </div>
+
+              <div id="navbar-collapse" class="navbar-collapse collapse">
+            <div class="region region-navigation-collapsible">
+    <section id="block-certsearchmobile" class="block block-block-content block-block-content0da6361c-e31a-4a58-b455-f9ebde1ba544 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><form accept-charset="UTF-8" action="https://search.us-cert.gov/search" class="hidden-lg hidden-md searchbox" method="get"><input name="utf8" type="hidden" value="✓" /><input id="affiliate-mobile" name="affiliate" type="hidden" value="us-cert" /><div class="form-group"><label class="sr-only" for="query-mobile">Enter Search Terms(s):</label>
+<div class="input-group"><input autocomplete="off" class="form-control form-control-custom input-lg" id="query-mobile" name="query" placeholder="Search" type="text" /><div class="input-group-addon input-group-addon-custom"><button class="submit input-lg"><img alt="search icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/cert/search-icon.png" title="search icon" /></button></div>
+</div>
+</div>
+</form>
+<div class="hidden-md hidden-lg" style="padding: 8px"><a class="btn btn-primary btn-block" href="/services" role="button" style="font-weight: bold">Services</a></div>
+
+<div class="hidden-md hidden-lg" style="padding: 8px"><a class="btn btn-primary btn-block" href="/report" role="button" style="font-weight: bold">Report</a></div></div>
+      
+  </section>
+
+<nav role="navigation" aria-labelledby="block-certmainmenu-menu" id="block-certmainmenu">
+            
+  <h2 class="visually-hidden" id="block-certmainmenu-menu">CertMain Menu</h2>
+  
+
+        
+      <ul class="menu menu--certmain-menu nav navbar-nav">
+                      <li class="first">
+                                        <a href="/ncas" title="Alerts and Tips" data-drupal-link-system-path="node/5">Alerts and Tips</a>
+              </li>
+                      <li>
+                                        <a href="/resources" title="Resources" data-drupal-link-system-path="node/12436">Resources</a>
+              </li>
+                      <li>
+                                        <a href="/ics" title="Industrial Control Systems" data-drupal-link-system-path="node/14614">Industrial Control Systems</a>
+              </li>
+                      <li class="last">
+                                        <a href="/report" title="Report" data-drupal-link-system-path="node/5745">Report</a>
+              </li>
+        </ul>
+  
+
+  </nav>
+
+  </div>
+
+        </div>
+                </header>
+  <hr class="hidden-xs hidden-sm nav-bottom-line">
+<div class="visible-xs visible-sm mobile-border"></div>
+
+
+<div class="container">
+    <div id="print-logo"><img alt="US Department of Homeland Security CISA Cyber + Infrastructure" src="/sites/default/files/cert/logo2.png"/></div>
+    <div id="tlp-header"><svg height="30" width="120"> <rect fill="black" height="30" width="120" x="0" y="0"></rect> <text fill="#ffffff" font-size="18px" x="10" y="20">TLP:WHITE</text> </svg></div>
+    <div id="tlp-footer"><svg height="30" width="120"> <rect fill="black" height="30" width="120" x="0" y="0"></rect> <text fill="#ffffff" font-size="18px" x="10" y="20">TLP:WHITE</text> </svg></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  <div role="main" class="main-container container js-quickedit-main-content">
+    <div class="row">
+
+                              <div class="col-sm-12" role="heading" aria-level="1">
+              <div class="region region-header">
+      <div class="container-fluid hidden-xs">
+  <ol class="breadcrumb">
+          <li >
+                  <a href="/ncas">National Cyber Awareness System</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
+              </li>
+          <li >
+                  <a href="/ncas/analysis-reports">Analysis Reports</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
+              </li>
+          <li  class="active">
+                  Eviction Guidance for Networks Affected by the SolarWinds and Active Directory/M365 Compromise 
+              </li>
+      </ol>
+</div>
+
+
+
+  </div>
+
+          </div>
+              
+
+            
+            
+                        
+
+            
+                  <section class="col-sm-12">
+
+                              <div class="highlighted">  <div class="region region-highlighted">
+    <div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+</div>
+              
+                                      
+                  
+                          <a id="main-content"></a>
+            <div class="region region-content">
+                  <div id="ncas-header">
+            <div id="alerts-archive">
+                <a title="View Archives" href="/ncas/analysis-reports/">More Analysis Reports</a>
+            </div>
+            <h1 id="page-title">Analysis Report (AR21-134A)</h1>
+            <h2 id="page-sub-title">Eviction Guidance for Networks Affected by the SolarWinds and Active Directory/M365 Compromise </h2>
+            <div class="submitted meta-text">
+                                Original release date: May 14, 2021  | Last <a href="#revisions">revised</a>: May 21, 2021
+                                            </div>
+            <div id="social-options">
+	<!-- START PRINT BUTTON -->
+		<div id="print-button">
+			<span id="custom-print-button">
+				<a rel="nofollow" href="javascript:window.print();" title="Click to print."><img src="/sites/default/files/icons/print-button.png" alt="Click to print." /></a>
+			</span>
+		</div>
+    <!-- END PRINT BUTTON -->
+	<!-- START TWEET BUTTON -->
+	<div id="tweet-button">
+		<span id="custom-tweet-button">
+			<a rel="nofollow" target="_blank" href="https://twitter.com/share?url=https%3A%2F%2Fus-cert.cisa.gov%2Fncas%2Fanalysis-reports%2Far21-134a" class="popup-twitter" title="Click to Tweet."><img src="/sites/default/files/icons/tweet-button.png" alt="Click to Tweet." /></a>
+		</span>
+	</div>
+	<!-- END TWEET BUTTON -->
+
+	<!-- START FACEBOOK BUTTON -->
+	<div id="facebook-button">
+		<span id="custom-facebook-button">
+		<a rel="nofollow" target="_blank" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fus-cert.cisa.gov%2Fncas%2Fanalysis-reports%2Far21-134a" class="popup-facebook" title="Click to send to Facebook."><img src="/sites/default/files/icons/facebook-send-button.png" alt="Click to send to Facebook." /></a>
+		</span>
+	</div>
+	<!-- END FACEBOOK BUTTON -->
+
+	<!-- START SHARE BUTTON -->
+	<div id="share-button">
+		<span id="custom-share-button">
+			<a rel="nofollow" target="_blank" href="http://www.addthis.com/bookmark.php?url=https%3A%2F%2Fus-cert.cisa.gov%2Fncas%2Fanalysis-reports%2Far21-134a" class="popup-share" title="Click to Share." ><img src="/sites/default/files/icons/share-button.png" alt="Click to Share." /></a>
+		</span>
+	</div>
+	<!-- END SHARE BUTTON -->
+
+</div>
+        </div>
+    
+  
+<article role="article" about="/ncas/analysis-reports/ar21-134a" class="analysis-report full clearfix">
+
+  
+    
+
+  
+  <div class="content">
+	<div id="ncas-content">
+        		    <a id="summary"></a>
+		    <h3>Summary</h3>
+            
+            <div class="field field--name-field-ar-summary field--type-text-long field--label-hidden field--item"><p>Since December 2020, the Cybersecurity and Infrastructure Security Agency (CISA) has been responding to a significant cyber incident. An advanced persistent threat (APT) actor added malicious code to multiple versions of SolarWinds Orion and, in some instances, leveraged it for initial access to enterprise networks of multiple U.S. government agencies, critical infrastructure entities, and private sector organizations. Once inside the network, the threat actor bypassed multi-factor authentication (MFA) and moved laterally to Microsoft Cloud systems by compromising federated identity solutions. <strong>Note:</strong> on April 15, 2021, the U.S. Government attributed this activity to the Russian Foreign Intelligence Service (SVR). See the <a href="https://www.whitehouse.gov/briefing-room/statements-releases/2021/04/15/fact-sheet-imposing-costs-for-harmful-foreign-activities-by-the-russian-government/">statement from the White House</a> for additional details.</p>
+
+<p>For more information and resources on this activity, refer to <a href="https://us-cert.cisa.gov/remediating-apt-compromised-networks">us-cert.cisa.gov/remediating-apt-<br />
+compromised-networks</a>.</p>
+
+<p>For more information on CISA’s response to this activity, refer to <a href="https://cisa.gov/supply-chain-compromise">cisa.gov/supply-chain-compromise</a>.</p>
+
+<p>CISA has provided this guidance to federal agencies with networks that used affected versions of SolarWinds Orion and have evidence of follow-on threat actor activity—CISA Alert <a href="https://us-cert.cisa.gov/ncas/alerts/aa20-352a">AA20-352A: Advanced Persistent Threat Compromise of Government Agencies, Critical Infrastructure, and Private Sector Organizations</a> labels these as Category 3 agencies. This guidance is intended to support Category 3 agencies in crafting their eviction plans in accordance with <a href="https://cyber.dhs.gov/ed/21-01/#supplemental-direction-v4">ED 21-01: Supplemental Direction Version 4</a>. <strong>Note</strong>: agencies should refer to CISA Alert <a href="https://us-cert.cisa.gov/ncas/alerts/aa20-352a">AA20-352A </a>for guidance on determining if they are Category 3. CISA is aware of other initial access vectors; agencies should not assume they are not compromised by this APT actor solely because they have never used affected versions of SolarWinds Orion.</p>
+
+<p>Those agencies should investigate to confirm they have not observed related threat actor tactics, techniques, and procedures (TTPs). CISA recommends any agency that detects related activity review this guidance as well as CISA Alert <a href="https://us-cert.cisa.gov/ncas/alerts/aa20-352a">AA20-352A</a>, and contact CISA for further assistance.</p>
+
+<p>Although this guidance is tailored to federal agencies, CISA encourages critical infrastructure entities; state, local, territorial, and tribal government organizations; and private sector organizations to review and apply it, as appropriate.</p>
+
+<p>The steps provided in this guidance are resource-intensive and highly complex and will require the enterprise network to be disconnected from the internet for 3–5 days. In order to have fully informed senior-level support, CISA recommends that agency senior leadership conduct planning sessions throughout this process to understand the resources needed and any potential disruption in business operations. CISA encourages agency leadership to review <a href="https://www.cisa.gov/publication/solarwinds-and-ad-m365-compromise-risk-decisions-leaders">CISA Insights: SolarWinds and AD/M365 Compromise Risk Decisions for Leaders</a> for more information.</p>
+
+<p>By taking steps to evict this adversary from compromised on-premises and cloud environments, agencies will position themselves for long-term actions to build more secure, resilient networks.</p>
+
+<p>For a PDF copy of this report, <a href="/sites/default/files/publications/AR21-134A_Remediating_Networks_Affected_by_the_SolarWinds_and_Active_Directory_M365_Compromise.pdf">click here</a>.</p>
+</div>
+      
+        
+        
+        		    <a id="description"></a>
+		    <h3>Description</h3>
+                
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="special_container">Important: Category 3 organizations should use out-of-band communications for all mitigation and remediation communications and documentation, i.e., do not use any compromised systems to internally or externally communicate remediation plans or actions.</div>
+
+<p>Remediation plans for dealing with malicious compromises are necessarily unique to every organization, and success requires careful consideration. There are three phases for evicting the actor:</p>
+
+<ul><li><strong>Phase 1: Pre-Eviction</strong>. Actions to detect and identify APT activity and prepare the network for eviction. <strong>Note:</strong> for the purposes of this guidance, a network is defined as any computer network with hosts that share either a logical trust or any account credentials with affected versions of SolarWinds Orion.</li>
+	<li><strong>Phase 2: Eviction</strong>. Actions to remove the APT actor from on-premises and cloud environments. This phase includes rebuilding devices and systems.</li>
+	<li><strong>Phase 3: Post-Eviction</strong>. Actions to ensure eviction was successful and the network has good cyber posture.</li>
+</ul><p>Conducting each step in this guidance is necessary to fully evict the adversary from Category 3 networks. Failure to perform comprehensive and thorough remediation activity will expose enterprise networks and cloud environments to substantial risk for long-term undetected APT activity, and compromised organizations will risk further loss of sensitive data and erosion of public trust in their networks.</p>
+
+<p>Although this guidance provides a level of detail that describes actions to be completed, it does not describe how these actions should be completed. To successfully evict the threat actor, these actions need to be conducted in the order specified. Additionally, this guidance clearly notes caveats and provides references to help agencies develop their plan.</p>
+
+<h3>Pre-Eviction Phase</h3>
+
+<ol><li><strong>Define the true scope</strong> by identifying trust boundaries (including between Active Directory [AD] forests and domains) and determining the enterprise assets to which this guidance applies (i.e., determine what assets are within the trust boundary).
+
+	<ol type="a"><li>For example, the organization needs to determine the identity provider (IdP) sources (such as Okta, Microsoft Active Directory Federation Services [ADFS], Duo) that it uses to issue single-sign on (SSO) credentials and it needs to identify assets that rely on the SSO credentials to allow access (i.e., what controlled data sources are accessible via that credential).</li>
+	</ol></li>
+	<li><strong>Investigate suspicious account activity </strong>associated with your SolarWinds servers, especially service accounts used by SolarWinds Orion. Additionally, enumerate and investigate any credentials stored or used on the SolarWinds server, including network administration and device credentials. This can be conducted, for example, using a transitive mapping of all potentially compromised credentials to the systems that those credentials accessed. If—as a Category 3 agency—you cannot confirm that all your credential activity is benign, you should proceed as if the highest administrative level of credentials on your affected SolarWinds server has been compromised. In many cases, the adversary may have had this access for months. Refer to the following resources for more information.
+	<ol type="a"><li>FireEye: <a href="https://www.fireeye.com/blog/threat-research/2020/12/evasive-attacker-leverages-solarwinds-supply-chain-compromises-with-sunburst-backdoor.html">Highly Evasive Attacker Leverages SolarWinds Supply Chain to Compromise Multiple Global Victims With SUNBURST Backdoor</a></li>
+		<li>CISA Alert <a href="https://us-cert.cisa.gov/ncas/alerts/aa20-352a">AA20-352A: Advanced Persistent Threat Compromise of Government Agencies, Critical Infrastructure, and Private Sector Organization</a></li>
+	</ol></li>
+	<li><strong>Investigate potential Security Assertion Markup Language (SAML) abuse</strong> in your environment. Refer to the following resources.
+	<ol type="a"><li>CISA <a href="https://us-cert.cisa.gov/ncas/alerts/aa21-008a">Alert AA21-008A: Detecting Post-Compromise Threat Activity in Microsoft Cloud Environments </a></li>
+		<li>National Security Agency: <a href="https://media.defense.gov/2020/Dec/17/2002554125/-1/-1/0/AUTHENTICATION_MECHANISMS_CSA_U_OO_198854_20.PDF">Detecting Abuse of Authentication Mechanisms</a></li>
+		<li>FireEye: <a href="https://www.fireeye.com/content/dam/collateral/en/wp-m-unc2452.pdf">Remediation and Hardening Strategies for Microsoft 365 to Defend Against UNC2452 </a></li>
+		<li>Microsoft: <a href="https://techcommunity.microsoft.com/t5/azure-active-directory-identity/understanding-quot-solorigate-quot-s-identity-iocs-for-identity/ba-p/2007610">Understanding "Solorigate"'s Identity IOCs - for Identity Vendors and their customers</a></li>
+	</ol></li>
+	<li><strong>Scope the intrusion.</strong>
+	<ol type="a"><li>Look for the artifacts from known TTPs associated with this activity. Refer to <a href="https://us-cert.cisa.gov/sites/default/files/publications/Supply_Chain_Compromise_Detecting_APT_Activity_from_known_TTPs.pdf">SolarWinds and Active Directory/M365 Compromise: Detecting Advanced Persistent Threat Activity from Known Tactics, Techniques, and Procedures</a> for TTPs and corresponding detection artifacts. Prioritize these by biggest value for the investment (e.g., prioritize these by techniques or technologies that cover multiple tactics or that provide visibility into shared data sources). After identifying the TTPs for which your organization has security controls to detect/stop/mitigate, you can make risk-based decisions on how to address visibility and protection strategies for the remaining MITRE Adversarial Tactics, Techniques, and Common Knowledge (ATT&amp;CK)-based paths.</li>
+		<li>Audit all network device configurations stored or managed on the SolarWinds monitoring server for signs of unauthorized or malicious configuration changes. Organizations should audit the current network device running configuration and any local configurations that could be loaded at boot time.</li>
+		<li>Assess the current endpoint telemetry collection level and configure endpoint forensics and detection solutions for aggressive collection; prioritize this by value of asset and account.</li>
+	</ol></li>
+	<li><strong>Harden the enterprise attack surface.</strong><strong> </strong>
+	<ol type="a"><li>Review and validate perimeter firewall rulesets. Remove all allow rules for which the organization does not have a clearly defined, understood, and documented need. “Deny all” statements that identify necessary connections and allow them as exceptions are the standard for perimeter devices.<strong> </strong>
+		<ol type="i"><li>Reduce the number of systems that are able to access the internet directly.<strong> Note:</strong> this action may require analysis by network engineers with fundamental knowledge of (1) how network data communicates through agency trust boundaries and (2) the IP routing in the enterprise.
+			<ul><li><span style="display: none;"> </span>For example, domain controllers should never be used for—or capable of— browsing the internet. (Microsoft’s <a href="https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/securing-domain-controllers-against-attack">analysis</a> of domain controllers identified that privileged users often use Internet Explorer to browse the intranet or internet.</li>
+				<li>For more information on designing networks where critical or security-related appliances and servers do not have access to the internet, refer to the United Kingdom’s National Cyber Security Centre (NCSC): <a href="https://www.ncsc.gov.uk/whitepaper/security-architecture-anti-patterns">Security Architecture Anti-Patterns</a>.</li>
+			</ul></li>
+			<li>Reduce the number of egress ports at the enterprise perimeter. This requires a review of all perimeter firewall rulesets (rulesets may differ among firewalls).</li>
+		</ol></li>
+		<li>Implement host-based firewalls to make the work of moving laterally more challenging for the adversary, disrupting the ability to move from compromised workstations to domain resources. Consider blocking or closely monitoring workstation-to-workstation communications as much as possible, using Privileged Access Workstations (PAWs) and servers for administrative functions. Firewalls and endpoint detection and response functions may have similar capability, but both need to feature (1) filtering of allowed connections and (2) visibility/detection for connections.</li>
+		<li>Close and/or monitor high-risk ports (e.g., Remote Desktop Protocol [RDP], Server Message Block [SMB], File Transfer Protocol [FTP], Trivial File Transfer Protocol [TFTP], Secure Shell [SSH], and WebDAV).</li>
+		<li>Carefully employ application execution control (allowlisting), especially for systems providing remote access to the enterprise.</li>
+		<li>Enforce enterprise Domain Name System (DNS) resolution for all systems. Do not allow internal systems to directly access internet DNS servers.</li>
+		<li>Ensure that all endpoints that will need to be updated are powered on for as long as possible during the eviction phase. <strong>Note:</strong> this action is necessary for all vital changes to AD to be pushed to all systems in the environment prior to reconnection and also to verify that all systems are rebooted. This action is especially tricky given that many user endpoints are not connected 24/7 due to remote work. Organizations may want to look at “jailing” systems that connect in this way into minimal virtual local area networks (VLANs) until they can be verified to have received and implemented updates and any other mitigations (endpoint detection and response [EDR] agents, patches, antivirus definitions, specific scans, etc.) decided on by the organization.</li>
+		<li>Agencies using Microsoft Defender for Endpoint or Microsoft 365 Defender should refer to Microsoft: <a href="https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/attack-surface-reduction?view=o365-worldwide">Use attack surface reduction rules to prevent malware infection</a> for more information on hardening the enterprise attack surface.</li>
+	</ol></li>
+	<li><strong>Identify federation model for on-premises resources to cloud trust relationship and identify adversary activity in Microsoft 365 (M365)/Azure environment.</strong>
+	<ol type="a"><li>Identify the Source Anchor for Azure AD Connect in the current Azure Tenant, if used. (This is required in order to sever the connection and restore later).</li>
+		<li>Run Sparrow or similar tools to identify permission and credential changes to applications and service principals. Identify overly permissive applications, unusual credentials in applications, or modifications to federation trust settings. Refer to CISA Alert <a href="https://us-cert.cisa.gov/ncas/alerts/aa21-008a">AA21-008A: Detecting Post-Compromise Threat Activity in Microsoft Cloud Environments</a> for more information.</li>
+		<li>Review M365 tenant configuration and perform a cloud security assessment for administrative accounts and applications. Specifically, review all accounts with privileged access and each application to determine if the rights and credentials are as intended and still necessary. This assessment should include shared trusts or identity relationships with third-party cloud service providers (CSPs) in which the identity is a resident on the CSP’s tenant but is also capable of performing actions in the organization’s M365 environment.</li>
+	</ol></li>
+</ol><h3>Eviction Phase</h3>
+
+<p><strong>Note:</strong> to effectively the APT actor, the following steps should be completed fully and in the order listed. These steps may affect operations of critical business functions. CISA recommends agencies conduct a thorough risk assessment prior to starting eviction so that potential impacts on critical business functions are documented and understood. Given that these steps are complex, CISA also encourages agencies to use third-party help to support eviction efforts if needed.</p>
+
+<ol><li><strong>Sever the enterprise network from the internet.</strong>
+
+	<p><strong>Note:</strong> this step requires the agency to understand its internal and external connections. When making the decision to sever internet access, knowledge of connections must be combined with care to avoid disrupting critical functions.</p>
+	</li>
+	<li>
+	<p><strong>Reset the Kerberos Ticket Granting Ticket account (krbtgt).</strong></p>
+
+	<p><strong>Note: </strong>krbtgt must be reset twice; the second time after the first has finished. The resets may take a long time to propagate fully on large AD environments. For more information, refer to Microsoft guidance: AD Forest Recovery - Resetting the krbtgt password.</p>
+	</li>
+	<li>
+	<p><strong>Eradicate known malware/backdoors/implants discovered during pre-eviction steps.</strong></p>
+
+	<p><strong>Note:</strong> this can be done while waiting for the krbtgt resets to complete.</p>
+	</li>
+	<li>
+	<p><strong>Apply network device mitigations</strong> identified in CISA Alert <a href="https://us-cert.cisa.gov/ncas/alerts/aa20-352a"> AA20-352A: Advanced Persistent Threat Compromise of Government Agencies, Critical Infrastructure, and Private Sector Organization</a>.</p>
+
+	<p>For network devices managed by the SolarWinds monitoring server, the running firmware/software should be checked against known good hash values from the network vendor. CISA recommends that, if possible, organizations re-upload known good firmware/software to managed network devices and perform a reboot.</p>
+
+	<p><strong>Note: </strong>be sure to wait until krbtgt reset completes to avoid interrupting the reset.</p>
+	</li>
+	<li>
+	<p><strong>Unenroll any suspicious MFA Tokens.</strong> Audit all MFA tokens configured in your environment, especially those used for remote access. Unenroll any tokens that cannot be accounted for or are suspicious.</p>
+	</li>
+	<li>
+	<p><strong>Rebuild and reimage systems.</strong></p>
+
+	<p><strong>Note: </strong>agencies should do an impact assessment for endpoints to determine if they need to be reimaged. An agency should identify (1) credentials observed on compromised machines as at risk and (2) any subsequent system accessed from the corresponding accounts as compromised. Consider:</p>
+
+	<ol type="a"><li>Was the endpoint altered by a known malicious actor action? If yes, reimage the system.</li>
+		<li>Was data on the endpoint accessed but the endpoint shows no sign of being altered? If yes, you may not need to reimage the system.</li>
+	</ol></li>
+	<li>
+	<p><strong>Regain control of the AD and ADFS</strong>, by instituting Local Administrator Password Solution (LAPS), PAWs, and modified administrative accounts.</p>
+
+	<ol type="a"><li>Re-establish control of the ecosystem items that were most easily manipulated by the attacker. Start with the “lowest hanging fruit,” i.e., items that are low risk to operations, low administrative overhead, that do not require new skill sets to control. These actions block the most frequently used attack methods on a network. Refer to the Microsoft and Center for Internet Security joint presentation <a href="https://published-prd.lanyonevents.com/published/rsaus17/sessionsFiles/3774/CXO-F02-Critical-Hygiene-for-Preventing-Major-Breaches.pdf">Critical Hygiene for Preventing Major Breaches</a> for more information on prioritizing controls with the largest return on investment. 
+
+		<ol type="i"><li>Audit the privilege levels of accounts that were utilized on affected SolarWinds Orion servers. Consider only granting the minimal rights and accounts needed to function, following Just Enough Administration (JEA) principles. (Refer to Microsoft: <a href="https://docs.microsoft.com/en-us/powershell/scripting/learn/remoting/jea/overview?view=powershell-7.1">Just Enough Administration</a> for more information.)</li>
+			<li><span style="display: none;"> Ensure there are unique and distinct administrative accounts for each set of administrative tasks. Enforce the principle of least privilege. Remove all accounts that are unnecessary; remove privileges not expressly required by an account’s function or role. Institute a group policy that disables remote interactive logins, and use Domain Protected Users Group.</span>Ensure there are unique and distinct administrative accounts for each set of administrative tasks. Enforce the principle of least privilege. Remove all accounts that are unnecessary; remove privileges not expressly required by an account’s function or role. Institute a group policy that disables remote interactive logins, and use Domain Protected Users Group.</li>
+			<li>Enforce MFA for all administrative accounts and functions. </li>
+			<li>Create and establish PAWs for administrative accounts and mandate use for administrative functions (AD Administrators first, at minimum).</li>
+			<li>Enable unique local administrative accounts (e.g., LAPS) and a management function for those accounts.<strong> Note</strong>: for LAPS, if the endpoints are cloned, each individual endpoint’s local administrative account password needs to be changed afterward to enforce uniqueness.</li>
+		</ol></li>
+	</ol></li>
+	<li><strong>Rotate all the Secrets.</strong>
+	<ol type="a"><li>Rotate secrets associated with remote access MFA token generation.</li>
+		<li>Reset passwords for:
+		<ol type="i"><li>All AD accounts with elevated privileges (such as administrators)</li>
+			<li>All AD service accounts</li>
+			<li>Directory Services Restore Mode (DSRM) account on domain controllers</li>
+			<li>All AD accounts</li>
+			<li>Accounts with suspicious activity or whose credentials existed on compromised systems, such as affected SolarWinds servers</li>
+			<li>Any account where Smartcard/Personal Identity Verification (PIV) is not enforced (which are on an exception or similar exemption)
+			<p><strong>Note:</strong> the New Technology LAN Manager (NTLM) hashes of smartcard/PIV-enabled accounts can be used in pass-the-hash attacks and should be refreshed regularly. For more information, including guidance and scripts on rolling over these hashes, refer to the National Security Agency (NSA) Information Assurance Advisory:<a href="https://apps.nsa.gov/iad/library/ia-advisories-alerts/long-lived-hashes-for-ad-smartcard-required-accounts.cfm"> Long-Lived Hashes for AD Smartcard Required Accounts</a>, NSA Cyber’s GitHub page on <a href="https://github.com/nsacyber/Pass-the-Hash-Guidance">Pass the-Hash Guidance</a>, and Microsoft: <a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/passwordless-strategy#configure-user-accounts-to-disallow-password-authentication">Passwordless Strategy</a>.</p>
+			</li>
+			<li>All AD user accounts</li>
+			<li>All Windows local administrative accounts (including those that are renamed, especially those not managed by LAPS in environment)</li>
+			<li>Non-AD application privileged accounts (e.g., elevated accounts on systems that are not joined to AD; some high value assets (HVAs) may fall into this category)</li>
+			<li>Network device administrative accounts</li>
+			<li>Non-AD HVA user accounts</li>
+		</ol></li>
+		<li>Change all credentials being used to manage network devices, including keys and strings used to secure network device functions (Simple Network Management Protocol [SNMP] strings/user credentials, IPsec/IKE preshared keys, routing secrets, TACACS/RADIUS secrets, RSA keys/certificates, etc.). Monitor for failed logins resulting from these resets.</li>
+	</ol></li>
+	<li><strong>Sever Azure environment from on-premises, and conduct M365/Azure remediation.</strong>
+	<ol type="a"><li>Evaluate IdP sources. Harden SSO features. (See FireEye’s white paper, <a href="https://www.fireeye.com/blog/threat-research/2021/01/remediation-and-hardening-strategies-for-microsoft-365-to-defend-against-unc2452.html">Remediation and Hardening Strategies for Microsoft 365 to Defend Against UNC2452</a>). Turn on advanced logging and establish a privileged access management (PAM) baseline (expected privileged account state) for cloud environments.</li>
+		<li>Harden the Azure AD Connect Service. (See Trimarc Security’s post, <a href="https://www.hub.trimarcsecurity.com/post/securing-microsoft-azure-ad-connect">Securing Microsoft Azure AD Connect</a>).</li>
+		<li>Review and adjust federation trust relationships.<strong><strong><strong> </strong></strong></strong><strong>Note:</strong> Microsoft recommends severing federation trusts between on-premises networks and the cloud; organizations should migrate to an external IdP or use Azure AD to manage users and, if the latter, users should be “mastered” from Azure AD. Revoke unauthorized or unnecessary federation trusts if maintaining a federated identity solution. (CISA recommends avoiding federated enterprise environments whenever possible.) For more information review the following resources.
+		<ul><li><span style="display: none;"> </span>Microsoft: <a href="https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/protect-m365-from-on-premises-attacks">Protecting Microsoft 365 from on-premises attacks </a></li>
+			<li><span style="display: none;"> </span>CrowdStrike: <a href="https://www.crowdstrike.com/blog/crowdstrike-launches-free-tool-to-identify-and-help-mitigate-risks-in-azure-active-directory/">CrowdStrike Launches Free Tool to Identify and Help Mitigate Risks in Azure Active Directory</a></li>
+		</ul></li>
+		<li>Fully isolate your M365 admin accounts. Activities in this step include, but are not limited to (1) creating cloud-only administrators, controlled appropriately with role based access control (RBAC) and MFA, and (2) monitoring, in an automated fashion, any changes to the established baseline or unusual use. See the following resources for more information (Note: CISA will be releasing guidance on cloud remediation and hardening following dissemination of this guidance).
+		<ul><li><span style="display: none;"> </span>Microsoft: <a href="https://www.microsoft.com/security/blog/2020/12/21/advice-for-incident-responders-on-recovery-from-systemic-identity-compromises/">Advice for incident responders on recovery from systemic identity compromises</a></li>
+			<li><span style="display: none;"> </span>Microsoft: <a href="https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/protect-m365-from-on-premises-attacks">Protecting Microsoft 365 from on-premises attacks</a></li>
+		</ul></li>
+		<li>After remediating privileged identities (step d), revoke all existing M365 tokens.</li>
+		<li>Double check to ensure no on-premises accounts have administrative privileges in M365.</li>
+		<li>Review and sanitize (i.e., remove unwelcome actions) compromised mailboxes using industry standard tooling and service portal manual review.</li>
+		<li>Review, and adjust accordingly, Tenant settings and configurations. Use publicly available or open-source tools such as <a href="https://github.com/CrowdStrike/CRT">CrowdStrike Reporting Tool for Azure (CRT)</a> and Hawk to review Tenant settings. Refer to CISA Alert <a href="https://us-cert.cisa.gov/ncas/alerts/aa21-008a">AA21-008A: Detecting Post-Compromise Threat Activity in Microsoft Cloud Environments</a>.</li>
+		<li>Use tools—such as Sparrow or Azure AD Investigator—to review existing Azure applications. Remediate applications that have been compromised. Refer to CISA Alert <a href="https://us-cert.cisa.gov/ncas/alerts/aa21-008a">AA21-008A: Detecting Post-Compromise Threat Activity in Microsoft Cloud Environments</a>.</li>
+		<li>Perform IdP review and eviction.</li>
+	</ol></li>
+	<li><strong>Clear DNS cache on all servers, workstations, and non-Windows systems.</strong>
+	<ol type="a"><li>Reduce the “Domain member: Maximum machine account password age” in Group Policy to 2–3 days during eviction; it can be set back to the default 30 days after eviction is complete. This will hasten the resetting of the Computer object passwords. For more information, refer to Microsoft: <a href="https://techcommunity.microsoft.com/t5/ask-the-directory-services-team/machine-account-password-process/ba-p/396026">Machine Account Password Process</a>.</li>
+		<li>Reboot all servers and workstations, especially those joined to the AD.</li>
+	</ol></li>
+	<li><strong>Verify eviction steps have been properly completed.</strong>
+	<ol type="a"><li>Have all the tasks above been completed on all applicable systems and accounts? <strong>Note: </strong>CISA highly recommends implementing a process to verify you have completed each task.</li>
+		<li>Have the endpoints that were not completely mitigated been removed from network communication, pending their completion?</li>
+		<li>Have you applied all critical and high patches to the endpoints that lack them, especially any that needed re-imaging?</li>
+		<li>Have you added enhanced visibility and monitoring capabilities for cloud environments—such as telemetry for cloud environments—into existing agency security information and event management (SIEM) technology?</li>
+		<li>Have you implemented monitoring capability for highly privileged cloud identities and Service Principals?<span style="display: none;"> </span></li>
+	</ol></li>
+</ol><h3>Post Eviction</h3>
+
+<ol><li><strong>Report to your senior leadership completed pre-eviction and eviction actions</strong> as well as those remaining to be completed; provide leadership an assessment of the risk remaining, including assumed residual risk.</li>
+	<li><strong>Reconnect to the internet. Note</strong>: the decision to reconnect to the internet depends on senior leadership’s confidence in the actions taken. It is possible—depending on the environment—that new information discovered during pre-eviction and eviction steps could add additional eviction tasks.</li>
+	<li><strong>Create an actionable and accountable plan for integrating the next 60 days of Active Directory privilege credential baselining guidance</strong> (i.e., completing the next step). <strong>Note:</strong> this next step has high overhead and will likely disrupt business operations; agencies must have a plan for testing breaks associated with the changes to administrative control schemes and will need to alter their policies and procedures to accommodate these disruptions.</li>
+	<li><strong>Establish and control baseline mechanisms for administrators</strong>. <strong>Note: </strong>this step should be completed over the next 60 days. While completing this task, agencies should move on to the next step.
+	<ol type="a"><li>Implement PAWs for remaining administrative accounts.</li>
+		<li>Perform additional hardening of administrative accounts.
+		<ol type="i"><li>Implement Credential Guard. (Refer to Microsoft: <a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/credential-guard/credential-guard-manage">Manage Windows Defender Credential Guard for more information</a>). Introducing Credential Guard as an endpoint tool can be challenging for organizations due to hardware restrictions, but the impact on privileged identity credential management is significant. Chief information security officers (CISOs) should prioritize identity-focused solutions for immediate action.</li>
+			<li>Restrict RDP usage to an exclusive list of necessary administrators and from only dedicated administrative workstations (such as PAWs) and identified necessary alternative locations. RDP access should be judiciously and carefully scoped and monitored.</li>
+			<li>Establish time bound and temporal escalated Domain Privileges (require second factor for elevation and that access expires).</li>
+		</ol></li>
+		<li>Implement JEA for domain controller access and maintenance.</li>
+		<li>Harden/reduce attack surface of domain controllers. Remove connection to the internet whenever possible, and remove all unnecessary protocols, services, and accounts (in accordance with the principle of least functionality). Consider implementing Windows Server Core for all domain controllers.</li>
+	</ol></li>
+	<li><strong>Integrate detection mechanisms</strong> that focus on endpoints and changes to privileged identity sources. Solutions include pervasive use of endpoint security (such as the Microsoft Defender Suite of services, including Endpoint and Identity) as well as high value identity monitoring solutions. The view of user behavior should be unified across all platforms and behavioral analytics should be enabled. <strong>Note:</strong> behavioral analytics (with an understanding of what traditional administrative activity consists of, and what tools are used for it) combined with frequency analysis of activity is often the only avenue for network defenders to detect anomalous activity.</li>
+	<li><strong>Report to CISA</strong>. Post-eviction, all Category 3 agencies should report to CISA actions taken, any actions left incomplete, and their assessments of the residual risk. Following dissemination of this guidance, CISA will release a checklist to the Homeland Security Information Network (HSIN) for agencies to use to complete the steps in this guidance. Agencies should fill out and submit the checklist to CISA.</li>
+	<li><strong>Maintain vigilance.</strong> In the hours, days, and weeks after the network’s internet connection is restored, the agency’s detection capability will be important in verifying that all threat actor activity within the enterprise has stopped. Extended vigilance is necessary because this threat actor has demonstrated extreme patience with follow-on activity.
+	<ol type="a"><li>Agencies should ensure their security operations center (SOC) has capabilities for enhanced visibility and monitoring of enterprise network and cloud environments. Refer to <a href="https://us-cert.cisa.gov/sites/default/files/publications/Supply_Chain_Compromise_Detecting_APT_Activity_from_known_TTPs.pdf">SolarWinds and Active Directory/M365 Compromise: Detecting APT Activity from Known Tactics, Techniques, and Procedures </a>for known TTPs that agencies should look out for as part of network and environment monitoring.</li>
+		<li>Configure endpoint forensics and detection solutions for aggressive collection; prioritize this by value of asset and account.</li>
+	</ol></li>
+</ol><h3>Frequently Asked Questions</h3>
+
+<p><strong>Does my organization have to complete all the steps in this eviction guidance?</strong></p>
+
+<p>In accordance with <a href="https://cyber.dhs.gov/ed/21-01/#supplemental-direction-v4">ED 21-01: Supplemental Direction Version 4</a>, agencies with networks that used affected versions of SolarWinds Orion and have evidence of follow-on threat actor activity, such as binary beaconing to <code>avsvmcloud[.]com</code> and secondary command and control (C2) activity to a separate domain or IP address, must execute and complete the pre-eviction phase of this guidance. Agencies that find additional adversarial activities must execute and complete the eviction and post eviction phases of this guidance. Conducting all of the steps in this guidance is necessary to fully evict the adversary from applicable networks. Failure to perform comprehensive and thorough remediation activity will expose enterprise networks and cloud environments to substantial risk for long-term undetected APT activity.</p>
+
+<p><strong>Is there a time limit to completing the eviction activities?</strong></p>
+
+<p>In accordance with <a href="https://cyber.dhs.gov/ed/21-01/#supplemental-direction-v4">ED 21-01: Supplemental Direction Version 4</a>, agencies subject to the requirements must complete the applicable phases in this eviction guidance by July 16, 2021, or within 90 days of discovery of follow-on threat activity after issuance of ED 21-01 Supplemental Direction Version 4.</p>
+
+<p><strong>Given that severing the enterprise network from the internet will have significant operational impact, does the organization need to take all its endpoints offline?</strong></p>
+
+<p>If the affected organization can authoritatively and comprehensively identify compromised internet-connected endpoints, identities, and systems and is able to take those offline without affecting uncompromised or non-internet connected systems, then the agency does not need to disconnect non-compromised endpoints or non-internet-connected systems. This will still disrupt C2 activities while allowing the agency to keep as much of the system up as possible. Note: access to environments with pervasively compromised credentials will frequently appear to be standard user activity, as it will use “native” services and identities.</p>
+
+<p><strong>Will CISA provide agencies new TTPs in the event of a reinfection?</strong></p>
+
+<p>Refer to <a href="https://us-cert.cisa.gov/sites/default/files/publications/Supply_Chain_Compromise_Detecting_APT_Activity_from_known_TTPs.pdf">SolarWinds and Active Directory/M365 Compromise: Detecting Advanced Persistent Threat Activity from Known Tactics, Techniques, and Procedures</a> for reinfection TTPs and corresponding detection artifacts.</p>
+
+<p><strong>Will CISA provide architectural recommendations for future rebuilds?</strong></p>
+
+<p>This current guidance is tailored to provide short-term remediation steps for agencies to evict this adversary from compromised on-premises and cloud environments and protect networks against additional compromise. CISA will be releasing long-term enterprise architecture and security operations guidance that incorporates updated credential/access management, monitoring, and detection guidance for a more secure, resilient federal enterprise.</p>
+</div>
+      
+
+        
+        
+        
+        		    <a id="contact-information"></a>
+		    <h3>Contact Information</h3>
+            
+            <div class="field field--name-field-ar-contact-info field--type-text-long field--label-hidden field--item"><p>Recipients of this report are encouraged to contribute any additional information that they may have related to this threat. For any questions related to this report, please contact CISA at:</p>
+
+<ul><li>Phone: (888) 282-0870</li>
+	<li>Email: <a href="mailto:central@cisa.gov">central@cisa.gov</a></li>
+</ul></div>
+      
+        
+        
+        
+        
+        		    <a id="revisions"></a>
+		    <h3>Revisions</h3>
+            
+      <div class="field field--name-field-ar-revision-history field--type-string field--label-hidden field--items">
+              <div class="field--item">May 14, 2021: Initial Version</div>
+          </div>
+  
+        
+        
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><p class="privacy-and-terms">This product is provided subject to this <a href="/privacy/notification">Notification</a> and this <a href="https://www.dhs.gov/privacy-policy">Privacy &amp; Use</a> policy.</p>
+</div>
+      
+
+	</div>
+                        <div id="document-feedback">
+	<div class="inner-document-feedback center-center">
+        <p><b>Please share your thoughts.</b></p>
+		<p>We recently updated our anonymous <a href="https://www.surveymonkey.com/r/CISA-cyber-survey?product=https://us-cert.cisa.gov/ncas/analysis-reports/ar21-134a">product survey</a>; we'd welcome your feedback.</p>
+	</div>
+</div>
+
+              </div>
+
+</article>
+
+
+  </div>
+
+              </section>
+
+
+                      </div>
+  </div>
+
+
+
+
+
+
+      <footer class="footer container-fluid" role="contentinfo">
+        <div class="region region-footer">
+    <section id="block-certsignup" class="block block-block-content block-block-contentc5846d10-2e2b-4822-aa59-7a5c3262f671 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container-fluid signup">
+<div class="container">
+<div class="row">
+<div class="col-lg-3 contact-icons">
+<h3>Contact Us</h3>
+
+<p class="phone-text"><img alt="phone icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Phone.png" />(888)282-0870</p>
+
+<p><img alt="email icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Email.png" /><a class="mailto" href="mailto:central@cisa.dhs.gov" title="General questions or suggestions">Send us email</a></p>
+
+<p><img alt="lock icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/Icon-Lock.png" /><a href="/contact-us/" title="Download PGP/GPG keys">Download PGP/GPG keys</a></p>
+
+<p><img alt="feedback icon" data-entity-type="" data-entity-uuid="" height="32" src="/sites/default/files/images/icon-feedback.png" /><a href="/forms/website-feedback" title="Website Feedback">Submit website feedback</a></p>
+</div>
+
+<div class="col-lg-6 sub-alert">
+<h3>Subscribe to Alerts</h3>
+
+<p>Receive security alerts, tips, and other updates.</p>
+
+<form action="https://public.govdelivery.com/accounts/USDHSCISA/subscribers/qualify"><label class="visually-hidden" for="email-address-field">Enter your email address</label> <input class="signup-form" id="email-address-field" name="email" placeholder=" Enter your email address" title="Enter your email address" type="text" /><br /><input class="btn btn-primary" name="submit" title="Sign up for alerts" type="submit" value="Sign Up" /> </form>
+
+<div class="pull-right signup-icon-one"><a href="https://twitter.com/uscert_gov" title="US-CERT Twitter Feed"><img alt="twitter icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/twitter-button.png" /></a></div>
+
+<div class="pull-right signup-icon-two"><a href="/mailing-lists-and-feeds" title="Mailing Lists and Feeds"><img alt="rss icon" data-entity-type="" data-entity-uuid="" src="/sites/default/files/images/rss-button-bottom.png" /></a></div>
+
+<div class="pull-right signup-icon-three"><a href="/hsin" class="btn btn-cert-report" name="button" type="button" id="button">HSIN</a></div>
+</div>
+
+<div class="col-lg-3 cert-report"><a class="btn btn-cert-report btn-lg" href="/report" name="button" type="button" id="button">Report</a></div>
+</div>
+</div>
+</div>
+</div>
+      
+  </section>
+
+<section id="block-certcertfooter" class="block block-block-content block-block-contentd5b85bd2-62d1-485a-b9ae-f040b1ca1a45 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="container">
+<hr /><div class="text-center"><a href="/" title="Home">Home</a>   <a href="/sitemap" title="Site Map">Site Map</a>   <a href="/faq/" title="Frequently Asked Questions">FAQ</a>   <a href="/contact-us/" title="Contact Us">Contact Us</a>   <a href="/tlp/" title="Traffic Light Protocol">Traffic Light Protocol</a>   <a href="/pcii" title="PCII">PCII</a>   <a href="https://www.dhs.gov" title="Accountability">Accountability</a>   <a href="/disclaimer" title="Disclaimer">Disclaimer</a>   <a href="/privacy-policy" title="Privacy Policy">Privacy Policy</a>   <a href="https://www.dhs.gov/freedom-information-act-foia" title="FOIA">FOIA</a>   <a href="https://www.dhs.gov/homeland-security-no-fear-act-reporting" title="No Fear Act">No Fear Act</a>   <a href="/accessibility/" title="Accessibility">Accessibility</a><a href="https://www.dhs.gov/plain-writing-dhs" title="Plain Writing">Plain Writing</a><a href="https://www.dhs.gov/plug-information" title="Plug-ins">Plug-ins</a>   <a href="https://www.oig.dhs.gov/" title="Office of the Inspector General">Inspector General</a>   <a href="https://www.whitehouse.gov/" title="The White House">The White House</a>   <a href="https://www.usa.gov/" title="USA.gov">USA.gov</a><br />
+ 
+<p>CISA is part of the <a href="https://www.dhs.gov/" title="Department of Homeland Security">Department of Homeland Security</a></p>
+</div>
+<script type="text/javascript">
+<!--//--><![CDATA[// ><!--
+
+    window.onload = function(){
+            jQuery('body.page-node-type-us-cert-events div#ncas-header').find('img').each(function(){
+                    var $src=jQuery(this).prop('src');
+                    if($src.indexOf('default/files/') == -1)jQuery(this).remove();
+                    });
+            if('Privacy Data Breach' == jQuery('#uscert-utilities-irf-form #item-info-impact option:selected').text()){ 
+                jQuery('#item-info-impact-block').removeClass('collapsed'); 
+            }
+jQuery('#print-logo img').removeAttr('width').removeAttr('height');
+if(jQuery('body.path-frontpage').length > 0)
+{   
+    jQuery('.main-container').find('.col-sm-12').removeAttr('role');
+}
+jQuery('#map area').each(function(){ jQuery(this).click(function(){var idstr=jQuery(this).attr('clickthis'); if(jQuery(idstr).hasClass('open') == false){jQuery(idstr).click();}});});  
+if(jQuery('#document-feedback').length > 0)
+{ 
+    var $url    = window.location.href
+    //var str ='Your feedback is very important to us. Please take a moment to complete this <a href="https://surveymonkey.com/r/G8STDRY?product=' + $url + '">survey.';
+    //var $p = jQuery('#document-feedback div p').html(str);
+}
+    };
+
+//--><!]]>
+</script></div>
+<style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+#views-bootstrap-carousel-block-2 .carousel-inner > .item > a > img {
+  margin:auto;
+}
+button#product-feedback-next {
+    margin-bottom: 10px;
+}
+/*
+.mobile-nav {
+border-bottom: 3px solid #112e51;
+}
+*/
+.cma-banner-container {
+    display: none;
+}
+@media (max-width: 991px) {
+.navbar .navbar-header {
+background: #fff;
+}
+}
+div.banner-region { background: #fff; }
+
+.accordion_fold {
+    padding-bottom: 25px;
+}
+
+h2.accordion.open {
+    background: #f2f2f2;
+}
+
+a { color: #2b72af;}
+
+.navbar-default .navbar-nav > li > a { color: #767676; }
+/* andi */
+.sidebar-widget-orange .orange {
+    background-color: #e77431;
+}
+#block-views-block-ics-announcements-block-1 .views-field-created {
+    color: #565656;
+}
+a#sort-bulletin {
+color: #000;
+background: white;
+position: absolute;
+right: 150px;
+padding: 1px 12px;
+}
+
+/*--><!]]>*/
+</style></div>
+      
+  </section>
+
+
+  </div>
+
+    </footer>
+  
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","scriptPath":null,"pathPrefix":"","currentPath":"node\/16558","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"UA-34879253-1","trackOutbound":true,"trackMailto":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"data":{"extlink":{"extTarget":false,"extTargetNoOverride":false,"extNofollow":false,"extNoreferrer":false,"extFollowNoOverride":false,"extClass":"ext","extLabel":"(link is external)","extImgClass":false,"extSubdomains":true,"extExclude":"(\\.gov|\\.mil|\\.org.*|twitter\\.com\\\/share\\?url\\=.*|www\\.facebook\\.com\\\/sharer\\.php\\?u\\=.*|www\\.addthis\\.com\\\/bookmark\\.php\\?url\\=.*|javascript\\:window\\.print\\(\\)\\;)","extInclude":"","extCssExclude":"","extCssExplicit":"","extAlert":true,"extAlertText":"You are now leaving an official website of the United States Government (USG), the Department of Homeland Security (DHS), and the Cybersecurity and Infrastructure Security Agency (CISA). Links to non-USG, non-DHS, and non-CISA sites are provided for the visitor\u0027s convenience and do not represent an endorsement by USG, DHS, or CISA of any commercial or private issues, products, or services. Note that the privacy policy of the linked site may differ from that of USG, DHS, and CISA.","mailtoClass":"mailto","mailtoLabel":"(link sends email)","extUseFontAwesome":false,"extIconPlacement":"append","extFaLinkClasses":"fa fa-external-link","extFaMailtoClasses":"fa fa-envelope-o","whitelistedDomains":null}},"bootstrap":{"forms_has_error_value_toggle":1,"popover_enabled":1,"popover_animation":1,"popover_auto_close":1,"popover_container":"body","popover_content":"","popover_delay":"0","popover_html":0,"popover_placement":"right","popover_selector":"","popover_title":"","popover_trigger":"click","tooltip_enabled":1,"tooltip_animation":1,"tooltip_container":"body","tooltip_delay":"0","tooltip_html":0,"tooltip_placement":"auto left","tooltip_selector":"","tooltip_trigger":"hover"},"user":{"uid":0,"permissionsHash":"5ac3ae468050ddd0aa4ecea12c34a32977a23244239ed53eb7226f296aed658f"}}</script>
+<script src="/sites/default/files/js/js_xhqBHziEDyCKWlB5IUseaFAGh1B08TPFGmxCf6RvFnM.js"></script>
+<script src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DHS&amp;subagency=US-CERT&amp;pua=0" id="_fed_an_ua_tag"></script>
+<script src="/sites/default/files/js/js_m5CHELy9XHlAx2jnhaYdT2XVeN916TnZL5U2ha7Ln94.js"></script>
+
+  <script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"877b02039c","applicationID":"628657512,979282327","transactionName":"ZFYHMhZSXUpRUkcKDF0cJAUQWlxXH0FSBAZsUAQFDFY=","queueTime":0,"applicationTime":20,"atts":"SBEERF5ITkQ=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>
