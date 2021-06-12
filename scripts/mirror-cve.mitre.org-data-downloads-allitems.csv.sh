@@ -1,5 +1,7 @@
 #!/bin/bash
 
+wget -x https://cve.mitre.org/cve/request_id.html
+
 #
 # 130+ Meg files so split into 20k line chunks.
 #
