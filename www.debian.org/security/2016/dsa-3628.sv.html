@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="sv">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Säkerhetsinformation -- DSA-3628-1 perl </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 20:18:34">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-sv.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Sök på Debians webbplats" href="../../search.sv.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Debian-hem"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="sv">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Sök">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Hoppa över navigering</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">Säkerhetsinformation</a>
+ &#x2F; <a href="./">2016</a>
+ &#x2F;
+Säkerhetsinformation -- DSA-3628-1 perl</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Säkerhetsbulletin från Debian</h1>
+<h2>DSA-3628-1 perl -- säkerhetsuppdatering</h2>
+<dl>
+<dt>Rapporterat den:</dt>
+	<dd>2016-07-25</dd>
+<dt>Berörda paket:</dt>
+	<dd>
+<a href="https://packages.debian.org/src:perl">perl</a>
+</dd>
+<dt>Sårbara:</dt>
+	<dd class="warning">Ja</dd>
+<dt>Referenser i säkerhetsdatabaser:</dt>
+	<dd>I Debians felrapporteringssystem: <a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=829578">Fel 829578</a>.<br>I Mitres CVE-förteckning: <a href="https://security-tracker.debian.org/tracker/CVE-2016-1238">CVE-2016-1238</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2016-6185">CVE-2016-6185</a>.<br></dd>
+<dt>Ytterligare information:</dt>
+	<dd>
+<p>Flera sårbarheter har upptäckts i implementationen av programmeringsspråket
+Perl. Projektet Common Vulnerabilities and Exposures
+project identifierar följande problem:</p>
+<ul>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2016-1238">CVE-2016-1238</a>
+	<p>John Lightsey och Todd Rinaldo rapporterade att den opportunistiska
+	laddningen av valfria moduler kan göra att många program laddar kod
+	oavsiktligt från aktuell arbetskatalog (som kan ändras till en annan
+	mapp utan att användaren noterar det) och potentiellt leda till
+	utökning av privilegier, som har demonstrerats i Debian med vissa
+	kombinationer av installerade paket.</p>
+	<p>Problemet relaterar till hur Perl laddar moduler från mappmatrisen
+	("@INC") där det sista elementet är aktuell mapp ("."). Detta betyder
+	att när <q>perl</q> vill ladda en modul (under första kompileringen
+	eller under lat laddning av en modul under körtid), kommer perl att
+	söka efter modulen i aktuell mapp på slutet, eftersom '.' är den
+	sista inkluderade mappen i dess matris av inkluderade mappar att söka
+	igenom. Problemet ligger i beroende på bibliotek som ligger i "." men
+	som inte är installerade på annat vis.</p>
+	<p>Med denna uppdatering rättas flera moduler som är kända att vara
+	sårbara till att inte ladda moduler från aktuell mapp.</p>
+	<p>Utöver detta tillåter uppdateringen konfigurerbar borttagning av
+	"." från @INC i /etc/perl/sitecustomize.pl under en övergångsperiod.
+	Det rekommenderas att aktivera denna inställning om det eventuella
+	problematiken har evaluerats för en specifik sajt. Problem i paket
+	som tillhandahålls av Debian som ett resultat av borttagningen av '.'
+	från @INC bör rapporteras till de Perl-paketansvariga på
+	perl@packages.debian.org .</p>
+	<p>Det planeras att växla till standardborttagning av '.' i @INC i en
+	kommande uppdatering av perl via en punktutgåva om möjligt, och i
+	andra fall i den kommande stabila utgåvan Debian 9 (Stretch).</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2016-6185">CVE-2016-6185</a>
+    <p>Man har upptäckt att XSLoader, en kärnmodul från Perl för att
+	 dynamiskt ladda C-bibliotek i Perl-kod, kunde ladda delade
+	 bibliotek från felaktiga positioner. XSLoader använder caller()-information
+	 för att lokalisera vilken .so-fil man skall ladda. Detta kan vara
+	 felaktigt om XSLoader::load() anropas från en strängevaluering. En
+	 angripare kan dra fördel av denna brist för att köra godtycklig kod.</p></li>
+</ul>
+<p>För den stabila utgåvan (Jessie) har dessa problem rättats i
+version 5.20.2-3+deb8u6. Utöver detta inkluderar denna uppdatering
+följande uppdaterade paket för att adressera frivillig modulladdningssårbarheter
+relaterade till <a href="https://security-tracker.debian.org/tracker/CVE-2016-1238">CVE-2016-1238</a>,
+eller för att adressera byggfel som kan ske när '.' tas bort från @INC:</p>
+<ul>
+    <li>cdbs 0.4.130+deb8u1</li>
+    <li>debhelper 9.20150101+deb8u2</li>
+    <li>devscripts 2.15.3+deb8u12</li>
+    <li>exim4 4.84.2-2+deb8u12</li>
+    <li>libintl-perl 1.23-1+deb8u12</li>
+    <li>libmime-charset-perl 1.011.1-1+deb8u22</li>
+    <li>libmime-encwords-perl 1.014.3-1+deb8u12</li>
+    <li>libmodule-build-perl 0.421000-2+deb8u12</li>
+    <li>libnet-dns-perl 0.81-2+deb8u12</li>
+    <li>libsys-syslog-perl 0.33-1+deb8u12</li>
+    <li>libunicode-linebreak-perl 0.0.20140601-2+deb8u22</li>
+</ul>
+<p>Vi rekommenderar att ni uppgraderar era perl-paket.</p>
+</dd>
+</dl>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Denna sida finns även på följande språk:
+<div id="langContainer">
+ <a href="dsa-3628.da.html" title="danska" hreflang="da" lang="da" rel="alternate">dansk</a>
+ <a href="dsa-3628.en.html" title="engelska" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="dsa-3628.fr.html" title="franska" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="dsa-3628.ru.html" title="ryska" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+</div>
+Så ställer du in <a href="../../intro/cn">standardspråkval för dokument</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Hem</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">Om&nbsp;Debian</a>
+		  <ul>
+		  <li><a href="../../social_contract">Socialt kontrakt</a></li>
+		  <li><a href="../../code_of_conduct">Uppförandekod</a></li>
+		  <li><a href="../../intro/free">Fri programvara</a></li>
+		  <li><a href="../../partners/">Partner</a></li>
+		  <li><a href="../../donations">Donationer</a></li>
+          <li><a href="../../legal">Rättsliga frågor</a></li>
+          <li><a href="../../legal/privacy">Dataintegritet</a></li>
+		  <li><a href="../../contact">Kontakta oss</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Hjälp Debian</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Få tag på Debian</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">Nätverksinstallation</a></li>
+			  <li><a href="../../CD/">CD/USB-ISO-avbildningar</a></li>
+			  <li><a href="../../CD/vendors/">CD-återförsäljare</a></li>
+			  <li><a href="../../distrib/pre-installed">Förinstallerat</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Pure Blends</a></li>
+			<li><a href="../../distrib/packages">Debianpaket</a></li>
+			<li><a href="../../devel/">Utvecklarhörnet</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">Nyheter</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">Projektnyheter</a></li>
+		  <li><a href="../../events/">Evenemang</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">Dokumentation</a>
+      <ul>
+      <li><a href="../../releases/">Versionsfakta</a></li>
+      <li><a href="../../releases/stable/installmanual">Installationsguide</a></li>
+      <li><a href="../../doc/books">Debianböcker</a></li>
+      <li><a href="https://wiki.debian.org/">Debians Wiki</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">Support</a>
+	  <ul>
+			  <li><a href="../../international/">Debian internationellt</a></li>
+			  <li><a href="../../security/">Säkerhetsinformation</a></li>
+			  <li><a href="../../Bugs/">Felrapporter</a></li>
+			  <li><a href="../../MailingLists/">Sändlistor</a></li>
+			  <li><a href="https://lists.debian.org/">Sändlistearkiv</a></li>
+			  <li><a href="../../ports/">Anpassningar/arkitekturer</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">Sidöversikt</a></li>
+  <li><a href="https://search.debian.org/">Sök</a></li>
+  <li><a href="https://bits.debian.org">Debianbloggen</a></li>
+  <li><a href="https://micronews.debian.org">Debian Mikronyheter</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>För att rapportera ett problem med webbplatsen, kontakta vår publikt arkiverade sändlista <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> på engelska. Vid problem med och synpunkter på den svenska översättningen, kontakta den publikt arkiverade sändlistan <a href="mailto:debian-l10n-swedish@lists.debian.org">debian-l10n-swedish@lists.debian.org</a>. För övrig kontaktinformation, se Debians <a href="../../contact">kontaktsida</a>. Webbplatsens källkod finns <a href="https://salsa.debian.org/webmaster-team/webwml">tillgänglig</a>.</p>
+<p>
+Senast ändrad: Fre 2018-06-01 18.42.16 UTC
+&emsp;
+Senast byggd: Fre 2021-06-11 20.18.34 UTC
+  <br>
+  Upphovsrättsskyddat &copy; 2016-2021
+ <a href="https://www.spi-inc.org/">SPI</a> och andra; Se <a href="../../license" rel="copyright">licensvillkor</a><br>
+  Debian är ett registrerat <a href="../../trademark">varumärke</a> hos Software in the Public Interest. Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

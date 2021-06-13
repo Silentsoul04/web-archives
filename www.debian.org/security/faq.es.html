@@ -1,0 +1,543 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="es">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Preguntas frecuentes sobre la seguridad en Debian </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 19:13:59">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../debian.css" rel="stylesheet" type="text/css">
+  <link href="../debian-es.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Búsqueda del sitio web de Debian" href="../search.es.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../" title="Página principal de Debian"><img src="../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="es">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Búsqueda">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Omitir navegación rápida</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./">Información sobre seguridad</a>
+ &#x2F;
+Preguntas frecuentes sobre la seguridad en Debian</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Preguntas frecuentes sobre la seguridad en Debian</h1>
+<ol>
+<li> <a href="#buthow">He recibido un aviso de seguridad de Debian (DSA) a través de la lista debian-security-announce, ¿cómo puedo actualizar los paquetes vulnerables?</a>
+<li> <a href="#signature">¡No se verifica correctamente la firma de sus avisos!</a>
+<li> <a href="#handling">¿Cómo se gestiona la seguridad en Debian?</a>
+<li> <a href="#oldversion">¿Por qué se molestan en tocar una versión tan antigua de ese paquete?</a>
+<li> <a href="#version">¡El número de versión de un paquete indica que aún estoy ejecutando una versión vulnerable!</a>
+<li> <a href="#archismissing">He recibido un aviso, pero parece que no está la compilación para una de las arquitecturas de procesador.</a>
+<li> <a href="#unstable">¿Cómo se gestiona la seguridad de <tt>inestable</tt>?</a>
+<li> <a href="#testing">¿Cómo se gestiona la seguridad de <tt>testing</tt>?</a>
+<li> <a href="#contrib">¿Cómo se gestiona la seguridad de <tt>contrib</tt> y <tt>non-free</tt>?</a>
+<li> <a href="#sidversionisold">El aviso de seguridad dice que para la versión «inestable», el problema está arreglado en la versión 1.2.3-1, pero «inestable» tiene la 1.2.5-1, ¿qué sucede entonces?</a>
+<li> <a href="#mirror">¿Por qué no hay réplicas oficiales de security.debian.org?</a>
+<li> <a href="#missing">He visto el DSA 100 y el DSA 102, ¿qué pasó con el DSA 101?</a>
+<li> <a href="#contact">¿Cómo puedo ponerme en contacto con el equipo de seguridad?</a>
+<li> <a href="#discover">Creo que he encontrado un problema de seguridad, ¿qué debo hacer?</a>
+<li> <a href="#care">¿Qué se supone que tengo que hacer si hay un problema de seguridad en alguno de mis paquetes?</a>
+<li> <a href="#enofile">He intentado bajar un paquete listado en uno de los avisos de seguridad, pero me ha dado un error de <q>archivo no encontrado</q>.</a>
+<li> <a href="#upload">Tengo una corrección de un fallo, ¿la puedo subir a security.debian.org directamente?</a>
+<li> <a href="#ppu">Tengo una corrección, ¿puedo publicarla en proposed-updates en su lugar?</a>
+<li> <a href="#SecurityUploadQueue">Estoy casi seguro de que mis paquetes están bien, ¿cómo puedo publicarlos?</a>
+<li> <a href="#help">¿Cómo puedo ayudar con la seguridad?</a>
+<li> <a href="#proposed-updates">¿Cuál es el propósito de proposed-updates?</a>
+<li> <a href="#composing">¿Quién forma parte del equipo de seguridad?</a>
+<li> <a href="#lifespan">¿Durante cuánto tiempo se proporcionan actualizaciones de seguridad?</a>
+<li> <a href="#check">¿Cómo puedo verificar la integridad de los paquetes?</a>
+<li> <a href="#break">¿Qué hacer si un paquete cualquiera se rompe tras una actualización de seguridad?</a>
+<li> <a href="#cvewhat">¿Qué es un identificador CVE?</a>
+<li> <a href="#cvedsa">¿Emite Debian un DSA para cada identificador CVE?</a>
+<li> <a href="#cveget">¿Puede Debian asignar identificadores CVE?</a>
+<li> <a href="#disclosure-policy">Tiene Debian una normativa de revelación de vulnerabilidades?</a>
+<li> <a href="#localremote">¿Qué significa <q>local (remoto)</q>?</a>
+</ol>
+<p><em><a name="buthow">P: He recibido un aviso de seguridad de Debian (DSA) a
+  través de la lista debian-security-announce, ¿cómo puedo actualizar los paquetes
+  vulnerables?</a></em></p>
+<p>R: Como indica el aviso de seguridad de Debian, debería actualizar
+    los paquetes afectados por la vulnerabilidad. Puede hacerlo
+    actualizando todos los paquetes del sistema (después de actualizar la lista de
+    paquetes disponibles con <tt>apt-get update</tt>) usando <tt>apt-get
+    upgrade</tt> o actualizando un paquete determinado con <tt>apt-get install
+    <i>paquete</i></tt>.
+</p>
+<p> El correo electrónico que anuncia la vulnerabilidad menciona el paquete
+    fuente que contenía la vulnerabilidad. Por lo tanto, debe
+    actualizar todos los paquetes binarios generados a partir de ese paquete fuente.
+    Para determinar los paquetes a actualizar, visite
+    <tt>https://packages.debian.org/src:<i>nombre_paquete_fuente</i></tt>
+    y haga clic en <i>[mostrar ... paquetes binarios]</i> para la distribución
+    que está actualizando.
+</p>
+<p>Es posible que sea necesario reiniciar un servicio o un proceso.
+    La orden <a href="https://manpages.debian.org/checkrestart"><tt>checkrestart</tt></a>
+    incluida en el paquete
+    <a href="https://packages.debian.org/debian-goodies">debian-goodies</a> puede
+    indicarle cuál o cuáles lo necesitan.
+</p>
+<p><em><a name="signature">P: ¡No se verifica correctamente la firma de sus avisos!</a></em></p>
+<p>R: Casi siempre esto se debe a un problema en su lado. La lista de distribución
+   <a href="https://lists.debian.org/debian-security-announce/">debian-security-announce</a> solo permite el envío de mensajes
+   que estén firmados por alguno de los miembros del
+   equipo de seguridad.</p>
+<p>Lo más probable es que alguna pieza de su software de correo altere
+   ligeramente el mensaje y eso rompa la firma. Asegúrese de que su
+   software no realiza ninguna codificación o decodificación MIME, o
+   conversiones de tabulador/espacio.</p>
+<p>Algunos programas que suelen causar problemas de este tipo son
+   fetchmail (con la opción
+   mimedecode activada), formail (solo el de procmail 3.14) y
+   evolution.</p>
+<p><em><a name="handling">P: ¿Cómo se gestiona la seguridad en
+Debian?</a></em></p>
+<p>R: Una vez que el equipo de seguridad recibe una notificación de un
+   incidente, uno o más miembros lo revisan y consideran si afecta a
+   la versión «estable» de Debian (es decir, si la versión que allí hay
+   es vulnerable o no). Si esta versión es vulnerable, se trabaja para
+   corregir el problema. También se contacta con los encargados del
+   paquete, si es que no se han puesto en contacto todavía con el
+   equipo de seguridad. Por último, se prueba la solución y se preparan
+   nuevos paquetes, que después se compilan para todas las arquitecturas
+   para las que se ofrezca soporte en la versión «estable» y se
+   publican en el servidor de descargas. Una vez hecho esto, se publica
+   un aviso de seguridad.</p>
+<p><em><a name="oldversion">P: ¿Por qué se molestan en tocar una versión tan
+antigua de ese paquete?</a></em></p>
+<p>La directriz más importante al hacer un paquete nuevo para que corrija un
+    problema de seguridad es hacer tan pocos cambios como sea posible.
+    Nuestros usuarios y desarrolladores se basan en el comportamiento exacto de
+    una versión una vez que está hecha, así que cualquier cambio que hagamos
+    puede romper el sistema de alguien. Esto es especialmente cierto en el
+    caso de bibliotecas: nos aseguramos de que no se cambia nunca la API (Interfaz
+    del Programa de la Aplicación) ni la ABI (Interfaz Binaria de la Aplicación),
+    por muy pequeño que sea el cambio.</p>
+<p>Por esto, migrar a una nueva versión del proyecto original
+    no es una buena solución; es mejor incorporar los cambios
+    relevantes (y que introducen el arreglo de seguridad) en la versión actual.
+    Habitualmente, los desarrolladores originales están dispuestos a ayudar
+    en este trabajo si es necesario. Si no es así, el equipo de seguridad
+    de Debian puede prestar su ayuda para hacerlo.</p>
+<p>En algunos casos, no es posible incorporar una corrección de seguridad
+    en versiones más antiguas porque, por ejemplo, es necesario cambiar o
+    reescribir una gran cantidad de código fuente. Si esto sucede,
+    puede ser necesario pasar a una versión nueva del autor,
+    pero esto ha de ser coordinado de antemano por el equipo de seguridad.</p>
+<p><em><a name="version">P: ¡El número de versión de un paquete indica
+que aún estoy
+   ejecutando una versión vulnerable!</a></em></p>
+<p>R: En lugar de actualizar a una versión más moderna, adaptamos las
+   soluciones a los fallos a la versión que salió en la distribución
+   «estable». Hacemos esto para asegurarnos de que la
+   versión de la distribución cambia lo menos posible, de manera que
+   las cosas no cambien o fallen de forma inesperada como resultado
+   de una corrección. Puede comprobar si está ejecutando una versión
+   segura de un paquete examinando su registro de cambios
+   (<em>changelog</em>) o comparando su número de versión exacto con
+   el indicado en el aviso de seguridad de Debian correspondiente.</p>
+<p><em><a name="archismissing">P: He recibido un aviso, pero parece que no está
+la compilación para una de las arquitecturas de procesador.</a></em></p>
+<p>R: Generalmente el equipo de seguridad publica un aviso con compilaciones de
+  los paquetes actualizados para todas las arquitecturas que soporta Debian. Sin
+  embargo, algunas arquitecturas tardan más que otras y puede ocurrir que las
+  compilaciones para la mayoría de las arquitecturas estén listas pero algunas aún
+  falten. Estas arquitecturas más pequeñas representan una fracción pequeña de la
+  base de usuarios. Dependiendo de la urgencia del asunto podemos decidir publicar
+  el aviso correspondiente. Las arquitecturas que faltan serán instaladas tan
+  pronto como estén disponibles, pero no se publicará un nuevo aviso. Por
+  supuesto, nunca publicaremos un aviso en el que las compilaciones para i386 o
+  amd64 no estén presentes.</p>
+<p><em><a name="unstable">P: ¿Cómo se gestiona la seguridad de <tt>inestable</tt>?</a></em></p>
+<p>R: La seguridad en <tt>inestable</tt> la gestionan principalmente los encargados
+  de paquetes, no el equipo de seguridad de Debian. Aunque el equipo de seguridad
+  puede cargar correcciones de seguridad de alta prioridad cuando se sabe que los
+  encargados de los paquetes están inactivos, el soporte para «estable» siempre
+  tiene prioridad. Si quiere tener un servidor seguro (y estable) le recomendamos
+  encarecidamente que utilice la distribución «estable».</p>
+<p><em><a name="testing">P: ¿Cómo se gestiona la seguridad de <tt>testing</tt>?</a></em></p>
+<p>R: La seguridad en «pruebas» («testing») se beneficia de los esfuerzos de seguridad de todo el proyecto
+para «inestable». Sin embargo, hay un retraso mínimo de dos días en la migración, y algunas
+correcciones de seguridad pueden quedar retenidas debido a las transiciones. El equipo de
+seguridad ayuda a agilizar las transiciones reteniendo actualizaciones importantes de seguridad,
+pero esto no es siempre posible y pueden ocurrir retrasos.
+Especialmente en los meses posteriores a la publicación de una nueva versión «estable», cuando se
+cargan en «inestable» muchas versiones nuevas, las correcciones de seguridad para «pruebas» pueden quedar
+retrasadas.
+   Si quiere tener un servidor seguro (y estable) le recomendamos
+   encarecidamente que utilice la distribución «estable».
+<p><em><a name="contrib">P: ¿Cómo se gestiona la seguridad de
+<tt>contrib</tt>
+y <tt>non-free</tt>?</a></em></p>
+<p>R: La respuesta corta es que <q>no se gestiona</q>. Contrib y non-free no son partes
+   oficiales de la distribución Debian y no se publican del mismo modo que
+   las versiones oficiales, por tanto no reciben soporte por parte del
+   equipo de seguridad. Algunos paquetes de non-free se
+   distribuyen sin código fuente o con una licencia que no permite la
+   distribución de versiones modificadas. En estos casos no es
+   posible realizar ningún tipo de corrección de seguridad. Si es posible
+   corregir el problema y el responsable del paquete o algún otro proporciona
+   paquetes correctos actualizados, normalmente el equipo de seguridad los
+   procesará y luego publicará el aviso.</p>
+<p><em><a name="sidversionisold">P: El aviso de seguridad dice que para la versión
+«inestable», el problema está arreglado en
+la versión 1.2.3-1, pero «inestable» tiene
+la 1.2.5-1, ¿qué sucede entonces?</a></em></p>
+<p>R: Intentamos listar la primera versión de «inestable» que arregló el problema.
+   A menudo el encargado ha subido alguna versión nueva mientras tanto. Compare la
+   versión en «inestable» con la versión que le indicamos. Si es la misma o superior,
+   debería estar a salvo de esta vulnerabilidad. Si desea estar seguro, puede
+   verificar el registro de cambios usando <tt>apt-get changelog paquete</tt> y
+   buscando la línea en la que se anuncia la solución al problema.
+ </p>
+<p><em><a name="mirror">P: ¿Por qué no hay réplicas oficiales de
+security.debian.org?</a></em></p>
+<p>R: En realidad, sí las hay. Hay varias réplicas oficiales, implementadas
+  mediante alias de DNS. El propósito de security.debian.org es ofrecer las
+  actualizaciones de seguridad tan pronto como sea posible.</p>
+<p>Si recomendáramos el uso de réplicas no oficiales se añadiría una complejidad
+   adicional innecesaria y además podría causar frustraciones si las
+   réplicas no se mantienen actualizadas.</p>
+<p><em><a name="missing">P: He visto el DSA 100 y el DSA 102, ¿qué pasó con
+el DSA 101?</a></em></p>
+<p>R: Muchos fabricantes (la mayoría de GNU/Linux, pero también de
+   derivados de BSD) coordinan los avisos de seguridad para algunos
+   incidentes, y se acuerda un calendario de manera que todos puedan
+   enviar el aviso al mismo tiempo. Se decidió esto para no
+   discriminar a aquellos que necesiten más tiempo (por ejemplo, cuando
+   un fabricante necesita hacer pasar los paquetes por largas pruebas
+   de calidad o da soporte a varias arquitecturas o distribuciones de
+   paquetes binarios). Nuestro propio equipo de seguridad también prepara los
+   avisos por adelantado. De vez en cuando, aparecen otros problemas de
+   seguridad que deben ser resueltos antes de enviar el aviso que está
+   ya preparado pero <em>aparcado</em>,
+   de ahí los huecos temporales de uno o más números entre los avisos de
+   seguridad.</p>
+<p><em><a name="contact">P: ¿Cómo puedo ponerme en contacto con el equipo
+de seguridad?</a></em></p>
+<p>R: La información de seguridad de Debian se puede enviar a security@debian.org o
+  a team@security.debian.org. Los miembros del equipo de seguridad leen los correos
+  enviados a ambas direcciones.</p>
+<p>Si así lo desea, puede cifrar el correo con la clave de contacto de
+   seguridad de Debian (id. de la clave <a
+   href="http://pgp.surfnet.nl/pks/lookup?op=vindex&amp;search=0x0D59D2B15144766A14D241C66BAF400B05C3E651">0x0D59D2B15144766A14D241C66BAF400B05C3E651</a>). Para obtener las claves PGP/GPG de miembros individuales del
+   equipo, por favor, utilice el servidor de claves <a
+   href="https://keyring.debian.org/">keyring.debian.org</a>.</p>
+<p><em><a name="discover">P: Creo que he encontrado un problema de
+seguridad, ¿qué debo hacer?</a></em></p>
+<p>R: Si sabe de un problema de seguridad, bien porque haya ocurrido en uno
+de sus propios paquetes o en el de algún otro, póngase en contacto con el
+equipo de seguridad. Si el equipo de seguridad de Debian confirma la
+vulnerabilidad y otras fuentes se muestran también vulnerables, normalmente
+también se pone en contacto con esas otras fuentes. Si la vulnerabilidad aún
+no es pública, el equipo de seguridad intenta coordinar los avisos de
+seguridad con otras fuentes, para que las distribuciones principales estén
+sincronizadas.</p>
+<p>Si la vulnerabilidad ya se conoce públicamente, cerciórese de rellenar
+  un informe del error en el sistema de seguimiento de fallos de Debian,
+  y etiquételo como <q>security</q> (de seguridad).</p>
+<p>Si es un encargado de paquetes Debian, <a href="#care">mire más abajo</a>.</p>
+<p><em><a name="care">P: ¿Qué se supone que tengo que hacer si hay un
+problema de seguridad en alguno de mis paquetes?</a></em></p>
+<p>R: Si sabe de un problema de seguridad, bien en un paquete suyo o en el
+   de algún otro, póngase en contacto con el equipo de seguridad. Puede
+   hacerlo por correo electrónico a team@security.debian.org. Ellos siguen
+   la pista de los problemas de seguridad, pueden ayudar a los desarrolladores
+   con los problemas de seguridad o incluso arreglar los problemas por sí
+   mismos, y son responsables de enviar los avisos y mantener
+   security.debian.org actualizado.</p>
+<p>La <a href="../doc/developers-reference/pkgs.html#bug-security">Referencia del desarrollador</a> tiene las instrucciones completas sobre
+ qué hacer.</p>
+<p>Es particularmente importante que no publique nada en ninguna distribución que
+   no sea «inestable» sin un acuerdo previo con el equipo de seguridad,
+   porque solo causaría confusión y más trabajo.</p>
+<p><em><a name="enofile">P: He intentado bajar un paquete listado en uno
+de los avisos de seguridad, pero me ha dado un error de <q>archivo no
+encontrado</q>.</a></em></p>
+<p>R: Cada vez que se arregla un nuevo error en un paquete más antiguo de
+   security.debian.org, es muy probable que el paquete antiguo ya se
+   haya eliminado para cuando se instala el nuevo. Es por esto por lo que aparece
+   el error de <q>archivo no encontrado</q>. No queremos distribuir paquetes con
+   errores de seguridad conocidos por más tiempo que el absolutamente necesario.</p>
+<p>Por favor, use los paquetes anunciados en los últimos avisos de seguridad,
+   y que se distribuyen mediante la lista de correo
+   <a href="https://lists.debian.org/debian-security-announce/"> debian-security-announce</a>. Lo mejor es simplemente ejecutar
+   <code>apt-get update</code> antes de actualizar el paquete.</p>
+<p><em><a name="upload">P: Tengo una corrección de un fallo, ¿la puedo subir a
+   security.debian.org directamente?</a></em></p>
+<p>R: No, no puede. El archivo de debian.security.org lo mantiene el
+   equipo de seguridad, que tiene que aprobar todos los paquetes. En vez
+   de eso, debería enviar parches o paquetes fuente adecuados al equipo de
+   seguridad a través de team@security.debian.org. El equipo de seguridad
+   lo revisará y, en su caso, lo subirá con o sin modificaciones.</p>
+<p>La <a href="../doc/developers-reference/pkgs.html#bug-security">Referencia del desarrollador</a> tiene instrucciones completas sobre qué
+   hacer.</p>
+<p><em><a name="ppu">P: Tengo una corrección, ¿puedo publicarla en proposed-updates en su lugar?</a></em></p>
+<p>R: Técnicamente, puede. Sin embargo, no debería, ya que interfiere
+   mucho con el trabajo del equipo de seguridad. Los paquetes de
+   security.debian.org se copian a proposed-updates de forma automática.
+   Si ya hay en el archivo un paquete con el mismo número o mayor, el
+   sistema de archivo rechazará la actualización de seguridad. De esta
+   manera, la distribución «estable» acabará sin actualizaciones de
+   seguridad para este paquete, a no ser que los paquetes <q>incorrectos</q> del
+   directorio proposed-updates sean rechazados. Por favor, póngase en
+   contacto con el equipo de seguridad, incluya todos los detalles de
+   la vulnerabilidad y adjunte los ficheros fuente (ficheros dsc y diff.gz)
+   al mensaje.</p>
+<p>La <a href="../doc/developers-reference/pkgs.html#bug-security">Referencia del desarrollador</a> contiene instrucciones completas sobre
+ cómo hacer esto.</p>
+<p><em><a name="SecurityUploadQueue">P: Estoy casi seguro de que mis
+paquetes están bien, ¿cómo puedo publicarlos?</a></em></p>
+<p>R: Si está muy seguro de que sus paquetes no rompen nada, de que la
+   versión es la correcta (por ejemplo, mayor que la versión de «estable» y
+   menor que la versión de «pruebas»/«inestable»), de que no cambió el
+   comportamiento del paquete &mdash;salvo el problema de seguridad
+   correspondiente&mdash;, de que lo compiló para la distribución adecuada (esto es,
+   <code>oldstable-security</code> o <code>stable-security</code>), de que el
+   paquete contiene el código fuente original si es nuevo en
+   security.debian.org, de que puede confirmar que el parche aplicado a la
+   versión más reciente está limpio y solo afecta al problema de seguridad
+   correspondiente (compruébelo con <code>interdiff -z</code> y ambos archivos
+   <code>.diff.gz</code>), de que ha revisado las pruebas al menos tres
+   veces y de que <code>debdiff</code> no muestra ningún cambio, puede publicar
+   los archivos en el directorio de entrada
+   <code>ftp://ftp.security.upload.debian.org/pub/SecurityUploadQueue</code> de
+   security.debian.org directamente. Envíe también una notificación con
+   todos los detalles y enlaces a team@security.debian.org.</p>
+<p><em><a name="help">P: ¿Cómo puedo ayudar con la seguridad?</a></em></p>
+<p>R: Por favor, revise cada problema antes de enviarlo a
+   security@debian.org. Podrá acelerar el proceso si es capaz de enviar
+   parches. No nos redireccione simplemente correos de bugtraq,
+   porque ya los recibimos &mdash; si puede, ofrézcanos información
+   adicional sobre las cosas de las que ya se haya informado en bugtraq.
+<p>Una buena manera de empezar con el trabajo de seguridad es ayudando en el
+   sistema de seguimiento de problemas de seguridad de Debian (<a
+   href="https://security-tracker.debian.org/tracker/data/report">instrucciones</a>).</p>
+<p><em><a name="proposed-updates">P: ¿Cuál es el propósito de
+proposed-updates?</a></em></p>
+<p>R: Este directorio contiene paquetes que se ha propuesto que entren
+   en la siguiente revisión estable de Debian. Cuando un desarrollador
+   envía un paquete para la distribución «estable», este acaba en el directorio
+   proposed-updates. Como «estable» implica estabilidad, no se hacen
+   actualizaciones automáticas. El equipo de seguridad enviará los
+   paquetes corregidos mencionados en sus avisos a «estable», si bien
+   se depositarán antes en proposed-updates. Cada par de meses
+   el Gestor de Versiones Estables (<em>Stable Release Manager</em>)
+   revisa la lista de paquetes en proposed-updates y discute si un
+   paquete debe ir a la distribución «estable» o no. Entonces se compila
+   en otra revisión de la «estable» (por ejemplo, 2.2r3 o 2.2r4). Los
+   paquetes que no se ajusten a esto probablemente serán rechazados y también
+   eliminados de proposed-updates.</p>
+<p>Tenga en cuenta que los paquetes que suben los responsables de paquetes (no el
+   equipo de seguridad) al directorio proposed-updates/ no tienen soporte
+   del equipo de seguridad.</p>
+<p><em><a name="composing">P: ¿Quién forma parte del equipo de
+seguridad?</a></em></p>
+<p>R: El equipo de seguridad está formado por
+   <a href="../intro/organization#security">varios técnicos y secretarios</a>.
+   El propio equipo de seguridad nombra a sus miembros.</p>
+<p><em><a name="lifespan">P: ¿Durante cuánto tiempo se proporcionan
+actualizaciones de seguridad?</a></em></p>
+<p>R: El equipo de seguridad intenta dar soporte a la distribución
+   «estable» durante aproximadamente un año tras la publicación de la
+   siguiente distribución «estable», salvo en el caso de que se publique
+   otra distribución durante ese año. No es posible dar soporte a
+   tres distribuciones; ya es bastante difícil dar soporte a dos de
+   ellas simultáneamente.</p>
+<p><em><a name="check">P: ¿Cómo puedo verificar la integridad de los paquetes?</a></em></p>
+<p>R: Este proceso implica la verificación de la firma del fichero <q>Release</q> con
+   la <a href="https://ftp-master.debian.org/keys.html">clave pública</a> utilizada para el archivo. El fichero <q>Release</q> tiene las sumas
+   de verificación de los ficheros <q>Packages</q> y <q>Source</q>, que, a su vez, contienen
+   las sumas de verificación de los paquetes binarios y fuentes. En el <a
+   href="../doc/manuals/securing-debian-howto/ch7#s-deb-pack-sign">Manual de seguridad de Debian</a> se encuentran las instrucciones detalladas
+   para comprobar la integridad de los paquetes.</p>
+<p><em><a name="break">P: ¿Qué hacer si un paquete cualquiera se rompe tras una actualización
+de seguridad?</a></em></p>
+<p>R: Primero debería averiguar por qué se ha roto el paquete y cómo
+   está el fallo relacionado con la actualización de seguridad. Después,
+   póngase en contacto con el equipo de seguridad si el problema es muy
+   grave o con el responsable de la publicación «estable» si no es tan grave.
+   En este caso estamos hablando de paquetes al azar que se rompen tras
+   la actualización de seguridad de otro paquete.
+   Hable también con el equipo de seguridad si no es capaz de averiguar
+   qué ha ido mal pero tiene un arreglo para el problema.
+   Tenga en cuenta que es posible que estos le remitan al
+   responsable de la publicación «estable».</p>
+<p><em><a name="cvewhat">P: ¿Qué es un identificador CVE?</a></em></p>
+<p>R: El proyecto «Vulnerabilidades y exposiciones comunes» («Common Vulnerabilities and Exposures») asigna identificadores
+únicos, llamados identificadores CVE, a vulnerabilidades de seguridad específicas,
+para hacer más fácil la referencia unívoca a un asunto específico. Se puede encontrar
+más información en la <a
+href="http://es.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures">Wikipedia</a>.</p>
+<p><em><a name="cvedsa">P: ¿Emite Debian un DSA para cada identificador CVE?</a></em></p>
+<p>R: El equipo de seguridad de Debian lleva cuenta de cada identificador CVE emitido,
+lo conecta al paquete correspondiente de Debian y evalúa su impacto en el contexto de Debian;
+el hecho de que algo tenga asignado un identificador CVE no implica necesariamente
+que el asunto sea una amenaza seria para un sistema Debian.
+Esta información se registra en el <a href="https://security-tracker.debian.org">sistema de seguimiento de problemas de seguridad de Debian</a>
+y para los asuntos que se consideren serios se emitirá un aviso de seguridad de Debian («DSA»).</p>
+<p>Los asuntos de bajo impacto que no cumplen los requisitos para un DSA pueden corregirse en la siguiente
+versión de Debian o en una actualización de las distribuciones «estable» y «antigua estable» actuales,
+o ser incluidos en un DSA cuando se emita uno para una vulnerabilidad más seria.</p>
+<p><em><a name="cveget">P: ¿Puede Debian asignar identificadores CVE?</a></em></p>
+<p>R: Debian es una autoridad de numeración de CVE y puede asignar identificadores, pero
+solo a asuntos que aún no se hayan desclasificado, por política de CVE. Si usted tiene una
+vulnerabilidad de seguridad no desclasificada para software en Debian y le gustaría obtener un
+identificador para la misma, contacte con el equipo de seguridad de Debian. Para casos donde
+la vulnerabilidad ya es pública, recomendamos seguir el procedimiento detallado en el
+<a href="https://github.com/RedHatProductSecurity/CVE-HOWTO">CÓMO solicitar CVE en software libre</a>.</p>
+<p><em><a name="disclosure-policy">P: Tiene Debian una normativa de revelación de vulnerabilidades?</a></em></p>
+<p>R: Debian ha publicado una <a href="disclosure-policy">normativa de
+   revelación de vulnerabilidades</a> como parte de su participación en el programa
+   CVE.</p>
+<h1>Preguntas frecuentes de seguridad de Debian (obsoletas) </h1>
+<p><em><a name="localremote">P: ¿Qué significa <q>local (remoto)</q>?</a></em></p>
+<p>R: Algunos avisos describen vulnerabilidades que no se pueden identificar con
+  el esquema clásico de aprovechamiento local y remoto. De algunas vulnerabilidades
+  no se puede sacar provecho de forma remota, es decir, no corresponden a un
+  demonio que está leyendo de un puerto de la red. Si se puede sacar provecho
+  de ellas a través de ficheros especiales que se puedan distribuir por la red, aunque el
+  servicio vulnerable no esté conectado permanentemente a la red, denominamos a
+  este tipo de incidencia <q>local (remota)</q>.</p>
+<p>Estas vulnerabilidades están a medio camino entre las locales y las remotas y
+  suelen referirse a archivos que se pueden distribuir por la red, como adjuntos
+  de correo o descargándolos de una página.</p>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<p>Volver a la <a href="../">página principal de Debian</a>.</p>
+<hr>
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Esta página también está disponible en los siguientes idiomas:
+<div id="langContainer">
+ <a href="faq.da.html" title="danés" hreflang="da" lang="da" rel="alternate">dansk</a>
+ <a href="faq.de.html" title="alemán" hreflang="de" lang="de" rel="alternate">Deutsch</a>
+ <a href="faq.el.html" title="griego" hreflang="el" lang="el" rel="alternate">&#917;&#955;&#955;&#951;&#957;&#953;&#954;&#940;&nbsp;(Ellinika)</a>
+ <a href="faq.en.html" title="inglés" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="faq.fr.html" title="francés" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="faq.it.html" title="italiano" hreflang="it" lang="it" rel="alternate">Italiano</a>
+ <a href="faq.nl.html" title="neerlandés" hreflang="nl" lang="nl" rel="alternate">Nederlands</a>
+ <a href="faq.ja.html" title="japonés" hreflang="ja" lang="ja" rel="alternate">&#26085;&#26412;&#35486;&nbsp;(Nihongo)</a>
+ <a href="faq.pl.html" title="polaco" hreflang="pl" lang="pl" rel="alternate">polski</a>
+ <a href="faq.pt.html" title="portugués" hreflang="pt" lang="pt" rel="alternate">Portugu&ecirc;s</a>
+ <a href="faq.ru.html" title="ruso" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+ <a href="faq.fi.html" title="finés" hreflang="fi" lang="fi" rel="alternate">suomi</a>
+ <a href="faq.sv.html" title="sueco" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+ <a href="faq.zh-cn.html" title="chino (China)" hreflang="zh-CN" lang="zh-CN" rel="alternate">&#20013;&#25991;(&#31616;)</a>
+ <a href="faq.zh-hk.html" title="chino (Hong Kong)" hreflang="zh-HK" lang="zh-HK" rel="alternate">&#20013;&#25991;(HK)</a>
+ <a href="faq.zh-tw.html" title="chino (Taiwan)" hreflang="zh-TW" lang="zh-TW" rel="alternate">&#20013;&#25991;(&#32321;)</a>
+</div>
+Cómo modificar <a href="../intro/cn">el idioma predeterminado de los documentos</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Página principal</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../intro/about">Acerca&nbsp;de&nbsp;Debian</a>
+		  <ul>
+		  <li><a href="../social_contract">Contrato social</a></li>
+		  <li><a href="../code_of_conduct">Código de conducta</a></li>
+		  <li><a href="../intro/free">Software libre</a></li>
+		  <li><a href="../partners/">Socios</a></li>
+		  <li><a href="../donations">Donaciones</a></li>
+          <li><a href="../legal">Información legal</a></li>
+          <li><a href="../legal/privacy">Privacidad de los datos</a></li>
+		  <li><a href="../contact">Contacte con nosotros</a></li>
+		  </ul>
+		</li>
+        <li><a href="../intro/help">Ayudar a Debian</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../distrib/">Cómo obtener Debian</a>
+			  <ul>
+			  <li><a href="../distrib/netinst">Instalación por red</a></li>
+			  <li><a href="../CD/">Imágenes ISO de CD/USB</a></li>
+			  <li><a href="../CD/vendors/">Vendedores de CD</a></li>
+			  <li><a href="../distrib/pre-installed">Preinstalado</a></li>
+			  </ul>
+			</li>
+            <li><a href="../blends/">Pure Blends</a></li>
+			<li><a href="../distrib/packages">Paquetes Debian</a></li>
+			<li><a href="../devel/">Rincón de los desarrolladores</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../News/">Noticias</a>
+		  <ul>
+		  <li><a href="../News/weekly/">Noticias del proyecto</a></li>
+		  <li><a href="../events/">Eventos</a></li>
+		  </ul>
+		</li>
+    <li><a href="../doc/">Documentación</a>
+      <ul>
+      <li><a href="../releases/">Info sobre versiones</a></li>
+      <li><a href="../releases/stable/installmanual">Manual de instalación</a></li>
+      <li><a href="../doc/books">Libros sobre Debian</a></li>
+      <li><a href="https://wiki.debian.org/">Wiki de Debian</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../support">Soporte</a>
+	  <ul>
+			  <li><a href="../international/">Debian es internacional</a></li>
+			  <li><a href="../security/">Información sobre seguridad</a></li>
+			  <li><a href="../Bugs/">Informes de fallo</a></li>
+			  <li><a href="../MailingLists/">Listas de correo</a></li>
+			  <li><a href="https://lists.debian.org/">Archivos de listas de correo</a></li>
+			  <li><a href="../ports/">Migraciones/Arquitecturas</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../sitemap">Mapa del sitio</a></li>
+  <li><a href="https://search.debian.org/">Búsqueda</a></li>
+  <li><a href="https://bits.debian.org">El blog de Debian</a></li>
+  <li><a href="https://micronews.debian.org">Micronoticias de Debian</a></li>
+  <li><a href="https://planet.debian.org">Planeta Debian</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>Para informar de un problema con el sitio web, por favor, envíe un correo (en inglés) a nuestra lista de correo con archivo público <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> o en español a <a href="mailto:debian-l10n-spanish@lists.debian.org">debian-l10n-spanish@lists.debian.org</a> (también con archivo público). Para obtener otra información de contacto, consulte la <a href="../contact">página de contacto</a> de Debian. El código fuente del sitio web está <a href="https://salsa.debian.org/webmaster-team/webwml">disponible</a>.</p>
+<p>
+Última modificación: dom, 31 de may de 2020, 11:24:55 UTC
+&emsp;
+Última compilación: vie, 11 de jun de 2021, 19:14:00 UTC
+  <br>
+  Copyright &copy; 1997-2020
+ <a href="https://www.spi-inc.org/">SPI</a> y otros; Vea <a href="../license" rel="copyright">los términos de la licencia</a><br>
+  Debian es una <a href="../trademark">marca registrada</a> de Software in the Public Interest, Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

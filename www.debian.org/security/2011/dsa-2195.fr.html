@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="fr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Informations sur la sécurité -- DSA-2195-1 php5 </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 15:13:14">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-fr.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Recherche sur le site web Debian" href="../../search.fr.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Accueil Debian"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="fr">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Recherche">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Sauter le menu</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">Informations de sécurité</a>
+ &#x2F; <a href="./">2011</a>
+ &#x2F;
+Informations sur la sécurité -- DSA-2195-1 php5</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Bulletin d'alerte Debian</h1>
+<h2>DSA-2195-1 php5 -- Plusieurs vulnérabilités</h2>
+<dl>
+<dt>Date du rapport :</dt>
+	<dd>19 mars 2011</dd>
+<dt>Paquets concernés :</dt>
+	<dd>
+<a href="https://packages.debian.org/src:php5">php5</a>
+</dd>
+<dt>Vulnérabilité :</dt>
+	<dd class="warning">Oui</dd>
+<dt>Références dans la base de données de sécurité :</dt>
+	<dd>Dans le dictionnaire CVE du Mitre&nbsp;: <a href="https://security-tracker.debian.org/tracker/CVE-2011-0441">CVE-2011-0441</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2010-3709">CVE-2010-3709</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2010-3710">CVE-2010-3710</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2010-3870">CVE-2010-3870</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2010-4150">CVE-2010-4150</a>.<br></dd>
+<dt>Plus de précisions :</dt>
+	<dd>
+<p>
+Stephane Chazelas a découvert que le cronjob du paquet PHP 5 de Debian est
+victime d'une situation de compétition (« race condition ») qui pourrait
+être utilisée pour supprimer des fichiers arbitraires du système(<a
+href="https://security-tracker.debian.org/tracker/CVE-2011-0441">CVE-2011-0441</a>).
+</p>
+<p>
+Lors de la mise à niveau du paquet php5-common, prenez soin en particulier
+d'<b>accepter</b> les modifications du fichier /etc/cron.d/php5 file.
+</p>
+<p>Pour la distribution oldstable (Lenny), ce problème a été corrigé dans la version 5.2.6.dfsg.1-1+lenny10.</p>
+<p>Pour la distribution stable (Squeeze), ce problème a été corrigé dans la version 5.3.3-7+squeeze1.</p>
+<p>Pour la distribution unstable (Sid), ce problème a été corrigé dans la version 5.3.6-1.</p>
+<p>
+De plus, les vulnérabilités suivantes ont également
+été corrigées dans la distribution oldstable (Lenny) :
+</p>
+<ul>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2010-3709">CVE-2010-3709</a>
+<p>
+Maksymilian Arciemowicz a découvert que la classe ZipArchive
+pourrait déréférencer un pointeur NULL lors de l'extraction
+de commentaires d'une archive ZIP, conduisant à un plantage
+d'application et éventuellement un déni de service.
+</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2010-3710">CVE-2010-3710</a>
+<p>
+Stefan Neufeind a découvert que le filtre FILTER_VALIDATE_EMAIL
+ne traite pas correctement les longues chaînes à valider.
+De telles chaînes contrefaites pourraient conduire à un déni de service à cause
+de l'importante consommation de mémoire et à un plantage d'application.
+</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2010-3870">CVE-2010-3870</a>
+<p>
+On a découvert que PHP ne traite pas correctement certaines séquences UTF-8 ce
+qui pourrait être utilisé pour contourner des protections de script intersite.
+</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2010-4150">CVE-2010-4150</a>
+<p>
+Mateusz Kocielski a découvert que l'extension IMAP pourrait
+essayer de libérer de la mémoire déjà libérée lors du traitement
+des autorisations utilisateur, conduisant à un plantage
+d'application et éventuellement l'exécution de code arbitraire.
+</p></li>
+</ul>
+<p>Nous vous recommandons de mettre à jour vos paquets php5.</p>
+</dd>
+</dl>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Cette page est aussi disponible dans les langues suivantes&nbsp;:
+<div id="langContainer">
+ <a href="dsa-2195.da.html" title="danois" hreflang="da" lang="da" rel="alternate">dansk</a>
+ <a href="dsa-2195.en.html" title="anglais" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="dsa-2195.ja.html" title="japonais" hreflang="ja" lang="ja" rel="alternate">&#26085;&#26412;&#35486;&nbsp;(Nihongo)</a>
+</div>
+Comment configurer la <a href="../../intro/cn">langue par défaut du document</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Accueil</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">À&nbsp;propos&nbsp;de&nbsp;Debian</a>
+		  <ul>
+		  <li><a href="../../social_contract">Notre contrat social</a></li>
+		  <li><a href="../../code_of_conduct">Code de conduite</a></li>
+		  <li><a href="../../intro/free">Logiciel libre</a></li>
+		  <li><a href="../../partners/">Partenaires</a></li>
+		  <li><a href="../../donations">Dons</a></li>
+          <li><a href="../../legal">Informations juridiques</a></li>
+          <li><a href="../../legal/privacy">Protection de la vie privée</a></li>
+		  <li><a href="../../contact">Nous contacter</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Aider Debian</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Obtenir Debian</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">Installation par le réseau</a></li>
+			  <li><a href="../../CD/">Images ISO de CD/USB</a></li>
+			  <li><a href="../../CD/vendors/">Vendeurs de CD</a></li>
+			  <li><a href="../../distrib/pre-installed">Préinstallée</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Mélanges exclusifs</a></li>
+			<li><a href="../../distrib/packages">Paquets Debian</a></li>
+			<li><a href="../../devel/">Le coin du développeur</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">Actualités</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">Nouvelles du projet</a></li>
+		  <li><a href="../../events/">Événements</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">Documentation</a>
+      <ul>
+      <li><a href="../../releases/">Dernière version</a></li>
+      <li><a href="../../releases/stable/installmanual">Manuel d'installation</a></li>
+      <li><a href="../../doc/books">Livres Debian</a></li>
+      <li><a href="https://wiki.debian.org/">Wiki Debian</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">Assistance</a>
+	  <ul>
+			  <li><a href="../../international/">Debian et l'international</a></li>
+			  <li><a href="../../security/">Informations sur la sécurité</a></li>
+			  <li><a href="../../Bugs/">Rapports de bogues</a></li>
+			  <li><a href="../../MailingLists/">Listes de diffusion</a></li>
+			  <li><a href="https://lists.debian.org/">Archives des listes de diffusion</a></li>
+			  <li><a href="../../ports/">Portages/Architectures</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">Plan du site</a></li>
+  <li><a href="https://search.debian.org/">Recherche</a></li>
+  <li><a href="https://bits.debian.org">Le blog Debian</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>Pour signaler un problème sur le site web, envoyez un courriel à l'une de nos listes de diffusion archivées publiquement : en anglais à <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> ou en français à <a href="mailto:debian-l10n-french@lists.debian.org">debian-l10n-french@lists.debian.org</a>. Pour obtenir d'autres informations, référez-vous à la <a href="../../contact">page contact</a> de Debian. Le code source du site est <a href="https://salsa.debian.org/webmaster-team/webwml">disponible</a>.</p>
+<p>
+Dernière modification&nbsp;: vendredi 1<sup>er</sup> juin 2018 18:42:18 UTC
+&emsp;
+Dernière construction&nbsp;: vendredi 11 juin 2021 15:13:14 UTC
+  <br>
+  Copyright &copy; 2011-2021
+ <a href="https://www.spi-inc.org/">SPI</a> et autres ; voir <a href="../../license" rel="copyright">les termes de la licence</a>.<br>
+  Debian est une <a href="../../trademark">marque déposée</a> de Software in the Public Interest, Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- セキュリティ情報 -- DSA-2012-1 linux-2.6 </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 17:08:28">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-ja.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Debian ウェブサイト検索" href="../../search.ja.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Debian ホーム"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="ja">
+        <input name="P" value="" size="14">
+        <input type="submit" value="検索">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">クイックナビをスキップ</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">セキュリティ情報</a>
+ &#x2F; <a href="./">2010</a>
+ &#x2F;
+セキュリティ情報 -- DSA-2012-1 linux-2.6</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Debian セキュリティ勧告</h1>
+<h2>DSA-2012-1 linux-2.6 -- 特権の昇格/サービス拒否攻撃</h2>
+<dl>
+<dt>報告日時:</dt>
+	<dd>2010-03-11</dd>
+<dt>影響を受けるパッケージ:</dt>
+	<dd>
+<a href="https://packages.debian.org/src:linux-2.6">linux-2.6</a>
+</dd>
+<dt>危険性:</dt>
+	<dd class="warning">あり</dd>
+<dt>参考セキュリティデータベース:</dt>
+	<dd>Debian バグ追跡システム: <a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=568561">バグ 568561</a>, <a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=570554">バグ 570554</a>.<br>Mitre の CVE 辞書: <a href="https://security-tracker.debian.org/tracker/CVE-2009-3725">CVE-2009-3725</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2010-0622">CVE-2010-0622</a>.<br></dd>
+<dt>詳細:</dt>
+	<dd>
+<p>二つのサービス拒否攻撃や特権の昇格に繋がる欠陥が Linux カーネルに発
+見されました。The Common Vulnerabilities and Exposures project は以
+下の問題を認識しています。</p>
+<ul>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2009-3725">CVE-2009-3725</a>
+    <p>Philipp Reisner さんにより、非特権ユーザが netlink パケットを送信
+   するのに用いるコネクタサブシステムに欠陥が報告されました。この�
+   陥により、ローカルユーザが通常特権ユーザのみとして保護されている
+   uvesafb デバイスの設定を変更可能です。</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2010-0622">CVE-2010-0622</a>
+    <p>Jerome Marchand さんにより、futex サブシステムに欠陥が発見されま
+   した。ローカルユーザが不正な futex 状態を発生させ、その結果サービ
+   ス拒否攻撃 (oops) を引き起こすことが可能です。</p></li>
+</ul>
+<p>この更新では以前の更新でのエンバグの修正も行っています。詳細は Debian
+バグページを参照ください。</p>
+<p>
+安定版 (stable) ディストリビューション (lenny) では、この問題はバージ
+ョン 2.6.26-21lenny4 で修正されています。</p>
+<p>直ぐに linux-2.6、user-mode-linue パッケージをアップグレードすることを
+勧めます。</p>
+<p>
+以下は今回の更新の効果を得るため、または今回の更新との互換性を維持す
+るために再ビルドした追加ソースパッケージの一覧表です。</p>
+<div class="centerdiv"><table cellspacing="0" cellpadding="2" summary="">
+<tr><th>&nbsp;</th>             <th>Debian 5.0 (lenny)</th></tr>
+<tr><td>user-mode-linux</td>    <td>2.6.26-1um-2+21lenny4</td></tr>
+</table></div>
+</dd>
+<dt>修正:</dt>
+	<dd>
+<h3>Debian GNU/Linux 5.0 (lenny)</h3>
+<dl>
+<dt>ソース:
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-2.6_2.6.26-21lenny4.dsc">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-2.6_2.6.26-21lenny4.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-2.6_2.6.26.orig.tar.gz">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-2.6_2.6.26.orig.tar.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-2.6_2.6.26-21lenny4.diff.gz">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-2.6_2.6.26-21lenny4.diff.gz</a><br>
+<dt>アーキテクチャ非依存コンポーネント:
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-support-2.6.26-2_2.6.26-21lenny4_all.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-support-2.6.26-2_2.6.26-21lenny4_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-manual-2.6.26_2.6.26-21lenny4_all.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-manual-2.6.26_2.6.26-21lenny4_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-source-2.6.26_2.6.26-21lenny4_all.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-source-2.6.26_2.6.26-21lenny4_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-patch-debian-2.6.26_2.6.26-21lenny4_all.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-patch-debian-2.6.26_2.6.26-21lenny4_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-doc-2.6.26_2.6.26-21lenny4_all.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-doc-2.6.26_2.6.26-21lenny4_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-tree-2.6.26_2.6.26-21lenny4_all.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-tree-2.6.26_2.6.26-21lenny4_all.deb</a><br>
+<dt>Alpha:
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-alpha-smp_2.6.26-21lenny4_alpha.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-alpha-smp_2.6.26-21lenny4_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all-alpha_2.6.26-21lenny4_alpha.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all-alpha_2.6.26-21lenny4_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-libc-dev_2.6.26-21lenny4_alpha.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-libc-dev_2.6.26-21lenny4_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-alpha-legacy_2.6.26-21lenny4_alpha.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-alpha-legacy_2.6.26-21lenny4_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-alpha-smp_2.6.26-21lenny4_alpha.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-alpha-smp_2.6.26-21lenny4_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-alpha-generic_2.6.26-21lenny4_alpha.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-alpha-generic_2.6.26-21lenny4_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-alpha-legacy_2.6.26-21lenny4_alpha.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-alpha-legacy_2.6.26-21lenny4_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-alpha-generic_2.6.26-21lenny4_alpha.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-alpha-generic_2.6.26-21lenny4_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common_2.6.26-21lenny4_alpha.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common_2.6.26-21lenny4_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all_2.6.26-21lenny4_alpha.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all_2.6.26-21lenny4_alpha.deb</a><br>
+<dt>AMD64:
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-libc-dev_2.6.26-21lenny4_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-libc-dev_2.6.26-21lenny4_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common-xen_2.6.26-21lenny4_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common-xen_2.6.26-21lenny4_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all_2.6.26-21lenny4_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all_2.6.26-21lenny4_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/xen-linux-system-2.6.26-2-xen-amd64_2.6.26-21lenny4_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/xen-linux-system-2.6.26-2-xen-amd64_2.6.26-21lenny4_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-vserver-amd64_2.6.26-21lenny4_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-vserver-amd64_2.6.26-21lenny4_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-amd64_2.6.26-21lenny4_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-amd64_2.6.26-21lenny4_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-vserver-amd64_2.6.26-21lenny4_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-vserver-amd64_2.6.26-21lenny4_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all-amd64_2.6.26-21lenny4_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all-amd64_2.6.26-21lenny4_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common-vserver_2.6.26-21lenny4_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common-vserver_2.6.26-21lenny4_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-openvz-amd64_2.6.26-21lenny4_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-openvz-amd64_2.6.26-21lenny4_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-xen-amd64_2.6.26-21lenny4_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-xen-amd64_2.6.26-21lenny4_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common_2.6.26-21lenny4_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common_2.6.26-21lenny4_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-xen-amd64_2.6.26-21lenny4_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-xen-amd64_2.6.26-21lenny4_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-openvz-amd64_2.6.26-21lenny4_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-openvz-amd64_2.6.26-21lenny4_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-amd64_2.6.26-21lenny4_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-amd64_2.6.26-21lenny4_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-modules-2.6.26-2-xen-amd64_2.6.26-21lenny4_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-modules-2.6.26-2-xen-amd64_2.6.26-21lenny4_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common-openvz_2.6.26-21lenny4_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common-openvz_2.6.26-21lenny4_amd64.deb</a><br>
+<dt>ARM:
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all-arm_2.6.26-21lenny4_arm.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all-arm_2.6.26-21lenny4_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-libc-dev_2.6.26-21lenny4_arm.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-libc-dev_2.6.26-21lenny4_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all_2.6.26-21lenny4_arm.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all_2.6.26-21lenny4_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-footbridge_2.6.26-21lenny4_arm.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-footbridge_2.6.26-21lenny4_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common_2.6.26-21lenny4_arm.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common_2.6.26-21lenny4_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-ixp4xx_2.6.26-21lenny4_arm.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-ixp4xx_2.6.26-21lenny4_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-iop32x_2.6.26-21lenny4_arm.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-iop32x_2.6.26-21lenny4_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-orion5x_2.6.26-21lenny4_arm.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-orion5x_2.6.26-21lenny4_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-iop32x_2.6.26-21lenny4_arm.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-iop32x_2.6.26-21lenny4_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-orion5x_2.6.26-21lenny4_arm.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-orion5x_2.6.26-21lenny4_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-ixp4xx_2.6.26-21lenny4_arm.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-ixp4xx_2.6.26-21lenny4_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-footbridge_2.6.26-21lenny4_arm.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-footbridge_2.6.26-21lenny4_arm.deb</a><br>
+<dt>ARM EABI:
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-iop32x_2.6.26-21lenny4_armel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-iop32x_2.6.26-21lenny4_armel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-ixp4xx_2.6.26-21lenny4_armel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-ixp4xx_2.6.26-21lenny4_armel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common_2.6.26-21lenny4_armel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common_2.6.26-21lenny4_armel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-versatile_2.6.26-21lenny4_armel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-versatile_2.6.26-21lenny4_armel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all-armel_2.6.26-21lenny4_armel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all-armel_2.6.26-21lenny4_armel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-orion5x_2.6.26-21lenny4_armel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-orion5x_2.6.26-21lenny4_armel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-ixp4xx_2.6.26-21lenny4_armel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-ixp4xx_2.6.26-21lenny4_armel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all_2.6.26-21lenny4_armel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all_2.6.26-21lenny4_armel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-versatile_2.6.26-21lenny4_armel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-versatile_2.6.26-21lenny4_armel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-libc-dev_2.6.26-21lenny4_armel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-libc-dev_2.6.26-21lenny4_armel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-orion5x_2.6.26-21lenny4_armel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-orion5x_2.6.26-21lenny4_armel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-iop32x_2.6.26-21lenny4_armel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-iop32x_2.6.26-21lenny4_armel.deb</a><br>
+<dt>HP Precision:
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-parisc64_2.6.26-21lenny4_hppa.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-parisc64_2.6.26-21lenny4_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all-hppa_2.6.26-21lenny4_hppa.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all-hppa_2.6.26-21lenny4_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-parisc64-smp_2.6.26-21lenny4_hppa.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-parisc64-smp_2.6.26-21lenny4_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all_2.6.26-21lenny4_hppa.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all_2.6.26-21lenny4_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-parisc_2.6.26-21lenny4_hppa.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-parisc_2.6.26-21lenny4_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common_2.6.26-21lenny4_hppa.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common_2.6.26-21lenny4_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-libc-dev_2.6.26-21lenny4_hppa.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-libc-dev_2.6.26-21lenny4_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-parisc-smp_2.6.26-21lenny4_hppa.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-parisc-smp_2.6.26-21lenny4_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-parisc_2.6.26-21lenny4_hppa.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-parisc_2.6.26-21lenny4_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-parisc64-smp_2.6.26-21lenny4_hppa.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-parisc64-smp_2.6.26-21lenny4_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-parisc64_2.6.26-21lenny4_hppa.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-parisc64_2.6.26-21lenny4_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-parisc-smp_2.6.26-21lenny4_hppa.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-parisc-smp_2.6.26-21lenny4_hppa.deb</a><br>
+<dt>Intel IA-32:
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-686_2.6.26-21lenny4_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-686_2.6.26-21lenny4_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-686-bigmem_2.6.26-21lenny4_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-686-bigmem_2.6.26-21lenny4_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-libc-dev_2.6.26-21lenny4_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-libc-dev_2.6.26-21lenny4_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-modules-2.6.26-2-xen-686_2.6.26-21lenny4_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-modules-2.6.26-2-xen-686_2.6.26-21lenny4_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-amd64_2.6.26-21lenny4_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-amd64_2.6.26-21lenny4_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-vserver-686-bigmem_2.6.26-21lenny4_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-vserver-686-bigmem_2.6.26-21lenny4_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-486_2.6.26-21lenny4_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-486_2.6.26-21lenny4_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common-vserver_2.6.26-21lenny4_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common-vserver_2.6.26-21lenny4_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common_2.6.26-21lenny4_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common_2.6.26-21lenny4_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-686-bigmem_2.6.26-21lenny4_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-686-bigmem_2.6.26-21lenny4_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all-i386_2.6.26-21lenny4_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all-i386_2.6.26-21lenny4_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-openvz-686_2.6.26-21lenny4_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-openvz-686_2.6.26-21lenny4_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common-openvz_2.6.26-21lenny4_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common-openvz_2.6.26-21lenny4_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-686_2.6.26-21lenny4_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-686_2.6.26-21lenny4_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/xen-linux-system-2.6.26-2-xen-686_2.6.26-21lenny4_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/xen-linux-system-2.6.26-2-xen-686_2.6.26-21lenny4_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-486_2.6.26-21lenny4_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-486_2.6.26-21lenny4_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common-xen_2.6.26-21lenny4_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common-xen_2.6.26-21lenny4_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-xen-686_2.6.26-21lenny4_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-xen-686_2.6.26-21lenny4_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-vserver-686_2.6.26-21lenny4_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-vserver-686_2.6.26-21lenny4_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-vserver-686-bigmem_2.6.26-21lenny4_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-vserver-686-bigmem_2.6.26-21lenny4_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-amd64_2.6.26-21lenny4_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-amd64_2.6.26-21lenny4_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all_2.6.26-21lenny4_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all_2.6.26-21lenny4_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-openvz-686_2.6.26-21lenny4_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-openvz-686_2.6.26-21lenny4_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-xen-686_2.6.26-21lenny4_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-xen-686_2.6.26-21lenny4_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-vserver-686_2.6.26-21lenny4_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-vserver-686_2.6.26-21lenny4_i386.deb</a><br>
+<dt>Intel IA-64:
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-libc-dev_2.6.26-21lenny4_ia64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-libc-dev_2.6.26-21lenny4_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-vserver-itanium_2.6.26-21lenny4_ia64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-vserver-itanium_2.6.26-21lenny4_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all-ia64_2.6.26-21lenny4_ia64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all-ia64_2.6.26-21lenny4_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all_2.6.26-21lenny4_ia64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all_2.6.26-21lenny4_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-mckinley_2.6.26-21lenny4_ia64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-mckinley_2.6.26-21lenny4_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-vserver-mckinley_2.6.26-21lenny4_ia64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-vserver-mckinley_2.6.26-21lenny4_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-itanium_2.6.26-21lenny4_ia64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-itanium_2.6.26-21lenny4_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-vserver-itanium_2.6.26-21lenny4_ia64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-vserver-itanium_2.6.26-21lenny4_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-vserver-mckinley_2.6.26-21lenny4_ia64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-vserver-mckinley_2.6.26-21lenny4_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common-vserver_2.6.26-21lenny4_ia64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common-vserver_2.6.26-21lenny4_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-mckinley_2.6.26-21lenny4_ia64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-mckinley_2.6.26-21lenny4_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common_2.6.26-21lenny4_ia64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common_2.6.26-21lenny4_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-itanium_2.6.26-21lenny4_ia64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-itanium_2.6.26-21lenny4_ia64.deb</a><br>
+<dt>Big-endian MIPS:
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-r5k-ip32_2.6.26-21lenny4_mips.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-r5k-ip32_2.6.26-21lenny4_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-sb1-bcm91250a_2.6.26-21lenny4_mips.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-sb1-bcm91250a_2.6.26-21lenny4_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-sb1a-bcm91480b_2.6.26-21lenny4_mips.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-sb1a-bcm91480b_2.6.26-21lenny4_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-5kc-malta_2.6.26-21lenny4_mips.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-5kc-malta_2.6.26-21lenny4_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-r5k-ip32_2.6.26-21lenny4_mips.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-r5k-ip32_2.6.26-21lenny4_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common_2.6.26-21lenny4_mips.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common_2.6.26-21lenny4_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-5kc-malta_2.6.26-21lenny4_mips.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-5kc-malta_2.6.26-21lenny4_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all-mips_2.6.26-21lenny4_mips.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all-mips_2.6.26-21lenny4_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-libc-dev_2.6.26-21lenny4_mips.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-libc-dev_2.6.26-21lenny4_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-4kc-malta_2.6.26-21lenny4_mips.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-4kc-malta_2.6.26-21lenny4_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all_2.6.26-21lenny4_mips.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all_2.6.26-21lenny4_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-sb1-bcm91250a_2.6.26-21lenny4_mips.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-sb1-bcm91250a_2.6.26-21lenny4_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-r4k-ip22_2.6.26-21lenny4_mips.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-r4k-ip22_2.6.26-21lenny4_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-4kc-malta_2.6.26-21lenny4_mips.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-4kc-malta_2.6.26-21lenny4_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-r4k-ip22_2.6.26-21lenny4_mips.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-r4k-ip22_2.6.26-21lenny4_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-sb1a-bcm91480b_2.6.26-21lenny4_mips.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-sb1a-bcm91480b_2.6.26-21lenny4_mips.deb</a><br>
+<dt>Little-endian MIPS:
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-sb1-bcm91250a_2.6.26-21lenny4_mipsel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-sb1-bcm91250a_2.6.26-21lenny4_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-sb1-bcm91250a_2.6.26-21lenny4_mipsel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-sb1-bcm91250a_2.6.26-21lenny4_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all_2.6.26-21lenny4_mipsel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all_2.6.26-21lenny4_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-4kc-malta_2.6.26-21lenny4_mipsel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-4kc-malta_2.6.26-21lenny4_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-r5k-cobalt_2.6.26-21lenny4_mipsel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-r5k-cobalt_2.6.26-21lenny4_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-5kc-malta_2.6.26-21lenny4_mipsel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-5kc-malta_2.6.26-21lenny4_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-5kc-malta_2.6.26-21lenny4_mipsel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-5kc-malta_2.6.26-21lenny4_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-sb1a-bcm91480b_2.6.26-21lenny4_mipsel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-sb1a-bcm91480b_2.6.26-21lenny4_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all-mipsel_2.6.26-21lenny4_mipsel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all-mipsel_2.6.26-21lenny4_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common_2.6.26-21lenny4_mipsel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common_2.6.26-21lenny4_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-libc-dev_2.6.26-21lenny4_mipsel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-libc-dev_2.6.26-21lenny4_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-r5k-cobalt_2.6.26-21lenny4_mipsel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-r5k-cobalt_2.6.26-21lenny4_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-4kc-malta_2.6.26-21lenny4_mipsel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-4kc-malta_2.6.26-21lenny4_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-sb1a-bcm91480b_2.6.26-21lenny4_mipsel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-sb1a-bcm91480b_2.6.26-21lenny4_mipsel.deb</a><br>
+<dt>PowerPC:
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-powerpc64_2.6.26-21lenny4_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-powerpc64_2.6.26-21lenny4_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-powerpc_2.6.26-21lenny4_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-powerpc_2.6.26-21lenny4_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-vserver-powerpc_2.6.26-21lenny4_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-vserver-powerpc_2.6.26-21lenny4_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common-vserver_2.6.26-21lenny4_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common-vserver_2.6.26-21lenny4_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-powerpc-smp_2.6.26-21lenny4_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-powerpc-smp_2.6.26-21lenny4_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-vserver-powerpc_2.6.26-21lenny4_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-vserver-powerpc_2.6.26-21lenny4_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-powerpc-smp_2.6.26-21lenny4_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-powerpc-smp_2.6.26-21lenny4_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all-powerpc_2.6.26-21lenny4_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all-powerpc_2.6.26-21lenny4_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-powerpc64_2.6.26-21lenny4_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-powerpc64_2.6.26-21lenny4_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common_2.6.26-21lenny4_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common_2.6.26-21lenny4_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all_2.6.26-21lenny4_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all_2.6.26-21lenny4_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-powerpc_2.6.26-21lenny4_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-powerpc_2.6.26-21lenny4_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-libc-dev_2.6.26-21lenny4_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-libc-dev_2.6.26-21lenny4_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-vserver-powerpc64_2.6.26-21lenny4_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-vserver-powerpc64_2.6.26-21lenny4_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-vserver-powerpc64_2.6.26-21lenny4_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-vserver-powerpc64_2.6.26-21lenny4_powerpc.deb</a><br>
+<dt>IBM S/390:
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-libc-dev_2.6.26-21lenny4_s390.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-libc-dev_2.6.26-21lenny4_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-s390-tape_2.6.26-21lenny4_s390.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-s390-tape_2.6.26-21lenny4_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all-s390_2.6.26-21lenny4_s390.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all-s390_2.6.26-21lenny4_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-s390_2.6.26-21lenny4_s390.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-s390_2.6.26-21lenny4_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-vserver-s390x_2.6.26-21lenny4_s390.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-vserver-s390x_2.6.26-21lenny4_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-s390_2.6.26-21lenny4_s390.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-s390_2.6.26-21lenny4_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-s390x_2.6.26-21lenny4_s390.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-s390x_2.6.26-21lenny4_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all_2.6.26-21lenny4_s390.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all_2.6.26-21lenny4_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common-vserver_2.6.26-21lenny4_s390.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common-vserver_2.6.26-21lenny4_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-s390x_2.6.26-21lenny4_s390.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-s390x_2.6.26-21lenny4_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common_2.6.26-21lenny4_s390.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common_2.6.26-21lenny4_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-vserver-s390x_2.6.26-21lenny4_s390.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-vserver-s390x_2.6.26-21lenny4_s390.deb</a><br>
+<dt>Sun Sparc:
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common_2.6.26-21lenny4_sparc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common_2.6.26-21lenny4_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all_2.6.26-21lenny4_sparc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all_2.6.26-21lenny4_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-libc-dev_2.6.26-21lenny4_sparc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-libc-dev_2.6.26-21lenny4_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common-vserver_2.6.26-21lenny4_sparc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-common-vserver_2.6.26-21lenny4_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-vserver-sparc64_2.6.26-21lenny4_sparc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-vserver-sparc64_2.6.26-21lenny4_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-vserver-sparc64_2.6.26-21lenny4_sparc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-vserver-sparc64_2.6.26-21lenny4_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-sparc64-smp_2.6.26-21lenny4_sparc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-sparc64-smp_2.6.26-21lenny4_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-sparc64_2.6.26-21lenny4_sparc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-sparc64_2.6.26-21lenny4_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-sparc64_2.6.26-21lenny4_sparc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-sparc64_2.6.26-21lenny4_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-sparc64-smp_2.6.26-21lenny4_sparc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.26-2-sparc64-smp_2.6.26-21lenny4_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all-sparc_2.6.26-21lenny4_sparc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.26-2-all-sparc_2.6.26-21lenny4_sparc.deb</a><br>
+</dl>
+<p>一覧にあるファイルの MD5 チェックサムは<a href="https://lists.debian.org/debian-security-announce/2010/msg00052.html">勧告の原文</a>にあります。</p>
+</dd>
+</dl>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+このページは以下の言語でもご覧になれます。
+<div id="langContainer">
+ <a href="dsa-2012.da.html" title="デンマーク語" hreflang="da" lang="da" rel="alternate">dansk</a>
+ <a href="dsa-2012.en.html" title="英語" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="dsa-2012.fr.html" title="フランス語" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="dsa-2012.ru.html" title="ロシア語" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+ <a href="dsa-2012.sv.html" title="スウェーデン語" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+</div>
+<a href="../../intro/cn">デフォルトの言語を設定するには</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">ホーム</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">Debian について</a>
+		  <ul>
+		  <li><a href="../../social_contract">私たちの社会契約</a></li>
+		  <li><a href="../../code_of_conduct">利用上の注意</a></li>
+		  <li><a href="../../intro/free">フリーソフトウェア</a></li>
+		  <li><a href="../../partners/">パートナー</a></li>
+		  <li><a href="../../donations">寄付</a></li>
+          <li><a href="../../legal">Legal Info</a></li>
+          <li><a href="../../legal/privacy">Data Privacy</a></li>
+		  <li><a href="../../contact">私たちと連絡を取る</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Debian を支援する</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Debian を入手する</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">ネットワークインストール</a></li>
+			  <li><a href="../../CD/">CD/USB ISO イメージ</a></li>
+			  <li><a href="../../CD/vendors/">CD ベンダ</a></li>
+			  <li><a href="../../distrib/pre-installed">プリインストール</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Pure Blends</a></li>
+			<li><a href="../../distrib/packages">Debian パッケージ</a></li>
+			<li><a href="../../devel/">開発者のコーナー</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">ニュース</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">プロジェクトニュース</a></li>
+		  <li><a href="../../events/">イベント</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">文書</a>
+      <ul>
+      <li><a href="../../releases/">リリース情報</a></li>
+      <li><a href="../../releases/stable/installmanual">インストール手順</a></li>
+      <li><a href="../../doc/books">Debian に関する書籍</a></li>
+      <li><a href="https://wiki.debian.org/">Debian Wiki</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">サポート</a>
+	  <ul>
+			  <li><a href="../../international/">Debian の国際化</a></li>
+			  <li><a href="../../security/">セキュリティ情報</a></li>
+			  <li><a href="../../Bugs/">バグ報告</a></li>
+			  <li><a href="../../MailingLists/">メーリングリスト</a></li>
+			  <li><a href="https://lists.debian.org/">»リストアーカイブ</a></li>
+			  <li><a href="../../ports/">移植/アーキテクチャ</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">サイトマップ</a></li>
+  <li><a href="https://search.debian.org/">検索</a></li>
+  <li><a href="https://bits.debian.org">Debian ブログ</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>To report a problem with the web site, please e-mail our publicly archived mailing list <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> in English. For other contact information, see the Debian <a href="../../contact">contact page</a>. Web site source code is <a href="https://salsa.debian.org/webmaster-team/webwml">available</a>.</p>
+<p>
+最終更新: 2018 年 6 月 1 日 (金) 18:42:17 UTC
+&emsp;
+Last Built: 2021 年 6 月 11 日 (金) 17:08:28 UTC
+  <br>
+  Copyright &copy; 2010-2021
+ <a href="https://www.spi-inc.org/">SPI</a> と多くの人々; <a href="../../license" rel="copyright">ライセンス条項</a>をご覧ください。<br>
+  Debian は Software in the Public Interest, Inc の<a href="../../trademark">登録商標</a>です。
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ru">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Руководство по приоритету пакетов для аудита </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 18:55:37">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-ru.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Поиск по веб-сайту Debian" href="../../search.ru.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Домашняя страница Debian"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="ru">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Поиск">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Пропустить QuickNav</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">Информация по безопасности</a>
+ &#x2F; <a href="./">Проект Debian Security Audit (по аудиту безопасности Debian)</a>
+ &#x2F;
+Руководство по приоритету пакетов для аудита</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Руководство по приоритету пакетов для аудита</h1>
+<p>При выполнении аудита выпуска Debian одной из
+наиважнейших проблем является выбор того, какие пакеты следует проверить.</p>
+<p>В идеале, все пакеты должны быть проверены, но из-за размера
+архива требуется способ расстановки рабочих приоритетов.</p>
+<p>В качестве простого набора правил для определения тех пакетов, которые желательно
+исследовать в первую очередь, может использоваться следующий список:</p>
+<ol>
+<li>Всякий двоичный файл, с установленным setuid или setgid.</li>
+<li>Всё, что предоставляет сервис через сети.</li>
+<li>Все доступные удалённо CGI/PHP сценарии.</li>
+<li>Всё, что содержит задачу cron или другой автоматизированный сценарий,
+выполняемый с правами root.</li>
+</ol>
+<p>По большей части популярные пакеты должны получать более высокий приоритет, поскольку любые
+проблемы в них повлияют на большее число пользователей.</p>
+<p><a href="https://popcon.debian.org/">Debian Popularity
+Contest</a> продолжает сбор информации, показывающий то, какие пакеты
+более популярны среди добровольных участников этого исследования.</p>
+<p>В частности, обратите внимание на
+<a href="https://popcon.debian.org/by_vote">пакеты, отсортированные по голосам</a>.
+Список <q>по голосам</q> ранжирует пакеты по тому, как часто они используются
+людьми, участвующими в исследовании.</p>
+<p>Если пакет является важным с точки зрения безопасности, особенно если он отвечает
+одному из приведённых выше критериев, и он популярен (согласно исследованию на подобие
+уже приведённого), то он <em>определённо</em> является кандидатом для проверки.</p>
+<h2>Двоичные файлы с <tt>setuid</tt> и <tt>setgid</tt></h2>
+<p>Двоичные файлы с <tt>setuid</tt> и <tt>setgid</tt> являются традиционными
+целями аудита безопасности, поскольку компрометирование уязвимого двоичного файла,
+с выставленными правами setuid или setgid, может привести к тому, что локальный пользователь получит доступ к
+правам, которыми он не должен обладать.</p>
+<p>Для облегчения поиска существует список всех двоичных файлов с setuid и setgid,
+содержащихся в текущем стабильном выпуске.
+</p>
+<ul>
+<li><a href="https://lintian.debian.org/tags/setuid-binary.html">Отчёт Lintian
+о двоичных файлах с Setuid в Debian</a></li>
+<li><a href="https://lintian.debian.org/tags/setgid-binary.html">Отчёт Lintian
+о двоичных файлах с Setgid в Debian</a></li>
+</ul>
+<p>При сортировке этих двоичных файлов для проверки важно помнить, что
+некоторые из них более чувствительны к проблемам безопасности, чем другие.
+Двоичные файлы с setuid(root) должны проверяться раньше, чем двоичные файлы с setgid(games) или,
+к примеру, с setuid(bugs).</p>
+<h2>Сетевые серверы</h2>
+<p>Сетевые серверы представляют собой другой очевидный объект внимания во
+время выполнения аудита безопасности, поскольку проблема в
+них может привести к тому, что атакующие смогут компрометировать машины удалённо.</p>
+<p>Удалённые риски обычно намного более существенны, чем локальные
+риски.</p>
+<h2>Online сценарии</h2>
+<p>Online сценарии, в особенности CGI-сценарии, в действительности находятся в
+том же классе сетевых серверов &mdash; хотя ваш веб-сервер сам по себе может быть
+безопасен, сценарии, которые выполняются на нём, так же важны.</p>
+<p>Ошибка в сценарии, который доступен по сети, является такой же
+серьезной ошибкой в сервере, прослушивающем соединения &mdash; оба равным образом могут
+позволить компрометировать вашу машину.</p>
+<h2>Задачи cron и системные службы</h2>
+<p>Хотя автоматических сценариев, задач cron и проч. не так много, стоит
+проверять те, что включены в содержимое
+пакетов.</p>
+<p>Множество вспомогательных программ выполняются по умолчанию с правами root для очистки
+файлов журналов и проч.</p>
+<p>Успешное использование symlink-атаки может привести к тому, что локальная
+машина будет компрометирована.</p>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<p>Назад на домашнюю страницу проекта <a href="../../">Debian</a>.</p>
+<hr>
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Эта страница также доступна на следующих языках:
+<div id="langContainer">
+ <a href="packages.de.html" title="Немецкий" hreflang="de" lang="de" rel="alternate">Deutsch</a>
+ <a href="packages.en.html" title="Английский" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="packages.es.html" title="Испанский" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="packages.fr.html" title="Французский" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="packages.nl.html" title="Голландский" hreflang="nl" lang="nl" rel="alternate">Nederlands</a>
+ <a href="packages.ja.html" title="Японский" hreflang="ja" lang="ja" rel="alternate">&#26085;&#26412;&#35486;&nbsp;(Nihongo)</a>
+ <a href="packages.pt.html" title="Португальский" hreflang="pt" lang="pt" rel="alternate">Portugu&ecirc;s</a>
+ <a href="packages.sv.html" title="Шведский" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+</div>
+Как установить <a href="../../intro/cn">язык по умолчанию</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">В&nbsp;начало</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">О&nbsp;Debian</a>
+		  <ul>
+		  <li><a href="../../social_contract">Общественный договор</a></li>
+		  <li><a href="../../code_of_conduct">Кодекс поведения</a></li>
+		  <li><a href="../../intro/free">Свободное ПО</a></li>
+		  <li><a href="../../partners/">Партнёры</a></li>
+		  <li><a href="../../donations">Пожертвования</a></li>
+          <li><a href="../../legal">Юридическая информация</a></li>
+          <li><a href="../../legal/privacy">Защита персональных данных</a></li>
+		  <li><a href="../../contact">Как с нами связаться</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Как помочь Debian</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Где взять Debian</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">Установка по сети</a></li>
+			  <li><a href="../../CD/">ISO-образы CD/USB</a></li>
+			  <li><a href="../../CD/vendors/">Поставщики CD</a></li>
+			  <li><a href="../../distrib/pre-installed">Предустановка</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Чистые смеси</a></li>
+			<li><a href="../../distrib/packages">Пакеты Debian</a></li>
+			<li><a href="../../devel/">Уголок разработчика</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">Новости</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">Новости проекта</a></li>
+		  <li><a href="../../events/">События</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">Документация</a>
+      <ul>
+      <li><a href="../../releases/">Информация о выпусках</a></li>
+      <li><a href="../../releases/stable/installmanual">Инструкции по установке</a></li>
+      <li><a href="../../doc/books">Книги о Debian</a></li>
+      <li><a href="https://wiki.debian.org/">Вики-страницы Debian</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">Поддержка</a>
+	  <ul>
+			  <li><a href="../../international/">Международный Debian</a></li>
+			  <li><a href="../../security/">Информация о безопасности</a></li>
+			  <li><a href="../../Bugs/">Сообщения об ошибках</a></li>
+			  <li><a href="../../MailingLists/">Списки рассылки</a></li>
+			  <li><a href="https://lists.debian.org/">Архивы списков рассылки</a></li>
+			  <li><a href="../../ports/">Перенос на другие архитектуры</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">Карта сайта</a></li>
+  <li><a href="https://search.debian.org/">Поиск</a></li>
+  <li><a href="https://bits.debian.org">Блог Debian</a></li>
+  <li><a href="https://micronews.debian.org">Микроновости Debian</a></li>
+  <li><a href="https://planet.debian.org">Планета Debian</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>Чтобы сообщить о проблеме, связанной с веб-сайтом, отправьте сообщение (на английском) в публичный список рассылки по адресу <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a>. Об ошибках в русском переводе сообщайте в русскоязычный список рассылки <a href="mailto:debian-l10n-russian@lists.debian.org">debian-l10n-russian@lists.debian.org</a>. Прочую контактную информацию см. на странице <a href="../../contact">Как с нами связаться</a>. Также доступен <a href="https://salsa.debian.org/webmaster-team/webwml">исходный код сайта</a>.</p>
+<p>
+Последнее изменение: Чтв, 6 Авг 2020, 01:25:21 UTC
+&emsp;
+Последняя сборка: Птн, 11 Июн 2021, 18:55:37 UTC
+  <br>
+  Авторские права &copy; 1997-2020
+ <a href="https://www.spi-inc.org/">SPI</a> и другие; См. <a href="../../license" rel="copyright">условия лицензии</a><br>
+  Debian является зарегистрированным <a href="../../trademark">товарным знаком</a> компании Software in the Public Interest, Inc. (Программное обеспечение в интересах общества)
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

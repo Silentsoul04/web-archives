@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- セキュリティ情報 -- DSA-121-1 xtell </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 16:53:11">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-ja.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Debian ウェブサイト検索" href="../../search.ja.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Debian ホーム"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="ja">
+        <input name="P" value="" size="14">
+        <input type="submit" value="検索">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">クイックナビをスキップ</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">セキュリティ情報</a>
+ &#x2F; <a href="./">2002</a>
+ &#x2F;
+セキュリティ情報 -- DSA-121-1 xtell</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Debian セキュリティ勧告</h1>
+<h2>DSA-121-1 xtell -- バッファオーバフロー、シンボリックリンク問題、".." によるディレクトリ移動</h2>
+<dl>
+<dt>報告日時:</dt>
+	<dd>2002-03-11</dd>
+<dt>影響を受けるパッケージ:</dt>
+	<dd>
+<a href="https://packages.debian.org/src:xtell">xtell</a>
+</dd>
+<dt>危険性:</dt>
+	<dd class="warning">あり</dd>
+<dt>参考セキュリティデータベース:</dt>
+	<dd>Mitre の CVE 辞書: <a href="https://security-tracker.debian.org/tracker/CVE-2002-0332">CVE-2002-0332</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2002-0333">CVE-2002-0333</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2002-0334">CVE-2002-0334</a>.<br></dd>
+<dt>詳細:</dt>
+	<dd>
+<p>いくつかのセキュリティ上の問題が xtell
+(単純なメッセージングクライアント及びサーバ) パッケージに見つかっています。
+詳しく述べると、いくつかのバッファオーバフロー、シンボリックリンク関連の問題、
+パス中に ".." が含まれている場合の不正なディレクトリ移動などです。
+これらの問題により攻撃者がサーバで任意のコマンドを実行可能となる可能性があります。
+サーバは標準では "nobody" 権限で動いていますので、このアカウントの権限を奪われることにつながります。</p>
+<p>xtell の Debian メンテナが、新しい上流のバージョンから現行版に変更をバックポートすることでこの問題を修正しました。
+この問題は安定版 (stable) のバージョン 1.91.1 で、不安定版 (unstable)
+とテスト版
+(testing) のバージョン 2.7 で修正されています。</p>
+<p>直ぐに xtell パッケージをアップグレードすることを勧めます。</p>
+</dd>
+<dt>修正:</dt>
+	<dd>
+<h3>Debian GNU/Linux 2.2 (potato)</h3>
+<dl>
+<dt>ソース:
+  <dd><a href="http://security.debian.org/dists/stable/updates/main/source/xtell_1.91.1.dsc">http://security.debian.org/dists/stable/updates/main/source/xtell_1.91.1.dsc</a><br>
+  <dd><a href="http://security.debian.org/dists/stable/updates/main/source/xtell_1.91.1.tar.gz">http://security.debian.org/dists/stable/updates/main/source/xtell_1.91.1.tar.gz</a><br>
+<dt>Alpha:
+  <dd><a href="http://security.debian.org/dists/stable/updates/main/binary-alpha/xtell_1.91.1_alpha.deb">http://security.debian.org/dists/stable/updates/main/binary-alpha/xtell_1.91.1_alpha.deb</a><br>
+<dt>ARM:
+  <dd><a href="http://security.debian.org/dists/stable/updates/main/binary-arm/xtell_1.91.1_arm.deb">http://security.debian.org/dists/stable/updates/main/binary-arm/xtell_1.91.1_arm.deb</a><br>
+<dt>Intel ia32:
+  <dd><a href="http://security.debian.org/dists/stable/updates/main/binary-i386/xtell_1.91.1_i386.deb">http://security.debian.org/dists/stable/updates/main/binary-i386/xtell_1.91.1_i386.deb</a><br>
+<dt>Motorola 680x0:
+  <dd><a href="http://security.debian.org/dists/stable/updates/main/binary-m68k/xtell_1.91.1_m68k.deb">http://security.debian.org/dists/stable/updates/main/binary-m68k/xtell_1.91.1_m68k.deb</a><br>
+<dt>PowerPC:
+  <dd><a href="http://security.debian.org/dists/stable/updates/main/binary-powerpc/xtell_1.91.1_powerpc.deb">http://security.debian.org/dists/stable/updates/main/binary-powerpc/xtell_1.91.1_powerpc.deb</a><br>
+<dt>Sun Sparc:
+  <dd><a href="http://security.debian.org/dists/stable/updates/main/binary-sparc/xtell_1.91.1_sparc.deb">http://security.debian.org/dists/stable/updates/main/binary-sparc/xtell_1.91.1_sparc.deb</a><br>
+</dl>
+<p>一覧にあるファイルの MD5 チェックサムは<a href="https://lists.debian.org/debian-security-announce/debian-security-announce-2002/msg00031.html">勧告の原文</a>にあります。
+</dd>
+</dl>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+このページは以下の言語でもご覧になれます。
+<div id="langContainer">
+ <a href="dsa-121.da.html" title="デンマーク語" hreflang="da" lang="da" rel="alternate">dansk</a>
+ <a href="dsa-121.de.html" title="ドイツ語" hreflang="de" lang="de" rel="alternate">Deutsch</a>
+ <a href="dsa-121.en.html" title="英語" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="dsa-121.es.html" title="スペイン語" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="dsa-121.fr.html" title="フランス語" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="dsa-121.pt.html" title="ポルトガル語" hreflang="pt" lang="pt" rel="alternate">Portugu&ecirc;s</a>
+ <a href="dsa-121.ru.html" title="ロシア語" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+ <a href="dsa-121.sv.html" title="スウェーデン語" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+</div>
+<a href="../../intro/cn">デフォルトの言語を設定するには</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">ホーム</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">Debian について</a>
+		  <ul>
+		  <li><a href="../../social_contract">私たちの社会契約</a></li>
+		  <li><a href="../../code_of_conduct">利用上の注意</a></li>
+		  <li><a href="../../intro/free">フリーソフトウェア</a></li>
+		  <li><a href="../../partners/">パートナー</a></li>
+		  <li><a href="../../donations">寄付</a></li>
+          <li><a href="../../legal">Legal Info</a></li>
+          <li><a href="../../legal/privacy">Data Privacy</a></li>
+		  <li><a href="../../contact">私たちと連絡を取る</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Debian を支援する</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Debian を入手する</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">ネットワークインストール</a></li>
+			  <li><a href="../../CD/">CD/USB ISO イメージ</a></li>
+			  <li><a href="../../CD/vendors/">CD ベンダ</a></li>
+			  <li><a href="../../distrib/pre-installed">プリインストール</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Pure Blends</a></li>
+			<li><a href="../../distrib/packages">Debian パッケージ</a></li>
+			<li><a href="../../devel/">開発者のコーナー</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">ニュース</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">プロジェクトニュース</a></li>
+		  <li><a href="../../events/">イベント</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">文書</a>
+      <ul>
+      <li><a href="../../releases/">リリース情報</a></li>
+      <li><a href="../../releases/stable/installmanual">インストール手順</a></li>
+      <li><a href="../../doc/books">Debian に関する書籍</a></li>
+      <li><a href="https://wiki.debian.org/">Debian Wiki</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">サポート</a>
+	  <ul>
+			  <li><a href="../../international/">Debian の国際化</a></li>
+			  <li><a href="../../security/">セキュリティ情報</a></li>
+			  <li><a href="../../Bugs/">バグ報告</a></li>
+			  <li><a href="../../MailingLists/">メーリングリスト</a></li>
+			  <li><a href="https://lists.debian.org/">»リストアーカイブ</a></li>
+			  <li><a href="../../ports/">移植/アーキテクチャ</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">サイトマップ</a></li>
+  <li><a href="https://search.debian.org/">検索</a></li>
+  <li><a href="https://bits.debian.org">Debian ブログ</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>To report a problem with the web site, please e-mail our publicly archived mailing list <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> in English. For other contact information, see the Debian <a href="../../contact">contact page</a>. Web site source code is <a href="https://salsa.debian.org/webmaster-team/webwml">available</a>.</p>
+<p>
+最終更新: 2018 年 6 月 1 日 (金) 18:42:16 UTC
+&emsp;
+Last Built: 2021 年 6 月 11 日 (金) 16:53:11 UTC
+  <br>
+  Copyright &copy; 2002-2021
+ <a href="https://www.spi-inc.org/">SPI</a> と多くの人々; <a href="../../license" rel="copyright">ライセンス条項</a>をご覧ください。<br>
+  Debian は Software in the Public Interest, Inc の<a href="../../trademark">登録商標</a>です。
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

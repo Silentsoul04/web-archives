@@ -1,0 +1,460 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="da">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Sikkerhedsoplysninger -- DSA-1237-1 kernel-source-2.4.27 </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 13:30:36">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-da.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Søg i Debians websted" href="../../search.da.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Debian-hjem"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="da">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Søg">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Spring navigering over</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">Sikkerhedsoplysninger</a>
+ &#x2F; <a href="./">2006</a>
+ &#x2F;
+Sikkerhedsoplysninger -- DSA-1237-1 kernel-source-2.4.27</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Debians sikkerhedsbulletin</h1>
+<h2>DSA-1237-1 kernel-source-2.4.27 -- flere sårbarheder</h2>
+<dl>
+<dt>Rapporteret den:</dt>
+	<dd>17. dec 2006</dd>
+<dt>Berørte pakker:</dt>
+	<dd>
+<a href="https://packages.debian.org/src:kernel-source-2.4.27">kernel-source-2.4.27</a>
+</dd>
+<dt>Sårbar:</dt>
+	<dd class="warning">Ja</dd>
+<dt>Referencer i sikkerhedsdatabaser:</dt>
+	<dd>I Mitres CVE-ordbog: <a href="https://security-tracker.debian.org/tracker/CVE-2006-4093">CVE-2006-4093</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2006-4538">CVE-2006-4538</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2006-4997">CVE-2006-4997</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2006-5174">CVE-2006-5174</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2006-5871">CVE-2006-5871</a>.<br></dd>
+<dt>Yderligere oplysninger:</dt>
+	<dd>
+<p>Flere lokale og fjernudnytbare sårbarheder er opdaget i Linux-kernen, hvilket
+kunne føre til lammelsesangreb (denial of service) eller udførelse af vilkårlig
+kode. Projektet Common Vulnerabilities and Exposures har fundet frem til
+følgende problemer:</p>
+<ul>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2005-4093">CVE-2005-4093</a>
+    <p>Olof Johansson rapporterede om en lokal lammelsesangrebssårbarhed på
+    PPC970-platformen. Bruger uden rettigheder kunne få systemet til at hænge
+    ved at udføre <q>attn</q>-instruktionen, som ikke blev deaktiveret ved
+    boot.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2006-4538">CVE-2006-4538</a>
+    <p>Kirill Korotaev rapporterede om en lokal lammelsesangrebssårbarhed på
+    ia64- og sparc-arkitekturerne. En bruger kunne få systemet til at gå ned
+    ved at udføre en misdannet binær ELF-fil, på grund af utilstrækkelig
+    kontrol af hukommelseslayoutet.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2006-4997">CVE-2006-4997</a>
+    <p>ADLab Venustech Info Ltd rapporterede om en potentiel
+    lammelsesangrebssårbarhed i undersystemet til IP over ATM. En fjernbruger
+    kunne få systemet til at gå ned ved at sende særligt fremstillede pakker,
+    der udløste et forsøg på at frigive en allerede frigivet pointer, hvilket
+    medførte systemnedbruddet.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2006-5174">CVE-2006-5174</a>
+    <p>Martin Schwidefsky rapporterede om potentiel lækage af følsomme
+    oplysninger på s390-systemer. Funktionen copy_from_user tømte ikke
+    kernebufferen for tilbageværende bytes efter at have modtaget en fejl på
+    brugerrummets adresse, medførende lækage af uinitialiseret kernehukommelse.
+    En lokal bruger kunne udnytte dette ved at føje fra en dårlig adresse til
+    en fil.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2006-5649">CVE-2006-5649</a>
+    <p>Fabio Massimo Di Nitto rapporterede om en potentiel fjernudnytbar
+    lammelsesangrebssårbarhed på powerpc-systemer. Justerings-exception'en
+    kontrollerede kun exception-tabellen for forekomster af -EFAULT, ikke andre
+    fejl. Dette kunne udnyttes af en lokal bruger til at forårsage et
+    systemnedbrud (panic).</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2006-5871">CVE-2006-5871</a>
+    <p>Bill Allombert rapporterede at forskellige mount-indstillingsmuligheder
+    blev ignoreret af smbfs når UNIX-udvidelser var slået til. Deriblandt
+    indstillingerne uid, gid og mode. Klientsystemer kunne i stilhed anvende
+    de serverleverede indstillinger i stedet for at bruge de valgte
+    indstillinger, hvorved sikkerhedsmodellen blev ændret. Opdateringen
+    indeholder en rettelse fra Haroldo Gamal, som tvinger kernen til at
+    overholde disse mount-indstillinger. Bemærk at eftersom de aktuelle
+    versioner af smbmount altid leverer værdier for disse indstillinger til
+    kernen, er det ikke pt. muligt at aktivere UNIX-udvidelser ved at undlade
+    mount-indstillinger. Dog er dette konsistent med den måde, hvorpå den
+    næste Debian-udgivelse, "etch", pt. opfører sig.</p></li>
+</ul>
+<p>Følgende matriks forklarer hvilke kerneversioner til hvilke arkitekturer,
+der retter de oven for nævnte problemer:</p>
+<div class="centerdiv"><table cellspacing="0" cellpadding="2" summary="">
+<tr><th></th>                <th>Debian 3.1 (sarge)</th></tr>
+<tr><td>Kildekode</td>                      <td>2.4.27-10sarge5</td></tr>
+<tr><td>Alpha-arkitekturen</td>          <td>2.4.27-10sarge5</td></tr>
+<tr><td>ARM-arkitekturen</td>            <td>2.4.27-2sarge5</td></tr>
+<tr><td>Intel IA-32-arkitekturen</td>    <td>2.4.27-10sarge5</td></tr>
+<tr><td>Intel IA-64-arkitekturen</td>    <td>2.4.27-10sarge5</td></tr>
+<tr><td>Motorola 680x0-arkitekturen</td> <td>2.4.27-3sarge5</td></tr>
+<tr><td>Big endian MIPS</td>             <td>2.4.27-10.sarge4.040815-2</td></tr>
+<tr><td>Little endian MIPS</td>          <td>2.4.27-10.sarge4.040815-2</td></tr>
+<tr><td>PowerPC-arkitekturen</td>        <td>2.4.27-10sarge5</td></tr>
+<tr><td>IBM S/390-arkitekturen</td>      <td>2.4.27-2sarge5</td></tr>
+<tr><td>Sun Sparc-arkitekturen</td>      <td>2.4.27-9sarge5</td></tr>
+</table></div>
+<p>Følgende matriks opremser yderligere pakker, der blev genopbygget
+af kompatibilitetshensyn med denne opdatering:</p>
+<div class="centerdiv"><table cellspacing="0" cellpadding="2" summary="">
+<tr><th></th>                <th>Debian 3.1 (sarge)</th></tr>
+<tr><td>fai-kernel</td>                 <td>1.9.1sarge5</td></tr>
+<tr><td>kernel-image-2.4.27-speakup</td> <td>2.4.27-1.1sarge4</td></tr>
+<tr><td>mindi-kerne</td>                <td>2.4.27-2sarge4</td></tr>
+<tr><td>systemimager</td>                <td>3.2.3-6sarge4</td></tr>
+</table></div>
+<p>Vi anbefaler at du omgående opgraderer din kernel-pakke og genstarter
+maskinen. Hvis du har bygget en skræddersynet kerne fra kernekildekodenpakke,
+skal du genopbygge den for at kunne anvende disse rettelser.</p>
+</dd>
+<dt>Rettet i:</dt>
+	<dd>
+<h3>Debian GNU/Linux 3.1 (sarge)</h3>
+<dl>
+<dt>Kildekode:
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-alpha/kernel-image-2.4.27-alpha_2.4.27-10sarge5.dsc">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-alpha/kernel-image-2.4.27-alpha_2.4.27-10sarge5.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-alpha/kernel-image-2.4.27-alpha_2.4.27-10sarge5.tar.gz">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-alpha/kernel-image-2.4.27-alpha_2.4.27-10sarge5.tar.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-arm/kernel-image-2.4.27-arm_2.4.27-2sarge5.dsc">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-arm/kernel-image-2.4.27-arm_2.4.27-2sarge5.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-arm/kernel-image-2.4.27-arm_2.4.27-2sarge5.tar.gz">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-arm/kernel-image-2.4.27-arm_2.4.27-2sarge5.tar.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-i386_2.4.27-10sarge5.dsc">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-i386_2.4.27-10sarge5.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-i386_2.4.27-10sarge5.tar.gz">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-i386_2.4.27-10sarge5.tar.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-image-2.4.27-ia64_2.4.27-10sarge5.dsc">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-image-2.4.27-ia64_2.4.27-10sarge5.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-image-2.4.27-ia64_2.4.27-10sarge5.tar.gz">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-image-2.4.27-ia64_2.4.27-10sarge5.tar.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-m68k/kernel-image-2.4.27-m68k_2.4.27-3sarge5.dsc">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-m68k/kernel-image-2.4.27-m68k_2.4.27-3sarge5.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-m68k/kernel-image-2.4.27-m68k_2.4.27-3sarge5.tar.gz">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-m68k/kernel-image-2.4.27-m68k_2.4.27-3sarge5.tar.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-image-2.4.27-sparc_2.4.27-9sarge5.dsc">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-image-2.4.27-sparc_2.4.27-9sarge5.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-image-2.4.27-sparc_2.4.27-9sarge5.tar.gz">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-image-2.4.27-sparc_2.4.27-9sarge5.tar.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-s390/kernel-image-2.4.27-s390_2.4.27-2sarge5.dsc">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-s390/kernel-image-2.4.27-s390_2.4.27-2sarge5.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-s390/kernel-image-2.4.27-s390_2.4.27-2sarge5.tar.gz">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-s390/kernel-image-2.4.27-s390_2.4.27-2sarge5.tar.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-speakup-i386/kernel-image-speakup-i386_2.4.27-1.1sarge4.dsc">http://security.debian.org/pool/updates/main/k/kernel-image-speakup-i386/kernel-image-speakup-i386_2.4.27-1.1sarge4.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-speakup-i386/kernel-image-speakup-i386_2.4.27-1.1sarge4.tar.gz">http://security.debian.org/pool/updates/main/k/kernel-image-speakup-i386/kernel-image-speakup-i386_2.4.27-1.1sarge4.tar.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/kernel-patch-2.4.27-mips_2.4.27-10.sarge4.040815-2.dsc">http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/kernel-patch-2.4.27-mips_2.4.27-10.sarge4.040815-2.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/kernel-patch-2.4.27-mips_2.4.27-10.sarge4.040815-2.tar.gz">http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/kernel-patch-2.4.27-mips_2.4.27-10.sarge4.040815-2.tar.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-patch-powerpc-2.4.27_2.4.27-10sarge5.dsc">http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-patch-powerpc-2.4.27_2.4.27-10sarge5.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-patch-powerpc-2.4.27_2.4.27-10sarge5.tar.gz">http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-patch-powerpc-2.4.27_2.4.27-10sarge5.tar.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-source-2.4.27/kernel-source-2.4.27_2.4.27-10sarge5.dsc">http://security.debian.org/pool/updates/main/k/kernel-source-2.4.27/kernel-source-2.4.27_2.4.27-10sarge5.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-source-2.4.27/kernel-source-2.4.27_2.4.27-10sarge5.diff.gz">http://security.debian.org/pool/updates/main/k/kernel-source-2.4.27/kernel-source-2.4.27_2.4.27-10sarge5.diff.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-source-2.4.27/kernel-source-2.4.27_2.4.27.orig.tar.gz">http://security.debian.org/pool/updates/main/k/kernel-source-2.4.27/kernel-source-2.4.27_2.4.27.orig.tar.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mindi-kernel/mindi-kernel_2.4.27-2sarge4.dsc">http://security.debian.org/pool/updates/main/m/mindi-kernel/mindi-kernel_2.4.27-2sarge4.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mindi-kernel/mindi-kernel_2.4.27-2sarge4.diff.gz">http://security.debian.org/pool/updates/main/m/mindi-kernel/mindi-kernel_2.4.27-2sarge4.diff.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mindi-kernel/mindi-kernel_2.4.27.orig.tar.gz">http://security.debian.org/pool/updates/main/m/mindi-kernel/mindi-kernel_2.4.27.orig.tar.gz</a><br>
+<dt>Arkitekturuafhængig komponent:
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-source-2.4.27/kernel-doc-2.4.27_2.4.27-10sarge5_all.deb">http://security.debian.org/pool/updates/main/k/kernel-source-2.4.27/kernel-doc-2.4.27_2.4.27-10sarge5_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-source-2.4.27/kernel-patch-debian-2.4.27_2.4.27-10sarge5_all.deb">http://security.debian.org/pool/updates/main/k/kernel-source-2.4.27/kernel-patch-debian-2.4.27_2.4.27-10sarge5_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-source-2.4.27/kernel-source-2.4.27_2.4.27-10sarge5_all.deb">http://security.debian.org/pool/updates/main/k/kernel-source-2.4.27/kernel-source-2.4.27_2.4.27-10sarge5_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-source-2.4.27/kernel-tree-2.4.27_2.4.27-10sarge5_all.deb">http://security.debian.org/pool/updates/main/k/kernel-source-2.4.27/kernel-tree-2.4.27_2.4.27-10sarge5_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-speakup-i386/kernel-doc-2.4.27-speakup_2.4.27-1.1sarge4_all.deb">http://security.debian.org/pool/updates/main/k/kernel-image-speakup-i386/kernel-doc-2.4.27-speakup_2.4.27-1.1sarge4_all.deb</a><br>
+<dt>Alpha:
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-alpha/kernel-build-2.4.27-2_2.4.27-10sarge1_alpha.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-alpha/kernel-build-2.4.27-2_2.4.27-10sarge1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-alpha/kernel-build-2.4.27-3_2.4.27-10sarge5_alpha.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-alpha/kernel-build-2.4.27-3_2.4.27-10sarge5_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-alpha/kernel-headers-2.4.27-2_2.4.27-10sarge1_alpha.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-alpha/kernel-headers-2.4.27-2_2.4.27-10sarge1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-alpha/kernel-headers-2.4.27-2-generic_2.4.27-10sarge1_alpha.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-alpha/kernel-headers-2.4.27-2-generic_2.4.27-10sarge1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-alpha/kernel-headers-2.4.27-2-smp_2.4.27-10sarge1_alpha.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-alpha/kernel-headers-2.4.27-2-smp_2.4.27-10sarge1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-alpha/kernel-headers-2.4.27-3_2.4.27-10sarge5_alpha.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-alpha/kernel-headers-2.4.27-3_2.4.27-10sarge5_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-alpha/kernel-headers-2.4.27-3-generic_2.4.27-10sarge5_alpha.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-alpha/kernel-headers-2.4.27-3-generic_2.4.27-10sarge5_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-alpha/kernel-headers-2.4.27-3-smp_2.4.27-10sarge5_alpha.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-alpha/kernel-headers-2.4.27-3-smp_2.4.27-10sarge5_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-alpha/kernel-image-2.4.27-2-generic_2.4.27-10sarge1_alpha.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-alpha/kernel-image-2.4.27-2-generic_2.4.27-10sarge1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-alpha/kernel-image-2.4.27-2-smp_2.4.27-10sarge1_alpha.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-alpha/kernel-image-2.4.27-2-smp_2.4.27-10sarge1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-alpha/kernel-image-2.4.27-3-generic_2.4.27-10sarge5_alpha.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-alpha/kernel-image-2.4.27-3-generic_2.4.27-10sarge5_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-alpha/kernel-image-2.4.27-3-smp_2.4.27-10sarge5_alpha.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-alpha/kernel-image-2.4.27-3-smp_2.4.27-10sarge5_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/mips-tools_2.4.27-10.sarge4.040815-2_alpha.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/mips-tools_2.4.27-10.sarge4.040815-2_alpha.deb</a><br>
+<dt>ARM:
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-arm/kernel-build-2.4.27_2.4.27-2sarge5_arm.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-arm/kernel-build-2.4.27_2.4.27-2sarge5_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-arm/kernel-headers-2.4.27_2.4.27-2sarge5_arm.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-arm/kernel-headers-2.4.27_2.4.27-2sarge5_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-arm/kernel-image-2.4.27-bast_2.4.27-2sarge5_arm.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-arm/kernel-image-2.4.27-bast_2.4.27-2sarge5_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-arm/kernel-image-2.4.27-lart_2.4.27-2sarge5_arm.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-arm/kernel-image-2.4.27-lart_2.4.27-2sarge5_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-arm/kernel-image-2.4.27-netwinder_2.4.27-2sarge5_arm.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-arm/kernel-image-2.4.27-netwinder_2.4.27-2sarge5_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-arm/kernel-image-2.4.27-riscpc_2.4.27-2sarge5_arm.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-arm/kernel-image-2.4.27-riscpc_2.4.27-2sarge5_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-arm/kernel-image-2.4.27-riscstation_2.4.27-2sarge5_arm.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-arm/kernel-image-2.4.27-riscstation_2.4.27-2sarge5_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/mips-tools_2.4.27-10.sarge4.040815-2_arm.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/mips-tools_2.4.27-10.sarge4.040815-2_arm.deb</a><br>
+<dt>Intel IA-32:
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-build-2.4.27-2_2.4.27-10sarge1_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-build-2.4.27-2_2.4.27-10sarge1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-build-2.4.27-3_2.4.27-10sarge5_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-build-2.4.27-3_2.4.27-10sarge5_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-2_2.4.27-10sarge1_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-2_2.4.27-10sarge1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-2-386_2.4.27-10sarge1_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-2-386_2.4.27-10sarge1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-2-586tsc_2.4.27-10sarge1_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-2-586tsc_2.4.27-10sarge1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-2-686_2.4.27-10sarge1_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-2-686_2.4.27-10sarge1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-2-686-smp_2.4.27-10sarge1_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-2-686-smp_2.4.27-10sarge1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-2-k6_2.4.27-10sarge1_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-2-k6_2.4.27-10sarge1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-2-k7_2.4.27-10sarge1_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-2-k7_2.4.27-10sarge1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-2-k7-smp_2.4.27-10sarge1_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-2-k7-smp_2.4.27-10sarge1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-3_2.4.27-10sarge5_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-3_2.4.27-10sarge5_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-3-386_2.4.27-10sarge5_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-3-386_2.4.27-10sarge5_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-3-586tsc_2.4.27-10sarge5_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-3-586tsc_2.4.27-10sarge5_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-3-686_2.4.27-10sarge5_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-3-686_2.4.27-10sarge5_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-3-686-smp_2.4.27-10sarge5_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-3-686-smp_2.4.27-10sarge5_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-3-k6_2.4.27-10sarge5_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-3-k6_2.4.27-10sarge5_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-3-k7_2.4.27-10sarge5_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-3-k7_2.4.27-10sarge5_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-3-k7-smp_2.4.27-10sarge5_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-headers-2.4.27-3-k7-smp_2.4.27-10sarge5_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-2-386_2.4.27-10sarge1_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-2-386_2.4.27-10sarge1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-2-586tsc_2.4.27-10sarge1_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-2-586tsc_2.4.27-10sarge1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-2-686_2.4.27-10sarge1_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-2-686_2.4.27-10sarge1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-2-686-smp_2.4.27-10sarge1_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-2-686-smp_2.4.27-10sarge1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-2-k6_2.4.27-10sarge1_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-2-k6_2.4.27-10sarge1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-2-k7_2.4.27-10sarge1_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-2-k7_2.4.27-10sarge1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-2-k7-smp_2.4.27-10sarge1_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-2-k7-smp_2.4.27-10sarge1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-3-386_2.4.27-10sarge5_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-3-386_2.4.27-10sarge5_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-3-586tsc_2.4.27-10sarge5_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-3-586tsc_2.4.27-10sarge5_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-3-686_2.4.27-10sarge5_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-3-686_2.4.27-10sarge5_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-3-686-smp_2.4.27-10sarge5_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-3-686-smp_2.4.27-10sarge5_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-3-k6_2.4.27-10sarge5_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-3-k6_2.4.27-10sarge5_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-3-k7_2.4.27-10sarge5_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-3-k7_2.4.27-10sarge5_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-3-k7-smp_2.4.27-10sarge5_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-image-2.4.27-3-k7-smp_2.4.27-10sarge5_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-pcmcia-modules-2.4.27-2-386_2.4.27-10sarge1_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-pcmcia-modules-2.4.27-2-386_2.4.27-10sarge1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-pcmcia-modules-2.4.27-2-586tsc_2.4.27-10sarge1_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-pcmcia-modules-2.4.27-2-586tsc_2.4.27-10sarge1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-pcmcia-modules-2.4.27-2-686_2.4.27-10sarge1_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-pcmcia-modules-2.4.27-2-686_2.4.27-10sarge1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-pcmcia-modules-2.4.27-2-686-smp_2.4.27-10sarge1_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-pcmcia-modules-2.4.27-2-686-smp_2.4.27-10sarge1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-pcmcia-modules-2.4.27-2-k6_2.4.27-10sarge1_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-pcmcia-modules-2.4.27-2-k6_2.4.27-10sarge1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-pcmcia-modules-2.4.27-2-k7_2.4.27-10sarge1_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-pcmcia-modules-2.4.27-2-k7_2.4.27-10sarge1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-pcmcia-modules-2.4.27-2-k7-smp_2.4.27-10sarge1_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-pcmcia-modules-2.4.27-2-k7-smp_2.4.27-10sarge1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-pcmcia-modules-2.4.27-3-386_2.4.27-10sarge5_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-pcmcia-modules-2.4.27-3-386_2.4.27-10sarge5_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-pcmcia-modules-2.4.27-3-586tsc_2.4.27-10sarge5_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-pcmcia-modules-2.4.27-3-586tsc_2.4.27-10sarge5_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-pcmcia-modules-2.4.27-3-686_2.4.27-10sarge5_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-pcmcia-modules-2.4.27-3-686_2.4.27-10sarge5_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-pcmcia-modules-2.4.27-3-686-smp_2.4.27-10sarge5_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-pcmcia-modules-2.4.27-3-686-smp_2.4.27-10sarge5_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-pcmcia-modules-2.4.27-3-k6_2.4.27-10sarge5_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-pcmcia-modules-2.4.27-3-k6_2.4.27-10sarge5_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-pcmcia-modules-2.4.27-3-k7_2.4.27-10sarge5_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-pcmcia-modules-2.4.27-3-k7_2.4.27-10sarge5_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-pcmcia-modules-2.4.27-3-k7-smp_2.4.27-10sarge5_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-i386/kernel-pcmcia-modules-2.4.27-3-k7-smp_2.4.27-10sarge5_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-speakup-i386/kernel-headers-2.4.27-speakup_2.4.27-1.1sarge4_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-speakup-i386/kernel-headers-2.4.27-speakup_2.4.27-1.1sarge4_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-speakup-i386/kernel-image-2.4.27-speakup_2.4.27-1.1sarge4_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-speakup-i386/kernel-image-2.4.27-speakup_2.4.27-1.1sarge4_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/mips-tools_2.4.27-10.sarge4.040815-2_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/mips-tools_2.4.27-10.sarge4.040815-2_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mindi-kernel/mindi-kernel_2.4.27-2sarge4_i386.deb">http://security.debian.org/pool/updates/main/m/mindi-kernel/mindi-kernel_2.4.27-2sarge4_i386.deb</a><br>
+<dt>Intel IA-64:
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-build-2.4.27-2_2.4.27-10sarge1_ia64.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-build-2.4.27-2_2.4.27-10sarge1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-build-2.4.27-3_2.4.27-10sarge5_ia64.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-build-2.4.27-3_2.4.27-10sarge5_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-headers-2.4.27-2_2.4.27-10sarge1_ia64.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-headers-2.4.27-2_2.4.27-10sarge1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-headers-2.4.27-2-itanium_2.4.27-10sarge1_ia64.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-headers-2.4.27-2-itanium_2.4.27-10sarge1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-headers-2.4.27-2-itanium-smp_2.4.27-10sarge1_ia64.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-headers-2.4.27-2-itanium-smp_2.4.27-10sarge1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-headers-2.4.27-2-mckinley_2.4.27-10sarge1_ia64.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-headers-2.4.27-2-mckinley_2.4.27-10sarge1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-headers-2.4.27-2-mckinley-smp_2.4.27-10sarge1_ia64.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-headers-2.4.27-2-mckinley-smp_2.4.27-10sarge1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-headers-2.4.27-3_2.4.27-10sarge5_ia64.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-headers-2.4.27-3_2.4.27-10sarge5_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-headers-2.4.27-3-itanium_2.4.27-10sarge5_ia64.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-headers-2.4.27-3-itanium_2.4.27-10sarge5_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-headers-2.4.27-3-itanium-smp_2.4.27-10sarge5_ia64.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-headers-2.4.27-3-itanium-smp_2.4.27-10sarge5_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-headers-2.4.27-3-mckinley_2.4.27-10sarge5_ia64.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-headers-2.4.27-3-mckinley_2.4.27-10sarge5_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-headers-2.4.27-3-mckinley-smp_2.4.27-10sarge5_ia64.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-headers-2.4.27-3-mckinley-smp_2.4.27-10sarge5_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-image-2.4-itanium_2.4.27-10sarge5_ia64.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-image-2.4-itanium_2.4.27-10sarge5_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-image-2.4-itanium-smp_2.4.27-10sarge5_ia64.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-image-2.4-itanium-smp_2.4.27-10sarge5_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-image-2.4-mckinley_2.4.27-10sarge5_ia64.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-image-2.4-mckinley_2.4.27-10sarge5_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-image-2.4-mckinley-smp_2.4.27-10sarge5_ia64.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-image-2.4-mckinley-smp_2.4.27-10sarge5_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-image-2.4.27-2-itanium_2.4.27-10sarge1_ia64.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-image-2.4.27-2-itanium_2.4.27-10sarge1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-image-2.4.27-2-itanium-smp_2.4.27-10sarge1_ia64.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-image-2.4.27-2-itanium-smp_2.4.27-10sarge1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-image-2.4.27-2-mckinley_2.4.27-10sarge1_ia64.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-image-2.4.27-2-mckinley_2.4.27-10sarge1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-image-2.4.27-2-mckinley-smp_2.4.27-10sarge1_ia64.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-image-2.4.27-2-mckinley-smp_2.4.27-10sarge1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-image-2.4.27-3-itanium_2.4.27-10sarge5_ia64.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-image-2.4.27-3-itanium_2.4.27-10sarge5_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-image-2.4.27-3-itanium-smp_2.4.27-10sarge5_ia64.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-image-2.4.27-3-itanium-smp_2.4.27-10sarge5_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-image-2.4.27-3-mckinley_2.4.27-10sarge5_ia64.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-image-2.4.27-3-mckinley_2.4.27-10sarge5_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-image-2.4.27-3-mckinley-smp_2.4.27-10sarge5_ia64.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-ia64/kernel-image-2.4.27-3-mckinley-smp_2.4.27-10sarge5_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/mips-tools_2.4.27-10.sarge4.040815-2_ia64.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/mips-tools_2.4.27-10.sarge4.040815-2_ia64.deb</a><br>
+<dt>Motorola 680x0:
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-m68k/kernel-image-2.4.27-amiga_2.4.27-3sarge5_m68k.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-m68k/kernel-image-2.4.27-amiga_2.4.27-3sarge5_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-m68k/kernel-image-2.4.27-atari_2.4.27-3sarge5_m68k.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-m68k/kernel-image-2.4.27-atari_2.4.27-3sarge5_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-m68k/kernel-image-2.4.27-bvme6000_2.4.27-3sarge5_m68k.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-m68k/kernel-image-2.4.27-bvme6000_2.4.27-3sarge5_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-m68k/kernel-image-2.4.27-mac_2.4.27-3sarge5_m68k.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-m68k/kernel-image-2.4.27-mac_2.4.27-3sarge5_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-m68k/kernel-image-2.4.27-mvme147_2.4.27-3sarge5_m68k.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-m68k/kernel-image-2.4.27-mvme147_2.4.27-3sarge5_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-m68k/kernel-image-2.4.27-mvme16x_2.4.27-3sarge5_m68k.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-m68k/kernel-image-2.4.27-mvme16x_2.4.27-3sarge5_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-m68k/kernel-image-2.4.27-q40_2.4.27-3sarge5_m68k.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-m68k/kernel-image-2.4.27-q40_2.4.27-3sarge5_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/mips-tools_2.4.27-10.sarge4.040815-2_m68k.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/mips-tools_2.4.27-10.sarge4.040815-2_m68k.deb</a><br>
+<dt>IBM S/390:
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-s390/kernel-headers-2.4.27-2_2.4.27-2sarge1_s390.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-s390/kernel-headers-2.4.27-2_2.4.27-2sarge1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-s390/kernel-headers-2.4.27-3_2.4.27-2sarge5_s390.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-s390/kernel-headers-2.4.27-3_2.4.27-2sarge5_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-s390/kernel-image-2.4.27-2-s390_2.4.27-2sarge1_s390.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-s390/kernel-image-2.4.27-2-s390_2.4.27-2sarge1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-s390/kernel-image-2.4.27-2-s390-tape_2.4.27-2sarge1_s390.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-s390/kernel-image-2.4.27-2-s390-tape_2.4.27-2sarge1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-s390/kernel-image-2.4.27-2-s390x_2.4.27-2sarge1_s390.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-s390/kernel-image-2.4.27-2-s390x_2.4.27-2sarge1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-s390/kernel-image-2.4.27-3-s390_2.4.27-2sarge5_s390.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-s390/kernel-image-2.4.27-3-s390_2.4.27-2sarge5_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-s390/kernel-image-2.4.27-3-s390-tape_2.4.27-2sarge5_s390.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-s390/kernel-image-2.4.27-3-s390-tape_2.4.27-2sarge5_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-s390/kernel-image-2.4.27-3-s390x_2.4.27-2sarge5_s390.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-s390/kernel-image-2.4.27-3-s390x_2.4.27-2sarge5_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/mips-tools_2.4.27-10.sarge4.040815-2_s390.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/mips-tools_2.4.27-10.sarge4.040815-2_s390.deb</a><br>
+<dt>Sun Sparc:
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-build-2.4.27-2_2.4.27-9sarge1_sparc.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-build-2.4.27-2_2.4.27-9sarge1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-build-2.4.27-3_2.4.27-9sarge5_sparc.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-build-2.4.27-3_2.4.27-9sarge5_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-headers-2.4.27-2_2.4.27-9sarge1_sparc.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-headers-2.4.27-2_2.4.27-9sarge1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-headers-2.4.27-2-sparc32_2.4.27-9sarge1_sparc.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-headers-2.4.27-2-sparc32_2.4.27-9sarge1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-headers-2.4.27-2-sparc32-smp_2.4.27-9sarge1_sparc.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-headers-2.4.27-2-sparc32-smp_2.4.27-9sarge1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-headers-2.4.27-2-sparc64_2.4.27-9sarge1_sparc.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-headers-2.4.27-2-sparc64_2.4.27-9sarge1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-headers-2.4.27-2-sparc64-smp_2.4.27-9sarge1_sparc.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-headers-2.4.27-2-sparc64-smp_2.4.27-9sarge1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-headers-2.4.27-3_2.4.27-9sarge5_sparc.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-headers-2.4.27-3_2.4.27-9sarge5_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-headers-2.4.27-3-sparc32_2.4.27-9sarge5_sparc.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-headers-2.4.27-3-sparc32_2.4.27-9sarge5_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-headers-2.4.27-3-sparc32-smp_2.4.27-9sarge5_sparc.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-headers-2.4.27-3-sparc32-smp_2.4.27-9sarge5_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-headers-2.4.27-3-sparc64_2.4.27-9sarge5_sparc.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-headers-2.4.27-3-sparc64_2.4.27-9sarge5_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-headers-2.4.27-3-sparc64-smp_2.4.27-9sarge5_sparc.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-headers-2.4.27-3-sparc64-smp_2.4.27-9sarge5_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-image-2.4.27-2-sparc32_2.4.27-9sarge1_sparc.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-image-2.4.27-2-sparc32_2.4.27-9sarge1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-image-2.4.27-2-sparc32-smp_2.4.27-9sarge1_sparc.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-image-2.4.27-2-sparc32-smp_2.4.27-9sarge1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-image-2.4.27-2-sparc64_2.4.27-9sarge1_sparc.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-image-2.4.27-2-sparc64_2.4.27-9sarge1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-image-2.4.27-2-sparc64-smp_2.4.27-9sarge1_sparc.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-image-2.4.27-2-sparc64-smp_2.4.27-9sarge1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-image-2.4.27-3-sparc32_2.4.27-9sarge5_sparc.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-image-2.4.27-3-sparc32_2.4.27-9sarge5_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-image-2.4.27-3-sparc32-smp_2.4.27-9sarge5_sparc.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-image-2.4.27-3-sparc32-smp_2.4.27-9sarge5_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-image-2.4.27-3-sparc64_2.4.27-9sarge5_sparc.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-image-2.4.27-3-sparc64_2.4.27-9sarge5_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-image-2.4.27-3-sparc64-smp_2.4.27-9sarge5_sparc.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.27-sparc/kernel-image-2.4.27-3-sparc64-smp_2.4.27-9sarge5_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/mips-tools_2.4.27-10.sarge4.040815-2_sparc.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/mips-tools_2.4.27-10.sarge4.040815-2_sparc.deb</a><br>
+<dt>AMD64:
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/mips-tools_2.4.27-10.sarge4.040815-2_amd64.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/mips-tools_2.4.27-10.sarge4.040815-2_amd64.deb</a><br>
+<dt>HPPA:
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/mips-tools_2.4.27-10.sarge4.040815-2_hppa.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/mips-tools_2.4.27-10.sarge4.040815-2_hppa.deb</a><br>
+<dt>Big endian MIPS:
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/kernel-headers-2.4.27_2.4.27-10.sarge4.040815-2_mips.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/kernel-headers-2.4.27_2.4.27-10.sarge4.040815-2_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/kernel-image-2.4.27-r4k-ip22_2.4.27-10.sarge4.040815-2_mips.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/kernel-image-2.4.27-r4k-ip22_2.4.27-10.sarge4.040815-2_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/kernel-image-2.4.27-r5k-ip22_2.4.27-10.sarge4.040815-2_mips.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/kernel-image-2.4.27-r5k-ip22_2.4.27-10.sarge4.040815-2_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/kernel-image-2.4.27-sb1-swarm-bn_2.4.27-10.sarge4.040815-2_mips.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/kernel-image-2.4.27-sb1-swarm-bn_2.4.27-10.sarge4.040815-2_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/mips-tools_2.4.27-10.sarge4.040815-2_mips.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/mips-tools_2.4.27-10.sarge4.040815-2_mips.deb</a><br>
+<dt>Little endian MIPS:
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/kernel-headers-2.4.27_2.4.27-10.sarge4.040815-2_mipsel.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/kernel-headers-2.4.27_2.4.27-10.sarge4.040815-2_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/kernel-image-2.4.27-r3k-kn02_2.4.27-10.sarge4.040815-2_mipsel.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/kernel-image-2.4.27-r3k-kn02_2.4.27-10.sarge4.040815-2_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/kernel-image-2.4.27-r4k-kn04_2.4.27-10.sarge4.040815-2_mipsel.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/kernel-image-2.4.27-r4k-kn04_2.4.27-10.sarge4.040815-2_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/kernel-image-2.4.27-r5k-cobalt_2.4.27-10.sarge4.040815-2_mipsel.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/kernel-image-2.4.27-r5k-cobalt_2.4.27-10.sarge4.040815-2_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/kernel-image-2.4.27-r5k-lasat_2.4.27-10.sarge4.040815-2_mipsel.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/kernel-image-2.4.27-r5k-lasat_2.4.27-10.sarge4.040815-2_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/kernel-image-2.4.27-sb1-swarm-bn_2.4.27-10.sarge4.040815-2_mipsel.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/kernel-image-2.4.27-sb1-swarm-bn_2.4.27-10.sarge4.040815-2_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/kernel-image-2.4.27-xxs1500_2.4.27-10.sarge4.040815-2_mipsel.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/kernel-image-2.4.27-xxs1500_2.4.27-10.sarge4.040815-2_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/mips-tools_2.4.27-10.sarge4.040815-2_mipsel.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/mips-tools_2.4.27-10.sarge4.040815-2_mipsel.deb</a><br>
+<dt>PowerPC:
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-build-2.4.27-apus_2.4.27-10sarge5_powerpc.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-build-2.4.27-apus_2.4.27-10sarge5_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-build-2.4.27-nubus_2.4.27-10sarge5_powerpc.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-build-2.4.27-nubus_2.4.27-10sarge5_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-build-2.4.27-powerpc_2.4.27-10sarge5_powerpc.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-build-2.4.27-powerpc_2.4.27-10sarge5_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-build-2.4.27-powerpc-small_2.4.27-10sarge5_powerpc.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-build-2.4.27-powerpc-small_2.4.27-10sarge5_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-build-2.4.27-powerpc-smp_2.4.27-10sarge5_powerpc.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-build-2.4.27-powerpc-smp_2.4.27-10sarge5_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-headers-2.4.27-apus_2.4.27-10sarge5_powerpc.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-headers-2.4.27-apus_2.4.27-10sarge5_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-headers-2.4.27-nubus_2.4.27-10sarge5_powerpc.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-headers-2.4.27-nubus_2.4.27-10sarge5_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-headers-2.4.27-powerpc_2.4.27-10sarge5_powerpc.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-headers-2.4.27-powerpc_2.4.27-10sarge5_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-image-2.4.27-apus_2.4.27-10sarge5_powerpc.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-image-2.4.27-apus_2.4.27-10sarge5_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-image-2.4.27-nubus_2.4.27-10sarge5_powerpc.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-image-2.4.27-nubus_2.4.27-10sarge5_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-image-2.4.27-powerpc_2.4.27-10sarge5_powerpc.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-image-2.4.27-powerpc_2.4.27-10sarge5_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-image-2.4.27-powerpc-small_2.4.27-10sarge5_powerpc.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-image-2.4.27-powerpc-small_2.4.27-10sarge5_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-image-2.4.27-powerpc-smp_2.4.27-10sarge5_powerpc.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-image-2.4.27-powerpc-smp_2.4.27-10sarge5_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-patch-2.4.27-apus_2.4.27-10sarge5_powerpc.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-patch-2.4.27-apus_2.4.27-10sarge5_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-patch-2.4.27-nubus_2.4.27-10sarge5_powerpc.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-patch-2.4.27-nubus_2.4.27-10sarge5_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-patch-2.4.27-powerpc_2.4.27-10sarge5_powerpc.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-powerpc-2.4.27/kernel-patch-2.4.27-powerpc_2.4.27-10sarge5_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/mips-tools_2.4.27-10.sarge4.040815-2_powerpc.deb">http://security.debian.org/pool/updates/main/k/kernel-patch-2.4.27-mips/mips-tools_2.4.27-10.sarge4.040815-2_powerpc.deb</a><br>
+</dl>
+<p>MD5-kontrolsummer for de listede filer findes i den <a href="https://lists.debian.org/debian-security-announce/debian-security-announce-2006/msg00338.html">originale sikkerhedsbulletin</a>.</p>
+</dd>
+</dl>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Denne side findes også på følgende sprog:
+<div id="langContainer">
+ <a href="dsa-1237.de.html" title="tysk" hreflang="de" lang="de" rel="alternate">Deutsch</a>
+ <a href="dsa-1237.en.html" title="engelsk" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="dsa-1237.es.html" title="spansk" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="dsa-1237.fr.html" title="fransk" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="dsa-1237.ja.html" title="japansk" hreflang="ja" lang="ja" rel="alternate">&#26085;&#26412;&#35486;&nbsp;(Nihongo)</a>
+ <a href="dsa-1237.sv.html" title="svensk" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+</div>
+Sådan opsætter du <a href="../../intro/cn">standardsprogvalg for dokumenter</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Hjem</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">Om&nbsp;Debian</a>
+		  <ul>
+		  <li><a href="../../social_contract">Social kontrakt</a></li>
+		  <li><a href="../../code_of_conduct">Etiske regler</a></li>
+		  <li><a href="../../intro/free">Fri software</a></li>
+		  <li><a href="../../partners/">Partnere</a></li>
+		  <li><a href="../../donations">Donationer</a></li>
+          <li><a href="../../legal">Juridisk information</a></li>
+          <li><a href="../../legal/privacy">Dataprivathed</a></li>
+		  <li><a href="../../contact">Kontakt os</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Hjælp Debian</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Få fat i Debian</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">Netværksinstallering</a></li>
+			  <li><a href="../../CD/">Cd/USB-ISO-aftryk</a></li>
+			  <li><a href="../../CD/vendors/">Cd-forhandlere</a></li>
+			  <li><a href="../../distrib/pre-installed">Præinstalleret</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Pure Blends</a></li>
+			<li><a href="../../distrib/packages">Debian-pakker</a></li>
+			<li><a href="../../devel/">Udviklerhjørnet</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">Nyheder</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">Projektnyheder</a></li>
+		  <li><a href="../../events/">Begivenheder</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">Dokumentation</a>
+      <ul>
+      <li><a href="../../releases/">Udgivelsesoplysninger</a></li>
+      <li><a href="../../releases/stable/installmanual">Installationsvejledning</a></li>
+      <li><a href="../../doc/books">Debian-bøger</a></li>
+      <li><a href="https://wiki.debian.org/">Debian Wiki</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">Support</a>
+	  <ul>
+			  <li><a href="../../international/">Debian internationalt</a></li>
+			  <li><a href="../../security/">Sikkerhedsoplysninger</a></li>
+			  <li><a href="../../Bugs/">Fejlrapporter</a></li>
+			  <li><a href="../../MailingLists/">Postlister</a></li>
+			  <li><a href="https://lists.debian.org/">Postlistearkiv</a></li>
+			  <li><a href="../../ports/">Tilpasninger/arkitekturer</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">Sideoversigt</a></li>
+  <li><a href="https://search.debian.org/">Søg</a></li>
+  <li><a href="https://bits.debian.org">Debians blog</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>For at rapportere et problem med webstedet, sendes en e-mail på engelsk til vores offentligt arkiverede postliste <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a>. Se Debians <a href="../../contact">kontaktside</a> for andre kontaktoplysninger. Webstedets kildekode er <a href="https://salsa.debian.org/webmaster-team/webwml">tilgængelig</a>.</p>
+<p>
+Senest opdateret: Fre 1. jun 2018 kl. 18.42.19 UTC
+&emsp;
+Senest opbygget: Fre 11. jun 2021 kl. 13.30.36 UTC
+  <br>
+  Ophavsretsbeskyttet &copy; 2006-2021
+ <a href="https://www.spi-inc.org/">SPI</a> og andre; Se <a href="../../license" rel="copyright">licensbetingelserne</a><br>
+  Debian er et registreret <a href="../../trademark">varemærke</a> tilhørende Software in the Public Interest, Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

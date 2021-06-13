@@ -1,0 +1,476 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="fi">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Debianin Usein Kysytyt Kysymykset tietoturvasta </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 14:10:21">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../debian.css" rel="stylesheet" type="text/css">
+  <link href="../debian-fi.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Debian-sivuston haku" href="../search.fi.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../" title="Debian-koti"><img src="../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="fi">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Haku">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Ohita pikanavigointi</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./">Tietoturvasta</a>
+ &#x2F;
+Debianin Usein Kysytyt Kysymykset tietoturvasta</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<div class="trans-note"><p><strong> Varoitus! Tämä suomennos on liian vanha, katso mieluummin <a href="faq.en.html">alkuperäistä sivua</a>. </strong></p></div>
+<h1>Debianin Usein Kysytyt Kysymykset tietoturvasta</h1>
+<p>Saamme seuraavia kysymyksiä turhan usein näinä päivinä, joten
+olemme tehneet näistä kysymyksistä vastauksineen yhteenvedon tähän.</p>
+<ol>
+<li> <a href="#signature">Tiedotteiden allekirjoitukset eivät ole aitoja!</a>
+<li> <a href="#handling">Kuinka tietoturvasta huolehditaan Debianissa?</a>
+<li> <a href="#oldversion">Miksi puuhailette pakettien vanhojen versioiden kanssa?</a>
+<li> <a href="#policy">Millaisin perustein korjattu paketti ilmestyy security.debian.org-palvelimelle?</a>
+<li> <a href="#localremote">Mitä tarkoittaa <q>paikallinen (etä)</q>?</a>
+<li> <a href="#version">Paketin versionumero antaa ymmärtää, että käytän edelleen altista versiota!</a>
+<li> <a href="#archismissing">Sain tiedotteen, mutta käännös yhdelle suoritinarkkitehtuurille näyttää puuttuvan.</a>
+<li> <a href="#unstable">Kuinka tietoturva hoidetaan <tt>epävakaa</tt>-jakelussa?</a>
+<li> <a href="#testing">Kuinka tietoturva hoidetaan <tt>testattava</tt>-jakelussa?</a>
+<li> <a href="#contrib">Kuinka tietoturva hoidetaan <tt>contrib</tt>- ja <tt>non-free</tt>-osastoissa?</a>
+<li> <a href="#sidversionisold">Tietoturvatiedotteessa mainitaan että paketin ongelma on korjattu epävakaan versiossa 1.2.3-1, mutta epävakaa sisältää version 1.2.5-1, mitä tämä tarkoittaa?</a>
+<li> <a href="#mirror">Miksei security.debian.orgilla ole virallisia peilauksia?</a>
+<li> <a href="#missing">Olen nähnyt DSA 100:n ja DSA 102:n, mutta missä on DSA 101?</a>
+<li> <a href="#contact">Kuinka tavoitan tietoturvaryhmän?</a>
+<li> <a href="#discover">Löysin luultavasti tietoturvaongelman, mitä minun pitäisi tehdä?</a>
+<li> <a href="#care">Mitä pitäisi tehdä erään oman pakettini tietoturvaongelman kanssa?</a>
+<li> <a href="#enofile">Yritin imuroida paketin, joka on listattu eräässä tietoturvatiedotteessa, mutta sain <q>tiedostoa ei löydy</q>-ilmoituksen.</a>
+<li> <a href="#upload">Minulla on vikakorjaus, voinko laittaa sen suoraan security.debian.org:iin?</a>
+<li> <a href="#ppu">Minulla on vikakorjaus, voinko lähettää sen proposed-updatesiin tuon sijaan?</a>
+<li> <a href="#SecurityUploadQueue">Olen varma siitä, että pakettini ovat ok, kuinka voin siirtää ne palvelimelle?</a>
+<li> <a href="#help">Kuinka voin auttaa tietoturva-asioissa?</a>
+<li> <a href="#proposed-updates">Mikä tarkoitus on proposed-updates-hakemistolla?</a>
+<li> <a href="#composing">Kuinka tietoturvaryhmä muodostuu?</a>
+<li> <a href="#lifespan">Kuinka pitkään tietoturvapäivityksiä tarjotaan?</a>
+<li> <a href="#check">Kuinka voin tarkistaa pakettien eheyden?</a>
+<li> <a href="#break">Mitä tehdä jos tietoturvapäivitys rikkoo satunnaisen paketin?</a>
+</ol>
+<p><em><a name="signature">K: Tiedotteiden allekirjoitukset eivät ole aitoja!</a></em></p>
+<p>V: Tämä ongelma sijaitsee mitä todennäköisimmin siellä päässä.
+<a href="https://lists.debian.org/debian-security-announce/">debian-security-announce</a>-listalla on suodatin, joka päästää läpi
+ainoastaan viestit, joissa on väärentämätön allekirjoitus joltakin
+tietoturvaryhmän jäseneltä.</p>
+<p>Luultavasti jokin postiohjelmistosi osa muuttaa hiukan viestejä ja rikkoo
+allekirjoituksen. Varmista että ohjelmistosi ei tee mitään MIME-koodausta
+tai -purkamista taikka tab/välilyönti-muunnoksia.</p>
+<p>Tunnettuja syyllisiä ovat fetchmail (jos mimedecode-asetus on
+päällä), formail (ainoastaan procmail:in versiossa 3.14) ja evolution.</p>
+<p><em><a name="handling">K: Kuinka tietoturvasta huolehditaan Debianissa?</a></em></p>
+<p>V: Kun tietoturvaryhmä saa huomautuksen tapauksesta, yksi tai useampi
+ryhmän jäsen tarkistaa sen ja tarkistaa onko Debianin vakaa julkaisu
+alttiina uhalle vaiko ei. Jos järjestelmä on alttiina, teemme korjauksen
+ongelmaan. Paketin ylläpitäjään otetaan myös yhteyttä jos hän ei vielä ole
+ottanut ryhmään yhteyttä. Lopulta korjaus testataan ja uudet paketit
+valmistellaan, jotka myöhemmin käännetään kaikille vakaan julkaisun
+arkkitehtuureille ja lähetetään palvelimille. Kun nämä on tehty, julkaistaan
+tiedote.</p>
+<p><em><a name="oldversion">K: Miksi puuhailette pakettien vanhojen versioiden kanssa?</a></em></p>
+<p>V: Tärkein periaate tietoturvaongelman korjaavan paketin tekemisessä on
+tehdä niin vähän muutoksia kuin mahdollista. Käyttäjämme ja kehittäjämme
+luottavat järjestelmän täsmälliseen toimintaan julkaisun jälkeen, joten mikä
+tahansa muutos saattaa rikkoa jonkun järjestelmän. Tämä on erittäin tärkeää
+kirjastojen tapauksessa: varmista, että et koskaan muuta APIa tai ABIa,
+huolimatta siitä kuinka pieni muutos olisi.</p>
+<p>Tämä tarkoittaa, että uuteen versioon siirtyminen ei ole hyvä ratkaisu,
+sen sijaan tärkeät muutokset tulee siirtää. Yleensä ohjelman tekijät osaavat
+auttaa tarvittaessa, jos ei, niin Debianin tietoturvaryhmä saattaa kyetä
+auttamaan.</p>
+<p>Joissain tapauksissa ei ole mahdollista siirtää tietoturvakorjausta,
+jos esimerkiksi suurta määrää lähdekoodia täytyisi muokata tai
+uudelleenkirjoittaa. Jos näin tapahtuu, saattaa olla pakko siirtyä uuteen
+versioon, mutta tästä täytyy sopia tietoturvaryhmän kanssa etukäteen.</p>
+<p><em><a name="policy">K: Millaisin perustein korjattu paketti ilmestyy
+security.debian.org-palvelimelle?</a></em></p>
+<p>V: Tietoturvareikä vakaassa jakelussa takaa paketin pääsyn
+security.debian.orgiin. Mikään muu syy ei kelpaa. Reiän koko ei ole
+todellinen ongelma tässä. Yleensä tietoturvaryhmä valmistelee paketit
+yhdessä paketin ylläpitäjän kanssa. Jos joku (luotettu) henkilö seuraa
+ongelmaa ja saa kaikki tarvittavat paketit käännettyä ja lähettää nämä
+paketit tietoturvaryhmälle, jopa hyvin yksinkertaiset tietoturvaongelmien
+korjaukset pääsevät security.debian.org-palvelimelle. Katso lisää alempaa!</p>
+<p>Tietoturvapäivitykset palvelevat yhtä tarkoitusta: tietoturva-aukon
+korjaamista. Ne eivät ole menetelmä ylimääräisten muutosten <q>ujuttamiseen</q>
+vakaaseen jakeluun ilman puolijulkaisun normaaleja tarkistuksia.</p>
+<p><em><a name="localremote">K: Mitä tarkoittaa <q>paikallinen (etä)</q>?</a></em></p>
+<p>V: Osa tiedotteista käsittelee alttiuksia, joita ei voida tunnistaa
+klassisella jaottelulla paikallisiin ja etähyökkäyksiin. Joitain
+alttiuksia ei voi hyväksikäyttää etäältä, esim. ei ole vastaavaa
+palvelua kuuntelemassa verkossa porttia. Mikäli niitä voi
+hyväksikäyttää erikoistiedostoilla, joita voidaan tarjota verkon
+kautta kun altis palvelu ei ole pysyvästi yhteydessä verkkoon, niin
+tällaisissa tapauksissa kirjoitamme <q>paikallinen (etä)</q>.</p>
+<p>Tällaiset alttiudet ovat jossain paikallisen ja etäalttiuden
+välissä ja liittyvät usein arkistoihin, joita tarjotaan verkosta,
+esim. sähköpostin liitteenä tai imurointisivulta.</p>
+<p><em><a name="version">K: Paketin versionumero antaa ymmärtää, että käytän
+edelleen altista versiota!</a></em></p>
+<p>V: Sen sijaan, että päivittäisimme uuteen versioon, me siirrämme
+tietoturvakorjaukset takaisin vanhalle versiolle, jota toimitamme
+vakaassa julkaisussa. Tämän teemme varmistaaksemme, että julkaisu
+muuttuu niin vähän kuin mahdollista, jotta asiat eivät muuttuisi
+tai hajoaisi yllättäen turvakorjauksen seurauksena. Voit tarkistaa
+käytätkö paketin turvallista versiota katsomalla paketin muutoslokia
+tai vertaamalla sen tarkkaa versionumeroa Debianin turvatiedotteessa
+mainittuun versioon.</p>
+<p><em><a name="archismissing">K: Sain tiedotteen, mutta käännös yhdelle suoritinarkkitehtuurille näyttää puuttuvan.</a></em></p>
+<p>V: Yleensä tietoturvaryhmä julkaisee tiedotteen, jossa on mukana
+päivitetyt käännökset kaikille arkkitehtuureille, joita Debian tukee.
+Kuitenkin jotkut arkkitehtuurit ovat hitaampia kuin toiset ja
+toisinaan käännökset useimmille arkkitehtuureille ovat jo valmiina kun
+osa vielä puuttuu. Nämä pienemmät arkkitehtuurit edustavat pientä osaa
+käyttäjäkunnastamme. Riippuen asian tärkeydestä, saatamme päättää
+julkaista tiedotteen heti. Puuttuvat käännökset asennetaan heti kun ne
+tulevat saataville, mutta myöhempää tiedotetta tästä ei anneta. Emme
+tietenkään koskaan julkaise tiedotetta ilman i386- tai
+amd64-käännöstä.</p>
+<p><em><a name="unstable">K: Kuinka tietoturva hoidetaan <tt>epävakaa</tt>-jakelussa?</a></em></p>
+<p>V: Lyhyt vastaus on: ei mitenkään. Epävakaa on nopeasti muuttuva kohde ja
+tietoturvaryhmällä ei ole tarvittavia voimavaroja tukeakseen sitä kunnolla.
+Jos haluat turvallisen (ja vakaan) palvelimen, rohkaisemme sinua vahvasti
+käyttämään vakaata julkaisua.</p>
+<p><em><a name="testing">K: Kuinka tietoturva hoidetaan <tt>testattava</tt>-jakelussa?</a></em></p>
+<p>V: Jos haluat turvallisen (ja vakaan) palvelimen, rohkaisemme sinua
+  vahvasti käyttämään vakaata julkaisua. Testattavalle jakelulle on kuitenkin
+  tarjolla tietoturvatukea: Debianin testattavan jakelun
+  tietoturvaryhmä käsittelee jakelua koskevat ongelmat. Ryhmä varmistaa
+  että korjatut paketit saapuvat testattavaan perinteistä reittiä epävakaan
+  kautta (lyhennetyllä karanteeniajalla), tai, mikäli se kestää liian kauan,
+  paketit laitetaan saataville normaaliin tapaan <a href="http://security.debian.org">http://security.debian.org</a>-infrastruktuurin
+  kautta. Päivitykset saa käyttöön kun varmistetaan että tiedostosta
+  <code>/etc/apt/sources.list</code> löytyy seuraava rivi:</p>
+  <p><code>deb http://security.debian.org &lt;koodinimi&gt;/updates main</code></p>
+  <p>ja ajetaan <code>apt-get update &amp;&amp; apt-get upgrade</code>
+  tavalliseen tapaan.</p>
+  <p>Huomaa, että tämä ei ole tae siitä että kaikki tunnetut tietoturvaviat
+  olisi korjattu testattavassa! Jotkut päivitetyt paketit saattavat odottaa
+  siirtymistä testattavaan. Lisätietoja testattavan
+  tietoturvainfrastruktuurista löytyy osoitteesta
+  <a href="http://secure-testing-master.debian.net/">http://secure-testing-master.debian.net/</a>.</p>
+<p><em><a name="contrib">K: Kuinka tietoturva hoidetaan <tt>contrib</tt>- ja
+<tt>non-free</tt>-osastoissa?</a></em></p>
+<p>A: Lyhyt vastaus on: ei mitenkään. Contrib ja non-free eivät ole osa
+virallista Debian-jakelua eikä niitä ole siis julkaistu, ja niin ollen
+tietoturvaryhmä ei myöskään tue niitä. Joitakin non-free-paketteja levitetään
+ilman lähdekoodia tai ilman muutettujen versioiden levittämistä sallivaa
+lisenssiä. Kyseisissä tapauksissa tietoturvakorjauksia ei voida tehdä lainkaan.
+Mikäli ongelman korjaus on mahdollista, ja paketin ylläpitäjä tai joku muu
+tarjoaa oikeat päivitetyt paketit, tällöin tietoturvaryhmä yleensä käsittelee
+ne ja julkaisee tiedotteen.</p>
+<p><em><a name="sidversionisold">K: Tietoturvatiedotteessa mainitaan että
+paketin ongelma on korjattu epävakaan versiossa 1.2.3-1, mutta epävakaa
+sisältää version 1.2.5-1, mitä tämä tarkoittaa?</a></em></p>
+<p>A: Pyrimme mainitsemaan tiedotteessa epävakaan ensimmäisen version joka
+sisältää korjauksen. Toisinaan käy niin että paketin ylläpitäjä on ehtinyt
+lähettää paketista jo uudemman version. Vertaa epävakaan versionumeroa
+tiedotteessa mainittuun versionumeroon. Jos se on sama tai suurempi,
+ko. haavoittuvuus on korjattu paketista.</p>
+<p><em><a name="mirror">K: Miksei security.debian.orgilla ole virallisia peilauksia?</a></em></p>
+<p>V: Itse asiassa niitä on olemassa. Virallisia peilauksia on useita, ne on
+toteutettu DNS-aliaksien avulla. security.debian.org:n tarkoituksena on tuoda
+tietoturvapäivitykset saataville mahdollisimman nopeasti ja vaivattomasti.</p>
+<p>Epävirallisten peilausten käytön suosittelu lisäisi turhaa
+monimutkaisuutta, jota ei haluta, ja voi aiheuttaa turhautumista jos ne eivät
+ole ajan tasalla.</p>
+<p><em><a name="missing">K: Olen nähnyt DSA 100:n ja DSA 102:n, mutta missä on DSA 101?</a></em></p>
+<p>V: Useat toimittajat (enimmäkseen GNU/Linux, mutta myös BSD-johdannaisten)
+koordinoivat yhdessä turvallisuusvaroituksia joissain tapauksissa ja sopivat
+yhteisestä aikataulusta siten että kaikki toimittajat voivat julkaista
+ohjeensa samaan aikaan. Tätä tiedotetta päätettiin lykätä, koska jotkut
+toimittajat tarvitsivat enemmän aikaa (esim. koska toimittajan linjaan kuuluu
+pitkät pakettien testiohjelmat tai toimittajalla on monta arkkitehtuuria
+tuettavana). Debianin tietoturvaryhmä valmistautuu tiedotteisiin ajoissa.
+Silloin tällöin tietoturvaongelmiin täytyy löytää ratkaisu, ennen kuin
+tietoturvatiedote voidaan julkaista, ja siksi välillä jotkin tiedotteet
+jäävät väliaikaisesti ilman numeroa.</p>
+<p><em><a name="contact">K: Kuinka tavoitan tietoturvaryhmän?</a></em></p>
+<p>V: Tietoturvaan liittyvää tietoa voit lähettää osoitteeseen
+security@debian.org tai team@security.debian.org, joita lukee vain
+tietoturvaryhmä.</p>
+<p>Mikäli olet paketin ylläpitäjä ja haluat ottaa yhteyttä liittyen
+pakettiasi koskevaan seikkaan, ole hyvä ja <a
+href="https://wiki.debian.org/rt.debian.org#Security_Team">kirjaa asia
+seurantajärjestelmäämme</a>. Mikäli haluat käyttää PGP-salausta, on
+kuitenkin parempi käyttää tavallista sähköpostia.</p>
+<p>Jos haluat, voit salakirjoittaa viestisi Debianin
+tietoturvakontaktin avaimella (avaimen ID <a
+href="http://pgp.surfnet.nl/pks/lookup?op=vindex&amp;search=0x0D59D2B15144766A14D241C66BAF400B05C3E651">0x0D59D2B15144766A14D241C66BAF400B05C3E651</a>). Tietoturvaryhmän yksittäisten jäsenten PGP/GPG-avaimet
+löytyvät <a
+href="https://keyring.debian.org/">keyring.debian.org</a>-avainpalvelimelta.</p>
+<p><em><a name="discover">K: Löysin luultavasti tietoturvaongelman, mitä minun
+pitäisi tehdä?</a></em></p>
+<p>V: Jos saat tietää tietoturvaongelmasta, joko omassa paketissasi
+tai jonkun muun, ota aina yhteyttä tietoturvaryhmään. Jos ryhmä
+varmistaa alttiuden ja muut toimittajat lienevät alttiita myös, ryhmä
+ottaa yleensä yhteyttä myös muihin toimittajiin. Jos alttiutta ei ole
+julkistettu, ryhmä yrittää koordinoida tietoturvatiedotteet muiden
+toimittajien kanssa, jotta kaikki jakeluversiot korjataan
+samanaikaisesti.</p>
+<p>Mikäli haavoittuvuus tunnetaan jo julkisesti, varmista, että
+kirjaat vikailmoituksen Debianin vianseurantajärjestelmään ja lisäät
+siihen merkinnän <q>security</q> (tietoturva).</p>
+<p>Jos olet Debian-ylläpitäjä, <a href="#care">katso alla</a>.</p>
+<p><em><a name="care">K: Mitä pitäisi tehdä erään oman pakettini
+tietoturvaongelman kanssa?</a></em></p>
+<p>V: Jos saat tietää tietoturvaongelmasta, joko omassa paketissasi
+tai jonkun muun, ota aina yhteyttä tietoturvaryhmään mieluiten kirjaamalla
+asian seurantajärjestelmään, mutta voit myös lähestyä
+sähköpostilla osoitteeseen team@security.debian.org. He pitävät kirjaa
+tunnetuista tietoturvaongelmista, voivat auttaa ylläpitäjiä korjaamaan
+tai korjaavat ongelmat itse, ovat vastuussa tiedotteiden lähettämisestä
+ja ylläpitävät security.debian.org-konetta.</p>
+<p><a href="../doc/developers-reference/pkgs.html#bug-security">Kehittäjien käsikirjassa</a> on täydelliset ohjeet mitä tehdä.</p>
+<p>On tärkeää, ettet lähetä tiedostoja mihinkään muuhun kuin
+epävakaaseen ilman tietoturvaryhmän lupaa, koska heidän ohittamisensa
+aiheuttaa sekaannusta ja lisää työtä.</p>
+<p><em><a name="enofile">K: Yritin imuroida paketin, joka on listattu eräässä
+tietoturvatiedotteessa, mutta sain <q>tiedostoa ei löydy</q>-ilmoituksen.</a></em></p>
+<p>V: Kun uudempi vikakorjaus korvaa vanhemman paketin
+security.debian.org:ssa, on erittäin todennäköistä, että vanha paketti
+poistetaan samalla kun uusi asetetaan saataville. Tästä syystä saat
+<q>tiedostoa ei löydy</q>-ilmoituksen. Me emme halua jaella paketteja,
+joissa on tunnettuja tietoturvaongelmia yhtään pidempään kuin on
+pakollista.</p>
+<p>Käytä tuoreimpien tietoturvatiedotteiden mukaisia paketteja, joista
+ilmoitetaan <a href="https://lists.debian.org/debian-security-announce/">debian-security-announce</a>-postilistan kautta. On parasta
+yksinkertaisesti ajaa <code>apt-get update</code> ennen pakettien
+päivittämistä.</p>
+<p><em><a name="upload">K: Minulla on vikakorjaus, voinko laittaa sen
+suoraan security.debian.org:iin?</a></em></p>
+<p>V: Et voi. Security.debian.org-palvelimen arkistoa ylläpitää
+tietoturvaryhmä, joiden täytyy hyväksyä kaikki paketit. Sen sijaan sinun
+tulisi lähettää korjaus tai kunnollinen lähdekoodipaketti tietoturvaryhmälle,
+joko seurantajärjestelmään tai
+osoitteeseen team@security.debian.org. Tietoturvaryhmä tarkistaa muutoksesi
+ja siirtää sen palvelimelle, joko muokattuna tai muokkaamattomana.</p>
+<p>Jos et ole tottunut tietoturvapäivityksiin etkä ole sataprosenttisen varma
+siitä, että pakettisi on ehjä, käytä tätä tapaa äläkä lähetä sitä
+saapuvat-hakemistoon. Tietoturvaryhmällä on vain rajoitetusti vaihtoehtoja
+käsitellä rikkinäisiä paketteja, erityisesti jos versionumero ei ole järkevä.
+Tällä hetkellä paketteja ei voi hylätä ja
+<abbr title="Build daemon(käännöspalvelu)">buildd</abbr> menisi sekaisin jos
+se olisi mahdollista. Siksi käytä mieluummin sähköpostia ja auta olemalla
+lisäämättä tietoturvaryhmän tuskaa.</p>
+<p><a href="../doc/developers-reference/pkgs.html#bug-security">Kehittäjien käsikirjassa</a> on täydelliset ohjeet mitä tehdä.</p>
+<p><em><a name="ppu">K: Minulla on vikakorjaus, voinko lähettää sen
+proposed-updatesiin tuon sijaan?</a></em></p>
+<p>V: Teknisesti ottaen voit. Sinun ei kuitenkaan pidä tehdä näin,
+koska tämä häiritsee huomattavasti tietoturvaryhmän työtä. Paketit
+security.debian.org:sta kopioidaan automaattisesti
+proposed-updates-hakemistoon. Jos paketti, jolla on sama tai
+korkeampi versionumero on jo lisätty arkistoon, arkistojärjestelmä
+hylkää tietoturvapäivityksen. Näin vakaaseen jakeluun ei saada tälle
+paketille tietoturvapäivitystä, ellei proposed-updates-hakemiston <q>vääriä</q>
+paketteja ole sitten hylätty. Sen sijaan ota yhteyttä tietoturvaryhmään ja
+sisällytä kaikki yksityiskohdat alttiudesta ja liitä lähdetiedostot (esim.
+diff.gz- ja dsc-tiedostot) sähköpostiisi.</p>
+<p><a href="../doc/developers-reference/pkgs.html#bug-security">Kehittäjien käsikirjassa</a> on täydelliset ohjeet mitä tehdä.</p>
+<p><em><a name="SecurityUploadQueue">K: Olen varma siitä, että
+pakettini ovat ok, kuinka voin siirtää ne palvelimelle?</a></em></p>
+<p>V: Jos olet erittäin varma, että pakettisi eivät riko mitään, että
+versio on järkevä (eli suurempi kuin versio vakaassa ja pienempi kuin
+testattavassa/epävakaassa), että et muuttanut paketin toimintaa muutoin kuin
+korjaamalla tietoturvaongelman, että käänsit paketin oikealle jakelulle
+(joka on <code>oldstable-security</code> tai <code>stable-security</code>),
+että paketti sisältää alkuperäisen lähdekoodin jos paketti on uusi
+security.debian.org:ssa, että voit varmistaa muutoksen tuoreimpaan versioon
+olevan puhdas ja se koskee ainoastaan kyseessä olevaa tietoturvaongelmaa
+(tarkista <code>interdiff -z</code>:lla ja molemmat
+<code>.diff.gz</code>-tiedostot), että olet oikolukenut muutokset vähintään
+kolmasti, ja että <code>debdiff</code> ei näytä mitään muutoksia, voit
+lähettää tiedostot suoraan security.debian.org:in incoming-hakemistoon
+<code>ftp://ftp.security.upload.debian.org/pub/SecurityUploadQueue</code>. Lähetä
+huomautus asiasta kaikilla yksityiskohdilla ja linkeillä varustettuna myös
+osoitteeseen team@security.debian.org .</p>
+<p><em><a name="help">K: Kuinka voin auttaa tietoturva-asioissa?</a></em></p>
+<p>V: Tarkista jokainen ongelma ennen kuin raportoit sen osoitteeseen
+security@debian.org. Jos kykenet toimittamaan korjauksen, se nopeuttaa
+prosessia. Älä pelkästään edelleenlähetä bugtraq-posteja, koska vastaanotamme
+ne muutenkin. Jos kuitenkin kykenet tarjoamaan lisätietoa, siitä on aina apua.</p>
+<p>Alkuun pääsee vaikkapa auttamalla Debianin tietoturvan seurantapalvelimen
+(<a href="https://security-tracker.debian.org/tracker/data/report">ohjeistuksessa</a>).</p>
+<p><em><a name="proposed-updates">K: Mikä tarkoitus on proposed-updates-hakemistolla?</a></em></p>
+<p>V: Tämä hakemisto sisältää paketteja, jotka ovat ehdolla seuraavaan
+versioon Debianin vakaasta julkaisusta. Aina kun ylläpitäjä lähettää
+paketin vakaaseen julkaisuun, paketti päätyy proposed-updates-hakemistoon.
+Koska vakaan on tarkoitus todellakin olla vakaa, mitään automaattisia
+päivityksiä ei tehdä. Tietoturvaryhmä lähettää korjatut paketit tiedotteiden
+kera vakaaseen, ja nämäkin paketit päätyvät ensin proposed-updates-hakemistoon.
+Muutaman kuukauden välein vakaan julkaisupäällikkö käy läpi listan paketeista
+proposed-updatesissa ja ottaa selvää mitkä paketit soveltuvat vakaaseen ja
+mitkä eivät. Näistä hyväksytyistä paketeista tehdään uusi versio vakaasta
+(kuten 2.2r3 tai 2.2r4). Paketit, jotka eivät ole kelvollisia, tullaan
+todennäköisesti hylkäämään ja poistamaan myös proposed-updates-hakemistosta.</p>
+<p>Huomaathan, että tietoturvaryhmä ei tue ylläpitäjien itse (ei siis
+tietoturvaryhmän) proposed-updates/-hakemistoon lähettämiä paketteja.</p>
+<p><em><a name="composing">K: Kuinka tietoturvaryhmä muodostuu?</a></em></p>
+<p>V: Tietoturvaryhmä koostuu <a href="../intro/organization">useista jäsenistä ja sihteereistä</a>. Tietoturvaryhmä
+nimittää itse liittyvät ihmiset.</p>
+<p><em><a name="lifespan">K: Kuinka pitkään tietoturvapäivityksiä tarjotaan?</a></em></p>
+<p>V: Tietoturvaryhmä yrittää tukea vakaata jakelua vielä noin yhden
+vuoden siitä kun seuraava vakaa jakelu on julkaistu, paitsi jos vielä
+toinen vakaa jakelu julkaistaan vuoden sisällä. Kolmen jakelun
+tukeminen ei ole mahdollista; kahdenkin jakelun tukeminen
+samanaikaisesti on riittävän vaikeaa.</p>
+<p><em><a name="check">K: Kuinka voin tarkistaa pakettien eheyden?</a></em></p>
+<p>V: Tämä prosessi käsittää Release-tiedoston allekirjoituksen
+tarkistamisen <a
+href="https://ftp-master.debian.org/keys.html">julkista
+avainta</a> vasten, jota käytetään arkistoon. Release-tiedosto
+sisältää tarkistussummat Packages- ja Sources-tiedostoille, jotka
+sisältävät tarkistussummat binääri- ja lähdekoodipaketeille.
+Yksityiskohtaiset ohjeet pakettien eheyden tarkistamiseen löydät <a
+href="../doc/manuals/securing-debian-howto/ch7#s-deb-pack-sign">Debianin tietoturvaoppaasta</a>.</p>
+<p><em><a name="break">K: Mitä tehdä jos tietoturvapäivitys rikkoo satunnaisen paketin?</a></em></p>
+<p>V: Ensimmäiseksi tulisi selvittää miksi paketti hajoaa, ja miten se liittyy
+tietoturvapäivitykseen. Tämän jälkeen, ota yhteyttä tietoturvaryhmään jos vika
+on vakava, tai vakaan julkaisun versiojohtajaan jos vika on vähemmän vakava.
+Kyse on siis satunnaisista paketeista jotka hajoavat jonkun toisen paketin
+tietoturvapäivityksen yhteydessä. Jos et keksi, mikä menee vikaan, mutta
+pystyt korjaamaan vian, ota yhteyttä myöskin tietoturvaryhmään. Sinut
+saatetaan kuitenkin ohjata vakaan julkaisun versiojohtajan pakeille.</p>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<p>Takaisin <a href="../">Debian-projektin kotisivulle</a>.</p>
+<hr>
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Tämä sivu on olemassa myös seuraavilla kielillä:
+<div id="langContainer">
+ <a href="faq.da.html" title="tanska" hreflang="da" lang="da" rel="alternate">dansk</a>
+ <a href="faq.de.html" title="saksa" hreflang="de" lang="de" rel="alternate">Deutsch</a>
+ <a href="faq.el.html" title="kreikka" hreflang="el" lang="el" rel="alternate">&#917;&#955;&#955;&#951;&#957;&#953;&#954;&#940;&nbsp;(Ellinika)</a>
+ <a href="faq.en.html" title="englanti" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="faq.es.html" title="espanja" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="faq.fr.html" title="ranska" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="faq.it.html" title="italia" hreflang="it" lang="it" rel="alternate">Italiano</a>
+ <a href="faq.nl.html" title="hollanti" hreflang="nl" lang="nl" rel="alternate">Nederlands</a>
+ <a href="faq.ja.html" title="japani" hreflang="ja" lang="ja" rel="alternate">&#26085;&#26412;&#35486;&nbsp;(Nihongo)</a>
+ <a href="faq.pl.html" title="puola" hreflang="pl" lang="pl" rel="alternate">polski</a>
+ <a href="faq.pt.html" title="portugali" hreflang="pt" lang="pt" rel="alternate">Portugu&ecirc;s</a>
+ <a href="faq.ru.html" title="venäjä" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+ <a href="faq.sv.html" title="ruotsi" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+ <a href="faq.zh-cn.html" title="kiina (China)" hreflang="zh-CN" lang="zh-CN" rel="alternate">&#20013;&#25991;(&#31616;)</a>
+ <a href="faq.zh-hk.html" title="kiina (Hong Kong)" hreflang="zh-HK" lang="zh-HK" rel="alternate">&#20013;&#25991;(HK)</a>
+ <a href="faq.zh-tw.html" title="kiina (Taiwan)" hreflang="zh-TW" lang="zh-TW" rel="alternate">&#20013;&#25991;(&#32321;)</a>
+</div>
+Oletuskielen <a href="../intro/cn">asettamisohjeet</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Koti</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../intro/about">Tietoa</a>
+		  <ul>
+		  <li><a href="../social_contract">Yhteisösopimus</a></li>
+		  <li><a href="../code_of_conduct">Menettelytavat</a></li>
+		  <li><a href="../intro/free">Vapaa ohjelmisto</a></li>
+		  <li><a href="../partners/">Kumppanit</a></li>
+		  <li><a href="../donations">Lahjoitukset</a></li>
+          <li><a href="../legal">Legal Info</a></li>
+          <li><a href="../legal/privacy">Data Privacy</a></li>
+		  <li><a href="../contact">Ota yhteyttä</a></li>
+		  </ul>
+		</li>
+        <li><a href="../intro/help">Auta Debiania</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../distrib/">Debianin hankkiminen</a>
+			  <ul>
+			  <li><a href="../distrib/netinst">Verkkoasennus</a></li>
+			  <li><a href="../CD/">CD/USB-ISO-vedokset</a></li>
+			  <li><a href="../CD/vendors/">CD-toimittajat</a></li>
+			  <li><a href="../distrib/pre-installed">Esiasennettu</a></li>
+			  </ul>
+			</li>
+            <li><a href="../blends/">Puhtaat sekoitukset</a></li>
+			<li><a href="../distrib/packages">Debian-paketit</a></li>
+			<li><a href="../devel/">Kehittäjien nurkkaus</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../News/">Uutisia</a>
+		  <ul>
+		  <li><a href="../News/weekly/">Projektikatsaus</a></li>
+		  <li><a href="../events/">Tapahtumia</a></li>
+		  </ul>
+		</li>
+    <li><a href="../doc/">Käyttöohjeet</a>
+      <ul>
+      <li><a href="../releases/">Julkaisutiedot</a></li>
+      <li><a href="../releases/stable/installmanual">Asennusopas</a></li>
+      <li><a href="../doc/books">Debian-kirjallisuutta</a></li>
+      <li><a href="https://wiki.debian.org/">Debian-wiki</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../support">Tuki</a>
+	  <ul>
+			  <li><a href="../international/">Kansainvälinen Debian</a></li>
+			  <li><a href="../security/">Tietoturvallisuudesta</a></li>
+			  <li><a href="../Bugs/">Vikailmoitukset</a></li>
+			  <li><a href="../MailingLists/">Postilistat</a></li>
+			  <li><a href="https://lists.debian.org/">Postilistojen arkistot</a></li>
+			  <li><a href="../ports/">Siirrokset/arkkitehtuurit</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../sitemap">Sivustokartta</a></li>
+  <li><a href="https://search.debian.org/">Haku</a></li>
+  <li><a href="https://bits.debian.org">Debian-blogi</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>To report a problem with the web site, please e-mail our publicly archived mailing list <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> in English. For other contact information, see the Debian <a href="../contact">contact page</a>. Web site source code is <a href="https://salsa.debian.org/webmaster-team/webwml">available</a>.</p>
+<p>
+Viimeksi muutettu: ma 25.5.2020 kello 17:56:59 UTC
+&emsp;
+Last Built: pe 11.6.2021 kello 14:10:21 UTC
+  <br>
+  Tekijänoikeudet &copy; 1997-2020
+ <a href="https://www.spi-inc.org/">SPI</a> ja muut; Katso <a href="../license" rel="copyright">lisenssiehtoja</a><br>
+  Debian on Software in the Public Interest, Inc.'in rekisteröimä <a href="../trademark">tavaramerkki</a>.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

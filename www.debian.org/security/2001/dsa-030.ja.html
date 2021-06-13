@@ -1,0 +1,766 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- セキュリティ情報 -- DSA-030-2 xfree86 </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 16:52:28">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-ja.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Debian ウェブサイト検索" href="../../search.ja.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Debian ホーム"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="ja">
+        <input name="P" value="" size="14">
+        <input type="submit" value="検索">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">クイックナビをスキップ</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">セキュリティ情報</a>
+ &#x2F; <a href="./">2001</a>
+ &#x2F;
+セキュリティ情報 -- DSA-030-2 xfree86</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Debian セキュリティ勧告</h1>
+<h2>DSA-030-2 xfree86 -- バッファオーバフロー、一時ファイルの安全ではない扱い、サービス不能攻撃</h2>
+<dl>
+<dt>報告日時:</dt>
+	<dd>2001-02-12</dd>
+<dt>影響を受けるパッケージ:</dt>
+	<dd>
+<a href="https://packages.debian.org/src:xfree86">xfree86</a>
+</dd>
+<dt>危険性:</dt>
+	<dd class="warning">あり</dd>
+<dt>参考セキュリティデータベース:</dt>
+	<dd>(SecurityFocus の) Bugtraq データベース: <a href="http://online.securityfocus.com/bid/1430">BugTraq ID 1430</a>, <a href="http://online.securityfocus.com/bid/2925">BugTraq ID 2925</a>, <a href="http://online.securityfocus.com/bid/2924">BugTraq ID 2924</a>.<br></dd>
+<dt>詳細:</dt>
+	<dd>Chris Evans, Joseph S. Myers, Michal Zalewski, Alan Cox 他の人達により
+X ウィンドウシステムサンプル実装のいくつかの部分に多数の問題があることが
+指摘されました。XFree86 はこのサンプル実装を元にしています。実世界でこ
+れらの問題にたいして悪意を持った攻撃が行われたという報告はまだありません
+が、XFree86 パッケージを速やかにアップグレードすべきことに変わりはあり
+ません。
+<p>
+この勧告は XFree86 3.3.6 にのみ関するものです。これはリリース版の
+Debian GNU/Linux 2.2 ("potato") にこの版が含まれているからです。XFree86
+4.0 およびそれ以降のバージョンはまだ Debian ディストリビューションの一部と
+してはまだリリースされていません。
+<p>
+かなりの数の人達がこれらの問題の修正に携わっています。その人たちとは、
+Aaron Campbell, Paulo Cesar Pereira de Andrade, Keith Packard,
+David Dawes, Matthieu Herrb, Trevor Johnson, Colin Phipps, 及び Branden
+Robinson 及びそのほかの人達です。
+<ul>
+<li>Xサーバは XC セキュリティプロトコルのネゴシエーションの際にサービス不能攻撃
+の脆弱性を持ちます。
+脆弱性のあるバージョン: Debian 2.2, Debian 2.2r1, Debian 2.2r2
+<li>Xlib を使う X クライアント（ほとんどのものがそうです）には、悪意を持ったコーディングをされた
+X サーバから X プロトコルの返答として無効データを送り込まれた場合に、_XReply()
+と _XAsyncReply() 関数関連でバッファーオーバフローを起こす可能性があります。
+注：これらは特権レベルを上昇させている（setuidや setgid によって）X
+クライアントにたいしてのみ意味のある攻撃で、
+その上昇している特権レベルを得ることが出来ます。たとえば、もっともありふれた
+setuid された X クライアントは恐らく xterm でしょう。多くの Unix システムでは
+xterm は setuid root となっていますが、Debian 2.2 では xterm は setgid utmp
+となっているのみで、攻撃の結果は lastlog, utmp と wtmp
+の破壊にとどまり、汎用の <strong>root</strong> アクセスを得ることは出来ません。
+また攻撃を行う人はあらかじめ X サーバに接続して X クライアントを実行するに十分な権限をあらかじめ得ていなければなりません。
+<li>xdm の XDMCP コード中にバッファオーバフローがあります。これはスタック上の
+オーバフローではありません。
+<li>XTrans.c 中に一バイトのオーバフローがあります。
+<li>Xtranssock.c もバッファーオーバフローの問題を持ちます。
+<li>X サーバフラグ -xkbmap 関連処理にバッファーオーバフローがあります。
+<li>アテナウィジェットライブラリ中の MultiSrc ウィジェットは一時ファイルを安全でないやり方で取り扱っています。
+<li>imake プログラムはインストールルールを処理する際に一時ファイルを安全でないやり方で取り扱っています。
+<li>ICE ライブラリにバッファーオーバフロー攻撃を受ける可能性があります。
+<li>xauth プログラムは一時ファイルを安全でないやり方で取り扱っています。
+<li>Xau ライブラリ中の XauLock() 関数は一時ファイルを安全でないやり方で取り扱っています。
+<li>gccmakedep と makedepend プログラムは一時ファイルを安全でないやり方で取り扱っています。
+</ul>
+上記の全問題が今回のセキュリティリリースで修正されます。
+<p>これ以外にこれと併せて議論されている XFree86
+のセキュリティ問題がいくつかありますが、Debian 2.2
+の最新版ではそれらに関する脆弱性は<strong>ありません</strong>。
+<ul>
+<li>Xlib の XOpenDisplay() 関数には４つの独立な問題があり、悪意を持って作成された
+X サーバからサービス不能攻撃やバッファオーバフロー攻撃を受ける可能性があります。
+上述の通り、攻撃を行う人はあらかじめ X サーバに接続して X
+クライアントを実行するに十分な権限をあらかじめ得ていなければなりません。
+Debian 2.2 と 2.2r1 はこのうちの一つのみの弱点を持ちます。
+これは他の３つを修正するパッチを私たちが XFree86 3.3.6
+に当ててあったからです。４つめを修正するため追加のパッチが Debian 2.2r2 に適用されました。
+<li>アテナウィジェットライブラリ中の AsciiSrc ウィジェットは一時ファイルを安
+全でないやり方で取り扱っています。Debian 2.2r2 はこの問題の修正パッチを
+適用してあるので、この弱点はありません。
+<li>imake プログラムは mkstemp() の代わりに mktemp() を使っています。こ
+の問題は、XFree86 3.3.6 には無く、従って Debian 2.2 の各リリースには
+脆弱性はありません。
+</ul>
+これらの問題は 3.3.6-11potato32 で修正されていますので、X パッケージを速やかにアップグレードすることを勧告します。
+</dd>
+<dt>修正:</dt>
+	<dd>
+<h3>Debian 2.2 (potato)</h3>
+<dl>
+<dt>ソース:</dt>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/source/xfree86-1_3.3.6-11potato32.diff.gz">http://security.debian.org/dists/stable/updates/main/source/xfree86-1_3.3.6-11potato32.diff.gz</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/source/xfree86-1_3.3.6-11potato32.dsc">http://security.debian.org/dists/stable/updates/main/source/xfree86-1_3.3.6-11potato32.dsc</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/source/xfree86-1_3.3.6.orig.tar.gz">http://security.debian.org/dists/stable/updates/main/source/xfree86-1_3.3.6.orig.tar.gz</a><br>
+</dd>
+<dt>アーキテクチャ非依存コンポーネント:</dt>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-all/rstart_3.3.6-11potato32_all.deb">http://security.debian.org/dists/stable/updates/main/binary-all/rstart_3.3.6-11potato32_all.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-all/xbase_3.3.6-11potato32_all.deb">http://security.debian.org/dists/stable/updates/main/binary-all/xbase_3.3.6-11potato32_all.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-all/xfree86-common_3.3.6-11potato32_all.deb">http://security.debian.org/dists/stable/updates/main/binary-all/xfree86-common_3.3.6-11potato32_all.deb</a><br>
+</dd>
+<dt>alpha:</dt>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-alpha/rstartd_3.3.6-11potato32_alpha.deb">http://security.debian.org/dists/stable/updates/main/binary-alpha/rstartd_3.3.6-11potato32_alpha.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-alpha/twm_3.3.6-11potato32_alpha.deb">http://security.debian.org/dists/stable/updates/main/binary-alpha/twm_3.3.6-11potato32_alpha.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-alpha/xbase-clients_3.3.6-11potato32_alpha.deb">http://security.debian.org/dists/stable/updates/main/binary-alpha/xbase-clients_3.3.6-11potato32_alpha.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-alpha/xdm_3.3.6-11potato32_alpha.deb">http://security.debian.org/dists/stable/updates/main/binary-alpha/xdm_3.3.6-11potato32_alpha.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-alpha/xext_3.3.6-11potato32_alpha.deb">http://security.debian.org/dists/stable/updates/main/binary-alpha/xext_3.3.6-11potato32_alpha.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-alpha/xf86setup_3.3.6-11potato32_alpha.deb">http://security.debian.org/dists/stable/updates/main/binary-alpha/xf86setup_3.3.6-11potato32_alpha.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-alpha/xlib6g-dev_3.3.6-11potato32_alpha.deb">http://security.debian.org/dists/stable/updates/main/binary-alpha/xlib6g-dev_3.3.6-11potato32_alpha.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-alpha/xlib6g-static_3.3.6-11potato32_alpha.deb">http://security.debian.org/dists/stable/updates/main/binary-alpha/xlib6g-static_3.3.6-11potato32_alpha.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-alpha/xlib6g_3.3.6-11potato32_alpha.deb">http://security.debian.org/dists/stable/updates/main/binary-alpha/xlib6g_3.3.6-11potato32_alpha.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-alpha/xmh_3.3.6-11potato32_alpha.deb">http://security.debian.org/dists/stable/updates/main/binary-alpha/xmh_3.3.6-11potato32_alpha.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-alpha/xnest_3.3.6-11potato32_alpha.deb">http://security.debian.org/dists/stable/updates/main/binary-alpha/xnest_3.3.6-11potato32_alpha.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-alpha/xproxy_3.3.6-11potato32_alpha.deb">http://security.debian.org/dists/stable/updates/main/binary-alpha/xproxy_3.3.6-11potato32_alpha.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-alpha/xprt_3.3.6-11potato32_alpha.deb">http://security.debian.org/dists/stable/updates/main/binary-alpha/xprt_3.3.6-11potato32_alpha.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-alpha/xserver-3dlabs_3.3.6-11potato32_alpha.deb">http://security.debian.org/dists/stable/updates/main/binary-alpha/xserver-3dlabs_3.3.6-11potato32_alpha.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-alpha/xserver-common_3.3.6-11potato32_alpha.deb">http://security.debian.org/dists/stable/updates/main/binary-alpha/xserver-common_3.3.6-11potato32_alpha.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-alpha/xserver-fbdev_3.3.6-11potato32_alpha.deb">http://security.debian.org/dists/stable/updates/main/binary-alpha/xserver-fbdev_3.3.6-11potato32_alpha.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-alpha/xserver-i128_3.3.6-11potato32_alpha.deb">http://security.debian.org/dists/stable/updates/main/binary-alpha/xserver-i128_3.3.6-11potato32_alpha.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-alpha/xserver-mach64_3.3.6-11potato32_alpa.deb">http://security.debian.org/dists/stable/updates/main/binary-alpha/xserver-mach64_3.3.6-11potato32_alpa.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-alpha/xserver-mono_3.3.6-11potato32_alpha.deb">http://security.debian.org/dists/stable/updates/main/binary-alpha/xserver-mono_3.3.6-11potato32_alpha.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-alpha/xserver-p9000_3.3.6-11potato32_alpha.deb">http://security.debian.org/dists/stable/updates/main/binary-alpha/xserver-p9000_3.3.6-11potato32_alpha.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-alpha/xserver-s3_3.3.6-11potato32_alpha.deb">http://security.debian.org/dists/stable/updates/main/binary-alpha/xserver-s3_3.3.6-11potato32_alpha.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-alpha/xserver-s3v_3.3.6-11potato32_alpha.deb">http://security.debian.org/dists/stable/updates/main/binary-alpha/xserver-s3v_3.3.6-11potato32_alpha.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-alpha/xserver-svga_3.3.6-11potato32_alpha.deb">http://security.debian.org/dists/stable/updates/main/binary-alpha/xserver-svga_3.3.6-11potato32_alpha.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-alpha/xserver-tga_3.3.6-11potato32_alpha.deb">http://security.debian.org/dists/stable/updates/main/binary-alpha/xserver-tga_3.3.6-11potato32_alpha.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-alpha/xserver-vga16_3.3.6-11potato32_alpha.deb">http://security.debian.org/dists/stable/updates/main/binary-alpha/xserver-vga16_3.3.6-11potato32_alpha.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-alpha/xsm_3.3.6-11potato32_alpha.deb">http://security.debian.org/dists/stable/updates/main/binary-alpha/xsm_3.3.6-11potato32_alpha.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-alpha/xterm_3.3.6-11potato32_alpha.deb">http://security.debian.org/dists/stable/updates/main/binary-alpha/xterm_3.3.6-11potato32_alpha.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-alpha/xvfb_3.3.6-11potato32_alpha.deb">http://security.debian.org/dists/stable/updates/main/binary-alpha/xvfb_3.3.6-11potato32_alpha.deb</a><br>
+</dd>
+<dt>arm:</dt>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-arm/rstartd_3.3.6-11potato32_arm.deb">http://security.debian.org/dists/stable/updates/main/binary-arm/rstartd_3.3.6-11potato32_arm.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-arm/twm_3.3.6-11potato32_arm.deb">http://security.debian.org/dists/stable/updates/main/binary-arm/twm_3.3.6-11potato32_arm.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-arm/xbase-clients_3.3.6-11potato32_arm.deb">http://security.debian.org/dists/stable/updates/main/binary-arm/xbase-clients_3.3.6-11potato32_arm.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-arm/xdm_3.3.6-11potato32_arm.deb">http://security.debian.org/dists/stable/updates/main/binary-arm/xdm_3.3.6-11potato32_arm.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-arm/xext_3.3.6-11potato32_arm.deb">http://security.debian.org/dists/stable/updates/main/binary-arm/xext_3.3.6-11potato32_arm.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-arm/xf86setup_3.3.6-11potato32_arm.deb">http://security.debian.org/dists/stable/updates/main/binary-arm/xf86setup_3.3.6-11potato32_arm.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-arm/xlib6g-dev_3.3.6-11potato32_arm.deb">http://security.debian.org/dists/stable/updates/main/binary-arm/xlib6g-dev_3.3.6-11potato32_arm.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-arm/xlib6g-static_3.3.6-11potato32_arm.deb">http://security.debian.org/dists/stable/updates/main/binary-arm/xlib6g-static_3.3.6-11potato32_arm.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-arm/xlib6g_3.3.6-11potato32_arm.deb">http://security.debian.org/dists/stable/updates/main/binary-arm/xlib6g_3.3.6-11potato32_arm.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-arm/xmh_3.3.6-11potato32_arm.deb">http://security.debian.org/dists/stable/updates/main/binary-arm/xmh_3.3.6-11potato32_arm.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-arm/xnest_3.3.6-11potato32_arm.deb">http://security.debian.org/dists/stable/updates/main/binary-arm/xnest_3.3.6-11potato32_arm.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-arm/xproxy_3.3.6-11potato32_arm.deb">http://security.debian.org/dists/stable/updates/main/binary-arm/xproxy_3.3.6-11potato32_arm.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-arm/xprt_3.3.6-11potato32_arm.deb">http://security.debian.org/dists/stable/updates/main/binary-arm/xprt_3.3.6-11potato32_arm.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-arm/xserver-3dlabs_3.3.6-11potato32_arm.deb">http://security.debian.org/dists/stable/updates/main/binary-arm/xserver-3dlabs_3.3.6-11potato32_arm.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-arm/xserver-common_3.3.6-11potato32_arm.deb">http://security.debian.org/dists/stable/updates/main/binary-arm/xserver-common_3.3.6-11potato32_arm.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-arm/xserver-fbdev_3.3.6-11potato32_arm.deb">http://security.debian.org/dists/stable/updates/main/binary-arm/xserver-fbdev_3.3.6-11potato32_arm.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-arm/xserver-i128_3.3.6-11potato32_arm.deb">http://security.debian.org/dists/stable/updates/main/binary-arm/xserver-i128_3.3.6-11potato32_arm.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-arm/xserver-mach64_3.3.6-11potato32_alpa.deb">http://security.debian.org/dists/stable/updates/main/binary-arm/xserver-mach64_3.3.6-11potato32_alpa.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-arm/xserver-mono_3.3.6-11potato32_arm.deb">http://security.debian.org/dists/stable/updates/main/binary-arm/xserver-mono_3.3.6-11potato32_arm.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-arm/xserver-p9000_3.3.6-11potato32_arm.deb">http://security.debian.org/dists/stable/updates/main/binary-arm/xserver-p9000_3.3.6-11potato32_arm.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-arm/xserver-s3_3.3.6-11potato32_arm.deb">http://security.debian.org/dists/stable/updates/main/binary-arm/xserver-s3_3.3.6-11potato32_arm.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-arm/xserver-s3v_3.3.6-11potato32_arm.deb">http://security.debian.org/dists/stable/updates/main/binary-arm/xserver-s3v_3.3.6-11potato32_arm.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-arm/xserver-svga_3.3.6-11potato32_arm.deb">http://security.debian.org/dists/stable/updates/main/binary-arm/xserver-svga_3.3.6-11potato32_arm.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-arm/xserver-tga_3.3.6-11potato32_arm.deb">http://security.debian.org/dists/stable/updates/main/binary-arm/xserver-tga_3.3.6-11potato32_arm.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-arm/xserver-vga16_3.3.6-11potato32_arm.deb">http://security.debian.org/dists/stable/updates/main/binary-arm/xserver-vga16_3.3.6-11potato32_arm.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-arm/xsm_3.3.6-11potato32_arm.deb">http://security.debian.org/dists/stable/updates/main/binary-arm/xsm_3.3.6-11potato32_arm.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-arm/xterm_3.3.6-11potato32_arm.deb">http://security.debian.org/dists/stable/updates/main/binary-arm/xterm_3.3.6-11potato32_arm.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-arm/xvfb_3.3.6-11potato32_arm.deb">http://security.debian.org/dists/stable/updates/main/binary-arm/xvfb_3.3.6-11potato32_arm.deb</a><br>
+</dd>
+<dt>i386:</dt>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-i386/rstartd_3.3.6-11potato32_i386.deb">http://security.debian.org/dists/stable/updates/main/binary-i386/rstartd_3.3.6-11potato32_i386.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-i386/twm_3.3.6-11potato32_i386.deb">http://security.debian.org/dists/stable/updates/main/binary-i386/twm_3.3.6-11potato32_i386.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-i386/xbase-clients_3.3.6-11potato32_i386.deb">http://security.debian.org/dists/stable/updates/main/binary-i386/xbase-clients_3.3.6-11potato32_i386.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-i386/xdm_3.3.6-11potato32_i386.deb">http://security.debian.org/dists/stable/updates/main/binary-i386/xdm_3.3.6-11potato32_i386.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-i386/xext_3.3.6-11potato32_i386.deb">http://security.debian.org/dists/stable/updates/main/binary-i386/xext_3.3.6-11potato32_i386.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-i386/xf86setup_3.3.6-11potato32_i386.deb">http://security.debian.org/dists/stable/updates/main/binary-i386/xf86setup_3.3.6-11potato32_i386.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-i386/xlib6g-dev_3.3.6-11potato32_i386.deb">http://security.debian.org/dists/stable/updates/main/binary-i386/xlib6g-dev_3.3.6-11potato32_i386.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-i386/xlib6g-static_3.3.6-11potato32_i386.deb">http://security.debian.org/dists/stable/updates/main/binary-i386/xlib6g-static_3.3.6-11potato32_i386.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-i386/xlib6g_3.3.6-11potato32_i386.deb">http://security.debian.org/dists/stable/updates/main/binary-i386/xlib6g_3.3.6-11potato32_i386.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-i386/xmh_3.3.6-11potato32_i386.deb">http://security.debian.org/dists/stable/updates/main/binary-i386/xmh_3.3.6-11potato32_i386.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-i386/xnest_3.3.6-11potato32_i386.deb">http://security.debian.org/dists/stable/updates/main/binary-i386/xnest_3.3.6-11potato32_i386.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-i386/xproxy_3.3.6-11potato32_i386.deb">http://security.debian.org/dists/stable/updates/main/binary-i386/xproxy_3.3.6-11potato32_i386.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-i386/xprt_3.3.6-11potato32_i386.deb">http://security.debian.org/dists/stable/updates/main/binary-i386/xprt_3.3.6-11potato32_i386.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-i386/xserver-3dlabs_3.3.6-11potato32_i386.deb">http://security.debian.org/dists/stable/updates/main/binary-i386/xserver-3dlabs_3.3.6-11potato32_i386.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-i386/xserver-common_3.3.6-11potato32_i386.deb">http://security.debian.org/dists/stable/updates/main/binary-i386/xserver-common_3.3.6-11potato32_i386.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-i386/xserver-fbdev_3.3.6-11potato32_i386.deb">http://security.debian.org/dists/stable/updates/main/binary-i386/xserver-fbdev_3.3.6-11potato32_i386.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-i386/xserver-i128_3.3.6-11potato32_i386.deb">http://security.debian.org/dists/stable/updates/main/binary-i386/xserver-i128_3.3.6-11potato32_i386.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-i386/xserver-mach64_3.3.6-11potato32_alpa.deb">http://security.debian.org/dists/stable/updates/main/binary-i386/xserver-mach64_3.3.6-11potato32_alpa.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-i386/xserver-mono_3.3.6-11potato32_i386.deb">http://security.debian.org/dists/stable/updates/main/binary-i386/xserver-mono_3.3.6-11potato32_i386.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-i386/xserver-p9000_3.3.6-11potato32_i386.deb">http://security.debian.org/dists/stable/updates/main/binary-i386/xserver-p9000_3.3.6-11potato32_i386.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-i386/xserver-s3_3.3.6-11potato32_i386.deb">http://security.debian.org/dists/stable/updates/main/binary-i386/xserver-s3_3.3.6-11potato32_i386.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-i386/xserver-s3v_3.3.6-11potato32_i386.deb">http://security.debian.org/dists/stable/updates/main/binary-i386/xserver-s3v_3.3.6-11potato32_i386.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-i386/xserver-svga_3.3.6-11potato32_i386.deb">http://security.debian.org/dists/stable/updates/main/binary-i386/xserver-svga_3.3.6-11potato32_i386.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-i386/xserver-tga_3.3.6-11potato32_i386.deb">http://security.debian.org/dists/stable/updates/main/binary-i386/xserver-tga_3.3.6-11potato32_i386.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-i386/xserver-vga16_3.3.6-11potato32_i386.deb">http://security.debian.org/dists/stable/updates/main/binary-i386/xserver-vga16_3.3.6-11potato32_i386.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-i386/xsm_3.3.6-11potato32_i386.deb">http://security.debian.org/dists/stable/updates/main/binary-i386/xsm_3.3.6-11potato32_i386.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-i386/xterm_3.3.6-11potato32_i386.deb">http://security.debian.org/dists/stable/updates/main/binary-i386/xterm_3.3.6-11potato32_i386.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-i386/xvfb_3.3.6-11potato32_i386.deb">http://security.debian.org/dists/stable/updates/main/binary-i386/xvfb_3.3.6-11potato32_i386.deb</a><br>
+</dd>
+<dt>m68k:</dt>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-m68k/rstartd_3.3.6-11potato32_m68k.deb">http://security.debian.org/dists/stable/updates/main/binary-m68k/rstartd_3.3.6-11potato32_m68k.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-m68k/twm_3.3.6-11potato32_m68k.deb">http://security.debian.org/dists/stable/updates/main/binary-m68k/twm_3.3.6-11potato32_m68k.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-m68k/xbase-clients_3.3.6-11potato32_m68k.deb">http://security.debian.org/dists/stable/updates/main/binary-m68k/xbase-clients_3.3.6-11potato32_m68k.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-m68k/xdm_3.3.6-11potato32_m68k.deb">http://security.debian.org/dists/stable/updates/main/binary-m68k/xdm_3.3.6-11potato32_m68k.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-m68k/xext_3.3.6-11potato32_m68k.deb">http://security.debian.org/dists/stable/updates/main/binary-m68k/xext_3.3.6-11potato32_m68k.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-m68k/xf86setup_3.3.6-11potato32_m68k.deb">http://security.debian.org/dists/stable/updates/main/binary-m68k/xf86setup_3.3.6-11potato32_m68k.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-m68k/xlib6g-dev_3.3.6-11potato32_m68k.deb">http://security.debian.org/dists/stable/updates/main/binary-m68k/xlib6g-dev_3.3.6-11potato32_m68k.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-m68k/xlib6g-static_3.3.6-11potato32_m68k.deb">http://security.debian.org/dists/stable/updates/main/binary-m68k/xlib6g-static_3.3.6-11potato32_m68k.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-m68k/xlib6g_3.3.6-11potato32_m68k.deb">http://security.debian.org/dists/stable/updates/main/binary-m68k/xlib6g_3.3.6-11potato32_m68k.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-m68k/xmh_3.3.6-11potato32_m68k.deb">http://security.debian.org/dists/stable/updates/main/binary-m68k/xmh_3.3.6-11potato32_m68k.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-m68k/xnest_3.3.6-11potato32_m68k.deb">http://security.debian.org/dists/stable/updates/main/binary-m68k/xnest_3.3.6-11potato32_m68k.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-m68k/xproxy_3.3.6-11potato32_m68k.deb">http://security.debian.org/dists/stable/updates/main/binary-m68k/xproxy_3.3.6-11potato32_m68k.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-m68k/xprt_3.3.6-11potato32_m68k.deb">http://security.debian.org/dists/stable/updates/main/binary-m68k/xprt_3.3.6-11potato32_m68k.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-m68k/xserver-3dlabs_3.3.6-11potato32_m68k.deb">http://security.debian.org/dists/stable/updates/main/binary-m68k/xserver-3dlabs_3.3.6-11potato32_m68k.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-m68k/xserver-common_3.3.6-11potato32_m68k.deb">http://security.debian.org/dists/stable/updates/main/binary-m68k/xserver-common_3.3.6-11potato32_m68k.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-m68k/xserver-fbdev_3.3.6-11potato32_m68k.deb">http://security.debian.org/dists/stable/updates/main/binary-m68k/xserver-fbdev_3.3.6-11potato32_m68k.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-m68k/xserver-i128_3.3.6-11potato32_m68k.deb">http://security.debian.org/dists/stable/updates/main/binary-m68k/xserver-i128_3.3.6-11potato32_m68k.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-m68k/xserver-mach64_3.3.6-11potato32_alpa.deb">http://security.debian.org/dists/stable/updates/main/binary-m68k/xserver-mach64_3.3.6-11potato32_alpa.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-m68k/xserver-mono_3.3.6-11potato32_m68k.deb">http://security.debian.org/dists/stable/updates/main/binary-m68k/xserver-mono_3.3.6-11potato32_m68k.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-m68k/xserver-p9000_3.3.6-11potato32_m68k.deb">http://security.debian.org/dists/stable/updates/main/binary-m68k/xserver-p9000_3.3.6-11potato32_m68k.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-m68k/xserver-s3_3.3.6-11potato32_m68k.deb">http://security.debian.org/dists/stable/updates/main/binary-m68k/xserver-s3_3.3.6-11potato32_m68k.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-m68k/xserver-s3v_3.3.6-11potato32_m68k.deb">http://security.debian.org/dists/stable/updates/main/binary-m68k/xserver-s3v_3.3.6-11potato32_m68k.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-m68k/xserver-svga_3.3.6-11potato32_m68k.deb">http://security.debian.org/dists/stable/updates/main/binary-m68k/xserver-svga_3.3.6-11potato32_m68k.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-m68k/xserver-tga_3.3.6-11potato32_m68k.deb">http://security.debian.org/dists/stable/updates/main/binary-m68k/xserver-tga_3.3.6-11potato32_m68k.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-m68k/xserver-vga16_3.3.6-11potato32_m68k.deb">http://security.debian.org/dists/stable/updates/main/binary-m68k/xserver-vga16_3.3.6-11potato32_m68k.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-m68k/xsm_3.3.6-11potato32_m68k.deb">http://security.debian.org/dists/stable/updates/main/binary-m68k/xsm_3.3.6-11potato32_m68k.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-m68k/xterm_3.3.6-11potato32_m68k.deb">http://security.debian.org/dists/stable/updates/main/binary-m68k/xterm_3.3.6-11potato32_m68k.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-m68k/xvfb_3.3.6-11potato32_m68k.deb">http://security.debian.org/dists/stable/updates/main/binary-m68k/xvfb_3.3.6-11potato32_m68k.deb</a><br>
+</dd>
+<dt>powerpc:</dt>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-powerpc/rstartd_3.3.6-11potato32_powerpc.deb">http://security.debian.org/dists/stable/updates/main/binary-powerpc/rstartd_3.3.6-11potato32_powerpc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-powerpc/twm_3.3.6-11potato32_powerpc.deb">http://security.debian.org/dists/stable/updates/main/binary-powerpc/twm_3.3.6-11potato32_powerpc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-powerpc/xbase-clients_3.3.6-11potato32_powerpc.deb">http://security.debian.org/dists/stable/updates/main/binary-powerpc/xbase-clients_3.3.6-11potato32_powerpc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-powerpc/xdm_3.3.6-11potato32_powerpc.deb">http://security.debian.org/dists/stable/updates/main/binary-powerpc/xdm_3.3.6-11potato32_powerpc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-powerpc/xext_3.3.6-11potato32_powerpc.deb">http://security.debian.org/dists/stable/updates/main/binary-powerpc/xext_3.3.6-11potato32_powerpc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-powerpc/xf86setup_3.3.6-11potato32_powerpc.deb">http://security.debian.org/dists/stable/updates/main/binary-powerpc/xf86setup_3.3.6-11potato32_powerpc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-powerpc/xlib6g-dev_3.3.6-11potato32_powerpc.deb">http://security.debian.org/dists/stable/updates/main/binary-powerpc/xlib6g-dev_3.3.6-11potato32_powerpc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-powerpc/xlib6g-static_3.3.6-11potato32_powerpc.deb">http://security.debian.org/dists/stable/updates/main/binary-powerpc/xlib6g-static_3.3.6-11potato32_powerpc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-powerpc/xlib6g_3.3.6-11potato32_powerpc.deb">http://security.debian.org/dists/stable/updates/main/binary-powerpc/xlib6g_3.3.6-11potato32_powerpc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-powerpc/xmh_3.3.6-11potato32_powerpc.deb">http://security.debian.org/dists/stable/updates/main/binary-powerpc/xmh_3.3.6-11potato32_powerpc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-powerpc/xnest_3.3.6-11potato32_powerpc.deb">http://security.debian.org/dists/stable/updates/main/binary-powerpc/xnest_3.3.6-11potato32_powerpc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-powerpc/xproxy_3.3.6-11potato32_powerpc.deb">http://security.debian.org/dists/stable/updates/main/binary-powerpc/xproxy_3.3.6-11potato32_powerpc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-powerpc/xprt_3.3.6-11potato32_powerpc.deb">http://security.debian.org/dists/stable/updates/main/binary-powerpc/xprt_3.3.6-11potato32_powerpc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-powerpc/xserver-3dlabs_3.3.6-11potato32_powerpc.deb">http://security.debian.org/dists/stable/updates/main/binary-powerpc/xserver-3dlabs_3.3.6-11potato32_powerpc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-powerpc/xserver-common_3.3.6-11potato32_powerpc.deb">http://security.debian.org/dists/stable/updates/main/binary-powerpc/xserver-common_3.3.6-11potato32_powerpc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-powerpc/xserver-fbdev_3.3.6-11potato32_powerpc.deb">http://security.debian.org/dists/stable/updates/main/binary-powerpc/xserver-fbdev_3.3.6-11potato32_powerpc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-powerpc/xserver-i128_3.3.6-11potato32_powerpc.deb">http://security.debian.org/dists/stable/updates/main/binary-powerpc/xserver-i128_3.3.6-11potato32_powerpc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-powerpc/xserver-mach64_3.3.6-11potato32_alpa.deb">http://security.debian.org/dists/stable/updates/main/binary-powerpc/xserver-mach64_3.3.6-11potato32_alpa.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-powerpc/xserver-mono_3.3.6-11potato32_powerpc.deb">http://security.debian.org/dists/stable/updates/main/binary-powerpc/xserver-mono_3.3.6-11potato32_powerpc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-powerpc/xserver-p9000_3.3.6-11potato32_powerpc.deb">http://security.debian.org/dists/stable/updates/main/binary-powerpc/xserver-p9000_3.3.6-11potato32_powerpc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-powerpc/xserver-s3_3.3.6-11potato32_powerpc.deb">http://security.debian.org/dists/stable/updates/main/binary-powerpc/xserver-s3_3.3.6-11potato32_powerpc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-powerpc/xserver-s3v_3.3.6-11potato32_powerpc.deb">http://security.debian.org/dists/stable/updates/main/binary-powerpc/xserver-s3v_3.3.6-11potato32_powerpc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-powerpc/xserver-svga_3.3.6-11potato32_powerpc.deb">http://security.debian.org/dists/stable/updates/main/binary-powerpc/xserver-svga_3.3.6-11potato32_powerpc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-powerpc/xserver-tga_3.3.6-11potato32_powerpc.deb">http://security.debian.org/dists/stable/updates/main/binary-powerpc/xserver-tga_3.3.6-11potato32_powerpc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-powerpc/xserver-vga16_3.3.6-11potato32_powerpc.deb">http://security.debian.org/dists/stable/updates/main/binary-powerpc/xserver-vga16_3.3.6-11potato32_powerpc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-powerpc/xsm_3.3.6-11potato32_powerpc.deb">http://security.debian.org/dists/stable/updates/main/binary-powerpc/xsm_3.3.6-11potato32_powerpc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-powerpc/xterm_3.3.6-11potato32_powerpc.deb">http://security.debian.org/dists/stable/updates/main/binary-powerpc/xterm_3.3.6-11potato32_powerpc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-powerpc/xvfb_3.3.6-11potato32_powerpc.deb">http://security.debian.org/dists/stable/updates/main/binary-powerpc/xvfb_3.3.6-11potato32_powerpc.deb</a><br>
+</dd>
+<dt>sparc:</dt>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-sparc/rstartd_3.3.6-11potato32_sparc.deb">http://security.debian.org/dists/stable/updates/main/binary-sparc/rstartd_3.3.6-11potato32_sparc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-sparc/twm_3.3.6-11potato32_sparc.deb">http://security.debian.org/dists/stable/updates/main/binary-sparc/twm_3.3.6-11potato32_sparc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-sparc/xbase-clients_3.3.6-11potato32_sparc.deb">http://security.debian.org/dists/stable/updates/main/binary-sparc/xbase-clients_3.3.6-11potato32_sparc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-sparc/xdm_3.3.6-11potato32_sparc.deb">http://security.debian.org/dists/stable/updates/main/binary-sparc/xdm_3.3.6-11potato32_sparc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-sparc/xext_3.3.6-11potato32_sparc.deb">http://security.debian.org/dists/stable/updates/main/binary-sparc/xext_3.3.6-11potato32_sparc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-sparc/xf86setup_3.3.6-11potato32_sparc.deb">http://security.debian.org/dists/stable/updates/main/binary-sparc/xf86setup_3.3.6-11potato32_sparc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-sparc/xlib6g-dev_3.3.6-11potato32_sparc.deb">http://security.debian.org/dists/stable/updates/main/binary-sparc/xlib6g-dev_3.3.6-11potato32_sparc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-sparc/xlib6g-static_3.3.6-11potato32_sparc.deb">http://security.debian.org/dists/stable/updates/main/binary-sparc/xlib6g-static_3.3.6-11potato32_sparc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-sparc/xlib6g_3.3.6-11potato32_sparc.deb">http://security.debian.org/dists/stable/updates/main/binary-sparc/xlib6g_3.3.6-11potato32_sparc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-sparc/xmh_3.3.6-11potato32_sparc.deb">http://security.debian.org/dists/stable/updates/main/binary-sparc/xmh_3.3.6-11potato32_sparc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-sparc/xnest_3.3.6-11potato32_sparc.deb">http://security.debian.org/dists/stable/updates/main/binary-sparc/xnest_3.3.6-11potato32_sparc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-sparc/xproxy_3.3.6-11potato32_sparc.deb">http://security.debian.org/dists/stable/updates/main/binary-sparc/xproxy_3.3.6-11potato32_sparc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-sparc/xprt_3.3.6-11potato32_sparc.deb">http://security.debian.org/dists/stable/updates/main/binary-sparc/xprt_3.3.6-11potato32_sparc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-sparc/xserver-3dlabs_3.3.6-11potato32_sparc.deb">http://security.debian.org/dists/stable/updates/main/binary-sparc/xserver-3dlabs_3.3.6-11potato32_sparc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-sparc/xserver-common_3.3.6-11potato32_sparc.deb">http://security.debian.org/dists/stable/updates/main/binary-sparc/xserver-common_3.3.6-11potato32_sparc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-sparc/xserver-fbdev_3.3.6-11potato32_sparc.deb">http://security.debian.org/dists/stable/updates/main/binary-sparc/xserver-fbdev_3.3.6-11potato32_sparc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-sparc/xserver-i128_3.3.6-11potato32_sparc.deb">http://security.debian.org/dists/stable/updates/main/binary-sparc/xserver-i128_3.3.6-11potato32_sparc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-sparc/xserver-mach64_3.3.6-11potato32_alpa.deb">http://security.debian.org/dists/stable/updates/main/binary-sparc/xserver-mach64_3.3.6-11potato32_alpa.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-sparc/xserver-mono_3.3.6-11potato32_sparc.deb">http://security.debian.org/dists/stable/updates/main/binary-sparc/xserver-mono_3.3.6-11potato32_sparc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-sparc/xserver-p9000_3.3.6-11potato32_sparc.deb">http://security.debian.org/dists/stable/updates/main/binary-sparc/xserver-p9000_3.3.6-11potato32_sparc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-sparc/xserver-s3_3.3.6-11potato32_sparc.deb">http://security.debian.org/dists/stable/updates/main/binary-sparc/xserver-s3_3.3.6-11potato32_sparc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-sparc/xserver-s3v_3.3.6-11potato32_sparc.deb">http://security.debian.org/dists/stable/updates/main/binary-sparc/xserver-s3v_3.3.6-11potato32_sparc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-sparc/xserver-svga_3.3.6-11potato32_sparc.deb">http://security.debian.org/dists/stable/updates/main/binary-sparc/xserver-svga_3.3.6-11potato32_sparc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-sparc/xserver-tga_3.3.6-11potato32_sparc.deb">http://security.debian.org/dists/stable/updates/main/binary-sparc/xserver-tga_3.3.6-11potato32_sparc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-sparc/xserver-vga16_3.3.6-11potato32_sparc.deb">http://security.debian.org/dists/stable/updates/main/binary-sparc/xserver-vga16_3.3.6-11potato32_sparc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-sparc/xsm_3.3.6-11potato32_sparc.deb">http://security.debian.org/dists/stable/updates/main/binary-sparc/xsm_3.3.6-11potato32_sparc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-sparc/xterm_3.3.6-11potato32_sparc.deb">http://security.debian.org/dists/stable/updates/main/binary-sparc/xterm_3.3.6-11potato32_sparc.deb</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/stable/updates/main/binary-sparc/xvfb_3.3.6-11potato32_sparc.deb">http://security.debian.org/dists/stable/updates/main/binary-sparc/xvfb_3.3.6-11potato32_sparc.deb</a><br>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+このページは以下の言語でもご覧になれます。
+<div id="langContainer">
+ <a href="dsa-030.da.html" title="デンマーク語" hreflang="da" lang="da" rel="alternate">dansk</a>
+ <a href="dsa-030.de.html" title="ドイツ語" hreflang="de" lang="de" rel="alternate">Deutsch</a>
+ <a href="dsa-030.en.html" title="英語" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="dsa-030.es.html" title="スペイン語" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="dsa-030.fr.html" title="フランス語" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="dsa-030.ru.html" title="ロシア語" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+ <a href="dsa-030.sv.html" title="スウェーデン語" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+</div>
+<a href="../../intro/cn">デフォルトの言語を設定するには</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">ホーム</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">Debian について</a>
+		  <ul>
+		  <li><a href="../../social_contract">私たちの社会契約</a></li>
+		  <li><a href="../../code_of_conduct">利用上の注意</a></li>
+		  <li><a href="../../intro/free">フリーソフトウェア</a></li>
+		  <li><a href="../../partners/">パートナー</a></li>
+		  <li><a href="../../donations">寄付</a></li>
+          <li><a href="../../legal">Legal Info</a></li>
+          <li><a href="../../legal/privacy">Data Privacy</a></li>
+		  <li><a href="../../contact">私たちと連絡を取る</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Debian を支援する</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Debian を入手する</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">ネットワークインストール</a></li>
+			  <li><a href="../../CD/">CD/USB ISO イメージ</a></li>
+			  <li><a href="../../CD/vendors/">CD ベンダ</a></li>
+			  <li><a href="../../distrib/pre-installed">プリインストール</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Pure Blends</a></li>
+			<li><a href="../../distrib/packages">Debian パッケージ</a></li>
+			<li><a href="../../devel/">開発者のコーナー</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">ニュース</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">プロジェクトニュース</a></li>
+		  <li><a href="../../events/">イベント</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">文書</a>
+      <ul>
+      <li><a href="../../releases/">リリース情報</a></li>
+      <li><a href="../../releases/stable/installmanual">インストール手順</a></li>
+      <li><a href="../../doc/books">Debian に関する書籍</a></li>
+      <li><a href="https://wiki.debian.org/">Debian Wiki</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">サポート</a>
+	  <ul>
+			  <li><a href="../../international/">Debian の国際化</a></li>
+			  <li><a href="../../security/">セキュリティ情報</a></li>
+			  <li><a href="../../Bugs/">バグ報告</a></li>
+			  <li><a href="../../MailingLists/">メーリングリスト</a></li>
+			  <li><a href="https://lists.debian.org/">»リストアーカイブ</a></li>
+			  <li><a href="../../ports/">移植/アーキテクチャ</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">サイトマップ</a></li>
+  <li><a href="https://search.debian.org/">検索</a></li>
+  <li><a href="https://bits.debian.org">Debian ブログ</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>To report a problem with the web site, please e-mail our publicly archived mailing list <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> in English. For other contact information, see the Debian <a href="../../contact">contact page</a>. Web site source code is <a href="https://salsa.debian.org/webmaster-team/webwml">available</a>.</p>
+<p>
+最終更新: 2018 年 6 月 1 日 (金) 18:42:16 UTC
+&emsp;
+Last Built: 2021 年 6 月 11 日 (金) 16:52:28 UTC
+  <br>
+  Copyright &copy; 2001-2021
+ <a href="https://www.spi-inc.org/">SPI</a> と多くの人々; <a href="../../license" rel="copyright">ライセンス条項</a>をご覧ください。<br>
+  Debian は Software in the Public Interest, Inc の<a href="../../trademark">登録商標</a>です。
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="sv">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Säkerhetsinformation -- DSA-134-4 ssh </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 19:52:17">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-sv.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Sök på Debians webbplats" href="../../search.sv.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Debian-hem"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="sv">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Sök">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Hoppa över navigering</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">Säkerhetsinformation</a>
+ &#x2F; <a href="./">2002</a>
+ &#x2F;
+Säkerhetsinformation -- DSA-134-4 ssh</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Säkerhetsbulletin från Debian</h1>
+<h2>DSA-134-4 ssh -- fjärrattack</h2>
+<dl>
+<dt>Rapporterat den:</dt>
+	<dd>2002-06-24</dd>
+<dt>Berörda paket:</dt>
+	<dd>
+<a href="https://packages.debian.org/src:ssh">ssh</a>
+</dd>
+<dt>Sårbara:</dt>
+	<dd class="warning">Ja</dd>
+<dt>Referenser i säkerhetsdatabaser:</dt>
+	<dd>I Bugtraq-databasen (hos SecurityFocus): <a href="http://online.securityfocus.com/bid/5093">BugTraq-id 5093</a>.<br>I Mitres CVE-förteckning: <a href="https://security-tracker.debian.org/tracker/CVE-2002-0640">CVE-2002-0640</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2002-0639">CVE-2002-0639</a>.<br>CERTs information om sårbarheter, bulletiner och incidenter: <a href="http://www.cert.org/advisories/CA-2002-18.html">CA-2002-18</a>, <a href="http://www.kb.cert.org/vuls/id/369347">VU#369347</a>.<br></dd>
+<dt>Ytterligare information:</dt>
+	<dd>
+<p>
+ISS X-Force släppte en bulletin om &rdquo;fjärranropssårbarhet&rdquo; i
+OpenSSH:
+Tyvärr var bulletinen felaktig på några punkter, vilket ledde till utbredd
+förvirring om hur allvarlig denna sårbarhet var.
+Ingen version av OpenSSH på Debian påverkas av SKEY- och
+BSD_AUTH-autentiseringsmetoderna som beskrivs i ISS-bulletinen.
+Debian innehåller dock OpenSSH-servrar med den PAM-funktion som beskrivs i
+en senare bulletin från OpenSSH-gruppen.
+(Denna sårbarhet är autentisering med PAM via en tangentbordsinteraktiv
+mekanism [kbdint].)
+Denna sårbarhet påverkar OpenSSH version 2.3.1 till 3.3.
+Inget sätt att utnyttja PAM-/kbdint-sårbarheten är för närvarande känd, men
+detaljerna är allmänt kända.
+Alla dessa sårbarheter rättades i OpenSSH 3.4.
+</p>
+<p>
+Förutom de rättade sårbarheter som beskrivs ovan innehåller våra
+OpenSSH-paket version 3.3 eller högre den nya privilegiedelningsfunktionen
+av Niels Provos, vilken ändrar ssh så att det
+använder en icke-privilegierad process för att hantera det mesta.
+Sårbarheter i den icke-privilegierade delen av OpenSSH leder till att ett
+icke-privilegierat konto som
+är begränsat till en tom chroot komprometteras, istället för en direkt
+root-kompromettering.
+Privilegiedelningen mildrar risken hos framtida OpenSSH-komprometteringar.
+</p>
+<p>
+Med Debian 2.2 (potato) kom ett ssh-paket baserat på OpenSSH 1.2.3, och är
+inte sårbart för de sårbarheter som beskrivits i denna bulletin.
+Användare som fortfarande kör ett ssh-paket av version 1.2.3 behöver inte
+omedelbart uppgradera till OpenSSH 3.4.
+Användare som uppgraderade till de OpenSSH version 3.3-paket som släpptes
+med tidigare versioner av DSA-134 bör uppgradera till de nya OpenSSH version
+3.4-paketen, då version 3.3-paketen är sårbara.
+Vi föreslår att användare som kör OpenSSH 1.2.3 bör överväga att byta till
+OpenSSH 3.4 för att dra nytta av privilegiedelningsfunktionen.
+(Dock skall vi återigen nämna att vi inte känner till någon sårbarhet i
+OpenSSH 1.2.3.
+Läs noggrant genom varningarna nedan innan ni uppgraderar från OpenSSH
+1.2.3.)
+Vi rekommenderar att alla som kör en bakåtanpassad version av OpenSSH 2.0
+eller högre på potato uppgraderar till OpenSSH 3.4.
+</p>
+<p>
+Den aktuella uttestningsutgåvan av Debian (woody) innehåller ett paket med
+OpenSSH version 3.0.2p1 (ssh), vilket är sårbart för PAM-/kbdint-problemet
+som beskrivs ovan.
+Vi rekommenderar att användare uppgraderar till OpenSSH 3.4 och aktiverar
+privilegiedelning.
+Läs noggrant genom varningarna nedan innan ni uppgraderar.
+Uppdaterade paket för ssh-krb5 (ett OpenSSH-paket som stöder autentisering
+via kerberos) är för närvarande under utveckling.
+Användare som inte kan uppgradera sina OpenSSH-paket kan gå runt de kända
+sårbarheterna genom att slå av de sårbara funktionerna:
+se till att följande rader finns och inte är utkommenterade i
+/etc/ssh/sshd_config och starta om ssh:
+</p>
+<pre>
+  PAMAuthenticationViaKbdInt no
+  ChallengeResponseAuthentication no
+</pre>
+<p>
+Det bör inte finnas några fler PAMAuthenticationViaKbdInt eller
+ChallengeResponseAuthentication i sshd_config.
+</p>
+<p>
+Härmed slutar den del av bulletinen som hanterar sårbarheten.
+Det som följer är versionsfakta gällande OpenSSH 3.4-paketet och
+privilegiedelningsfunktionen.
+URLer för OpenSSH 3.4-paketen finns nederst.
+</p>
+<p>Information om möjliga problem med denna uppgradering:</p>
+<ul>
+ <li>Paketet introducerar ett nytt konto vid namn &rdquo;sshd&rdquo; som
+     används av privilegiedelningskoden.
+     Om det inte finns något sshd-konto kommer paketet försöka skapa ett.
+     Om kontot redan finns kommer det att återanvändas.
+     Om du inte vill att detta skall ske måste du ändra det manuellt.</li>
+ <li>(gäller endast potato) Denna uppdatering lägger till en bakåtanpassad
+     version 0.9.6c av SSL-biblioteket. Detta betyder att du även måste
+     uppgradera ssl-paketet.</li>
+ <li>(gäller endast potato) Denna uppdatering använder som standard version
+     2 av SSH-protokollet, något som kan förstöra för existerande system där
+     RSA-autentisering används.
+     Du måste antingen
+  <ul>
+   <li>lägga till -1 till ssh:s kommandorad för att fortsätta använda
+       SSH-protokoll 1 och dina existerande nycklar, eller</li>
+   <li>ändra <kbd>Protocol</kbd>-raden i <tt>/etc/ssh/ssh_config</tt> och/eller
+       <tt>/etc/ssh/sshd_config</tt> till &rdquo;<kbd>Protocol 1,2</kbd>&rdquo;
+       för att försöka med protokoll 1 före protokoll 2, eller
+   <li>skapa nya rsa- eller dsa-nycklar för SSH-protokoll 2.</li>
+  </ul>
+ </li>
+ <li>sshd använder privilegiedelning som standard, även om du inte explicit
+     aktiverar det i <tt>/etc/ssh/sshd_config</tt>.
+ <li>Funktionen att falla tillbaka från ssh till rsh är inte längre
+     tillgänglig.</li>
+ <li>(gäller endast potato) Privilegiedelning fungerar för närvarande inte
+     för Linux 2.0-kärnor.</li>
+ <li>Privilegiedelning fungerar för närvarande inte med PAM-autentisering
+     via KeyboardInteractive-mekanismen.</li>
+ <li>Privilegiedelning gör att vissa PAM-moduler som förväntar sig att köras
+     som root slutar fungera.</li>
+ <li>Om du av någon anledning inte kan använda privilegiedelning på grund
+     av något av problemen som beskrivs ovan kan du återgå till tidigare
+     beteende genom att lägga
+     in &rdquo;<kbd>UsePrivilegeSeparation no</kbd>&rdquo; i din
+     <tt>/etc/ssh/sshd_config</tt>-fil.
+</ul>
+<p>Några problem med tidigare openssh 3.3p1-paket som rättats i denna
+bulletin (inte en komplett ändringslogg):</p>
+<ul>
+ <li>(gäller endast potato) installationsfrågan, &rdquo;vill du endast
+     tillåta protokoll 2&rdquo; har inte längre &rdquo;ja&rdquo; som
+     förval för potato-paketen.
+     Användare som svarade ja på denna fråga och även valde att skapa
+     en ny sshd_config-fil upptäckte att de inte längre kunde ansluta
+     mot sina servrar via protokoll 1.
+     Se <tt>/usr/doc/ssh/README.Debian</tt>
+     för instruktioner om hur man aktiverar protokoll 1 om du hamnat i
+     denna situation.
+     Eftersom förvalet i potatopaketen nu är &rdquo;nej&rdquo; bör detta
+     inte vara ett problem som i framtiden uppgraderar från version
+     1.2.3.</li>
+ <li>(gäller endast potato) ssh-paketet har ej längre en konflikt mot
+     rsh-server, och tillhandahåller inte heller ett rsh-alternativ.</li>
+ <li>installationen misslyckas inte längre om användaren väljer att
+     generera protokoll 1-nycklar.</li>
+</ul>
+<p>Återigen ber vi om ursäkt för att vi måste släppa paket med större
+ändringar och mindre testning än vad vi normalt gör; givet den möjliga
+allvarlighetsgraden och icke-specifika natur hos det ursprungliga
+hotet valde vi att våra
+användare bäst betjänades genom att ha paket tillgängliga för utvärdering så
+fort som möjligt.
+Vi kommer sända ut ytterligare information när den når oss, och kommer
+fortsätta arbeta på de kvarvarande problemen.</p>
+</dd>
+<dt>Rättat i:</dt>
+	<dd>
+<h3>Debian GNU/Linux 2.2 (potato)</h3>
+<dl>
+<dt>Källkod:
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh_3.4p1.orig.tar.gz">http://security.debian.org/pool/updates/main/o/openssh/openssh_3.4p1.orig.tar.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh_3.4p1-0.0potato1.dsc">http://security.debian.org/pool/updates/main/o/openssh/openssh_3.4p1-0.0potato1.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh_3.4p1-0.0potato1.diff.gz">http://security.debian.org/pool/updates/main/o/openssh/openssh_3.4p1-0.0potato1.diff.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssl/openssl_0.9.6c.orig.tar.gz">http://security.debian.org/pool/updates/main/o/openssl/openssl_0.9.6c.orig.tar.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssl/openssl_0.9.6c-0.potato.1.diff.gz">http://security.debian.org/pool/updates/main/o/openssl/openssl_0.9.6c-0.potato.1.diff.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssl/openssl_0.9.6c-0.potato.1.dsc">http://security.debian.org/pool/updates/main/o/openssl/openssl_0.9.6c-0.potato.1.dsc</a><br>
+<dt>Arkitekturoberoende komponent:
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssl/ssleay_0.9.6c-0.potato.1_all.deb">http://security.debian.org/pool/updates/main/o/openssl/ssleay_0.9.6c-0.potato.1_all.deb</a><br>
+<dt>alpha (DEC Alpha):
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0potato1_alpha.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0potato1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0potato1_alpha.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0potato1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssl/libssl0.9.6_0.9.6c-0.potato.1_alpha.deb">http://security.debian.org/pool/updates/main/o/openssl/libssl0.9.6_0.9.6c-0.potato.1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssl/openssl_0.9.6c-0.potato.1_alpha.deb">http://security.debian.org/pool/updates/main/o/openssl/openssl_0.9.6c-0.potato.1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssl/libssl-dev_0.9.6c-0.potato.1_alpha.deb">http://security.debian.org/pool/updates/main/o/openssl/libssl-dev_0.9.6c-0.potato.1_alpha.deb</a><br>
+<dt>arm (ARM):
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0potato1_arm.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0potato1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0potato1_arm.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0potato1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssl/libssl0.9.6_0.9.6c-0.potato.1_arm.deb">http://security.debian.org/pool/updates/main/o/openssl/libssl0.9.6_0.9.6c-0.potato.1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssl/libssl-dev_0.9.6c-0.potato.1_arm.deb">http://security.debian.org/pool/updates/main/o/openssl/libssl-dev_0.9.6c-0.potato.1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssl/openssl_0.9.6c-0.potato.1_arm.deb">http://security.debian.org/pool/updates/main/o/openssl/openssl_0.9.6c-0.potato.1_arm.deb</a><br>
+<dt>i386 (Intel IA32):
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0potato1_i386.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0potato1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0potato1_i386.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0potato1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssl/libssl-dev_0.9.6c-0.potato.1_i386.deb">http://security.debian.org/pool/updates/main/o/openssl/libssl-dev_0.9.6c-0.potato.1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssl/libssl0.9.6_0.9.6c-0.potato.1_i386.deb">http://security.debian.org/pool/updates/main/o/openssl/libssl0.9.6_0.9.6c-0.potato.1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssl/openssl_0.9.6c-0.potato.1_i386.deb">http://security.debian.org/pool/updates/main/o/openssl/openssl_0.9.6c-0.potato.1_i386.deb</a><br>
+<dt>powerpc (PowerPC):
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0potato1_powerpc.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0potato1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0potato1_powerpc.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0potato1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssl/openssl_0.9.6c-0.potato.1_powerpc.deb">http://security.debian.org/pool/updates/main/o/openssl/openssl_0.9.6c-0.potato.1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssl/libssl-dev_0.9.6c-0.potato.1_powerpc.deb">http://security.debian.org/pool/updates/main/o/openssl/libssl-dev_0.9.6c-0.potato.1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssl/libssl0.9.6_0.9.6c-0.potato.1_powerpc.deb">http://security.debian.org/pool/updates/main/o/openssl/libssl0.9.6_0.9.6c-0.potato.1_powerpc.deb</a><br>
+<dt>sparc (Sun SPARC/UltraSPARC):
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0potato1_sparc.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0potato1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0potato1_sparc.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0potato1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssl/libssl-dev_0.9.6c-0.potato.1_sparc.deb">http://security.debian.org/pool/updates/main/o/openssl/libssl-dev_0.9.6c-0.potato.1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssl/libssl0.9.6_0.9.6c-0.potato.1_sparc.deb">http://security.debian.org/pool/updates/main/o/openssl/libssl0.9.6_0.9.6c-0.potato.1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssl/openssl_0.9.6c-0.potato.1_sparc.deb">http://security.debian.org/pool/updates/main/o/openssl/openssl_0.9.6c-0.potato.1_sparc.deb</a><br>
+</dl>
+<h3>Debian GNU/Linux 3.0 (woody)</h3>
+<dl>
+<dt>Källkod:
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh_3.4p1-0.0woody1.dsc">http://security.debian.org/pool/updates/main/o/openssh/openssh_3.4p1-0.0woody1.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh_3.4p1.orig.tar.gz">http://security.debian.org/pool/updates/main/o/openssh/openssh_3.4p1.orig.tar.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh_3.4p1-0.0woody1.diff.gz">http://security.debian.org/pool/updates/main/o/openssh/openssh_3.4p1-0.0woody1.diff.gz</a><br>
+<dt>alpha (DEC Alpha):
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0woody1_alpha.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0woody1_alpha.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0woody1_alpha.deb</a><br>
+<dt>arm (ARM):
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0woody1_arm.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0woody1_arm.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0woody1_arm.deb</a><br>
+<dt>hppa (HP PA RISC):
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0woody1_hppa.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0woody1_hppa.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0woody1_hppa.deb</a><br>
+<dt>i386 (Intel IA32):
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0woody1_i386.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0woody1_i386.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0woody1_i386.deb</a><br>
+<dt>ia64 (Intel IA64):
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0woody1_ia64.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0woody1_ia64.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0woody1_ia64.deb</a><br>
+<dt>m68k (Motorola Mc680x0):
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0woody1_m68k.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0woody1_m68k.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0woody1_m68k.deb</a><br>
+<dt>mips (SGI MIPS):
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0woody1_mips.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0woody1_mips.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0woody1_mips.deb</a><br>
+<dt>mipsel (SGI MIPS (Little Endian)):
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0woody1_mipsel.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0woody1_mipsel.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0woody1_mipsel.deb</a><br>
+<dt>powerpc (PowerPC):
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0woody1_powerpc.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0woody1_powerpc.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0woody1_powerpc.deb</a><br>
+<dt>s390 (IBM S/390):
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0woody1_s390.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0woody1_s390.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0woody1_s390.deb</a><br>
+<dt>sparc (Sun SPARC/UltraSPARC):
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0woody1_sparc.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh_3.4p1-0.0woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0woody1_sparc.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_3.4p1-0.0woody1_sparc.deb</a><br>
+</dl>
+<p>MD5-kontrollsummor för dessa filer finns i <a href="https://lists.debian.org/debian-security-announce/debian-security-announce-2002/msg00045.html">originalbulletinen</a>.
+(<a href="https://lists.debian.org/debian-security-announce/debian-security-announce-2002/msg00046.html">DSA-134-2</a>)
+(<a href="https://lists.debian.org/debian-security-announce/debian-security-announce-2002/msg00047.html">DSA-134-3</a>)
+(<a href="https://lists.debian.org/debian-security-announce/debian-security-announce-2002/msg00048.html">DSA-134-4</a>)
+</dd>
+</dl>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Denna sida finns även på följande språk:
+<div id="langContainer">
+ <a href="dsa-134.da.html" title="danska" hreflang="da" lang="da" rel="alternate">dansk</a>
+ <a href="dsa-134.de.html" title="tyska" hreflang="de" lang="de" rel="alternate">Deutsch</a>
+ <a href="dsa-134.en.html" title="engelska" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="dsa-134.es.html" title="spanska" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="dsa-134.fr.html" title="franska" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="dsa-134.ja.html" title="japanska" hreflang="ja" lang="ja" rel="alternate">&#26085;&#26412;&#35486;&nbsp;(Nihongo)</a>
+ <a href="dsa-134.pt.html" title="portugisiska" hreflang="pt" lang="pt" rel="alternate">Portugu&ecirc;s</a>
+</div>
+Så ställer du in <a href="../../intro/cn">standardspråkval för dokument</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Hem</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">Om&nbsp;Debian</a>
+		  <ul>
+		  <li><a href="../../social_contract">Socialt kontrakt</a></li>
+		  <li><a href="../../code_of_conduct">Uppförandekod</a></li>
+		  <li><a href="../../intro/free">Fri programvara</a></li>
+		  <li><a href="../../partners/">Partner</a></li>
+		  <li><a href="../../donations">Donationer</a></li>
+          <li><a href="../../legal">Rättsliga frågor</a></li>
+          <li><a href="../../legal/privacy">Dataintegritet</a></li>
+		  <li><a href="../../contact">Kontakta oss</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Hjälp Debian</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Få tag på Debian</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">Nätverksinstallation</a></li>
+			  <li><a href="../../CD/">CD/USB-ISO-avbildningar</a></li>
+			  <li><a href="../../CD/vendors/">CD-återförsäljare</a></li>
+			  <li><a href="../../distrib/pre-installed">Förinstallerat</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Pure Blends</a></li>
+			<li><a href="../../distrib/packages">Debianpaket</a></li>
+			<li><a href="../../devel/">Utvecklarhörnet</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">Nyheter</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">Projektnyheter</a></li>
+		  <li><a href="../../events/">Evenemang</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">Dokumentation</a>
+      <ul>
+      <li><a href="../../releases/">Versionsfakta</a></li>
+      <li><a href="../../releases/stable/installmanual">Installationsguide</a></li>
+      <li><a href="../../doc/books">Debianböcker</a></li>
+      <li><a href="https://wiki.debian.org/">Debians Wiki</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">Support</a>
+	  <ul>
+			  <li><a href="../../international/">Debian internationellt</a></li>
+			  <li><a href="../../security/">Säkerhetsinformation</a></li>
+			  <li><a href="../../Bugs/">Felrapporter</a></li>
+			  <li><a href="../../MailingLists/">Sändlistor</a></li>
+			  <li><a href="https://lists.debian.org/">Sändlistearkiv</a></li>
+			  <li><a href="../../ports/">Anpassningar/arkitekturer</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">Sidöversikt</a></li>
+  <li><a href="https://search.debian.org/">Sök</a></li>
+  <li><a href="https://bits.debian.org">Debianbloggen</a></li>
+  <li><a href="https://micronews.debian.org">Debian Mikronyheter</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>För att rapportera ett problem med webbplatsen, kontakta vår publikt arkiverade sändlista <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> på engelska. Vid problem med och synpunkter på den svenska översättningen, kontakta den publikt arkiverade sändlistan <a href="mailto:debian-l10n-swedish@lists.debian.org">debian-l10n-swedish@lists.debian.org</a>. För övrig kontaktinformation, se Debians <a href="../../contact">kontaktsida</a>. Webbplatsens källkod finns <a href="https://salsa.debian.org/webmaster-team/webwml">tillgänglig</a>.</p>
+<p>
+Senast ändrad: Fre 2018-06-01 18.42.15 UTC
+&emsp;
+Senast byggd: Fre 2021-06-11 19.52.17 UTC
+  <br>
+  Upphovsrättsskyddat &copy; 2002-2021
+ <a href="https://www.spi-inc.org/">SPI</a> och andra; Se <a href="../../license" rel="copyright">licensvillkor</a><br>
+  Debian är ett registrerat <a href="../../trademark">varumärke</a> hos Software in the Public Interest. Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

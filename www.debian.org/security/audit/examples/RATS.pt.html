@@ -1,0 +1,274 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="pt">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Exemplo de auditoria automatizada: RATS </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 17:54:46">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../../debian-pt.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Pesquisa do site web do Debian" href="../../../search.pt.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../../" title="Página principal do Debian"><img src="../../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="pt">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Busca">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Pular "Quicknav"</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../../">Informações sobre Segurança</a>
+ &#x2F; <a href="./../">Projeto de Auditoria de Segurança do Debian</a>
+ &#x2F; <a href="./">Exemplos de auditoria automatizada</a>
+ &#x2F;
+Exemplo de auditoria automatizada: RATS</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Exemplo de auditoria automatizada: RATS</h1>
+<p>O <a href="https://packages.debian.org/rats">RATS</a> é um escaneador de
+propósito geral para detectar potenciais problemas de segurança em algumas
+linguagens de programação.</p>
+<h2>Executando o RATS</h2>
+<p>Executar o RATS é tão simples quanto invocar o comando com um diretório para
+processar. Cada um dos arquivos de código-fonte reconhecidos será processado.
+O RATS entende diversas linguagens de programação, C, Perl, PHP e Python,
+e tratará cada uma como uma fonte válida para examinar.</p>
+<p>Existem diversas opções que podem ser passadas além do nome de diretório para
+escanear, elas estão descritas nas páginas man.</p>
+<p>As opções mais úteis são aquelas relativas à saída, tais como:</p>
+<ul>
+<li>--warning &lt;nível&gt; (Define o nível de falhas a serem reportadas)
+<ul>
+<li>1 inclui somente padrão e alta severidade.</li>
+<li>2 inclui média severidade (padrão).</li>
+<li>3 inclui baixa severidade de vulnerabilidades.</li>
+</ul></li>
+<li>--xml (saída em XML)</li>
+<li>--html (saída em HTML)</li>
+</ul>
+<p>Assumindo que temos o <a href="test.c.html">arquivo teste</a> localizado
+no diretório atual, e sem outros arquivos-fonte, podemos invocar o
+escaneador com o seguinte comando::</p>
+<pre>
+rats --warning 1 --html . &gt;output.html
+</pre>
+<p>Isto produzirá um arquivo HTML contendo os resultados da busca, que pode
+ser lido em um navegador.</p>
+<h2>Os resultados</h2>
+<p>Executar o RATS contra nossa <a href="test.c.html">amostra de código</a>
+produz a seguinte saída:</p>
+<hr>
+<div class="sampleblock">
+<h3>Severity: High</h3>
+<p>Issue: fixed size global buffer</p>
+<p>
+  Extra care should be taken to ensure that character arrays that are
+  allocated on the stack are used safely. They are prime targets for
+  buffer overflow attacks.
+</p>
+<p>
+File: <b>test.c</b><br>
+Lines: 10 11 12
+</p>
+<h3>Severity: High</h3>
+<p>Issue: strcpy</p>
+<p>
+    Check to be sure that argument 2 passed to this function call will not
+    copy more data than can be handled, resulting in a buffer overflow.
+  </p>
+<p>
+File: <b>test.c</b><br>
+Lines: 18
+</p>
+<h3>Severity: High</h3>
+<p>Issue: getenv</p>
+<p>Environment variables are highly untrustable input. They may be of any length, and contain any data. Do not make any assumptions regarding content or length. If at all possible avoid using them, and if it is necessary, sanitize them and truncate them to a reasonable length.
+  </p>
+<p>
+File: <b>test.c</b><br>
+Lines: 22 24 </p>
+<h3>Severity: High</h3>
+<p>Issue: sprintf</p>
+<p>
+    Check to be sure that the format string passed as argument 2 to this
+    function call does not come from an untrusted source that could have added
+    formatting characters that the code is not prepared to handle.
+    Additionally, the format string could contain `%s' without precision that
+    could result in a buffer overflow.
+</p>
+<p>
+File: <b>test.c</b><br>
+Lines: 24 </p>
+<h3>Severity: High</h3>
+<p>Issue: popen</p>
+<p>
+    Argument 1 to this function call should be checked to ensure that it does
+    not come from an untrusted source without first verifying that it contains
+    nothing dangerous.
+</p>
+<p>
+File: <b>test.c</b><br>
+Lines: 33 </p>
+<h3>Severity: High</h3>
+<p> Issue: printf</p>
+<p>
+    Check to be sure that the non-constant format string passed as argument 1
+    to this function call does not come from an untrusted source that could
+    have added formatting characters that the code is not prepared to handle.
+</p>
+<p>
+File: <b>test.c</b><br>
+Lines: 42 </p>
+<p>
+Total lines analyzed: <b>49</b><br>
+Total time <b>0.000288</b> seconds<br>
+<b>170138</b> lines per second</p>
+</div>
+<hr>
+<p>Esta saída é bem volumosa, apesar do código mesmo ser bem curto - isto mostra
+uma das desvantagens do escaneamento automático, que é a maior parte do volume
+da saída.</p>
+<h2>Entendendo a saída</h2>
+<p>A saída que foi produzida é basicamente uma descrição das funções que ele
+encontrou, o número da linha em que a falha foi detectada e uma descrição do
+problema (como nós usamos o nível "--warning" - aviso - para restringir a
+saída para somente funções de nível "alto", nós reduzimos a saída um
+pouco).</p>
+<p>Cada um dos problemas que foram descobertos devem ser manualmente examinados
+para ver se existe alguma coisa errada realmente ou se foi um falso
+positivo (isto é, uma função que pode ser mal usada, mas está sendo usada
+corretamente).</p>
+<p>Neste caso, podemos ver que todas as vulnerabilidades em nosso código
+foram avistadas, mas não fica exatamente claro sem revisar o código com
+um editor e examinar as linhas.</p>
+<p>Uma grande omissão é que a saída não inclui as linhas que são reportadas -
+algo que o <a href="flawfinder">flawfinder</a> permite que você inclua.</p>
+<hr>
+<p><a href="..">Voltar para o projeto de auditoria</a> | <a href="index">Voltar para a página de amostra de auditoria</a></p>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<p>Voltar para a <a href="../../../">página principal do Projeto Debian</a>.</p>
+<hr>
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Esta página também está disponível nos seguintes idiomas:
+<div id="langContainer">
+ <a href="RATS.de.html" title="Alemão" hreflang="de" lang="de" rel="alternate">Deutsch</a>
+ <a href="RATS.en.html" title="Inglês" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="RATS.es.html" title="Espanhol" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="RATS.fr.html" title="Francês" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="RATS.nl.html" title="Holandês" hreflang="nl" lang="nl" rel="alternate">Nederlands</a>
+ <a href="RATS.ru.html" title="Russo" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+</div>
+Como configurar <a href="../../../intro/cn">o idioma padrão dos documentos</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Página Principal</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../../intro/about">Sobre</a>
+		  <ul>
+		  <li><a href="../../../social_contract">Contrato Social</a></li>
+		  <li><a href="../../../code_of_conduct">Código de Conduta</a></li>
+		  <li><a href="../../../intro/free">Software Livre</a></li>
+		  <li><a href="../../../partners/">Parceiros</a></li>
+		  <li><a href="../../../donations">Doações</a></li>
+          <li><a href="../../../legal">Legal Info</a></li>
+          <li><a href="../../../legal/privacy">Data Privacy</a></li>
+		  <li><a href="../../../contact">Contate-nos</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../../intro/help">Ajude o Debian</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../../distrib/">Obtendo o Debian</a>
+			  <ul>
+			  <li><a href="../../../distrib/netinst">Instalação via Rede</a></li>
+			  <li><a href="../../../CD/">Imagens de CD/USB ISO</a></li>
+			  <li><a href="../../../CD/vendors/">Vendedores de CDs</a></li>
+			  <li><a href="../../../distrib/pre-installed">Pré-instalado</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../../blends/">Pure Blends</a></li>
+			<li><a href="../../../distrib/packages">Pacotes do Debian</a></li>
+			<li><a href="../../../devel/">Canto dos(as) desenvolvedores(as)</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../../News/">Notícias</a>
+		  <ul>
+		  <li><a href="../../../News/weekly/">Notícias do Projeto</a></li>
+		  <li><a href="../../../events/">Eventos</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../../doc/">Documentação</a>
+      <ul>
+      <li><a href="../../../releases/">Informações sobre Versões</a></li>
+      <li><a href="../../../releases/stable/installmanual">Manual de Instalação</a></li>
+      <li><a href="../../../doc/books">Livros sobre Debian</a></li>
+      <li><a href="https://wiki.debian.org/">Wiki do Debian</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../../support">Suporte</a>
+	  <ul>
+			  <li><a href="../../../international/">Debian Internacional</a></li>
+			  <li><a href="../../../security/">Informações sobre Segurança</a></li>
+			  <li><a href="../../../Bugs/">Relatórios de Bug</a></li>
+			  <li><a href="../../../MailingLists/">Listas de Discussão</a></li>
+			  <li><a href="https://lists.debian.org/">Arquivos das Listas de Discussão</a></li>
+			  <li><a href="../../../ports/">Portes/Arquiteturas</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../../sitemap">Mapa do site</a></li>
+  <li><a href="https://search.debian.org/">Busca</a></li>
+  <li><a href="https://bits.debian.org">O Blog do Debian</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>To report a problem with the web site, please e-mail our publicly archived mailing list <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> in English. For other contact information, see the Debian <a href="../../../contact">contact page</a>. Web site source code is <a href="https://salsa.debian.org/webmaster-team/webwml">available</a>.</p>
+<p>
+Última Modificação: Sáb, 19 de Set de 2020, 05:49:02 UTC
+&emsp;
+Última compilação: Sex, 11 de Jun de 2021, 17:54:46 UTC
+  <br>
+  Copyright &copy; 1997-2020
+ <a href="https://www.spi-inc.org/">SPI</a> e outros; Veja os <a href="../../../license" rel="copyright">termos de licença</a><br>
+  Debian é uma <a href="../../../trademark">marca registrada</a> da Software in the Public Interest, Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

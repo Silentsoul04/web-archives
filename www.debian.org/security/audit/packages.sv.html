@@ -1,0 +1,216 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="sv">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Riktlinjer rörande prioritering av granskning av paket </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 20:26:08">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-sv.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Sök på Debians webbplats" href="../../search.sv.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Debian-hem"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="sv">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Sök">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Hoppa över navigering</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">Säkerhetsinformation</a>
+ &#x2F; <a href="./">Debians säkerhetsgranskningsprojekt</a>
+ &#x2F;
+Riktlinjer rörande prioritering av granskning av paket</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Riktlinjer rörande prioritering av granskning av paket</h1>
+<p>När man utför en granskning av Debiandistributionen så är ett av de
+första problemen att bestämma vilka paket man skall granska.</p>
+<p>Idealet vore att undersöka alla, men på grund av arkivets storlek så
+måste det finnas ett enklare sätt att prioritera sitt arbete.</p>
+<p>Som en enkel uppsättning av riktlinjer är paketen som bör undersökas
+först följande:</p>
+<ol>
+	<li>Alla binärer som installeras setuid eller setgid.</li>
+	<li>Allt som tillhandahåller en tjänst över ett nätverk.</li>
+	<li>Alla CGI/PHP-skript med fjärråtkomst.</li>
+	<li>Allt som tillhandahåller ett cronjob eller annat automatiserat
+	skript som körs med root-rättigheter.</li>
+</ol>
+<p>Populära paket skall i allmänhet få en högre prioritet, eftersom
+eventuella problem i dessa påverkar en större mängd användare.</p>
+<p><a href="https://popcon.debian.org/">Debian Popularity Contest</a> håller en löpande undersökning för att visa vilka paket som är mest
+populära bland de frivilliga i undersökningen.</p>
+<p>Ta speciellt en titt på <a
+href="https://popcon.debian.org/by_vote">paket sorterade efter röster</a>.
+<q>Efter röster</q> listar paket efter hur ofta de används av personerna
+som deltar i undersökningen.</p>
+<p>Om ett paket är viktigt rörande säkerhet, speciellt om det möter något
+av kriterierna ovan, och är populärt (enligt en undersökning som denna),
+så är det <em>definitivt</em> en kandidat för granskning.</p>
+<h2><tt>setuid</tt>- och <tt>setgid</tt>-binärer</h2>
+<p><tt>setuid</tt>- och <tt>setgid</tt>-binärer är traditionella mål
+för säkerhetsgranskningar, eftersom att komprommettera en sårbar binär med
+någon av dessa rättigheter kan leda till att en lokal användare får
+åtkomsträttigheter som dom annars inte skulle ha.</p>
+<p>För att hjälpa sökningen finns det en lista på alla setuid och setgid-binärer
+som innefattas i den aktuella stabila utgåvan.</p>
+<ul>
+<li><a href="https://lintian.debian.org/tags/setuid-binary.html">Lintianrapport
+över Setuid-binärer i Debian</a></li>
+<li><a href="https://lintian.debian.org/tags/setgid-binary.html">Lintianrapport
+över Setgid-binärer i Debian</a></li>
+</ul>
+<p>När det kommer till att välja dessa binärer är det viktigt att komma ihåg
+att några av dessa binärer är mer säkerhetskänsliga än andra.
+setuid(root)-binärer bör exempelvis undersökas före setgid(games) och
+setuid(bugs).</p>
+<h2>Nätverksservrar</h2>
+<p>Nätverksservrar är en annan uppenbar insprirationskälla när det kommer
+till att utföra säkerhetsgranskningar, eftersom ett exploaterbart problem
+i dessa kan leda till att attackerare äventyrar maskiner på avstånd.</p>
+<p>Säkerhetsproblem på distans är vanligvis mycket mer allvarligt än
+lokala brister.</p>
+<h2>Onlineskript</h2>
+<p>Onlineskript, speciellt CGI-skript, är verkligen i samma klass
+som nätverksservrar &mdash; även om din webbserver kan vara säker så
+är skripten som kör på servern lika viktiga.</p>
+<p>Ett fel i ett skript som är tillgängligt via nätverket är ett lika
+allvarligt fel som ett fel i server som lyssnar efter anslutningar &mdash;
+båda kan tillåta din maskin att äventyras lika mycket.</p>
+<h2>Cronjob och systemtjänster</h2>
+<p>Medan det inte finns så många av dessa så kan det vara värt att se på
+automatiska skript, cronjob, osv, som inkluderas i paket.</p>
+<p>En hel del supportsaker kör som root som standard för att rensa loggfiler,
+osv.</p>
+<p>Framgångsrik exploatering av en symlänkattack kunde resultera i en lokal
+brist.</p>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<p>Tillbaka till <a href="../../">Debianprojektets ingångssida</a>.</p>
+<hr>
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Denna sida finns även på följande språk:
+<div id="langContainer">
+ <a href="packages.de.html" title="tyska" hreflang="de" lang="de" rel="alternate">Deutsch</a>
+ <a href="packages.en.html" title="engelska" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="packages.es.html" title="spanska" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="packages.fr.html" title="franska" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="packages.nl.html" title="nederländska" hreflang="nl" lang="nl" rel="alternate">Nederlands</a>
+ <a href="packages.ja.html" title="japanska" hreflang="ja" lang="ja" rel="alternate">&#26085;&#26412;&#35486;&nbsp;(Nihongo)</a>
+ <a href="packages.pt.html" title="portugisiska" hreflang="pt" lang="pt" rel="alternate">Portugu&ecirc;s</a>
+ <a href="packages.ru.html" title="ryska" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+</div>
+Så ställer du in <a href="../../intro/cn">standardspråkval för dokument</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Hem</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">Om&nbsp;Debian</a>
+		  <ul>
+		  <li><a href="../../social_contract">Socialt kontrakt</a></li>
+		  <li><a href="../../code_of_conduct">Uppförandekod</a></li>
+		  <li><a href="../../intro/free">Fri programvara</a></li>
+		  <li><a href="../../partners/">Partner</a></li>
+		  <li><a href="../../donations">Donationer</a></li>
+          <li><a href="../../legal">Rättsliga frågor</a></li>
+          <li><a href="../../legal/privacy">Dataintegritet</a></li>
+		  <li><a href="../../contact">Kontakta oss</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Hjälp Debian</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Få tag på Debian</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">Nätverksinstallation</a></li>
+			  <li><a href="../../CD/">CD/USB-ISO-avbildningar</a></li>
+			  <li><a href="../../CD/vendors/">CD-återförsäljare</a></li>
+			  <li><a href="../../distrib/pre-installed">Förinstallerat</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Pure Blends</a></li>
+			<li><a href="../../distrib/packages">Debianpaket</a></li>
+			<li><a href="../../devel/">Utvecklarhörnet</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">Nyheter</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">Projektnyheter</a></li>
+		  <li><a href="../../events/">Evenemang</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">Dokumentation</a>
+      <ul>
+      <li><a href="../../releases/">Versionsfakta</a></li>
+      <li><a href="../../releases/stable/installmanual">Installationsguide</a></li>
+      <li><a href="../../doc/books">Debianböcker</a></li>
+      <li><a href="https://wiki.debian.org/">Debians Wiki</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">Support</a>
+	  <ul>
+			  <li><a href="../../international/">Debian internationellt</a></li>
+			  <li><a href="../../security/">Säkerhetsinformation</a></li>
+			  <li><a href="../../Bugs/">Felrapporter</a></li>
+			  <li><a href="../../MailingLists/">Sändlistor</a></li>
+			  <li><a href="https://lists.debian.org/">Sändlistearkiv</a></li>
+			  <li><a href="../../ports/">Anpassningar/arkitekturer</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">Sidöversikt</a></li>
+  <li><a href="https://search.debian.org/">Sök</a></li>
+  <li><a href="https://bits.debian.org">Debianbloggen</a></li>
+  <li><a href="https://micronews.debian.org">Debian Mikronyheter</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>För att rapportera ett problem med webbplatsen, kontakta vår publikt arkiverade sändlista <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> på engelska. Vid problem med och synpunkter på den svenska översättningen, kontakta den publikt arkiverade sändlistan <a href="mailto:debian-l10n-swedish@lists.debian.org">debian-l10n-swedish@lists.debian.org</a>. För övrig kontaktinformation, se Debians <a href="../../contact">kontaktsida</a>. Webbplatsens källkod finns <a href="https://salsa.debian.org/webmaster-team/webwml">tillgänglig</a>.</p>
+<p>
+Senast ändrad: Tor 2020-08-06 01.25.21 UTC
+&emsp;
+Senast byggd: Fre 2021-06-11 20.26.08 UTC
+  <br>
+  Upphovsrättsskyddat &copy; 1997-2020
+ <a href="https://www.spi-inc.org/">SPI</a> och andra; Se <a href="../../license" rel="copyright">licensvillkor</a><br>
+  Debian är ett registrerat <a href="../../trademark">varumärke</a> hos Software in the Public Interest. Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

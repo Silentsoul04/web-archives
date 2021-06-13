@@ -1,0 +1,240 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="de">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Debian -- Sicherheitsinformationen -- netscape navigator/communicator </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 15:57:53">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-de.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Debian Website-Suche" href="../../search.de.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Debian Home"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="de">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Suche">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Schnellnavigation überspringen</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">Sicherheits-Informationen</a>
+ &#x2F; <a href="./">2000</a>
+ &#x2F;
+Sicherheitsinformationen -- netscape navigator/communicator</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Debian-Sicherheitsankündigung</h1>
+<h2>netscape navigator/communicator -- Entfernter Angriff</h2>
+<dl>
+<dt>Datum des Berichts:</dt>
+	<dd>01. Sep 2000</dd>
+<dt>Betroffene Pakete:</dt>
+	<dd>
+<a href="https://packages.debian.org/src:navigator">navigator</a>, <a href="https://packages.debian.org/src:communicator">communicator</a>
+</dd>
+<dt>Verwundbar:</dt>
+	<dd class="warning">Ja</dd>
+<dt>Sicherheitsdatenbanken-Referenzen:</dt>
+	<dd>Im Augenblick ist keine weitere externe Sicherheitsdatenbank-Referenz verfügbar.</dd>
+<dt>Weitere Informationen:</dt>
+	<dd>Existierende Netscape Communicator/Navigator Pakete
+beinhalten die folgenden Verwundbarkeiten:
+<ol>
+<li>Netscape Communicator JPEG-Kommentar Heap-Überschreib-Verwundbarkeit
+  <ul>
+  <li>führt willkürlichen Code im Kommentar-Feld eines JPEG-Bildes aus</li>
+  <li>Netscape Communicator/Navigator Versionen 4.0 bis 4.73 sind verwundbar</li>
+  </ul></li>
+<li>Mehrfache Hersteller Java Virtuelle-Maschine lauschender Socket
+  Verwundbarkeit</li>
+<li>Netscape Communicator URL Auslese-Verwundbarkeit
+  <ul>
+  <li>Begriffe 2 und 3 sind zusammen als die <q>Brown Orifice</q> Verwundbarkeit
+    bekannt</li>
+  <li>Kann ausgenutzt werden, um den Inhalt ihres Computers für jeden im
+    Internet zu enthüllen, erlaubt es, Dateien auszulesen, die dem Benutzer
+    gehören, der den Browser verwendet</li>
+  <li>Netscape Communicator/Navigator Versionen 4.0 bis 4.74 sind verwundbar</li>
+  </ul></li>
+</ol>
+Wir empfehlen Personen, die Netscape Communicator/Navigator verwenden, auf
+Version 4.75 zu aktualisieren. Neue Pakete sind im Quell-Format und für Intel
+ia32-Rechner vorhanden, die Debian 2.2 (Potato) verwenden. Beachten Sie, dass
+die neuen Pakete ihre existierenden Communicator/Navigator-Pakete nicht
+löschen; Sie sollten händisch alle älteren installierten Versionen des
+Communicators/Navigators löschen.
+<p>Es gibt mehrere Wege, die Netscape-Pakete zu löschen. Eine schnelle Lösung
+ist es, <q>apt-get remove netscape-base-473</q> aufzurufen, und 473 mit 406, 407,
+408, 45, 451, 46, 461, 47 oder 472 zu ersetzen, falls benötigt. Falls Sie
+apt-get nicht haben, können Sie <q>dpkg --remove communicator-smotif-473
+communicator-base-473 netscape-java-473 navigator-smotif-473
+navigator-base-473</q> aufrufen, und wieder mit allen anderen Versionen
+austauschen, die Sie installiert haben. Sie können die Pakete auch über
+dselect löschen.</p>
+<p>Wenn Sie <q>deb http://security.debian.org/ potato/updates main contrib
+non-free</q> in Ihrer /etc/apt/sources.list haben, können Sie <q>apt-get update ;
+apt-get install communicator</q> durchführen, um das komplette Communicator-Paket
+(inklusive E-Mail und News) oder <q>apt-get update ; apt-get install navigator</q>,
+um nur den Browser zu installieren. Eine typische manuelle Installation
+beinhaltet communicator-smotif-475, communicator-base-475, netscape-base-475,
+netscape-base-4 und netscape-java-475.</p>
+</dd>
+<dt>Behoben in:</dt>
+	<dd>
+<dl>
+<dt>Quellcode:</dt>
+<dd><a href="http://security.debian.org/dists/potato/updates/non-free/source/netscape4.75_4.75-2.diff.gz">http://security.debian.org/dists/potato/updates/non-free/source/netscape4.75_4.75-2.diff.gz</a>
+<dd><a href="http://security.debian.org/dists/potato/updates/non-free/source/netscape4.75_4.75-2.dsc">http://security.debian.org/dists/potato/updates/non-free/source/netscape4.75_4.75-2.dsc</a>
+<dd><a href="http://security.debian.org/dists/potato/updates/non-free/source/netscape4.75_4.75.orig.tar.gz">http://security.debian.org/dists/potato/updates/non-free/source/netscape4.75_4.75.orig.tar.gz</a>
+<dd><a href="http://security.debian.org/dists/potato/updates/non-free/source/netscape4.base_4.75-1.dsc">http://security.debian.org/dists/potato/updates/non-free/source/netscape4.base_4.75-1.dsc</a>
+<dd><a href="http://security.debian.org/dists/potato/updates/non-free/source/netscape4.base_4.75-1.tar.gz">http://security.debian.org/dists/potato/updates/non-free/source/netscape4.base_4.75-1.tar.gz</a>
+<dt>Intel ia32:</dt>
+<dd><a href="http://security.debian.org/dists/potato/updates/non-free/binary-i386/communicator-base-475_4.75-2_i386.deb">http://security.debian.org/dists/potato/updates/non-free/binary-i386/communicator-base-475_4.75-2_i386.deb</a>
+<dd><a href="http://security.debian.org/dists/potato/updates/non-free/binary-i386/communicator-nethelp-475_4.75-2_all.deb">http://security.debian.org/dists/potato/updates/non-free/binary-i386/communicator-nethelp-475_4.75-2_all.deb</a>
+<dd><a href="http://security.debian.org/dists/potato/updates/non-free/binary-i386/communicator-smotif-475-libc5_4.75-2_i386.deb">http://security.debian.org/dists/potato/updates/non-free/binary-i386/communicator-smotif-475-libc5_4.75-2_i386.deb</a>
+<dd><a href="http://security.debian.org/dists/potato/updates/non-free/binary-i386/communicator-smotif-475_4.75-2_i386.deb">http://security.debian.org/dists/potato/updates/non-free/binary-i386/communicator-smotif-475_4.75-2_i386.deb</a>
+<dd><a href="http://security.debian.org/dists/potato/updates/non-free/binary-i386/communicator-spellchk-475_4.75-2_all.deb">http://security.debian.org/dists/potato/updates/non-free/binary-i386/communicator-spellchk-475_4.75-2_all.deb</a>
+<dd><a href="http://security.debian.org/dists/potato/updates/non-free/binary-i386/communicator_4.75-1_i386.deb">http://security.debian.org/dists/potato/updates/non-free/binary-i386/communicator_4.75-1_i386.deb</a>
+<dd><a href="http://security.debian.org/dists/potato/updates/non-free/binary-i386/navigator-base-475_4.75-2_i386.deb">http://security.debian.org/dists/potato/updates/non-free/binary-i386/navigator-base-475_4.75-2_i386.deb</a>
+<dd><a href="http://security.debian.org/dists/potato/updates/non-free/binary-i386/navigator-nethelp-475_4.75-2_all.deb">http://security.debian.org/dists/potato/updates/non-free/binary-i386/navigator-nethelp-475_4.75-2_all.deb</a>
+<dd><a href="http://security.debian.org/dists/potato/updates/non-free/binary-i386/navigator-smotif-475-libc5_4.75-2_i386.deb">http://security.debian.org/dists/potato/updates/non-free/binary-i386/navigator-smotif-475-libc5_4.75-2_i386.deb</a>
+<dd><a href="http://security.debian.org/dists/potato/updates/non-free/binary-i386/navigator-smotif-475_4.75-2_i386.deb">http://security.debian.org/dists/potato/updates/non-free/binary-i386/navigator-smotif-475_4.75-2_i386.deb</a>
+<dd><a href="http://security.debian.org/dists/potato/updates/non-free/binary-i386/navigator_4.75-1_i386.deb">http://security.debian.org/dists/potato/updates/non-free/binary-i386/navigator_4.75-1_i386.deb</a>
+<dd><a href="http://security.debian.org/dists/potato/updates/non-free/binary-i386/netscape-base-4-libc5_4.75-1_i386.deb">http://security.debian.org/dists/potato/updates/non-free/binary-i386/netscape-base-4-libc5_4.75-1_i386.deb</a>
+<dd><a href="http://security.debian.org/dists/potato/updates/non-free/binary-i386/netscape-base-475_4.75-2_i386.deb">http://security.debian.org/dists/potato/updates/non-free/binary-i386/netscape-base-475_4.75-2_i386.deb</a>
+<dd><a href="http://security.debian.org/dists/potato/updates/non-free/binary-i386/netscape-base-4_4.75-1_i386.deb">http://security.debian.org/dists/potato/updates/non-free/binary-i386/netscape-base-4_4.75-1_i386.deb</a>
+<dd><a href="http://security.debian.org/dists/potato/updates/non-free/binary-i386/netscape-ja-resource-475_4.75-2_all.deb">http://security.debian.org/dists/potato/updates/non-free/binary-i386/netscape-ja-resource-475_4.75-2_all.deb</a>
+<dd><a href="http://security.debian.org/dists/potato/updates/non-free/binary-i386/netscape-java-475_4.75-2_all.deb">http://security.debian.org/dists/potato/updates/non-free/binary-i386/netscape-java-475_4.75-2_all.deb</a>
+<dd><a href="http://security.debian.org/dists/potato/updates/non-free/binary-i386/netscape-ko-resource-475_4.75-2_all.deb">http://security.debian.org/dists/potato/updates/non-free/binary-i386/netscape-ko-resource-475_4.75-2_all.deb</a>
+<dd><a href="http://security.debian.org/dists/potato/updates/non-free/binary-i386/netscape-smotif-475-libc5_4.75-2_i386.deb">http://security.debian.org/dists/potato/updates/non-free/binary-i386/netscape-smotif-475-libc5_4.75-2_i386.deb</a>
+<dd><a href="http://security.debian.org/dists/potato/updates/non-free/binary-i386/netscape-smotif-475_4.75-2_i386.deb">http://security.debian.org/dists/potato/updates/non-free/binary-i386/netscape-smotif-475_4.75-2_i386.deb</a>
+<dd><a href="http://security.debian.org/dists/potato/updates/non-free/binary-i386/netscape-zh-resource-475_4.75-2_all.deb">http://security.debian.org/dists/potato/updates/non-free/binary-i386/netscape-zh-resource-475_4.75-2_all.deb</a>
+</dl>
+</dd>
+</dl>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Diese Seite gibt es auch in den folgenden Sprachen:
+<div id="langContainer">
+ <a href="20000901.en.html" title="Englisch" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="20000901.es.html" title="Spanisch" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="20000901.fr.html" title="Französisch" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="20000901.nl.html" title="Niederländisch" hreflang="nl" lang="nl" rel="alternate">Nederlands</a>
+ <a href="20000901.ja.html" title="Japanisch" hreflang="ja" lang="ja" rel="alternate">&#26085;&#26412;&#35486;&nbsp;(Nihongo)</a>
+ <a href="20000901.ru.html" title="Russisch" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+ <a href="20000901.sv.html" title="Schwedisch" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+</div>
+Wie man <a href="../../intro/cn">die Standardsprache einstellt</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Home</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">Über&nbsp;Debian</a>
+		  <ul>
+		  <li><a href="../../social_contract">Gesellschaftsvertrag</a></li>
+		  <li><a href="../../code_of_conduct">Verhaltenskodex</a></li>
+		  <li><a href="../../intro/free">Freie Software</a></li>
+		  <li><a href="../../partners/">Partner</a></li>
+		  <li><a href="../../donations">Spenden</a></li>
+          <li><a href="../../legal">Rechtliche Informationen</a></li>
+          <li><a href="../../legal/privacy">Datenschutz</a></li>
+		  <li><a href="../../contact">Kontakte</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Debian unterstützen</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Debian bekommen</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">Netzwerk-Installation</a></li>
+			  <li><a href="../../CD/">CD/USB-ISO-Images</a></li>
+			  <li><a href="../../CD/vendors/">CD-Distributoren</a></li>
+			  <li><a href="../../distrib/pre-installed">Vorinstalliert</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Pure Blends</a></li>
+			<li><a href="../../distrib/packages">Debian-Softwarepakete</a></li>
+			<li><a href="../../devel/">Entwickler-Ecke</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">Nachrichten</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">Projekt-Nachrichten</a></li>
+		  <li><a href="../../events/">Veranstaltungen</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">Dokumentation</a>
+      <ul>
+      <li><a href="../../releases/">Release-Informationen</a></li>
+      <li><a href="../../releases/stable/installmanual">Installationsanleitung</a></li>
+      <li><a href="../../doc/books">Debian-Bücher</a></li>
+      <li><a href="https://wiki.debian.org/">Debian-Wiki</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">Unterstützung</a>
+	  <ul>
+			  <li><a href="../../international/">Debian International</a></li>
+			  <li><a href="../../security/">Sicherheitsinformationen</a></li>
+			  <li><a href="../../Bugs/">Fehlerberichte</a></li>
+			  <li><a href="../../MailingLists/">Mailinglisten</a></li>
+			  <li><a href="https://lists.debian.org/">Archiv der Mailinglisten</a></li>
+			  <li><a href="../../ports/">Portierungen/Architekturen</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">Sitemap</a></li>
+  <li><a href="https://search.debian.org/">Suche</a></li>
+  <li><a href="https://bits.debian.org">Der Debian-Blog</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>Um Probleme mit der Website zu melden, schreiben Sie bitte eine E-Mail auf Englisch an unsere öffentlich archivierte Mailingliste <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a>. Rechtschreibfehler in der deutschen Übersetzung senden Sie bitte an <a href="mailto:debian-l10n-german@lists.debian.org">debian-l10n-german@lists.debian.org</a>. Weitere Kontaktinformationen finden Sie auf Debians <a href="../../contact">Kontaktseite</a>. Der Quelltext der Website ist <a href="https://salsa.debian.org/webmaster-team/webwml">verfügbar</a>.</p>
+<p>
+Zuletzt geändert: Freitag den 1. Jun 2018 um 18:42:20 Uhr UTC
+&emsp;
+Zuletzt gebaut: Freitag den 11. Jun 2021 um 15:57:53 Uhr UTC
+  <br>
+  Copyright &copy; 2000-2021
+ <a href="https://www.spi-inc.org/">SPI</a> und andere; weiteres in den <a href="../../license" rel="copyright">Lizenzbestimmungen</a>.<br>
+  Debian ist ein eingetragenes <a href="../../trademark">Warenzeichen</a> der Software in the Public Interest, Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="nl">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Geautomatiseerd Audit Voorbeeld: pscan </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 14:07:28">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../../debian-nl.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Debian-website zoekmachine" href="../../../search.nl.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../../" title="Debian Startpagina"><img src="../../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="nl">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Zoeken">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Overslaan van navigatiebalk</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../../">Beveiligingsinformatie</a>
+ &#x2F; <a href="./../">Debian Beveiligingsauditproject</a>
+ &#x2F; <a href="./">Geautomatiseerde Auditvoorbeelden</a>
+ &#x2F;
+Geautomatiseerd Audit Voorbeeld: pscan</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Geautomatiseerd Audit Voorbeeld: pscan</h1>
+<p><a href="https://packages.debian.org/pscan">pscan</a> is een pakket dat is
+ontworpen om C- en C++-broncodebestanden aan een formaatstringaudit te
+onderwerpen.</p>
+<p>Het is geen algemeen audithulpmiddel.</p>
+<h2>pscan uitvoeren</h2>
+<p>pscan uitvoeren is gewoon een kwestie van het op te geven met de
+bestandsnaam of -namen om te controleren. Bijvoorbeeld:</p>
+<pre>
+pscan <a href="test.c.html">test.c</a>
+</pre>
+<p>De uitvoer zal rechtstreeks naar de console worden uitgeschreven:</p>
+<hr>
+<samp>
+test.c:42 SECURITY: printf call should have "%s" as argument 0
+</samp>
+<hr>
+<h2>De Uitvoer</h2>
+<p>De uitvoer is in dit geval gemakkelijk te begrijpen. Het heeft het feit dat
+de <tt>printf</tt>-aanroep haar argumenten niet op de juiste manier "quote",
+correct geïdentificeerd.</p>
+<p>De uitvoer toont ons ook wat we moeten doen om het op te lossen, wijzig de
+code:
+<pre>
+printf( buff );
+</pre>
+<p>naar:</p>
+<pre>
+printf( "%s", buff );
+</pre>
+<p>Dit niet doen, kan een aanvaller die de uitvoer van <tt>ls</tt> kan
+controleren, toelaten om het programma aan te vallen, door een bestand genaamd
+"%s", of gelijkaardig aan te maken.</p>
+<p>Formaatstring-aanvallen worden bediscussieerd in deze
+<a href="http://www.securityfocus.com/guest/3342">Security Focus introduction</a>.</p>
+<p>De <a href="http://www.dwheeler.com/secure-programs/">Secure Programming for Linux and Unix HOWTO</a> legt u uit hoe u zich kunt beschermen tegen deze
+aanvallen in veel gebruikte variadische functies zoals:</p>
+<ul>
+<li>printf</li>
+<li>fprintf</li>
+<li>syslog</li>
+</ul>
+<hr>
+<p><a href="..">Terug naar het auditproject</a> | <a href="index">Terug naar de auditvoorbeeldenpagina</a></p>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<p>Terug naar de <a href="../../../">startpagina van het Debian Project</a>.</p>
+<hr>
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Deze pagina is ook beschikbaar in de volgende talen:
+<div id="langContainer">
+ <a href="pscan.de.html" title="Duits" hreflang="de" lang="de" rel="alternate">Deutsch</a>
+ <a href="pscan.en.html" title="Engels" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="pscan.es.html" title="Spaans" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="pscan.fr.html" title="Frans" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="pscan.pt.html" title="Portugees" hreflang="pt" lang="pt" rel="alternate">Portugu&ecirc;s</a>
+ <a href="pscan.ru.html" title="Russisch" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+ <a href="pscan.sv.html" title="Zweeds" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+</div>
+De <a href="../../../intro/cn">standaardtaal voor webpagina’s</a> instellen
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Startpagina</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../../intro/about">Info</a>
+		  <ul>
+		  <li><a href="../../../social_contract">Sociaal Contract</a></li>
+		  <li><a href="../../../code_of_conduct">Gedragscode</a></li>
+		  <li><a href="../../../intro/free">Vrije Software</a></li>
+		  <li><a href="../../../partners/">Partners</a></li>
+		  <li><a href="../../../donations">Giften</a></li>
+          <li><a href="../../../legal">Juridische Informatie</a></li>
+          <li><a href="../../../legal/privacy">Gegevensbescherming</a></li>
+		  <li><a href="../../../contact">Contact opnemen</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../../intro/help">Debian helpen</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../../distrib/">Verkrijgen</a>
+			  <ul>
+			  <li><a href="../../../distrib/netinst">Netwerkinstallatie</a></li>
+			  <li><a href="../../../CD/">CD/USB-ISO-images</a></li>
+			  <li><a href="../../../CD/vendors/">CD-verkopers</a></li>
+			  <li><a href="../../../distrib/pre-installed">Voorgeïnstalleerd</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../../blends/">Specifieke uitgaven</a></li>
+			<li><a href="../../../distrib/packages">Debian Pakketten</a></li>
+			<li><a href="../../../devel/">Ontwikkeling</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../../News/">Nieuws</a>
+		  <ul>
+		  <li><a href="../../../News/weekly/">Projectnieuws</a></li>
+		  <li><a href="../../../events/">Agenda</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../../doc/">Documentatie</a>
+      <ul>
+      <li><a href="../../../releases/">Release-informatie</a></li>
+      <li><a href="../../../releases/stable/installmanual">Installatiehandleiding</a></li>
+      <li><a href="../../../doc/books">Debian Boeken</a></li>
+      <li><a href="https://wiki.debian.org/">Debian wiki</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../../support">Ondersteuning</a>
+	  <ul>
+			  <li><a href="../../../international/">Debian Internationaal</a></li>
+			  <li><a href="../../../security/">Informatie over beveiliging</a></li>
+			  <li><a href="../../../Bugs/">Bugrapporten</a></li>
+			  <li><a href="../../../MailingLists/">Mailinglijsten</a></li>
+			  <li><a href="https://lists.debian.org/">Mailinglijst Archieven</a></li>
+			  <li><a href="../../../ports/">Ports/Architecturen</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../../sitemap">Index</a></li>
+  <li><a href="https://search.debian.org/">Zoeken</a></li>
+  <li><a href="https://bits.debian.org">Blog van Debian</a></li>
+  <li><a href="https://micronews.debian.org">Debian-micronieuws</a></li>
+  <li><a href="https://planet.debian.org">Debian-planeet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>Stuur, om een probleem met de website te rapporteren, een e-mail (in het Engels) naar de openbare en gearchiveerde mailinglijst <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> of (in het Nederlands) naar <a href="mailto:debian-l10n-dutch@lists.debian.org">debian-l10n-dutch@lists.debian.org</a>. Problemen met de Nederlandse vertaling kunnen eveneens naar het tweede adres worden gestuurd. Zie de <a href="../../../contact">contactpagina</a> voor andere contactinformatie. De broncode van de website is <a href="https://salsa.debian.org/webmaster-team/webwml">beschikbaar</a>.</p>
+<p>
+Laatste aanpassing: do, 3 sep 2020, 05:48:02 UTC
+&emsp;
+Laatste compilatie: vr, 11 jun 2021, 14:07:28 UTC
+  <br>
+  Copyright &copy; 1997-2020
+ <a href="https://www.spi-inc.org/">SPI</a> en anderen; Zie de <a href="../../../license" rel="copyright">licentievoorwaarden</a><br>
+  Debian is een geregisteerd <a href="../../../trademark">handelsmerk</a> van Software in the Public Interest, Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

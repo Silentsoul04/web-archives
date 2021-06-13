@@ -1,0 +1,253 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="fr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Informations sur la sécurité -- DSA-2865-1 postgresql-9.1 </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 15:18:11">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-fr.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Recherche sur le site web Debian" href="../../search.fr.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Accueil Debian"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="fr">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Recherche">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Sauter le menu</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">Informations de sécurité</a>
+ &#x2F; <a href="./">2014</a>
+ &#x2F;
+Informations sur la sécurité -- DSA-2865-1 postgresql-9.1</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Bulletin d'alerte Debian</h1>
+<h2>DSA-2865-1 postgresql-9.1 -- Plusieurs vulnérabilités</h2>
+<dl>
+<dt>Date du rapport :</dt>
+	<dd>20 février 2014</dd>
+<dt>Paquets concernés :</dt>
+	<dd>
+<a href="https://packages.debian.org/src:postgresql-9.1">postgresql-9.1</a>
+</dd>
+<dt>Vulnérabilité :</dt>
+	<dd class="warning">Oui</dd>
+<dt>Références dans la base de données de sécurité :</dt>
+	<dd>Dans le dictionnaire CVE du Mitre&nbsp;: <a href="https://security-tracker.debian.org/tracker/CVE-2014-0060">CVE-2014-0060</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2014-0061">CVE-2014-0061</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2014-0062">CVE-2014-0062</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2014-0063">CVE-2014-0063</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2014-0064">CVE-2014-0064</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2014-0065">CVE-2014-0065</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2014-0066">CVE-2014-0066</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2014-0067">CVE-2014-0067</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2014-2669">CVE-2014-2669</a>.<br></dd>
+<dt>Plus de précisions :</dt>
+	<dd>
+<p>Diverses vulnérabilités ont été découvertes dans PostgreSQL:</p>
+<ul>
+ <li><a href="https://security-tracker.debian.org/tracker/CVE-2014-0060">CVE-2014-0060</a>
+   Consolider les restrictions de GRANT ... WITH ADMIN OPTION (Noah Misch)
+   <p>Accorder un rôle sans l'option ADMIN OPTION est supposé empêcher le membre
+   bénéficiaire d'octroyer à d'autres membres l'appartenance au rôle ou de la
+   révoquer, mais cette restriction est aisément contournée en exécutant d'abord
+   la commande SET ROLE. L'impact de sécurité est surtout qu'un membre du rôle peut
+   révoquer l'accès à d'autres, contrairement aux souhaits de celui qui lui a
+   accordé le rôle. L'ajout de membres non validés à un rôle est un moindre souci
+   où un membre de rôle non coopératif pourrait accorder la plupart de ses droits
+   à d'autres de toute façon en créant des vues ou des fonctions SECURITY
+   DEFINER.</p></li>
+ <li><a href="https://security-tracker.debian.org/tracker/CVE-2014-0061">CVE-2014-0061</a>
+   Prévenir l'augmentation de droits par des appels manuels à des fonctions de
+   validation de langages procéduraux (PL) (Andres Freund)
+   <p>Le rôle principal des fonctions de validation est d'être appelées
+   implicitement durant l'exécution de CREATE FUNCTION, mais ce sont aussi des
+   fonctions SQL normales qu'un utilisateur peut appeler explicitement. Appeler
+   un validateur sur une fonction écrite dans un autre langage pour
+   lequel il n'est pas contrôlé, pourrait être exploité à des fins
+   d'augmentation de droits. La correction implique l'ajout d'un appel à une
+   fonction de vérification de droits dans chaque fonction de validation. Les
+   langages procéduraux additionnels auront aussi besoin de procéder à cette
+   modification pour leurs propres fonctions de validation, si elles existent.
+   </p></li>
+ <li><a href="https://security-tracker.debian.org/tracker/CVE-2014-0062">CVE-2014-0062</a>
+   Éviter de multiples résolutions de nom lors de l'exécution des commandes DDL
+   sur les tables et index (Robert Haas, Andres Freund)
+   <p>Si les résolutions de nom arrivent à des conclusions différentes en
+   raison d'activités simultanées, il est possible de réaliser une partie des
+   commandes DDL sur une table différente d'autres parties. Au moins dans le
+   cas de la commande CREATE INDEX, cela peut être utilisé pour faire en sorte
+   que la vérification des permissions porte sur une autre table que la
+   création d'index, permettant une attaque d'augmentation de droits.</p></li>
+ <li><a href="https://security-tracker.debian.org/tracker/CVE-2014-0063">CVE-2014-0063</a>
+   Prévenir un dépassement de tampon avec de longues chaînes d'horodatage
+   (Noah Misch)
+   <p>La constante MAXDATELEN est trop petite pour la plus grande valeur
+   possible de type intervalle permettant un dépassement de tampon dans
+   interval_out(). Bien que les fonctions d'entrée d'horodatage fassent
+   davantage attention à éviter un dépassement de tampon, la limite est
+   suffisamment courte pour provoquer le rejet d'entrées valides telles que
+   celles contenant un très long nom de fuseau horaire. La bibliothèque ecpg
+   contient ces vulnérabilités avec d'autres qui lui sont propres.</p></li>
+ <li><a href="https://security-tracker.debian.org/tracker/CVE-2014-0064">CVE-2014-0064</a>
+   <a href="https://security-tracker.debian.org/tracker/CVE-2014-2669">CVE-2014-2669</a>
+   Prévenir un dépassement de tampon dû à un dépassement d'entier dans des
+   calculs de taille (Noah Misch, Heikki Linnakangas)
+ <p>Plusieurs fonctions, essentiellement des fonctions de type entrée,
+   calculent les tailles d'allocation sans vérification de dépassement. Si
+   un dépassement survient, un tampon trop petit sera alloué et provoquera
+   un dépassement d'écriture.</p></li>
+ <li><a href="https://security-tracker.debian.org/tracker/CVE-2014-0065">CVE-2014-0065</a>
+   Prévenir les dépassements de tampons de taille fixe (Peter Eisentraut,
+   Jozef Mlich)
+   <p>Utiliser strlcpy() et les fonctions liées pour fournir une garantie
+   claire que les tampons de taille fixe ne sont pas dépassés. À la différence
+   des points précédents, il n'est pas clair que ces cas représentent vraiment
+   des problèmes réels, étant donné que, dans la plupart des cas, il apparaît
+   qu'il y a des contraintes antérieures sur la taille des chaînes d'entrée.
+   Néanmoins, il semble prudent de rendre silencieux tous les avertissements de
+   Coverity de ce type.</p></li>
+ <li><a href="https://security-tracker.debian.org/tracker/CVE-2014-0066">CVE-2014-0066</a>
+   Éviter un plantage si crypt() retourne NULL (Honza Horak, Bruce Momjian)
+   <p>Il y a relativement peu de scénarios dans lesquels crypt() pourrait
+   retourner NULL, mais contrib/chkpass peuvent se planter si c'est le cas. Un
+   cas pratique dans lequel cela pourrait être un problème est celui où libc
+   est configuré pour refuser d'exécuter des algorithmes de hachage
+   non validés (par exemple, <q>mode FIPS</q>).</p></li>
+ <li><a href="https://security-tracker.debian.org/tracker/CVE-2014-0067">CVE-2014-0067</a>
+   Documenter les risques de la commande make check dans les instructions de
+   test de régression (Noah Misch, Tom Lane)
+   <p>Dans la mesure où le serveur temporaire lancé par make check utilise
+   l'authentification <q>trust</q>, un autre utilisateur sur la même machine
+   pourrait se connecter en tant que superutilisateur de la base de données, et
+   ensuite éventuellement exploiter les privilèges de l'utilisateur du système
+   d'exploitation qui a lancé les tests. Une version à venir introduira
+   probablement des modifications dans les procédures de test pour prévenir ce
+   risque, mais des discussions publiques sont nécessaires auparavant. Aussi
+   pour le moment, il faut simplement prévenir les gens contre l'utilisation de
+   make check quand il y a des utilisateurs non fiables sur la même machine.
+   </p></li>
+</ul>
+<p>Pour la distribution stable (Wheezy), ces problèmes ont été corrigés dans la version 9.1_9.1.12-0wheezy1.</p>
+<p>Pour la distribution unstable (Sid), ces problèmes ont été corrigés dans la version 9.3.3-1 du paquet postgresql-9.3.</p>
+<p>Nous vous recommandons de mettre à jour vos paquets postgresql-9.1.</p>
+</dd>
+</dl>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Cette page est aussi disponible dans les langues suivantes&nbsp;:
+<div id="langContainer">
+ <a href="dsa-2865.da.html" title="danois" hreflang="da" lang="da" rel="alternate">dansk</a>
+ <a href="dsa-2865.en.html" title="anglais" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="dsa-2865.ja.html" title="japonais" hreflang="ja" lang="ja" rel="alternate">&#26085;&#26412;&#35486;&nbsp;(Nihongo)</a>
+ <a href="dsa-2865.ru.html" title="russe" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+ <a href="dsa-2865.sv.html" title="suédois" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+</div>
+Comment configurer la <a href="../../intro/cn">langue par défaut du document</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Accueil</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">À&nbsp;propos&nbsp;de&nbsp;Debian</a>
+		  <ul>
+		  <li><a href="../../social_contract">Notre contrat social</a></li>
+		  <li><a href="../../code_of_conduct">Code de conduite</a></li>
+		  <li><a href="../../intro/free">Logiciel libre</a></li>
+		  <li><a href="../../partners/">Partenaires</a></li>
+		  <li><a href="../../donations">Dons</a></li>
+          <li><a href="../../legal">Informations juridiques</a></li>
+          <li><a href="../../legal/privacy">Protection de la vie privée</a></li>
+		  <li><a href="../../contact">Nous contacter</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Aider Debian</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Obtenir Debian</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">Installation par le réseau</a></li>
+			  <li><a href="../../CD/">Images ISO de CD/USB</a></li>
+			  <li><a href="../../CD/vendors/">Vendeurs de CD</a></li>
+			  <li><a href="../../distrib/pre-installed">Préinstallée</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Mélanges exclusifs</a></li>
+			<li><a href="../../distrib/packages">Paquets Debian</a></li>
+			<li><a href="../../devel/">Le coin du développeur</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">Actualités</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">Nouvelles du projet</a></li>
+		  <li><a href="../../events/">Événements</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">Documentation</a>
+      <ul>
+      <li><a href="../../releases/">Dernière version</a></li>
+      <li><a href="../../releases/stable/installmanual">Manuel d'installation</a></li>
+      <li><a href="../../doc/books">Livres Debian</a></li>
+      <li><a href="https://wiki.debian.org/">Wiki Debian</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">Assistance</a>
+	  <ul>
+			  <li><a href="../../international/">Debian et l'international</a></li>
+			  <li><a href="../../security/">Informations sur la sécurité</a></li>
+			  <li><a href="../../Bugs/">Rapports de bogues</a></li>
+			  <li><a href="../../MailingLists/">Listes de diffusion</a></li>
+			  <li><a href="https://lists.debian.org/">Archives des listes de diffusion</a></li>
+			  <li><a href="../../ports/">Portages/Architectures</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">Plan du site</a></li>
+  <li><a href="https://search.debian.org/">Recherche</a></li>
+  <li><a href="https://bits.debian.org">Le blog Debian</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>Pour signaler un problème sur le site web, envoyez un courriel à l'une de nos listes de diffusion archivées publiquement : en anglais à <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> ou en français à <a href="mailto:debian-l10n-french@lists.debian.org">debian-l10n-french@lists.debian.org</a>. Pour obtenir d'autres informations, référez-vous à la <a href="../../contact">page contact</a> de Debian. Le code source du site est <a href="https://salsa.debian.org/webmaster-team/webwml">disponible</a>.</p>
+<p>
+Dernière modification&nbsp;: vendredi 1<sup>er</sup> juin 2018 18:42:18 UTC
+&emsp;
+Dernière construction&nbsp;: vendredi 11 juin 2021 15:18:11 UTC
+  <br>
+  Copyright &copy; 2014-2021
+ <a href="https://www.spi-inc.org/">SPI</a> et autres ; voir <a href="../../license" rel="copyright">les termes de la licence</a>.<br>
+  Debian est une <a href="../../trademark">marque déposée</a> de Software in the Public Interest, Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="fr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Informations sur la sécurité -- cron </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 14:55:54">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-fr.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Recherche sur le site web Debian" href="../../search.fr.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Accueil Debian"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="fr">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Recherche">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Sauter le menu</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">Informations de sécurité</a>
+ &#x2F; <a href="./">2000</a>
+ &#x2F;
+Informations sur la sécurité -- cron</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Bulletin d'alerte Debian</h1>
+<h2>cron -- Obtention de privilèges locaux</h2>
+<dl>
+<dt>Date du rapport :</dt>
+	<dd>18 novembre 2000</dd>
+<dt>Paquets concernés :</dt>
+	<dd>
+<a href="https://packages.debian.org/src:cron">cron</a>
+</dd>
+<dt>Vulnérabilité :</dt>
+	<dd class="warning">Oui</dd>
+<dt>Références dans la base de données de sécurité :</dt>
+	<dd>Dans le dictionnaire CVE du Mitre&nbsp;: <a href="https://security-tracker.debian.org/tracker/CVE-2000-1096">CVE-2000-1096</a>.<br></dd>
+<dt>Plus de précisions :</dt>
+	<dd>La version de <i>Vixie Cron</i> embarquée dans
+la Debian GNU/Linux&nbsp;2.2 est vulnérable à une attaque locale, découverte
+par Michal Zalewski. De nombreux problèmes, incluant des permissions non
+sécurisées sur les fichiers temporaires ainsi que des situations de
+compétition lors de leur suppression, permettent des exploits allant du déni
+de service (empêchant l'édition des crontabs) à l'escalade de privilèges
+(lorsqu'un autre utilisateur édite sa crontab).
+<p>La solution temporaire &quot;chmod go-rx
+/var/spool/cron/crontabs&quot; prévient de l'unique exploit disponible&nbsp;;
+cependant, elle ne résout pas le problème. Nous vous recommandons la mise �
+jour vers les versions&nbsp;3.0pl1-57.1 pour la Debian&nbsp;2.2,
+et&nbsp;3.0pl1-61 pour la Debian instable.
+<p>De plus, dans le nouveau paquet <i>cron</i>, il n'est plus possible de
+spécifier les fichiers spéciaux (périphériques, tubes nommées, etc.) par
+leur nom dans la <i>crontab</i>. Notez que ceci n'est pas tant une
+recommandation de sécurité qu'un nettoyage nécessaire du code.
+<p>Note&nbsp;: Debian GNU/Linux&nbsp;2.1 est vulnérable à cette attaque. Nous
+vous recommandons de passer vers la Debian GNU/Linux&nbsp;2.2 (<em>Potato</em>).
+</dd>
+<dt>Corrigé dans :</dt>
+	<dd>
+<h3>Debian GNU/Linux 2.2 (potato)</h3>
+<dl>
+<dt>Source :</dt>
+<dd>
+<a href="http://security.debian.org/dists/potato/updates/main/source/cron_3.0pl1-57.1.diff.gz">http://security.debian.org/dists/potato/updates/main/source/cron_3.0pl1-57.1.diff.gz</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/potato/updates/main/source/cron_3.0pl1-57.1.dsc">http://security.debian.org/dists/potato/updates/main/source/cron_3.0pl1-57.1.dsc</a><br>
+</dd>
+<dd>
+<a href="http://security.debian.org/dists/potato/updates/main/source/cron_3.0pl1.orig.tar.gz">http://security.debian.org/dists/potato/updates/main/source/cron_3.0pl1.orig.tar.gz</a><br>
+</dd>
+<dt>alpha:</dt>
+<dd>
+<a href="http://security.debian.org/dists/potato/updates/main/binary-alpha/cron_3.0pl1-57.1_alpha.deb">http://security.debian.org/dists/potato/updates/main/binary-alpha/cron_3.0pl1-57.1_alpha.deb</a><br>
+</dd>
+<dt>arm:</dt>
+<dd>
+<a href="http://security.debian.org/dists/potato/updates/main/binary-arm/cron_3.0pl1-57.1_arm.deb">http://security.debian.org/dists/potato/updates/main/binary-arm/cron_3.0pl1-57.1_arm.deb</a><br>
+</dd>
+<dt>i386:</dt>
+<dd>
+<a href="http://security.debian.org/dists/potato/updates/main/binary-i386/cron_3.0pl1-57.1_i386.deb">http://security.debian.org/dists/potato/updates/main/binary-i386/cron_3.0pl1-57.1_i386.deb</a><br>
+</dd>
+<dt>m68k:</dt>
+<dd>
+<a href="http://security.debian.org/dists/potato/updates/main/binary-m68k/cron_3.0pl1-57.1_m68k.deb">http://security.debian.org/dists/potato/updates/main/binary-m68k/cron_3.0pl1-57.1_m68k.deb</a><br>
+</dd>
+<dt>powerpc:</dt>
+<dd>
+<a href="http://security.debian.org/dists/potato/updates/main/binary-powerpc/cron_3.0pl1-57.1_powerpc.deb">http://security.debian.org/dists/potato/updates/main/binary-powerpc/cron_3.0pl1-57.1_powerpc.deb</a><br>
+</dd>
+<dt>sparc:</dt>
+<dd>
+<a href="http://security.debian.org/dists/potato/updates/main/binary-sparc/cron_3.0pl1-57.1_sparc.deb">http://security.debian.org/dists/potato/updates/main/binary-sparc/cron_3.0pl1-57.1_sparc.deb</a><br>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Cette page est aussi disponible dans les langues suivantes&nbsp;:
+<div id="langContainer">
+ <a href="20001118a.de.html" title="allemand" hreflang="de" lang="de" rel="alternate">Deutsch</a>
+ <a href="20001118a.en.html" title="anglais" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="20001118a.es.html" title="espagnol" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="20001118a.ja.html" title="japonais" hreflang="ja" lang="ja" rel="alternate">&#26085;&#26412;&#35486;&nbsp;(Nihongo)</a>
+ <a href="20001118a.ru.html" title="russe" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+ <a href="20001118a.sv.html" title="suédois" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+</div>
+Comment configurer la <a href="../../intro/cn">langue par défaut du document</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Accueil</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">À&nbsp;propos&nbsp;de&nbsp;Debian</a>
+		  <ul>
+		  <li><a href="../../social_contract">Notre contrat social</a></li>
+		  <li><a href="../../code_of_conduct">Code de conduite</a></li>
+		  <li><a href="../../intro/free">Logiciel libre</a></li>
+		  <li><a href="../../partners/">Partenaires</a></li>
+		  <li><a href="../../donations">Dons</a></li>
+          <li><a href="../../legal">Informations juridiques</a></li>
+          <li><a href="../../legal/privacy">Protection de la vie privée</a></li>
+		  <li><a href="../../contact">Nous contacter</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Aider Debian</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Obtenir Debian</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">Installation par le réseau</a></li>
+			  <li><a href="../../CD/">Images ISO de CD/USB</a></li>
+			  <li><a href="../../CD/vendors/">Vendeurs de CD</a></li>
+			  <li><a href="../../distrib/pre-installed">Préinstallée</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Mélanges exclusifs</a></li>
+			<li><a href="../../distrib/packages">Paquets Debian</a></li>
+			<li><a href="../../devel/">Le coin du développeur</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">Actualités</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">Nouvelles du projet</a></li>
+		  <li><a href="../../events/">Événements</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">Documentation</a>
+      <ul>
+      <li><a href="../../releases/">Dernière version</a></li>
+      <li><a href="../../releases/stable/installmanual">Manuel d'installation</a></li>
+      <li><a href="../../doc/books">Livres Debian</a></li>
+      <li><a href="https://wiki.debian.org/">Wiki Debian</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">Assistance</a>
+	  <ul>
+			  <li><a href="../../international/">Debian et l'international</a></li>
+			  <li><a href="../../security/">Informations sur la sécurité</a></li>
+			  <li><a href="../../Bugs/">Rapports de bogues</a></li>
+			  <li><a href="../../MailingLists/">Listes de diffusion</a></li>
+			  <li><a href="https://lists.debian.org/">Archives des listes de diffusion</a></li>
+			  <li><a href="../../ports/">Portages/Architectures</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">Plan du site</a></li>
+  <li><a href="https://search.debian.org/">Recherche</a></li>
+  <li><a href="https://bits.debian.org">Le blog Debian</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>Pour signaler un problème sur le site web, envoyez un courriel à l'une de nos listes de diffusion archivées publiquement : en anglais à <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> ou en français à <a href="mailto:debian-l10n-french@lists.debian.org">debian-l10n-french@lists.debian.org</a>. Pour obtenir d'autres informations, référez-vous à la <a href="../../contact">page contact</a> de Debian. Le code source du site est <a href="https://salsa.debian.org/webmaster-team/webwml">disponible</a>.</p>
+<p>
+Dernière modification&nbsp;: mercredi 25 juillet 2018 10:47:37 UTC
+&emsp;
+Dernière construction&nbsp;: vendredi 11 juin 2021 14:55:55 UTC
+  <br>
+  Copyright &copy; 2000-2021
+ <a href="https://www.spi-inc.org/">SPI</a> et autres ; voir <a href="../../license" rel="copyright">les termes de la licence</a>.<br>
+  Debian est une <a href="../../trademark">marque déposée</a> de Software in the Public Interest, Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

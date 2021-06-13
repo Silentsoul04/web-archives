@@ -1,0 +1,405 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="de">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Debian -- Sicherheitsinformationen -- DSA-1436-1 linux-2.6 </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 16:09:32">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-de.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Debian Website-Suche" href="../../search.de.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Debian Home"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="de">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Suche">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Schnellnavigation überspringen</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">Sicherheits-Informationen</a>
+ &#x2F; <a href="./">2007</a>
+ &#x2F;
+Sicherheitsinformationen -- DSA-1436-1 linux-2.6</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Debian-Sicherheitsankündigung</h1>
+<h2>DSA-1436-1 linux-2.6 -- Mehrere Verwundbarkeiten</h2>
+<dl>
+<dt>Datum des Berichts:</dt>
+	<dd>20. Dez 2007</dd>
+<dt>Betroffene Pakete:</dt>
+	<dd>
+<a href="https://packages.debian.org/src:linux-2.6">linux-2.6</a>
+</dd>
+<dt>Verwundbar:</dt>
+	<dd class="warning">Ja</dd>
+<dt>Sicherheitsdatenbanken-Referenzen:</dt>
+	<dd>In Mitres CVE-Verzeichnis: <a href="https://security-tracker.debian.org/tracker/CVE-2006-6058">CVE-2006-6058</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2007-5966">CVE-2007-5966</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2007-6063">CVE-2007-6063</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2007-6206">CVE-2007-6206</a>.<br></dd>
+<dt>Weitere Informationen:</dt>
+	<dd>
+<p>Mehrere lokal ausnutzbare Verwundbarkeiten wurden im
+Linux-Kernel entdeckt, die zu einer Diensteverweigerung (<q>denial of
+service</q>) oder zur Ausführung beliebigen Codes führen können. Das
+<q>Common Vulnerabilities and Exposures</q>-Projekt identifiziert die
+folgenden Probleme:</p>
+<ul>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2006-6058">CVE-2006-6058</a>
+    <p>LMH berichtete ein Problem im Minix-Dateisystem, das es lokalen Benutzern
+    mit mount-Rechten ermöglicht, eine Diensteverweigerung (printk-Überflutung)
+    auszulösen, indem ein speziell erzeugtes korrumpiertes Dateisystem eingebunden
+    wird.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2007-5966">CVE-2007-5966</a>
+    <p>Warren Togami entdeckte ein Problem im hrtimer-Untersystem, das es
+    lokalen Benutzern ermöglicht, eine Diensteverweigerung (Soft-Lockup)
+    auszulösen, indem ein von einem Timer beendeter Schlaf gestartet wird,
+    der eine lange Zeit dauert und zu einem Integer-Überlauf führt.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2007-6063">CVE-2007-6063</a>
+    <p>Venustech AD-LAB entdeckte einen Pufferüberlauf im Umgang mit dem isdn-IOCTL,
+    was von einem lokalen Benutzer ausnutzbar ist.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2007-6206">CVE-2007-6206</a>
+    <p>Blake Frantz entdeckte, dass bei Existenz einer core-Datei, die nicht
+    root gehört, und falls ein Prozess, der root gehört, eine neue Core-Datei
+    darüber erzeugt, sie den ursprünglichen Eigentümer behält. Dies könnte
+    von einem lokalen Benutzer verwendet werden, um Zugang zu sensitiven
+    Informationen zu erhalten.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2007-6417">CVE-2007-6417</a>
+    <p>Hugh Dickins entdeckte ein Problem im tmpfs-Dateisystem, in dem unter
+    seltenen Umständen eine Kernel-Seite nicht richtig gelöscht wird, was
+    sensible Informationen aus dem Kernel-Speicher an den Userspace
+    weiterreichen kann oder zu einer Diensteverweigerung (Absturz) führt.</p></li>
+</ul>
+<p>Diese Probleme wurden in der Stable-Distribution in Version
+2.6.18.dfsg.1-13etch6 behoben.</p>
+<p>Die folgende Matrix listet zusätzliche Pakete auf, die zwecks Kompatibilität
+mit dieser Aktualisierung neu gebaut wurden oder um von ihr zu profitieren:</p>
+<div class="centerdiv"><table cellspacing="0" cellpadding="2" summary="">
+<tr><th>&nbsp;</th>                  <th>Debian 4.0 (Etch)</th></tr>
+<tr><td>fai-kernels</td>             <td>1.17+etch.13etch6</td></tr>
+<tr><td>user-mode-linux</td>         <td>2.6.18-1um-2etch.13etch6</td></tr>
+</table></div>
+<p>Wir empfehlen Ihnen, Ihr kernel-Paket zu aktualisieren und den Rechner neu
+zu starten. Falls Sie einen angepassten Kernel aus dem Quellpaket gebaut haben,
+müssen Sie diesen neu erzeugen, um von diesen Korrekturen zu profitieren.</p>
+</dd>
+<dt>Behoben in:</dt>
+	<dd>
+<h3>Debian GNU/Linux 4.0 (etch)</h3>
+<dl>
+<dt>Quellcode:
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-2.6_2.6.18.dfsg.1-13etch6.dsc">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-2.6_2.6.18.dfsg.1-13etch6.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-2.6_2.6.18.dfsg.1-13etch6.diff.gz">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-2.6_2.6.18.dfsg.1-13etch6.diff.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-2.6_2.6.18.dfsg.1.orig.tar.gz">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-2.6_2.6.18.dfsg.1.orig.tar.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/f/fai-kernels/fai-kernels_1.17+etch.13etch6.dsc">http://security.debian.org/pool/updates/main/f/fai-kernels/fai-kernels_1.17+etch.13etch6.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/f/fai-kernels/fai-kernels_1.17+etch.13etch6.tar.gz">http://security.debian.org/pool/updates/main/f/fai-kernels/fai-kernels_1.17+etch.13etch6.tar.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/u/user-mode-linux/user-mode-linux_2.6.18-1um-2etch.13etch6.dsc">http://security.debian.org/pool/updates/main/u/user-mode-linux/user-mode-linux_2.6.18-1um-2etch.13etch6.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/u/user-mode-linux/user-mode-linux_2.6.18-1um-2etch.13etch6.diff.gz">http://security.debian.org/pool/updates/main/u/user-mode-linux/user-mode-linux_2.6.18-1um-2etch.13etch6.diff.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/u/user-mode-linux/user-mode-linux_2.6.18-1um.orig.tar.gz">http://security.debian.org/pool/updates/main/u/user-mode-linux/user-mode-linux_2.6.18-1um.orig.tar.gz</a><br>
+<dt>Architektur-unabhängige Dateien:
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-doc-2.6.18_2.6.18.dfsg.1-13etch6_all.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-doc-2.6.18_2.6.18.dfsg.1-13etch6_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-manual-2.6.18_2.6.18.dfsg.1-13etch6_all.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-manual-2.6.18_2.6.18.dfsg.1-13etch6_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-patch-debian-2.6.18_2.6.18.dfsg.1-13etch6_all.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-patch-debian-2.6.18_2.6.18.dfsg.1-13etch6_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-source-2.6.18_2.6.18.dfsg.1-13etch6_all.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-source-2.6.18_2.6.18.dfsg.1-13etch6_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-support-2.6.18-5_2.6.18.dfsg.1-13etch6_all.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-support-2.6.18-5_2.6.18.dfsg.1-13etch6_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-tree-2.6.18_2.6.18.dfsg.1-13etch6_all.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-tree-2.6.18_2.6.18.dfsg.1-13etch6_all.deb</a><br>
+<dt>Alpha:
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5_2.6.18.dfsg.1-13etch6_alpha.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5_2.6.18.dfsg.1-13etch6_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all_2.6.18.dfsg.1-13etch6_alpha.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all_2.6.18.dfsg.1-13etch6_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all-alpha_2.6.18.dfsg.1-13etch6_alpha.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all-alpha_2.6.18.dfsg.1-13etch6_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-alpha-generic_2.6.18.dfsg.1-13etch6_alpha.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-alpha-generic_2.6.18.dfsg.1-13etch6_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-alpha-legacy_2.6.18.dfsg.1-13etch6_alpha.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-alpha-legacy_2.6.18.dfsg.1-13etch6_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-alpha-smp_2.6.18.dfsg.1-13etch6_alpha.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-alpha-smp_2.6.18.dfsg.1-13etch6_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-vserver_2.6.18.dfsg.1-13etch6_alpha.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-vserver_2.6.18.dfsg.1-13etch6_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-vserver-alpha_2.6.18.dfsg.1-13etch6_alpha.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-vserver-alpha_2.6.18.dfsg.1-13etch6_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-alpha-generic_2.6.18.dfsg.1-13etch6_alpha.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-alpha-generic_2.6.18.dfsg.1-13etch6_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-alpha-legacy_2.6.18.dfsg.1-13etch6_alpha.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-alpha-legacy_2.6.18.dfsg.1-13etch6_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-alpha-smp_2.6.18.dfsg.1-13etch6_alpha.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-alpha-smp_2.6.18.dfsg.1-13etch6_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-vserver-alpha_2.6.18.dfsg.1-13etch6_alpha.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-vserver-alpha_2.6.18.dfsg.1-13etch6_alpha.deb</a><br>
+<dt>AMD64:
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5_2.6.18.dfsg.1-13etch6_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5_2.6.18.dfsg.1-13etch6_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all_2.6.18.dfsg.1-13etch6_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all_2.6.18.dfsg.1-13etch6_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all-amd64_2.6.18.dfsg.1-13etch6_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all-amd64_2.6.18.dfsg.1-13etch6_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-amd64_2.6.18.dfsg.1-13etch6_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-amd64_2.6.18.dfsg.1-13etch6_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-vserver_2.6.18.dfsg.1-13etch6_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-vserver_2.6.18.dfsg.1-13etch6_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-vserver-amd64_2.6.18.dfsg.1-13etch6_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-vserver-amd64_2.6.18.dfsg.1-13etch6_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-xen_2.6.18.dfsg.1-13etch6_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-xen_2.6.18.dfsg.1-13etch6_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-xen-amd64_2.6.18.dfsg.1-13etch6_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-xen-amd64_2.6.18.dfsg.1-13etch6_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-xen-vserver_2.6.18.dfsg.1-13etch6_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-xen-vserver_2.6.18.dfsg.1-13etch6_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-xen-vserver-amd64_2.6.18.dfsg.1-13etch6_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-xen-vserver-amd64_2.6.18.dfsg.1-13etch6_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-amd64_2.6.18.dfsg.1-13etch6_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-amd64_2.6.18.dfsg.1-13etch6_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-vserver-amd64_2.6.18.dfsg.1-13etch6_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-vserver-amd64_2.6.18.dfsg.1-13etch6_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-xen-amd64_2.6.18.dfsg.1-13etch6_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-xen-amd64_2.6.18.dfsg.1-13etch6_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-xen-vserver-amd64_2.6.18.dfsg.1-13etch6_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-xen-vserver-amd64_2.6.18.dfsg.1-13etch6_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-modules-2.6.18-5-xen-amd64_2.6.18.dfsg.1-13etch6_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-modules-2.6.18-5-xen-amd64_2.6.18.dfsg.1-13etch6_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-modules-2.6.18-5-xen-vserver-amd64_2.6.18.dfsg.1-13etch6_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-modules-2.6.18-5-xen-vserver-amd64_2.6.18.dfsg.1-13etch6_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/xen-linux-system-2.6.18-5-xen-amd64_2.6.18.dfsg.1-13etch6_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/xen-linux-system-2.6.18-5-xen-amd64_2.6.18.dfsg.1-13etch6_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/xen-linux-system-2.6.18-5-xen-vserver-amd64_2.6.18.dfsg.1-13etch6_amd64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/xen-linux-system-2.6.18-5-xen-vserver-amd64_2.6.18.dfsg.1-13etch6_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/f/fai-kernels/fai-kernels_1.17+etch.13etch6_amd64.deb">http://security.debian.org/pool/updates/main/f/fai-kernels/fai-kernels_1.17+etch.13etch6_amd64.deb</a><br>
+<dt>ARM:
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5_2.6.18.dfsg.1-13etch6_arm.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5_2.6.18.dfsg.1-13etch6_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all_2.6.18.dfsg.1-13etch6_arm.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all_2.6.18.dfsg.1-13etch6_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all-arm_2.6.18.dfsg.1-13etch6_arm.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all-arm_2.6.18.dfsg.1-13etch6_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-footbridge_2.6.18.dfsg.1-13etch6_arm.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-footbridge_2.6.18.dfsg.1-13etch6_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-iop32x_2.6.18.dfsg.1-13etch6_arm.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-iop32x_2.6.18.dfsg.1-13etch6_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-ixp4xx_2.6.18.dfsg.1-13etch6_arm.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-ixp4xx_2.6.18.dfsg.1-13etch6_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-rpc_2.6.18.dfsg.1-13etch6_arm.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-rpc_2.6.18.dfsg.1-13etch6_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-s3c2410_2.6.18.dfsg.1-13etch6_arm.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-s3c2410_2.6.18.dfsg.1-13etch6_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-footbridge_2.6.18.dfsg.1-13etch6_arm.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-footbridge_2.6.18.dfsg.1-13etch6_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-iop32x_2.6.18.dfsg.1-13etch6_arm.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-iop32x_2.6.18.dfsg.1-13etch6_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-ixp4xx_2.6.18.dfsg.1-13etch6_arm.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-ixp4xx_2.6.18.dfsg.1-13etch6_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-rpc_2.6.18.dfsg.1-13etch6_arm.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-rpc_2.6.18.dfsg.1-13etch6_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-s3c2410_2.6.18.dfsg.1-13etch6_arm.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-s3c2410_2.6.18.dfsg.1-13etch6_arm.deb</a><br>
+<dt>HPPA:
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5_2.6.18.dfsg.1-13etch6_hppa.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5_2.6.18.dfsg.1-13etch6_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all_2.6.18.dfsg.1-13etch6_hppa.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all_2.6.18.dfsg.1-13etch6_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all-hppa_2.6.18.dfsg.1-13etch6_hppa.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all-hppa_2.6.18.dfsg.1-13etch6_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-parisc_2.6.18.dfsg.1-13etch6_hppa.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-parisc_2.6.18.dfsg.1-13etch6_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-parisc-smp_2.6.18.dfsg.1-13etch6_hppa.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-parisc-smp_2.6.18.dfsg.1-13etch6_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-parisc64_2.6.18.dfsg.1-13etch6_hppa.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-parisc64_2.6.18.dfsg.1-13etch6_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-parisc64-smp_2.6.18.dfsg.1-13etch6_hppa.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-parisc64-smp_2.6.18.dfsg.1-13etch6_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-parisc_2.6.18.dfsg.1-13etch6_hppa.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-parisc_2.6.18.dfsg.1-13etch6_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-parisc-smp_2.6.18.dfsg.1-13etch6_hppa.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-parisc-smp_2.6.18.dfsg.1-13etch6_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-parisc64_2.6.18.dfsg.1-13etch6_hppa.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-parisc64_2.6.18.dfsg.1-13etch6_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-parisc64-smp_2.6.18.dfsg.1-13etch6_hppa.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-parisc64-smp_2.6.18.dfsg.1-13etch6_hppa.deb</a><br>
+<dt>Intel IA-32:
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5_2.6.18.dfsg.1-13etch6_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5_2.6.18.dfsg.1-13etch6_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-486_2.6.18.dfsg.1-13etch6_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-486_2.6.18.dfsg.1-13etch6_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-686_2.6.18.dfsg.1-13etch6_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-686_2.6.18.dfsg.1-13etch6_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-686-bigmem_2.6.18.dfsg.1-13etch6_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-686-bigmem_2.6.18.dfsg.1-13etch6_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all_2.6.18.dfsg.1-13etch6_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all_2.6.18.dfsg.1-13etch6_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all-i386_2.6.18.dfsg.1-13etch6_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all-i386_2.6.18.dfsg.1-13etch6_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-amd64_2.6.18.dfsg.1-13etch6_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-amd64_2.6.18.dfsg.1-13etch6_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-k7_2.6.18.dfsg.1-13etch6_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-k7_2.6.18.dfsg.1-13etch6_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-vserver_2.6.18.dfsg.1-13etch6_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-vserver_2.6.18.dfsg.1-13etch6_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-vserver-686_2.6.18.dfsg.1-13etch6_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-vserver-686_2.6.18.dfsg.1-13etch6_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-vserver-k7_2.6.18.dfsg.1-13etch6_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-vserver-k7_2.6.18.dfsg.1-13etch6_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-xen_2.6.18.dfsg.1-13etch6_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-xen_2.6.18.dfsg.1-13etch6_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-xen-686_2.6.18.dfsg.1-13etch6_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-xen-686_2.6.18.dfsg.1-13etch6_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-xen-vserver_2.6.18.dfsg.1-13etch6_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-xen-vserver_2.6.18.dfsg.1-13etch6_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-xen-vserver-686_2.6.18.dfsg.1-13etch6_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-xen-vserver-686_2.6.18.dfsg.1-13etch6_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-486_2.6.18.dfsg.1-13etch6_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-486_2.6.18.dfsg.1-13etch6_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-686_2.6.18.dfsg.1-13etch6_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-686_2.6.18.dfsg.1-13etch6_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-686-bigmem_2.6.18.dfsg.1-13etch6_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-686-bigmem_2.6.18.dfsg.1-13etch6_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-amd64_2.6.18.dfsg.1-13etch6_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-amd64_2.6.18.dfsg.1-13etch6_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-k7_2.6.18.dfsg.1-13etch6_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-k7_2.6.18.dfsg.1-13etch6_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-vserver-686_2.6.18.dfsg.1-13etch6_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-vserver-686_2.6.18.dfsg.1-13etch6_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-vserver-k7_2.6.18.dfsg.1-13etch6_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-vserver-k7_2.6.18.dfsg.1-13etch6_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-xen-686_2.6.18.dfsg.1-13etch6_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-xen-686_2.6.18.dfsg.1-13etch6_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-xen-vserver-686_2.6.18.dfsg.1-13etch6_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-xen-vserver-686_2.6.18.dfsg.1-13etch6_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-modules-2.6.18-5-xen-686_2.6.18.dfsg.1-13etch6_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-modules-2.6.18-5-xen-686_2.6.18.dfsg.1-13etch6_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-modules-2.6.18-5-xen-vserver-686_2.6.18.dfsg.1-13etch6_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-modules-2.6.18-5-xen-vserver-686_2.6.18.dfsg.1-13etch6_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/xen-linux-system-2.6.18-5-xen-686_2.6.18.dfsg.1-13etch6_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/xen-linux-system-2.6.18-5-xen-686_2.6.18.dfsg.1-13etch6_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/xen-linux-system-2.6.18-5-xen-vserver-686_2.6.18.dfsg.1-13etch6_i386.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/xen-linux-system-2.6.18-5-xen-vserver-686_2.6.18.dfsg.1-13etch6_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/f/fai-kernels/fai-kernels_1.17+etch.13etch6_i386.deb">http://security.debian.org/pool/updates/main/f/fai-kernels/fai-kernels_1.17+etch.13etch6_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/u/user-mode-linux/user-mode-linux_2.6.18-1um-2etch.13etch6_i386.deb">http://security.debian.org/pool/updates/main/u/user-mode-linux/user-mode-linux_2.6.18-1um-2etch.13etch6_i386.deb</a><br>
+<dt>Intel IA-64:
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5_2.6.18.dfsg.1-13etch6_ia64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5_2.6.18.dfsg.1-13etch6_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all_2.6.18.dfsg.1-13etch6_ia64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all_2.6.18.dfsg.1-13etch6_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all-ia64_2.6.18.dfsg.1-13etch6_ia64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all-ia64_2.6.18.dfsg.1-13etch6_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-itanium_2.6.18.dfsg.1-13etch6_ia64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-itanium_2.6.18.dfsg.1-13etch6_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-mckinley_2.6.18.dfsg.1-13etch6_ia64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-mckinley_2.6.18.dfsg.1-13etch6_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-itanium_2.6.18.dfsg.1-13etch6_ia64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-itanium_2.6.18.dfsg.1-13etch6_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-mckinley_2.6.18.dfsg.1-13etch6_ia64.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-mckinley_2.6.18.dfsg.1-13etch6_ia64.deb</a><br>
+<dt>Big endian MIPS:
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5_2.6.18.dfsg.1-13etch6_mips.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5_2.6.18.dfsg.1-13etch6_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all_2.6.18.dfsg.1-13etch6_mips.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all_2.6.18.dfsg.1-13etch6_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all-mips_2.6.18.dfsg.1-13etch6_mips.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all-mips_2.6.18.dfsg.1-13etch6_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-qemu_2.6.18.dfsg.1-13etch6_mips.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-qemu_2.6.18.dfsg.1-13etch6_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-r4k-ip22_2.6.18.dfsg.1-13etch6_mips.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-r4k-ip22_2.6.18.dfsg.1-13etch6_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-r5k-ip32_2.6.18.dfsg.1-13etch6_mips.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-r5k-ip32_2.6.18.dfsg.1-13etch6_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-sb1-bcm91250a_2.6.18.dfsg.1-13etch6_mips.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-sb1-bcm91250a_2.6.18.dfsg.1-13etch6_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-sb1a-bcm91480b_2.6.18.dfsg.1-13etch6_mips.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-sb1a-bcm91480b_2.6.18.dfsg.1-13etch6_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-qemu_2.6.18.dfsg.1-13etch6_mips.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-qemu_2.6.18.dfsg.1-13etch6_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-r4k-ip22_2.6.18.dfsg.1-13etch6_mips.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-r4k-ip22_2.6.18.dfsg.1-13etch6_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-r5k-ip32_2.6.18.dfsg.1-13etch6_mips.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-r5k-ip32_2.6.18.dfsg.1-13etch6_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-sb1-bcm91250a_2.6.18.dfsg.1-13etch6_mips.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-sb1-bcm91250a_2.6.18.dfsg.1-13etch6_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-sb1a-bcm91480b_2.6.18.dfsg.1-13etch6_mips.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-sb1a-bcm91480b_2.6.18.dfsg.1-13etch6_mips.deb</a><br>
+<dt>Little endian MIPS:
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5_2.6.18.dfsg.1-13etch6_mipsel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5_2.6.18.dfsg.1-13etch6_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all_2.6.18.dfsg.1-13etch6_mipsel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all_2.6.18.dfsg.1-13etch6_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all-mipsel_2.6.18.dfsg.1-13etch6_mipsel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all-mipsel_2.6.18.dfsg.1-13etch6_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-qemu_2.6.18.dfsg.1-13etch6_mipsel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-qemu_2.6.18.dfsg.1-13etch6_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-r3k-kn02_2.6.18.dfsg.1-13etch6_mipsel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-r3k-kn02_2.6.18.dfsg.1-13etch6_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-r4k-kn04_2.6.18.dfsg.1-13etch6_mipsel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-r4k-kn04_2.6.18.dfsg.1-13etch6_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-r5k-cobalt_2.6.18.dfsg.1-13etch6_mipsel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-r5k-cobalt_2.6.18.dfsg.1-13etch6_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-sb1-bcm91250a_2.6.18.dfsg.1-13etch6_mipsel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-sb1-bcm91250a_2.6.18.dfsg.1-13etch6_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-sb1a-bcm91480b_2.6.18.dfsg.1-13etch6_mipsel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-sb1a-bcm91480b_2.6.18.dfsg.1-13etch6_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-qemu_2.6.18.dfsg.1-13etch6_mipsel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-qemu_2.6.18.dfsg.1-13etch6_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-r3k-kn02_2.6.18.dfsg.1-13etch6_mipsel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-r3k-kn02_2.6.18.dfsg.1-13etch6_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-r4k-kn04_2.6.18.dfsg.1-13etch6_mipsel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-r4k-kn04_2.6.18.dfsg.1-13etch6_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-r5k-cobalt_2.6.18.dfsg.1-13etch6_mipsel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-r5k-cobalt_2.6.18.dfsg.1-13etch6_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-sb1-bcm91250a_2.6.18.dfsg.1-13etch6_mipsel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-sb1-bcm91250a_2.6.18.dfsg.1-13etch6_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-sb1a-bcm91480b_2.6.18.dfsg.1-13etch6_mipsel.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-sb1a-bcm91480b_2.6.18.dfsg.1-13etch6_mipsel.deb</a><br>
+<dt>PowerPC:
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5_2.6.18.dfsg.1-13etch6_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5_2.6.18.dfsg.1-13etch6_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all_2.6.18.dfsg.1-13etch6_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all_2.6.18.dfsg.1-13etch6_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all-powerpc_2.6.18.dfsg.1-13etch6_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all-powerpc_2.6.18.dfsg.1-13etch6_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-powerpc_2.6.18.dfsg.1-13etch6_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-powerpc_2.6.18.dfsg.1-13etch6_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-powerpc-miboot_2.6.18.dfsg.1-13etch6_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-powerpc-miboot_2.6.18.dfsg.1-13etch6_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-powerpc-smp_2.6.18.dfsg.1-13etch6_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-powerpc-smp_2.6.18.dfsg.1-13etch6_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-powerpc64_2.6.18.dfsg.1-13etch6_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-powerpc64_2.6.18.dfsg.1-13etch6_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-prep_2.6.18.dfsg.1-13etch6_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-prep_2.6.18.dfsg.1-13etch6_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-vserver_2.6.18.dfsg.1-13etch6_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-vserver_2.6.18.dfsg.1-13etch6_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-vserver-powerpc_2.6.18.dfsg.1-13etch6_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-vserver-powerpc_2.6.18.dfsg.1-13etch6_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-vserver-powerpc64_2.6.18.dfsg.1-13etch6_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-vserver-powerpc64_2.6.18.dfsg.1-13etch6_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-powerpc_2.6.18.dfsg.1-13etch6_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-powerpc_2.6.18.dfsg.1-13etch6_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-powerpc-miboot_2.6.18.dfsg.1-13etch6_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-powerpc-miboot_2.6.18.dfsg.1-13etch6_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-powerpc-smp_2.6.18.dfsg.1-13etch6_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-powerpc-smp_2.6.18.dfsg.1-13etch6_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-powerpc64_2.6.18.dfsg.1-13etch6_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-powerpc64_2.6.18.dfsg.1-13etch6_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-prep_2.6.18.dfsg.1-13etch6_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-prep_2.6.18.dfsg.1-13etch6_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-vserver-powerpc_2.6.18.dfsg.1-13etch6_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-vserver-powerpc_2.6.18.dfsg.1-13etch6_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-vserver-powerpc64_2.6.18.dfsg.1-13etch6_powerpc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-vserver-powerpc64_2.6.18.dfsg.1-13etch6_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/f/fai-kernels/fai-kernels_1.17+etch.13etch6_powerpc.deb">http://security.debian.org/pool/updates/main/f/fai-kernels/fai-kernels_1.17+etch.13etch6_powerpc.deb</a><br>
+<dt>IBM S/390:
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5_2.6.18.dfsg.1-13etch6_s390.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5_2.6.18.dfsg.1-13etch6_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all_2.6.18.dfsg.1-13etch6_s390.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all_2.6.18.dfsg.1-13etch6_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all-s390_2.6.18.dfsg.1-13etch6_s390.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all-s390_2.6.18.dfsg.1-13etch6_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-s390_2.6.18.dfsg.1-13etch6_s390.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-s390_2.6.18.dfsg.1-13etch6_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-s390x_2.6.18.dfsg.1-13etch6_s390.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-s390x_2.6.18.dfsg.1-13etch6_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-vserver_2.6.18.dfsg.1-13etch6_s390.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-vserver_2.6.18.dfsg.1-13etch6_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-vserver-s390x_2.6.18.dfsg.1-13etch6_s390.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-vserver-s390x_2.6.18.dfsg.1-13etch6_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-s390_2.6.18.dfsg.1-13etch6_s390.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-s390_2.6.18.dfsg.1-13etch6_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-s390-tape_2.6.18.dfsg.1-13etch6_s390.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-s390-tape_2.6.18.dfsg.1-13etch6_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-s390x_2.6.18.dfsg.1-13etch6_s390.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-s390x_2.6.18.dfsg.1-13etch6_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-vserver-s390x_2.6.18.dfsg.1-13etch6_s390.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-vserver-s390x_2.6.18.dfsg.1-13etch6_s390.deb</a><br>
+<dt>Sun Sparc:
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5_2.6.18.dfsg.1-13etch6_sparc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5_2.6.18.dfsg.1-13etch6_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all_2.6.18.dfsg.1-13etch6_sparc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all_2.6.18.dfsg.1-13etch6_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all-sparc_2.6.18.dfsg.1-13etch6_sparc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-all-sparc_2.6.18.dfsg.1-13etch6_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-sparc32_2.6.18.dfsg.1-13etch6_sparc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-sparc32_2.6.18.dfsg.1-13etch6_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-sparc64_2.6.18.dfsg.1-13etch6_sparc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-sparc64_2.6.18.dfsg.1-13etch6_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-sparc64-smp_2.6.18.dfsg.1-13etch6_sparc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-sparc64-smp_2.6.18.dfsg.1-13etch6_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-vserver_2.6.18.dfsg.1-13etch6_sparc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-vserver_2.6.18.dfsg.1-13etch6_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-vserver-sparc64_2.6.18.dfsg.1-13etch6_sparc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-headers-2.6.18-5-vserver-sparc64_2.6.18.dfsg.1-13etch6_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-sparc32_2.6.18.dfsg.1-13etch6_sparc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-sparc32_2.6.18.dfsg.1-13etch6_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-sparc64_2.6.18.dfsg.1-13etch6_sparc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-sparc64_2.6.18.dfsg.1-13etch6_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-sparc64-smp_2.6.18.dfsg.1-13etch6_sparc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-sparc64-smp_2.6.18.dfsg.1-13etch6_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-vserver-sparc64_2.6.18.dfsg.1-13etch6_sparc.deb">http://security.debian.org/pool/updates/main/l/linux-2.6/linux-image-2.6.18-5-vserver-sparc64_2.6.18.dfsg.1-13etch6_sparc.deb</a><br>
+</dl>
+<p>MD5-Prüfsummen der aufgeführten Dateien stehen in der <a href="https://lists.debian.org/debian-security-announce/debian-security-announce-2007/msg00218.html">ursprünglichen Sicherheitsankündigung</a> zur Verfügung.</p>
+</dd>
+</dl>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Diese Seite gibt es auch in den folgenden Sprachen:
+<div id="langContainer">
+ <a href="dsa-1436.da.html" title="Dänisch" hreflang="da" lang="da" rel="alternate">dansk</a>
+ <a href="dsa-1436.en.html" title="Englisch" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="dsa-1436.fr.html" title="Französisch" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="dsa-1436.ja.html" title="Japanisch" hreflang="ja" lang="ja" rel="alternate">&#26085;&#26412;&#35486;&nbsp;(Nihongo)</a>
+ <a href="dsa-1436.sv.html" title="Schwedisch" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+</div>
+Wie man <a href="../../intro/cn">die Standardsprache einstellt</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Home</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">Über&nbsp;Debian</a>
+		  <ul>
+		  <li><a href="../../social_contract">Gesellschaftsvertrag</a></li>
+		  <li><a href="../../code_of_conduct">Verhaltenskodex</a></li>
+		  <li><a href="../../intro/free">Freie Software</a></li>
+		  <li><a href="../../partners/">Partner</a></li>
+		  <li><a href="../../donations">Spenden</a></li>
+          <li><a href="../../legal">Rechtliche Informationen</a></li>
+          <li><a href="../../legal/privacy">Datenschutz</a></li>
+		  <li><a href="../../contact">Kontakte</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Debian unterstützen</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Debian bekommen</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">Netzwerk-Installation</a></li>
+			  <li><a href="../../CD/">CD/USB-ISO-Images</a></li>
+			  <li><a href="../../CD/vendors/">CD-Distributoren</a></li>
+			  <li><a href="../../distrib/pre-installed">Vorinstalliert</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Pure Blends</a></li>
+			<li><a href="../../distrib/packages">Debian-Softwarepakete</a></li>
+			<li><a href="../../devel/">Entwickler-Ecke</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">Nachrichten</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">Projekt-Nachrichten</a></li>
+		  <li><a href="../../events/">Veranstaltungen</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">Dokumentation</a>
+      <ul>
+      <li><a href="../../releases/">Release-Informationen</a></li>
+      <li><a href="../../releases/stable/installmanual">Installationsanleitung</a></li>
+      <li><a href="../../doc/books">Debian-Bücher</a></li>
+      <li><a href="https://wiki.debian.org/">Debian-Wiki</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">Unterstützung</a>
+	  <ul>
+			  <li><a href="../../international/">Debian International</a></li>
+			  <li><a href="../../security/">Sicherheitsinformationen</a></li>
+			  <li><a href="../../Bugs/">Fehlerberichte</a></li>
+			  <li><a href="../../MailingLists/">Mailinglisten</a></li>
+			  <li><a href="https://lists.debian.org/">Archiv der Mailinglisten</a></li>
+			  <li><a href="../../ports/">Portierungen/Architekturen</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">Sitemap</a></li>
+  <li><a href="https://search.debian.org/">Suche</a></li>
+  <li><a href="https://bits.debian.org">Der Debian-Blog</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>Um Probleme mit der Website zu melden, schreiben Sie bitte eine E-Mail auf Englisch an unsere öffentlich archivierte Mailingliste <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a>. Rechtschreibfehler in der deutschen Übersetzung senden Sie bitte an <a href="mailto:debian-l10n-german@lists.debian.org">debian-l10n-german@lists.debian.org</a>. Weitere Kontaktinformationen finden Sie auf Debians <a href="../../contact">Kontaktseite</a>. Der Quelltext der Website ist <a href="https://salsa.debian.org/webmaster-team/webwml">verfügbar</a>.</p>
+<p>
+Zuletzt geändert: Freitag den 1. Jun 2018 um 18:42:20 Uhr UTC
+&emsp;
+Zuletzt gebaut: Freitag den 11. Jun 2021 um 16:09:32 Uhr UTC
+  <br>
+  Copyright &copy; 2007-2021
+ <a href="https://www.spi-inc.org/">SPI</a> und andere; weiteres in den <a href="../../license" rel="copyright">Lizenzbestimmungen</a>.<br>
+  Debian ist ein eingetragenes <a href="../../trademark">Warenzeichen</a> der Software in the Public Interest, Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

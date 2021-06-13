@@ -1,0 +1,224 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Automated Audit Example: flawfinder </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 12:44:32">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../../debian-en.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Debian website search" href="../../../search.en.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../../" title="Debian Home"><img src="../../../Pics/openlogo-50.png" alt="Debian" width="50" height="61"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="en">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Search">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Skip Quicknav</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../../">Security Information</a>
+ &#x2F; <a href="./../">Debian Security Audit Project</a>
+ &#x2F; <a href="./">Automated Audit Examples</a>
+ &#x2F;
+Automated Audit Example: flawfinder</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Automated Audit Example: flawfinder</h1>
+<p><a href="https://packages.debian.org/flawfinder">flawfinder</a> is a general purpose scanner for finding and reporting upon potential flaws in both C and C++ source code.</p>
+<h2>Running flawfinder</h2>
+<p>Running flawfinder as simple as invoking the command with the name directories or files to examine. If given a directory name it will then process all the valid source files it can find inside that directory.</p>
+<p>In addition to given the program a list of files or directories there are several command line options which may be used to control the tools behaviour.</p>
+<p>Each of the options is explained in the manpage, but the following options are particularly useful and will be used in our example:</p>
+<ul>
+<li>--minlevel=X
+<ul>
+<li>Set minimum risk level to X for inclusion in output. Ranges from 1-5, with 1 being "low risk" and 5 being "high risk".</li>
+</ul></li>
+<li>--html
+<ul>
+<li>Format the output as HTML instead of as simple text</li>
+</ul></li>
+<li>--context
+<ul>
+<li> Show context, i.e., the line having the potential flaw.</li>
+</ul></li>
+</ul>
+<p>To output an HTML file containing the results of our program, only
+ caring about "high risk" functions we'd run something like this:</p>
+<pre>
+flawfinder --html --context --minlevel=4 test.c &gt; output.html
+</pre>
+<h2>The Results</h2>
+<p>Running flawfinder against our <a href="test.c.html">sample code</a> produces the following output:</p>
+<hr>
+<div class="sampleblock">
+<p>
+Examining test.c <br>
+<ul>
+<li>test.c:18: <b>  [4] </b> (buffer) <i> strcpy:
+  Does not check for buffer overflows when copying to destination.
+  Consider using strncpy or strlcpy (warning, strncpy is easily misused). </i>
+<pre>
+      strcpy( dir, argv[ 1 ] );
+</pre>
+<li>test.c:24: <b>  [4] </b> (buffer) <i> sprintf:
+  Does not check for buffer overflows. Use snprintf or vsnprintf. </i>
+<pre>
+	sprintf( dir, "%s", getenv( "HOME" ) );
+</pre>
+<li>test.c:33: <b>  [4] </b> (shell) <i> popen:
+  This causes a new program to execute and is difficult to use safely.
+  try using a library call that implements the same functionality if
+  available. </i>
+<pre>
+    fp = popen( cmd, "r" );
+</pre>
+<li>test.c:42: <b>  [4] </b> (format) <i> printf:
+  If format strings can be influenced by an attacker, they can be
+  exploited. Use a constant for the format specification. </i>
+<pre>
+      printf( buff );
+</pre>
+</ul>
+<p>
+Number of hits = 4
+<br>
+Number of Lines Analyzed = 48 in 0.53 seconds (1392 lines/second)
+<br>
+</div>
+<hr>
+<h2>Understanding The Output</h2>
+<p>Much like the output of <a href="RATS">RATS</a> this report is very simple to read. It clearly shows the functions which have been detected as potentially dangerous, as well as a description of the problem.</p>
+<p>Including context information is very useful too as it can immediately attract attention to areas of concern, or rule out other reports as being invalid.</p>
+<p>The analysis of the <a href="test.c">our sample code</a> is fairly intelligent, in the sense that it didn't warn about <i>every</i> use of the troublesome <tt>strcpy</tt> function - only ones which it thought were potentially dangerous.</p>
+<p>In this way it has managed to highlight all of our code's flaws whilst having no false positives.</p>
+<hr>
+<p><a href="..">Back to the auditing project</a> | <a href="index">Back to the sample auditing page</a></p>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<p>Back to the <a href="../../../">Debian Project homepage</a>.</p>
+<hr>
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+This page is also available in the following languages:
+<div id="langContainer">
+ <a href="flawfinder.de.html" title="German" hreflang="de" lang="de" rel="alternate">Deutsch</a>
+ <a href="flawfinder.es.html" title="Spanish" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="flawfinder.fr.html" title="French" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="flawfinder.nl.html" title="Dutch" hreflang="nl" lang="nl" rel="alternate">Nederlands</a>
+ <a href="flawfinder.pt.html" title="Portuguese" hreflang="pt" lang="pt" rel="alternate">Portugu&ecirc;s</a>
+ <a href="flawfinder.ru.html" title="Russian" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+</div>
+How to set <a href="../../../intro/cn">the default document language</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Home</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../../intro/about">About</a>
+		  <ul>
+		  <li><a href="../../../social_contract">Social Contract</a></li>
+		  <li><a href="../../../code_of_conduct">Code of Conduct</a></li>
+		  <li><a href="../../../intro/free">Free Software</a></li>
+		  <li><a href="../../../partners/">Partners</a></li>
+		  <li><a href="../../../donations">Donations</a></li>
+          <li><a href="../../../legal">Legal Info</a></li>
+          <li><a href="../../../legal/privacy">Data Privacy</a></li>
+		  <li><a href="../../../contact">Contact Us</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../../intro/help">Help Debian</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../../distrib/">Getting Debian</a>
+			  <ul>
+			  <li><a href="../../../distrib/netinst">Network install</a></li>
+			  <li><a href="../../../CD/">CD/USB ISO images</a></li>
+			  <li><a href="../../../CD/vendors/">CD vendors</a></li>
+			  <li><a href="../../../distrib/pre-installed">Pre-installed</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../../blends/">Pure Blends</a></li>
+			<li><a href="../../../distrib/packages">Debian Packages</a></li>
+			<li><a href="../../../devel/">Developers' Corner</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../../News/">News</a>
+		  <ul>
+		  <li><a href="../../../News/weekly/">Project News</a></li>
+		  <li><a href="../../../events/">Events</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../../doc/">Documentation</a>
+      <ul>
+      <li><a href="../../../releases/">Release Info</a></li>
+      <li><a href="../../../releases/stable/installmanual">Installation manual</a></li>
+      <li><a href="../../../doc/books">Debian Books</a></li>
+      <li><a href="https://wiki.debian.org/">Debian Wiki</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../../support">Support</a>
+	  <ul>
+			  <li><a href="../../../international/">Debian International</a></li>
+			  <li><a href="../../../security/">Security Information</a></li>
+			  <li><a href="../../../Bugs/">Bug reports</a></li>
+			  <li><a href="../../../MailingLists/">Mailing Lists</a></li>
+			  <li><a href="https://lists.debian.org/">Mailing List Archives</a></li>
+			  <li><a href="../../../ports/">Ports/Architectures</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../../sitemap">Site map</a></li>
+  <li><a href="https://search.debian.org/">Search</a></li>
+  <li><a href="https://bits.debian.org">The Debian Blog</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>To report a problem with the web site, please e-mail our publicly archived mailing list <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> in English. For other contact information, see the Debian <a href="../../../contact">contact page</a>. Web site source code is <a href="https://salsa.debian.org/webmaster-team/webwml">available</a>.</p>
+<p>
+Last Modified: Sat, Sep 19 05:49:02 UTC 2020
+&emsp;
+Last Built: Fri, Jun 11 12:44:32 UTC 2021
+  <br>
+  Copyright &copy; 1997-2020
+ <a href="https://www.spi-inc.org/">SPI</a> and others; See <a href="../../../license" rel="copyright">license terms</a><br>
+  Debian is a registered <a href="../../../trademark">trademark</a> of Software in the Public Interest, Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

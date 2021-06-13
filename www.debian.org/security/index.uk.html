@@ -1,0 +1,257 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="uk">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Інформація про безпеку </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-12 04:22:51">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link rel="alternate" type="application/rss+xml"
+ title="Рекомендації з безпеки Debian (тільки заголовки)" href="dsa">
+<link rel="alternate" type="application/rss+xml"
+ title="Рекомендації з безпеки Debian (резюме)" href="dsa-long">
+<link href="../debian.css" rel="stylesheet" type="text/css">
+  <link href="../debian-uk.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Пошук по веб-сайту Debian" href="../search.uk.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../" title="Домівка Debian"><img src="../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="uk">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Пошук">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Пропустити меню</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs">
+Інформація про безпеку</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<div class="trans-note"><p><em>Зауваження:</em> <a href="index.en.html">оригінальний документ</a> новіший за цей переклад.</p></div>
+<h1>Інформація про безпеку</h1>
+<ul class="toc">
+  <li><a href="#keeping-secure">Забезпечення безпеки вашої системи Debian</a></li>
+  <li><a href="#DSAS">Останні рекомендації</a></li>
+  <li><a href="#contact">Контактна інформація</a></li>
+</ul>
+<p>До питань безпеки в Debian ставляться дуже серйозно.
+Ми обробляємо всі помічені проблеми з безпекою та впевнюємось, що
+вони вирішені впродовж розумного часового проміжку. Багато попереджень
+координуються з іншими постачальниками вільного програмного забезпечення
+і оприлюднюються того ж дня, коли було оприлюднено інформацію про вразливість.
+Також у нас є команда <a href="audit/">Security Audit</a>,
+що займається пошуком нових або невиправлених вразливостей
+в архівах.</p>
+<p>Досвід показує, що метод <q>безпеки шляхом приховування</q> не спрацьовує.
+Загальнодоступність інформації дозволяє знайти найкраще вирішення проблем
+безпеки в найкоротші терміни. З огляду на це, метою даної сторінки є визначення
+становища Debian по відношенню до відомих дірок в системі безпеки, що потенційно
+можуть зачепити й Debian.</p>
+<p>Debian також бере участь в проектах по стандартизації безпеки:
+<a href="#DSAS">пропозиції Debian по безпеці(Debian Security Advisories)</a> є
+<a href="cve-compatibility">CVE-сумісними</a>
+(перегляньте <a href="crossreferences">перехресні посилання</a>),
+Debian представлений в раді проекту
+<a href="https://oval.cisecurity.org/">Open Vulnerability Assessment Language</a>.
+</p>
+<h2><a name="keeping-secure" id="keeping-secure">Забезпечення безпеки вашої системи Debian</a></h2>
+<p>Для отримання останніх пропозицій щодо безпеки Debian, підпишіться
+на список розсилки <a href="https://lists.debian.org/debian-security-announce/">debian-security-announce</a>.</p>
+<p>Використовуючи <a href="https://packages.debian.org/stable/admin/apt">apt</a>,
+можна легко отримати останні оновлення, котрі ліквідують проблеми безпекою.
+Для цього необхідно додати рядок
+</p>
+<div class="centerblock">
+<p>
+<code>deb&nbsp;http://security.debian.org/debian-security&nbsp;buster/updates&nbsp;main&nbsp;contrib&nbsp;non-free</code>
+</p>
+</div>
+<p>
+в файл <CODE>/etc/apt/sources.list</CODE>. Після цього виконайте
+<kbd>apt-get update &amp;&amp; apt-get upgrade</kbd>, щоб завантажити та застосувати наявні оновлення.
+Архів безпеки підписаний за допомогою звичайних <a href="https://ftp-master.debian.org/keys.html">ключів підписів</a> архівів Debian.
+</p>
+<p>Для отримання розширеної інформації стосовно питань безпеки в Debian ви можете
+переглянути сторінку <a href="faq">Security Team FAQ</a> та посібник
+<a href="../doc/user-manuals#securing">Securing Debian</a>.</p>
+<a class="rss_logo" href="dsa">RSS</a>
+<h2><a name="DSAS" id="DSAS">Останні рекомендації</a></h2>
+<p>Ця веб-сторінка містить стислі архіви рекомендацій по безпеці, відправлени�
+в список розсилки <a href="https://lists.debian.org/debian-security-announce/">debian-security-announce</a>.
+<p>
+<tt>[10 чер 2021&nbsp;р.]</tt> <strong><a href="2021/dsa-4930">DSA-4930-1 libwebp</a></strong> security update<br>
+<tt>[09 чер 2021&nbsp;р.]</tt> <strong><a href="2021/dsa-4929">DSA-4929-1 rails</a></strong> security update<br>
+<tt>[09 чер 2021&nbsp;р.]</tt> <strong><a href="2021/dsa-4928">DSA-4928-1 htmldoc</a></strong> security update<br>
+<tt>[05 чер 2021&nbsp;р.]</tt> <strong><a href="2021/dsa-4927">DSA-4927-1 thunderbird</a></strong> security update<br>
+<tt>[03 чер 2021&nbsp;р.]</tt> <strong><a href="2021/dsa-4926">DSA-4926-1 lasso</a></strong> security update<br>
+<tt>[02 чер 2021&nbsp;р.]</tt> <strong><a href="2021/dsa-4925">DSA-4925-1 firefox-esr</a></strong> security update<br>
+<tt>[01 чер 2021&nbsp;р.]</tt> <strong><a href="2021/dsa-4924">DSA-4924-1 squid</a></strong> security update<br>
+<tt>[30 тра 2021&nbsp;р.]</tt> <strong><a href="2021/dsa-4923">DSA-4923-1 webkit2gtk</a></strong> security update<br>
+<tt>[29 тра 2021&nbsp;р.]</tt> <strong><a href="2021/dsa-4922">DSA-4922-1 hyperkitty</a></strong> security update<br>
+<tt>[28 тра 2021&nbsp;р.]</tt> <strong><a href="2021/dsa-4921">DSA-4921-1 nginx</a></strong> security update<br>
+<tt>[24 тра 2021&nbsp;р.]</tt> <strong><a href="2021/dsa-4920">DSA-4920-1 libx11</a></strong> security update<br>
+<tt>[21 тра 2021&nbsp;р.]</tt> <strong><a href="2021/dsa-4919">DSA-4919-1 lz4</a></strong> security update<br>
+<tt>[18 тра 2021&nbsp;р.]</tt> <strong><a href="2021/dsa-4918">DSA-4918-1 ruby-rack-cors</a></strong> security update<br>
+<tt>[17 тра 2021&nbsp;р.]</tt> <strong><a href="2021/dsa-4917">DSA-4917-1 chromium</a></strong> security update<br>
+<tt>[17 тра 2021&nbsp;р.]</tt> <strong><a href="2021/dsa-4916">DSA-4916-1 prosody</a></strong> security update<br>
+<tt>[13 тра 2021&nbsp;р.]</tt> <strong><a href="2021/dsa-4915">DSA-4915-1 postgresql-11</a></strong> security update<br>
+</p>
+<p>Останні рекомендації по безпеці Debian також доступні в
+<a href="dsa">форматі RDF</a>. Ми також пропонуємо вашій увазі
+<a href="dsa-long">інший файл</a>, котрий містить перші параграфи
+цих рекомендацій та дозволить вам зрозуміти про що в них йдеться.</p>
+<p>Також доступні і старі рекомендації по безпеці:
+ <a href="2021/">2021</a>, <a href="2020/">2020</a>, <a href="2019/">2019</a>, <a href="2018/">2018</a>, <a href="2017/">2017</a>, <a href="2016/">2016</a>, <a href="2015/">2015</a>, <a href="2014/">2014</a>, <a href="2013/">2013</a>, <a href="2012/">2012</a>, <a href="2011/">2011</a>, <a href="2010/">2010</a>, <a href="2009/">2009</a>, <a href="2008/">2008</a>, <a href="2007/">2007</a>, <a href="2006/">2006</a>, <a href="2005/">2005</a>, <a href="2004/">2004</a>, <a href="2003/">2003</a>, <a href="2002/">2002</a>, <a href="2001/">2001</a>, <a href="2000/">2000</a>, <a href="1999/">1999</a>, <a href="1998/">1998</a>, <a href="1997/">1997</a> та <a href="undated/">Недатовані</a> рекомендації по безпеці залишенідля нащад ків.</p>
+<p>Дистрибутиви Debian не є вразливими до всіх проблем з безпекою.
+<a href="https://security-tracker.debian.org/">Debian Security Tracker</a> містить усю інформацію
+про статус проблем із безпекою пакунків Debian, яку можна знайти по імені CVE чи пакунку.
+<h2><a name="contact" id="contact">Контактна інформація</a></h2>
+<p>Будь ласка, прочитайте <a href="faq">Security Team FAQ</a>
+перед тим як зв'язуватися з нами, можливо, там вже є
+відповідь на ваше запитання!
+<p>В цьому ж FAQ міститься і <a href="faq#contact">контактна інформація</a></p>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<p>Повернутися на <a href="../">головну сторінку проекту Debian</a>.</p>
+<hr>
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Ця сторінка також доступна наступними мовами:
+<div id="langContainer">
+ <a href="index.bg.html" title="Болгарська" hreflang="bg" lang="bg" rel="alternate">&#1041;&#1098;&#1083;&#1075;&#1072;&#1088;&#1089;&#1082;&#1080;&nbsp;(B&#601;lgarski)</a>
+ <a href="index.da.html" title="Датська" hreflang="da" lang="da" rel="alternate">dansk</a>
+ <a href="index.de.html" title="Німецька" hreflang="de" lang="de" rel="alternate">Deutsch</a>
+ <a href="index.el.html" title="Грецька" hreflang="el" lang="el" rel="alternate">&#917;&#955;&#955;&#951;&#957;&#953;&#954;&#940;&nbsp;(Ellinika)</a>
+ <a href="index.en.html" title="Англійська" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="index.es.html" title="Іспанська" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="index.fr.html" title="Французька" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="index.gl.html" title="Галісійська" hreflang="gl" lang="gl" rel="alternate">Galego</a>
+ <a href="index.hr.html" title="Хорватська" hreflang="hr" lang="hr" rel="alternate">hrvatski</a>
+ <a href="index.it.html" title="Італійська" hreflang="it" lang="it" rel="alternate">Italiano</a>
+ <a href="index.ko.html" title="Корейська" hreflang="ko" lang="ko" rel="alternate">&#54620;&#44397;&#50612;&nbsp;(Korean)</a>
+ <a href="index.hu.html" title="Угорська" hreflang="hu" lang="hu" rel="alternate">magyar</a>
+ <a href="index.nl.html" title="Голандська" hreflang="nl" lang="nl" rel="alternate">Nederlands</a>
+ <a href="index.ja.html" title="Японська" hreflang="ja" lang="ja" rel="alternate">&#26085;&#26412;&#35486;&nbsp;(Nihongo)</a>
+ <a href="index.nb.html" title="Норвежська" hreflang="nb" lang="nb" rel="alternate">norsk&nbsp;(bokm&aring;l)</a>
+ <a href="index.pl.html" title="Польська" hreflang="pl" lang="pl" rel="alternate">polski</a>
+ <a href="index.pt.html" title="Португальська" hreflang="pt" lang="pt" rel="alternate">Portugu&ecirc;s</a>
+ <a href="index.ro.html" title="Румунська" hreflang="ro" lang="ro" rel="alternate">rom&acirc;n&#259;</a>
+ <a href="index.ru.html" title="Російська" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+ <a href="index.sk.html" title="Словацька" hreflang="sk" lang="sk" rel="alternate">slovenčina</a>
+ <a href="index.fi.html" title="Фінська" hreflang="fi" lang="fi" rel="alternate">suomi</a>
+ <a href="index.sv.html" title="Шведська" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+ <a href="index.vi.html" title="В'єтнамська" hreflang="vi" lang="vi" rel="alternate">Ti&#7871;ng Vi&#7879;t</a>
+ <a href="index.zh-cn.html" title="Китайська (China)" hreflang="zh-CN" lang="zh-CN" rel="alternate">&#20013;&#25991;(&#31616;)</a>
+ <a href="index.zh-hk.html" title="Китайська (Hong Kong)" hreflang="zh-HK" lang="zh-HK" rel="alternate">&#20013;&#25991;(HK)</a>
+ <a href="index.zh-tw.html" title="Китайська (Taiwan)" hreflang="zh-TW" lang="zh-TW" rel="alternate">&#20013;&#25991;(&#32321;)</a>
+</div>
+Як встановити <a href="../intro/cn">мову документа за замовчанням</a>.
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Домівка</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../intro/about">Про&nbsp;Debian</a>
+		  <ul>
+		  <li><a href="../social_contract">Суспільний договір</a></li>
+		  <li><a href="../code_of_conduct">Кодекс поведінки</a></li>
+		  <li><a href="../intro/free">Вільне програмне забезпечення</a></li>
+		  <li><a href="../partners/">Партнери</a></li>
+		  <li><a href="../donations">Пожертви</a></li>
+          <li><a href="../legal">Legal Info</a></li>
+          <li><a href="../legal/privacy">Data Privacy</a></li>
+		  <li><a href="../contact">Як з нами зв'язатися</a></li>
+		  </ul>
+		</li>
+        <li><a href="../intro/help">Як допомогти Debian</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../distrib/">Отримання Debian</a>
+			  <ul>
+			  <li><a href="../distrib/netinst">Встановлення через мережу</a></li>
+			  <li><a href="../CD/">ISO образи КД/USB</a></li>
+			  <li><a href="../CD/vendors/">Постачальники КД</a></li>
+			  <li><a href="../distrib/pre-installed">Передвстановлення</a></li>
+			  </ul>
+			</li>
+            <li><a href="../blends/">Чисті суміші</a></li>
+			<li><a href="../distrib/packages">Пакунки Debian</a></li>
+			<li><a href="../devel/">Куток розробника</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../News/">Новини</a>
+		  <ul>
+		  <li><a href="../News/weekly/">Новини проекту</a></li>
+		  <li><a href="../events/">Події</a></li>
+		  </ul>
+		</li>
+    <li><a href="../doc/">Документація</a>
+      <ul>
+      <li><a href="../releases/">Інформація про випуски</a></li>
+      <li><a href="../releases/stable/installmanual">Посібник по встановленню</a></li>
+      <li><a href="../doc/books">Книги Debian</a></li>
+      <li><a href="https://wiki.debian.org/">Debian Вікі</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../support">Підтримка</a>
+	  <ul>
+			  <li><a href="../international/">Міжнародний Debian</a></li>
+			  <li><a href="../security/">Інформація про безпеку</a></li>
+			  <li><a href="../Bugs/">Звіти про помилки</a></li>
+			  <li><a href="../MailingLists/">Списки розсилки</a></li>
+			  <li><a href="https://lists.debian.org/">Архіви списків розсилки</a></li>
+			  <li><a href="../ports/">Перенесення&nbsp;на&nbsp;інші&nbsp;архітектури</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../sitemap">Карта сайту</a></li>
+  <li><a href="https://search.debian.org/">Пошук</a></li>
+  <li><a href="https://bits.debian.org">Блог Debian</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>To report a problem with the web site, please e-mail our publicly archived mailing list <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> in English. For other contact information, see the Debian <a href="../contact">contact page</a>. Web site source code is <a href="https://salsa.debian.org/webmaster-team/webwml">available</a>.</p>
+<p>
+Остання модифікація: нд, 28 лип 13:03:08 UTC 2019&nbsp;р.
+&emsp;
+Last Built: сб, 12 чер 04:22:52 UTC 2021&nbsp;р.
+  <br>
+  Авторські права &copy; 1997-2021
+ <a href="https://www.spi-inc.org/">SPI</a> та інші; Дивіться <a href="../license" rel="copyright">умови ліцензії</a><br>
+  Debian є зареєстрованою <a href="../trademark">торговою маркою</a> компанії Software in the Public Interest, Inc. (Програмне забезпечення в інтересах суспільства).
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

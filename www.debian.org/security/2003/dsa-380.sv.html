@@ -1,0 +1,798 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="sv">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Säkerhetsinformation -- DSA-380-1 xfree86 </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 19:54:14">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-sv.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Sök på Debians webbplats" href="../../search.sv.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Debian-hem"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="sv">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Sök">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Hoppa över navigering</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">Säkerhetsinformation</a>
+ &#x2F; <a href="./">2003</a>
+ &#x2F;
+Säkerhetsinformation -- DSA-380-1 xfree86</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Säkerhetsbulletin från Debian</h1>
+<h2>DSA-380-1 xfree86 -- buffertspill, överbelastningsattack</h2>
+<dl>
+<dt>Rapporterat den:</dt>
+	<dd>2003-09-12</dd>
+<dt>Berörda paket:</dt>
+	<dd>
+<a href="https://packages.debian.org/src:xfree86">xfree86</a>
+</dd>
+<dt>Sårbara:</dt>
+	<dd class="warning">Ja</dd>
+<dt>Referenser i säkerhetsdatabaser:</dt>
+	<dd>I Bugtraq-databasen (hos SecurityFocus): <a href="http://online.securityfocus.com/bid/4396">BugTraq-id 4396</a>, <a href="http://online.securityfocus.com/bid/8514">BugTraq-id 8514</a>, <a href="http://online.securityfocus.com/bid/6940">BugTraq-id 6940</a>, <a href="http://online.securityfocus.com/bid/6950">BugTraq-id 6950</a>.<br>I Mitres CVE-förteckning: <a href="https://security-tracker.debian.org/tracker/CVE-2003-0063">CVE-2003-0063</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2003-0071">CVE-2003-0071</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2002-0164">CVE-2002-0164</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2003-0730">CVE-2003-0730</a>.<br></dd>
+<dt>Ytterligare information:</dt>
+	<dd>
+<p>
+Fyra sårbarheter har upptäckts i XFree86.</p>
+<ul>
+<li><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2003-0063">CAN-2003-0063</a>
+&ndash; styrsekvens för rapportering av xterm-fönstertitel kan lura användare
+<p>
+ Xterm-paketet tillhandahåller en styrsekvens som rapporterar fönstertiteln
+ genom att skriva in den i indatabufferten i terminalfönstret, som om användaren
+ skrev den.
+ En angripare kan skriva en styrsekvens som sätter titeln på offrets
+ xterm-fönster till en godtycklig sträng (till exempel ett skalkommando) och
+ sedan rapporterar den titeln.
+ Om offret befinner sig vid en skalprompt när detta sker kommer det injicerade
+ kommandot att dyka upp på kommandoraden, redo att köras.
+ Eftersom det inte är möjligt att lägga in vagnretur i fönstertiteln måste
+ angriparen övertyga offret om att trycka Enter (eller lita på offrets
+ oaktsamhet eller förvirring) för att skalet, eller en annan interaktiv process,
+ skall tolka fönstertiteln som indata från användaren.
+ Det kan dock tänkas att angriparen skulle kunna skriva andra styrsekvenser som
+ kan övertyga offret att godta den text som injicerats.
+ Projektet <span lang="en">Common Vulnerabilities and Exposures</span> på
+ cve.mitre.org har tilldelat namnet
+ <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2003-0063">CAN-2003-0063</a>
+ till detta problem.
+</p>
+<p>
+ För att avgöra om din version av xterm är sårbar för missbruk av rapportering
+ av fönstertiteln kan du köra följande kommando vid en skalprompt från inuti ett
+ xterm-fönster:
+</p>
+<pre>   echo -e "\e[21t"</pre>
+<p>
+ (Terminalklockan kan ringa, och fönstertiteln kan få prefixet &rdquo;l&rdquo;.)
+</p>
+<p>
+ Denna miss kan utnyttjas av allt som kan sända utdata till ett terminalfönster,
+ till exempel ett textdokument.
+ Xterm-användaren måste dock vidta åtgärder för att sända styrsekvensen (som
+ att visa det illasinnade dokumentet med kommandot &rdquo;cat&rdquo;).
+ Huruvida du kan komma att utsättas för det beror på hur du använder xterm.
+ Betänk följande:
+</p>
+<pre>   echo -e '\e]2;s &amp;&amp; echo rm -rf *\a' &gt; /tmp/sploit
+   echo -e '\e[21t' &gt;&gt; /tmp/sploit
+   cat /tmp/sploit</pre>
+<p>
+ Debian har löst problemet genom att inaktivera styrsekvensen för att rapportera
+ fönstertiteln i xterm; den förstås men ignoreras.
+ Styrsekvensen för att sätta fönstertiteln har inte inaktiverats.
+</p>
+<p>
+ En framtida utgåva av xterm-paketet kommer att innehålla ett
+ konfigurationsalternativ som gör det möjligt för användaren att åter slå på
+ rapporteringen av fönstertiteln, men den förvalda inställningen kommer att låta
+ den vara inaktiverad.
+</p>
+</li>
+<li><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2003-0071">CAN-2003-0071</a>
+&ndash; xterm mottaglig för överbelastningsattack via DEC UDK-styrsekvens
+<p>
+ Xterm-paketet emulerar, eftersom det emulerar textterminaler i DEC VT-serien,
+ en funktion hos DEC VT-terminalerna som heter &rdquo;användardefinierade
+ tangenter&rdquo; (förkortas UDK, från engelskans
+ &rdquo;<span lang="en">User-Defined Keys</span>&rdquo;).
+ Det finns dock ett fel i xterms hantering av DEC UDK-styrsekvenser, och en
+ felaktigt skriven sekvens kan få xterm att gå in i en kort slinga.
+ Detta gör att processen &rdquo;spinner&rdquo; och konsumerar processorcykler
+ till ingen nytta, och dessutom ignorerar signaler (såsom försök att döda
+ processen eller stänga fönstret).
+</p>
+<p>
+ För att avgöra om din version av xterm är sårbar för missbruk av rapportering
+ av fönstertiteln kan du köra följande kommando vid en skalprompt från inuti ett
+ xterm-fönster du kan &rdquo;offra&rdquo; (dvs. ett som inte har något i
+ rullningsbufferten som du kan vilja läsa vid ett senare tillfälle):
+</p>
+<pre>   echo -e "\eP0;0|0A/17\x9c"</pre>
+<p>
+ Denna miss kan utnyttjas av allt som kan sända utdata till ett terminalfönster,
+ till exempel ett textdokument.
+ Xterm-användaren måste dock vidta åtgärder för att sända styrsekvensen (som
+ att visa det illasinnade dokumentet med kommandot &rdquo;cat&rdquo;).
+ Huruvida du kan komma att utsättas för det beror på hur du använder xterm.
+</p>
+<p>
+ Debian har löst detta problem genom att bakåtanpassa en rättelse från
+ uppströmsversionen till XFree86 4.1.0.
+</p>
+</li>
+<li><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2002-0164">CAN-2002-0164</a>
+&ndash; fel i X-serverns MIT-SHM-utökning gör det möjligt för användaren som
+äger X-sessionen att läsa och skriva godtyckliga delade minnessegment
+<p>
+ De flesta X-servrar som härstammar från exempelimplementationen från
+ MIT/X-konsortiet/X.Org, detta gäller även XFree86:s X-servrar, stöder en
+ utökning till X-protokollet som heter MIT-SHM, vilken gör det möjligt för
+ X-klienter som kör på samma värd som X-servern att jobba snabbare och mer
+ effektivt genom att dra fördel av en operativsystemsfunktion som kallas delat
+ minne där den finns.
+ Linuxkärnan stöder delat minne.
+</p>
+<p>
+ Eftersom X-servern kör med utökade privilegier kan operativsystemets inbyggda
+ mekanismer för åtkomstbegränsning inte styra hur X-serverns använder segment
+ med delat minne, utan X-servern måste implementera sin egen åtkomstbegränsning.
+ Detta gjordes inte på ett korrekt sätt i tidigare utgåvor av XFree86 (eller i
+ exempelimplementationen från MIT/X-konsortiet/X.Org före den), vilket gjorde
+ det möjligt för illasinnade X-klienter att läsa och ändra delade minnessegment
+ de inte skulle ha tillgång till.
+ Projektet <span lang="en">Common Vulnerabilities and Exposures</span> på
+ cve.mitre.org har tilldelat namnet
+ <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2002-0164">CAN-2002-0164</a>
+ till detta problem.
+</p>
+<p>
+ Debians XFree86 4.1.0-16-paket innehåller en rättelse för detta fel som inte
+ är komplett, den ger endast korrekt åtkomstbegränsning för X-servrar som inte
+ startats via en skärmhanterare (t.ex xdm).
+ Denna uppdatering korrigerar det problemet.
+</p>
+<p>
+ Debianprojektet känner inte till några program som utnyttjar denna sårbarhet.
+ En elakartad X-klient som missbrukar MIT-SHM-utökningen kunde dock tänkas
+ skrivas, och köras (medvetet eller omedvetet) av en användare som kan köra en
+ X-server på en maskin.
+ Vad detta fel kan föra med sig beror på hur delat minne används på systemet.
+ Se manualsidan ipcs(8) för ytterligare information.
+</p>
+<p>
+ Debian har löst detta problem genom att bakåtanpassa en rättelse från
+ uppströmsversionen till XFree86 4.1.0.
+</p>
+</li>
+<li><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2003-0730">CAN-2003-0730</a>
+- flera heltalsspill i teckensnittsbiblioteken i XFree86 gjorde det möjligt för
+angripare lokalt eller utifrån att orsaka överbelastningsattacker eller exekvera
+godtycklig kod vida heap- och stackbaserade buffertspillsattacker.
+<p>Säkerhetsforskaren &rdquo;blexim&rdquo; skrev [omskrivet]:</p>
+<blockquote>
+<p>
+ Jag har identifierat flera fel i teckensnittsbiblioteken i den aktuella
+ versionen av XFree86-källkoden.
+ Dessa fel kan potentiellt leda till exekvering av godtycklig kod av en
+ användare utifrån i alla processer som exekverar funktionerna i fråga.
+ Funktionerna hanterar överföring och uppräkning av teckensnitt från
+ teckensnittsservrar till klienter, vilket begränsar omfånget av det hål som
+ orsakas av dessa fel.
+</p>
+<p>
+ Specifikt skickas flera storleksvariabler från en teckensnittsserver till en
+ klient utan att de testas ordentligt, vilket gör att de beräkningar som baseras
+ på dem ger felaktiga resultat.
+ Dessa felaktiga beräkningar kan leda till spill i buffertar på heap och stack,
+ vilket potentiellt kan leda till exekvering av godtycklig kod.
+ Som nämnts tidigare är risken begränsad av det faktum att endast klienter kan
+ påverkas av dessa fel, men i vissa (icke-standard)-konfigurationer kan både xfs
+ och X-servern agera som klienter mot utomstående teckensnittsservrar.
+ I dessa konfigurationer kan både xfs och X-servern potentiellt komprommeteras.
+</p>
+</blockquote>
+<p>
+ Projektet <span lang="en">Common Vulnerabilities and Exposures</span> på
+ cve.mitre.org har tilldelat namnet
+ <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2003-0730">CAN-2003-0730</a>
+ till detta problem.
+</p>
+<p>
+ Debianprojektet känner inte till några program som utnyttjar denna sårbarhet.
+ Normalt är X-servrar i Debian enbart konfigurerade att lyssna på
+ teckensnittsservrar som körs lokalt, vilket inte ens används om xfs-paketet
+ inte installerats.
+ Den medföljande konfigurationen av xfs i Debian använder enbart
+ teckensnittskataloger på den lokala datorn, och försöker inte ansluta sig mot
+ några externa teckensnittsservrar.
+</p>
+<p>
+ Debian har löst detta problem genom att bakåtanpassa en rättelse från
+ uppströmsversionen till XFree86 4.1.0.
+</p>
+</li>
+</ul>
+<p>
+ Alla problemen ovan påverkar även xfree86v3-paketen (när det gäller de två
+ första felen innehåller xterm-källkoden felet, men inga xterm-paket skapas).
+ På grund av resursbegränsningar och saknat uppströmsstöd för denna gamla kod
+ kan inte Debian fortsätta stöda version 3.3.6 av XFree86.
+ För att undvika att utsätta sig för de två sistnämnda problemen i denna
+ bulletin rekommenderar vi att du tar bort följande paket om du har dem
+ installerade:
+</p>
+<ul>
+<li>xserver-3dlabs</li>
+<li>xserver-8514</li>
+<li>xserver-agx</li>
+<li>xserver-common-v3</li>
+<li>xserver-fbdev</li>
+<li>xserver-i128</li>
+<li>xserver-mach32</li>
+<li>xserver-mach64</li>
+<li>xserver-mach8</li>
+<li>xserver-mono</li>
+<li>xserver-p9000</li>
+<li>xserver-s3</li>
+<li>xserver-s3v</li>
+<li>xserver-svga</li>
+<li>xserver-tga</li>
+<li>xserver-vga16</li>
+<li>xserver-w32</li>
+</ul>
+<p>
+(Du kan även överväga att ta bort paketen xext, xlib6 och xlib6-altdev, eftersom
+stöd för dessa avslutas i samband med resten av XFree86 3.3.6-pakten, även om
+de inte påverkas av felen i denna bulletin.)
+</p>
+<p>
+För den stabila utgåvan (Woody) har dessa problem rättats i version
+4.1.0-16woody1.
+</p>
+<p>
+För den instabila utgåvan (Sid) har alla problem förutom
+<a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2003-0730">CAN-2003-0730</a>
+rättats i version 4.2.1-11.
+<a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2003-0730">CAN-2003-0730</a>
+kommer att rättas i 4.2.1-12 som för närvarande förbereds.
+</p>
+<p>Vi rekommenderar att ni uppgraderar ert xfree86-paket.</p>
+</dd>
+<dt>Rättat i:</dt>
+	<dd>
+<h3>Debian GNU/Linux 3.0 (woody)</h3>
+<dl>
+<dt>Källkod:
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfree86_4.1.0-16woody1.dsc">http://security.debian.org/pool/updates/main/x/xfree86/xfree86_4.1.0-16woody1.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfree86_4.1.0-16woody1.diff.gz">http://security.debian.org/pool/updates/main/x/xfree86/xfree86_4.1.0-16woody1.diff.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfree86_4.1.0.orig.tar.gz">http://security.debian.org/pool/updates/main/x/xfree86/xfree86_4.1.0.orig.tar.gz</a><br>
+<dt>Arkitekturoberoende komponent:
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/x-window-system_4.1.0-16woody1_all.deb">http://security.debian.org/pool/updates/main/x/xfree86/x-window-system_4.1.0-16woody1_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfonts-100dpi-transcoded_4.1.0-16woody1_all.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfonts-100dpi-transcoded_4.1.0-16woody1_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfonts-100dpi_4.1.0-16woody1_all.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfonts-100dpi_4.1.0-16woody1_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfonts-75dpi-transcoded_4.1.0-16woody1_all.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfonts-75dpi-transcoded_4.1.0-16woody1_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfonts-75dpi_4.1.0-16woody1_all.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfonts-75dpi_4.1.0-16woody1_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfonts-base-transcoded_4.1.0-16woody1_all.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfonts-base-transcoded_4.1.0-16woody1_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfonts-base_4.1.0-16woody1_all.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfonts-base_4.1.0-16woody1_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfonts-cyrillic_4.1.0-16woody1_all.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfonts-cyrillic_4.1.0-16woody1_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfonts-pex_4.1.0-16woody1_all.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfonts-pex_4.1.0-16woody1_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfonts-scalable_4.1.0-16woody1_all.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfonts-scalable_4.1.0-16woody1_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfree86-common_4.1.0-16woody1_all.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfree86-common_4.1.0-16woody1_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlib6g-dev_4.1.0-16woody1_all.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlib6g-dev_4.1.0-16woody1_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlib6g_4.1.0-16woody1_all.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlib6g_4.1.0-16woody1_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xspecs_4.1.0-16woody1_all.deb">http://security.debian.org/pool/updates/main/x/xfree86/xspecs_4.1.0-16woody1_all.deb</a><br>
+<dt>Alpha:
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/lbxproxy_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/lbxproxy_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps-dev_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps-dev_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps1_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps1_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps1-dbg_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps1-dbg_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dbg_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dbg_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dev_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dev_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dbg_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dbg_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dev_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dev_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/proxymngr_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/proxymngr_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/twm_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/twm_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/x-window-system-core_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/x-window-system-core_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xbase-clients_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/xbase-clients_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xdm_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/xdm_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfs_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfs_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfwp_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfwp_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa-dev_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa-dev_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3-dbg_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3-dbg_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa-dev_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa-dev_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa3_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa3_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa3-dbg_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa3-dbg_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dbg_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dbg_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dev_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dev_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-pic_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-pic_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xmh_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/xmh_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xnest_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/xnest_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xprt_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/xprt_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xserver-common_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/xserver-common_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xserver-xfree86_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/xserver-xfree86_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xterm_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/xterm_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xutils_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/xutils_4.1.0-16woody1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xvfb_4.1.0-16woody1_alpha.deb">http://security.debian.org/pool/updates/main/x/xfree86/xvfb_4.1.0-16woody1_alpha.deb</a><br>
+<dt>ARM:
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/lbxproxy_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/lbxproxy_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps-dev_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps-dev_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps1_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps1_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps1-dbg_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps1-dbg_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dbg_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dbg_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dev_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dev_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dbg_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dbg_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dev_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dev_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/proxymngr_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/proxymngr_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/twm_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/twm_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/x-window-system-core_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/x-window-system-core_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xbase-clients_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/xbase-clients_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xdm_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/xdm_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfs_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfs_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfwp_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfwp_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa-dev_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa-dev_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3-dbg_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3-dbg_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dbg_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dbg_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dev_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dev_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-pic_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-pic_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xmh_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/xmh_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xnest_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/xnest_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xprt_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/xprt_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xserver-common_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/xserver-common_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xserver-xfree86_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/xserver-xfree86_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xterm_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/xterm_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xutils_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/xutils_4.1.0-16woody1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xvfb_4.1.0-16woody1_arm.deb">http://security.debian.org/pool/updates/main/x/xfree86/xvfb_4.1.0-16woody1_arm.deb</a><br>
+<dt>Intel IA-32:
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/lbxproxy_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/lbxproxy_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps-dev_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps-dev_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps1_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps1_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps1-dbg_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps1-dbg_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dbg_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dbg_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dev_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dev_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dbg_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dbg_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dev_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dev_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/proxymngr_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/proxymngr_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/twm_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/twm_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/x-window-system-core_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/x-window-system-core_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xbase-clients_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/xbase-clients_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xdm_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/xdm_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfs_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfs_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfwp_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfwp_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa-dev_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa-dev_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3-dbg_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3-dbg_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa-dev_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa-dev_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa3_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa3_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa3-dbg_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa3-dbg_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dbg_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dbg_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dev_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dev_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-pic_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-pic_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xmh_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/xmh_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xnest_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/xnest_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xprt_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/xprt_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xserver-common_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/xserver-common_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xserver-xfree86_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/xserver-xfree86_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xterm_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/xterm_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xutils_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/xutils_4.1.0-16woody1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xvfb_4.1.0-16woody1_i386.deb">http://security.debian.org/pool/updates/main/x/xfree86/xvfb_4.1.0-16woody1_i386.deb</a><br>
+<dt>Intel IA-64:
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/lbxproxy_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/lbxproxy_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps-dev_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps-dev_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps1_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps1_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps1-dbg_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps1-dbg_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dbg_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dbg_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dev_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dev_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dbg_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dbg_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dev_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dev_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/proxymngr_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/proxymngr_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/twm_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/twm_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/x-window-system-core_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/x-window-system-core_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xbase-clients_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/xbase-clients_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xdm_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/xdm_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfs_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfs_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfwp_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfwp_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa-dev_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa-dev_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3-dbg_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3-dbg_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa-dev_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa-dev_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa3_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa3_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa3-dbg_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa3-dbg_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dbg_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dbg_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dev_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dev_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-pic_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-pic_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xmh_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/xmh_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xnest_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/xnest_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xprt_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/xprt_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xserver-common_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/xserver-common_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xserver-xfree86_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/xserver-xfree86_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xterm_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/xterm_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xutils_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/xutils_4.1.0-16woody1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xvfb_4.1.0-16woody1_ia64.deb">http://security.debian.org/pool/updates/main/x/xfree86/xvfb_4.1.0-16woody1_ia64.deb</a><br>
+<dt>HPPA:
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/lbxproxy_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/lbxproxy_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps-dev_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps-dev_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps1_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps1_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps1-dbg_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps1-dbg_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dbg_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dbg_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dev_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dev_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dbg_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dbg_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dev_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dev_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/proxymngr_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/proxymngr_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/twm_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/twm_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/x-window-system-core_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/x-window-system-core_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xbase-clients_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/xbase-clients_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xdm_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/xdm_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfs_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfs_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfwp_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfwp_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa-dev_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa-dev_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3-dbg_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3-dbg_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dbg_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dbg_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dev_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dev_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-pic_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-pic_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xmh_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/xmh_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xnest_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/xnest_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xprt_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/xprt_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xserver-common_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/xserver-common_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xserver-xfree86_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/xserver-xfree86_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xterm_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/xterm_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xutils_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/xutils_4.1.0-16woody1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xvfb_4.1.0-16woody1_hppa.deb">http://security.debian.org/pool/updates/main/x/xfree86/xvfb_4.1.0-16woody1_hppa.deb</a><br>
+<dt>Motorola 680x0:
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/lbxproxy_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/lbxproxy_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps-dev_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps-dev_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps1_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps1_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps1-dbg_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps1-dbg_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dbg_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dbg_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dev_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dev_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dbg_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dbg_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dev_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dev_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/proxymngr_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/proxymngr_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/twm_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/twm_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/x-window-system-core_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/x-window-system-core_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xbase-clients_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/xbase-clients_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xdm_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/xdm_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfs_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfs_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfwp_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfwp_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa-dev_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa-dev_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3-dbg_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3-dbg_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dbg_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dbg_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dev_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dev_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-pic_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-pic_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xmh_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/xmh_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xnest_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/xnest_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xprt_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/xprt_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xserver-common_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/xserver-common_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xserver-xfree86_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/xserver-xfree86_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xterm_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/xterm_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xutils_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/xutils_4.1.0-16woody1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xvfb_4.1.0-16woody1_m68k.deb">http://security.debian.org/pool/updates/main/x/xfree86/xvfb_4.1.0-16woody1_m68k.deb</a><br>
+<dt>Big endian MIPS:
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/lbxproxy_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/lbxproxy_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps-dev_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps-dev_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps1_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps1_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps1-dbg_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps1-dbg_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dbg_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dbg_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dev_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dev_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dbg_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dbg_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dev_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dev_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/proxymngr_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/proxymngr_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/twm_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/twm_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/x-window-system-core_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/x-window-system-core_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xbase-clients_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/xbase-clients_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xdm_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/xdm_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfs_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfs_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfwp_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfwp_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa-dev_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa-dev_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3-dbg_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3-dbg_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dbg_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dbg_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dev_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dev_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-pic_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-pic_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xmh_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/xmh_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xnest_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/xnest_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xprt_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/xprt_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xserver-common_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/xserver-common_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xserver-xfree86_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/xserver-xfree86_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xterm_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/xterm_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xutils_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/xutils_4.1.0-16woody1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xvfb_4.1.0-16woody1_mips.deb">http://security.debian.org/pool/updates/main/x/xfree86/xvfb_4.1.0-16woody1_mips.deb</a><br>
+<dt>Little endian MIPS:
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/lbxproxy_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/lbxproxy_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps-dev_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps-dev_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps1_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps1_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps1-dbg_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps1-dbg_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dbg_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dbg_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dev_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dev_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dbg_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dbg_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dev_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dev_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/proxymngr_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/proxymngr_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/twm_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/twm_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/x-window-system-core_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/x-window-system-core_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xbase-clients_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/xbase-clients_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xdm_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/xdm_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfs_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfs_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfwp_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfwp_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa-dev_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa-dev_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3-dbg_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3-dbg_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dbg_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dbg_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dev_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dev_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-pic_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-pic_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xmh_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/xmh_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xnest_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/xnest_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xprt_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/xprt_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xserver-common_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/xserver-common_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xserver-xfree86_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/xserver-xfree86_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xterm_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/xterm_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xutils_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/xutils_4.1.0-16woody1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xvfb_4.1.0-16woody1_mipsel.deb">http://security.debian.org/pool/updates/main/x/xfree86/xvfb_4.1.0-16woody1_mipsel.deb</a><br>
+<dt>PowerPC:
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/lbxproxy_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/lbxproxy_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps-dev_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps-dev_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps1_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps1_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps1-dbg_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps1-dbg_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dbg_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dbg_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dev_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dev_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dbg_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dbg_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dev_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dev_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/proxymngr_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/proxymngr_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/twm_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/twm_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/x-window-system-core_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/x-window-system-core_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xbase-clients_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xbase-clients_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xdm_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xdm_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfs_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfs_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfwp_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfwp_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa-dev_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa-dev_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3-dbg_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3-dbg_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa-dev_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa-dev_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa3_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa3_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa3-dbg_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa3-dbg_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dbg_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dbg_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dev_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dev_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-pic_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-pic_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xmh_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xmh_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xnest_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xnest_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xprt_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xprt_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xserver-common_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xserver-common_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xserver-xfree86_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xserver-xfree86_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xterm_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xterm_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xutils_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xutils_4.1.0-16woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xvfb_4.1.0-16woody1_powerpc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xvfb_4.1.0-16woody1_powerpc.deb</a><br>
+<dt>IBM S/390:
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/lbxproxy_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/lbxproxy_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps-dev_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps-dev_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps1_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps1_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps1-dbg_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps1-dbg_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dbg_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dbg_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dev_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dev_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dbg_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dbg_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dev_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dev_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/proxymngr_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/proxymngr_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/twm_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/twm_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/x-window-system-core_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/x-window-system-core_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xbase-clients_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/xbase-clients_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xdm_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/xdm_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfs_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfs_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfwp_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfwp_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa-dev_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa-dev_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3-dbg_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3-dbg_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dbg_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dbg_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dev_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dev_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-pic_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-pic_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xmh_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/xmh_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xnest_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/xnest_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xprt_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/xprt_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xserver-common_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/xserver-common_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xterm_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/xterm_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xutils_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/xutils_4.1.0-16woody1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xvfb_4.1.0-16woody1_s390.deb">http://security.debian.org/pool/updates/main/x/xfree86/xvfb_4.1.0-16woody1_s390.deb</a><br>
+<dt>Sun Sparc:
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/lbxproxy_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/lbxproxy_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps-dev_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps-dev_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps1_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps1_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libdps1-dbg_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/libdps1-dbg_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dbg_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dbg_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dev_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw6-dev_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dbg_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dbg_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dev_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/libxaw7-dev_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/proxymngr_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/proxymngr_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/twm_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/twm_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/x-window-system-core_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/x-window-system-core_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xbase-clients_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xbase-clients_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xdm_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xdm_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfs_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfs_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xfwp_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xfwp_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa-dev_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa-dev_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3-dbg_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibmesa3-dbg_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa-dev_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa-dev_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa3_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa3_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa3-dbg_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibosmesa3-dbg_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dbg_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dbg_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dev_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-dev_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xlibs-pic_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xlibs-pic_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xmh_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xmh_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xnest_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xnest_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xprt_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xprt_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xserver-common_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xserver-common_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xserver-xfree86_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xserver-xfree86_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xterm_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xterm_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xutils_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xutils_4.1.0-16woody1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/x/xfree86/xvfb_4.1.0-16woody1_sparc.deb">http://security.debian.org/pool/updates/main/x/xfree86/xvfb_4.1.0-16woody1_sparc.deb</a><br>
+</dl>
+<p>MD5-kontrollsummor för dessa filer finns i <a href="https://lists.debian.org/debian-security-announce/debian-security-announce-2003/msg00185.html">originalbulletinen</a>.
+</dd>
+</dl>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Denna sida finns även på följande språk:
+<div id="langContainer">
+ <a href="dsa-380.da.html" title="danska" hreflang="da" lang="da" rel="alternate">dansk</a>
+ <a href="dsa-380.de.html" title="tyska" hreflang="de" lang="de" rel="alternate">Deutsch</a>
+ <a href="dsa-380.en.html" title="engelska" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="dsa-380.es.html" title="spanska" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="dsa-380.fr.html" title="franska" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="dsa-380.ja.html" title="japanska" hreflang="ja" lang="ja" rel="alternate">&#26085;&#26412;&#35486;&nbsp;(Nihongo)</a>
+ <a href="dsa-380.pt.html" title="portugisiska" hreflang="pt" lang="pt" rel="alternate">Portugu&ecirc;s</a>
+ <a href="dsa-380.ru.html" title="ryska" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+</div>
+Så ställer du in <a href="../../intro/cn">standardspråkval för dokument</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Hem</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">Om&nbsp;Debian</a>
+		  <ul>
+		  <li><a href="../../social_contract">Socialt kontrakt</a></li>
+		  <li><a href="../../code_of_conduct">Uppförandekod</a></li>
+		  <li><a href="../../intro/free">Fri programvara</a></li>
+		  <li><a href="../../partners/">Partner</a></li>
+		  <li><a href="../../donations">Donationer</a></li>
+          <li><a href="../../legal">Rättsliga frågor</a></li>
+          <li><a href="../../legal/privacy">Dataintegritet</a></li>
+		  <li><a href="../../contact">Kontakta oss</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Hjälp Debian</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Få tag på Debian</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">Nätverksinstallation</a></li>
+			  <li><a href="../../CD/">CD/USB-ISO-avbildningar</a></li>
+			  <li><a href="../../CD/vendors/">CD-återförsäljare</a></li>
+			  <li><a href="../../distrib/pre-installed">Förinstallerat</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Pure Blends</a></li>
+			<li><a href="../../distrib/packages">Debianpaket</a></li>
+			<li><a href="../../devel/">Utvecklarhörnet</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">Nyheter</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">Projektnyheter</a></li>
+		  <li><a href="../../events/">Evenemang</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">Dokumentation</a>
+      <ul>
+      <li><a href="../../releases/">Versionsfakta</a></li>
+      <li><a href="../../releases/stable/installmanual">Installationsguide</a></li>
+      <li><a href="../../doc/books">Debianböcker</a></li>
+      <li><a href="https://wiki.debian.org/">Debians Wiki</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">Support</a>
+	  <ul>
+			  <li><a href="../../international/">Debian internationellt</a></li>
+			  <li><a href="../../security/">Säkerhetsinformation</a></li>
+			  <li><a href="../../Bugs/">Felrapporter</a></li>
+			  <li><a href="../../MailingLists/">Sändlistor</a></li>
+			  <li><a href="https://lists.debian.org/">Sändlistearkiv</a></li>
+			  <li><a href="../../ports/">Anpassningar/arkitekturer</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">Sidöversikt</a></li>
+  <li><a href="https://search.debian.org/">Sök</a></li>
+  <li><a href="https://bits.debian.org">Debianbloggen</a></li>
+  <li><a href="https://micronews.debian.org">Debian Mikronyheter</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>För att rapportera ett problem med webbplatsen, kontakta vår publikt arkiverade sändlista <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> på engelska. Vid problem med och synpunkter på den svenska översättningen, kontakta den publikt arkiverade sändlistan <a href="mailto:debian-l10n-swedish@lists.debian.org">debian-l10n-swedish@lists.debian.org</a>. För övrig kontaktinformation, se Debians <a href="../../contact">kontaktsida</a>. Webbplatsens källkod finns <a href="https://salsa.debian.org/webmaster-team/webwml">tillgänglig</a>.</p>
+<p>
+Senast ändrad: Tor 2019-04-04 21.05.08 UTC
+&emsp;
+Senast byggd: Fre 2021-06-11 19.54.14 UTC
+  <br>
+  Upphovsrättsskyddat &copy; 2003-2021
+ <a href="https://www.spi-inc.org/">SPI</a> och andra; Se <a href="../../license" rel="copyright">licensvillkor</a><br>
+  Debian är ett registrerat <a href="../../trademark">varumärke</a> hos Software in the Public Interest. Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

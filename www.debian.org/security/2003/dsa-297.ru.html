@@ -1,0 +1,271 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ru">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Информация о безопасности -- DSA-297-1 snort </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 18:21:07">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-ru.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Поиск по веб-сайту Debian" href="../../search.ru.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Домашняя страница Debian"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="ru">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Поиск">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Пропустить QuickNav</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">Информация по безопасности</a>
+ &#x2F; <a href="./">2003</a>
+ &#x2F;
+Информация о безопасности -- DSA-297-1 snort</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Рекомендация Debian по безопасности</h1>
+<h2>DSA-297-1 snort -- целочисленное переполнение, переполнение буфера</h2>
+<dl>
+<dt>Дата сообщения:</dt>
+	<dd>01.05.2003</dd>
+<dt>Затронутые пакеты:</dt>
+	<dd>
+<a href="https://packages.debian.org/src:snort">snort</a>
+</dd>
+<dt>Уязвим:</dt>
+	<dd class="warning">Да</dd>
+<dt>Ссылки на базы данных по безопасности:</dt>
+	<dd>В базе данных Bugtraq (на SecurityFocus): <a href="http://online.securityfocus.com/bid/7178">Идентификатор BugTraq 7178</a>, <a href="http://online.securityfocus.com/bid/6963">Идентификатор BugTraq 6963</a>.<br>В каталоге Mitre CVE: <a href="https://security-tracker.debian.org/tracker/CVE-2003-0033">CVE-2003-0033</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2003-0209">CVE-2003-0209</a>.<br>База данных CERT по уязвимостям, предложениям и инцидентам: <a href="http://www.kb.cert.org/vuls/id/139129">VU#139129</a>, <a href="http://www.kb.cert.org/vuls/id/916785">VU#916785</a>, <a href="http://www.cert.org/advisories/CA-2003-13.html">CA-2003-13</a>.<br></dd>
+<dt>Более подробная информация:</dt>
+	<dd>
+<p>Обнаружены два уязвимых места в Snort, популярной системе обнаружения
+вторжений в сеть. Snort включает модули и плагины, предоставляющие
+разнообразные функции, такие как анализ протоколов. Идентифицированы
+следующие уязвимости:</p>
+<dl>
+<dt>Переполнение кучи в препроцессоре Snort "stream4"<br>
+   (VU#139129, CAN-2003-0209, Bugtraq Id 7178)</dt>
+<dd>Исследователи из CORE Security Technologies обнаружили выход
+   за пределы допустимых целочисленных значений, который может быть
+   использован удалённым нападающим, приводящий к перезаписи содержимого
+   кучи в модуле препроцессора "stream4". Этот модуль позволяет Snort
+   пересобрать фрагмента пакетов TCP для проведения дальнейшего
+   анализа. Нападающий может вставить произвольный код, который будет
+   выполнен от имени пользователя, запустившего Snort, вероятно,
+   пользователя root.</dd>
+<dt>Переполнение буфера в препроцессоре Snort RPC<br>
+   (VU#916785, CAN-2003-0033, Bugtraq Id 6963)</dt>
+<dd>Исследователи из Internet Security Systems X-Force обнаружили
+   возможность переполнения буфера, которая может быть использована
+   удалённым нападающим, в модуле препроцессора Snort RPC. Snort
+   при нормализации чего-либо к текущей длине пакета некорректно
+   проверяет его длину. Нападающий может, используя эту ошибку,
+   выполнить произвольный код с привилегиями процесса Snort, вероятно,
+   привилегиями пользователя root.</dd>
+</dl>
+<p>В стабильном дистрибутиве (woody) эти проблемы исправлены
+в версии 1.8.4beta1-3.1.</p>
+<p>Старый стабильный дистрибутив (potato) не затронут, поскольку
+не содержит кода, в котором обнаружены ошибки.</p>
+<p>В нестабильном дистрибутиве (sid) эти проблемы исправлены
+в версии 2.0.0-1.</p>
+<p>Мы рекомендуем вам немедленно обновить пакет snort.</p>
+<p>Мы также советуем обновить Snort до наиболее свежей версии,
+поскольку она, как и любая система обнаружения вторжений, становится
+бесполезной, если работает на основе устаревших данных. Старые версии
+могут не определить вторжения, использующие более современные методы.
+Текущая версия Snort имеет номер версии 2.0.0, версия в стабильном
+дистрибутиве (1.8) довольно стара, а в старом стабильном дистрибутиве
+совершенно безнадёжна.</p>
+<p>Поскольку Debian не обновляет произвольные пакеты в стабильны�
+выпусках, даже Snort не будет включать никаких обновлений, помимо
+исправления ошибок, связанных с безопасностью. Вам рекомендуется
+обновить систему до последней версии, используя исходный код от
+третьих лиц.</p>
+</dd>
+<dt>Исправлено в:</dt>
+	<dd>
+<h3>Debian GNU/Linux 3.0 (woody)</h3>
+<dl>
+<dt>Исходный код:
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort_1.8.4beta1-3.1.dsc">http://security.debian.org/pool/updates/main/s/snort/snort_1.8.4beta1-3.1.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort_1.8.4beta1-3.1.diff.gz">http://security.debian.org/pool/updates/main/s/snort/snort_1.8.4beta1-3.1.diff.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort_1.8.4beta1.orig.tar.gz">http://security.debian.org/pool/updates/main/s/snort/snort_1.8.4beta1.orig.tar.gz</a><br>
+<dt>Независимые от архитектуры компоненты:
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort-doc_1.8.4beta1-3.1_all.deb">http://security.debian.org/pool/updates/main/s/snort/snort-doc_1.8.4beta1-3.1_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort-rules-default_1.8.4beta1-3.1_all.deb">http://security.debian.org/pool/updates/main/s/snort/snort-rules-default_1.8.4beta1-3.1_all.deb</a><br>
+<dt>Alpha:
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort_1.8.4beta1-3.1_alpha.deb">http://security.debian.org/pool/updates/main/s/snort/snort_1.8.4beta1-3.1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort-common_1.8.4beta1-3.1_alpha.deb">http://security.debian.org/pool/updates/main/s/snort/snort-common_1.8.4beta1-3.1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort-mysql_1.8.4beta1-3.1_alpha.deb">http://security.debian.org/pool/updates/main/s/snort/snort-mysql_1.8.4beta1-3.1_alpha.deb</a><br>
+<dt>ARM:
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort_1.8.4beta1-3.1_arm.deb">http://security.debian.org/pool/updates/main/s/snort/snort_1.8.4beta1-3.1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort-common_1.8.4beta1-3.1_arm.deb">http://security.debian.org/pool/updates/main/s/snort/snort-common_1.8.4beta1-3.1_arm.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort-mysql_1.8.4beta1-3.1_arm.deb">http://security.debian.org/pool/updates/main/s/snort/snort-mysql_1.8.4beta1-3.1_arm.deb</a><br>
+<dt>Intel IA-32:
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort_1.8.4beta1-3.1_i386.deb">http://security.debian.org/pool/updates/main/s/snort/snort_1.8.4beta1-3.1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort-common_1.8.4beta1-3.1_i386.deb">http://security.debian.org/pool/updates/main/s/snort/snort-common_1.8.4beta1-3.1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort-mysql_1.8.4beta1-3.1_i386.deb">http://security.debian.org/pool/updates/main/s/snort/snort-mysql_1.8.4beta1-3.1_i386.deb</a><br>
+<dt>Intel IA-64:
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort_1.8.4beta1-3.1_ia64.deb">http://security.debian.org/pool/updates/main/s/snort/snort_1.8.4beta1-3.1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort-common_1.8.4beta1-3.1_ia64.deb">http://security.debian.org/pool/updates/main/s/snort/snort-common_1.8.4beta1-3.1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort-mysql_1.8.4beta1-3.1_ia64.deb">http://security.debian.org/pool/updates/main/s/snort/snort-mysql_1.8.4beta1-3.1_ia64.deb</a><br>
+<dt>HPPA:
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort_1.8.4beta1-3.1_hppa.deb">http://security.debian.org/pool/updates/main/s/snort/snort_1.8.4beta1-3.1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort-common_1.8.4beta1-3.1_hppa.deb">http://security.debian.org/pool/updates/main/s/snort/snort-common_1.8.4beta1-3.1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort-mysql_1.8.4beta1-3.1_hppa.deb">http://security.debian.org/pool/updates/main/s/snort/snort-mysql_1.8.4beta1-3.1_hppa.deb</a><br>
+<dt>Motorola 680x0:
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort_1.8.4beta1-3.1_m68k.deb">http://security.debian.org/pool/updates/main/s/snort/snort_1.8.4beta1-3.1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort-common_1.8.4beta1-3.1_m68k.deb">http://security.debian.org/pool/updates/main/s/snort/snort-common_1.8.4beta1-3.1_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort-mysql_1.8.4beta1-3.1_m68k.deb">http://security.debian.org/pool/updates/main/s/snort/snort-mysql_1.8.4beta1-3.1_m68k.deb</a><br>
+<dt>Big endian MIPS:
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort_1.8.4beta1-3.1_mips.deb">http://security.debian.org/pool/updates/main/s/snort/snort_1.8.4beta1-3.1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort-common_1.8.4beta1-3.1_mips.deb">http://security.debian.org/pool/updates/main/s/snort/snort-common_1.8.4beta1-3.1_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort-mysql_1.8.4beta1-3.1_mips.deb">http://security.debian.org/pool/updates/main/s/snort/snort-mysql_1.8.4beta1-3.1_mips.deb</a><br>
+<dt>Little endian MIPS:
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort_1.8.4beta1-3.1_mipsel.deb">http://security.debian.org/pool/updates/main/s/snort/snort_1.8.4beta1-3.1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort-common_1.8.4beta1-3.1_mipsel.deb">http://security.debian.org/pool/updates/main/s/snort/snort-common_1.8.4beta1-3.1_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort-mysql_1.8.4beta1-3.1_mipsel.deb">http://security.debian.org/pool/updates/main/s/snort/snort-mysql_1.8.4beta1-3.1_mipsel.deb</a><br>
+<dt>PowerPC:
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort_1.8.4beta1-3.1_powerpc.deb">http://security.debian.org/pool/updates/main/s/snort/snort_1.8.4beta1-3.1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort-common_1.8.4beta1-3.1_powerpc.deb">http://security.debian.org/pool/updates/main/s/snort/snort-common_1.8.4beta1-3.1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort-mysql_1.8.4beta1-3.1_powerpc.deb">http://security.debian.org/pool/updates/main/s/snort/snort-mysql_1.8.4beta1-3.1_powerpc.deb</a><br>
+<dt>IBM S/390:
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort_1.8.4beta1-3.1_s390.deb">http://security.debian.org/pool/updates/main/s/snort/snort_1.8.4beta1-3.1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort-common_1.8.4beta1-3.1_s390.deb">http://security.debian.org/pool/updates/main/s/snort/snort-common_1.8.4beta1-3.1_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort-mysql_1.8.4beta1-3.1_s390.deb">http://security.debian.org/pool/updates/main/s/snort/snort-mysql_1.8.4beta1-3.1_s390.deb</a><br>
+<dt>Sun Sparc:
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort_1.8.4beta1-3.1_sparc.deb">http://security.debian.org/pool/updates/main/s/snort/snort_1.8.4beta1-3.1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort-common_1.8.4beta1-3.1_sparc.deb">http://security.debian.org/pool/updates/main/s/snort/snort-common_1.8.4beta1-3.1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/s/snort/snort-mysql_1.8.4beta1-3.1_sparc.deb">http://security.debian.org/pool/updates/main/s/snort/snort-mysql_1.8.4beta1-3.1_sparc.deb</a><br>
+</dl>
+<p>Контрольные суммы MD5 этих файлов доступны в <a href="https://lists.debian.org/debian-security-announce/debian-security-announce-2003/msg00087.html">исходном сообщении</a>.
+</dd>
+</dl>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Эта страница также доступна на следующих языках:
+<div id="langContainer">
+ <a href="dsa-297.da.html" title="Датский" hreflang="da" lang="da" rel="alternate">dansk</a>
+ <a href="dsa-297.de.html" title="Немецкий" hreflang="de" lang="de" rel="alternate">Deutsch</a>
+ <a href="dsa-297.en.html" title="Английский" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="dsa-297.es.html" title="Испанский" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="dsa-297.fr.html" title="Французский" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="dsa-297.ja.html" title="Японский" hreflang="ja" lang="ja" rel="alternate">&#26085;&#26412;&#35486;&nbsp;(Nihongo)</a>
+ <a href="dsa-297.pt.html" title="Португальский" hreflang="pt" lang="pt" rel="alternate">Portugu&ecirc;s</a>
+ <a href="dsa-297.sv.html" title="Шведский" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+</div>
+Как установить <a href="../../intro/cn">язык по умолчанию</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">В&nbsp;начало</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">О&nbsp;Debian</a>
+		  <ul>
+		  <li><a href="../../social_contract">Общественный договор</a></li>
+		  <li><a href="../../code_of_conduct">Кодекс поведения</a></li>
+		  <li><a href="../../intro/free">Свободное ПО</a></li>
+		  <li><a href="../../partners/">Партнёры</a></li>
+		  <li><a href="../../donations">Пожертвования</a></li>
+          <li><a href="../../legal">Юридическая информация</a></li>
+          <li><a href="../../legal/privacy">Защита персональных данных</a></li>
+		  <li><a href="../../contact">Как с нами связаться</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Как помочь Debian</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Где взять Debian</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">Установка по сети</a></li>
+			  <li><a href="../../CD/">ISO-образы CD/USB</a></li>
+			  <li><a href="../../CD/vendors/">Поставщики CD</a></li>
+			  <li><a href="../../distrib/pre-installed">Предустановка</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Чистые смеси</a></li>
+			<li><a href="../../distrib/packages">Пакеты Debian</a></li>
+			<li><a href="../../devel/">Уголок разработчика</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">Новости</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">Новости проекта</a></li>
+		  <li><a href="../../events/">События</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">Документация</a>
+      <ul>
+      <li><a href="../../releases/">Информация о выпусках</a></li>
+      <li><a href="../../releases/stable/installmanual">Инструкции по установке</a></li>
+      <li><a href="../../doc/books">Книги о Debian</a></li>
+      <li><a href="https://wiki.debian.org/">Вики-страницы Debian</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">Поддержка</a>
+	  <ul>
+			  <li><a href="../../international/">Международный Debian</a></li>
+			  <li><a href="../../security/">Информация о безопасности</a></li>
+			  <li><a href="../../Bugs/">Сообщения об ошибках</a></li>
+			  <li><a href="../../MailingLists/">Списки рассылки</a></li>
+			  <li><a href="https://lists.debian.org/">Архивы списков рассылки</a></li>
+			  <li><a href="../../ports/">Перенос на другие архитектуры</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">Карта сайта</a></li>
+  <li><a href="https://search.debian.org/">Поиск</a></li>
+  <li><a href="https://bits.debian.org">Блог Debian</a></li>
+  <li><a href="https://micronews.debian.org">Микроновости Debian</a></li>
+  <li><a href="https://planet.debian.org">Планета Debian</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>Чтобы сообщить о проблеме, связанной с веб-сайтом, отправьте сообщение (на английском) в публичный список рассылки по адресу <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a>. Об ошибках в русском переводе сообщайте в русскоязычный список рассылки <a href="mailto:debian-l10n-russian@lists.debian.org">debian-l10n-russian@lists.debian.org</a>. Прочую контактную информацию см. на странице <a href="../../contact">Как с нами связаться</a>. Также доступен <a href="https://salsa.debian.org/webmaster-team/webwml">исходный код сайта</a>.</p>
+<p>
+Последнее изменение: Птн, 1 Июн 2018, 18:42:18 UTC
+&emsp;
+Последняя сборка: Птн, 11 Июн 2021, 18:21:07 UTC
+  <br>
+  Авторские права &copy; 2003-2021
+ <a href="https://www.spi-inc.org/">SPI</a> и другие; См. <a href="../../license" rel="copyright">условия лицензии</a><br>
+  Debian является зарегистрированным <a href="../../trademark">товарным знаком</a> компании Software in the Public Interest, Inc. (Программное обеспечение в интересах общества)
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

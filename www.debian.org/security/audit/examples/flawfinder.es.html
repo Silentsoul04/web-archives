@@ -1,0 +1,248 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="es">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Ejemplo de auditoría automatizada: flawfinder </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 19:32:50">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../../debian-es.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Búsqueda del sitio web de Debian" href="../../../search.es.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../../" title="Página principal de Debian"><img src="../../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="es">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Búsqueda">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Omitir navegación rápida</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../../">Información sobre seguridad</a>
+ &#x2F; <a href="./../">Proyecto de auditoría de seguridad de Debian</a>
+ &#x2F; <a href="./">Ejemplo de auditoría automatizada</a>
+ &#x2F;
+Ejemplo de auditoría automatizada: flawfinder</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Ejemplo de auditoría automatizada: flawfinder</h1>
+<p><a href="https://packages.debian.org/flawfinder">flawfinder</a> es un analizador de
+propósito general para encontrar e informar de debilidades potenciales en código
+fuente tanto de C como de C++.</p>
+<h2>Hacer funcionar flawfinder</h2>
+<p>Hacer funcionar flawfinder es tan sencillo como invocar el comando con el
+directorio o los nombres de los archivos que se van a procesar. Si se indica
+un directorio, se procesarán todos los archivos que se encuentren y que se
+reconozcan como archivos fuente en ese directorio.</p>
+<p>Además de proporcionar al programa una lista de archivos o directorios,
+hay varias opciones de la línea de comandos que se utilizan para controlar el
+comportamiento de las herramientas.</p>
+<p>Las opciones se explican al detalle en la página del manual, pero hay
+opciones particularmente útiles que usaremos en el ejemplo:</p>
+<ul>
+<li>--minlevel=X
+<ul>
+<li>Define como X el nivel mínimo de riesgo para que se incluya en la
+salida. El rango válido es de 1 a 5, siendo 1 «bajo riesgo» y 5 «alto
+riesto».</li>
+</ul></li>
+<li>--html
+<ul>
+<li>Formatea la salida como HTML en lugar de como texto sencillo.</li>
+</ul></li>
+<li>--context
+<ul>
+<li>Muestra el contexto, por ejemplo, la línea que tiene la potencial
+debilidad.</li>
+</ul></li>
+</ul>
+<p>Para producir un archivo HTML con el resultado de nuestro programa,
+teniendo en cuenta sólo las funciones de «alto riesgo», tendríamos que
+teclear algo como esto:</p>
+<pre>
+flawfinder --html --context --minlevel=4 test.c &gt; output.html
+</pre>
+<h2>El resultado</h2>
+<p>Al hacer funcionar flawfinder sobre nuestro <a href="test.c.html">código
+de ejemplo</a>, se produce la siguiente salida <i>(Nota del traductor: se
+mantiene la salida literal del comando, que es en inglés)</i>:</p>
+<hr>
+<div class="sampleblock">
+<p>
+Examining test.c <br>
+<ul>
+<li>test.c:18: <b>  [4] </b> (buffer) <i> strcpy:
+  Does not check for buffer overflows when copying to destination.
+  Consider using strncpy or strlcpy (warning, strncpy is easily misused). </i>
+<pre>
+      strcpy( dir, argv[ 1 ] );
+</pre>
+<li>test.c:24: <b>  [4] </b> (buffer) <i> sprintf:
+  Does not check for buffer overflows. Use snprintf or vsnprintf. </i>
+<pre>
+	sprintf( dir, "%s", getenv( "HOME" ) );
+</pre>
+<li>test.c:33: <b>  [4] </b> (shell) <i> popen:
+  This causes a new program to execute and is difficult to use safely.
+  try using a library call that implements the same functionality if
+  available. </i>
+<pre>
+    fp = popen( cmd, "r" );
+</pre>
+<li>test.c:42: <b>  [4] </b> (format) <i> printf:
+  If format strings can be influenced by an attacker, they can be
+  exploited. Use a constant for the format specification. </i>
+<pre>
+      printf( buff );
+</pre>
+</ul>
+<p>
+Number of hits = 4
+<br>
+Number of Lines Analyzed = 48 in 0.53 seconds (1392 lines/second)
+<br>
+</div>
+<hr>
+<h2>Comprender la salida</h2>
+<p>Al igual que ocurría con la salida de <a href="RATS">RATS</a>, este
+informe es es muy fácil de leer. Muestra claramente las funciones que se
+han detectado como potencialmente peligrosas, así como la descripción del
+problema.</p>
+<p>También es muy útil la inclusión de información de contexto, porque así se
+concentra la atención inmediatamente sobre los puntos de interés y se evita
+considerar otros que no son tan válidos.</p>
+<p>El análisis del <a href="test.c">código de nuestro ejemplo</a> es bastante
+inteligente, puesto que no avisa de <i>todas</i> las funciones <tt>strcpy</tt>
+problemáticas, sino sólo de la que piensa que podría ser potencialmente
+peligrosa.</p>
+<p>De esta forma, ha conseguido resaltar todas las debilidades de nuestro
+código sin dar lugar a falsos positivos.</p>
+<hr>
+<p><a href="..">Volver al proyecto de auditoría</a> |
+<a href="index">Volver a la página de ejemplos de auditoría</a></p>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<p>Volver a la <a href="../../../">página principal de Debian</a>.</p>
+<hr>
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Esta página también está disponible en los siguientes idiomas:
+<div id="langContainer">
+ <a href="flawfinder.de.html" title="alemán" hreflang="de" lang="de" rel="alternate">Deutsch</a>
+ <a href="flawfinder.en.html" title="inglés" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="flawfinder.fr.html" title="francés" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="flawfinder.nl.html" title="neerlandés" hreflang="nl" lang="nl" rel="alternate">Nederlands</a>
+ <a href="flawfinder.pt.html" title="portugués" hreflang="pt" lang="pt" rel="alternate">Portugu&ecirc;s</a>
+ <a href="flawfinder.ru.html" title="ruso" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+</div>
+Cómo modificar <a href="../../../intro/cn">el idioma predeterminado de los documentos</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Página principal</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../../intro/about">Acerca&nbsp;de&nbsp;Debian</a>
+		  <ul>
+		  <li><a href="../../../social_contract">Contrato social</a></li>
+		  <li><a href="../../../code_of_conduct">Código de conducta</a></li>
+		  <li><a href="../../../intro/free">Software libre</a></li>
+		  <li><a href="../../../partners/">Socios</a></li>
+		  <li><a href="../../../donations">Donaciones</a></li>
+          <li><a href="../../../legal">Información legal</a></li>
+          <li><a href="../../../legal/privacy">Privacidad de los datos</a></li>
+		  <li><a href="../../../contact">Contacte con nosotros</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../../intro/help">Ayudar a Debian</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../../distrib/">Cómo obtener Debian</a>
+			  <ul>
+			  <li><a href="../../../distrib/netinst">Instalación por red</a></li>
+			  <li><a href="../../../CD/">Imágenes ISO de CD/USB</a></li>
+			  <li><a href="../../../CD/vendors/">Vendedores de CD</a></li>
+			  <li><a href="../../../distrib/pre-installed">Preinstalado</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../../blends/">Pure Blends</a></li>
+			<li><a href="../../../distrib/packages">Paquetes Debian</a></li>
+			<li><a href="../../../devel/">Rincón de los desarrolladores</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../../News/">Noticias</a>
+		  <ul>
+		  <li><a href="../../../News/weekly/">Noticias del proyecto</a></li>
+		  <li><a href="../../../events/">Eventos</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../../doc/">Documentación</a>
+      <ul>
+      <li><a href="../../../releases/">Info sobre versiones</a></li>
+      <li><a href="../../../releases/stable/installmanual">Manual de instalación</a></li>
+      <li><a href="../../../doc/books">Libros sobre Debian</a></li>
+      <li><a href="https://wiki.debian.org/">Wiki de Debian</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../../support">Soporte</a>
+	  <ul>
+			  <li><a href="../../../international/">Debian es internacional</a></li>
+			  <li><a href="../../../security/">Información sobre seguridad</a></li>
+			  <li><a href="../../../Bugs/">Informes de fallo</a></li>
+			  <li><a href="../../../MailingLists/">Listas de correo</a></li>
+			  <li><a href="https://lists.debian.org/">Archivos de listas de correo</a></li>
+			  <li><a href="../../../ports/">Migraciones/Arquitecturas</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../../sitemap">Mapa del sitio</a></li>
+  <li><a href="https://search.debian.org/">Búsqueda</a></li>
+  <li><a href="https://bits.debian.org">El blog de Debian</a></li>
+  <li><a href="https://micronews.debian.org">Micronoticias de Debian</a></li>
+  <li><a href="https://planet.debian.org">Planeta Debian</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>Para informar de un problema con el sitio web, por favor, envíe un correo (en inglés) a nuestra lista de correo con archivo público <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> o en español a <a href="mailto:debian-l10n-spanish@lists.debian.org">debian-l10n-spanish@lists.debian.org</a> (también con archivo público). Para obtener otra información de contacto, consulte la <a href="../../../contact">página de contacto</a> de Debian. El código fuente del sitio web está <a href="https://salsa.debian.org/webmaster-team/webwml">disponible</a>.</p>
+<p>
+Última modificación: sáb, 19 de sep de 2020, 05:49:02 UTC
+&emsp;
+Última compilación: vie, 11 de jun de 2021, 19:32:51 UTC
+  <br>
+  Copyright &copy; 1997-2020
+ <a href="https://www.spi-inc.org/">SPI</a> y otros; Vea <a href="../../../license" rel="copyright">los términos de la licencia</a><br>
+  Debian es una <a href="../../../trademark">marca registrada</a> de Software in the Public Interest, Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

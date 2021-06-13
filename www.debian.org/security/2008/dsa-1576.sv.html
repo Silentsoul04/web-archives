@@ -1,0 +1,385 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="sv">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Säkerhetsinformation -- DSA-1576-1 openssh </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 20:03:43">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-sv.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Sök på Debians webbplats" href="../../search.sv.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Debian-hem"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="sv">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Sök">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Hoppa över navigering</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">Säkerhetsinformation</a>
+ &#x2F; <a href="./">2008</a>
+ &#x2F;
+Säkerhetsinformation -- DSA-1576-1 openssh</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Säkerhetsbulletin från Debian</h1>
+<h2>DSA-1576-1 openssh -- förutsägbar slumptalsgenerator</h2>
+<dl>
+<dt>Rapporterat den:</dt>
+	<dd>2008-05-14</dd>
+<dt>Berörda paket:</dt>
+	<dd>
+<a href="https://packages.debian.org/src:openssh">openssh</a>
+</dd>
+<dt>Sårbara:</dt>
+	<dd class="warning">Ja</dd>
+<dt>Referenser i säkerhetsdatabaser:</dt>
+	<dd>I Mitres CVE-förteckning: <a href="https://security-tracker.debian.org/tracker/CVE-2008-0166">CVE-2008-0166</a>.<br></dd>
+<dt>Ytterligare information:</dt>
+	<dd>
+<p>
+Den nyligen publicerade sårbarheten i Debians openssl-paket
+(<a href="/security/2008/dsa-1571">DSA-1571-1</a>,
+<a href="https://security-tracker.debian.org/tracker/CVE-2008-0166">CVE-2008-0166</a>)
+påverkar indirekt OpenSSH.
+Därför måste alla användar- och värdnycklar som skapats med trasiga
+versioner av openssl-paketet anses vara otillförlitliga, även efter att
+openssl-uppdateringen har installerats.
+</p>
+<p>1. Installera säkerhetsuppdateringarna</p>
+<p>
+Denna uppdatering innehåller ett beroende på openssl-uppdateringen och
+kommer automatiskt installera en rättad version av libssl0.9.8-paketet, samt
+det nya paketet openssh-blacklist.
+</p>
+<p>
+När uppdateringen har installerats kommer svaga användarnycklar automatiskt
+att avvisas när så är möjligt (även om de inte alltid kan identifieras).
+Om du använder sådana nycklar för autentisering av användare kommer de
+omedelbart att sluta fungera och måste ersättas (se steg 3).
+</p>
+<p>
+OpenSSH-värdnycklar kan omskapas automatiskt när
+OpenSSH-säkerhetsuppdateringen installeras.
+Uppdateringen kommer be dig om bekräftelse innan den gör det.
+</p>
+<p>2. Uppdatera OpenSSH:s known_hosts-filer</p>
+<p>
+När värdnyckeln omskapas kommer det att göra så att en varning visas när du
+ansluter till systemet med SSH fram till att värdnyckeln uppdaterats i filen
+known_hosts.
+Varningen ser ut som följer:
+</p>
+<pre lang="en">
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that the RSA host key has just been changed.
+</pre>
+<p>
+I det här fallet har nyckeln helt enkelt ändrats, och du bör uppdatera
+motsvarande known_hosts-fil, enligt beskrivningen i felmeddelandet.
+</p>
+<p>
+Vi rekommenderar att du använder en betrodd kanal för att hämta
+servernyckeln.
+Nyckeln finns i filen /etc/ssh/ssh_host_rsa_key.pub på severn; dess
+fingeravtryck kan skrivas ut med kommandot:
+</p>
+      <p>ssh-keygen -l -f /etc/ssh/ssh_host_rsa_key.pub</p>
+<p>
+Förutom användarspecifika known_hosts-filer kan det finnas en systemglobal
+fil för kända värdar som heter /etc/ssh/ssh_known_hosts.
+Denna fil används både av ssh-klienten och av sshd för
+hosts.equiv-funktionalitet.
+Även denna fil behöver uppdateras.
+</p>
+<p>3. Kontrollera samtliga OpenSSH-användarnycklar</p>
+<p>
+Den mest säkra lösningen är att skapa alla OpenSSH-användarnycklar på nytt,
+förutom när det är möjligt att med hög sannolikhet avgöra att nyckeln har
+skapats på ett system som inte påverkats av problemet.
+</p>
+<p>
+Se om din nyckel påverkas genom att köra verktyget ssh-vulnkey, vilket
+medföljer denna säkerhetsuppdatering.
+Som standard kommer ssh-vulnkey att se på standardplatsen för
+användarnycklar (~/.ssh/id_rsa, ~/.ssh/id_dsa och ~/.ssh/identity), din
+authorized_keys-fil (~/.ssh/authorized_keys och ~/.ssh/authorized_keys2),
+samt systemets värdnycklar (/etc/ssh/ssh_host_dsa_key och
+/etc/ssh/ssh_host_rsa_key).
+</p>
+<p>
+För att kontrollera alla dina egna nycklar, förutsatt att de finns på
+standardplatser (~/.ssh/id_rsa, ~/.ssh/id_dsa, eller ~/.ssh/identity):
+</p>
+     <p>ssh-vulnkey</p>
+<p>
+För att kontrollera alla nycklar på ditt system:
+</p>
+     <p>sudo ssh-vulnkey -a</p>
+<p>
+För att kontrollera en nyckel på en icke-standardiserad plats:
+</p>
+     <p>ssh-vulnkey /sökväg/till/nyckel</p>
+<p>
+Om ssh-vulnkey säger <q>Unknown (no blacklist information)</q> (okänd
+&ndash; svartlisteinformation saknas) så saknas information om huruvida
+nyckeln påverkas.
+I detta fall kan du se på modifieringstidpunkten (mtime) för filen genom att
+använda <q>ls -l</q>.
+Nycklar som skapats tidigare än september 2006 påverkas inte.
+Tänk dock på att, även om det är osannolikt, så kan
+säkerhetskopieringsprocedurer ha ändrat fildatumet bakåt i tiden (eller så
+kan systemklockan ha varit felinställd).
+</p>
+<p>
+Om du är osäker skapar du en ny nyckel och tar bort den gamla från alla
+servrar den använts på.
+</p>
+<p>4. Omskapa eventuella påverkade användarnycklar</p>
+<p>
+OpenSSH-nycklar som används för användarautentisering måste skapas om
+manuellt, och det gäller även de som har överförts till ett annat system
+efter att de skapades.
+</p>
+<p>
+Nya nycklar kan skapas med ssh-keygen, t.ex:</p>
+<pre lang="en">
+   $ ssh-keygen
+   Generating public/private rsa key pair.
+   Enter file in which to save the key (/home/användare/.ssh/id_rsa):
+   Enter passphrase (empty for no passphrase):
+   Enter same passphrase again:
+   Your identification has been saved in /home/användare/.ssh/id_rsa.
+   Your public key has been saved in /home/användare/.ssh/id_rsa.pub.
+   The key fingerprint is:
+   00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00 användare@värd
+</pre>
+<p>5. Uppdatera authorized_keys-filer (om nödvändigt)</p>
+<p>
+När användarnycklarna har omskapats måste de relevanta öppna nycklarna
+kopieras till alla authorized_keys-filer (och authorized_keys2-filer, om de
+behövs) på fjärrsystem.
+Se till att ta bort de rader som gäller gamla nycklar från dessa filer.
+</p>
+<p>
+Förutom motvapen för att avhjälpa slumptalssårbarheten rättar även denna
+uppdatering av OpenSSH flera andra sårbarheter:
+</p>
+<p><a href="https://security-tracker.debian.org/tracker/CVE-2008-1483">CVE-2008-1483</a>:
+Timo Juhani Lindfors upptäckte att SSH-klienten, om X11-vidaresändning var
+aktiverat, valde en X11-vidaresändningsport utan att försäkra sig om att den
+kan bindas till alla adressfamiljer.
+Om systemet är konfigurerat med IPv6 (även om det inte har fungerande
+IPv6-konnektivitet) kunde detta göra det möjligt för en lokal angripare på
+fjärrservern att kapa X11-vidaresändning.
+</p>
+<p><a href="https://security-tracker.debian.org/tracker/CVE-2007-4752">CVE-2007-4752</a>:
+Jan Pechanec upptäckte att ssh faller tillbaka till att skapa en betrodd
+X11-kaka om det inte går att skapa en obetrodd kaka, vilket möjligen kan
+exponera den lokala skärmen till en skadlig fjärrserver när
+X11-vidaresändning är aktivt.
+</p>
+<p>
+För den stabila utgåvan (Etch) har dessa problem rättats i version
+4.3p2-9etch1.
+För närvarande har bara en delmängd av alla de arkitekturer som stöds
+byggts, ytterligare uppdateringar kommer tillhandahållas när de blir
+tillgängliga.
+</p>
+<p>
+För den instabila utgåvan (Sid) och uttestningsutgåvan (Lenny)
+har dessa problem rättats i version 4.7p1-9.
+</p>
+<p>Vi rekommenderar att ni uppgraderar era openssh-paket och vidtar de
+åtgärder som beskrivs ovan.</p>
+</dd>
+<dt>Rättat i:</dt>
+	<dd>
+<h3>Debian GNU/Linux 4.0 (etch)</h3>
+<dl>
+<dt>Källkod:
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh_4.3p2-9etch1.diff.gz">http://security.debian.org/pool/updates/main/o/openssh/openssh_4.3p2-9etch1.diff.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh-blacklist/openssh-blacklist_0.1.1.tar.gz">http://security.debian.org/pool/updates/main/o/openssh-blacklist/openssh-blacklist_0.1.1.tar.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh_4.3p2-9etch1.dsc">http://security.debian.org/pool/updates/main/o/openssh/openssh_4.3p2-9etch1.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh-blacklist/openssh-blacklist_0.1.1.dsc">http://security.debian.org/pool/updates/main/o/openssh-blacklist/openssh-blacklist_0.1.1.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh_4.3p2.orig.tar.gz">http://security.debian.org/pool/updates/main/o/openssh/openssh_4.3p2.orig.tar.gz</a><br>
+<dt>Arkitekturoberoende komponent:
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh-blacklist/openssh-blacklist_0.1.1_all.deb">http://security.debian.org/pool/updates/main/o/openssh-blacklist/openssh-blacklist_0.1.1_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh_4.3p2-9etch1_all.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh_4.3p2-9etch1_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh-krb5_4.3p2-9etch1_all.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh-krb5_4.3p2-9etch1_all.deb</a><br>
+<dt>Alpha:
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh-client-udeb_4.3p2-9etch1_alpha.udeb">http://security.debian.org/pool/updates/main/o/openssh/openssh-client-udeb_4.3p2-9etch1_alpha.udeb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh-client_4.3p2-9etch1_alpha.deb">http://security.debian.org/pool/updates/main/o/openssh/openssh-client_4.3p2-9etch1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_4.3p2-9etch1_alpha.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_4.3p2-9etch1_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh-server-udeb_4.3p2-9etch1_alpha.udeb">http://security.debian.org/pool/updates/main/o/openssh/openssh-server-udeb_4.3p2-9etch1_alpha.udeb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh-server_4.3p2-9etch1_alpha.deb">http://security.debian.org/pool/updates/main/o/openssh/openssh-server_4.3p2-9etch1_alpha.deb</a><br>
+<dt>AMD64:
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh-server-udeb_4.3p2-9etch1_amd64.udeb">http://security.debian.org/pool/updates/main/o/openssh/openssh-server-udeb_4.3p2-9etch1_amd64.udeb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh-server_4.3p2-9etch1_amd64.deb">http://security.debian.org/pool/updates/main/o/openssh/openssh-server_4.3p2-9etch1_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh-client-udeb_4.3p2-9etch1_amd64.udeb">http://security.debian.org/pool/updates/main/o/openssh/openssh-client-udeb_4.3p2-9etch1_amd64.udeb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh-client_4.3p2-9etch1_amd64.deb">http://security.debian.org/pool/updates/main/o/openssh/openssh-client_4.3p2-9etch1_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_4.3p2-9etch1_amd64.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_4.3p2-9etch1_amd64.deb</a><br>
+<dt>HP Precision:
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh-client-udeb_4.3p2-9etch1_hppa.udeb">http://security.debian.org/pool/updates/main/o/openssh/openssh-client-udeb_4.3p2-9etch1_hppa.udeb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_4.3p2-9etch1_hppa.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_4.3p2-9etch1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh-server_4.3p2-9etch1_hppa.deb">http://security.debian.org/pool/updates/main/o/openssh/openssh-server_4.3p2-9etch1_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh-server-udeb_4.3p2-9etch1_hppa.udeb">http://security.debian.org/pool/updates/main/o/openssh/openssh-server-udeb_4.3p2-9etch1_hppa.udeb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh-client_4.3p2-9etch1_hppa.deb">http://security.debian.org/pool/updates/main/o/openssh/openssh-client_4.3p2-9etch1_hppa.deb</a><br>
+<dt>Intel IA-32:
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh-client_4.3p2-9etch1_i386.deb">http://security.debian.org/pool/updates/main/o/openssh/openssh-client_4.3p2-9etch1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh-server_4.3p2-9etch1_i386.deb">http://security.debian.org/pool/updates/main/o/openssh/openssh-server_4.3p2-9etch1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_4.3p2-9etch1_i386.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_4.3p2-9etch1_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh-server-udeb_4.3p2-9etch1_i386.udeb">http://security.debian.org/pool/updates/main/o/openssh/openssh-server-udeb_4.3p2-9etch1_i386.udeb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh-client-udeb_4.3p2-9etch1_i386.udeb">http://security.debian.org/pool/updates/main/o/openssh/openssh-client-udeb_4.3p2-9etch1_i386.udeb</a><br>
+<dt>Intel IA-64:
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh-server-udeb_4.3p2-9etch1_ia64.udeb">http://security.debian.org/pool/updates/main/o/openssh/openssh-server-udeb_4.3p2-9etch1_ia64.udeb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh-client_4.3p2-9etch1_ia64.deb">http://security.debian.org/pool/updates/main/o/openssh/openssh-client_4.3p2-9etch1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_4.3p2-9etch1_ia64.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_4.3p2-9etch1_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh-client-udeb_4.3p2-9etch1_ia64.udeb">http://security.debian.org/pool/updates/main/o/openssh/openssh-client-udeb_4.3p2-9etch1_ia64.udeb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh-server_4.3p2-9etch1_ia64.deb">http://security.debian.org/pool/updates/main/o/openssh/openssh-server_4.3p2-9etch1_ia64.deb</a><br>
+<dt>PowerPC:
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh-server_4.3p2-9etch1_powerpc.deb">http://security.debian.org/pool/updates/main/o/openssh/openssh-server_4.3p2-9etch1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh-server-udeb_4.3p2-9etch1_powerpc.udeb">http://security.debian.org/pool/updates/main/o/openssh/openssh-server-udeb_4.3p2-9etch1_powerpc.udeb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh-client_4.3p2-9etch1_powerpc.deb">http://security.debian.org/pool/updates/main/o/openssh/openssh-client_4.3p2-9etch1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_4.3p2-9etch1_powerpc.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_4.3p2-9etch1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh-client-udeb_4.3p2-9etch1_powerpc.udeb">http://security.debian.org/pool/updates/main/o/openssh/openssh-client-udeb_4.3p2-9etch1_powerpc.udeb</a><br>
+<dt>Sun Sparc:
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh-server_4.3p2-9etch1_sparc.deb">http://security.debian.org/pool/updates/main/o/openssh/openssh-server_4.3p2-9etch1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_4.3p2-9etch1_sparc.deb">http://security.debian.org/pool/updates/main/o/openssh/ssh-askpass-gnome_4.3p2-9etch1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh-client_4.3p2-9etch1_sparc.deb">http://security.debian.org/pool/updates/main/o/openssh/openssh-client_4.3p2-9etch1_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh-server-udeb_4.3p2-9etch1_sparc.udeb">http://security.debian.org/pool/updates/main/o/openssh/openssh-server-udeb_4.3p2-9etch1_sparc.udeb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/o/openssh/openssh-client-udeb_4.3p2-9etch1_sparc.udeb">http://security.debian.org/pool/updates/main/o/openssh/openssh-client-udeb_4.3p2-9etch1_sparc.udeb</a><br>
+</dl>
+<p>MD5-kontrollsummor för dessa filer finns i <a href="https://lists.debian.org/debian-security-announce/2008/msg00153.html">originalbulletinen</a>.</p>
+</dd>
+</dl>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Denna sida finns även på följande språk:
+<div id="langContainer">
+ <a href="dsa-1576.da.html" title="danska" hreflang="da" lang="da" rel="alternate">dansk</a>
+ <a href="dsa-1576.de.html" title="tyska" hreflang="de" lang="de" rel="alternate">Deutsch</a>
+ <a href="dsa-1576.en.html" title="engelska" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="dsa-1576.fr.html" title="franska" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="dsa-1576.ja.html" title="japanska" hreflang="ja" lang="ja" rel="alternate">&#26085;&#26412;&#35486;&nbsp;(Nihongo)</a>
+ <a href="dsa-1576.fi.html" title="finska" hreflang="fi" lang="fi" rel="alternate">suomi</a>
+</div>
+Så ställer du in <a href="../../intro/cn">standardspråkval för dokument</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Hem</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">Om&nbsp;Debian</a>
+		  <ul>
+		  <li><a href="../../social_contract">Socialt kontrakt</a></li>
+		  <li><a href="../../code_of_conduct">Uppförandekod</a></li>
+		  <li><a href="../../intro/free">Fri programvara</a></li>
+		  <li><a href="../../partners/">Partner</a></li>
+		  <li><a href="../../donations">Donationer</a></li>
+          <li><a href="../../legal">Rättsliga frågor</a></li>
+          <li><a href="../../legal/privacy">Dataintegritet</a></li>
+		  <li><a href="../../contact">Kontakta oss</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Hjälp Debian</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Få tag på Debian</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">Nätverksinstallation</a></li>
+			  <li><a href="../../CD/">CD/USB-ISO-avbildningar</a></li>
+			  <li><a href="../../CD/vendors/">CD-återförsäljare</a></li>
+			  <li><a href="../../distrib/pre-installed">Förinstallerat</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Pure Blends</a></li>
+			<li><a href="../../distrib/packages">Debianpaket</a></li>
+			<li><a href="../../devel/">Utvecklarhörnet</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">Nyheter</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">Projektnyheter</a></li>
+		  <li><a href="../../events/">Evenemang</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">Dokumentation</a>
+      <ul>
+      <li><a href="../../releases/">Versionsfakta</a></li>
+      <li><a href="../../releases/stable/installmanual">Installationsguide</a></li>
+      <li><a href="../../doc/books">Debianböcker</a></li>
+      <li><a href="https://wiki.debian.org/">Debians Wiki</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">Support</a>
+	  <ul>
+			  <li><a href="../../international/">Debian internationellt</a></li>
+			  <li><a href="../../security/">Säkerhetsinformation</a></li>
+			  <li><a href="../../Bugs/">Felrapporter</a></li>
+			  <li><a href="../../MailingLists/">Sändlistor</a></li>
+			  <li><a href="https://lists.debian.org/">Sändlistearkiv</a></li>
+			  <li><a href="../../ports/">Anpassningar/arkitekturer</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">Sidöversikt</a></li>
+  <li><a href="https://search.debian.org/">Sök</a></li>
+  <li><a href="https://bits.debian.org">Debianbloggen</a></li>
+  <li><a href="https://micronews.debian.org">Debian Mikronyheter</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>För att rapportera ett problem med webbplatsen, kontakta vår publikt arkiverade sändlista <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> på engelska. Vid problem med och synpunkter på den svenska översättningen, kontakta den publikt arkiverade sändlistan <a href="mailto:debian-l10n-swedish@lists.debian.org">debian-l10n-swedish@lists.debian.org</a>. För övrig kontaktinformation, se Debians <a href="../../contact">kontaktsida</a>. Webbplatsens källkod finns <a href="https://salsa.debian.org/webmaster-team/webwml">tillgänglig</a>.</p>
+<p>
+Senast ändrad: Fre 2018-06-01 18.42.16 UTC
+&emsp;
+Senast byggd: Fre 2021-06-11 20.03.43 UTC
+  <br>
+  Upphovsrättsskyddat &copy; 2008-2021
+ <a href="https://www.spi-inc.org/">SPI</a> och andra; Se <a href="../../license" rel="copyright">licensvillkor</a><br>
+  Debian är ett registrerat <a href="../../trademark">varumärke</a> hos Software in the Public Interest. Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

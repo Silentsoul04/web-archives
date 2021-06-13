@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="pl">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Debian -- Bezpieczeństwo -- DSA-466-1 linux-kernel-2.2.10-powerpc-apus </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 17:35:54">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-pl.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Przeszukiwanie witryny Debiana" href="../../search.pl.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Strona domowa Debiana"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="pl">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Wyszukiwanie">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Pomiń szybką nawigację</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">Informacje dotyczące bezpieczeństwa</a>
+ &#x2F; <a href="./">2004</a>
+ &#x2F;
+Bezpieczeństwo -- DSA-466-1 linux-kernel-2.2.10-powerpc-apus</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Porada dotycząca bezpieczeństwa Debiana</h1>
+<h2>DSA-466-1 linux-kernel-2.2.10-powerpc-apus -- wadliwa funkcja i opróżnienie TLB</h2>
+<dl>
+<dt>Data Zgłoszenia:</dt>
+	<dd>18.03.2004</dd>
+<dt>Narażone Pakiety:</dt>
+	<dd>
+<a href="https://packages.debian.org/src:kernel-source-2.2.10">kernel-source-2.2.10</a>, <a href="https://packages.debian.org/src:kernel-image-2.2.10-powerpc-apus">kernel-image-2.2.10-powerpc-apus</a>
+</dd>
+<dt>Podatny:</dt>
+	<dd class="warning">Tak</dd>
+<dt>Odnośniki do baz danych na temat bezpieczeństwa:</dt>
+	<dd>Baza danych Bugtraq (SecurityFocus): <a href="http://online.securityfocus.com/bid/9686">Nr BugTraq 9686</a>.<br>W słowniku CVE Mitre-a <a href="https://security-tracker.debian.org/tracker/CVE-2004-0077">CVE-2004-0077</a>.<br>Baza danych błędów, porad i incydentów CERT: <a href="http://www.kb.cert.org/vuls/id/981222">VU#981222</a>.<br></dd>
+<dt>Więcej informacji:</dt>
+	<dd>
+<p>Paul Starzetz i Wojciech Purczynski z isec.pl <a
+href="http://isec.pl/vulnerabilities/isec-0014-mremap-unmap.txt">odkryli</a>
+poważne naruszenie bezpieczeństwa w kodzie Linuksa zarządzającym pamięci�
+wewnątrz wywołania systemowego mremap(2). Z powodu zbyt wczesnego
+opróżniania TLB (Translation Lookaside Buffer, cache adresów) istnieje
+możliwość spowodowania lokalnego złamania konta root przez atakującego.
+</p>
+<p>Podatne na atak są wyłącznie indywidualne serie wersji jąder 2.4.x i 2.2.x.
+Poprzednio przypuszczaliśmy, że to naruszenie bezpieczeństwa w 2.4.x nie istnieje
+w 2.2.x, co w dalszym ciągu jest prawdą. Jednak okazało się, że (raczej) drugie naruszenie
+bezpieczeństwa odnosi się rzeczywiście do 2.2.x ale nie do 2.4.x, oczywiście z innym
+exploitem.</p>
+<p>W dystrybucji stabilnej (woody) powyższy problem został wyeliminowany
+w wersji 2.2.10-13woody1 obrazu jądra 2.2 dla architektury powerpc/apus
+oraz w wersji 2.2.10-2 źródła Linuksa 2.2.10.</p>
+<p>W dystrybucji niestabilnej (sid) powyższy problem zostanie niedługo usunięty
+w pakiecie obrazu jądra 2.4.20 dla powerpc/apus. Stary obraz jądra 2.2.10 będzie usunięty
+z dystrybucji niestabilnej Debiana.</p>
+<p>Gorąco doradzamy przejście na poprawiony pakiet obrazu jądra 2.4.17 dla
+architektury powerpc/apus z dystrybucji woody, zanim błąd nie zostanie usunięty w
+pakiecie obrazu jądra 2.4.20 w dystrybucji niestabilnej.</p>
+<p>Zalecamy aktualizację pakietu jądra Linuksa.</p>
+<p><a href="CAN-2004-0077">Macierzowe zestawienie luk</a> dla CAN-2004-0077</p>
+</dd>
+<dt>Naprawiony w:</dt>
+	<dd>
+<h3>Debian GNU/Linux 3.0 (woody)</h3>
+<dl>
+<dt>Źródło:
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-source-2.2.10/kernel-source-2.2.10_2.2.10-2.dsc">http://security.debian.org/pool/updates/main/k/kernel-source-2.2.10/kernel-source-2.2.10_2.2.10-2.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-source-2.2.10/kernel-source-2.2.10_2.2.10-2.diff.gz">http://security.debian.org/pool/updates/main/k/kernel-source-2.2.10/kernel-source-2.2.10_2.2.10-2.diff.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-source-2.2.10/kernel-source-2.2.10_2.2.10.orig.tar.gz">http://security.debian.org/pool/updates/main/k/kernel-source-2.2.10/kernel-source-2.2.10_2.2.10.orig.tar.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.2.10-powerpc-apus/kernel-image-2.2.10-powerpc-apus_2.2.10-13woody1.dsc">http://security.debian.org/pool/updates/main/k/kernel-image-2.2.10-powerpc-apus/kernel-image-2.2.10-powerpc-apus_2.2.10-13woody1.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.2.10-powerpc-apus/kernel-image-2.2.10-powerpc-apus_2.2.10-13woody1.tar.gz">http://security.debian.org/pool/updates/main/k/kernel-image-2.2.10-powerpc-apus/kernel-image-2.2.10-powerpc-apus_2.2.10-13woody1.tar.gz</a><br>
+<dt>Element niezależny od architektury:
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-source-2.2.10/kernel-doc-2.2.10_2.2.10-2_all.deb">http://security.debian.org/pool/updates/main/k/kernel-source-2.2.10/kernel-doc-2.2.10_2.2.10-2_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-source-2.2.10/kernel-source-2.2.10_2.2.10-2_all.deb">http://security.debian.org/pool/updates/main/k/kernel-source-2.2.10/kernel-source-2.2.10_2.2.10-2_all.deb</a><br>
+<dt>PowerPC:
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.2.10-powerpc-apus/kernel-headers-2.2.10-apus_2.2.10-13woody1_powerpc.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.2.10-powerpc-apus/kernel-headers-2.2.10-apus_2.2.10-13woody1_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.2.10-powerpc-apus/kernel-image-2.2.10-apus_2.2.10-13woody1_powerpc.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.2.10-powerpc-apus/kernel-image-2.2.10-apus_2.2.10-13woody1_powerpc.deb</a><br>
+</dl>
+<p>Sumy kontrolne MD5 wymienionych plików dostępne są w <a href="https://lists.debian.org/debian-security-announce/debian-security-announce-2004/msg00063.html">oryginalnej poradzie</a>.</p>
+</dd>
+</dl>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Ta strona jest również dostępna w następujących językach:
+<div id="langContainer">
+ <a href="dsa-466.da.html" title="duński" hreflang="da" lang="da" rel="alternate">dansk</a>
+ <a href="dsa-466.de.html" title="niemiecki" hreflang="de" lang="de" rel="alternate">Deutsch</a>
+ <a href="dsa-466.en.html" title="angielski" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="dsa-466.es.html" title="hiszpański" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="dsa-466.fr.html" title="francuski" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="dsa-466.ja.html" title="japoński" hreflang="ja" lang="ja" rel="alternate">&#26085;&#26412;&#35486;&nbsp;(Nihongo)</a>
+ <a href="dsa-466.pt.html" title="portugalski" hreflang="pt" lang="pt" rel="alternate">Portugu&ecirc;s</a>
+ <a href="dsa-466.ru.html" title="rosyjski" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+ <a href="dsa-466.sv.html" title="szwedzki" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+</div>
+Jak ustawić <a href="../../intro/cn">domyślny język dokumentu</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Strona Główna</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">O&nbsp;Debianie</a>
+		  <ul>
+		  <li><a href="../../social_contract">Umowa Społeczna</a></li>
+		  <li><a href="../../code_of_conduct">Kodeks Postępowania</a></li>
+		  <li><a href="../../intro/free">Wolne oprogramowanie</a></li>
+		  <li><a href="../../partners/">Partnerzy</a></li>
+		  <li><a href="../../donations">Dary</a></li>
+          <li><a href="../../legal">Legal Info</a></li>
+          <li><a href="../../legal/privacy">Data Privacy</a></li>
+		  <li><a href="../../contact">Skontaktuj się z nami</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Jak pomóc Debianowi</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Jak zdobyć Debiana</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">Instalacja przez sieć</a></li>
+			  <li><a href="../../CD/">CD/USB ISO images</a></li>
+			  <li><a href="../../CD/vendors/">Sprzedawcy płyt</a></li>
+			  <li><a href="../../distrib/pre-installed">Preinstalowany</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Pure Blends</a></li>
+			<li><a href="../../distrib/packages">Pakiety Debiana</a></li>
+			<li><a href="../../devel/">Kącik deweloperów</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">Wiadomości</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">Wiadomości Projektu</a></li>
+		  <li><a href="../../events/">Wydarzenia</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">Dokumentacja</a>
+      <ul>
+      <li><a href="../../releases/">Informacje o wydaniach</a></li>
+      <li><a href="../../releases/stable/installmanual">Podręcznik instalacji</a></li>
+      <li><a href="../../doc/books">Książki o Debianie</a></li>
+      <li><a href="https://wiki.debian.org/">Debian Wiki</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">Pomoc</a>
+	  <ul>
+			  <li><a href="../../international/">Różne języki w Debianie</a></li>
+			  <li><a href="../../security/">Bezpieczeństwo</a></li>
+			  <li><a href="../../Bugs/">Zgłoszenia błędów</a></li>
+			  <li><a href="../../MailingLists/">Listy Dyskusyjne</a></li>
+			  <li><a href="https://lists.debian.org/">Archiwa List Dyskusyjnych</a></li>
+			  <li><a href="../../ports/">Adaptacje/Architektury</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">Mapa serwisu</a></li>
+  <li><a href="https://search.debian.org/">Wyszukiwanie</a></li>
+  <li><a href="https://bits.debian.org">Blog Debiana</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>To report a problem with the web site, please e-mail our publicly archived mailing list <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> in English. For other contact information, see the Debian <a href="../../contact">contact page</a>. Web site source code is <a href="https://salsa.debian.org/webmaster-team/webwml">available</a>.</p>
+<p>
+Ostatnia modyfikacja: pt, 1. cze 2018r, 18:42:20 UTC
+&emsp;
+Last Built: pt, 11. cze 2021r, 17:35:54 UTC
+  <br>
+  Copyright &copy; 2004-2021
+ <a href="https://www.spi-inc.org/">SPI</a> i inni; Zobacz <a href="../../license" rel="copyright">warunki umowy</a><br>
+  Debian jest zarejestrowanym <a href="../../trademark">znakiem handlowym</a> Software in the Public Interest, Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

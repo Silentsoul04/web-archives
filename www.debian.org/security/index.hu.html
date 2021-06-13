@@ -1,0 +1,259 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="hu">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Debian -- Biztonsági Információk </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-12 03:55:04">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link rel="alternate" type="application/rss+xml"
+  title="Debian biztonsági figyelmeztetések (címszavakban)" href="dsa">
+<link rel="alternate" type="application/rss+xml"
+ title="Debian biztonsági figyelmeztetések (kivonatok)" href="dsa-long">
+<link href="../debian.css" rel="stylesheet" type="text/css">
+  <link href="../debian-hu.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Debian website kereső" href="../search.hu.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../" title="Debian Home"><img src="../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="hu">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Keresés">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Gyorslinkek átugrása</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs">
+Biztonsági Információk</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Biztonsági Információk</h1>
+<ul class="toc">
+  <li><a href="#keeping-secure">Ügyelj a Debian rendszered biztonságára!</a></li>
+  <li><a href="#DSAS">Újabb keletű figyelmeztetések</a></li>
+  <li><a href="#contact">Kapcsolatfelvétel</a></li>
+</ul>
+<p>A Debian nagyon komolyan veszi a biztonságot. Foglalkozunk minden
+tudomásunkra jutott biztonsági problémával, és biztosítjuk, hogy elfogadható időn belül ki legyenek javítva.
+Sok figyelmeztetésen más szabadszoftver-terjesztőkkel együtt
+dolgozunk együtt, és már a sebezhetőség nyilvánosságra hozatala napján kiadjuk. Az
+archívumot a <a href="audit/">biztonsági auditáló</a> csapat fésüli át újabb
+biztonsági hibák után kutatva.</p>
+<p>A tapasztalat azt mutatja, hogy a bizonytalanságon alapuló biztonság
+(<q>security through obscurity</q>) nem nyújt kellő biztonságot.
+A hibák nyilvánosságra hozása a biztonsági problémák
+gyorsabb és jobb megoldását teszi lehetővé. Ennek szellemében ez az
+oldal ismerteti a Debian jelenlegi állapotát, beleértve ebbe azon ismert
+biztonsági lyukakat is, melyek hatással lehetnek a Debianra.</p>
+<p>A Debian a biztonsági szabványok létrehozásában is részt vesz:
+a <a href="#DSAS">Debian biztonsági figyelmeztetések</a>
+<a href="cve-compatibility">CVE-kompatibilisek</a>
+(lásd a <a href="crossreferences">kereszthivatkozásokat</a>),
+és a Debian képviselteti magát az
+<a href="https://oval.cisecurity.org/">Open Vulnerability Assessment Language</a>
+projekt testületében.</p>
+<h2><a name="keeping-secure" id="keeping-secure">Ügyelj a Debian rendszered biztonságára!</a></h2>
+<p>Iratkozz fel a
+<a href="https://lists.debian.org/debian-security-announce/">
+debian-security-announce</A> levelezőlistára, hogy megkapd a Debiannal
+kapcsolatos legfrissebb biztonsági tanácsokat.</p>
+<p>Az <a href="https://packages.debian.org/stable/admin/apt">apt</a>-vel
+könnyedén letöltheted a legújabb biztonsági frissítéseket. Ehhez egy ilyen
+sorra van szükség a <code>/etc/apt/sources.list</code> fájlban:
+</p>
+<div class="centerblock">
+<p>
+<code>deb&nbsp;http://security.debian.org/debian-security&nbsp;buster/updates&nbsp;main&nbsp;contrib&nbsp;non-free</code>
+</p>
+<p>
+Ezek után le kell futtatni a <kbd>apt-get update &amp;&amp; apt-get upgrade</kbd>
+parancsot, hogy a frissítések letöltésre és telepítésre kerüljenek.
+</p>
+</div>
+<p>A Debian biztonságával kapcsolatban további információkat a
+<a href="faq">Security Team FAQ-ban</a> és a
+<a href="../doc/user-manuals#securing">Securing Debian</a> kézikönyvben
+találsz.</p>
+    <a class="rss_logo" href="dsa">RSS</a>
+<h2><a name="DSAS" id="DSAS">Újabb keletű figyelmeztetések</a></h2>
+<p>Az alábbi weboldalak a
+<a href="https://lists.debian.org/debian-security-announce/">
+debian-security-announce</a> listára küldött biztonsági figyelmeztetések
+összefoglalását tartalmazzák.
+<p>
+<tt>[2021. jún. 10.]</tt> <strong><a href="2021/dsa-4930">DSA-4930-1 libwebp</a></strong> security update<br>
+<tt>[2021. jún. 09.]</tt> <strong><a href="2021/dsa-4929">DSA-4929-1 rails</a></strong> security update<br>
+<tt>[2021. jún. 09.]</tt> <strong><a href="2021/dsa-4928">DSA-4928-1 htmldoc</a></strong> security update<br>
+<tt>[2021. jún. 05.]</tt> <strong><a href="2021/dsa-4927">DSA-4927-1 thunderbird</a></strong> security update<br>
+<tt>[2021. jún. 03.]</tt> <strong><a href="2021/dsa-4926">DSA-4926-1 lasso</a></strong> security update<br>
+<tt>[2021. jún. 02.]</tt> <strong><a href="2021/dsa-4925">DSA-4925-1 firefox-esr</a></strong> security update<br>
+<tt>[2021. jún. 01.]</tt> <strong><a href="2021/dsa-4924">DSA-4924-1 squid</a></strong> security update<br>
+<tt>[2021. máj. 30.]</tt> <strong><a href="2021/dsa-4923">DSA-4923-1 webkit2gtk</a></strong> security update<br>
+<tt>[2021. máj. 29.]</tt> <strong><a href="2021/dsa-4922">DSA-4922-1 hyperkitty</a></strong> security update<br>
+<tt>[2021. máj. 28.]</tt> <strong><a href="2021/dsa-4921">DSA-4921-1 nginx</a></strong> security update<br>
+<tt>[2021. máj. 24.]</tt> <strong><a href="2021/dsa-4920">DSA-4920-1 libx11</a></strong> security update<br>
+<tt>[2021. máj. 21.]</tt> <strong><a href="2021/dsa-4919">DSA-4919-1 lz4</a></strong> security update<br>
+<tt>[2021. máj. 18.]</tt> <strong><a href="2021/dsa-4918">DSA-4918-1 ruby-rack-cors</a></strong> security update<br>
+<tt>[2021. máj. 17.]</tt> <strong><a href="2021/dsa-4917">DSA-4917-1 chromium</a></strong> security update<br>
+<tt>[2021. máj. 17.]</tt> <strong><a href="2021/dsa-4916">DSA-4916-1 prosody</a></strong> security update<br>
+<tt>[2021. máj. 13.]</tt> <strong><a href="2021/dsa-4915">DSA-4915-1 postgresql-11</a></strong> security update<br>
+</p>
+<p>A Debian legfrissebb, biztonsági figyelmeztetései
+<a href="dsa">RDF-formátumban</a> is letölthetőek.
+<a href="dsa-long">Egy másik változatot</a> is kínálunk, amely a
+tanácsok első bekezdését is tartalmazza, így láthatod, miről is szólnak.</p>
+<p>A régebbi biztonsági figyelmeztetések is elérhetőek:
+ <a href="2021/">2021</a>, <a href="2020/">2020</a>, <a href="2019/">2019</a>, <a href="2018/">2018</a>, <a href="2017/">2017</a>, <a href="2016/">2016</a>, <a href="2015/">2015</a>, <a href="2014/">2014</a>, <a href="2013/">2013</a>, <a href="2012/">2012</a>, <a href="2011/">2011</a>, <a href="2010/">2010</a>, <a href="2009/">2009</a>, <a href="2008/">2008</a>, <a href="2007/">2007</a>, <a href="2006/">2006</a>, <a href="2005/">2005</a>, <a href="2004/">2004</a>, <a href="2003/">2003</a>, <a href="2002/">2002</a>, <a href="2001/">2001</a>, <a href="2000/">2000</a>, <a href="1999/">1999</a>, <a href="1998/">1998</a>, <a href="1997/">1997</a> és <a href="undated/">dátum nélküli</a> biztonsági figyelmeztetések, az utókor számára.</p>
+<p>A Debian-disztribúciókat nem érinti minden biztonsági probléma.
+A <a href="https://security-tracker.debian.org/">Debian Security Tracker</a> a
+Debian csomagok sebezhetőségéről gyűjti össze az információkat, és CVE-név
+vagy csomag szerint kereshető.</p>
+<h2><a name="contact" id="contact">Kapcsolatfelvétel</a></h2>
+<p>Kérjük, olvasd el a <a href="faq">Security Team FAQ-t</a>, mielőtt írsz
+nekünk, lehet, hogy megtalálod benne a választ a kérdésedre.</p>
+<p>A FAQ-ban megtalálod a csoport <a href="faq#contact">elérhetőségét</a> is.</p>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<p>Vissza a <a href="../">Debian-projekt kezdőoldalára</a>.</p>
+<hr>
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Az oldal az alábbi nyelveken is olvasható:
+<div id="langContainer">
+ <a href="index.bg.html" title="bolgár" hreflang="bg" lang="bg" rel="alternate">&#1041;&#1098;&#1083;&#1075;&#1072;&#1088;&#1089;&#1082;&#1080;&nbsp;(B&#601;lgarski)</a>
+ <a href="index.da.html" title="dán" hreflang="da" lang="da" rel="alternate">dansk</a>
+ <a href="index.de.html" title="német" hreflang="de" lang="de" rel="alternate">Deutsch</a>
+ <a href="index.el.html" title="görög" hreflang="el" lang="el" rel="alternate">&#917;&#955;&#955;&#951;&#957;&#953;&#954;&#940;&nbsp;(Ellinika)</a>
+ <a href="index.en.html" title="angol" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="index.es.html" title="spanyol" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="index.fr.html" title="francia" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="index.gl.html" title="galíciai" hreflang="gl" lang="gl" rel="alternate">Galego</a>
+ <a href="index.hr.html" title="horvát" hreflang="hr" lang="hr" rel="alternate">hrvatski</a>
+ <a href="index.it.html" title="olasz" hreflang="it" lang="it" rel="alternate">Italiano</a>
+ <a href="index.ko.html" title="koreai" hreflang="ko" lang="ko" rel="alternate">&#54620;&#44397;&#50612;&nbsp;(Korean)</a>
+ <a href="index.nl.html" title="holland" hreflang="nl" lang="nl" rel="alternate">Nederlands</a>
+ <a href="index.ja.html" title="japán" hreflang="ja" lang="ja" rel="alternate">&#26085;&#26412;&#35486;&nbsp;(Nihongo)</a>
+ <a href="index.nb.html" title="norvég" hreflang="nb" lang="nb" rel="alternate">norsk&nbsp;(bokm&aring;l)</a>
+ <a href="index.pl.html" title="lengyel" hreflang="pl" lang="pl" rel="alternate">polski</a>
+ <a href="index.pt.html" title="portugál" hreflang="pt" lang="pt" rel="alternate">Portugu&ecirc;s</a>
+ <a href="index.ro.html" title="román" hreflang="ro" lang="ro" rel="alternate">rom&acirc;n&#259;</a>
+ <a href="index.ru.html" title="orosz" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+ <a href="index.sk.html" title="szlovák" hreflang="sk" lang="sk" rel="alternate">slovenčina</a>
+ <a href="index.fi.html" title="finn" hreflang="fi" lang="fi" rel="alternate">suomi</a>
+ <a href="index.sv.html" title="svéd" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+ <a href="index.vi.html" title="vietnámi" hreflang="vi" lang="vi" rel="alternate">Ti&#7871;ng Vi&#7879;t</a>
+ <a href="index.uk.html" title="ukrán" hreflang="uk" lang="uk" rel="alternate">&#1091;&#1082;&#1088;&#1072;&#1111;&#1085;&#1089;&#1100;&#1082;&#1072;&nbsp;(ukrajins'ka)</a>
+ <a href="index.zh-cn.html" title="kínai (China)" hreflang="zh-CN" lang="zh-CN" rel="alternate">&#20013;&#25991;(&#31616;)</a>
+ <a href="index.zh-hk.html" title="kínai (Hong Kong)" hreflang="zh-HK" lang="zh-HK" rel="alternate">&#20013;&#25991;(HK)</a>
+ <a href="index.zh-tw.html" title="kínai (Taiwan)" hreflang="zh-TW" lang="zh-TW" rel="alternate">&#20013;&#25991;(&#32321;)</a>
+</div>
+Hogyan állítsd be <a href="../intro/cn">az alapértelmezett nyelvet?</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Kezdőoldal</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../intro/about">Ismertető</a>
+		  <ul>
+		  <li><a href="../social_contract">Társadalmi szerződés</a></li>
+		  <li><a href="../code_of_conduct">Etikai kódex</a></li>
+		  <li><a href="../intro/free">Szabad szoftver</a></li>
+		  <li><a href="../partners/">Partnerek</a></li>
+		  <li><a href="../donations">Adományok</a></li>
+          <li><a href="../legal">Jogi információk</a></li>
+          <li><a href="../legal/privacy">Adatvédelem</a></li>
+		  <li><a href="../contact">Kapcsolatfelvétel</a></li>
+		  </ul>
+		</li>
+        <li><a href="../intro/help">Segíts a Debiannak</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../distrib/">A Debian beszerzése</a>
+			  <ul>
+			  <li><a href="../distrib/netinst">Hálózati telepítés</a></li>
+			  <li><a href="../CD/">ISO CD/USB-fájlok</a></li>
+			  <li><a href="../CD/vendors/">CD-terjesztők</a></li>
+			  <li><a href="../distrib/pre-installed">Előre telepítve</a></li>
+			  </ul>
+			</li>
+            <li><a href="../blends/">Pure Blends</a></li>
+			<li><a href="../distrib/packages">Debian-csomagok</a></li>
+			<li><a href="../devel/">Fejlesztők oldala</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../News/">Hírek</a>
+		  <ul>
+		  <li><a href="../News/weekly/">Projekt hírek</a></li>
+		  <li><a href="../events/">Események</a></li>
+		  </ul>
+		</li>
+    <li><a href="../doc/">Dokumentáció</a>
+      <ul>
+      <li><a href="../releases/">Kiadási infók</a></li>
+      <li><a href="../releases/stable/installmanual">Telepítési útmutató</a></li>
+      <li><a href="../doc/books">Könyvek a Debianról</a></li>
+      <li><a href="https://wiki.debian.org/">Debian Wiki</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../support">Terméktámogatás</a>
+	  <ul>
+			  <li><a href="../international/">Debian International</a></li>
+			  <li><a href="../security/">Biztonsági információk</a></li>
+			  <li><a href="../Bugs/">Hibabejelentések</a></li>
+			  <li><a href="../MailingLists/">Levelezőlisták</a></li>
+			  <li><a href="https://lists.debian.org/">Levelezőlista-archívumok</a></li>
+			  <li><a href="../ports/">Portolás/Architektúrák</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../sitemap">Honlaptérkép</a></li>
+  <li><a href="https://search.debian.org/">Keresés</a></li>
+  <li><a href="https://bits.debian.org">A Debian Blog</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>A weboldalainkkal kapcsolatos problémákat a <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> címen jelentheted. Kizárólag angol nyelven! Egyéb ügyben lásd a <a href="../contact">Kapcsolatfelvétel oldalt</a>.</p>
+<p>
+Legutóbbi módosítás: 2021. jan. 1. péntek, 23:25:00 UTC
+&emsp;
+Utolsó fordítás: 2021. jún. 12. szombat, 03:55:04 UTC
+  <br>
+  Szerzői jog &copy; 1997-2021
+ <a href="https://www.spi-inc.org/">az SPI</a> és mások; Lásd a <a href="../license" rel="copyright">licencfeltételeket</a><br>
+  A Debian a Software in the Public Interest, Inc. bejegyzett<a href="../trademark">védjegye.</a>
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

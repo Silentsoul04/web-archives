@@ -1,0 +1,224 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="de">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Debian -- Richtlinien für Paket-Prioritäten im Bezug auf Sicherheitsüberprüfungen </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 16:11:33">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-de.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Debian Website-Suche" href="../../search.de.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Debian Home"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="de">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Suche">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Schnellnavigation überspringen</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">Sicherheits-Informationen</a>
+ &#x2F; <a href="./">Debian-Sicherheits-Audit-Projekt</a>
+ &#x2F;
+Richtlinien für Paket-Prioritäten im Bezug auf Sicherheitsüberprüfungen</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Richtlinien für Paket-Prioritäten im Bezug auf Sicherheitsüberprüfungen</h1>
+<p>Eine der ersten Hürden, die sich stellt, wenn man eine Sicherheitsüberprüfung
+der Debian-Distribution durchführen will, ist zu entscheiden, welches Paket für
+eine Untersuchung in Frage kommt.</p>
+<p>Im Optimalfall sollten alle Pakete überprüft werden. Aufgrund der immensen
+Größe des Archives ist es aber vonnöten, Prioritäten zu setzen.</p>
+<p>Einige wenige Rahmenbedingungen, die ein Paket für eine Überprüfung in Frage
+kommen lassen, sind:</p>
+<ol>
+<li>Pakete, die ausführbare Dateien unter Verwendung der setuid- oder
+setgid-Rechte installieren.</li>
+<li>Pakete, die einen netzwerkbasierten Service anbieten.</li>
+<li>Pakete, die CGI-/PHP-Skripte beinhalten, welche per Fernzugriff abrufbar
+sind.</li>
+<li>Pakete, die zeitgesteuerte Skripte (cronjobs) beinhalten, die oftmals
+als »root«-User ausgeführt werden.</li>
+</ol>
+<p>Vielgenutzten Paketen sollte generell eine höhere Priorität zugesprochen
+werden, da ein Problem in diesen eine größere Anzahl von Benutzer betreffen
+würde.</p>
+<p>Der <a href="https://popcon.debian.org/">Debian-Popularitäts-Wettbewerb</a>
+enthält einen aktuellen Überblick über die populärsten Pakete unter den
+Teilnehmern der freiwilligen Umfrage.</p>
+<p>Für detaillierte Informationen werfen Sie insbesondere einen Blick auf die <a
+href="https://popcon.debian.org/by_vote">nach Stimmen sortierte Paketliste</a>.
+Die nach Stimmen (<q>by vote</q>) sortierte Liste reiht die Paketen danach auf,
+wie häufig sie von den Teilnehmern der Umfrage verwendet werden.</p>
+<p>Ist ein Paket sicherheitskritisch, insbesondere wenn es die oben genannten
+Kriterien erfüllt, und wird dazu noch häufig verwendet, ist es <em>definitiv</em>
+ein guter Kandidat, um einer Sicherheitsüberprüfung unterzogen zu werden.</p>
+<h2><tt>setuid</tt>- und <tt>setgid</tt>-Dateien</h2>
+<p>Mit <tt>setuid</tt> und <tt>setgid</tt> versehene Dateien sind generell
+Kandidaten für eine Sicherheitsüberprüfung, da ein Kompromittieren dieser
+Rechte einem lokalen Benutzer Zugang zu Berechtigungen verschaffen könnte, die
+er im Normalfall nicht hätte.</p>
+<p>Um diese Suche zu vereinfachen, existiert eine Liste aller mit
+setuid- und setgid-Rechten versehenen Binärdateien in der derzeitigen stabilen
+Veröffentlichung.</p>
+<ul>
+<li><a href="https://lintian.debian.org/tags/setuid-binary.html">Lintian-Bericht
+aller Binärdateien mit setuid-Rechten in Debian</a></li>
+<li><a href="https://lintian.debian.org/tags/setgid-binary.html">Lintian-Bericht
+aller Binärdateien mit setgid-Rechten in Debian</a></li>
+</ul>
+<p>Wenn es darum geht, die entsprechenden Dateien auszuwählen, ist es wichtig zu
+beachten, dass einige mehr und andere weniger sicherheitskritisch sind. Mit
+setuid(root) versehene Binärdateien sollten anderen gegenüber (z.B. mit
+setgid(games) oder setgid(bugs) versehenen) bevorzugt werden.</p>
+<h2>Netzwerk-Server</h2>
+<p>Netzwerk-Servern gilt es ebenfalls viel Beachtung zu schenken, wenn es darum
+geht, eine Sicherheitsüberprüfung vorzunehmen. Eine Sicherheitslücke kann hier
+dazu führen, dass Systeme durch Fernzugriff kompromittiert werden können.</p>
+<p>Kompromittierungen aufgrund von Fernzugriffen sind in der Regel
+verhängnisvoller als lokale.</p>
+<h2>Online-Skripte</h2>
+<p>Online-Skripte &ndash; insbesondere CGI-Skripte &ndash; bewegen sich in derselben
+Klasse wie Netzwerk-Server. Selbst wenn der eingesetzte Webserver keine
+Sicherheitslücken aufweist, ist sicherzustellen, dass auch die von ihm
+bereitgestellten Skripte sicher sind.</p>
+<p>Ein Fehler in einem Skript, das über Netz abrufbar ist, ist
+mindestens genauso gefährlich, wie ein Server der auf Verbindungen wartet &ndash;
+beide können zur Kompromittierung eines Systems führen.</p>
+<h2>Zeitgesteuerte Prozesse und System-Service</h2>
+<p>Auch wenn es wenige dieser Art gibt, ist es dennoch wichtig, einen Blick auf
+die in Paketen enthaltenen automatisierten Skripte und dergleichen zu
+werfen.</p>
+<p>Viele unterstützende Prozesse werden per Voreinstellung als root ausgeführt,
+wie zum Beispiel die Rotation von Logfiles.</p>
+<p>Erfolgreiches Ausnutzen einer Symlink-Attacke kann zu einer lokalen
+Kompromittierung führen.</p>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<p>Zurück zur <a href="../../">Homepage des Debian-Projekts</a>.</p>
+<hr>
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Diese Seite gibt es auch in den folgenden Sprachen:
+<div id="langContainer">
+ <a href="packages.en.html" title="Englisch" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="packages.es.html" title="Spanisch" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="packages.fr.html" title="Französisch" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="packages.nl.html" title="Niederländisch" hreflang="nl" lang="nl" rel="alternate">Nederlands</a>
+ <a href="packages.ja.html" title="Japanisch" hreflang="ja" lang="ja" rel="alternate">&#26085;&#26412;&#35486;&nbsp;(Nihongo)</a>
+ <a href="packages.pt.html" title="Portugiesisch" hreflang="pt" lang="pt" rel="alternate">Portugu&ecirc;s</a>
+ <a href="packages.ru.html" title="Russisch" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+ <a href="packages.sv.html" title="Schwedisch" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+</div>
+Wie man <a href="../../intro/cn">die Standardsprache einstellt</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Home</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">Über&nbsp;Debian</a>
+		  <ul>
+		  <li><a href="../../social_contract">Gesellschaftsvertrag</a></li>
+		  <li><a href="../../code_of_conduct">Verhaltenskodex</a></li>
+		  <li><a href="../../intro/free">Freie Software</a></li>
+		  <li><a href="../../partners/">Partner</a></li>
+		  <li><a href="../../donations">Spenden</a></li>
+          <li><a href="../../legal">Rechtliche Informationen</a></li>
+          <li><a href="../../legal/privacy">Datenschutz</a></li>
+		  <li><a href="../../contact">Kontakte</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Debian unterstützen</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Debian bekommen</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">Netzwerk-Installation</a></li>
+			  <li><a href="../../CD/">CD/USB-ISO-Images</a></li>
+			  <li><a href="../../CD/vendors/">CD-Distributoren</a></li>
+			  <li><a href="../../distrib/pre-installed">Vorinstalliert</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Pure Blends</a></li>
+			<li><a href="../../distrib/packages">Debian-Softwarepakete</a></li>
+			<li><a href="../../devel/">Entwickler-Ecke</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">Nachrichten</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">Projekt-Nachrichten</a></li>
+		  <li><a href="../../events/">Veranstaltungen</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">Dokumentation</a>
+      <ul>
+      <li><a href="../../releases/">Release-Informationen</a></li>
+      <li><a href="../../releases/stable/installmanual">Installationsanleitung</a></li>
+      <li><a href="../../doc/books">Debian-Bücher</a></li>
+      <li><a href="https://wiki.debian.org/">Debian-Wiki</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">Unterstützung</a>
+	  <ul>
+			  <li><a href="../../international/">Debian International</a></li>
+			  <li><a href="../../security/">Sicherheitsinformationen</a></li>
+			  <li><a href="../../Bugs/">Fehlerberichte</a></li>
+			  <li><a href="../../MailingLists/">Mailinglisten</a></li>
+			  <li><a href="https://lists.debian.org/">Archiv der Mailinglisten</a></li>
+			  <li><a href="../../ports/">Portierungen/Architekturen</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">Sitemap</a></li>
+  <li><a href="https://search.debian.org/">Suche</a></li>
+  <li><a href="https://bits.debian.org">Der Debian-Blog</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>Um Probleme mit der Website zu melden, schreiben Sie bitte eine E-Mail auf Englisch an unsere öffentlich archivierte Mailingliste <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a>. Rechtschreibfehler in der deutschen Übersetzung senden Sie bitte an <a href="mailto:debian-l10n-german@lists.debian.org">debian-l10n-german@lists.debian.org</a>. Weitere Kontaktinformationen finden Sie auf Debians <a href="../../contact">Kontaktseite</a>. Der Quelltext der Website ist <a href="https://salsa.debian.org/webmaster-team/webwml">verfügbar</a>.</p>
+<p>
+Zuletzt geändert: Donnerstag den 6. Aug 2020 um 01:25:21 Uhr UTC
+&emsp;
+Zuletzt gebaut: Freitag den 11. Jun 2021 um 16:11:34 Uhr UTC
+  <br>
+  Copyright &copy; 1997-2020
+ <a href="https://www.spi-inc.org/">SPI</a> und andere; weiteres in den <a href="../../license" rel="copyright">Lizenzbestimmungen</a>.<br>
+  Debian ist ein eingetragenes <a href="../../trademark">Warenzeichen</a> der Software in the Public Interest, Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

@@ -1,0 +1,455 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="it">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Vulnerabilità UEFI SecureBoot con GRUB2 - 2021 </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 16:34:30">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-it.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Cerca nel sito web Debian" href="../../search.it.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Pagina principale di Debian"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="it">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Cerca">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Salta la barra di navigazione</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="../">Informazioni sulla sicurezza</a>
+ &#x2F;
+Vulnerabilità UEFI SecureBoot con GRUB2 - 2021</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Vulnerabilità UEFI SecureBoot con GRUB2 - 2021</h1>
+<p>
+Dopo l'annuncio fatto a Luglio 2020 del gruppo di bug <a
+href="../../security/2020-GRUB-UEFI-SecureBoot"><q>BootHole</q></a>
+in GRUB2, i ricercatori sulla sicurezza e gli sviluppatori di Debian e
+di altre parti hanno continuato a cercare altri problemi che potrebbero
+permettere di aggirare il Secure Boot di UEFI. Consultare il <a
+href="../../security/2021/dsa-4867">bollettino di sicurezza Debian
+4867-1</a> per tutti i dettagli. Lo scopo di questo documento è spiegare
+le conseguenze di queste vulnerabilità della sicurezza e i passi fatti
+per affrontarle.
+</p>
+<ul>
+  <li><b><a href="#what_is_SB">Premessa: Cos'è UEFI Secure Boot?</a></b></li>
+  <li><b><a href="#grub_bugs">Trovati dei bug in GRUB2</a></b></li>
+  <li><b><a href="#revocations">È necessario revocare le chiavi per riparare la catena di Secure Boot</a></b></li>
+  <li><b><a href="#revocation_problem">Quali sono gli effetti della revoca della chiave?</a></b></li>
+  <li><b><a href="#package_updates">Pacchetti e chiavi aggiornati</a></b>
+  <ul>
+    <li><b><a href="#grub_updates">1. GRUB2</a></b></li>
+    <li><b><a href="#linux_updates">2. Linux</a></b></li>
+    <li><b><a href="#shim_updates">3. Shim e SBAT</a></b></li>
+    <li><b><a href="#fwupdate_updates">4. Fwupdate</a></b></li>
+    <li><b><a href="#fwupd_updates">5. Fwupd</a></b></li>
+    <li><b><a href="#key_updates">6. Chiavi</a></b></li>
+  </ul></li>
+  <li><b><a href="#buster_point_release">Rilascio minore Debian 10.10
+      (<q>buster</q>), aggiornamento dei supporti per l'installazione
+	  e live</a></b></li>
+  <li><b><a href="#more_info">Ulteriori informazioni</a></b></li>
+</ul>
+<h1><a name="what_is_SB">Premessa: Cos'è UEFI Secure Boot?</a></h1>
+<p>
+Lo UEFI Secure Boot (SB) è un meccanismo di verifica che assicura che il
+codice eseguito da un computer con firmware UEFI sia attendibile. È
+progettato per proteggere un sistema dal caricamento e dall'esecuzione
+di codice malevolo nelle prime fasi del processo di avvio, prima che sia
+caricato il sistema operativo.
+</p>
+<p>
+SB funziona utilizzando somme di controllo e firme crittografiche. Ogni
+programma che viene caricato dal firmware contiene una firma e una
+somma di controllo, prima che ne sia concessa l'esecuzione il firmware
+controlla che il programma sia attendibile validandone la somma di
+controllo e la firma. Quando su un sistema è attivo il SB è impedito
+qualunque tentativo di eseguire un programma non attendibile. Ciò
+impedisce di eseguire codice inaspettato / non autorizzato nell'ambiente
+UEFI.
+</p>
+<p>
+La gran parte dell'hardware x86 viene precaricato dal costruttore con le
+chiavi di Microsoft. Ciò comporta che il firmware di tali sistemi riterr&agrave;
+attendibile i binari firmati da Microsoft. I sistemi più recenti sono
+consegnati con il SB attivato, con le impostazioni predefinite non sono
+in grado di eseguire codice non firmato tuttavia è possibile cambiare la
+configurazione del firmware e disattivare il SB oppure registrare delle
+chiavi di firma aggiuntive.
+</p>
+<p>
+Debian, come molti altri sistemi operativi basati su Linux, utilizza un
+programma chiamato shim per ampliare la fiducia del firmware agli altri
+programmi che devono essere sicuri nella prima fase dell'avvio: il
+bootloader GRUB2, il kernel Linux e gli strumenti per l'aggiornamento
+del firmware (fwupd e fwupdate).
+</p>
+<h1><a name="grub_bugs">Trovati dei bug in GRUB2</a></h1>
+<p>
+È stato trovato un bug nel modulo <q>acpi</q> di GRUB2. Questo modulo
+fornisce un driver/interfaccia con ACPI (<q>Advanced Configuration
+Power Interface</q>), un componente molto comune nell'hardware dei
+moderni computer. Sfortunatamente il modulo ACPI attualmente consente
+a un utente privilegiato di caricare delle tabelle ACPI manipolate in
+Secure Boot e fare delle modifiche arbitrarie allo stato del sistema;
+questo permette facilmente di spezzare la catena di Secure Boot. Questa
+falla della sicurezza è stata risolta.
+</p>
+<p>
+Come per BootHole, anziché semplicemente correggere il bug, gli sviluppatori
+sono stati spinti a fare un'accurata revisione del codice sorgente di GRUB2.
+Sarebbe stato irresponsabile correggere una falla senza cercarne altre! Sono
+stati trovati alcuni posti in cui, con un input inaspettato, le allocazioni
+di memoria interna potevano andare in overflow, in qualche altro posto la
+memoria avrebbe potuto essere utilizzata dopo che era stata liberata. Tutte le
+correzioni sono state condivise e testate dalla comunità.
+</p>
+<p>
+Nuovamente, consultare il <a href="../../security/2021/dsa-4867">bollettino
+di sicurezza Debian 4867-1</a> per l'elenco completo dei problemi trovati.
+</p>
+<h1><a name="revocations">È necessario revocare le chiavi per riparare
+la catena di Secure Boot</a></h1>
+<p>
+Debian e gli altri produttori di sistemi operativi ovviamente <a
+href="#package_updates">rilasceranno le versioni corrette</a> di GRUB2 e
+Linux. Tuttavia ciò non è una soluzione completa a tutti i problemi visti.
+Dei malintenzionati potrebbero essere ancora in grado di usare le vecchie
+e vulnerabili versioni per aggirare il Secure Boot.
+</p>
+<p>
+Per impedire ciò, il prossimo passo sarà per Microsoft di bloccare i binari
+non sicuri in modo da impedirne l'esecuzione con SB. Questo si ottiene
+utilizzando l'elenco <b>DBX</b>, una funzionalità prevista nel modello di
+UEFI Secure Boot. A tutte le distribuzioni che contengono una copia di shim
+firmata con le Microsoft è richiesto di fornire i dettagli dei binari o
+delle chiavi coinvolte per facilitare questa procedura. Nella <a
+href="https://uefi.org/revocationlistfile">lista di revoca UEFI</a> verranno
+inserite queste informazioni. In un momento futuro, <b>non ancora stabilito</b>,
+i sistemi inizieranno a utilizzare la lista aggiornata e rifiuteranno di
+eseguire i binari vulnerabili con Secure Boot.
+</p>
+<p>
+Il momento <i>esatto</i> in cui questo cambiamento verrà distribuito non è
+ancora chiaro; a un certo punto i produttori di BIOS/UEFI includeranno la
+nuova lista di revoca nelle nuove realizzazioni di firmware per il nuovo
+hardware. Microsoft <b>potrebbe</b> anche rilasciare aggiornamenti per i
+sistemi esistenti tramite Windows Update. Alcune distribuzioni Linux
+potrebbero rilasciare aggiornamenti tramite il proprio processo per gli
+aggiornamenti di sicurezza. Debian <b>per adesso</b> non lo fa, ma lo stiamo
+valutando per il futuro.
+</p>
+<h1><a name="revocation_problem">Quali sono gli effetti della revoca della chiave?</a></h1>
+<p>
+Molti produttori sono cauti sull'applicazione automatica degli
+aggiornamenti che revocano le chiavi usate nel Secure Boot. Le installazioni
+esistenti con SB attivo potrebbero immediatamente e assolutamente rifiutare
+l'avvio a meno che l'utente sia stato attento e abbia installato anche tutti
+gli aggiornamenti ai programmi. I sistemi con doppio avvio Windows/Linux
+potrebbero improvvisamente nono avviare più Linux. I vecchi supporti per
+l'installazione o di sistemi live naturalmente non riusciranno a partire,
+potenzialmente facendo diventare più difficile il ripristino di un sistema.
+</p>
+<p>
+Ci sono due modi ovvi per rimediare a un sistema che non si avvia:
+</p>
+<ul>
+  <li>Riavviare in modalità <q>ripristino</q> (rescue) tramite un <a
+    href="#buster_point_release">supporto per l'installazione recente</a>
+	e applicare gli aggiornamenti da quello; oppure</li>
+  <li>Disattivare temporaneamente il Secure Boot per ottenere di nuovo
+    accesso al sistema, applicare gli aggiornamenti e riattivarlo.</li>
+</ul>
+<p>
+Entrambe le soluzioni sembrano semplici ma ciascuna potrebbe richiedere
+molto tempo agli utenti che hanno più sistemi. Inoltre prestare attenzione
+al fatto che per attivare e disattivare il Secure Boot è necessario
+l'accesso diretto alla macchina, normalmente <b>non</b> è possibile
+cambiare questa configurazione al di fuori del firmware del computer.
+Proprio per questo motivo le macchine server remote richiedono una
+particolare attenzione.
+</p>
+<p>
+Per queste ragioni si raccomanda caldamente a <b>tutti</b> gli utenti
+Debian di prestare particolare attenzione a installare tutti gli <a
+href="#package_updates">aggiornamenti raccomandati</a> per i propri
+sistemi il prima possibile per ridurre la possibilità di avere problemi
+in futuro.
+</p>
+<h1><a name="package_updates">Pacchetti e chiavi aggiornati</a></h1>
+<p>
+<b>Nota:</b> i sistemi con Debian 9 (<q>stretch</q>) oppure una versione
+più vecchia <b>non</b> riceveranno obbligatoriamente un aggiornamento,
+perché Debian 10 (<q>buster</q>) è stato il primo rilascio di Debian a
+includere il supporto per Secure Boot di UEFI.
+</p>
+<p>
+Sono cinque i pacchetti sorgente in Debian che sono stati aggiornati per
+Secure Boot di UEFI con le modifiche descritte di seguito:
+</p>
+<h2><a name="grub_updates">1. GRUB2</a></h2>
+<p>
+Le versioni aggiornate dei pacchetti Debian GRUB2 sono adesso disponibili
+tramite l'archivio debian-security per il rilascio stabile Debian 10
+(<q>buster</q>). Le versioni corrette saranno nel normale archivio delle
+versioni di sviluppo di Debian (unstable e testing) molto presto.
+</p>
+<h2><a name="linux_updates">2. Linux</a></h2>
+<p>
+Le versioni aggiornate dei pacchetti Debian linux sono adesso disponibili
+tramite buster-proposed-updates per il rilascio stabile Debian 10
+(<q>buster</q>) e saranno inserite nel prossimo rilascio minore 10.10.
+I nuovi pacchetti sono pure nell'archivio Debian delle versioni di
+sviluppo (unstable e testing). Ci aspettiamo che presto i pacchetti con le
+correzioni siano caricati in buster-backports.
+</p>
+<h2><a name="shim_updates">3. Shim e SBAT</a></h2>
+<p>
+I bug della serie <q>BootHole</q> sono stati i primi per i quali è stata
+necessaria una revoca delle chiavi dell'ecosistema di UEFI Secure Boot su
+larga scala. Questa attività ha dimostrato una pecca di SB nella revoca:
+visto che ci sono molte distribuzioni Linux e molti binari per UEFI, la
+dimensione dell'elenco delle revoche cresce rapidamente. Parecchi computer
+hanno poco spazio per memorizzare le informazioni sulla revoca delle
+chiavi e questo spazio può riempirsi velocemente e danneggiare il sistema.
+</p>
+<p>
+Per combattere questo problema, gli sviluppatori di shim hanno pensato a
+un modo efficiente per bloccare in futuro i binari UEFI insicuri: è stato
+chiamato <b>SBAT</b> (<q>Secure Boot Advanced Targeting</q>). Funziona
+tracciando i numeri dei programmi firmati, anziché revocare individualmente
+le firme a ogni problema rivelato, si usano dei contatori per indentificare
+le vecchie versioni dei programmi che non sono più ritenute sicure. La
+revoca di una vecchia serie di binari di GRUB2 (per esempio) adesso diventa
+semplicemente l'aggiornamento di una variabile UEFI che contiene il numero
+di generazione di GRUB2; qualsiasi versione di GRUB2 più vecchia di quel
+numero non sarà più ritenuta sicura. Per maggiori informazioni su SBAT,
+consultare la <a
+href="https://github.com/rhboot/shim/blob/main/SBAT.md">documentazione
+di shim SBAT</a>.
+</p>
+<p>
+<b>Sfortunatamente</b>, lo sviluppo di shim SBAT non è ancora pronto. Gli
+sviluppatori confidavano di aver già rilasciato la nuova versione di shim
+con questa nuova funzionalità ma sono stati riscontrati dei problemi
+inaspettati e lo sviluppo è in corso. Nella comunità Linux ci si aspetta di
+avere questa nuova versione molto presto. Fino a quando non sarà pronta, si
+continuerà a utilizzare i binari firmati di shim esistenti.
+</p>
+<p>
+Le versioni aggiornate dei pacchetti Debian shim saranno disponibili non
+appena pronte, il loro rilascio sarà annunciato qui e da altre parti.
+Saranno inserite nel prossimo rilascio minore 10.10 e i nuovi pacchetti
+saranno anche nell'archivio Debian delle versioni di sviluppo (unstable
+e testing).
+</p>
+<h2><a name="fwupdate_updates">4. Fwupdate</a></h2>
+<p>
+Le versioni aggiornate dei pacchetti Debian fwupdate sono adesso disponibili
+tramite buster-proposed-updates per il rilascio stabile Debian 10
+(<q>buster</q>) e saranno inserite nel prossimo rilascio minore 10.10.
+Tempo fa il pacchetto fwupdate è stato rimosso da unstable e testing in
+favore di fwupd.
+</p>
+<h2><a name="fwupd_updates">5. Fwupd</a></h2>
+<p>
+Le versioni aggiornate dei pacchetti Debian fwupd sono adesso disponibili
+tramite buster-proposed-updates per il rilascio stabile Debian 10
+(<q>buster</q>) e saranno inserite nel prossimo rilascio minore 10.10.
+I nuovi pacchetti sono pure nell'archivio Debian delle versioni di sviluppo
+(unstable e testing).
+</p>
+<h2><a name="key_updates">6. Chiavi</a></h2>
+<p>
+Debian ha generato delle nuove chiavi di firma e certificati per i propri
+pacchetti legati a Secure Boot. In passato era stato usato un solo
+certificato per tutti i pacchetti:
+</p>
+<ul>
+  <li>Debian Secure Boot Signer 2020
+  <ul>
+    <li>(fingerprint <code>3a91a54f9f46a720fe5bbd2390538ba557da0c2ed5286f5351fe04fff254ec31)</code></li>
+  </ul></li>
+</ul>
+<p>
+Questa volta sono state usate chiavi e certificati differenti per ciascuno
+dei cinque pacchetti sorgente coinvolti in modo da avere in futuro più
+flessibilità:
+</p>
+<ul>
+  <li>Debian Secure Boot Signer 2021 - fwupd
+  <ul>
+    <li>(fingerprint <code>309cf4b37d11af9dbf988b17dfa856443118a41395d094fa7acfe37bcd690e33</code>)</li>
+  </ul></li>
+  <li>Debian Secure Boot Signer 2021 - fwupdate
+  <ul>
+    <li>(fingerprint <code>e3bd875aaac396020a1eb2a7e6e185dd4868fdf7e5d69b974215bd24cab04b5d</code>)</li>
+  </ul></li>
+  <li>Debian Secure Boot Signer 2021 - grub2
+  <ul>
+    <li>(fingerprint <code>0ec31f19134e46a4ef928bd5f0c60ee52f6f817011b5880cb6c8ac953c23510c</code>)</li>
+  </ul></li>
+  <li>Debian Secure Boot Signer 2021 - linux
+  <ul>
+    <li>(fingerprint <code>88ce3137175e3840b74356a8c3cae4bdd4af1b557a7367f6704ed8c2bd1fbf1d</code>)</li>
+  </ul></li>
+  <li>Debian Secure Boot Signer 2021 - shim
+  <ul>
+    <li>(fingerprint <code>40eced276ab0a64fc369db1900bd15536a1fb7d6cc0969a0ea7c7594bb0b85e2</code>)</li>
+  </ul></li>
+</ul>
+<h1><a name="buster_point_release">Rilascio minore Debian 10.10 (<q>buster</q>),
+aggiornamento dei supporti per l'installazione e live</a></h1>
+<p>
+Tutte le correzioni descritte sono destinate a essere inserite nel rilascio
+minore Debian 10.10 (<q>buster</q>), previsto a breve. Di conseguenza 10.10
+diventa la scelta obbligata per i supporti di installazione e di sistemi
+live. In futuro, appena pubblicate le revoche, le immagini precedenti
+potrebbero non funzionare con Secure Boot.
+</p>
+<h1><a name="more_info">Ulteriori informazioni</a></h1>
+<p>
+Molte altre informazioni sulla configurazione di UEFI Secure Boot in
+Debian sono nel Debian wiki, consultare <a
+href="https://wiki.debian.org/SecureBoot">https://wiki.debian.org/SecureBoot</a>.</p>
+<p>
+Altre risorse su questo argomento:
+</p>
+<ul>
+  <li><a href="https://access.redhat.com/security/vulnerabilities/RHSB-2021-003">Articolo
+    di Red Hat sulla vulnerabilità</a></li>
+  <li><a href="https://www.suse.com/support/kb/doc/?id=000019892">Avviso
+    di SUSE</a></li>
+  <li><a href="https://wiki.ubuntu.com/SecurityTeam/KnowledgeBase/GRUB2SecureBootBypass2021">Articolo
+    su Ubuntu security</a></li>
+</ul>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<p>Ritorna alla pagina principale del <a href="../../">Progetto Debian</a>.</p>
+<hr>
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Questa pagina è disponibile anche nelle lingue seguenti:
+<div id="langContainer">
+ <a href="index.en.html" title="Inglese" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="index.es.html" title="Spagnolo" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="index.fr.html" title="Francese" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="index.nl.html" title="Olandese" hreflang="nl" lang="nl" rel="alternate">Nederlands</a>
+ <a href="index.pt.html" title="Portoghese" hreflang="pt" lang="pt" rel="alternate">Portugu&ecirc;s</a>
+ <a href="index.ru.html" title="Russo" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+</div>
+Come configurare <a href="../../intro/cn">la lingua predefinita per i documenti</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Pagina principale</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">Informazioni</a>
+		  <ul>
+		  <li><a href="../../social_contract">Il nostro contratto sociale</a></li>
+		  <li><a href="../../code_of_conduct">Codice di condotta</a></li>
+		  <li><a href="../../intro/free">Software Libero</a></li>
+		  <li><a href="../../partners/">Partner</a></li>
+		  <li><a href="../../donations">Donazioni</a></li>
+          <li><a href="../../legal">Informazioni legali</a></li>
+          <li><a href="../../legal/privacy">Privacy dei dati</a></li>
+		  <li><a href="../../contact">Contatti</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Aiutare Debian</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Ottenere Debian</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">Installazione via rete</a></li>
+			  <li><a href="../../CD/">Immagini ISO per CD/USB</a></li>
+			  <li><a href="../../CD/vendors/">Rivenditori di CD</a></li>
+			  <li><a href="../../distrib/pre-installed">Preinstallato</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Pure Blends</a></li>
+			<li><a href="../../distrib/packages">Pacchetti Debian</a></li>
+			<li><a href="../../devel/">Angolo degli sviluppatori</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">Notizie</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">Notizie dal progetto</a></li>
+		  <li><a href="../../events/">Eventi</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">Documentazione</a>
+      <ul>
+      <li><a href="../../releases/">Informazioni sulle Versioni</a></li>
+      <li><a href="../../releases/stable/installmanual">Manuale d'installazione</a></li>
+      <li><a href="../../doc/books">Libri su Debian</a></li>
+      <li><a href="https://wiki.debian.org/">Debian Wiki</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">Supporto</a>
+	  <ul>
+			  <li><a href="../../international/">Debian diventa Internazionale</a></li>
+			  <li><a href="../../security/">Informazioni sulla sicurezza</a></li>
+			  <li><a href="../../Bugs/">Segnalazioni di bug</a></li>
+			  <li><a href="../../MailingLists/">Liste di messaggi</a></li>
+			  <li><a href="https://lists.debian.org/">Archivi delle liste di messaggi</a></li>
+			  <li><a href="../../ports/">Port/Architetture</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">Mappa del sito</a></li>
+  <li><a href="https://search.debian.org/">Cerca</a></li>
+  <li><a href="https://bits.debian.org">Il Blog Debian</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>Per segnalare un problema con il sito web si prega di inviare una e-mail <strong>in inglese</strong> a <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a>. Segnalazioni in italiano possono essere inviate alla <a href="mailto:debian-l10n-italian@lists.debian.org">lista di messaggi dei traduttori Debian italiani</a>. Vedere la <a href="../../contact">pagina dei contatti</a> Debian per altre informazioni su come contattarci. Il codice sorgente del sito web è <a href="https://salsa.debian.org/webmaster-team/webwml">a disposizione</a>.</p>
+<p>
+Ultima modifica: gio, 8 apr 2021 01:48:01 UTC
+&emsp;
+Ultima compilazione: ven, 11 giu 2021 16:34:30 UTC
+  <br>
+  Copyright &copy; 1997-2021
+ <a href="https://www.spi-inc.org/">SPI</a> e altri; Vedere <a href="../../license" rel="copyright">i termini della licenza</a><br>
+  Debian è un <a href="../../trademark">marchio registrato</a> da Software in the Public Interest, Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

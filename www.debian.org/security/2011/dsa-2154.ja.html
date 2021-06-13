@@ -1,0 +1,219 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- セキュリティ情報 -- DSA-2154-1 exim4 </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 17:09:36">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-ja.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Debian ウェブサイト検索" href="../../search.ja.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Debian ホーム"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="ja">
+        <input name="P" value="" size="14">
+        <input type="submit" value="検索">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">クイックナビをスキップ</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">セキュリティ情報</a>
+ &#x2F; <a href="./">2011</a>
+ &#x2F;
+セキュリティ情報 -- DSA-2154-1 exim4</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Debian セキュリティ勧告</h1>
+<h2>DSA-2154-1 exim4 -- 特権の昇格</h2>
+<dl>
+<dt>報告日時:</dt>
+	<dd>2011-01-30</dd>
+<dt>影響を受けるパッケージ:</dt>
+	<dd>
+<a href="https://packages.debian.org/src:exim4">exim4</a>
+</dd>
+<dt>危険性:</dt>
+	<dd class="warning">あり</dd>
+<dt>参考セキュリティデータベース:</dt>
+	<dd>Mitre の CVE 辞書: <a href="https://security-tracker.debian.org/tracker/CVE-2010-4345">CVE-2010-4345</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2011-0017">CVE-2011-0017</a>.<br></dd>
+<dt>詳細:</dt>
+	<dd>
+<p>exim4 に設計ミス (<a href="https://security-tracker.debian.org/tracker/CVE-2010-4345">CVE-2010-4345</a>)
+が発見されました。-C オプションを用
+いた代替設定ファイルの指定または -D オプションを用いたマクロ上書きの
+設定により、ローカル Debian-exim ユーザから管理者権限の取得が可能です。
+残念ながら、これらの欠陥の修正には exim4 の挙動の変更が必要です。-C
+や -D オプションを使用している場合、またはシステムフィルタ機能を用い
+ている場合は、変更を吟味して設定を適切に調整してください。Debian の標
+準設定には今回の更新の影響はありません。</p>
+<p>
+変更の詳細の一覧は、パッケージの NEWS.Debian に記載されています。関係
+ある部分については下記に記載されています。</p>
+<p>これに加え、setuid/setgid システムコール失敗時のエラー処理抜けのため、
+Debian-exim ユーザがログデータに任意のファイルを root に追加されるこ
+とができる欠陥 (<a href="https://security-tracker.debian.org/tracker/CVE-2011-0017">CVE-2011-0017</a>)
+も修正されました。</p>
+<p>安定版 (stable) ディストリビューション (lenny) では、これらの問題はバ
+ージョン 4.69-9+lenny3 で修正されています。</p>
+<p>テスト版 (squeeze) および不安定版 (unstable) ディストリビューション
+では、この問題はバージョン 4.72-4 で修正されています。</p>
+<p>以下は exim4-daemon-light と exim4-daemon-heavy パッケージからの
+NEWS.Debian ファイルの抜粋です。</p>
+<blockquote><pre>
+Exim バージョン 4.72 及びそれ以下には、CVE-2010-4345 の欠陥があります。
+これは特権の昇格の問題で、-C オプションを用いた代替設定ファイルの指定
+によりローカルユーザが root 権限を取得可能です。マクロ上書き機能 (-D)
+もこの目的に悪用可能です。
+
+このセキュリティ欠陥に対する対処のため、上流では仕様の複数の変更を行
+っています。このパッケージにはその変更が反映されています。
+
+exim が -C または -D オプション付きで起動された場合、デーモンは再実行
+の際に root 権限の再取得を行いません。この処理は通常ローカル配送の場
+合必要になってきます。このため、exim デーモンを -D や -C オプションで
+実行することは、一般的にはもうできなくなっています。
+
+但し、この版の exim は TRUSTED_CONFIG_LIST=/etc/exim4/trusted_configs
+という設定でビルドされています。TRUSTED_CONFIG_LIST は信用可能な設定
+ファイルのリストを定義します。もし設定ファイルが root 所有で、リスト
+内にあるパス名と一致する場合、exim が root 権限を手放すことなしに
+exim のビルド時のユーザからの当該設定ファイルの起動が許されます。
+
+既存のメールスキャナが動作するよう、ホットフィックスとして
+WHITELIST_D_MACROS=OUTGOING の設定も加えています。つまり、ローカル配
+送を可能とし、かつ -DOUTGOING つきで exim を起動することが可能になっ
+ています。
+
+以前から -D スイッチを使っていた場合、設定を独立の設定ファイルを用い
+るよう変更する必要があります。.include 機能を使えば簡単になるでしょう。
+
+システムフィルタは、標準では root ではなく exim_user 権限で実行され
+るようになりました。システムフィルタとして実行する際の設定が root 権
+限を必要としている場合、exim の main 設定オプションに
+system_filter_user を設定する必要があるでしょう。
+</pre>
+</blockquote>
+</dd>
+</dl>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+このページは以下の言語でもご覧になれます。
+<div id="langContainer">
+ <a href="dsa-2154.da.html" title="デンマーク語" hreflang="da" lang="da" rel="alternate">dansk</a>
+ <a href="dsa-2154.en.html" title="英語" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="dsa-2154.fr.html" title="フランス語" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+</div>
+<a href="../../intro/cn">デフォルトの言語を設定するには</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">ホーム</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">Debian について</a>
+		  <ul>
+		  <li><a href="../../social_contract">私たちの社会契約</a></li>
+		  <li><a href="../../code_of_conduct">利用上の注意</a></li>
+		  <li><a href="../../intro/free">フリーソフトウェア</a></li>
+		  <li><a href="../../partners/">パートナー</a></li>
+		  <li><a href="../../donations">寄付</a></li>
+          <li><a href="../../legal">Legal Info</a></li>
+          <li><a href="../../legal/privacy">Data Privacy</a></li>
+		  <li><a href="../../contact">私たちと連絡を取る</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Debian を支援する</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Debian を入手する</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">ネットワークインストール</a></li>
+			  <li><a href="../../CD/">CD/USB ISO イメージ</a></li>
+			  <li><a href="../../CD/vendors/">CD ベンダ</a></li>
+			  <li><a href="../../distrib/pre-installed">プリインストール</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Pure Blends</a></li>
+			<li><a href="../../distrib/packages">Debian パッケージ</a></li>
+			<li><a href="../../devel/">開発者のコーナー</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">ニュース</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">プロジェクトニュース</a></li>
+		  <li><a href="../../events/">イベント</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">文書</a>
+      <ul>
+      <li><a href="../../releases/">リリース情報</a></li>
+      <li><a href="../../releases/stable/installmanual">インストール手順</a></li>
+      <li><a href="../../doc/books">Debian に関する書籍</a></li>
+      <li><a href="https://wiki.debian.org/">Debian Wiki</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">サポート</a>
+	  <ul>
+			  <li><a href="../../international/">Debian の国際化</a></li>
+			  <li><a href="../../security/">セキュリティ情報</a></li>
+			  <li><a href="../../Bugs/">バグ報告</a></li>
+			  <li><a href="../../MailingLists/">メーリングリスト</a></li>
+			  <li><a href="https://lists.debian.org/">»リストアーカイブ</a></li>
+			  <li><a href="../../ports/">移植/アーキテクチャ</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">サイトマップ</a></li>
+  <li><a href="https://search.debian.org/">検索</a></li>
+  <li><a href="https://bits.debian.org">Debian ブログ</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>To report a problem with the web site, please e-mail our publicly archived mailing list <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> in English. For other contact information, see the Debian <a href="../../contact">contact page</a>. Web site source code is <a href="https://salsa.debian.org/webmaster-team/webwml">available</a>.</p>
+<p>
+最終更新: 2018 年 6 月 1 日 (金) 18:42:17 UTC
+&emsp;
+Last Built: 2021 年 6 月 11 日 (金) 17:09:36 UTC
+  <br>
+  Copyright &copy; 2011-2021
+ <a href="https://www.spi-inc.org/">SPI</a> と多くの人々; <a href="../../license" rel="copyright">ライセンス条項</a>をご覧ください。<br>
+  Debian は Software in the Public Interest, Inc の<a href="../../trademark">登録商標</a>です。
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

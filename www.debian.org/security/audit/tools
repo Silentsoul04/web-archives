@@ -1,0 +1,265 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Security Auditing Tools </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 12:44:26">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-en.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Debian website search" href="../../search.en.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Debian Home"><img src="../../Pics/openlogo-50.png" alt="Debian" width="50" height="61"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="en">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Search">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Skip Quicknav</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">Security Information</a>
+ &#x2F; <a href="./">Debian Security Audit Project</a>
+ &#x2F;
+Security Auditing Tools</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Security Auditing Tools</h1>
+<p>There are several packages available within the Debian archive
+which are designed to aid source code audits. These include:</p>
+<ul>
+<li><a href="https://packages.debian.org/flawfinder">Flawfinder</a>
+<ul>
+<li><a href="examples/flawfinder">Sample flawfinder usage</a></li>
+</ul></li>
+<li><a href="http://archive.debian.net/woody/its4">ITS4</a>
+<ul>
+<li>There is no example for ITS4 as it has been removed from the unstable distribution.</li>
+</ul></li>
+<li><a href="https://packages.debian.org/rats">RATS</a>
+<ul>
+<li><a href="examples/RATS">Sample RATS usage</a></li>
+</ul></li>
+<li><a href="https://packages.debian.org/pscan">pscan</a>
+<ul>
+<li><a href="examples/pscan">Sample pscan usage</a></li>
+</ul></li>
+</ul>
+<p>Also, notice there are other tools specific to a given set of security
+vulnerabilities which might not have been packaged for Debian yet but might
+be useful for an auditor. These include:</p>
+<ul>
+<li>Tools specific of XSS bugs:
+<ul>
+<li><a href="http://freecode.com/projects/xsslint/">Xsslint</a></li>
+<li><a href="http://www.devitry.com/screamingCSS.html">ScreamingCSS</a></li>
+</ul></li>
+<li>Tools for testing web browsers:
+<ul>
+<li><a href="http://www.securityfocus.com/archive/1/378632">MangleMe</a></li>
+</ul></li>
+</ul>
+<p>None of the tools are perfect and can only be used as guidelines
+for further study, but given how simple they are to use it is worth
+taking the time to try them out.</p>
+<p>Each of the tools has different strengths and weaknesses so using
+more than one is advisable.</p>
+<h2>Flawfinder</h2>
+<p>flawfinder is a Python tool which is designed to analyze C and C++
+source code looking for potential security flaws.</p>
+<p>When ran against a directory containing source code it will output
+a report of the potential problems it has detected, sorted by risk
+(where <i>risk</i> is an integer 1&ndash;5). To tune out minor risks it is
+possible to tell the program not to report about flaws below a
+particular level of risk. By default the output will appear in plain
+text, but an HTML report is also available.</p>
+<p>The program works by scanning the code and looking for the use of
+functions which are contained inside its database of functions which
+are commonly misused.</p>
+<p>To aid the reading of the report it is possible to cause the output
+report to contain the line which contains the function being used,
+this can be useful to immediately detect a problem, or likewise rule
+it out.</p>
+<p>You can see an example of how flawfinder is used, and it's output
+in the <a href="examples/">auditing examples section</a>.</p>
+<h2>ITS4</h2>
+<p>ITS4 is a tool contained in the non-free section of the Debian archive,
+it is only available for the <q>woody</q> distribution.</p>
+<p>ITS4 may be used to scan both C and C++ code for potential security
+holes, much like flawfinder.</p>
+<p>The output it produces tries to be intelligent, ruling out some of
+the cases where the calls to dangerous functions have been made
+carefully.</p>
+<h2>RATS</h2>
+<p>RATS is a similar tool to those listed above, with the exception
+that it comes with support for a much wider range of languages.
+Currently it has support for C, C++, Perl, PHP and Python.</p>
+<p>The tool uses a simple XML file to read its vulnerabilities from
+which makes it one of the easiest of the available tools to modify.
+New functions can be added easily for each of the supported
+languages.</p>
+<p>You can see an example of how RATS is used, and it's output in the
+<a href="examples/">auditing examples section</a>.</p>
+<h2>pscan</h2>
+<p>pscan differs from the previous tools which have been described
+because it is not a general purpose scanner at all. Instead it is a
+program specifically aimed at detecting format string bugs.</p>
+<p>The tool will attempt to find potential issues with the use of
+variadic functions within C and C++ source code, such as
+<tt>printf</tt>, <tt>fprintf</tt> and <tt>syslog</tt>.</p>
+<p>Format string bugs are fairly simple to detect and fix, although
+they are the most recent new class of software attacks the majority of
+them have probably been found and repaired already.</p>
+<p>You can see an example of how pscan is used, and it's output in the
+<a href="examples/">auditing examples section</a>.</p>
+<h2>Understanding Scanner Output</h2>
+<p>Each of the general scanning tools will include output describing
+the flaw detected, and possibly giving advice on how the code can be
+fixed.</p>
+<p>For example the following is taken from the output of RATS
+describing the dangers of <tt>getenv</tt>:</p>
+<p>&quot;Environment variables are highly untrustable input. They may
+be of any length, and contain any data. Do not make any assumptions
+regarding content or length. If at all possible avoid using them, and
+if it is necessary, sanitize them and truncate them to a reasonable
+length.&quot;</p>
+<p>If you need any further advice on how to correct a hole which has
+been reported you should study a book on programming securely, such as
+the <a href="http://www.dwheeler.com/secure-programs/">Secure
+Programming for Linux and Unix HOWTO</a> by David A. Wheeler.</p>
+<p>(Remember that when reporting security issues a patch closing the
+hole is greatly appreciated)</p>
+<p>Discussion related to closing a particularly problematic piece of
+code can also be held upon the
+<a href="https://lists.debian.org/debian-security/">debian-security mailing
+list</a>, as this is a public mailing list with public
+archives just be careful not to make it obvious which program
+contains the flaw.</p>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<p>Back to the <a href="../../">Debian Project homepage</a>.</p>
+<hr>
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+This page is also available in the following languages:
+<div id="langContainer">
+ <a href="tools.de.html" title="German" hreflang="de" lang="de" rel="alternate">Deutsch</a>
+ <a href="tools.es.html" title="Spanish" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="tools.fr.html" title="French" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="tools.nl.html" title="Dutch" hreflang="nl" lang="nl" rel="alternate">Nederlands</a>
+ <a href="tools.ja.html" title="Japanese" hreflang="ja" lang="ja" rel="alternate">&#26085;&#26412;&#35486;&nbsp;(Nihongo)</a>
+ <a href="tools.pt.html" title="Portuguese" hreflang="pt" lang="pt" rel="alternate">Portugu&ecirc;s</a>
+ <a href="tools.ru.html" title="Russian" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+ <a href="tools.sv.html" title="Swedish" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+</div>
+How to set <a href="../../intro/cn">the default document language</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Home</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">About</a>
+		  <ul>
+		  <li><a href="../../social_contract">Social Contract</a></li>
+		  <li><a href="../../code_of_conduct">Code of Conduct</a></li>
+		  <li><a href="../../intro/free">Free Software</a></li>
+		  <li><a href="../../partners/">Partners</a></li>
+		  <li><a href="../../donations">Donations</a></li>
+          <li><a href="../../legal">Legal Info</a></li>
+          <li><a href="../../legal/privacy">Data Privacy</a></li>
+		  <li><a href="../../contact">Contact Us</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Help Debian</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Getting Debian</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">Network install</a></li>
+			  <li><a href="../../CD/">CD/USB ISO images</a></li>
+			  <li><a href="../../CD/vendors/">CD vendors</a></li>
+			  <li><a href="../../distrib/pre-installed">Pre-installed</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Pure Blends</a></li>
+			<li><a href="../../distrib/packages">Debian Packages</a></li>
+			<li><a href="../../devel/">Developers' Corner</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">News</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">Project News</a></li>
+		  <li><a href="../../events/">Events</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">Documentation</a>
+      <ul>
+      <li><a href="../../releases/">Release Info</a></li>
+      <li><a href="../../releases/stable/installmanual">Installation manual</a></li>
+      <li><a href="../../doc/books">Debian Books</a></li>
+      <li><a href="https://wiki.debian.org/">Debian Wiki</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">Support</a>
+	  <ul>
+			  <li><a href="../../international/">Debian International</a></li>
+			  <li><a href="../../security/">Security Information</a></li>
+			  <li><a href="../../Bugs/">Bug reports</a></li>
+			  <li><a href="../../MailingLists/">Mailing Lists</a></li>
+			  <li><a href="https://lists.debian.org/">Mailing List Archives</a></li>
+			  <li><a href="../../ports/">Ports/Architectures</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">Site map</a></li>
+  <li><a href="https://search.debian.org/">Search</a></li>
+  <li><a href="https://bits.debian.org">The Debian Blog</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>To report a problem with the web site, please e-mail our publicly archived mailing list <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> in English. For other contact information, see the Debian <a href="../../contact">contact page</a>. Web site source code is <a href="https://salsa.debian.org/webmaster-team/webwml">available</a>.</p>
+<p>
+Last Modified: Wed, Aug 12 17:57:09 UTC 2020
+&emsp;
+Last Built: Fri, Jun 11 12:44:26 UTC 2021
+  <br>
+  Copyright &copy; 1997-2020
+ <a href="https://www.spi-inc.org/">SPI</a> and others; See <a href="../../license" rel="copyright">license terms</a><br>
+  Debian is a registered <a href="../../trademark">trademark</a> of Software in the Public Interest, Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

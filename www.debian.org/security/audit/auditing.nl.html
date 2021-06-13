@@ -1,0 +1,272 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="nl">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Een audit uitvoeren </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 14:07:21">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-nl.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Debian-website zoekmachine" href="../../search.nl.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Debian Startpagina"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="nl">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Zoeken">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Overslaan van navigatiebalk</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">Beveiligingsinformatie</a>
+ &#x2F; <a href="./">Debian Beveiligingsauditproject</a>
+ &#x2F;
+Een audit uitvoeren</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Een audit uitvoeren</h1>
+<p>Deze pagina geeft een eerste overzicht van de noodzakelijke stappen voor het
+uitvoeren van een audit van een pakket.</p>
+<p>De eerste stap is het kiezen van een pakket om te onderzoeken, bij voorkeur
+één dat kritisch is voor de beveiliging.</p>
+<p>Zie <a href="../../security/audit/packages">de lijst van pakketten die wij
+het meest belangrijkst vinden voor een audit</a> voor suggesties.</p>
+<p>Eén ding dat duidelijk moet zijn is dat we <em>niet</em> proberen te verzekeren
+dat een pakket slechts één keer wordt geaudit. Als veel mensen kiezen om
+hetzelfde pakket te onderzoeken is dit goed, want het toont aan dat veel mensen
+denken dat het pakket beveiligingsgevoelig is.</p>
+<p>Door in essentie een willekeurige selectie van pakketten toe te laten,
+vergemakkelijken we de coördinatie en we elimineren het probleem van <q>hoe kan
+ik er op vertrouwen dat persoon X zijn werk goed doet?</q> (Dit is niet nodig
+omdat wordt verondersteld dat vroeg of laat iemand anders ervoor zal kiezen
+hetzelfde pakket te onderzoeken).</p>
+<h2>De audit starten</h2>
+<p>Na uw pakketselectie te hebben gemaakt, moet u echt starten met de audit.</p>
+<p>Als u niet zeker bent van het soort problemen waarnaar u zoekt, start dan
+met het lezen van een boek over hoe veilige software te ontwikkelen.</p>
+<p>De <a href="http://www.dwheeler.com/secure-programs">Secure
+Programming for Linux and Unix HOWTO</a> heeft een heleboel goede informatie
+die u kan helpen.
+<a href="http://www.securecoding.org/">Secure Coding: Principles &amp; Practices</a>
+door Mark G. Graff en Kenneth R. van Wyk is ook een uitstekend boek.</p>
+<p>Hoewel programma's niet perfect zijn, kunnen ze ontzettend veel helpen bij
+het vinden van mogelijke zwaktes, zie <a href="tools">de audithulpmiddelenpagina</a>
+voor meer informatie over enkele beschikbare audithulpmiddelen en hoe ze worden
+gebruikt.</p>
+<p>Naast het kijken naar de code zelf is het een goed idee om de documentatie
+van het pakket te lezen en het pakket te proberen installeren en gebruiken.</p>
+<p>Dit laat u misschien toe om manieren te bedenken om het programma te
+misbruiken in haar typische operatie.</p>
+<h2>Problemen rapporteren</h2>
+<p>Als u een probleem ontdekt in het pakket dat u aan het onderzoeken bent, dan
+kan u dit best rapporteren. Wanneer u een beveiligingsprobleem rapporteert,
+probeer er dan ook een patch aan te bieden zodat de ontwikkelaars het op tijd
+kunnen verhelpen. Het is niet nodig van een aanvalsvoorbeeld (veelal
+<em>exploit</em> of <em>proof of concept</em> genoemd) aan te bieden omdat de
+patch voor zichzelf zou moeten spreken. Het is meestal beter om tijd te
+investeren in het aanbieden van een geschikte patch, dan om een succesvolle
+aanval op de bug aan te bieden.</p>
+<p>Hier is een lijst van te ondernemen stappen nadat u een beveiligingssprobleem
+heeft gevonden in Debian:</p>
+<ol>
+<li>Probeer een patch aan te maken voor de bug of verkrijg voldoende informatie
+zodat anderen het bestaan van het probleem kunnen nagaan. Idealiter zou elk
+rapport een oplossing moeten bieden ,voor het probleem dat u hebt ontdekt, die
+is getest en waarvoor is geverifieerd dat ze het probleem werkelijk oplost.
+<p>Hoe gedetailleerder u bent over de omvang van het probleem, het relatieve
+belang van het probleem en mogelijke pistes om het probleem te omzeilen, hoe
+beter, als u geen oplossing hebt.</p></li>
+<li>Kijk eerst na of het beveiligingsprobleem aanwezig is in de stable Debian
+release en of het aanwezig is in andere distributies of in de versie aangeboden
+door de upstream beheerders.</li>
+<li>Gebaseerd op bovenstaand nazicht, rapporteert u het probleem:
+<ul>
+<li>naar de upstream beheerders via hun beveiligingscontact, geef de analyse
+en de patch.</li>
+<li>naar het Debian Security Team als de fout aanwezig is is een gereleasde
+Debian-versie. Het Debian Security Team zal typisch een
+<a href="../../security/cve-compatibility">CVE-naam</a> toewijzen aan het
+beveiligingsprobleem. Het beveiligingsteam zal met andere Linux-distributies
+coördineren indien nodig en zal contact opnemen met de pakketbeheerder in uw
+naam. U kunt echter ook een kopie van de e-mail versturen naar de
+pakketbeheerder. Doe dit echter enkel voor beveiligingsproblemen met een laag
+risico (zie verder).</li>
+<li>Als het probleem zich niet voordoet in een gereleasde Debian-versie en de
+applicatie is misschien opgenomen in andere distributies of besturingssystemen,
+stuur dan een e-mail naar
+<a href="http://oss-security.openwall.org/wiki/mailing-lists/oss-security">oss-
+security</a>
+(een openbare mailinglijst waarop men rapporteert en discussieert over
+beveiligingsproblemen die publiekelijk bekend gemaakt werden). U hoeft dit niet te doen
+wanneer u het probleem al hebt doorgestuurd naar de Debian Security Team want
+zij zullen het ook naar deze lijst doorsturen.</li>
+<li>Als het probleem zich <strong>niet</strong> voordoet in een gereleasde
+Debian-versie en u bent er absoluut zeker van dat de applicatie
+<strong>niet</strong> is opgenomen in een andere distributie of
+besturingssysteem, rapporteer het dan met het Bug Tracking Systeem.</li>
+</ul></li>
+<li>Eens het probleem publiek is (wanneer het Debian Security Team of een andere
+distributie een beveiligingsbericht heeft uitgebracht), dient er een bug met alle
+relevante informatie worden geöpend in het Debian Bug Tracking Systeem om het
+beveiligingsprobleem te kunnen traceren in niet-gereleasde Debian-versies
+(<em>sid</em> en <em>testing</em>). Dit wordt gewoonlijk door het Security Team
+zelf gedaan. Als u denkt dat ze er één vergaten of u bent niet aan het Security
+Team aan het rapporteren, dan kunt u het zelf rapporteren. Zorg ervoor dat de
+bug de gepaste tags heeft (gebruik de <em>security</em>-tag) en geef ze de
+gepaste prioriteit (gewoonlijk <em>grave</em> of hoger). Zorg er ook voor dat de
+bugtitel de gepaste <a href="../../security/cve-compatibility">CVE name</a>
+bevat, als er één is toegewezen. Dit zorgt ervoor dat beveiligingsproblemen niet
+vergeten worden en dat ze opgelost worden in de gereleasde en niet-gereleasde
+Debian-versies.</li>
+<li>Als u dat wenst, dan kunt u deze informatie, eens ze publiek is, doorsturen
+naar publieke full disclosure mailinglijsten zoals
+<a href="https://lists.grok.org.uk/mailman/listinfo/full-disclosure">full-
+disclosure</a>
+of <a href="http://www.securityfocus.com/archive/1">Bugtraq</a>.</li>
+</ol>
+<p>Merk op dat deze stappen kunnen afhangen van het risico dat geassocieerd is
+met het gevonden beveiligingsprobleem. U moet het risico bepalen via:
+<ul>
+<li>lokaal beveiligingsprobleem of op het netwerk</li>
+<li>de gevolgen als het beveiligingsprobleem wordt uitgebuit</li>
+<li>veelgebruikte software aangetast door het probleem</li>
+</ul>
+<p>Er moeten verschillende stappen worden gezet om bijvoorbeeld een lokale
+symbolische koppelingsaanval te rapporteren die enkel kan gebruikt worden
+door geauthenticeerde gebruikers en die enkel het systeem kan beschadigen, dan
+om een bufferoverloop op het netwerk die beheersprivileges verschaft en
+aanwezig is in veelgebruikte software te rapporteren.</p>
+<p>In de meeste gevallen, omdat beveiligingsproblemen niet mogen vrijgegeven
+worden vooraleer ze zijn opgelost, rapporteert u ze <em>niet</em> via het
+standaard <a href="https://bugs.debian.org/">Debian Bug Tracking Systeem</a>,
+maar rapporteert u het probleem rechtstreeks naar het
+<a href="../../security/">the Security Team</a> die de release van een
+bijgewerkt pakket zal verzorgen en het zal rapporteren in de BTS eens het is
+opgelost.</p>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<p>Terug naar de <a href="../../">startpagina van het Debian Project</a>.</p>
+<hr>
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Deze pagina is ook beschikbaar in de volgende talen:
+<div id="langContainer">
+ <a href="auditing.de.html" title="Duits" hreflang="de" lang="de" rel="alternate">Deutsch</a>
+ <a href="auditing.en.html" title="Engels" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="auditing.es.html" title="Spaans" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="auditing.fr.html" title="Frans" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="auditing.ja.html" title="Japans" hreflang="ja" lang="ja" rel="alternate">&#26085;&#26412;&#35486;&nbsp;(Nihongo)</a>
+ <a href="auditing.pt.html" title="Portugees" hreflang="pt" lang="pt" rel="alternate">Portugu&ecirc;s</a>
+ <a href="auditing.ru.html" title="Russisch" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+</div>
+De <a href="../../intro/cn">standaardtaal voor webpagina’s</a> instellen
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Startpagina</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">Info</a>
+		  <ul>
+		  <li><a href="../../social_contract">Sociaal Contract</a></li>
+		  <li><a href="../../code_of_conduct">Gedragscode</a></li>
+		  <li><a href="../../intro/free">Vrije Software</a></li>
+		  <li><a href="../../partners/">Partners</a></li>
+		  <li><a href="../../donations">Giften</a></li>
+          <li><a href="../../legal">Juridische Informatie</a></li>
+          <li><a href="../../legal/privacy">Gegevensbescherming</a></li>
+		  <li><a href="../../contact">Contact opnemen</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Debian helpen</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Verkrijgen</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">Netwerkinstallatie</a></li>
+			  <li><a href="../../CD/">CD/USB-ISO-images</a></li>
+			  <li><a href="../../CD/vendors/">CD-verkopers</a></li>
+			  <li><a href="../../distrib/pre-installed">Voorgeïnstalleerd</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Specifieke uitgaven</a></li>
+			<li><a href="../../distrib/packages">Debian Pakketten</a></li>
+			<li><a href="../../devel/">Ontwikkeling</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">Nieuws</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">Projectnieuws</a></li>
+		  <li><a href="../../events/">Agenda</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">Documentatie</a>
+      <ul>
+      <li><a href="../../releases/">Release-informatie</a></li>
+      <li><a href="../../releases/stable/installmanual">Installatiehandleiding</a></li>
+      <li><a href="../../doc/books">Debian Boeken</a></li>
+      <li><a href="https://wiki.debian.org/">Debian wiki</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">Ondersteuning</a>
+	  <ul>
+			  <li><a href="../../international/">Debian Internationaal</a></li>
+			  <li><a href="../../security/">Informatie over beveiliging</a></li>
+			  <li><a href="../../Bugs/">Bugrapporten</a></li>
+			  <li><a href="../../MailingLists/">Mailinglijsten</a></li>
+			  <li><a href="https://lists.debian.org/">Mailinglijst Archieven</a></li>
+			  <li><a href="../../ports/">Ports/Architecturen</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">Index</a></li>
+  <li><a href="https://search.debian.org/">Zoeken</a></li>
+  <li><a href="https://bits.debian.org">Blog van Debian</a></li>
+  <li><a href="https://micronews.debian.org">Debian-micronieuws</a></li>
+  <li><a href="https://planet.debian.org">Debian-planeet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>Stuur, om een probleem met de website te rapporteren, een e-mail (in het Engels) naar de openbare en gearchiveerde mailinglijst <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> of (in het Nederlands) naar <a href="mailto:debian-l10n-dutch@lists.debian.org">debian-l10n-dutch@lists.debian.org</a>. Problemen met de Nederlandse vertaling kunnen eveneens naar het tweede adres worden gestuurd. Zie de <a href="../../contact">contactpagina</a> voor andere contactinformatie. De broncode van de website is <a href="https://salsa.debian.org/webmaster-team/webwml">beschikbaar</a>.</p>
+<p>
+Laatste aanpassing: di, 18 aug 2020, 18:03:12 UTC
+&emsp;
+Laatste compilatie: vr, 11 jun 2021, 14:07:22 UTC
+  <br>
+  Copyright &copy; 1997-2020
+ <a href="https://www.spi-inc.org/">SPI</a> en anderen; Zie de <a href="../../license" rel="copyright">licentievoorwaarden</a><br>
+  Debian is een geregisteerd <a href="../../trademark">handelsmerk</a> van Software in the Public Interest, Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

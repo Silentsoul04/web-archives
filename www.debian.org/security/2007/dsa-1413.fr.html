@@ -1,0 +1,419 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="fr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Informations sur la sécurité -- DSA-1413-1 mysql </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 15:07:11">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-fr.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Recherche sur le site web Debian" href="../../search.fr.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Accueil Debian"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="fr">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Recherche">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Sauter le menu</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">Informations de sécurité</a>
+ &#x2F; <a href="./">2007</a>
+ &#x2F;
+Informations sur la sécurité -- DSA-1413-1 mysql</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Bulletin d'alerte Debian</h1>
+<h2>DSA-1413-1 mysql -- Plusieurs vulnérabilités</h2>
+<dl>
+<dt>Date du rapport :</dt>
+	<dd>26 novembre 2007</dd>
+<dt>Paquets concernés :</dt>
+	<dd>
+<a href="https://packages.debian.org/src:mysql-dfsg">mysql-dfsg</a><br><a href="https://packages.debian.org/src:mysql-dfsg-5.0">mysql-dfsg-5.0</a><br><a href="https://packages.debian.org/src:mysql-dfsg-4.1">mysql-dfsg-4.1</a>
+</dd>
+<dt>Vulnérabilité :</dt>
+	<dd class="warning">Oui</dd>
+<dt>Références dans la base de données de sécurité :</dt>
+	<dd>Dans le système de suivi des bogues Debian&nbsp;: <a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=426353">Bogue 426353</a>, <a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=424778">Bogue 424778</a>, <a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=424778">Bogue 424778</a>, <a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=451235">Bogue 451235</a>.<br>Dans le dictionnaire CVE du Mitre&nbsp;: <a href="https://security-tracker.debian.org/tracker/CVE-2007-2583">CVE-2007-2583</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2007-2691">CVE-2007-2691</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2007-2692">CVE-2007-2692</a>.<br></dd>
+<dt>Plus de précisions :</dt>
+	<dd>
+<p>
+Plusieurs vulnérabilités ont été découvertes dans les paquets de la base de
+données MySQL. Elles ont des implications allant de modifications non
+autorisées aux base de données à des plantages du serveur déclenchés
+à distance. Le projet des expositions et vulnérabilités communes (CVE) identifie
+les problèmes suivants&nbsp;:
+</p>
+<ul>
+  <li><a href="https://security-tracker.debian.org/tracker/CVE-2007-2583">CVE-2007-2583</a>
+    <p>
+    La fonction in_decimal::set de item_cmpfunc.cc dans les versions de MySQL
+    antérieures à la&nbsp;5.0.40 permet à des attaquants dépendant du contexte
+    de générer un déni de service (plantage) par l'intermédiaire d'une clause
+    IF conçue spécialement qui engendre une erreur de division par zéro et le
+    déréférencement d'un pointeur vide (affecte la version
+    source&nbsp;5.0.32).
+    </p>
+  </li>
+  <li><a href="https://security-tracker.debian.org/tracker/CVE-2007-2691">CVE-2007-2691</a>
+    <p>
+    MySQL ne demande pas le droit DROP pour les instructions RENAME TABLE.
+    Cela permet à des utilisateurs authentifiés à distance de renommer des
+    tables arbitraires (affecte toutes les versions gérées).
+    </p>
+  </li>
+  <li><a href="https://security-tracker.debian.org/tracker/CVE-2007-2692">CVE-2007-2692</a>
+    <p>
+    La fonction mysql_change_db ne restaure pas les droits THD::db_access en
+    revenant des routines stockées SQL SECURITY INVOKER. Cela permet à des
+    utilisateurs authentifiés à distance d'augmenter leurs droits (affecte la
+    version source&nbsp;5.0.32)
+    </p>
+  </li>
+  <li><a href="https://security-tracker.debian.org/tracker/CVE-2007-3780">CVE-2007-3780</a>
+    <p>
+    On peut faire déborder un caractère signé à MySQL pendant
+    l'authentification. Des attaquants distants peuvent utiliser des demandes
+    d'authentification conçues spécialement pour engendrer un déni de service
+    (affecte les versions des sources amont 4.1.11a et 5.0.32).
+    </p>
+  </li>
+  <li><a href="https://security-tracker.debian.org/tracker/CVE-2007-3782">CVE-2007-3782</a>
+    <p>
+    Phil Anderton a découvert que MySQL ne vérifiait pas correctement les
+    droits d'accès lors de l'accès à des tables externes. En conséquence, des
+    utilisateurs authentifiés peuvent utiliser cela pour obtenir des droits
+    UPDATE sur des tables externes (affecte la version sources&nbsp;5.0.32).
+    </p>
+  </li>
+  <li><a href="https://security-tracker.debian.org/tracker/CVE-2007-5925">CVE-2007-5925</a>
+    <p>
+    La fonction convert_search_mode_to_innobase de ha_innodb.cc dans le moteur
+    InnoDB des versions&nbsp;5.1.23-BK et antérieures de MySQL permet à des
+    utilisateurs distants d'engendrer un déni de service (plantage de la base
+    de données) par l'intermédiaire de certaines opérations CONTAINS sur une
+    colonne indexées. Cela peut déclencher une d'erreur d'assertion (affecte la
+    version source&nbsp;5.0.32).
+    </p>
+  </li>
+</ul>
+<p>
+Pour l'ancienne distribution stable (<em>Sarge</em>), ces problèmes ont été
+corrigés dans la version&nbsp;4.0.24-10sarge3 des paquets mysql-dfsg et la
+version&nbsp;4.1.11a-4sarge8 des paquets mysql-dfsg-4.1.
+</p>
+<p>
+Pour la distribution stable (<em>Etch</em>), ces problèmes ont été corrigés
+dans la version&nbsp;5.0.32-7etch3 des paquets mysql-dfsg-5.0.
+</p>
+<p>
+Nous vous recommandons de mettre à jour vos paquets mysql.
+</p>
+</dd>
+<dt>Corrigé dans :</dt>
+	<dd>
+<h3>Debian GNU/Linux 4.0 (etch)</h3>
+<dl>
+<dt>Source :
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-dfsg-5.0_5.0.32-7etch3.diff.gz">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-dfsg-5.0_5.0.32-7etch3.diff.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-dfsg-5.0_5.0.32.orig.tar.gz">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-dfsg-5.0_5.0.32.orig.tar.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-dfsg-5.0_5.0.32-7etch3.dsc">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-dfsg-5.0_5.0.32-7etch3.dsc</a><br>
+<dt>Composant indépendant de l'architecture&nbsp;:
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-common_5.0.32-7etch3_all.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-common_5.0.32-7etch3_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server_5.0.32-7etch3_all.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server_5.0.32-7etch3_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-client_5.0.32-7etch3_all.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-client_5.0.32-7etch3_all.deb</a><br>
+<dt>Alpha:
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-5.0_5.0.32-7etch3_alpha.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-5.0_5.0.32-7etch3_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-client-5.0_5.0.32-7etch3_alpha.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-client-5.0_5.0.32-7etch3_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15off_5.0.32-7etch3_alpha.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15off_5.0.32-7etch3_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-4.1_5.0.32-7etch3_alpha.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-4.1_5.0.32-7etch3_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15-dev_5.0.32-7etch3_alpha.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15-dev_5.0.32-7etch3_alpha.deb</a><br>
+<dt>AMD64:
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15off_5.0.32-7etch3_amd64.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15off_5.0.32-7etch3_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-5.0_5.0.32-7etch3_amd64.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-5.0_5.0.32-7etch3_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15-dev_5.0.32-7etch3_amd64.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15-dev_5.0.32-7etch3_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-client-5.0_5.0.32-7etch3_amd64.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-client-5.0_5.0.32-7etch3_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-4.1_5.0.32-7etch3_amd64.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-4.1_5.0.32-7etch3_amd64.deb</a><br>
+<dt>HP Precision:
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15off_5.0.32-7etch3_hppa.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15off_5.0.32-7etch3_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-client-5.0_5.0.32-7etch3_hppa.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-client-5.0_5.0.32-7etch3_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15-dev_5.0.32-7etch3_hppa.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15-dev_5.0.32-7etch3_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-5.0_5.0.32-7etch3_hppa.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-5.0_5.0.32-7etch3_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-4.1_5.0.32-7etch3_hppa.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-4.1_5.0.32-7etch3_hppa.deb</a><br>
+<dt>Intel IA-32:
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-client-5.0_5.0.32-7etch3_i386.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-client-5.0_5.0.32-7etch3_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15-dev_5.0.32-7etch3_i386.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15-dev_5.0.32-7etch3_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15off_5.0.32-7etch3_i386.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15off_5.0.32-7etch3_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-5.0_5.0.32-7etch3_i386.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-5.0_5.0.32-7etch3_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-4.1_5.0.32-7etch3_i386.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-4.1_5.0.32-7etch3_i386.deb</a><br>
+<dt>Intel IA-64:
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-5.0_5.0.32-7etch3_ia64.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-5.0_5.0.32-7etch3_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15-dev_5.0.32-7etch3_ia64.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15-dev_5.0.32-7etch3_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15off_5.0.32-7etch3_ia64.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15off_5.0.32-7etch3_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-4.1_5.0.32-7etch3_ia64.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-4.1_5.0.32-7etch3_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-client-5.0_5.0.32-7etch3_ia64.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-client-5.0_5.0.32-7etch3_ia64.deb</a><br>
+<dt>Big-endian MIPS:
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-client-5.0_5.0.32-7etch3_mips.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-client-5.0_5.0.32-7etch3_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-5.0_5.0.32-7etch3_mips.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-5.0_5.0.32-7etch3_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15off_5.0.32-7etch3_mips.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15off_5.0.32-7etch3_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-4.1_5.0.32-7etch3_mips.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-4.1_5.0.32-7etch3_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15-dev_5.0.32-7etch3_mips.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15-dev_5.0.32-7etch3_mips.deb</a><br>
+<dt>Little-endian MIPS:
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15off_5.0.32-7etch3_mipsel.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15off_5.0.32-7etch3_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15-dev_5.0.32-7etch3_mipsel.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15-dev_5.0.32-7etch3_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-4.1_5.0.32-7etch3_mipsel.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-4.1_5.0.32-7etch3_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-5.0_5.0.32-7etch3_mipsel.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-5.0_5.0.32-7etch3_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-client-5.0_5.0.32-7etch3_mipsel.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-client-5.0_5.0.32-7etch3_mipsel.deb</a><br>
+<dt>PowerPC:
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-5.0_5.0.32-7etch3_powerpc.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-5.0_5.0.32-7etch3_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-4.1_5.0.32-7etch3_powerpc.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-4.1_5.0.32-7etch3_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15-dev_5.0.32-7etch3_powerpc.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15-dev_5.0.32-7etch3_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-client-5.0_5.0.32-7etch3_powerpc.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-client-5.0_5.0.32-7etch3_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15off_5.0.32-7etch3_powerpc.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15off_5.0.32-7etch3_powerpc.deb</a><br>
+<dt>IBM S/390:
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-client-5.0_5.0.32-7etch3_s390.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-client-5.0_5.0.32-7etch3_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-5.0_5.0.32-7etch3_s390.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-5.0_5.0.32-7etch3_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15-dev_5.0.32-7etch3_s390.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15-dev_5.0.32-7etch3_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15off_5.0.32-7etch3_s390.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/libmysqlclient15off_5.0.32-7etch3_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-4.1_5.0.32-7etch3_s390.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-5.0/mysql-server-4.1_5.0.32-7etch3_s390.deb</a><br>
+</dl>
+<h3>Debian GNU/Linux 3.1 (sarge)</h3>
+<dl>
+<dt>Source :
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-dfsg_4.0.24-10sarge3.dsc">http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-dfsg_4.0.24-10sarge3.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-dfsg_4.0.24.orig.tar.gz">http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-dfsg_4.0.24.orig.tar.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-dfsg_4.0.24-10sarge3.diff.gz">http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-dfsg_4.0.24-10sarge3.diff.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-dfsg-4.1_4.1.11a-4sarge8.dsc">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-dfsg-4.1_4.1.11a-4sarge8.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-dfsg-4.1_4.1.11a.orig.tar.gz">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-dfsg-4.1_4.1.11a.orig.tar.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-dfsg-4.1_4.1.11a-4sarge8.diff.gz">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-dfsg-4.1_4.1.11a-4sarge8.diff.gz</a><br>
+<dt>Composant indépendant de l'architecture&nbsp;:
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-common_4.0.24-10sarge3_all.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-common_4.0.24-10sarge3_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-common-4.1_4.1.11a-4sarge8_all.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-common-4.1_4.1.11a-4sarge8_all.deb</a><br>
+<dt>Alpha:
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-client_4.0.24-10sarge3_alpha.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-client_4.0.24-10sarge3_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-server_4.0.24-10sarge3_alpha.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-server_4.0.24-10sarge3_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-server-4.1_4.1.11a-4sarge8_alpha.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-server-4.1_4.1.11a-4sarge8_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12-dev_4.0.24-10sarge3_alpha.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12-dev_4.0.24-10sarge3_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-client-4.1_4.1.11a-4sarge8_alpha.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-client-4.1_4.1.11a-4sarge8_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14_4.1.11a-4sarge8_alpha.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14_4.1.11a-4sarge8_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14-dev_4.1.11a-4sarge8_alpha.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14-dev_4.1.11a-4sarge8_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12_4.0.24-10sarge3_alpha.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12_4.0.24-10sarge3_alpha.deb</a><br>
+<dt>AMD64:
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-server_4.0.24-10sarge3_amd64.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-server_4.0.24-10sarge3_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12-dev_4.0.24-10sarge3_amd64.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12-dev_4.0.24-10sarge3_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14-dev_4.1.11a-4sarge8_amd64.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14-dev_4.1.11a-4sarge8_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-client-4.1_4.1.11a-4sarge8_amd64.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-client-4.1_4.1.11a-4sarge8_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12_4.0.24-10sarge3_amd64.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12_4.0.24-10sarge3_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14_4.1.11a-4sarge8_amd64.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14_4.1.11a-4sarge8_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-client_4.0.24-10sarge3_amd64.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-client_4.0.24-10sarge3_amd64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-server-4.1_4.1.11a-4sarge8_amd64.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-server-4.1_4.1.11a-4sarge8_amd64.deb</a><br>
+<dt>HP Precision:
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-server-4.1_4.1.11a-4sarge8_hppa.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-server-4.1_4.1.11a-4sarge8_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14_4.1.11a-4sarge8_hppa.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14_4.1.11a-4sarge8_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12-dev_4.0.24-10sarge3_hppa.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12-dev_4.0.24-10sarge3_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12_4.0.24-10sarge3_hppa.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12_4.0.24-10sarge3_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-client-4.1_4.1.11a-4sarge8_hppa.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-client-4.1_4.1.11a-4sarge8_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14-dev_4.1.11a-4sarge8_hppa.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14-dev_4.1.11a-4sarge8_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-client_4.0.24-10sarge3_hppa.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-client_4.0.24-10sarge3_hppa.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-server_4.0.24-10sarge3_hppa.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-server_4.0.24-10sarge3_hppa.deb</a><br>
+<dt>Intel IA-32:
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12_4.0.24-10sarge3_i386.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12_4.0.24-10sarge3_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-server_4.0.24-10sarge3_i386.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-server_4.0.24-10sarge3_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14-dev_4.1.11a-4sarge8_i386.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14-dev_4.1.11a-4sarge8_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-client_4.0.24-10sarge3_i386.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-client_4.0.24-10sarge3_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14_4.1.11a-4sarge8_i386.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14_4.1.11a-4sarge8_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-client-4.1_4.1.11a-4sarge8_i386.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-client-4.1_4.1.11a-4sarge8_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-server-4.1_4.1.11a-4sarge8_i386.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-server-4.1_4.1.11a-4sarge8_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12-dev_4.0.24-10sarge3_i386.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12-dev_4.0.24-10sarge3_i386.deb</a><br>
+<dt>Intel IA-64:
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12-dev_4.0.24-10sarge3_ia64.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12-dev_4.0.24-10sarge3_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-server-4.1_4.1.11a-4sarge8_ia64.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-server-4.1_4.1.11a-4sarge8_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14_4.1.11a-4sarge8_ia64.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14_4.1.11a-4sarge8_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14-dev_4.1.11a-4sarge8_ia64.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14-dev_4.1.11a-4sarge8_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12_4.0.24-10sarge3_ia64.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12_4.0.24-10sarge3_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-server_4.0.24-10sarge3_ia64.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-server_4.0.24-10sarge3_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-client-4.1_4.1.11a-4sarge8_ia64.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-client-4.1_4.1.11a-4sarge8_ia64.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-client_4.0.24-10sarge3_ia64.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-client_4.0.24-10sarge3_ia64.deb</a><br>
+<dt>Motorola 680x0:
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-server-4.1_4.1.11a-4sarge8_m68k.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-server-4.1_4.1.11a-4sarge8_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14_4.1.11a-4sarge8_m68k.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14_4.1.11a-4sarge8_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14-dev_4.1.11a-4sarge8_m68k.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14-dev_4.1.11a-4sarge8_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12-dev_4.0.24-10sarge3_m68k.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12-dev_4.0.24-10sarge3_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-client-4.1_4.1.11a-4sarge8_m68k.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-client-4.1_4.1.11a-4sarge8_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12_4.0.24-10sarge3_m68k.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12_4.0.24-10sarge3_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-client_4.0.24-10sarge3_m68k.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-client_4.0.24-10sarge3_m68k.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-server_4.0.24-10sarge3_m68k.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-server_4.0.24-10sarge3_m68k.deb</a><br>
+<dt>Big-endian MIPS:
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12-dev_4.0.24-10sarge3_mips.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12-dev_4.0.24-10sarge3_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14-dev_4.1.11a-4sarge8_mips.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14-dev_4.1.11a-4sarge8_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-server_4.0.24-10sarge3_mips.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-server_4.0.24-10sarge3_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14_4.1.11a-4sarge8_mips.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14_4.1.11a-4sarge8_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-server-4.1_4.1.11a-4sarge8_mips.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-server-4.1_4.1.11a-4sarge8_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-client-4.1_4.1.11a-4sarge8_mips.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-client-4.1_4.1.11a-4sarge8_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-client_4.0.24-10sarge3_mips.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-client_4.0.24-10sarge3_mips.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12_4.0.24-10sarge3_mips.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12_4.0.24-10sarge3_mips.deb</a><br>
+<dt>Little-endian MIPS:
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-client-4.1_4.1.11a-4sarge8_mipsel.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-client-4.1_4.1.11a-4sarge8_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-server_4.0.24-10sarge3_mipsel.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-server_4.0.24-10sarge3_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14-dev_4.1.11a-4sarge8_mipsel.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14-dev_4.1.11a-4sarge8_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14_4.1.11a-4sarge8_mipsel.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14_4.1.11a-4sarge8_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-client_4.0.24-10sarge3_mipsel.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-client_4.0.24-10sarge3_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12-dev_4.0.24-10sarge3_mipsel.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12-dev_4.0.24-10sarge3_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-server-4.1_4.1.11a-4sarge8_mipsel.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-server-4.1_4.1.11a-4sarge8_mipsel.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12_4.0.24-10sarge3_mipsel.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12_4.0.24-10sarge3_mipsel.deb</a><br>
+<dt>PowerPC:
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-server_4.0.24-10sarge3_powerpc.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-server_4.0.24-10sarge3_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-client_4.0.24-10sarge3_powerpc.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-client_4.0.24-10sarge3_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12-dev_4.0.24-10sarge3_powerpc.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12-dev_4.0.24-10sarge3_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-client-4.1_4.1.11a-4sarge8_powerpc.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-client-4.1_4.1.11a-4sarge8_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-server-4.1_4.1.11a-4sarge8_powerpc.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-server-4.1_4.1.11a-4sarge8_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12_4.0.24-10sarge3_powerpc.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12_4.0.24-10sarge3_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14-dev_4.1.11a-4sarge8_powerpc.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14-dev_4.1.11a-4sarge8_powerpc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14_4.1.11a-4sarge8_powerpc.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14_4.1.11a-4sarge8_powerpc.deb</a><br>
+<dt>IBM S/390:
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-server-4.1_4.1.11a-4sarge8_s390.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-server-4.1_4.1.11a-4sarge8_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-client_4.0.24-10sarge3_s390.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-client_4.0.24-10sarge3_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12-dev_4.0.24-10sarge3_s390.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12-dev_4.0.24-10sarge3_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-server_4.0.24-10sarge3_s390.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-server_4.0.24-10sarge3_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14-dev_4.1.11a-4sarge8_s390.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14-dev_4.1.11a-4sarge8_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14_4.1.11a-4sarge8_s390.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14_4.1.11a-4sarge8_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-client-4.1_4.1.11a-4sarge8_s390.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-client-4.1_4.1.11a-4sarge8_s390.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12_4.0.24-10sarge3_s390.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12_4.0.24-10sarge3_s390.deb</a><br>
+<dt>Sun Sparc:
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14_4.1.11a-4sarge8_sparc.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14_4.1.11a-4sarge8_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-client_4.0.24-10sarge3_sparc.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-client_4.0.24-10sarge3_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12_4.0.24-10sarge3_sparc.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12_4.0.24-10sarge3_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-server-4.1_4.1.11a-4sarge8_sparc.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-server-4.1_4.1.11a-4sarge8_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12-dev_4.0.24-10sarge3_sparc.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/libmysqlclient12-dev_4.0.24-10sarge3_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-client-4.1_4.1.11a-4sarge8_sparc.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/mysql-client-4.1_4.1.11a-4sarge8_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14-dev_4.1.11a-4sarge8_sparc.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg-4.1/libmysqlclient14-dev_4.1.11a-4sarge8_sparc.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-server_4.0.24-10sarge3_sparc.deb">http://security.debian.org/pool/updates/main/m/mysql-dfsg/mysql-server_4.0.24-10sarge3_sparc.deb</a><br>
+</dl>
+<p>Les sommes MD5 des fichiers indiqués sont disponibles sur la <a href="https://lists.debian.org/debian-security-announce/debian-security-announce-2007/msg00193.html">page originale de l'alerte de sécurité</a>.</p>
+</dd>
+</dl>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Cette page est aussi disponible dans les langues suivantes&nbsp;:
+<div id="langContainer">
+ <a href="dsa-1413.da.html" title="danois" hreflang="da" lang="da" rel="alternate">dansk</a>
+ <a href="dsa-1413.de.html" title="allemand" hreflang="de" lang="de" rel="alternate">Deutsch</a>
+ <a href="dsa-1413.en.html" title="anglais" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="dsa-1413.ja.html" title="japonais" hreflang="ja" lang="ja" rel="alternate">&#26085;&#26412;&#35486;&nbsp;(Nihongo)</a>
+ <a href="dsa-1413.sv.html" title="suédois" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+</div>
+Comment configurer la <a href="../../intro/cn">langue par défaut du document</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Accueil</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">À&nbsp;propos&nbsp;de&nbsp;Debian</a>
+		  <ul>
+		  <li><a href="../../social_contract">Notre contrat social</a></li>
+		  <li><a href="../../code_of_conduct">Code de conduite</a></li>
+		  <li><a href="../../intro/free">Logiciel libre</a></li>
+		  <li><a href="../../partners/">Partenaires</a></li>
+		  <li><a href="../../donations">Dons</a></li>
+          <li><a href="../../legal">Informations juridiques</a></li>
+          <li><a href="../../legal/privacy">Protection de la vie privée</a></li>
+		  <li><a href="../../contact">Nous contacter</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Aider Debian</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Obtenir Debian</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">Installation par le réseau</a></li>
+			  <li><a href="../../CD/">Images ISO de CD/USB</a></li>
+			  <li><a href="../../CD/vendors/">Vendeurs de CD</a></li>
+			  <li><a href="../../distrib/pre-installed">Préinstallée</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Mélanges exclusifs</a></li>
+			<li><a href="../../distrib/packages">Paquets Debian</a></li>
+			<li><a href="../../devel/">Le coin du développeur</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">Actualités</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">Nouvelles du projet</a></li>
+		  <li><a href="../../events/">Événements</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">Documentation</a>
+      <ul>
+      <li><a href="../../releases/">Dernière version</a></li>
+      <li><a href="../../releases/stable/installmanual">Manuel d'installation</a></li>
+      <li><a href="../../doc/books">Livres Debian</a></li>
+      <li><a href="https://wiki.debian.org/">Wiki Debian</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">Assistance</a>
+	  <ul>
+			  <li><a href="../../international/">Debian et l'international</a></li>
+			  <li><a href="../../security/">Informations sur la sécurité</a></li>
+			  <li><a href="../../Bugs/">Rapports de bogues</a></li>
+			  <li><a href="../../MailingLists/">Listes de diffusion</a></li>
+			  <li><a href="https://lists.debian.org/">Archives des listes de diffusion</a></li>
+			  <li><a href="../../ports/">Portages/Architectures</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">Plan du site</a></li>
+  <li><a href="https://search.debian.org/">Recherche</a></li>
+  <li><a href="https://bits.debian.org">Le blog Debian</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>Pour signaler un problème sur le site web, envoyez un courriel à l'une de nos listes de diffusion archivées publiquement : en anglais à <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> ou en français à <a href="mailto:debian-l10n-french@lists.debian.org">debian-l10n-french@lists.debian.org</a>. Pour obtenir d'autres informations, référez-vous à la <a href="../../contact">page contact</a> de Debian. Le code source du site est <a href="https://salsa.debian.org/webmaster-team/webwml">disponible</a>.</p>
+<p>
+Dernière modification&nbsp;: mercredi 30 septembre 2020 19:24:56 UTC
+&emsp;
+Dernière construction&nbsp;: vendredi 11 juin 2021 15:07:11 UTC
+  <br>
+  Copyright &copy; 2007-2021
+ <a href="https://www.spi-inc.org/">SPI</a> et autres ; voir <a href="../../license" rel="copyright">les termes de la licence</a>.<br>
+  Debian est une <a href="../../trademark">marque déposée</a> de Software in the Public Interest, Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

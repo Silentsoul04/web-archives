@@ -1,0 +1,294 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="da">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Sikkerhedsoplysninger -- DSA-358-4 linux-kernel-2.4.18 </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 13:24:08">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-da.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Søg i Debians websted" href="../../search.da.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Debian-hjem"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="da">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Søg">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Spring navigering over</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">Sikkerhedsoplysninger</a>
+ &#x2F; <a href="./">2003</a>
+ &#x2F;
+Sikkerhedsoplysninger -- DSA-358-4 linux-kernel-2.4.18</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Debians sikkerhedsbulletin</h1>
+<h2>DSA-358-4 linux-kernel-2.4.18 -- flere sårbarheder</h2>
+<dl>
+<dt>Rapporteret den:</dt>
+	<dd>31. jul 2003</dd>
+<dt>Berørte pakker:</dt>
+	<dd>
+<a href="https://packages.debian.org/src:linux-kernel-i386">linux-kernel-i386</a>, <a href="https://packages.debian.org/src:linux-kernel-alpha">linux-kernel-alpha</a>
+</dd>
+<dt>Sårbar:</dt>
+	<dd class="warning">Ja</dd>
+<dt>Referencer i sikkerhedsdatabaser:</dt>
+	<dd>I Bugtraq-databasen (hos SecurityFocus): <a href="http://online.securityfocus.com/bid/10330">BugTraq-id 10330</a>, <a href="http://online.securityfocus.com/bid/8042">BugTraq-id 8042</a>, <a href="http://online.securityfocus.com/bid/8233">BugTraq-id 8233</a>.<br>I Mitres CVE-ordbog: <a href="https://security-tracker.debian.org/tracker/CVE-2003-0461">CVE-2003-0461</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2003-0462">CVE-2003-0462</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2003-0476">CVE-2003-0476</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2003-0501">CVE-2003-0501</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2003-0550">CVE-2003-0550</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2003-0551">CVE-2003-0551</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2003-0552">CVE-2003-0552</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2003-0018">CVE-2003-0018</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2003-0619">CVE-2003-0619</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2003-0643">CVE-2003-0643</a>.<br></dd>
+<dt>Yderligere oplysninger:</dt>
+	<dd>
+<p>Et antal sårbarheder er opdaget i Linux-kernen.</p>
+<ul>
+<li><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2003-0461">CAN-2003-0461</a>: /proc/tty/driver/serial i Linux 2.4.x afslører det præcise
+  antal tegn, der anvedes i serielle lænker, hvilket kunne gøre det muligt for
+  lokale brugere, at få fat i potentielt følsomme oplysninger som eksempelvis
+  længden på adgangskoder. Denne fejl er rettet ved at begrænse adgangen til
+  /proc/tty/driver/serial.</li>
+<li><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2003-0462">CAN-2003-0462</a>: En "race condition" ved den måde pointerne env_start og
+  env_end initialiseres i systemkaldet execve og anvendes i fs/proc/base.c i
+  Linux 2.4, gør det muligt for lokale brugere at igangsætte et lammelsesangreb
+  (systemnedbrud).</li>
+<li><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2003-0476">CAN-2003-0476</a>: Systemkaldet execve i Linux 2.4.x gemmer fil-descriptorer
+  hørende til udførbare processer i den kaldende proces' filtabel, hvilket gør
+  det muligt for lokale brugere at opnå læseadgang til fil-descriptorer, som der
+  er begrænset adgang til.</li>
+<li><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2003-0501">CAN-2003-0501</a>: Filsystemet /proc i Linux gør det muligt for lokale brugere
+  at få fat i følsomme oplysninger, ved at åbne forskellige poster i /proc/self,
+  før et setuid-program udføres, hvilket får programmet til at ændre på, hvem
+  der ejer og har rettigheder til disse poster.</li>
+<li><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2003-0550">CAN-2003-0550</a>: STP-protokollen, som er slået til i Linux 2.4.x, indeholder
+  ikke tilstrækkelig sikkerhed, hvilket gør det muligt for angribere at ændre på
+  bridge-topologien. Denne fejl er rettet ved at slå DTP fra som standard.</li>
+<li><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2003-0551">CAN-2003-0551</a>: STP-protokollen, som er slået til i Linux 2.4.x, indeholder
+  ikke tilstrækkelig sikkerhed, hvilket gør det muligt for angribere at ændre på
+  bridge-topologien.</li>
+<li><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2003-0552">CAN-2003-0552</a>: Linux 2.4.x tillader fjernangribere, at udgive sig for at
+  være "bridge forwarding"-tabellen ved hjælp af forfalskede pakker, hvis
+  ophavsadresser er de samme som målet.</li>
+<li><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2003-0018">CAN-2003-0018</a>: Linux-kerne 2.4.10 til 2.4.21-pre4 håndterer ikke
+  O_DIRECT-funktionen korrekt, hvilket gør det muligt for lokale angribere, med
+  skriverettigheder, at læse dele af tidligere slettede filer eller forsage
+  ødelæggelse af filsystemet. Denne fejl er rettet ved at slå O_DIRECT
+  fra.</li>
+<li><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2003-0619">CAN-2003-0619</a>: Heltal med fortegnsfejl i funktionen decode_fh i nfs3xdr.c
+  i Linux-kerner før 2.4.21 gør det muligt for fjernangribere at forsage et
+  lammelelsesangreb (kernepanik) ved hjælp af en negativ størrelsesværdi i
+  XDR-dataene i et NFSv3-procedurekald.</li>
+</ul>
+<p>Dette bulletin dækker kun arkitekturerne i386 og alpha. Andre arkitekturer
+vil blive dækket i separate bulletiner.</p>
+<p>I den stabile distribution (woody) på i386-arkitekturen er disse problemer
+rettet i kernel-source-2.4.18 version 2.4.18-13, kernel-image-2.4.18-1-i386
+version 2.4.18-11 og kernel-image-2.4.18-i386bf version 2.4.18-5woody4.</p>
+<p>I den stabile distribution (woody) on alpha-arkitekturen er disse problemer
+rettet i kernel-source-2.4.18 version 2.4.18-13 og
+kernel-image-2.4.18-1-alpha version 2.4.18-10.</p>
+<p>I den ustabile distribution (sid) er disse problemer rettet i
+kernel-source-2.4.20 version 2.4.20-9.</p>
+<p>Vi anbefaler at du opdaterer dine kernel-pakker.</p>
+<p>Hvis du anvender en kerne, som installationssystemet har installeret fordi
+valgmuligheden "bf24" er valgt (for at få 2n 2.4.x-kerne), skal du installere
+pakken kernel-image-2.4.18-bf2.4. Hvis du har installeret en anden
+kernel-image-pakke efter installationen, skal du installere den tilsvarende
+2.4.18-1-kerne. Du kan bruge tabellen nedenfor som vejledning.</p>
+<pre>
+   | Hvis "uname -r" viser: | Installér denne pakke:
+   | 2.4.18-bf2.4           | kernel-image-2.4.18-bf2.4
+   | 2.4.18-386             | kernel-image-2.4.18-1-386
+   | 2.4.18-586tsc          | kernel-image-2.4.18-1-586tsc
+   | 2.4.18-686             | kernel-image-2.4.18-1-686
+   | 2.4.18-686-smp         | kernel-image-2.4.18-1-686-smp
+   | 2.4.18-k6              | kernel-image-2.4.18-1-k6
+   | 2.4.18-k7              | kernel-image-2.4.18-1-k7
+</pre>
+<p>BEMÆRK: Denne kerne er binært kompatibel med den foregående
+sikkerhedsopdatering af kernen, men ikke binært kompatibel med den tilsvarende
+kerne i Debian Debian 3.0r1. Hvis du ikke allerede har den foregående
+sikkerhedsopdatering (kernel-image-2.4.18-bf2.4 version 2.4.18-5woody1 eller en
+af 2.4.18-1-*-kernerne), vil "hjemmelavede" moduler skulle genoversættes, for at
+kunne fungere med den nye kerne. Nye PCMCIA-moduler leveres til alle ovennævnte
+kerner.</p>
+<p>BEMÆRK: Det er nødvendigt at genstarte systemet umiddelbart efter
+opgraderingen, for at erstatte den kørende kerne. Husk omhyggeligt at læse og
+fælge vejledningen under kerneopgraderingsprocessen.</p>
+</dd>
+<dt>Rettet i:</dt>
+	<dd>
+<h3>Debian GNU/Linux 3.0 (woody)</h3>
+<dl>
+<dt>Kildekode:
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-image-2.4.18-1-i386_2.4.18-11.dsc">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-image-2.4.18-1-i386_2.4.18-11.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-image-2.4.18-1-i386_2.4.18-11.tar.gz">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-image-2.4.18-1-i386_2.4.18-11.tar.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-i386bf/kernel-image-2.4.18-i386bf_2.4.18-5woody4.dsc">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-i386bf/kernel-image-2.4.18-i386bf_2.4.18-5woody4.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-i386bf/kernel-image-2.4.18-i386bf_2.4.18-5woody4.tar.gz">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-i386bf/kernel-image-2.4.18-i386bf_2.4.18-5woody4.tar.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-alpha/kernel-image-2.4.18-1-alpha_2.4.18-10.dsc">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-alpha/kernel-image-2.4.18-1-alpha_2.4.18-10.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-alpha/kernel-image-2.4.18-1-alpha_2.4.18-10.tar.gz">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-alpha/kernel-image-2.4.18-1-alpha_2.4.18-10.tar.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-source-2.4.18/kernel-source-2.4.18_2.4.18-13.dsc">http://security.debian.org/pool/updates/main/k/kernel-source-2.4.18/kernel-source-2.4.18_2.4.18-13.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-source-2.4.18/kernel-source-2.4.18_2.4.18-13.diff.gz">http://security.debian.org/pool/updates/main/k/kernel-source-2.4.18/kernel-source-2.4.18_2.4.18-13.diff.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-source-2.4.18/kernel-source-2.4.18_2.4.18.orig.tar.gz">http://security.debian.org/pool/updates/main/k/kernel-source-2.4.18/kernel-source-2.4.18_2.4.18.orig.tar.gz</a><br>
+<dt>Intel IA-32:
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-headers-2.4.18-1_2.4.18-11_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-headers-2.4.18-1_2.4.18-11_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-headers-2.4.18-1-386_2.4.18-11_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-headers-2.4.18-1-386_2.4.18-11_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-headers-2.4.18-1-586tsc_2.4.18-11_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-headers-2.4.18-1-586tsc_2.4.18-11_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-headers-2.4.18-1-686_2.4.18-11_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-headers-2.4.18-1-686_2.4.18-11_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-headers-2.4.18-1-686-smp_2.4.18-11_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-headers-2.4.18-1-686-smp_2.4.18-11_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-headers-2.4.18-1-k6_2.4.18-11_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-headers-2.4.18-1-k6_2.4.18-11_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-headers-2.4.18-1-k7_2.4.18-11_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-headers-2.4.18-1-k7_2.4.18-11_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-image-2.4.18-1-386_2.4.18-11_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-image-2.4.18-1-386_2.4.18-11_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-image-2.4.18-1-586tsc_2.4.18-11_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-image-2.4.18-1-586tsc_2.4.18-11_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-image-2.4.18-1-686_2.4.18-11_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-image-2.4.18-1-686_2.4.18-11_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-image-2.4.18-1-686-smp_2.4.18-11_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-image-2.4.18-1-686-smp_2.4.18-11_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-image-2.4.18-1-k6_2.4.18-11_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-image-2.4.18-1-k6_2.4.18-11_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-image-2.4.18-1-k7_2.4.18-11_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-image-2.4.18-1-k7_2.4.18-11_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-pcmcia-modules-2.4.18-1-386_2.4.18-11_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-pcmcia-modules-2.4.18-1-386_2.4.18-11_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-pcmcia-modules-2.4.18-1-586tsc_2.4.18-11_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-pcmcia-modules-2.4.18-1-586tsc_2.4.18-11_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-pcmcia-modules-2.4.18-1-686_2.4.18-11_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-pcmcia-modules-2.4.18-1-686_2.4.18-11_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-pcmcia-modules-2.4.18-1-686-smp_2.4.18-11_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-pcmcia-modules-2.4.18-1-686-smp_2.4.18-11_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-pcmcia-modules-2.4.18-1-k6_2.4.18-11_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-pcmcia-modules-2.4.18-1-k6_2.4.18-11_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-pcmcia-modules-2.4.18-1-k7_2.4.18-11_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-i386/kernel-pcmcia-modules-2.4.18-1-k7_2.4.18-11_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-i386bf/kernel-headers-2.4.18-bf2.4_2.4.18-5woody4_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-i386bf/kernel-headers-2.4.18-bf2.4_2.4.18-5woody4_i386.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-i386bf/kernel-image-2.4.18-bf2.4_2.4.18-5woody4_i386.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-i386bf/kernel-image-2.4.18-bf2.4_2.4.18-5woody4_i386.deb</a><br>
+<dt>Alpha:
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-alpha/kernel-headers-2.4.18-1_2.4.18-10_alpha.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-alpha/kernel-headers-2.4.18-1_2.4.18-10_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-alpha/kernel-headers-2.4.18-1-generic_2.4.18-10_alpha.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-alpha/kernel-headers-2.4.18-1-generic_2.4.18-10_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-alpha/kernel-headers-2.4.18-1-smp_2.4.18-10_alpha.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-alpha/kernel-headers-2.4.18-1-smp_2.4.18-10_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-alpha/kernel-image-2.4.18-1-generic_2.4.18-10_alpha.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-alpha/kernel-image-2.4.18-1-generic_2.4.18-10_alpha.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-alpha/kernel-image-2.4.18-1-smp_2.4.18-10_alpha.deb">http://security.debian.org/pool/updates/main/k/kernel-image-2.4.18-1-alpha/kernel-image-2.4.18-1-smp_2.4.18-10_alpha.deb</a><br>
+<dt>Arkitekturuafhængig komponent:
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-source-2.4.18/kernel-doc-2.4.18_2.4.18-13_all.deb">http://security.debian.org/pool/updates/main/k/kernel-source-2.4.18/kernel-doc-2.4.18_2.4.18-13_all.deb</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/k/kernel-source-2.4.18/kernel-source-2.4.18_2.4.18-13_all.deb">http://security.debian.org/pool/updates/main/k/kernel-source-2.4.18/kernel-source-2.4.18_2.4.18-13_all.deb</a><br>
+</dl>
+<p>MD5-kontrolsummer for de listede filer findes i den <a href="https://lists.debian.org/debian-security-announce/debian-security-announce-2003/msg00155.html">originale sikkerhedsbulletin</a>.
+<p>MD5-kontrolsummer for de listede filer findes i den <a href="https://lists.debian.org/debian-security-announce/debian-security-announce-2003/msg00163.html">reviderede sikkerhedsbulletin</a>.
+<p>MD5-kontrolsummer for de listede filer findes i den <a href="https://lists.debian.org/debian-security-announce/debian-security-announce-2003/msg00162.html">reviderede sikkerhedsbulletin</a>.
+<p>MD5-kontrolsummer for de listede filer findes i den <a href="https://lists.debian.org/debian-security-announce/debian-security-announce-2003/msg00173.html">reviderede sikkerhedsbulletin</a>.
+</dd>
+</dl>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Denne side findes også på følgende sprog:
+<div id="langContainer">
+ <a href="dsa-358.de.html" title="tysk" hreflang="de" lang="de" rel="alternate">Deutsch</a>
+ <a href="dsa-358.en.html" title="engelsk" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="dsa-358.es.html" title="spansk" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="dsa-358.fr.html" title="fransk" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="dsa-358.ja.html" title="japansk" hreflang="ja" lang="ja" rel="alternate">&#26085;&#26412;&#35486;&nbsp;(Nihongo)</a>
+ <a href="dsa-358.pt.html" title="portugisisk" hreflang="pt" lang="pt" rel="alternate">Portugu&ecirc;s</a>
+ <a href="dsa-358.ru.html" title="russisk" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+ <a href="dsa-358.sv.html" title="svensk" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+</div>
+Sådan opsætter du <a href="../../intro/cn">standardsprogvalg for dokumenter</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Hjem</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">Om&nbsp;Debian</a>
+		  <ul>
+		  <li><a href="../../social_contract">Social kontrakt</a></li>
+		  <li><a href="../../code_of_conduct">Etiske regler</a></li>
+		  <li><a href="../../intro/free">Fri software</a></li>
+		  <li><a href="../../partners/">Partnere</a></li>
+		  <li><a href="../../donations">Donationer</a></li>
+          <li><a href="../../legal">Juridisk information</a></li>
+          <li><a href="../../legal/privacy">Dataprivathed</a></li>
+		  <li><a href="../../contact">Kontakt os</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Hjælp Debian</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Få fat i Debian</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">Netværksinstallering</a></li>
+			  <li><a href="../../CD/">Cd/USB-ISO-aftryk</a></li>
+			  <li><a href="../../CD/vendors/">Cd-forhandlere</a></li>
+			  <li><a href="../../distrib/pre-installed">Præinstalleret</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Pure Blends</a></li>
+			<li><a href="../../distrib/packages">Debian-pakker</a></li>
+			<li><a href="../../devel/">Udviklerhjørnet</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">Nyheder</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">Projektnyheder</a></li>
+		  <li><a href="../../events/">Begivenheder</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">Dokumentation</a>
+      <ul>
+      <li><a href="../../releases/">Udgivelsesoplysninger</a></li>
+      <li><a href="../../releases/stable/installmanual">Installationsvejledning</a></li>
+      <li><a href="../../doc/books">Debian-bøger</a></li>
+      <li><a href="https://wiki.debian.org/">Debian Wiki</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">Support</a>
+	  <ul>
+			  <li><a href="../../international/">Debian internationalt</a></li>
+			  <li><a href="../../security/">Sikkerhedsoplysninger</a></li>
+			  <li><a href="../../Bugs/">Fejlrapporter</a></li>
+			  <li><a href="../../MailingLists/">Postlister</a></li>
+			  <li><a href="https://lists.debian.org/">Postlistearkiv</a></li>
+			  <li><a href="../../ports/">Tilpasninger/arkitekturer</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">Sideoversigt</a></li>
+  <li><a href="https://search.debian.org/">Søg</a></li>
+  <li><a href="https://bits.debian.org">Debians blog</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>For at rapportere et problem med webstedet, sendes en e-mail på engelsk til vores offentligt arkiverede postliste <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a>. Se Debians <a href="../../contact">kontaktside</a> for andre kontaktoplysninger. Webstedets kildekode er <a href="https://salsa.debian.org/webmaster-team/webwml">tilgængelig</a>.</p>
+<p>
+Senest opdateret: Tors 4. apr 2019 kl. 21.05.07 UTC
+&emsp;
+Senest opbygget: Fre 11. jun 2021 kl. 13.24.08 UTC
+  <br>
+  Ophavsretsbeskyttet &copy; 2003-2021
+ <a href="https://www.spi-inc.org/">SPI</a> og andre; Se <a href="../../license" rel="copyright">licensbetingelserne</a><br>
+  Debian er et registreret <a href="../../trademark">varemærke</a> tilhørende Software in the Public Interest, Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

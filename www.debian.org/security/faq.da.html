@@ -1,0 +1,495 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="da">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Debians sikkerheds-OSS </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 13:21:21">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../debian.css" rel="stylesheet" type="text/css">
+  <link href="../debian-da.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Søg i Debians websted" href="../search.da.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../" title="Debian-hjem"><img src="../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="da">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Søg">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Spring navigering over</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./">Sikkerhedsoplysninger</a>
+ &#x2F;
+Debians sikkerheds-OSS</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Debians sikkerheds-OSS</h1>
+<ol>
+<li> <a href="#buthow">Jeg modtog en DSA-mail via debian-security-announce, hvordan opgraderer jeg de sårbare pakker?</a>
+<li> <a href="#signature">Signaturen på jeres bulletiner kan ikke verificeres korrekt!</a>
+<li> <a href="#handling">Hvordan håndteres sikkerhed i Debian?</a>
+<li> <a href="#oldversion">Hvorfor roder i med en gammel version af den pakke?</a>
+<li> <a href="#version">En pakkes versionsnummer indikerer at jeg stadig kører med den sårbare version!</a>
+<li> <a href="#archismissing">Jeg har modtaget en bulletin, men der lader til at mangle en opbygning til en processorarkitektur.</a>
+<li> <a href="#unstable">Hvordan håndteres sikkerhed i <tt>unstable</tt>?</a>
+<li> <a href="#testing">Hvordan håndteres sikkerhed i <tt>testing</tt>?</a>
+<li> <a href="#contrib">Hvordan håndteres sikkerhed vedr. <tt>contrib</tt> og <tt>non-free</tt>?</a>
+<li> <a href="#sidversionisold">Bulletinen siger at unstable er rettet i version 1.2.3-1, men unstable har 1.2.5-1, hvorfor?</a>
+<li> <a href="#mirror">Hvorfor har security.debian.org ingen officielle filspejle?</a>
+<li> <a href="#missing">Jeg har set DSA 100 og DSA 102, men hvor er DSA 101?</a>
+<li> <a href="#contact">Hvordan kontakter jeg sikkerhedsteamet?</a>
+<li> <a href="#discover">Jeg har vist fundet et sikkerhedsproblem, hvad gør jeg?</a>
+<li> <a href="#care">Hvad skal jeg gøre ved et sikkerhedsproblem i en af mine pakker?</a>
+<li> <a href="#enofile">Jeg prøvede at hente en pakket listet i et af jeres sikkerhedsbulletiner, men fik fejlmeddelelsen <q>filen findes ikke</q>.</a>
+<li> <a href="#upload">Jeg har en fejlrettelse, kan jeg uploade direkte til security.debian.org?</a>
+<li> <a href="#ppu">Jeg har en fejlrettelse, kan jeg uploade den til proposed-updates i stedet?</a>
+<li> <a href="#SecurityUploadQueue">Jeg er ret sikker på at mine pakker er i orden, hvordan uploader jeg dem?</a>
+<li> <a href="#help">Hvordan kan jeg hjælpe med sikkerhed?</a>
+<li> <a href="#proposed-updates">Hvad er omfanget af proposed-updates?</a>
+<li> <a href="#composing">Hvem består sikkerhedsteamet af?</a>
+<li> <a href="#lifespan">I hvor lang tid vil sikkerhedsopdateringer blive stillet til rådighed?</a>
+<li> <a href="#check">Hvordan kontrollerer jeg en pakkes integritet?</a>
+<li> <a href="#break">Hvad gør jeg hvis en tilfældig pakke holder op med at virke efter en sikkerhedsopdatering?</a>
+<li> <a href="#cvewhat">Hvad er en CVE-identifikation?</a>
+<li> <a href="#cvedsa">Udgiver Debian en DSA for hver CVE-id?</a>
+<li> <a href="#cveget">Kan Debian tildele CVE-identifikationer?</a>
+<li> <a href="#disclosure-policy">Har Debian en regel om at offentliggøre sårbarheder?</a>
+<li> <a href="#localremote">Hvad betyder <q>lokal (fjern)</q>?</a>
+</ol>
+<p><em><a name="buthow">Sp: Jeg modtog en DSA-mail via debian-security-announce, hvordan opgraderer jeg de sårbare pakker?</a></em></p>
+<p>Sv: Som DSA-mailen siger, bør du opgradere de pakker, som er påvirket af den
+   offentliggjorte sårbarhed. Det kan du gøre ved blot at opgradere (efter at
+   have opdateret listen over tilgængelige pakker med <tt>apt-get update</tt>)
+   alle pakker på dit system med <tt>apt-get upgrade</tt> eller ved at opgradere
+   kun en bestemt pakke med <tt>apt-get install <em>pakkenavn</em></tt>.</p>
+<p>Annonceringsmailen nævner kildekodepakken, hvori sårbarheden blev fundet.
+   Derfor bør du opgradere alle de binære pakker, som dannes ud fra den
+   pågældende kildekodepakke. For at finde ud af hvilke binære pakker, der skal
+   opdateres, kan du besøge
+   <tt>https://packages.debian.org/src:<em>kildekodepakkenavn</em></tt> og dér
+   vælge <em>[show ... binary packages]</em> (<em>[vis ... binære pakker]</em>)
+   ud for den distribution, du opdaterer.</p>
+<p>Det kan også være nødvendigt at genstarte en tjeneste eller kørende proces.
+   Kommandoen <a href="https://manpages.debian.org/checkrestart"><tt>checkrestart</tt></a>, som installeres via pakken
+   <a href="https://packages.debian.org/debian-goodies">debian-goodies</a>, kan
+   være en hjælp til at finde ud af hvilke, det drejer sig om.</p>
+<p><em><a name="signature">Sp: Signaturen på jeres bulletiner kan ikke verificeres korrekt!</a></em></p>
+<p>Sv: Dette skyldes højst sandsynligt et problem hos dig. Der er et filter på
+   postlisten <a href="https://lists.debian.org/debian-security-announce/">debian-security-announce</a>, der gør at kun breve med en korrekt signatur
+   fra medlemmerne af sikkerhedsteamet kan udsendes.</p>
+   <p>Sandsynligvis ændrer et postprogram hos dig brevene en smule og ødelægger
+   dermed signaturen. Sørg for at dit postprogram ikke foretager nogen form for
+   ind- eller udpakning med MIME, eller konverterer tabulerings- eller
+   mellemrumstegn.</p>
+   <p>Kendte syndere er fetchmail (med mimedecode-indstillingen slået til) og
+   formail (kun fra procmail 3.14) og evolution.</p>
+<p><em><a name="handling">Sp: Hvordan håndteres sikkerhed i Debian?</a></em></p>
+<p>Sv: Når sikkerhedsteamet har modtaget besked om en hændelse, kigger et eller
+   flere medlemmer den igennem og overvejer hvad det betyder for den stabile
+   udgivelse af Debian (med andre ord om den er sårbar eller ej).
+   Hvis vores system er sårbart, vil vi gå i gang med at fremstille en
+   rettelse til problemet. Pakkevedligeholderen kontaktes også, hvis
+   vedkommende ikke allerede har kontaktet sikkerhedsteamet. Slutteligt testes
+   rettelsen og der forberedes nye pakker, som kompiles på alle stabile
+   arkitekturer og dernæst uploades. Når alt det er gjort udsendes et
+   sikkerhedsbulletin.</p>
+<p><em><a name="oldversion">Sp: Hvorfor roder i med en gammel version af den pakke?</a></em></p>
+<p>Sv: Den vigtigste retningslinie når man laver en ny pakker som retter et
+   sikkerhedsproblem, er at foretage så få ændringer som muligt. Vore brugere
+   og udviklere er afhængige af at en udgave opfører sig på en bestemt måde,
+   når den er udgivet, så enhver ændring vi foretager kan måske få en eller
+   andens system til at holde op med at virke. Dette især noget som sker i
+   forbindelse med biblioteker: sørg for aldrig at ændre et biblioteks
+   Application Program Interface (API) eller dets Application Binary Interface
+   (ABI), uanset hvor lille ændringen end måtte være.</p>
+   <p>Dette betyder at et skifte til en ny opstrømsversion ikke er en god
+   løsning, i stedet bør de relevante ændringer føres tilbage. Generelt er
+   opstrømsvedligeholdere villige til at hjælpe om nødvendigt, hvis ikke kan
+   Debians sikkerhedsteam måske hjælpe.</p>
+   <p>I nogle tilfælde er det ikke muligt at tilbageføre en sikkerhedsrettelse,
+   for eksempel når store mængder kildekode skal ændres eller omskrives. Hvis
+   det sker, er det måske nødvendigt at skifte til en ny opstrømsversion, men
+   det skal koordineres med sikkerhedsteamet på forhånd.</p>
+<p><em><a name="version">Sp: En pakkes versionsnummer indikerer at jeg stadig kører med den sårbare version!</a></em></p>
+<p>Sv: I stedet for at opgradere til en ny version, fører vi fejlrettelser
+   tilbage til den version som var indeholdt i den stabile udgivelse. Vi gør
+   det for at sikre os at en ny version ændrer så lidt som muligt, så ting ikke
+   uventet ændrer sig eller holder op med at virke på grund af en
+   sikkerhedsrettelse. Du kan finde ud af om du kører en sikker version af en
+   pakke, ved at kigge i pakkens ændringslog (changelog), eller ved at
+   sammenligne dens præcise versionsnummer med den version som er angivet i
+   Debians sikkerhedsbulletin.</p>
+<p><em><a name="archismissing">Sp: Jeg har modtaget en bulletin, men der lader til at mangle en opbygning til en processorarkitektur.</a></em></p>
+<p>Sv: Generelt udgiver Sikkerhedsholdet en bulletin med opbygninger af de
+   opdaterede pakker til alle arkitekturer, som Debian understøtter. Dog er
+   nogle arkitekturer langsommere end andre og der kan forekomme situationer
+   hvor opbygningerne til de fleste arkitekturer er klar, mens nogle stadig
+   mangler. Disse mindre arkitekturer repræsenterer en lille del af alle vores
+   brugere. Afhængigt af et problems vigtighed, kan vi beslutte at frigive en
+   bulletin med det samme. De manglende opbygninger vil blive stillet til
+   rådighed så snart de bliver tilgængelige, men der vil ikke blive informeret
+   yderligere herom. Selvfølgelig vil vi aldrig udgive en bulletin, hvor
+   opbygningerne til i386 eller amd64 ikke er til stede.</p>
+<p><em><a name="unstable">Sp: Hvordan håndteres sikkerhed i <tt>unstable</tt>?</a></em></p>
+<p>Sv: Sikkerhed i unstable håndteres primært af pakkevedligeholderne, ikke af
+   Debian Security Team. Dog kan sikkerhedsholdet uploade meget vigtige
+   opdateringer kun indholdende sikkerhedsrettelser, når der bemærkes at en
+   vedligeholder ikke er aktiv, men understøttelse af stable har altid den
+   højeste prioritet. Ønsker man have have en sikker (og stabil) server,
+   opfordres man kraftigt til at benytte stable.</p>
+<p><em><a name="testing">Sp: Hvordan håndteres sikkerhed i <tt>testing</tt>?</a></em></p>
+<p>Sv: Sikkerhed i testing drager nytte af hele projektets sikkerhedsarbejde i
+   unstable. Dog vil der som minimum være en migreringsforsinkelse på to dage,
+   og nogle gange kan sikkerhedsrettelser blive forsinket af transitioner.
+   Security Team hjælper med at få fremdrift i de transitioner, som forsinker
+   vigtige sikkerhedsuploads, men det er ikke altid muligt og forsinkelser kan
+   opstå. Særligt i månederne efter en ny udgivelse af stable, hvor mange nye
+   versioner uploades til unstable, kan sikkerhedsrettelser til testing halte
+   bagefter. Ønsker man have have en sikker (og stabil) server, opfordres man
+   kraftigt til at benytte stable.</p>
+<p><em><a name="contrib">Sp: Hvordan håndteres sikkerhed vedr. <tt>contrib</tt> og <tt>non-free</tt>?</a></em></p>
+<p>Sv: Det korte svar er: Det håndteres ikke. Contrib og non-free er ikke
+   officielle dele af Debian-distributionen og udgives ikke, og derfor understøttes
+   de ikke af sikkerhedsteamet. Nogle pakker i non-free distribueres uden
+   kildekode eller uden en licens, der tillader distribution af ændrede udgaver.
+   I disse tilfælde kan der slet ikke foretages sikkerhedsrettelser. Hvis det er
+   muligt at rette problemet og pakkevedligeholderen eller en anden leverer
+   korrekt opdaterede pakker, så vil sikkerhedsteamet generelt behandler dem og
+   udsende en bulletin.</p>
+<p><em><a name="sidversionisold">Sp: Bulletinen siger at unstable er rettet i version 1.2.3-1, men unstable har 1.2.5-1, hvorfor?</a></em></p>
+<p>Sv: Vi forsøger at angive den første version i unstable, hvor problemet var
+   løst. Nogle gange har vedligeholderen i mellemtiden uploadet en endnu nyere
+   version. Sammenlign versionen i unstable med det nummer, vi angiver. Hvis
+   det er det samme eller højere, skulle du være beskyttet mod den pågældende
+   sårbarhed. Hvis du vil være sikker, kan du kontrollere pakkens changelog med
+   <tt>apt-get changelog pakkenavn</tt> og kigge efter den forekomst, som
+   fortæller om rettelsen.</p>
+<p><em><a name="mirror">Sp: Hvorfor har security.debian.org ingen officielle filspejle?</a></em></p>
+<p>Sv: Det er der faktisk. Der er flere officielle filspejle implementeret
+   gennem DNS-aliaser. Formålet med security.debian.org er at gøre
+   sikkerhedsopdateringer tilgængelige så hurtigt og nemt som muligt.</p>
+   <p>Opfordring til anvendelse af uofficielle filspejle vil medføre ekstra
+   kompleksitet som normalt ikke er nødvendig og kan give frustrationer hvis
+   disse filspejle ikke holdes ajour.</p>
+<p><em><a name="missing">Sp: Jeg har set DSA 100 og DSA 102, men hvor er DSA 101?</a></em></p>
+<p>Sv: Flere leverandører (primært af GNU/Linux, men også af BSD-varianter)
+   koordinerer sikkerhedsbulletiner i forbindelse med visse hændelser og er
+   blevet enige om en bestemt tidsplan, så alle leverandørne er i stand til
+   samtidig at udsende et bulletin. Det har man besluttet for ikke at
+   diskriminere nogle leverandører, som har brug for mere tid (for eksempel
+   hvis leverandøren først skal have pakkerne igennem nogle længere
+   kvalitetskontroller eller hvis der understøttes flere arkitekturer eller
+   binære distributioner). Vores eget sikkerhedsteam gør også bulletiner klar
+   på forhånd. Ind i mellem er andre sikkerhedsproblemer blevet løst før det
+   afventende bulletin kan udsendes, og dermed opstår der midlertidigt huller i
+   rækkefølgen.</p>
+<p><em><a name="contact">Sp: Hvordan kontakter jeg sikkerhedsteamet?</a></em></p>
+<p>Sv: Sikkerhedsoplysninger kan sendes til
+   <a href="mailto:security@debian.org">security@debian.org</a> eller
+   <a href="mailto:team@security.debian.org">team@security.debian.org</a>, som
+   begge læses af medlemmer af sikkerhedsteamet.</p>
+   <p>Eventuelt kan du kryptere din e-mail med Debians sikkerhedskontaktnøgle
+   (nøgle-id
+   <a href="http://pgp.surfnet.nl/pks/lookup?op=vindex&amp;search=0x0D59D2B15144766A14D241C66BAF400B05C3E651">0x0D59D2B15144766A14D241C66BAF400B05C3E651</a>). De individuelle teammedlemmers PGP-/GPG-nøgler kan ses på
+   nøgleserveren <a href="https://keyring.debian.org/">keyring.debian.org</a>.</p>
+<p><em><a name="discover">Sp: Jeg har vist fundet et sikkerhedsproblem, hvad gør jeg?</a></em></p>
+<p>Sv: Hvis du bliver opmærksom på et sikkerhedsproblem, enten i en af dine
+   egne pakker eller i en andens, så kontakt venligst altid sikkerhedsteamet.
+   Hvis Debians sikkerhedsteam bekræfter sårbarheden og andre leverandører også
+   formodes at være sårbare, vil teamet normalt også kontakte andre
+   leverandører. Hvis sårbarheden endnu ikke er offentligt kendt, vil teamet
+   prøvet at koordinere sikkerhedsbulletinerne med de andre leverandører, så
+   alle store distributioner reagerer samtidig.</p>
+   <p>Hvis sårbarheden allerede er offentlig kendt, så sørg for at indsende en
+   fejlrapport til Debians fejlsporingssystem og giv den mærket <q>security</q>.</p>
+   <p>Hvis du er Debian-udvikler, så <a href="#care">se nedenfor</a>.</p>
+<p><em><a name="care">Sp: Hvad skal jeg gøre ved et sikkerhedsproblem i en af mine pakker?</a></em></p>
+<p>Sv: Hvis du bliver opmærksom på et sikkerhedsproblem, enten i dine pakker
+   eller i en andens, så kontakt altid sikkerhedsteamet via engelsksproget
+   e-mail til adressen team@security.debian.org. De holder styr på
+   sikkerhedsproblemer som ikke er løst, kan hjælpe vedligeholdere med
+   sikkerhedsproblemer eller selv rette problemer, de er ansvarlige for at
+   udsende sikkerhedsbulletiner og vedligeholde security.debian.org.</p>
+   <p><a href="../doc/developers-reference/pkgs.html#bug-security">Udviklernes opslagsbog</a> indeholder udførlige oplysninger om hvad der skal
+   gøres.</p>
+   <p>Det er specielt vigtigt at du ikke uploader til andre distributioner, end
+   <q>unstable</q>, uden forudgående aftale med sikkerhedsteamet, fordi det vil
+   skabe forvirring og mere arbejde, at gå udenom sikkerhedsteamet.</p>
+<p><em><a name="enofile">Sp: Jeg prøvede at hente en pakket listet i et af jeres
+   sikkerhedsbulletiner, men fik fejlmeddelelsen <q>filen findes ikke</q>.</a></em></p>
+<p>Sv: Når en nyere fejlrettelse erstatter en ældre pakke på
+   security.debian.org, er der stor sandsynlighed for at den gamle pakke vil
+   blive fjernet samtidig med at den nye installeres. Derfor vil du få
+   fejlmeddelelsen <q>filen findes ikke</q>. Vi ønsker ikke distribuere pakker med
+   kendte sikkerhedsfejl længere end absolut nødvendigt.</p>
+   <p>Benyt venligst pakkerne fra de seneste sikkerhedsbulletiner, som
+   distribueres gennem postlisten
+   <a href="https://lists.debian.org/debian-security-announce/">debian-security-announce</a>. Det er bedst blot at køre
+   <code>apt-get update</code> før pakken opgraderes.</p>
+<p><em><a name="upload">Sp: Jeg har en fejlrettelse, kan jeg uploade direkte til
+   security.debian.org?</a></em></p>
+<p>Sv: Nej, det kan du ikke. Arkivet på security.debian.org vedligeholdes af
+   sikkerhedsteamet, som skal godkende alle pakker. Du skal i stedet sende
+   dine rettelser (patches) eller kildekode-pakker til sikkerhedsteamet til
+   team@security.debian.org. De vil blive gennemgået af sikkerhedsteamet og
+   slutteligt uploadet, enten med eller uden rettelser.</p>
+   <p><a href="../doc/developers-reference/pkgs.html#bug-security">Udviklernes opslagsbog</a> indeholder udførlige oplysninger om hvad der skal
+   gøres.</p>
+   <p>En måde måde at komme i gang med sikkerhedsarbejde på, er at hjælpe til
+   på Debians Security Tracker
+   (<a href="https://security-tracker.debian.org/tracker/data/report">vejledning</a>).</p>
+<p><em><a name="ppu">Sp: Jeg har en fejlrettelse, kan jeg uploade den til proposed-updates i stedet?</a></em></p>
+<p>Sv: Rent teknisk kan du godt. Men du bør ikke gøre det, da påvirker
+   sikkerhedsteamets arbejde i høj grad. Pakker fra security.debian.org bliver
+   automatisk kopieret til mappen proposed-updates. Hvis en pakke med det
+   samme eller et højere versionsnummer allerede er overført til arkivet, vil
+   sikkerhedsopdateringen blive afvist af arkivsystemet. På den måde vil den
+   stabile distribution ende med, i stedet at mangle denne
+   sikkerhedsopdatering, med mindre den <q>forkerte</q> pakke i mappen
+   proposed-updates blev afvist. Kontakt venligst sikkerhedsteamet i stedet,
+   vedlæg alle oplysninger om sårbarheden og vedhæft kildekoden (dvs. diff.gz-
+   og dsc-filer) til din mail.</p>
+   <p><a href="../doc/developers-reference/pkgs.html#bug-security">Udviklernes opslagsbog</a> indeholder udførlige oplysninger om hvad der skal
+   gøres.</p>
+<p><em><a name="SecurityUploadQueue">Sp: Jeg er ret sikker på at mine pakker er i orden, hvordan uploader jeg dem?</a></em></p>
+<p>Hvis du er meget sikker på at du dine pakker ikke ødelægger noget, at
+   versionsnummeret er fornuftigt (dvs. større end versionsnummeret i <q>stable</q>
+   og mindre end versionsnummeret i <q>testing/unstable</q>), at du ikke har ændret
+   på hvordan pakken opfører sig, på trods af det tilsvarede sikkerhedsproblem,
+   og at du har oversat pakken til den rigtige distribution (dvs.
+   <code>oldstable-security</code> eller <code>stable-security</code>), at
+   pakken indeholder den originale kildekode hvis den er ny på
+   security.debian.org, at du kan bekræfte at rettelsen (patch'en) er i orden
+   ved at kontrollere den mod den seneste version og at der kun rørers ved det
+   pågældende sikkerhedsproblem (kontroller med <code>interdiff -z</code> og
+   begge <code>.diff.gz</code>-filerne), at du har gennemgået rettelsen mindst
+   tre gange, og at <code>debdiff</code> ikke viser nogen ændringer, kan du
+   overføre filerne direkte til mappen incoming
+   <code>ftp://ftp.security.upload.debian.org/pub/SecurityUploadQueue</code> på
+   security.debian.org. Send også en besked med alle oplysninger til
+   team@security.debian.org.</p>
+<p><em><a name="help">Sp: Hvordan kan jeg hjælpe med sikkerhed?</a></em></p>
+<p>Sv: Gennemgå hvert problem før du rapporterer det til secturity@debian.org.
+   Hvis du har mulighed for at levere rettelser, så vil det gøre processen
+   hurtigere. Videresend ikke bare e-mails fra bugtraq, dem modtager vi
+   allerede &mdash; men giv gerne flere oplysninger om ting der rapporteres
+   på bugtraq.</p>
+<p><em><a name="proposed-updates">Sp: Hvad er omfanget af proposed-updates?</a></em></p>
+<p>Sv: Denne mappe indeholder pakker som det er forslået skal med i den
+   næste revision af den stabile Debian-distribution (stable). Når en pakke
+   bliver uploadet af en vedligeholder, til den stabile distribution, havner
+   de i mappen <q>proposed-updates</q>. Da <q>stable</q> skal være stabil, sker der
+   ingen automatiske opdateringer. Sikkerhedsteamet uploader rettede pakker
+   nævnt i deres sikkerhedsbulletiner til <q>stable</q>, men pakkerne vil først
+   blive placeret i <q>proposed-updates</q>. Med nogle måneders mellemrum gennemgår
+   den ansvarlige for den stabile udgivelse listen over pakker i
+   <q>proposed-updates</q> og diskuterer hvorvidt en pakke er egnet til <q>stable</q>
+   eller ej. Dette bliver til en ny udgivelse af Debians stabile distribution
+   (f.eks. 2.2r3 eller 2.2r4). Pakker som ikke opfylder kriterierne, vil
+   formentlig blive afvist og også fjernet fra proposed-updates.</p>
+   <p>Bemærk, at pakker uploadet af vedligeholdere (ikke sikkerhedsteamet) til
+   mappen proposed-updates/ ikke understøttes af sikkerhedsteamet.</p>
+<p><em><a name="composing">Sp: Hvem består sikkerhedsteamet af?</a></em></p>
+<p>Sv: Debians sikkerhedsteam består af <a href="../intro/organization#security">flere medlemmer og sekretærer</a>. Sikkerhedsteamet udpeger selv folk til
+   at deltage i teamet.</p>
+<p><em><a name="lifespan">Sp: I hvor lang tid vil sikkerhedsopdateringer blive stillet til rådighed?</a></em></p>
+<p>Sv: Sikkerhedsteamet prøver at understøtte en stabil distribution et års tid
+   efter den næste stabile distribution er blevet udgivet, bortset fra når en
+   anden stabile distribution udgives indenfor det samme år. Det er ikke
+   muligt at understøtte tre distributioner; det er svært nok at understøtte to
+   distributioner på samme tid.</p>
+<p><em><a name="check">Sp: Hvordan kontrollerer jeg en pakkes integritet?</a></em></p>
+<p>Sv: Det kræver at man kontrollerer Release-filens signatur mod den
+   <a href="https://ftp-master.debian.org/keys.html">offentlige
+   nøgle</a> som anvendes i forbindelse med arkivet. Release-filen indeholder
+   kontrolsummer for filerne Packages og Sources, der indeholder
+   kontrolsummer hørende til binære og kildekodepakker. For udførlige
+   oplysninger om hvordan man kontrollerer en pakkes integritet, se
+   <a href="../doc/manuals/securing-debian-howto/ch7#s-deb-pack-sign">Debians sikkerhedshåndbog</a>.</p>
+<p><em><a name="break">Sp: Hvad gør jeg hvis en tilfældig pakke holder op med at virke efter en sikkerhedsopdatering?</a></em></p>
+<p>Sv: Først og fremmest skal du finde ud af hvorfor pakken ikke længere virker
+   og hvordan det hænger sammen med sikkerhedsopdateringen, dernæst kontaktes
+   sikkerhedsteamet hvis problemet er alvorligt eller den stabile udgaves
+   udgivelsesansvarlige hvis det er mindre alvorligt. Dette gælder hvis en
+   tilfældig pakke holder op med at virke efter en anden pakke er blevet
+   sikkerhedsopdateret. Hvis du ikke finde ud af hvad der går galt, men har
+   en rettelse, så kontaktes sikkerhedsteamet også. De kan dog sende
+   forespørgslen videre til den stabile udgaves udgivelsesansvarlige.</p>
+<p><em><a name="cvewhat">Sp: Hvad er en CVE-identifikation?</a></em></p>
+<p>Sv: Projektet Common Vulnerabilities and Exposures tildeler unikke navne,
+   kaldet CVE-identifikationer, til specifikke sikkerhedssårbarheder, for at
+   gøre det lettere, unikt at referere til et specifikt problem. Flere
+   oplysninger finder man i
+   <a href="http://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures">Wikipedia</a>.</p>
+<p><em><a name="cvedsa">Sp: Udgiver Debian en DSA for hver CVE-id?</a></em></p>
+<p>Sv: Debians Security Team holder styr på alle udgivne CVE-identifikationer,
+   forbinder dem med de relevante Debian-pakker og vurderer indvirkningen i en
+   Debian-sammenhæng - det faktum, at noget er blevet tildelt en CVE-id, betyder
+   ikke nødvendigvis, at problemet er en alvorlig trussel mod et Debian-system.
+   Oplysningen spores i <a href="https://security-tracker.debian.org">Debian
+   Security Tracker</a>, og hvad angår problemer, som anses for at være
+   alvorlige, vil et Debian Security Advisory blive udgivet.</p>
+<p>Problemer med lav indvirkning, som ikke er kvalificeret til et DSA, kan blive
+   rettet i den næste Debian-udgivelse, i en punktopdatering til den aktuelle
+   stabile eller gamle stabile distribution eller medtages i en DSA, hvis en
+   sådan udgives vedrørende en mere alvorlig sårbarhed.</p>
+<p><em><a name="cveget">Sp: Kan Debian tildele CVE-identifikationer?</a></em></p>
+<p>Sv: Debian er en CVE Numbering Authority og kan tildele id'er, men jævnfør
+   CVE's retningslinjer kan det kun ske angående endnu ikke offentliggjorte
+   problemer. Hvis man har kendskab til en endnu ikke offentliggjort
+   sikkerhedssårbarhed i software i Debian, og ønsker at få tildelt en
+   identifikation dertil, så kontakt Debians Security Team. I fald sårbarheden
+   allerede er offentliggjort, anbefaler vi at man følger proceduren beskrevet i
+   <a href="https://github.com/RedHatProductSecurity/CVE-HOWTO">CVE OpenSource Request HOWTO</a>.</p>
+<p><em><a name="disclosure-policy">Sp: Har Debian en regel om at offentliggøre sårbarheder?</a></em></p>
+<p>Sv: Debian har udgivet et <a href="disclosure-policy">regelsæt for
+   offentliggørelse af sårbarheder</a>, som en del af deltagelsen i
+   CVE-projektet.
+<h1>Udgåede spørgsmål og svar til sikkerhed i Debian</h1>
+<p><em><a name="localremote">Sp: Hvad betyder <q>lokal (fjern)</q>?</a></em></p>
+<p>Sv: Nogle bulletiner beskriver sårbarheder som ikke kan identificeres
+   inden for rammerne af den klassiske opdeling mellem lokale og fjerne
+   udnyttelser. Nogle sårbarheder kan ikke fjernudnyttes, eksempelvis hvis de
+   ikke svarer til en dæmon, som lytter til en netværksport. Hvis de kan
+   udnyttes af særlige filer, der leveres via netværket mens den sårbare
+   service ikke er permanent forbundet med netværket, skriver vi <q>lokal (fjern)</q>
+   (eller på engelsk <q>local (remote)</q>).</p>
+   <p>Sådanne sårbarheder ligger nærmest mellem lokale og fjerne sårbarheder,
+   og dækker ofte arkiver, der kan leveres via netværket, fx som vedhæftelser
+   til e-mail eller hentes fra en webside.</p>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<p>Tilbage til <a href="../">Debian-projektets hjemmeside</a>.</p>
+<hr>
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Denne side findes også på følgende sprog:
+<div id="langContainer">
+ <a href="faq.de.html" title="tysk" hreflang="de" lang="de" rel="alternate">Deutsch</a>
+ <a href="faq.el.html" title="græsk" hreflang="el" lang="el" rel="alternate">&#917;&#955;&#955;&#951;&#957;&#953;&#954;&#940;&nbsp;(Ellinika)</a>
+ <a href="faq.en.html" title="engelsk" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="faq.es.html" title="spansk" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="faq.fr.html" title="fransk" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="faq.it.html" title="italiensk" hreflang="it" lang="it" rel="alternate">Italiano</a>
+ <a href="faq.nl.html" title="hollandsk" hreflang="nl" lang="nl" rel="alternate">Nederlands</a>
+ <a href="faq.ja.html" title="japansk" hreflang="ja" lang="ja" rel="alternate">&#26085;&#26412;&#35486;&nbsp;(Nihongo)</a>
+ <a href="faq.pl.html" title="polsk" hreflang="pl" lang="pl" rel="alternate">polski</a>
+ <a href="faq.pt.html" title="portugisisk" hreflang="pt" lang="pt" rel="alternate">Portugu&ecirc;s</a>
+ <a href="faq.ru.html" title="russisk" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+ <a href="faq.fi.html" title="finsk" hreflang="fi" lang="fi" rel="alternate">suomi</a>
+ <a href="faq.sv.html" title="svensk" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+ <a href="faq.zh-cn.html" title="kinesisk (China)" hreflang="zh-CN" lang="zh-CN" rel="alternate">&#20013;&#25991;(&#31616;)</a>
+ <a href="faq.zh-hk.html" title="kinesisk (Hong Kong)" hreflang="zh-HK" lang="zh-HK" rel="alternate">&#20013;&#25991;(HK)</a>
+ <a href="faq.zh-tw.html" title="kinesisk (Taiwan)" hreflang="zh-TW" lang="zh-TW" rel="alternate">&#20013;&#25991;(&#32321;)</a>
+</div>
+Sådan opsætter du <a href="../intro/cn">standardsprogvalg for dokumenter</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Hjem</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../intro/about">Om&nbsp;Debian</a>
+		  <ul>
+		  <li><a href="../social_contract">Social kontrakt</a></li>
+		  <li><a href="../code_of_conduct">Etiske regler</a></li>
+		  <li><a href="../intro/free">Fri software</a></li>
+		  <li><a href="../partners/">Partnere</a></li>
+		  <li><a href="../donations">Donationer</a></li>
+          <li><a href="../legal">Juridisk information</a></li>
+          <li><a href="../legal/privacy">Dataprivathed</a></li>
+		  <li><a href="../contact">Kontakt os</a></li>
+		  </ul>
+		</li>
+        <li><a href="../intro/help">Hjælp Debian</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../distrib/">Få fat i Debian</a>
+			  <ul>
+			  <li><a href="../distrib/netinst">Netværksinstallering</a></li>
+			  <li><a href="../CD/">Cd/USB-ISO-aftryk</a></li>
+			  <li><a href="../CD/vendors/">Cd-forhandlere</a></li>
+			  <li><a href="../distrib/pre-installed">Præinstalleret</a></li>
+			  </ul>
+			</li>
+            <li><a href="../blends/">Pure Blends</a></li>
+			<li><a href="../distrib/packages">Debian-pakker</a></li>
+			<li><a href="../devel/">Udviklerhjørnet</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../News/">Nyheder</a>
+		  <ul>
+		  <li><a href="../News/weekly/">Projektnyheder</a></li>
+		  <li><a href="../events/">Begivenheder</a></li>
+		  </ul>
+		</li>
+    <li><a href="../doc/">Dokumentation</a>
+      <ul>
+      <li><a href="../releases/">Udgivelsesoplysninger</a></li>
+      <li><a href="../releases/stable/installmanual">Installationsvejledning</a></li>
+      <li><a href="../doc/books">Debian-bøger</a></li>
+      <li><a href="https://wiki.debian.org/">Debian Wiki</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../support">Support</a>
+	  <ul>
+			  <li><a href="../international/">Debian internationalt</a></li>
+			  <li><a href="../security/">Sikkerhedsoplysninger</a></li>
+			  <li><a href="../Bugs/">Fejlrapporter</a></li>
+			  <li><a href="../MailingLists/">Postlister</a></li>
+			  <li><a href="https://lists.debian.org/">Postlistearkiv</a></li>
+			  <li><a href="../ports/">Tilpasninger/arkitekturer</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../sitemap">Sideoversigt</a></li>
+  <li><a href="https://search.debian.org/">Søg</a></li>
+  <li><a href="https://bits.debian.org">Debians blog</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>For at rapportere et problem med webstedet, sendes en e-mail på engelsk til vores offentligt arkiverede postliste <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a>. Se Debians <a href="../contact">kontaktside</a> for andre kontaktoplysninger. Webstedets kildekode er <a href="https://salsa.debian.org/webmaster-team/webwml">tilgængelig</a>.</p>
+<p>
+Senest opdateret: Man 25. maj 2020 kl. 17.56.59 UTC
+&emsp;
+Senest opbygget: Fre 11. jun 2021 kl. 13.21.21 UTC
+  <br>
+  Ophavsretsbeskyttet &copy; 1997-2020
+ <a href="https://www.spi-inc.org/">SPI</a> og andre; Se <a href="../license" rel="copyright">licensbetingelserne</a><br>
+  Debian er et registreret <a href="../trademark">varemærke</a> tilhørende Software in the Public Interest, Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

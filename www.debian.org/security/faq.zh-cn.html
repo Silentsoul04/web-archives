@@ -1,0 +1,399 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="zh-CN">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Debian --     Debian security FAQ </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified"  content="2021-06-11 13:03:48">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../debian.css" rel="stylesheet" type="text/css">
+  <link href="../debian-zh.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Debian 网站搜索" href="../search.zh-cn.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../" title="Debian 主页"><img src="../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="zh-cn">
+        <input name="P" value="" size="14">
+        <input type="submit" value="搜索">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">跳过快速导览</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./">安全信息</a>
+ &#x2F; 
+Debian security FAQ</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Debian security FAQ</h1>
+<ol>
+<li> <a href="#buthow">我通过 debian-security-announce 收到了 DSA，我该如何更新存在漏洞的软件包？</a>
+<li> <a href="#signature">你的公告上的签名验证错误！</a>
+<li> <a href="#handling">Debian 如何处理安全问题？</a>
+<li> <a href="#oldversion">为什么你要摆弄那个软件包的旧版本呢？</a>
+<li> <a href="#version">软件包的版本号表明我仍在运行受漏洞影响的版本！</a>
+<li> <a href="#archismissing">我收到了一份公告，但是看上去缺少一种处理器体系架构的构建。</a>
+<li> <a href="#unstable"><tt>unstable</tt> 的安全问题是怎样处理的？</a>
+<li> <a href="#testing"><tt>testing</tt> 的安全问题是怎样处理的？</a>
+<li> <a href="#contrib"><tt>contrib</tt> 和 <tt>non-free</tt> 的安全问题是怎样处理的？</a>
+<li> <a href="#sidversionisold">公告说 unstable 在 1.2.3-1 版本中已修复，但是 unstable  此时的版本是 1.2.5-1，这是怎么回事？</a>
+<li> <a href="#mirror">为什么没有 security.debian.org 的官方镜像？</a>
+<li> <a href="#missing">我看到了 DSA 100 和 DSA 102，此时 DSA 101 在哪里呢？</a>
+<li> <a href="#contact">我怎么才能联系安全团队？</a>
+<li> <a href="#discover">我猜我找到了一个安全问题，对此我该怎么办呢？</a>
+<li> <a href="#care">What am I supposed to do with a security problem in one of my packages?</a>
+<li> <a href="#enofile">I tried to download a package listed in one of the security advisories, but I got a `file not found' error.</a>
+<li> <a href="#upload">I've got a bugfix, can I upload to security.debian.org directly?</a>
+<li> <a href="#ppu">I've got a bugfix, can I upload to proposed-updates instead?</a>
+<li> <a href="#SecurityUploadQueue">I'm pretty sure my packages are fine, how can I upload them?</a>
+<li> <a href="#help">How can I help with security?</a>
+<li> <a href="#proposed-updates">What is the scope of proposed-updates?</a>
+<li> <a href="#composing">How is the security team composed?</a>
+<li> <a href="#lifespan">How long will security updates be provided?</a>
+<li> <a href="#check">How can I check the integrity of packages?</a>
+<li> <a href="#break">What to do if a random package breaks after a security update?</a>
+<li> <a href="#cvewhat">What is a CVE identifier?</a>
+<li> <a href="#cvedsa">Does Debian issue a DSA for every CVE id?</a>
+<li> <a href="#cveget">Can Debian assign CVE identifiers?</a>
+<li> <a href="#disclosure-policy">Does Debian have a vulnerability disclosure policy?</a>
+<li> <a href="#localremote">What does <q>local (remote)</q> mean?</a>
+</ol>
+<p><em><a name="buthow">Q: 我通过 debian-security-announce 收到了 DSA，我该如何更新存在漏洞的软件包？</a></em></p>
+<p>答：正如 DSA 邮件所述，您应该更新受公告漏洞影响的软件包。您可以通过使用 <tt>apt-get upgrade</tt> 更新在您的系统上的所有软件包或使用 <tt>apt-get install <i>package</i></tt> 更新单个特定软件包来做到这一点。</p>
+<p>公告邮件中提到了存在漏洞的源软件包。因此，您应该从该源软件包更新所有二进制包。要检查二进制包的更新，请访问 <tt>https://packages.debian.org/src:<i>source-package-name</i></tt> 并点击 <i>[show ... binary packages]</i> 中对应的您要更新的发行版。</p>
+<p>您也可能需要重新启动服务或正在运行的进程。在软件包 <a href="https://packages.debian.org/debian-goodies">debian-goodies</a> 中包含的 <a href="https://manpages.debian.org/checkrestart"><tt>checkrestart</tt></a> 命令可能有助于查找对应的进程。</p>
+<p><em><a name="signature">Q: 你的公告上的签名验证错误！</a></em></p>
+<p>答：这很可能是您的问题。在 <a href="https://lists.debian.org/debian-security-announce/">debian-security-announce</a> 邮件列表中有一个过滤器，它只允许发布带有安全团队中一位成员正确的签名的消息。</p>
+<p>您的计算机上的某些电邮软件很可能会稍微更改邮件并导致签名被破坏。请确保您的软件不会进行任何 MIME 编码或解码，或者制表符/空格转换。</p>
+<p>已知会产生该问题的软件有 fetchmail（启用了 mimedecode 选项）、formail（仅来自 procmail 3.14）以及 evolution。</p>
+<p><em><a name="handling">Q: Debian 如何处理安全问题？</a></em></p>
+<p>答：安全团队收到漏洞通知后，一个或多个成员将对其进行审核，并考虑其对 Debian 稳定发行版的影响（即是否受漏洞影响）。如果认为我们的系统会受漏洞影响，我们将针对该问题制造补丁。如果软件包维护者还没有与安全团队联系，那么安全团队也会与他们联系。最后，测试该补丁并准备新的软件包，然后在所有稳定版的体系架构上将其编译并上传。完成所有这些操作后，将发布安全公告。</p>
+<p><em><a name="oldversion">Q: 为什么你要摆弄那个软件包的旧版本呢？</a></em></p>
+<p>制作修复安全问题的新软件包时，最重要的准则是进行尽可能少的更改。我们的用户和开发人员都依赖于被制作的发行版的确切行为，因此，我们所进行的任何更改都可能损坏某人的系统。对于库，尤其如此：确保无论更改有多小，你都不会更改应用程序编程接口（API）或应用程序二进制接口（ABI）。</p>
+<p>这意味着迁移到新的上游版本不是一个好的解决方案，而是应该向后移植相关的更改。通常，上游维护人员愿意在我们需要时提供帮助，不然的话 Debian 安全团队可能会提供帮助。</p>
+<p>在某些情况下，例如当需要修改或重写大量源代码时，不可能向后移植一个安全补丁。如果发生这种情况，可能有必要迁移到新的上游版本，但这必须事先与安全团队协调。</p>
+<p><em><a name="version">Q: 软件包的版本号表明我仍在运行受漏洞影响的版本！</a></em></p>
+<p>答：我们将安全补丁向后移植到稳定发行版中随附的软件包版本，而不是升级到新版本。我们这样做的原因是要确保版本变更尽可能少，以免由于安全补丁造成更改或意外损坏。您可以通过查看软件包更改日志或将其精确版本号与 Debian 安全公告中指明的版本进行比较，以此来检查您是否正在运行一个软件包的安全版本。</p>
+<p><em><a name="archismissing">Q: 我收到了一份公告，但是看上去缺少一种处理器体系架构的构建。</a></em></p>
+<p>答：通常，安全团队会发布一个包含 Debian 支持的所有体系架构的被更新的软件包的公告。但是，某些架构的构建比其它架构慢，并且可能会发生大多数架构的构建已准备就绪而有些仍不存在的情况。这些较小的架构仅占我们用户群的一小部分。根据问题的紧急程度，我们可能决定立即发布公告报。缺少的构建将在可用时立即被安装，但不会对此另行通知。当然，我们永远不会发布不存在 i386 或 amd64 构建的公告。</p>
+<p><em><a name="unstable">Q: <tt>unstable</tt> 的安全问题是怎样处理的？</a></em></p>
+<p>答：unstable 的安全问题主要由软件包维护者处理，而不是由 Debian 安全团队处理。尽管当维护者被发现处于非活跃状态时，安全团队可能会上传高紧急程度的仅处理安全问题的修复，但安全团队始终会优先考虑对 stable 的支持。如果您想要拥有一个安全（和稳定）的服务器，强烈建议您保持在稳定版。</p>
+<p><em><a name="testing">Q: <tt>testing</tt> 的安全问题是怎样处理的？</a></em></p>
+<p>答：testing 的安全性得益于对 unstable 整个项目的安全努力。但是，迁移的延迟至少为两天，并且有时安全修复会被转换脚本阻止。安全团队可帮助迁移这些沿着转换脚本生成时会阻止重要安全更新的上传，但这并不总是可能的，并且可能会出现延迟。尤其是在新的稳定版发布后的几个月中，当许多新版本软件包上传到 unstable，用于 testing 的安全补丁可能会滞后。如果您想要拥有一个安全（和稳定）的服务器，强烈建议您保持在稳定版。</p>
+<p><em><a name="contrib">Q: <tt>contrib</tt> 和 <tt>non-free</tt> 的安全问题是怎样处理的？</a></em></p>
+<p>答：简短的回答是：不会处理。contrib 和 non-free 不是 Debian 发行版的正式组成部分，也没有发布，因此不受安全团队的支持。某些 non-free 软件包是在没有来源或没有一个允许分发修改后的版本的许可证的情况下分发的。在这些情况下，根本无法进行安全修复。如果可以解决问题，并且软件包维护者或其他人提供了正确的更新软件包，那么安全团队通常随后将对其进行处理并发布公告。</p>
+<p><em><a name="sidversionisold">Q: 公告说 unstable 在 1.2.3-1 版本中已修复，但是 unstable  此时的版本是 1.2.5-1，这是怎么回事？</a></em></p>
+<p>答：我们尝试列出在 unstable 中修复该问题的第一个版本。有时，维护者在此期间上传了甚至比这更新的版本。将在 unstable 的软件包版本与我们指明的版本进行比较。如果相同或更高，您应该免受此漏洞的影响。如果您想要确保这一点的话，可以使用 <tt>apt-get changelog package-name</tt> 来检查软件包变更日志，并搜索宣告该修复的条目。</p>
+<p><em><a name="mirror">Q: 为什么没有 security.debian.org 的官方镜像？</a></em></p>
+<p>答：事实上这是存在的。有几个通过 DNS 别名实现的官方镜像。security.debian.org 的宗旨是使安全更新尽可能快且容易地获得。</p>
+<p>鼓励使用非官方的镜像会增添通常来说没有必要的额外复杂性，而且如果这些镜像没有及时更新的话会导致各种问题。</p>
+<p><em><a name="missing">Q: 我看到了 DSA 100 和 DSA 102，此时 DSA 101 在哪里呢？</a></em></p>
+<p>答：几个提供方（主要是 GNU/Linux，但也包括 BSD 衍生品的提供方）协调某些漏洞的安全公告并定下特定的时间表，以便所有提供方都可以同时发布公告。做出此决定是为了不区分一些需要更多时间的提供方（例如，当提供方必须经过冗长的 QA 测试通过软件包或者必须支持多种体系架构或二进制分发时）。我们自己的安全团队也会提前准备公告。时不时的，在放置的公告能被发布之前还必须处理其它安全问题，因此会临时按编号保留一个或多个公告。
+</p>
+<p><em><a name="contact">Q: 我怎么才能联系安全团队？</a></em></p>
+<p>答：可以将安全相关的信息发送到 security@debian.org 或 team@security.debian.org，这两个邮箱的信息都会被安全团队的成员读取。
+</p>
+<p>如果有需要的话，可以使用 Debian 安全联系密钥（密钥 ID <a
+   href="http://pgp.surfnet.nl/pks/lookup?op=vindex&amp;search=0x0D59D2B15144766A14D241C66BAF400B05C3E651">0x0D59D2B15144766A14D241C66BAF400B05C3E651</a>）对电子邮件进行加密。若想取得各个团队成员的 PGP/GPG 公钥，请查看 <a href="https://keyring.debian.org/">keyring.debian.org</a> 密钥服务器。</p>
+<p><em><a name="discover">Q: 我猜我找到了一个安全问题，对此我该怎么办呢？</a></em></p>
+<p>答：如果您在自己负责的一个软件包或在其他人负责的软件包找到了一个安全问题，请始终与安全团队联系。如果 Debian 安全团队确认该漏洞并且其它提供方也可能会受漏洞影响，那么他们通常也会与其它提供方联系。如果该漏洞尚未公开，他们将尝试与其它提供方协调安全公告，因此所有主要的发行版都会同步公告。</p>
+<p>如果该漏洞已经被公开，请确保在 Debian BTS 中提交错误报告，并将其标记为 <q>security</q>。</p>
+<p>如果您是 Debian 维护者，请<a href="#care">参见下文</a>。</p>
+<p><em><a name="care">Q: What am I supposed to do with a security problem in one of
+   my packages?</a></em></p>
+<p>A: If you learn of a security problem, either in your package or
+   someone else's please always contact the security team via email at
+   team@security.debian.org. They keep track
+   of outstanding security problems, can help maintainers with
+   security problems or fix problems on their own, are responsible for
+   sending out security advisories and maintaining
+   security.debian.org.</p>
+<p>The <a href="../doc/developers-reference/pkgs.html#bug-security">Developer's Reference</a> has complete instructions on what to do.</p>
+<p>It's particularly important that you don't upload to any other
+   distribution other than unstable without prior agreement by the
+   security team, because bypassing them will cause confusion and more
+   work.</p>
+<p><em><a name="enofile">Q: I tried to download a package listed in one of the security
+   advisories, but I got a `file not found' error.</a></em></p>
+<p>A: Whenever a newer bugfix supersedes an older package on
+   security.debian.org, chances are high that the old package will be
+   removed by the time the new one gets installed.  Hence, you'll get
+   this `file not found' error.  We don't want to distribute packages
+   with known security bugs longer than absolutely necessary.</p>
+<p>Please use the packages from the latest security advisories, which are
+   distributed through the <a
+   href="https://lists.debian.org/debian-security-announce/">debian-security-announce</a> mailing list. It's best to simply run
+   <code>apt-get update</code> before upgrading the package.</p>
+<p><em><a name="upload">Q: I've got a bugfix, can I upload to security.debian.org directly?</a></em></p>
+<p>A: No, you can't.  The archive at security.debian.org is maintained
+   by the security team, who have to approve all packages.  You should
+   instead send patches or proper source packages to the security team
+   via team@security.debian.org.  They will be
+   reviewed by the  security team and eventually uploaded, either with
+   or without modifications.</p>
+<p>The <a href="../doc/developers-reference/pkgs.html#bug-security">Developer's Reference</a> has complete instructions on what to do.</p>
+<p><em><a name="ppu">Q: I've got a bugfix, can I upload to proposed-updates instead?</a></em></p>
+<p>A: Technically speaking, you can.  However, you should not do this,
+   since this interferes badly with the work of the security team.
+   Packages from security.debian.org will be copied into the
+   proposed-updates directory automatically.  If a package with the
+   same or a higher version number is already installed into the
+   archive, the security update will be rejected by the archive
+   system.  That way, the stable distribution will end up without a
+   security update for this package instead, unless the <q>wrong</q>
+   packages in the proposed-updates directory were rejected.  Please contact the
+   security team instead and include all details of the vulnerability
+   and attach the source files (i.e. diff.gz and dsc files) to your mail.</p>
+<p>The <a href="../doc/developers-reference/pkgs.html#bug-security">Developer's Reference</a> has complete instructions on what to do.</p>
+<p><em><a name="SecurityUploadQueue">Q: I'm pretty sure my packages are fine,
+   how can I upload them?</a></em></p>
+<p>A: If you are very sure that your packages don't break anything, that the
+   version is sane (i.e. greater than the version in stable and less than the
+   version in testing/unstable), that you didn't change the behaviour of the
+   package, despite the corresponding security problem, that you compiled it
+   for the correct distribution (that is <code>oldstable-security</code> or
+   <code>stable-security</code>), that the package contains the original
+   source if the package is new on security.debian.org, that you can confirm
+   the patch against the most recent version is clean and only touches the
+   corresponding security problem (check with <code>interdiff -z</code> and
+   both <code>.diff.gz</code> files), that you have proofread the patch at
+   least thrice, and that <code>debdiff</code> doesn't display any changes,
+   you may upload the files into the incoming directory
+   <code>ftp://ftp.security.upload.debian.org/pub/SecurityUploadQueue</code> on the
+   security.debian.org directly.  Please send a notification with all details
+   and links to team@security.debian.org as well.</p>
+<p><em><a name="help">Q: How can I help with security?</a></em></p>
+<p>A: Please review each problem before reporting it to
+   security@debian.org.  If you are able to provide patches, that
+   would speed up the process.  Do not simply forward bugtraq mails,
+   because we already receive them &mdash; but do provide us with
+   additional information about things reported on bugtraq.</p>
+<p>A good way to get started with security work is helping
+   out on the Debian Security Tracker (<a
+   href="https://security-tracker.debian.org/tracker/data/report">instructions</a>).</p>
+<p><em><a name="proposed-updates">Q: What is the scope of proposed-updates?</a></em></p>
+<p>A: This directory contains packages which are proposed to enter the
+   next revision of Debian stable.  Whenever packages are uploaded by
+   a maintainer for the stable distribution, they end up in the
+   proposed-updates directory.  Since stable is meant to be stable, no
+   automatic updates are made.  The security team will upload fixed
+   packages mentioned in their advisories to stable, however they will
+   be placed in proposed-updates first.  Every couple of months the
+   Stable Release Manager checks the list of packages in
+   proposed-updates and discusses whether a package is suited for
+   stable or not.  This is compiled into another revision of stable
+   (e.g. 2.2r3 or 2.2r4).  Packages that don't fit will probably be
+   rejected and dropped from proposed-updates as well.
+</p>
+<p>Note that the packages uploaded by maintainers (not by the security team)
+   in the proposed-updates/ directory are not supported by the security
+   team.</p>
+<p><em><a name="composing">Q: How is the security team composed?</a></em></p>
+<p>A: The Debian security team consists of
+   <a href="../intro/organization#security">several officers and secretaries</a>.
+   The security team itself appoints people to join the team.</p>
+<p><em><a name="lifespan">Q: How long will security updates be provided?</a></em></p>
+<p>A: The security team tries to support a stable distribution for
+   about one year after the next stable distribution has been
+   released, except when another stable distribution is released
+   within this year.  It is not possible to support three
+   distributions; supporting two simultaneously is already difficult
+   enough.
+</p>
+<p><em><a name="check">Q: How can I check the integrity of packages?</a></em></p>
+<p>A: This process involve checking the Release file signature against
+   the <a href="https://ftp-master.debian.org/keys.html">public key</a> used for the archive.  The Release file contains the
+   checksums of Packages and Sources files, which contain
+   checksums of binary and source packages.  Detailed instruction on how
+   to check packages integrity can be found in the <a
+   href="../doc/manuals/securing-debian-howto/ch7#s-deb-pack-sign">Debian Securing Manual</a>.</p>
+<p><em><a name="break">Q: What to do if a random package breaks after a security update?</a></em></p>
+<p>A: First of all, you should figure out why the package breaks and
+   how it is connected to the security update, then contact the
+   security team if it is serious or the stable release manager if it
+   is less serious.  We're talking about random packages that break
+   after a security update of a different package.  If you can't
+   figure out what's going wrong but have a correction, talk to the
+   security team as well.  You may be redirected to the stable release
+   manager though.</p>
+<p><em><a name="cvewhat">Q: What is a CVE identifier?</a></em></p>
+<p>A: The Common Vulnerabilities and Exposures project assignes
+   unique names, called CVE identifiers, to specific security
+   vulnerabilities, to make it easier to uniquely refer to a specific
+   issue. More information can be found at <a
+   href="https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures">Wikipedia</a>.</p>
+<p><em><a name="cvedsa">Q: Does Debian issue a DSA for every CVE id?</a></em></p>
+<p>A: The Debian security team keeps track of every issued CVE identifier,
+   connect it to the relevant Debian package and assess its impact in a
+   Debian context - the fact that something is assigned a CVE id does not
+   necessarily imply that the issue is a serious threat to a Debian system.
+   This information is tracked in the
+   <a href="https://security-tracker.debian.org">Debian Security Tracker</a>
+   and for the issues that are considered serious a Debian Security Advisory
+   will be issued.</p>
+<p>Low-impact issues not qualifying for a DSA can be fixed in the next
+   release of Debian, in a point release of the current stable or oldstable
+   distributions, or are included in a DSA when that is being issued for a
+   more serious vulnerability.</p>
+<p><em><a name="cveget">Q: Can Debian assign CVE identifiers?</a></em></p>
+<p>A: Debian is a CVE Numbering Authority and can assign ids, but per
+   CVE policy only to yet-undisclosed issues. If you have an undisclosed
+   security vulnerability for software in Debian and would like to get an
+   identifier for it, contact the Debian Security Team. For cases where the
+   vulnerability is already public, we advise to follow the procedure
+   detailed in the <a
+   href="https://github.com/RedHatProductSecurity/CVE-HOWTO">CVE
+   OpenSource Request HOWTO</a>.</p>
+<p><em><a name="disclosure-policy">Q: Does Debian have a vulnerability disclosure policy?</a></em></p>
+<p>A: Debian has published a <a href="disclosure-policy">vulnerability
+   disclosure policy</a> as part of its participation in the CVE
+   program.</p>
+<h1>Deprecated Debian security FAQ</h1>
+<p><em><a name="localremote">Q: What does <q>local (remote)</q> mean?</a></em></p>
+<p><b>The field <i>Problem type</i> in DSA mails is not used since April 2014.</b><br>
+   A: Some advisories cover vulnerabilities that cannot be identified
+   with the classic scheme of local and remote exploitability.  Some
+   vulnerabilities cannot be exploited from remote, i.e. don't
+   correspond to a daemon listening to a network port.  If they can be
+   exploited by special files that could be provided via the network
+   while the vulnerable service is not permanently connected with the
+   network, we write <q>local (remote)</q> in such cases.</p>
+<p>Such vulnerabilities are somewhat between local and remote
+   vulnerabilities and often cover archives that could be provided
+   through the network, e.g. as mail attachment or from a download
+   page.</p>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class ="hidecss">
+<p>返回 <a href="../">Debian 计划主页</a></p>
+<hr>
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+本页其他语言版本如下
+<div id="langContainer">
+ <a href="faq.da.html" title="丹麦语" hreflang="da" lang="da" rel="alternate">dansk</a>
+ <a href="faq.de.html" title="德语" hreflang="de" lang="de" rel="alternate">Deutsch</a>
+ <a href="faq.el.html" title="希腊语" hreflang="el" lang="el" rel="alternate">&#917;&#955;&#955;&#951;&#957;&#953;&#954;&#940;&nbsp;(Ellinika)</a>
+ <a href="faq.en.html" title="英语" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="faq.es.html" title="西班牙语" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="faq.fr.html" title="法语" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="faq.it.html" title="意大利语" hreflang="it" lang="it" rel="alternate">Italiano</a>
+ <a href="faq.nl.html" title="荷兰语" hreflang="nl" lang="nl" rel="alternate">Nederlands</a>
+ <a href="faq.ja.html" title="日本语" hreflang="ja" lang="ja" rel="alternate">&#26085;&#26412;&#35486;&nbsp;(Nihongo)</a>
+ <a href="faq.pl.html" title="波兰语" hreflang="pl" lang="pl" rel="alternate">polski</a>
+ <a href="faq.pt.html" title="葡萄牙语" hreflang="pt" lang="pt" rel="alternate">Portugu&ecirc;s</a>
+ <a href="faq.ru.html" title="俄语" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+ <a href="faq.fi.html" title="芬兰语" hreflang="fi" lang="fi" rel="alternate">suomi</a>
+ <a href="faq.sv.html" title="瑞典语" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+ <a href="faq.zh-cn.html" title="中文 (China)" hreflang="zh-CN" lang="zh-CN" rel="alternate">&#20013;&#25991;(&#31616;)</a>
+ <a href="faq.zh-hk.html" title="中文 (Hong Kong)" hreflang="zh-HK" lang="zh-HK" rel="alternate">&#20013;&#25991;(HK)</a>
+ <a href="faq.zh-tw.html" title="中文 (Taiwan)" hreflang="zh-TW" lang="zh-TW" rel="alternate">&#20013;&#25991;(&#32321;)</a>
+</div>
+<a href="../intro/cn">如何设置默认语言</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">主页</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../intro/about">关于&nbsp;Debian</a>
+		  <ul>
+		  <li><a href="../social_contract">社群契约</a></li>
+		  <li><a href="../code_of_conduct">行为准则</a></li>
+		  <li><a href="../intro/free">自由软件</a></li>
+		  <li><a href="../partners/">合作伙伴</a></li>
+		  <li><a href="../donations">捐赠</a></li>
+          <li><a href="../legal">法律信息</a></li>
+          <li><a href="../legal/privacy">数据隐私</a></li>
+		  <li><a href="../contact">联系方法</a></li>
+		  </ul>
+		</li>
+        <li><a href="../intro/help">协助 Debian</a></li>		
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../distrib/">取得 Debian</a>
+			  <ul>
+			  <li><a href="../distrib/netinst">网络安装</a></li>
+			  <li><a href="../CD/">CD/USB ISO 映像</a></li>
+			  <li><a href="../CD/vendors/">CD 制造商</a></li>
+			  <li><a href="../distrib/pre-installed">预先安装</a></li>
+			  </ul>
+			</li>
+            <li><a href="../blends/">Pure Blends</a></li>
+			<li><a href="../distrib/packages">Debian 软件包</a></li>
+			<li><a href="../devel/">开发者天地</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../News/">新闻</a>
+		  <ul>
+		  <li><a href="../News/weekly/">计划快讯</a></li>
+		  <li><a href="../events/">活动</a></li>
+		  </ul>
+		</li>
+    <li><a href="../doc/">说明文档</a>
+      <ul>
+      <li><a href="../releases/">发行信息</a></li>
+      <li><a href="../releases/stable/installmanual">安装说明</a></li>
+      <li><a href="../doc/books">Debian 书籍</a></li>
+      <li><a href="https://wiki.debian.org/">Debian Wiki</a></li>
+      </ul>
+    </li>
+   </ul> 
+   <ul id="footermap-cold">
+    <li><a href="../support">支持</a>
+	  <ul>
+			  <li><a href="../international/">Debian 国际化</a></li>
+			  <li><a href="../security/">安全情报</a></li>
+			  <li><a href="../Bugs/">错误报告</a></li>
+			  <li><a href="../MailingLists/">邮件列表</a></li>
+			  <li><a href="https://lists.debian.org/">邮件列表归档</a></li>
+			  <li><a href="../ports/">移植平台/体系架构</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../sitemap">网站地图</a></li>
+  <li><a href="https://search.debian.org/">搜索</a></li>
+  <li><a href="https://bits.debian.org">Debian 博客</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>回报本网页的问题，请使用英文寄信到 <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a>。请向 <a href="mailto:debian-l10n-chinese@lists.debian.org">debian-l10n-chinese@lists.debian.org</a> 报告网站中文翻译的问题。其他联络讯息请看 Debian <a href="../contact">联系方式</a>。网站的源代码可<a href="https://salsa.debian.org/webmaster-team/webwml">在此处找到</a>。</p>
+<p>
+最近修订日期: 2021年3月7日 星期日 19:25:00 UTC
+&emsp;
+最近构建日期: 2021年6月11日 星期五 13:03:49 UTC
+  <br>
+  版权所有 &copy; 1997-2021
+ <a href="https://www.spi-inc.org/">SPI</a> 及其他； 查阅<a href="../license" rel="copyright">许可证条款</a><br>
+  Debian 是 Software in the Public Interest, Inc. 的<a href="../trademark">注册商标</a>。
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

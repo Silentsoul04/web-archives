@@ -1,0 +1,275 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="fr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Informations sur la sécurité -- DSA-4082-1 linux </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 15:27:17">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-fr.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Recherche sur le site web Debian" href="../../search.fr.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Accueil Debian"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="fr">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Recherche">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Sauter le menu</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">Informations de sécurité</a>
+ &#x2F; <a href="./">2018</a>
+ &#x2F;
+Informations sur la sécurité -- DSA-4082-1 linux</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Bulletin d'alerte Debian</h1>
+<h2>DSA-4082-1 linux -- Mise à jour de sécurité</h2>
+<dl>
+<dt>Date du rapport :</dt>
+	<dd>9 janvier 2018</dd>
+<dt>Paquets concernés :</dt>
+	<dd>
+<a href="https://packages.debian.org/src:linux">linux</a>
+</dd>
+<dt>Vulnérabilité :</dt>
+	<dd class="warning">Oui</dd>
+<dt>Références dans la base de données de sécurité :</dt>
+	<dd>Dans le dictionnaire CVE du Mitre&nbsp;: <a href="https://security-tracker.debian.org/tracker/CVE-2017-5754">CVE-2017-5754</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2017-8824">CVE-2017-8824</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2017-15868">CVE-2017-15868</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2017-16538">CVE-2017-16538</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2017-16939">CVE-2017-16939</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2017-17448">CVE-2017-17448</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2017-17449">CVE-2017-17449</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2017-17450">CVE-2017-17450</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2017-17558">CVE-2017-17558</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2017-17741">CVE-2017-17741</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2017-17805">CVE-2017-17805</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2017-17806">CVE-2017-17806</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2017-17807">CVE-2017-17807</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2017-1000407">CVE-2017-1000407</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2017-1000410">CVE-2017-1000410</a>.<br></dd>
+<dt>Plus de précisions :</dt>
+	<dd>
+<p>Plusieurs vulnérabilités ont été découvertes dans le noyau Linux qui
+pourraient conduire à une augmentation de droits, un déni de service ou
+à des fuites d'informations.</p>
+<ul>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2017-5754">CVE-2017-5754</a>
+<p>Plusieurs chercheurs ont découvert une vulnérabilité dans les
+processeurs Intel, permettant à un attaquant contrôlant un processus non
+privilégié de lire la mémoire à partir d'adresses arbitraires, y compris
+à partir du noyau et de tous les autres processus en cours d’exécution sur le
+système.</p>
+<p>Cette attaque particulière a été appelée Meltdown et est traitée dans le
+noyau Linux pour l'architecture Intel x86-64 par un ensemble de correctifs
+nommés « Kernel Page Table Isolation », imposant une séparation presque
+complète entre les mappages d'adresses du noyau et de l'espace utilisateur
+et empêchant l'attaque. Cette solution peut avoir un impact en termes de
+performance, et elle peut être désactivée lors de l'amorçage en passant le
+code <code>pti=off</code> sur la ligne de commande du noyau.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2017-8824">CVE-2017-8824</a>
+<p>Mohamed Ghannam a découvert que l'implémentation de DCCP ne gérait pas
+correctement les ressources quand une socket est déconnectée et
+reconnectée, menant éventuellement à une utilisation de mémoire après
+libération. Un utilisateur local pourrait utiliser cela pour un déni de
+service (plantage ou corruption de données) ou éventuellement pour une
+augmentation de droits. Sur les systèmes qui n'ont pas déjà chargé le
+module dccp, cela peut être atténué en le désactivant :
+<code>echo>> /etc/modprobe.d/disable-dccp.conf install dccp false</code></p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2017-15868">CVE-2017-15868</a>
+<p>Al Viro a découvert que l'implémentation du protocole d'encapsulation de
+réseau Bluebooth (BNEP) ne validait pas le type de la seconde socket passée
+à la fonction BNEPCONNADD ioctl(), ce qui pourrait conduire à une
+corruption de mémoire. Un utilisateur local doté de la capacité
+CAP_NET_ADMIN peut utiliser cela pour un déni de service (plantage ou
+corruption de données) ou éventuellement pour une augmentation de droits.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2017-16538">CVE-2017-16538</a>
+<p>Andrey Konovalov a signalé que le pilote média dvb-usb-lmedm04 ne gérait
+pas correctement certaines conditions d'erreur durant l'initialisation. Un
+utilisateur physiquement présent, avec un périphérique USB spécialement
+conçu, peut utiliser cela pour provoquer un déni de service (plantage).</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2017-16939">CVE-2017-16939</a>
+<p>Mohamed Ghannam a signalé (à travers le programme SecuriTeam Secure
+Disclosure de Beyond Security) que l'implémentation d'IPsec (xfrm) ne
+gérait pas correctement certaines causes d'échec lors du vidage
+d'informations de politique à travers netlink. Un utilisateur local doté de
+la capacité CAP_NET_ADMIN peut utiliser cela pour un déni de service
+(plantage ou corruption de données) ou éventuellement pour une augmentation
+de droits.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2017-17448">CVE-2017-17448</a>
+<p>Kevin Cernekee a découvert que le sous-système netfilter permettait
+à des utilisateurs dotés de la capacité CAP_NET_ADMIN dans n'importe quel
+espace de noms, et pas seulement dans l'espace de noms du superutilisateur,
+d'activer et de désactiver les assistants de suivi de connexion. Cela
+pourrait conduire à un déni de service, une violation de la politique de
+sécurité de réseau, ou avoir d'autres conséquences.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2017-17449">CVE-2017-17449</a>
+<p>Kevin Cernekee a découvert que le sous-système netlink permettait à des
+utilisateurs dotés de la capacité CAP_NET_ADMIN dans n'importe quel espace
+de noms de surveiller le trafic netlink dans tous les espaces de noms
+réseau, et pas seulement celui appartenant à l'espace de noms de cet
+utilisateur. Cela pourrait conduire à la divulgation d'informations
+sensibles.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2017-17450">CVE-2017-17450</a>
+<p>Kevin Cernekee a découvert que le module xt_osf permettait à des
+utilisateurs dotés de la capacité CAP_NET_ADMIN dans tout espace de noms de
+modifier la liste globale d'empreintes d'OS.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2017-17558">CVE-2017-17558</a>
+<p>Andrey Konovalov a signalé que le noyau USB ne gérait pas correctement
+certaines conditions d'erreur durant l'initialisation. Un utilisateur
+physiquement présent, avec un périphérique USB spécialement conçu, peut
+utiliser cela pour provoquer un déni de service (plantage ou corruption de
+mémoire), ou éventuellement une augmentation de droits.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2017-17741">CVE-2017-17741</a>
+<p>Dmitry Vyukov a signalé que l'implémentation de KVM pour x86 pourrait
+lire des données de la mémoire au-delà des limites lors de l'émulation
+d'une écriture MMIO si le point de trace de kvm_mmio était activé. Une
+machine virtuelle cliente pourrait être capable d'utiliser cela pour
+provoquer un déni de service (plantage).</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2017-17805">CVE-2017-17805</a>
+<p>Certaines implémentations du chiffrement par bloc Salsa20 ne géraient
+pas correctement les entrées de longueur nulle. Un utilisateur local
+pourrait utiliser cela pour provoquer un déni de service (plantage) ou
+éventuellement avoir un autre impact de sécurité.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2017-17806">CVE-2017-17806</a>
+<p>L'implémentation de HMAC pourrait être utilisée avec un algorithme de
+hachage sous-jacent qui requiert une clé, ce qui n'était pas voulu. Un
+utilisateur local pourrait utiliser cela pour provoquer un déni de service
+(plantage ou corruption de mémoire), ou éventuellement pour une
+augmentation de droits.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2017-17807">CVE-2017-17807</a>
+<p>Eric Biggers a découvert que le sous-système KEYS ne vérifiait pas les
+droits d'écriture lors de l'addition de clés à un trousseau par défaut d'un
+processus. Un utilisateur local pourrait utiliser cela pour provoquer un
+déni de service ou pour obtenir des informations sensibles.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2017-1000407">CVE-2017-1000407</a>
+<p>Andrew Honig a signalé que l'implémentation de KVM pour les processeurs
+Intel permettait un accès direct au port d'E/S 0x80 de l'hôte, ce qui n'est
+généralement pas sûr. Sur certains systèmes, cela permet à une VM cliente
+de provoquer un déni de service (plantage) de l'hôte.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2017-1000410">CVE-2017-1000410</a>
+<p>Ben Seri a signalé que le sous-système Bluetooth ne gérait pas
+correctement les éléments courts d'information d'ESF dans les messages de
+L2CAP. Un attaquant capable de communiquer à travers Bluetooth pourrait
+utiliser cela pour obtenir des informations sensibles du noyau.</p></li>
+</ul>
+<p>Pour la distribution oldstable (Jessie), ces problèmes ont été corrigés
+dans la version 3.16.51-3+deb8u1.</p>
+<p>Nous vous recommandons de mettre à jour vos paquets linux.</p>
+<p>Pour disposer d'un état détaillé sur la sécurité de linux, veuillez
+consulter sa page de suivi de sécurité à l'adresse :
+<a href="https://security-tracker.debian.org/tracker/linux">https://security-tracker.debian.org/tracker/linux</a></p>
+</dd>
+</dl>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Cette page est aussi disponible dans les langues suivantes&nbsp;:
+<div id="langContainer">
+ <a href="dsa-4082.da.html" title="danois" hreflang="da" lang="da" rel="alternate">dansk</a>
+ <a href="dsa-4082.en.html" title="anglais" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="dsa-4082.es.html" title="espagnol" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="dsa-4082.ru.html" title="russe" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+ <a href="dsa-4082.sv.html" title="suédois" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+</div>
+Comment configurer la <a href="../../intro/cn">langue par défaut du document</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Accueil</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">À&nbsp;propos&nbsp;de&nbsp;Debian</a>
+		  <ul>
+		  <li><a href="../../social_contract">Notre contrat social</a></li>
+		  <li><a href="../../code_of_conduct">Code de conduite</a></li>
+		  <li><a href="../../intro/free">Logiciel libre</a></li>
+		  <li><a href="../../partners/">Partenaires</a></li>
+		  <li><a href="../../donations">Dons</a></li>
+          <li><a href="../../legal">Informations juridiques</a></li>
+          <li><a href="../../legal/privacy">Protection de la vie privée</a></li>
+		  <li><a href="../../contact">Nous contacter</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Aider Debian</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Obtenir Debian</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">Installation par le réseau</a></li>
+			  <li><a href="../../CD/">Images ISO de CD/USB</a></li>
+			  <li><a href="../../CD/vendors/">Vendeurs de CD</a></li>
+			  <li><a href="../../distrib/pre-installed">Préinstallée</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Mélanges exclusifs</a></li>
+			<li><a href="../../distrib/packages">Paquets Debian</a></li>
+			<li><a href="../../devel/">Le coin du développeur</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">Actualités</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">Nouvelles du projet</a></li>
+		  <li><a href="../../events/">Événements</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">Documentation</a>
+      <ul>
+      <li><a href="../../releases/">Dernière version</a></li>
+      <li><a href="../../releases/stable/installmanual">Manuel d'installation</a></li>
+      <li><a href="../../doc/books">Livres Debian</a></li>
+      <li><a href="https://wiki.debian.org/">Wiki Debian</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">Assistance</a>
+	  <ul>
+			  <li><a href="../../international/">Debian et l'international</a></li>
+			  <li><a href="../../security/">Informations sur la sécurité</a></li>
+			  <li><a href="../../Bugs/">Rapports de bogues</a></li>
+			  <li><a href="../../MailingLists/">Listes de diffusion</a></li>
+			  <li><a href="https://lists.debian.org/">Archives des listes de diffusion</a></li>
+			  <li><a href="../../ports/">Portages/Architectures</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">Plan du site</a></li>
+  <li><a href="https://search.debian.org/">Recherche</a></li>
+  <li><a href="https://bits.debian.org">Le blog Debian</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>Pour signaler un problème sur le site web, envoyez un courriel à l'une de nos listes de diffusion archivées publiquement : en anglais à <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> ou en français à <a href="mailto:debian-l10n-french@lists.debian.org">debian-l10n-french@lists.debian.org</a>. Pour obtenir d'autres informations, référez-vous à la <a href="../../contact">page contact</a> de Debian. Le code source du site est <a href="https://salsa.debian.org/webmaster-team/webwml">disponible</a>.</p>
+<p>
+Dernière modification&nbsp;: mardi 29 septembre 2020 15:24:57 UTC
+&emsp;
+Dernière construction&nbsp;: vendredi 11 juin 2021 15:27:17 UTC
+  <br>
+  Copyright &copy; 2018-2021
+ <a href="https://www.spi-inc.org/">SPI</a> et autres ; voir <a href="../../license" rel="copyright">les termes de la licence</a>.<br>
+  Debian est une <a href="../../trademark">marque déposée</a> de Software in the Public Interest, Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="fr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Informations sur la sécurité -- DSA-3791-1 linux </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 15:25:08">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-fr.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Recherche sur le site web Debian" href="../../search.fr.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Accueil Debian"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="fr">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Recherche">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Sauter le menu</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">Informations de sécurité</a>
+ &#x2F; <a href="./">2017</a>
+ &#x2F;
+Informations sur la sécurité -- DSA-3791-1 linux</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Bulletin d'alerte Debian</h1>
+<h2>DSA-3791-1 linux -- Mise à jour de sécurité</h2>
+<dl>
+<dt>Date du rapport :</dt>
+	<dd>22 février 2017</dd>
+<dt>Paquets concernés :</dt>
+	<dd>
+<a href="https://packages.debian.org/src:linux">linux</a>
+</dd>
+<dt>Vulnérabilité :</dt>
+	<dd class="warning">Oui</dd>
+<dt>Références dans la base de données de sécurité :</dt>
+	<dd>Dans le dictionnaire CVE du Mitre&nbsp;: <a href="https://security-tracker.debian.org/tracker/CVE-2016-6786">CVE-2016-6786</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2016-6787">CVE-2016-6787</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2016-8405">CVE-2016-8405</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2016-9191">CVE-2016-9191</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2017-2583">CVE-2017-2583</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2017-2584">CVE-2017-2584</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2017-2596">CVE-2017-2596</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2017-2618">CVE-2017-2618</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2017-5549">CVE-2017-5549</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2017-5551">CVE-2017-5551</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2017-5897">CVE-2017-5897</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2017-5970">CVE-2017-5970</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2017-6001">CVE-2017-6001</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2017-6074">CVE-2017-6074</a>.<br></dd>
+<dt>Plus de précisions :</dt>
+	<dd>
+<p>Plusieurs vulnérabilités ont été découvertes dans le noyau Linux qui
+pourraient conduire à une augmentation de droits, un déni de service ou
+avoir d'autres impacts.</p>
+<ul>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2016-6786">CVE-2016-6786</a> / <a href="https://security-tracker.debian.org/tracker/CVE-2016-6787">CVE-2016-6787</a>
+<p>Le sous-système « performance events » ne gère pas correctement les
+verrouillages lors de certaines migrations, permettant à un attaquant local
+d'augmenter ses droits. Cela peut être atténué en désactivant l'utilisation
+non privilégiée de « performance events » :
+<code>sysctl kernel.perf_event_paranoid=3</code></p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2016-8405">CVE-2016-8405</a>
+<p>Peter Pi de Trend Micro a découvert que le sous-système de mémoire
+d'image vidéo ne vérifie pas correctement les limites lors de la copie des
+tables de couleurs dans l'espace utilisateur, provoquant une lecture hors
+limites du tampon de tas, menant à la divulgation d'informations.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2016-9191">CVE-2016-9191</a>
+<p>CAI Qian a découvert que le comptage de référence n'est pas correctement
+géré dans proc_sys_readdir de l'implémentation de sysctl, permettant un déni
+de service local (blocage du système) ou éventuellement une augmentation de
+droits.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2017-2583">CVE-2017-2583</a>
+<p>Xiaohan Zhang a signalé que KVM pour amd64 n'émule pas correctement le
+le chargement d'un sélecteur de pile de taille NULL. Cela peut être utilisé
+par un utilisateur dans une VM client pour un déni de service (avec un
+processeur Intel) ou pour une augmentation de droits à l'intérieur de la VM
+(avec un processeur AMD).</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2017-2584">CVE-2017-2584</a>
+<p>Dmitry Vyukov a signalé que KVM pour x86 n'émule pas correctement l'accès
+mémoire par les instructions SGDT et SIDT, ce qui peut avoir pour
+conséquence une utilisation de mémoire après libération et une fuite
+d'informations.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2017-2596">CVE-2017-2596</a>
+<p>Dmitry Vyukov a signalé que KVM divulgue des références de page lors de
+l'émulation d'un VMON pour un hyperviseur imbriqué. Cela peut être utilisé
+par un utilisateur privilégié dans une VM client pour déni de service ou
+éventuellement pour obtenir des droits dans l'hôte.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2017-2618">CVE-2017-2618</a>
+<p>Un décalage d'entier dans le traitement des attributs de SELinux dans
+/proc/pid/attr pourrait avoir pour conséquence un déni de service local.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2017-5549">CVE-2017-5549</a>
+<p>Le pilote de périphérique USB série KLSI KL5KUSB105 pourrait enregistrer
+le contenu de mémoire du noyau non initialisée avec pour conséquence une
+fuite d'informations.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2017-5551">CVE-2017-5551</a>
+<p>Jan Kara a découvert que le changement des ACL POSIX d'un fichier dans
+tmpfs ne nettoyait jamais l'étiquette set-group-ID, ce qui devrait être fait
+si l'utilisateur modifié n'est pas un membre du groupe propriétaire. Dans
+certains cas, cela peut permettre à l'utilisateur propriétaire d'un
+exécutable d'obtenir les droits du groupe propriétaire.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2017-5897">CVE-2017-5897</a>
+<p>Andrey Konovalov a découvert un défaut de lecture hors limites dans la
+fonction ip6gre_err dans le code réseau IPv6.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2017-5970">CVE-2017-5970</a>
+<p>Andrey Konovalov a découvert un défaut de déni de service dans le code
+réseau IPv4. Il peut être déclenché par un attaquant local ou distant si
+l'option IP_RETOPTS d'un socket local UDP ou brut est activée.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2017-6001">CVE-2017-6001</a>
+<p>Di Shen a découvert une situation de compétition entre des appels
+parallèles au sous-système « performance events », permettant à un attaquant
+local d'augmenter ses droits. Ce défaut existe à cause d'une correction
+incomplète de <a href="https://security-tracker.debian.org/tracker/CVE-2016-6786">CVE-2016-6786</a>.
+Cela peut être atténué en désactivant l'utilisation non privilégiée de
+« performance events » : <code>sysctl kernel.perf_event_paranoid=3</code></p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2017-6074">CVE-2017-6074</a>
+<p>Andrey Konovalov a découvert une vulnérabilité d'utilisation de mémoire
+après libération dans le code réseau DCCP qui pourrait avoir pour
+conséquence un déni de service ou une augmentation de droits local. Sur les
+systèmes où le module dccp n'a pas déjà été chargé, cela peut être atténué
+en le désactivant :
+<code>echo>> /etc/modprobe.d/disable-dccp.conf install dccp false</code></p></li>
+</ul>
+<p>Pour la distribution stable (Jessie), ces problèmes ont été corrigés dans la version 3.16.39-1+deb8u1.</p>
+<p>Nous vous recommandons de mettre à jour vos paquets linux.</p>
+</dd>
+</dl>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Cette page est aussi disponible dans les langues suivantes&nbsp;:
+<div id="langContainer">
+ <a href="dsa-3791.da.html" title="danois" hreflang="da" lang="da" rel="alternate">dansk</a>
+ <a href="dsa-3791.en.html" title="anglais" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="dsa-3791.ru.html" title="russe" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+ <a href="dsa-3791.sv.html" title="suédois" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+</div>
+Comment configurer la <a href="../../intro/cn">langue par défaut du document</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Accueil</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">À&nbsp;propos&nbsp;de&nbsp;Debian</a>
+		  <ul>
+		  <li><a href="../../social_contract">Notre contrat social</a></li>
+		  <li><a href="../../code_of_conduct">Code de conduite</a></li>
+		  <li><a href="../../intro/free">Logiciel libre</a></li>
+		  <li><a href="../../partners/">Partenaires</a></li>
+		  <li><a href="../../donations">Dons</a></li>
+          <li><a href="../../legal">Informations juridiques</a></li>
+          <li><a href="../../legal/privacy">Protection de la vie privée</a></li>
+		  <li><a href="../../contact">Nous contacter</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Aider Debian</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Obtenir Debian</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">Installation par le réseau</a></li>
+			  <li><a href="../../CD/">Images ISO de CD/USB</a></li>
+			  <li><a href="../../CD/vendors/">Vendeurs de CD</a></li>
+			  <li><a href="../../distrib/pre-installed">Préinstallée</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Mélanges exclusifs</a></li>
+			<li><a href="../../distrib/packages">Paquets Debian</a></li>
+			<li><a href="../../devel/">Le coin du développeur</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">Actualités</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">Nouvelles du projet</a></li>
+		  <li><a href="../../events/">Événements</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">Documentation</a>
+      <ul>
+      <li><a href="../../releases/">Dernière version</a></li>
+      <li><a href="../../releases/stable/installmanual">Manuel d'installation</a></li>
+      <li><a href="../../doc/books">Livres Debian</a></li>
+      <li><a href="https://wiki.debian.org/">Wiki Debian</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">Assistance</a>
+	  <ul>
+			  <li><a href="../../international/">Debian et l'international</a></li>
+			  <li><a href="../../security/">Informations sur la sécurité</a></li>
+			  <li><a href="../../Bugs/">Rapports de bogues</a></li>
+			  <li><a href="../../MailingLists/">Listes de diffusion</a></li>
+			  <li><a href="https://lists.debian.org/">Archives des listes de diffusion</a></li>
+			  <li><a href="../../ports/">Portages/Architectures</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">Plan du site</a></li>
+  <li><a href="https://search.debian.org/">Recherche</a></li>
+  <li><a href="https://bits.debian.org">Le blog Debian</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>Pour signaler un problème sur le site web, envoyez un courriel à l'une de nos listes de diffusion archivées publiquement : en anglais à <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> ou en français à <a href="mailto:debian-l10n-french@lists.debian.org">debian-l10n-french@lists.debian.org</a>. Pour obtenir d'autres informations, référez-vous à la <a href="../../contact">page contact</a> de Debian. Le code source du site est <a href="https://salsa.debian.org/webmaster-team/webwml">disponible</a>.</p>
+<p>
+Dernière modification&nbsp;: vendredi 1<sup>er</sup> juin 2018 18:42:18 UTC
+&emsp;
+Dernière construction&nbsp;: vendredi 11 juin 2021 15:25:09 UTC
+  <br>
+  Copyright &copy; 2017-2021
+ <a href="https://www.spi-inc.org/">SPI</a> et autres ; voir <a href="../../license" rel="copyright">les termes de la licence</a>.<br>
+  Debian est une <a href="../../trademark">marque déposée</a> de Software in the Public Interest, Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

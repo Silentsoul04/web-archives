@@ -1,0 +1,216 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- 監査パッケージ優先順位付けガイドライン </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 17:17:19">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-ja.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Debian ウェブサイト検索" href="../../search.ja.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Debian ホーム"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="ja">
+        <input name="P" value="" size="14">
+        <input type="submit" value="検索">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">クイックナビをスキップ</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">セキュリティ情報</a>
+ &#x2F; <a href="./">Debian セキュリティ監査プロジェクト</a>
+ &#x2F;
+監査パッケージ優先順位付けガイドライン</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>監査パッケージ優先順位付けガイドライン</h1>
+<p>Debian ディストリビューションの監査を実行する際に最初に生じる問題の一つは、
+監査対象のパッケージを決定することです。</p>
+<p>理想的にはすべてのパッケージを監査することになるでしょうが、
+アーカイブ全体には膨大な数のパッケージがあるので、
+作業に優先順位をつける簡単な方法がなくてはなりません。</p>
+<p>単純なガイドラインとしては、最初に監査する価値があるのは以下のパッケージです。</p>
+<ol>
+<li>setuid や setgid をされてインストールされているあらゆるバイナリ。</li>
+<li>ネットワーク越しにサービスを提供するあらゆるもの。</li>
+<li>リモートからアクセス可能なあらゆる CGI/PHP スクリプト。</li>
+<li>root 権限で実行される cronjob やその他の自動化スクリプトを含んでいるあらゆるもの。</li>
+</ol>
+<p>一般に、人気があるパッケージは優先順位を上げてください。
+これらのパッケージに何らかの問題があれば、より多くのユーザに影響があるからです。</p>
+<p><a href="https://popcon.debian.org/">Debian 人気コンテスト</a>では、
+調査に参加しているボランティアにどのパッケージが最も人気があるのかを明らかにするための調査を行い続けています。</p>
+<p>特に、<a href="https://popcon.debian.org/by_vote">投票による (by vote)
+パッケージの順序付け</a>を見てください。この<q>投票による</q>リストでは、
+調査に参加しているユーザがどの程度の頻度でパッケージを使用しているかによって、
+パッケージを順位付けています。</p>
+<p>パッケージが (特に上述の基準のいずれかを満たすなど) セキュリティ上重要であり、
+(このような調査で) 人気もある場合は、<em>間違いなく</em>監査の対象です。</p>
+<h2><tt>setuid</tt> や <tt>setgid</tt> をされたバイナリ</h2>
+<p><tt>setuid</tt> や <tt>setgid</tt>
+をされたバイナリは、伝統的にセキュリティ監査の対象となっています。
+これらのパーミッションのいずれかを持つ脆弱なバイナリを突く侵害行為で、ローカルユーザは、
+本来持っていない権限を利用する手段を得ることが可能だからです。</p>
+<p>検索の補助となる手段として、現行安定版 (stable) リリースに含まれる setuid や setgid
+をされたバイナリの完全な一覧がこちらに存在します。</p>
+<ul>
+<li><a href="https://lintian.debian.org/tags/setuid-binary.html">Debian の
+Setuid されたバイナリの Lintian Report</a></li>
+<li><a href="https://lintian.debian.org/tags/setgid-binary.html">Debian の
+Setgid されたバイナリの Lintian Report</a></li>
+</ul>
+<p>setuid や setgid
+をされたバイナリの中からどれを選択するかに関しては、
+そのようなバイナリの中でもセキュリティ問題への繋がりやすさに差がある、
+ということを覚えておくことが重要です。例えば、setuid(root)
+をされたバイナリは、setgid(games) や setuid(bugs)
+をされたバイナリよりも先に監査すべきです。</p>
+<h2>ネットワークサーバ</h2>
+<p>セキュリティ監査の実施ということになると、明らかに思い浮かびやすいもう 1
+つの対象はネットワークに繋がったサーバです。
+ネットワークに繋がったサーバに悪用可能な問題があると、
+攻撃者がリモートからマシンを侵害できるようになりうるからです。</p>
+<p>通常、
+リモートからのセキュリティ侵害はローカルからのセキュリティ侵害よりもはるかに重大です。</p>
+<h2>オンラインのスクリプト</h2>
+<p>オンラインのスクリプト、特に CGI スクリプトは、実はネットワークサーバと同等です。
+ウェブサーバ自体は安全かもしれませんが、その上で動作するスクリプトも同程度に重要なのです。</p>
+<p>ネットワーク越しに利用可能なスクリプトのバグは、
+接続を待ち受けているサーバのバグと同程度に重大です。
+どちらのバグでもマシンへのセキュリティ侵害が可能になってしまうからです。</p>
+<h2>cronjob やシステムのサービス</h2>
+<p>あちこちに多数あるわけではありませんが、
+パッケージ内に含まれている自動化スクリプトや cronjob などには目を通す価値があります。</p>
+<p>ログファイルの掃除などに使用される多くのサポートツールが、デフォルトでは root
+権限で実行されます。</p>
+<p>シンボリックリンク攻撃の悪用が成功してしまうと、
+ローカルからの侵害を招く可能性があります。</p>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<p><a href="../../">Debian プロジェクトホームページ</a>に戻る。</p>
+<hr>
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+このページは以下の言語でもご覧になれます。
+<div id="langContainer">
+ <a href="packages.de.html" title="ドイツ語" hreflang="de" lang="de" rel="alternate">Deutsch</a>
+ <a href="packages.en.html" title="英語" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="packages.es.html" title="スペイン語" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="packages.fr.html" title="フランス語" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="packages.nl.html" title="オランダ語" hreflang="nl" lang="nl" rel="alternate">Nederlands</a>
+ <a href="packages.pt.html" title="ポルトガル語" hreflang="pt" lang="pt" rel="alternate">Portugu&ecirc;s</a>
+ <a href="packages.ru.html" title="ロシア語" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+ <a href="packages.sv.html" title="スウェーデン語" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+</div>
+<a href="../../intro/cn">デフォルトの言語を設定するには</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">ホーム</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">Debian について</a>
+		  <ul>
+		  <li><a href="../../social_contract">私たちの社会契約</a></li>
+		  <li><a href="../../code_of_conduct">利用上の注意</a></li>
+		  <li><a href="../../intro/free">フリーソフトウェア</a></li>
+		  <li><a href="../../partners/">パートナー</a></li>
+		  <li><a href="../../donations">寄付</a></li>
+          <li><a href="../../legal">Legal Info</a></li>
+          <li><a href="../../legal/privacy">Data Privacy</a></li>
+		  <li><a href="../../contact">私たちと連絡を取る</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Debian を支援する</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Debian を入手する</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">ネットワークインストール</a></li>
+			  <li><a href="../../CD/">CD/USB ISO イメージ</a></li>
+			  <li><a href="../../CD/vendors/">CD ベンダ</a></li>
+			  <li><a href="../../distrib/pre-installed">プリインストール</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Pure Blends</a></li>
+			<li><a href="../../distrib/packages">Debian パッケージ</a></li>
+			<li><a href="../../devel/">開発者のコーナー</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">ニュース</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">プロジェクトニュース</a></li>
+		  <li><a href="../../events/">イベント</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">文書</a>
+      <ul>
+      <li><a href="../../releases/">リリース情報</a></li>
+      <li><a href="../../releases/stable/installmanual">インストール手順</a></li>
+      <li><a href="../../doc/books">Debian に関する書籍</a></li>
+      <li><a href="https://wiki.debian.org/">Debian Wiki</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">サポート</a>
+	  <ul>
+			  <li><a href="../../international/">Debian の国際化</a></li>
+			  <li><a href="../../security/">セキュリティ情報</a></li>
+			  <li><a href="../../Bugs/">バグ報告</a></li>
+			  <li><a href="../../MailingLists/">メーリングリスト</a></li>
+			  <li><a href="https://lists.debian.org/">»リストアーカイブ</a></li>
+			  <li><a href="../../ports/">移植/アーキテクチャ</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">サイトマップ</a></li>
+  <li><a href="https://search.debian.org/">検索</a></li>
+  <li><a href="https://bits.debian.org">Debian ブログ</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>To report a problem with the web site, please e-mail our publicly archived mailing list <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> in English. For other contact information, see the Debian <a href="../../contact">contact page</a>. Web site source code is <a href="https://salsa.debian.org/webmaster-team/webwml">available</a>.</p>
+<p>
+最終更新: 2020 年 8 月 6 日 (木) 01:25:21 UTC
+&emsp;
+Last Built: 2021 年 6 月 11 日 (金) 17:17:19 UTC
+  <br>
+  Copyright &copy; 1997-2020
+ <a href="https://www.spi-inc.org/">SPI</a> と多くの人々; <a href="../../license" rel="copyright">ライセンス条項</a>をご覧ください。<br>
+  Debian は Software in the Public Interest, Inc の<a href="../../trademark">登録商標</a>です。
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

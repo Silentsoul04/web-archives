@@ -1,0 +1,414 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="pt">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Vulnerabilidade do boot seguro UEFI no GRUB2 - 'BootHole' </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 17:54:37">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-pt.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Pesquisa do site web do Debian" href="../../search.pt.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Página principal do Debian"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="pt">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Busca">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Pular "Quicknav"</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="../">Informações sobre Segurança</a>
+ &#x2F;
+Vulnerabilidade do boot seguro UEFI no GRUB2 - 'BootHole'</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Vulnerabilidade do boot seguro UEFI no GRUB2 - 'BootHole'</h1>
+<p>
+Os(As) desenvolvedores(as) no Debian e em outras comunidades Linux ficaram
+cientes recentemente de um problema severo no bootloader GRUB2 que permite
+que um malfeitor contorne completamente o boot seguro UEFI (UEFI Secure
+Boot). Os detalhes completos do problema estão descritos no
+<a href="../../security/2020/dsa-4735">alerta de segurança 4735 do Debian</a>.
+O objetivo deste documento é explicar as consequências desta
+vulnerabilidade de segurança e apresentar os passos que foram tomados
+para remediá-la.
+</p>
+<ul>
+  <li><b><a href="#what_is_SB">Contexto: o que é o boot seguro UEFI?</a></b></li>
+  <li><b><a href="#grub_bugs">Múltiplos bugs do GRUB2 encontrados</a></b></li>
+  <li><b><a href="#linux_bugs">Bugs do Linux também encontrados</a></b></li>
+  <li><b><a href="#revocations">Revogações de chave necessárias para corrigir a cadeia de boot seguro</a></b></li>
+  <li><b><a href="#revocation_problem">Quais são os efeitos de revogação de chave?</a></b></li>
+  <li><b><a href="#package_updates">Pacotes atualizados</a></b>
+  <ul>
+    <li><b><a href="#grub_updates">1. GRUB2</a></b></li>
+    <li><b><a href="#linux_updates">2. Linux</a></b></li>
+    <li><b><a href="#shim_updates">3. Shim</a></b></li>
+    <li><b><a href="#fwupdate_updates">4. Fwupdate</a></b></li>
+    <li><b><a href="#fwupd_updates">5. Fwupd</a></b></li>
+  </ul></li>
+  <li><b><a href="#buster_point_release">Lançamento pontual
+        Debian 10.5 (<q>buster</q>), mídias de instalação e live
+        atualizadas</a></b></li>
+  <li><b><a href="#more_info">Mais informações</a></b></li>
+</ul>
+<h1><a name="what_is_SB">Contexto: o que é o boot seguro UEFI?</a></h1>
+<p>
+O boot seguro UEFI (UEFI Secure Boot - SB) é um mecanismo de verificação
+para garantir que o código executado por um firmware do UEFI do computador
+é confiável. Ele é projetado para proteger um sistema contra código malicioso
+sendo carregado e executado cedo no processo de boot, antes do sistema
+operacional ter sido carregado.
+</p>
+<p>
+O SB funciona usando um checksum criptográfico e assinaturas. Cada
+programa que é carregado pelo firmware inclui uma assinatura e
+um checksum, e antes de permitir a execução, o firmware verificará se o
+programa é confiável pela validação do checksum e da assinatura.
+Quando o SB está habilitado em um sistema, qualquer tentativa de executar
+um programa não confiável não será permitida. Isto bloqueia códigos
+não esperados/não autorizados de rodarem no ambiente UEFI.
+</p>
+<p>
+A maior parte do hardware X86 vem de fábrica com as chaves da Microsoft
+pré-carregadas. Isto significa que o firmware desses sistemas confiarão
+nos binários que foram assinados pela Microsoft. A maioria dos sistemas
+será enviada com o SB habilitado - eles não executarão qualquer código
+não assinado por padrão, mas é possível alterar a configuração do firmware
+para, ou desabilitar o SB, ou adicionar chaves de assinatura extras.
+</p>
+<p>
+O Debian, como muitos outros sistemas operacionais baseados em Linux, usa um
+programa chamado shim para estender essa confiança do firmware para outros
+programas que nós precisamos que estejam seguros durante o boot inicial: o
+bootloader GRUB2, o kernel do Linux e ferramentas de atualização de firmware
+(fwupd e fwupdate).
+</p>
+<h1><a name="grub_bugs">Múltiplos bugs do GRUB2 encontrados</a></h1>
+<p>
+Infelizmente, um bug sério foi encontrado no código do bootloader
+GRUB2 que lê e analisa o arquivo de configuração dele (grub.cfg). Este bug
+quebra a cadeia de confiança; ao explorar esse bug, é possível
+romper com o ambiente seguro e carregar programas não assinados
+durante o boot inicial. Esta vulnerabilidade foi descoberta por
+pesquisadores(as) do Eclypsium e dado o nome de
+<b><a href="https://www.eclypsium.com/2020/07/29/theres-a-hole-in-the-boot/">BootHole</a></b>.
+</p>
+<p>
+Em vez de somente corrigir este bug, os(as) desenvolvedores(as) foram
+demandados(as) a fazer uma auditoria profunda do código-fonte do GRUB2.
+Seria irresponsável corrigir uma grande falha sem também procurar outras!
+Um time de engenheiros(as) trabalhou por várias semanas para identificar e
+reparar uma gama de problemas adicionais. Nós encontramos alguns lugares nos
+quais alocações internas de memória poderiam estourar com entradas não
+esperadas, muitos outros lugares onde um estouro de inteiro em cálculos
+matemáticos poderia causar problemas, e alguns poucos lugares onde a memória
+poderia ser usada após ser liberada. Correções para tudo isso foram
+compartilhadas e testadas entre a comunidade.
+</p>
+<p>
+Novamente, veja o <a href="../../security/2020/dsa-4735">alerta de segurança
+4735 do Debian</a> para uma lista completa de problemas encontrados.
+</p>
+<h1><a name="linux_bugs">Bugs do Linux também encontrados</a></h1>
+<p>
+Enquanto discutia-se as falhas do GRUB2, os(as) desenvolvedores(as) também
+falaram sobre dois desvios recentemente encontrados e corrigidos por Jason A.
+Donenfeld (zx2c4)
+(<a href="https://git.zx2c4.com/american-unsigned-language/tree/american-unsigned-language.sh">1</a>,
+<a href="https://git.zx2c4.com/american-unsigned-language/tree/american-unsigned-language-2.sh">2</a>)
+nos quais o Linux também poderia permitir o desvio do boot seguro. Esses dois
+desvios permitem ao root que substitua tabelas ACPI em um sistema bloqueado
+quando isto não deveria ser permitido. Correções já foram lançadas para esses
+problemas.
+</p>
+<h1><a name="revocations">Revogações de chave necessárias para corrigir a cadeia de boot seguro</a></h1>
+<p>
+O Debian e outros(as) fornecedores(as) de sistemas operacionais obviamente <a
+href="#package_updates">lançarão versões corrigidas</a> do GRUB2 e do
+Linux. Entretanto, isto pode não ser uma correção completa para os problemas
+vistos aqui. Intervenientes maliciosos ainda serão capazes de usar versões mais
+antigas e vulneráveis para contornar o boot seguro.
+</p>
+<p>
+Para impedir isso, o próximo passo será a Microsoft colocar na lista de
+bloqueio aqueles binários inseguros para que sejam barrados na execução sob o
+SB. Isto é alcançado usando a lista <b>DBX</b>, uma funcionalidade do projeto
+do boot seguro UEFI. Todas as distribuições Linux enviadas com cópias do shim
+assinadas pela Microsoft foram demandadas a fornecer detalhes dos binários ou
+chaves envolvidas para facilitar este processo. O <a
+href="https://uefi.org/revocationlistfile">arquivo da lista de revogação
+UEFI</a> será atualizado para incluir esta informação. Em <b>algum</b>
+ponto no futuro, os sistemas começarão a usar aquela lista atualizada e
+recusarão a executar os binários vulneráveis sob o boot seguro.
+</p>
+<p>
+A linha do tempo <i>exata</i> para que esta mudança seja implementada não está
+clara ainda. Os(As) fornecedores(as) de BIOS/UEFI incluirão a nova lista de
+revogação nas novas construções de firmware para novos hardwares em algum
+momento. Também a Microsoft <b>talvez possa</b> enviar atualizações para
+sistemas existentes via atualizações do Windows. Algumas distribuições Linux
+podem enviar atualizações através de seus próprios processos de atualizações
+de segurança. O Debian <b>ainda</b> não fez isso, mas nós estamos examinando
+a situação para o futuro.
+</p>
+<h1><a name="revocation_problem">Quais são os efeitos de revogação de chave?</a></h1>
+<p>
+A maior parte dos(as) fornecedores(as) são cautelosos(as) sobre aplicações
+automáticas de atualizações que revoguem as chaves usadas no boot seguro.
+Instalações existentes de software com SB habilitado podem, repentinamente,
+recusar o boot completamente, a menos que o(a) usuário(a) seja cuidadoso(a)
+em também instalar todas as necessárias atualizações de software. Sistemas
+Windows/Linux em dual boot podem repentinamente parar o boot do Linux.
+Mídias de instalação e live antigas também, é claro, falharão no boot,
+potencialmente fazendo com que seja mais difícil a recuperação de sistemas.
+</p>
+<p>
+Existem duas maneiras óbvias de consertar um sistema como este que não
+inicializa:
+</p>
+<ul>
+  <li>Novo boot no modo de <q>recuperação</q>
+    usando <a href="#buster_point_release">mídias mais novas de instalação</a> e
+    aplicando as atualizações necessárias; ou</li>
+  <li>Desabilitando temporariamente o boot seguro para retomar o acesso ao
+    sistema, aplicar as atualizações e reabilitá-lo.</li>
+</ul>
+<p>
+Ambas podem parecer opções simples, mas cada uma pode consumir muito
+tempo para usuários(as) com múltiplos sistemas. Também esteja ciente de que, por
+projeto, habilitar e desabilitar o boot seguro são ações que necessitam de
+acesso direto à máquina. Normalmente, <b>não</b> é possível alterar essa
+configuração fora da configuração de firmware do computador. Máquinas de
+servidores remotos podem precisar de cuidado extra aqui, por essa mesma razão.
+</p>
+<p>
+Devido a esses motivos, é altamente recomendado que <b>todos(as)</b>
+usuários(as) Debian sejam cautelosos(as) e instalem todas
+as <a href="#package_updates">atualizações recomendadas</a> para seus
+sistemas tão logo quanto possível, para reduzir as chances de problemas
+no futuro.
+</p>
+<h1><a name="package_updates">Pacotes atualizados</a></h1>
+<p>
+<b>Nota:</b> sistemas executando o Debian 9 (<q>stretch</q>) e mais antigos
+<b>não</b> necessariamente receberão atualizações aqui, já que o Debian 10
+(<q>buster</q>) foi o primeiro lançamento do Debian a incluir suporte para boot
+seguro UEFI.
+</p>
+<p>
+Aqui, as versões assinadas de todos os pacotes foram atualizadas, mesmo que
+nenhuma outra alteração tenha sido necessária. O Debian teve que gerar uma nova
+chave/certificado de assinatura para seus próprios pacotes de boot seguro. O
+certificado antigo foi rotulado de <q>Debian Secure Boot Signer</q> (fingerprint
+<code>f156d24f5d4e775da0e6a9111f074cfce701939d688c64dba093f97753434f2c</code>);
+o novo certificado é o <q>Debian Secure Boot Signer 2020</q>
+(<code>3a91a54f9f46a720fe5bbd2390538ba557da0c2ed5286f5351fe04fff254ec31</code>).
+</p>
+<p>
+Há cinco pacotes-fonte no Debian que serão atualizados devido
+às alterações do boot seguro UEFI descritas aqui:
+</p>
+<h2><a name="grub_updates">1. GRUB2</a></h2>
+<p>
+As versões atualizadas do pacote GRUB2 do Debian estão disponíveis agora
+através do repositório debian-security para o lançamento do Debian 10 estável
+(<q>buster</q>). Versões corrigidas logo estarão no repositório normal do Debian
+para as versões de desenvolvimento do Debian (instável (unstable) e teste
+(testing)).
+</p>
+<h2><a name="linux_updates">2. Linux</a></h2>
+<p>
+As versões atualizadas dos pacotes linux do Debian estão disponíveis agora
+através do repositório buster-proposed-updates para o lançamento do Debian 10
+estável (stable) (<q>buster</q>) e serão incluídas na versão pontual 10.5 que
+está por vir. Novos pacotes também estão no repositório do Debian para versões de
+desenvolvimento do Debian (instável (unstable) e teste (testing)). Nós também
+esperamos que pacotes corrigidos sejam enviados em breve para buster-backports.
+</p>
+<h2><a name="shim_updates">3. Shim</a></h2>
+<p>
+Devido ao funcionamento específico da administração de chaves do boot seguro do
+Debian, o Debian <b>não</b> precisa revogar seus pacotes existentes do shim
+assinados pela Microsoft. Contudo, as versões assinadas dos pacotes shim-helper
+precisaram de reconstrução para usar a nova chave de assinatura.
+</p>
+<p>
+As versões atualizadas dos pacotes shim do Debian estão disponíveis agora
+através do repositório buster-proposed-updates para o lançamento do Debian 10
+estável (stable) (<q>buster</q>) e serão incluídas na versão pontual 10.5 que
+está por vir. Novos pacotes também estão no repositório do Debian para versões
+de desenvolvimento do Debian (instável (unstable) e teste (testing)).
+<h2><a name="fwupdate_updates">4. Fwupdate</a></h2>
+<p>
+As versões atualizadas dos pacotes fwupdate do Debian estão disponíveis agora
+através do repositório buster-proposed-updates para o lançamento do Debian 10
+estável (stable) (<q>buster</q>) e serão incluídas na versão pontual 10.5 que
+está por vir. O fwupdate já tinha sido removido da instável e da teste um tempo
+atrás, substituído por fwupd.
+</p>
+<h2><a name="fwupd_updates">5. Fwupd</a></h2>
+<p>
+As versões atualizadas dos pacotes fwupd do Debian estão disponíveis agora
+através do repositório buster-proposed-updates para o lançamento do Debian 10
+estável (stable) (<q>buster</q>) e serão incluídas na versão pontual 10.5 que
+está por vir. Novos pacotes também estão no repositório do Debian para versões de
+desenvolvimento do Debian (instável (unstable) e teste (testing)).
+</p>
+<h1><a name="buster_point_release">Lançamento pontual Debian 10.5
+(<q>buster</q>), mídias de instalação e live atualizadas</a></h1>
+<p>
+Todas as correções descritas aqui estão marcadas para inclusão na
+versão pontual Debian 10.5 (<q>buster</q>), pronta para lançamento em
+1 de agosto de 2020. A 10.5 seria, portanto, uma boa escolha para os(as)
+usuários(as) que procuram mídia do Debian para instalação e live. Imagens
+anteriores talvez não funcionem com boot seguro no futuro, assim que as
+revogações forem lançadas.
+</p>
+<h1><a name="more_info">Mais informações</a></h1>
+<p>
+Muitas outras informações sobre a configuração do boot seguro do Debian estão no
+wiki do Debian - veja
+<a href="https://wiki.debian.org/SecureBoot">https://wiki.debian.org/SecureBoot</a>.</p>
+<p>
+Outras fontes (em inglês) sobre este tópico incluem:
+</p>
+<ul>
+  <li><a href="https://www.eclypsium.com/2020/07/29/theres-a-hole-in-the-boot/">artigo
+      <q>BootHole</q> da Eclypsium</a> descrevendo as vulnerabilidades encontrada</li>
+  <li><a href="https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/ADV200011">orientação
+      da Microsoft para abordar o desvio da funcionalidade de segurança no GRUB</a></li>
+  <li><a href="https://wiki.ubuntu.com/SecurityTeam/KnowledgeBase/GRUB2SecureBootBypass">artigo
+      da KnowledgeBase do Ubuntu</a></li>
+  <li><a href="https://access.redhat.com/security/vulnerabilities/grub2bootloader">artigo
+      da vulnerabilidade do Red Hat</a></li>
+  <li><a href="https://www.suse.com/c/suse-addresses-grub2-secure-boot-issue/">artigo
+      da vulnerabilidade do SUSE</a></li>
+</ul>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<p>Voltar para a <a href="../../">página principal do Projeto Debian</a>.</p>
+<hr>
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Esta página também está disponível nos seguintes idiomas:
+<div id="langContainer">
+ <a href="index.en.html" title="Inglês" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="index.es.html" title="Espanhol" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="index.fr.html" title="Francês" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="index.it.html" title="Italiano" hreflang="it" lang="it" rel="alternate">Italiano</a>
+ <a href="index.nl.html" title="Holandês" hreflang="nl" lang="nl" rel="alternate">Nederlands</a>
+ <a href="index.ru.html" title="Russo" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+</div>
+Como configurar <a href="../../intro/cn">o idioma padrão dos documentos</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Página Principal</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">Sobre</a>
+		  <ul>
+		  <li><a href="../../social_contract">Contrato Social</a></li>
+		  <li><a href="../../code_of_conduct">Código de Conduta</a></li>
+		  <li><a href="../../intro/free">Software Livre</a></li>
+		  <li><a href="../../partners/">Parceiros</a></li>
+		  <li><a href="../../donations">Doações</a></li>
+          <li><a href="../../legal">Legal Info</a></li>
+          <li><a href="../../legal/privacy">Data Privacy</a></li>
+		  <li><a href="../../contact">Contate-nos</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Ajude o Debian</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Obtendo o Debian</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">Instalação via Rede</a></li>
+			  <li><a href="../../CD/">Imagens de CD/USB ISO</a></li>
+			  <li><a href="../../CD/vendors/">Vendedores de CDs</a></li>
+			  <li><a href="../../distrib/pre-installed">Pré-instalado</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Pure Blends</a></li>
+			<li><a href="../../distrib/packages">Pacotes do Debian</a></li>
+			<li><a href="../../devel/">Canto dos(as) desenvolvedores(as)</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">Notícias</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">Notícias do Projeto</a></li>
+		  <li><a href="../../events/">Eventos</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">Documentação</a>
+      <ul>
+      <li><a href="../../releases/">Informações sobre Versões</a></li>
+      <li><a href="../../releases/stable/installmanual">Manual de Instalação</a></li>
+      <li><a href="../../doc/books">Livros sobre Debian</a></li>
+      <li><a href="https://wiki.debian.org/">Wiki do Debian</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">Suporte</a>
+	  <ul>
+			  <li><a href="../../international/">Debian Internacional</a></li>
+			  <li><a href="../../security/">Informações sobre Segurança</a></li>
+			  <li><a href="../../Bugs/">Relatórios de Bug</a></li>
+			  <li><a href="../../MailingLists/">Listas de Discussão</a></li>
+			  <li><a href="https://lists.debian.org/">Arquivos das Listas de Discussão</a></li>
+			  <li><a href="../../ports/">Portes/Arquiteturas</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">Mapa do site</a></li>
+  <li><a href="https://search.debian.org/">Busca</a></li>
+  <li><a href="https://bits.debian.org">O Blog do Debian</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>To report a problem with the web site, please e-mail our publicly archived mailing list <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> in English. For other contact information, see the Debian <a href="../../contact">contact page</a>. Web site source code is <a href="https://salsa.debian.org/webmaster-team/webwml">available</a>.</p>
+<p>
+Última Modificação: Ter, 11 de Ago de 2020, 17:55:05 UTC
+&emsp;
+Última compilação: Sex, 11 de Jun de 2021, 17:54:37 UTC
+  <br>
+  Copyright &copy; 1997-2020
+ <a href="https://www.spi-inc.org/">SPI</a> e outros; Veja os <a href="../../license" rel="copyright">termos de licença</a><br>
+  Debian é uma <a href="../../trademark">marca registrada</a> da Software in the Public Interest, Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

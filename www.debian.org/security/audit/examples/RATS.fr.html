@@ -1,0 +1,277 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="fr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Exemple d'audit automatisé&nbsp;: RATS </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 15:33:47">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../../debian-fr.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Recherche sur le site web Debian" href="../../../search.fr.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../../" title="Accueil Debian"><img src="../../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="fr">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Recherche">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Sauter le menu</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../../">Informations de sécurité</a>
+ &#x2F; <a href="./../">Projet d'audit de sécurité de Debian</a>
+ &#x2F; <a href="./">Exemples d'audit automatisé</a>
+ &#x2F;
+Exemple d'audit automatisé&nbsp;: RATS</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Exemple d'audit automatisé&nbsp;: RATS</h1>
+<p><a href="https://packages.debian.org/rats">RATS</a> est un scanner
+généraliste pour détecter des problèmes de sécurité potentiels dans de nombreux
+langages de programmation.</p>
+<h2>Utiliser RATS</h2>
+<p>Utiliser RATS est simple, cela se résume à l'invoquer avec le nom du
+répertoire à examiner. Chaque fichier source reconnu sera examiné. RATS
+comprend plusieurs langages de programmation&nbsp;: C, Perl, PHP et Python, et
+traitera tous les fichiers source reconnus.</p>
+<p>En plus de la liste du répertoire à examiner, il existe plusieurs options de
+ligne de commande qui sont décrites dans la page du manuel.</p>
+<p>Les options les plus utiles sont celles concernant la sortie, telles
+que&nbsp;:</p>
+<ul>
+<li>--warning &lt;niveau&gt; (règle le niveau de failles à rapporter)
+<ul>
+<li>1 inclut seulement les vulnérabilités à risque moyen (niveau par défaut) et
+à haut risque.</li>
+<li>2 inclut les vulnérabilité à risque moyen (niveau par défaut).</li>
+<li>3 inclut les vulnérabilités à risque faible.</li>
+</ul></li>
+<li>--xml (sortie en XML)</li>
+<li>--html (sortie en HTML)</li>
+</ul>
+<p>En supposant que le <a href="test.c.html">fichier de test</a> est situé dans
+le répertoire courant, sans autre fichier source nous pouvons invoquer le
+scanner par la commande suivante&nbsp;:</p>
+<pre>
+rats --warning 1 --html . &gt;sortie.html
+</pre>
+<p>Un fichier HTML contenant les résultats de l'examen sera produit, et pourra
+être chargé dans un navigateur.</p>
+<h2>Les résultats</h2>
+<p>Utiliser RATS sur notre <a href="test.c.html">code d'exemple</a> produit la
+sortie suivante&nbsp;:</p>
+<hr>
+<div class="sampleblock">
+<h3>Severity: High</h3>
+<p>Issue: fixed size global buffer</p>
+<p>
+  Extra care should be taken to ensure that character arrays that are
+  allocated on the stack are used safely. They are prime targets for
+  buffer overflow attacks.
+</p>
+<p>
+File: <b>test.c</b><br>
+Lines: 10 11 12
+</p>
+<h3>Severity: High</h3>
+<p>Issue: strcpy</p>
+<p>
+    Check to be sure that argument 2 passed to this function call will not
+    copy more data than can be handled, resulting in a buffer overflow.
+  </p>
+<p>
+File: <b>test.c</b><br>
+Lines: 18
+</p>
+<h3>Severity: High</h3>
+<p>Issue: getenv</p>
+<p>Environment variables are highly untrustable input. They may be of any length, and contain any data. Do not make any assumptions regarding content or length. If at all possible avoid using them, and if it is necessary, sanitize them and truncate them to a reasonable length.
+  </p>
+<p>
+File: <b>test.c</b><br>
+Lines: 22 24 </p>
+<h3>Severity: High</h3>
+<p>Issue: sprintf</p>
+<p>
+    Check to be sure that the format string passed as argument 2 to this
+    function call does not come from an untrusted source that could have added
+    formatting characters that the code is not prepared to handle.
+    Additionally, the format string could contain `%s' without precision that
+    could result in a buffer overflow.
+</p>
+<p>
+File: <b>test.c</b><br>
+Lines: 24 </p>
+<h3>Severity: High</h3>
+<p>Issue: popen</p>
+<p>
+    Argument 1 to this function call should be checked to ensure that it does
+    not come from an untrusted source without first verifying that it contains
+    nothing dangerous.
+</p>
+<p>
+File: <b>test.c</b><br>
+Lines: 33 </p>
+<h3>Severity: High</h3>
+<p> Issue: printf</p>
+<p>
+    Check to be sure that the non-constant format string passed as argument 1
+    to this function call does not come from an untrusted source that could
+    have added formatting characters that the code is not prepared to handle.
+</p>
+<p>
+File: <b>test.c</b><br>
+Lines: 42 </p>
+<p>
+Total lines analyzed: <b>49</b><br>
+Total time <b>0.000288</b> seconds<br>
+<b>170138</b> lines per second</p>
+</div>
+<hr>
+<p>La sortie produite est plutôt volumineuse, bien que le code en lui-même soit
+très court. Cela montre un des revers de l'examen automatique de code&nbsp;:
+le volume énorme des résultats produits.</p>
+<h2>Comprendre les résultats</h2>
+<p>La sortie produite est en fait constituée de la description de chacune des
+fonctions rencontrées, du numéro de la ligne où la faille a été détectée ainsi
+que d'une description du problème. (Puisque nous avons utilisé
+«&nbsp;--warning&nbsp;» pour restreindre la sortie aux fonctions à haut risque,
+nous avons quelque peu réduit la longueur de la sortie).</p>
+<p>Chacun des problèmes découverts devrait être examiné manuellement pour voir
+s'il y a vraiment un problème, ou si c'était un faux positif (ie. une fonction
+susceptible d'être mal utilisée mais pourtant utilisée correctement).</p>
+<p>Dans ce cas-là, nous pouvons voir que toutes les vulnérabilités de notre
+code ont été repérées, mais ce n'est pas vraiment clair sans parcourir le code
+avec un éditeur pour faire correspondre les lignes en question.</p>
+<p>Une omission importante est faite dans la sortie&nbsp;: en effet, celle-ci
+n'inclut pas les lignes concernées &ndash; un outil comme <a
+href="flawfinder">flawfinder</a> vous permet de les inclure.</p>
+<hr>
+<p><a href="..">Retour à la page du projet d'audit</a> | <a href="index">Retour
+à la page des exemples d'audit</a></p>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<p>Retour à la <a href="../../../">page d'accueil de Debian</a>.</p>
+<hr>
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Cette page est aussi disponible dans les langues suivantes&nbsp;:
+<div id="langContainer">
+ <a href="RATS.de.html" title="allemand" hreflang="de" lang="de" rel="alternate">Deutsch</a>
+ <a href="RATS.en.html" title="anglais" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="RATS.es.html" title="espagnol" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="RATS.nl.html" title="néerlandais" hreflang="nl" lang="nl" rel="alternate">Nederlands</a>
+ <a href="RATS.pt.html" title="portugais" hreflang="pt" lang="pt" rel="alternate">Portugu&ecirc;s</a>
+ <a href="RATS.ru.html" title="russe" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+</div>
+Comment configurer la <a href="../../../intro/cn">langue par défaut du document</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Accueil</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../../intro/about">À&nbsp;propos&nbsp;de&nbsp;Debian</a>
+		  <ul>
+		  <li><a href="../../../social_contract">Notre contrat social</a></li>
+		  <li><a href="../../../code_of_conduct">Code de conduite</a></li>
+		  <li><a href="../../../intro/free">Logiciel libre</a></li>
+		  <li><a href="../../../partners/">Partenaires</a></li>
+		  <li><a href="../../../donations">Dons</a></li>
+          <li><a href="../../../legal">Informations juridiques</a></li>
+          <li><a href="../../../legal/privacy">Protection de la vie privée</a></li>
+		  <li><a href="../../../contact">Nous contacter</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../../intro/help">Aider Debian</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../../distrib/">Obtenir Debian</a>
+			  <ul>
+			  <li><a href="../../../distrib/netinst">Installation par le réseau</a></li>
+			  <li><a href="../../../CD/">Images ISO de CD/USB</a></li>
+			  <li><a href="../../../CD/vendors/">Vendeurs de CD</a></li>
+			  <li><a href="../../../distrib/pre-installed">Préinstallée</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../../blends/">Mélanges exclusifs</a></li>
+			<li><a href="../../../distrib/packages">Paquets Debian</a></li>
+			<li><a href="../../../devel/">Le coin du développeur</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../../News/">Actualités</a>
+		  <ul>
+		  <li><a href="../../../News/weekly/">Nouvelles du projet</a></li>
+		  <li><a href="../../../events/">Événements</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../../doc/">Documentation</a>
+      <ul>
+      <li><a href="../../../releases/">Dernière version</a></li>
+      <li><a href="../../../releases/stable/installmanual">Manuel d'installation</a></li>
+      <li><a href="../../../doc/books">Livres Debian</a></li>
+      <li><a href="https://wiki.debian.org/">Wiki Debian</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../../support">Assistance</a>
+	  <ul>
+			  <li><a href="../../../international/">Debian et l'international</a></li>
+			  <li><a href="../../../security/">Informations sur la sécurité</a></li>
+			  <li><a href="../../../Bugs/">Rapports de bogues</a></li>
+			  <li><a href="../../../MailingLists/">Listes de diffusion</a></li>
+			  <li><a href="https://lists.debian.org/">Archives des listes de diffusion</a></li>
+			  <li><a href="../../../ports/">Portages/Architectures</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../../sitemap">Plan du site</a></li>
+  <li><a href="https://search.debian.org/">Recherche</a></li>
+  <li><a href="https://bits.debian.org">Le blog Debian</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>Pour signaler un problème sur le site web, envoyez un courriel à l'une de nos listes de diffusion archivées publiquement : en anglais à <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> ou en français à <a href="mailto:debian-l10n-french@lists.debian.org">debian-l10n-french@lists.debian.org</a>. Pour obtenir d'autres informations, référez-vous à la <a href="../../../contact">page contact</a> de Debian. Le code source du site est <a href="https://salsa.debian.org/webmaster-team/webwml">disponible</a>.</p>
+<p>
+Dernière modification&nbsp;: samedi 19 septembre 2020 05:49:02 UTC
+&emsp;
+Dernière construction&nbsp;: vendredi 11 juin 2021 15:33:47 UTC
+  <br>
+  Copyright &copy; 1997-2021
+ <a href="https://www.spi-inc.org/">SPI</a> et autres ; voir <a href="../../../license" rel="copyright">les termes de la licence</a>.<br>
+  Debian est une <a href="../../../trademark">marque déposée</a> de Software in the Public Interest, Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

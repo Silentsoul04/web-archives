@@ -1,0 +1,269 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="de">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Debian -- Sicherheitsinformationen -- DSA-188-1 apache-ssl </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 15:59:35">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-de.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Debian Website-Suche" href="../../search.de.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Debian Home"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="de">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Suche">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Schnellnavigation überspringen</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">Sicherheits-Informationen</a>
+ &#x2F; <a href="./">2002</a>
+ &#x2F;
+Sicherheitsinformationen -- DSA-188-1 apache-ssl</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Debian-Sicherheitsankündigung</h1>
+<h2>DSA-188-1 apache-ssl -- Mehrere Verwundbarkeiten</h2>
+<dl>
+<dt>Datum des Berichts:</dt>
+	<dd>05. Nov 2002</dd>
+<dt>Betroffene Pakete:</dt>
+	<dd>
+<a href="https://packages.debian.org/src:apache-ssl">apache-ssl</a>
+</dd>
+<dt>Verwundbar:</dt>
+	<dd class="warning">Ja</dd>
+<dt>Sicherheitsdatenbanken-Referenzen:</dt>
+	<dd>In der Bugtraq-Datenbank (bei SecurityFocus): <a href="http://online.securityfocus.com/bid/5847">BugTraq ID 5847</a>, <a href="http://online.securityfocus.com/bid/5884">BugTraq ID 5884</a>, <a href="http://online.securityfocus.com/bid/5887">BugTraq ID 5887</a>, <a href="http://online.securityfocus.com/bid/5995">BugTraq ID 5995</a>.<br>In Mitres CVE-Verzeichnis: <a href="https://security-tracker.debian.org/tracker/CVE-2002-0839">CVE-2002-0839</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2002-0840">CVE-2002-0840</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2002-0843">CVE-2002-0843</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2001-0131">CVE-2001-0131</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2002-1233">CVE-2002-1233</a>.<br></dd>
+<dt>Weitere Informationen:</dt>
+	<dd>
+<p>Laut David Wagner, iDEFENSE und dem Apache HTTP-Server Projekt wurden
+mehrere entfernt ausnutzbare Verwundbarkeiten im Apache-Paket entdeckt, einem
+häufig verwendeten Webserver. Der meiste Sourcecode ist in den Apache und
+Apache-SSL Paketen gleich, daher sind auch die Verwundbarkeiten gleich. Diese
+Verwundbarkeiten könnten es einem Angreifer erlauben, eine Diensteverweigerung
+(<q>Denial of Service</q>)
+gegen einen Server zu verhängen oder Site-übergreifende Skripting-Angriffe
+durchzuführen, oder Cookies von anderen Website-Benutzern zu stehlen.
+Verwundbarkeiten in den enthaltenen Stammprogrammen htdigest, htpasswd und
+ApacheBench können ausgenutzt werden, wenn sie über CGI aufgerufen werden.
+Zusätzlich kann die unsichere Temporärdatei-Erstellung in htdigest und
+htpasswd ebenfalls lokal ausgenutzt werden. Das <q>Common Vulnerabilities and
+Exposures (CVE)</q>-Projekt identifiziert die folgenden Verwundbarkeiten:</p>
+<ol>
+<li>CAN-2002-0839: Eine Verwundbarkeit existiert auf Plattformen, die System
+   V Shared Memory zur internen Kommunikation verwenden. Diese Verwundbarkeit
+   erlaubt es einem Angreifer, Programme mit der Apache-UID auszuführen, um
+   das Apache Shared Memory Kommunikationsbrett-Format auszunutzen und ein
+   Signal an jeden Prozess als root zu senden oder einen lokalen
+   Diensteverweigerungs- (<q>Denial of Service</q>-)Angriff durchzuführen.</li>
+<li>CAN-2002-0840: Apache ist mit der Standard-404-Seite für eine
+   Site-übergreifende Skripting-Verwundbarkeit auf jedem Web-Server anfällig,
+   der auf einer Domain mit Wildcard DNS-Abfragen aufgesetzt ist.</li>
+<li>CAN-2002-0843: Es gab einige mögliche Überläufe im Werkzeug ApacheBench
+   (ab), die von einem böswilligen Server ausgenutzt werden konnten.</li>
+<li>CAN-2002-1233: Ein Problem bei der Ausführung der htpasswd und htdigest
+   Programme ermöglicht es einem böswilligen lokalen Benutzer, den Inhalt
+   einer Passwort-Datei zu lesen oder sogar zu modifizieren, oder einfach
+   Dateien als der Benutzer zu erstellen und überschreiben, der das htpasswd
+   (oder entsprechend das htdigest) Programm verwendet.
+   (Die Programme sind jedoch nicht im apache-ssl-Paket enthalten)</li>
+<li>CAN-2001-0131: htpasswd und htdigest in Apache 2.0a9, 1.3.14 und
+   weiteren erlaubt es lokalen Benutzern, willkürliche Dateien mittels eines
+   Symlink-Angriff zu überschreiben.
+   <p>Dies ist die selbe Verwundbarkeit wie CAN-2002-1233, die bereits in
+   Potato behoben wurde, aber später verloren gegangen ist und niemals in
+   Upstream eingebracht wurde.
+   (Die Programme sind jedoch nicht im apache-ssl-Paket enthalten)</p></li>
+<li>NO-CAN: Mehrere Pufferüberläufe wurden im ApacheBench (ab) Werkzeug
+   entdeckt, die von einem entfernten Server ausgenutzt werden könnten, indem
+   er eine sehr lange Zeichenkette zurückliefert.
+   (Das Programm ist jedoch nicht im apache-ssl-Paket enthalten)</li>
+</ol>
+<p>Diese Probleme wurden in Version 1.3.26.1+1.48-0woody3 für die aktuelle
+stable Distribution (Woody) und in Version 1.3.9.13-4.2 für die alte stable
+Distribution (Potato) behoben. Reparierte Pakete für die unstable Distribution
+(Sid) werden bald erwartet.</p>
+<p>Wir empfehlen Ihnen, Ihr Apache-SSL Paket unverzüglich zu
+aktualisieren.</p>
+</dd>
+<dt>Behoben in:</dt>
+	<dd>
+<h3>Debian GNU/Linux 2.2 (potato)</h3>
+<dl>
+<dt>Quellcode:
+  <dd><a href="http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.9.13-4.2.dsc">http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.9.13-4.2.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.9.13-4.2.diff.gz">http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.9.13-4.2.diff.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.9.13.orig.tar.gz">http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.9.13.orig.tar.gz</a><br>
+<dt>Alpha:
+  <dd><a href="http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.9.13-4.2_alpha.deb">http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.9.13-4.2_alpha.deb</a><br>
+<dt>ARM:
+  <dd><a href="http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.9.13-4.2_arm.deb">http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.9.13-4.2_arm.deb</a><br>
+<dt>Intel IA-32:
+  <dd><a href="http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.9.13-4.2_i386.deb">http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.9.13-4.2_i386.deb</a><br>
+<dt>Motorola 680x0:
+  <dd><a href="http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.9.13-4.2_m68k.deb">http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.9.13-4.2_m68k.deb</a><br>
+<dt>PowerPC:
+  <dd><a href="http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.9.13-4.2_powerpc.deb">http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.9.13-4.2_powerpc.deb</a><br>
+<dt>Sun Sparc:
+  <dd><a href="http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.9.13-4.2_sparc.deb">http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.9.13-4.2_sparc.deb</a><br>
+</dl>
+<h3>Debian GNU/Linux 3.0 (woody)</h3>
+<dl>
+<dt>Quellcode:
+  <dd><a href="http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.26.1+1.48-0woody3.dsc">http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.26.1+1.48-0woody3.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.26.1+1.48-0woody3.diff.gz">http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.26.1+1.48-0woody3.diff.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.26.1+1.48.orig.tar.gz">http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.26.1+1.48.orig.tar.gz</a><br>
+<dt>Alpha:
+  <dd><a href="http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.26.1+1.48-0woody3_alpha.deb">http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.26.1+1.48-0woody3_alpha.deb</a><br>
+<dt>ARM:
+  <dd><a href="http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.26.1+1.48-0woody3_arm.deb">http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.26.1+1.48-0woody3_arm.deb</a><br>
+<dt>Intel IA-32:
+  <dd><a href="http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.26.1+1.48-0woody3_i386.deb">http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.26.1+1.48-0woody3_i386.deb</a><br>
+<dt>Intel IA-64:
+  <dd><a href="http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.26.1+1.48-0woody3_ia64.deb">http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.26.1+1.48-0woody3_ia64.deb</a><br>
+<dt>HP Precision:
+  <dd><a href="http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.26.1+1.48-0woody3_hppa.deb">http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.26.1+1.48-0woody3_hppa.deb</a><br>
+<dt>Motorola 680x0:
+  <dd><a href="http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.26.1+1.48-0woody3_m68k.deb">http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.26.1+1.48-0woody3_m68k.deb</a><br>
+<dt>Big endian MIPS:
+  <dd><a href="http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.26.1+1.48-0woody3_mips.deb">http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.26.1+1.48-0woody3_mips.deb</a><br>
+<dt>Little endian MIPS:
+  <dd><a href="http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.26.1+1.48-0woody3_mipsel.deb">http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.26.1+1.48-0woody3_mipsel.deb</a><br>
+<dt>PowerPC:
+  <dd><a href="http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.26.1+1.48-0woody3_powerpc.deb">http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.26.1+1.48-0woody3_powerpc.deb</a><br>
+<dt>IBM S/390:
+  <dd><a href="http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.26.1+1.48-0woody3_s390.deb">http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.26.1+1.48-0woody3_s390.deb</a><br>
+<dt>Sun Sparc:
+  <dd><a href="http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.26.1+1.48-0woody3_sparc.deb">http://security.debian.org/pool/updates/main/a/apache-ssl/apache-ssl_1.3.26.1+1.48-0woody3_sparc.deb</a><br>
+</dl>
+<p>MD5-Prüfsummen der aufgeführten Dateien stehen in der <a href="https://lists.debian.org/debian-security-announce/debian-security-announce-2002/msg00111.html">ursprünglichen Sicherheitsankündigung</a> zur Verfügung.
+</dd>
+</dl>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Diese Seite gibt es auch in den folgenden Sprachen:
+<div id="langContainer">
+ <a href="dsa-188.da.html" title="Dänisch" hreflang="da" lang="da" rel="alternate">dansk</a>
+ <a href="dsa-188.en.html" title="Englisch" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="dsa-188.es.html" title="Spanisch" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="dsa-188.fr.html" title="Französisch" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="dsa-188.ja.html" title="Japanisch" hreflang="ja" lang="ja" rel="alternate">&#26085;&#26412;&#35486;&nbsp;(Nihongo)</a>
+ <a href="dsa-188.pt.html" title="Portugiesisch" hreflang="pt" lang="pt" rel="alternate">Portugu&ecirc;s</a>
+ <a href="dsa-188.sv.html" title="Schwedisch" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+</div>
+Wie man <a href="../../intro/cn">die Standardsprache einstellt</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Home</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">Über&nbsp;Debian</a>
+		  <ul>
+		  <li><a href="../../social_contract">Gesellschaftsvertrag</a></li>
+		  <li><a href="../../code_of_conduct">Verhaltenskodex</a></li>
+		  <li><a href="../../intro/free">Freie Software</a></li>
+		  <li><a href="../../partners/">Partner</a></li>
+		  <li><a href="../../donations">Spenden</a></li>
+          <li><a href="../../legal">Rechtliche Informationen</a></li>
+          <li><a href="../../legal/privacy">Datenschutz</a></li>
+		  <li><a href="../../contact">Kontakte</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Debian unterstützen</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Debian bekommen</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">Netzwerk-Installation</a></li>
+			  <li><a href="../../CD/">CD/USB-ISO-Images</a></li>
+			  <li><a href="../../CD/vendors/">CD-Distributoren</a></li>
+			  <li><a href="../../distrib/pre-installed">Vorinstalliert</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Pure Blends</a></li>
+			<li><a href="../../distrib/packages">Debian-Softwarepakete</a></li>
+			<li><a href="../../devel/">Entwickler-Ecke</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">Nachrichten</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">Projekt-Nachrichten</a></li>
+		  <li><a href="../../events/">Veranstaltungen</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">Dokumentation</a>
+      <ul>
+      <li><a href="../../releases/">Release-Informationen</a></li>
+      <li><a href="../../releases/stable/installmanual">Installationsanleitung</a></li>
+      <li><a href="../../doc/books">Debian-Bücher</a></li>
+      <li><a href="https://wiki.debian.org/">Debian-Wiki</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">Unterstützung</a>
+	  <ul>
+			  <li><a href="../../international/">Debian International</a></li>
+			  <li><a href="../../security/">Sicherheitsinformationen</a></li>
+			  <li><a href="../../Bugs/">Fehlerberichte</a></li>
+			  <li><a href="../../MailingLists/">Mailinglisten</a></li>
+			  <li><a href="https://lists.debian.org/">Archiv der Mailinglisten</a></li>
+			  <li><a href="../../ports/">Portierungen/Architekturen</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">Sitemap</a></li>
+  <li><a href="https://search.debian.org/">Suche</a></li>
+  <li><a href="https://bits.debian.org">Der Debian-Blog</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>Um Probleme mit der Website zu melden, schreiben Sie bitte eine E-Mail auf Englisch an unsere öffentlich archivierte Mailingliste <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a>. Rechtschreibfehler in der deutschen Übersetzung senden Sie bitte an <a href="mailto:debian-l10n-german@lists.debian.org">debian-l10n-german@lists.debian.org</a>. Weitere Kontaktinformationen finden Sie auf Debians <a href="../../contact">Kontaktseite</a>. Der Quelltext der Website ist <a href="https://salsa.debian.org/webmaster-team/webwml">verfügbar</a>.</p>
+<p>
+Zuletzt geändert: Freitag den 1. Jun 2018 um 18:42:20 Uhr UTC
+&emsp;
+Zuletzt gebaut: Freitag den 11. Jun 2021 um 15:59:36 Uhr UTC
+  <br>
+  Copyright &copy; 2002-2021
+ <a href="https://www.spi-inc.org/">SPI</a> und andere; weiteres in den <a href="../../license" rel="copyright">Lizenzbestimmungen</a>.<br>
+  Debian ist ein eingetragenes <a href="../../trademark">Warenzeichen</a> der Software in the Public Interest, Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

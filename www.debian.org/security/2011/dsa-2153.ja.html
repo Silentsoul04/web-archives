@@ -1,0 +1,314 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- セキュリティ情報 -- DSA-2153-1 linux-2.6 </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 17:09:35">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-ja.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Debian ウェブサイト検索" href="../../search.ja.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Debian ホーム"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="ja">
+        <input name="P" value="" size="14">
+        <input type="submit" value="検索">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">クイックナビをスキップ</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">セキュリティ情報</a>
+ &#x2F; <a href="./">2011</a>
+ &#x2F;
+セキュリティ情報 -- DSA-2153-1 linux-2.6</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Debian セキュリティ勧告</h1>
+<h2>DSA-2153-1 linux-2.6 -- 特権の昇格/サービス拒否攻撃/情報の漏洩</h2>
+<dl>
+<dt>報告日時:</dt>
+	<dd>2011-01-30</dd>
+<dt>影響を受けるパッケージ:</dt>
+	<dd>
+<a href="https://packages.debian.org/src:linux-2.6">linux-2.6</a>
+</dd>
+<dt>危険性:</dt>
+	<dd class="warning">あり</dd>
+<dt>参考セキュリティデータベース:</dt>
+	<dd>Mitre の CVE 辞書: <a href="https://security-tracker.debian.org/tracker/CVE-2010-0435">CVE-2010-0435</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2010-3699">CVE-2010-3699</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2010-4158">CVE-2010-4158</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2010-4162">CVE-2010-4162</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2010-4163">CVE-2010-4163</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2010-4242">CVE-2010-4242</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2010-4243">CVE-2010-4243</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2010-4248">CVE-2010-4248</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2010-4249">CVE-2010-4249</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2010-4258">CVE-2010-4258</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2010-4342">CVE-2010-4342</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2010-4346">CVE-2010-4346</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2010-4526">CVE-2010-4526</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2010-4527">CVE-2010-4527</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2010-4529">CVE-2010-4529</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2010-4565">CVE-2010-4565</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2010-4649">CVE-2010-4649</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2010-4656">CVE-2010-4656</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2010-4668">CVE-2010-4668</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2011-0521">CVE-2011-0521</a>.<br></dd>
+<dt>詳細:</dt>
+	<dd>
+<p>
+Linux カーネルに、特権の昇格/サービス拒否攻撃/情報の漏洩に繋がる複数の問
+題が発見されました。The Common Vulnerabilities and Exposures project は
+以下の問題を認識しています。
+</p>
+<ul>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2010-0435">CVE-2010-0435</a>
+    <p>
+    Gleb Napatov さんにより、KVM サブシステムに欠陥が報告されました。
+    仮想マシンから mov to/from DR 命令を実行することで、ホストマシン
+    に対するサービス拒否攻撃を実行可能です。
+	</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2010-3699">CVE-2010-3699</a>
+    <p>
+    Keir Fraser さんにより、Xen サブシステムのパッチが提供されました。
+    デバイスの参照のリークのため、参照を保持し続けることでゲストから
+    ホストに対するサービス拒否攻撃を実行可能です。これは、この操作に
+    よりゾンビドメインが発生し、xenwatch プロセスがハングし、xm コマ
+    ンドが失敗するためです。
+	</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2010-4158">CVE-2010-4158</a>
+    <p>
+    Dan Rosenberg さんにより、socket filter サブシステムに欠陥が発見
+    されました。ローカルの非特権ユーザがカーネルの機密情報を含むメモ
+    リの内容を取得可能です。
+	</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2010-4162">CVE-2010-4162</a>
+    <p>
+    Dan Rosenberg さんにより、block I/O サブシステムにオーバフローの
+    欠陥が発見されました。ローカルユーザが多数のページをマップできる
+    ため、OOM キラーの起動によるサービス拒否攻撃を実行可能です。
+	</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2010-4163">CVE-2010-4163</a>
+    <p>
+    Dan Rosenberg さんにより、block I/O サブシステムにオーバフローの
+    欠陥が発見されました。iov セグメントの検証が不適切なため、ローカ
+    ルユーザがカーネルパニックを引き起こし、サービス拒否攻撃を実行可
+    能です。
+	</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2010-4242">CVE-2010-4242</a>
+    <p>
+    Alan Cox さんにより、Bluetooth サブシステムに欠陥が報告されました。
+    tty write 操作にチェックが抜けているため、HCI UART デバイスにアク
+    セス可能なローカルユーザがサービス拒否攻撃 (NULL ポインタ参照) を
+    実行可能です。
+	</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2010-4243">CVE-2010-4243</a>
+    <p>
+    Brad Spengler さんにより、カーネルメモリアカウンティングシステ�
+    にサービス拒否攻撃に繋がる欠陥が報告されました。巨大な argv/envp
+    値を exec に渡すことで、ローカルユーザが OOM キラーを起動し、他のユ
+    ーザの所有するプロセスを殺すことが可能です。
+	</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2010-4248">CVE-2010-4248</a>
+    <p>
+    Oleg Nesterov rさんにより、POSIX CPU タイマサブシステムに欠陥が報
+    告されました。スレッドグループの先頭の挙動に不適切な課程が置かれ
+    ているため、ローカルユーザがサービス拒否攻撃 (カーネル Oops) を実
+    行可能です。
+	</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2010-4249">CVE-2010-4249</a>
+    <p>
+    Vegard Nossum さんにより、UNIX ソケットガベージコレクタに欠陥が報
+    告されました。ローカルユーザが処理中のソケットで過負荷を掛けるこ
+    とで LOWMEM を全て消費することができるため、システム性能を低下さ
+    れることが可能です。
+	</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2010-4258">CVE-2010-4258</a>
+    <p>
+    Nelson Elhage さんにより、Linux oops 処理に欠陥が報告されました。
+    ローカルユーザが fs を KERNEL_DS にセットしたプロセスで oops を起
+    こすことができた場合、特権の昇格が可能です。
+	</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2010-4342">CVE-2010-4342</a>
+    <p>
+    Nelson Elhage さんにより、Econet プロトコルに欠陥が報告されました。
+    リモートの攻撃者が、UDP 経由で Acorn Universal ネットワークパケッ
+    トを送信することで、サービス拒否攻撃を実行可能です。
+	</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2010-4346">CVE-2010-4346</a>
+    <p>
+    Tavis Ormandy さんにより install_special_mapping 処理に、欠陥が報
+    告されました。ローカルユーザから mmap_min_addr のセキュリティ制約
+    の迂回が可能です。これに他のサービス拒否攻撃 (NULL ポインタ参照)
+    に繋がる危険性の低い欠陥を組み合わせることで、ローカルユーザから
+    の特権の昇格が可能です。
+	</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2010-4526">CVE-2010-4526</a>
+    <p>
+    Eugene Teo さんにより、Linux SCTP 実装に欠陥が報告されました。リ
+    モートの攻撃者から、ロックされたソケットに ICMP unreachable メッ
+    セージを起こすことで、サービス拒否攻撃 (カーネルメモリ破壊) を実
+    行可能です。
+	</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2010-4527">CVE-2010-4527</a>
+    <p>
+    Dan Rosenberg さんにより、OSS サウンドカードドライバに欠陥が報告
+    されました。デバイスにアクセス可能なローカルユーザ (Debian の標準
+    設定では、audio グループのメンバ) から、機密情報を含むカーネルメ
+    モリの取得やバッファオーバフローの発生が行えるため、特権の昇格を
+    行える可能性があります。
+	</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2010-4529">CVE-2010-4529</a>
+    <p>
+    Dan Rosenberg さんにより、非 x86 アーキテクチャでの Linux カーネ
+    ル IrDA ソケット実装に欠陥が報告されました。ローカルユーザが細工
+    した IRLMP_ENUMDEVICES getsockopt コールを用いることにより、機密
+    情報を含むカーネルメモリへのアクセスが可能です。
+	</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2010-4565">CVE-2010-4565</a>
+    <p>
+    Dan Rosenberg さんにより、Linux CAN プロトコルサブシステムに欠陥
+    が報告されました。ローカルユーザがカーネルヒープオブジェクトのア
+    ドレスを取得できるため、システムの攻撃が容易になります。
+	</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2010-4649">CVE-2010-4649</a>
+    <p>
+    Dan Carpenter さんにより、InfiniBand サブシステムの uverb の扱い
+    に欠陥が発見されました。大きな cmd.ne の値によりバッファオーバフ
+    ローを起こすため、サービス拒否攻撃 (メモリ破壊) を実行可能です。
+	</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2010-4656">CVE-2010-4656</a>
+    <p>
+    Kees Cook さんにより、I/O-Warrior USB デバイスのドライバに欠陥が
+    報告されました。これらのデバイスにアクセス可能なユーザが、カーネ
+    ルバッファの上書きを行えるため、サービス拒否攻撃や特権の昇格を行
+    える可能性があります。
+	</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2010-4668">CVE-2010-4668</a>
+    <p>Dan Rosenberg さんにより、block サブシステムに欠陥が報告されまし
+    た。ローカルユーザが、ある種の長さ 0 の I/O 要求を行うことで、サ
+    ービス拒否攻撃 (カーネルパニック) を実行可能です。
+	</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2011-0521">CVE-2011-0521</a>
+    <p>Dan Carpenter さんにより、AV7110 カードの DVB ドライバに欠陥が発
+    見されました。ローカルユーザが info->num 値に負の値を渡せるため、
+    カーネルメモリを破壊しサービス拒否攻撃を実行可能です。
+	</p></li>
+</ul>
+<p>安定版 (stable) ディストリビューション (lenny) では、この問題はバージ
+ョン 2.6.26-26lenny2 で修正されています。</p>
+<p>以下は今回の更新の効果を得るため、または今回の更新との互換性を維持する
+ために再ビルドした追加ソースパッケージの一覧表です。</p>
+<div class="centerdiv"><table cellspacing="0" cellpadding="2" summary="">
+<tr><th>&nbsp;</th>             <th>Debian 5.0 (lenny)</th></tr>
+<tr><td>user-mode-linux</td>    <td>2.6.26-1um-2+26lenny2</td></tr>
+</table></div>
+<p>直ぐに linux-2.6 and user-mode-linux パッケージをアップグレードするこ
+とを勧めます。</p>
+<p>これらの更新は、システムのリブート後有効になることに注意してください。</p>
+</dd>
+</dl>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+このページは以下の言語でもご覧になれます。
+<div id="langContainer">
+ <a href="dsa-2153.da.html" title="デンマーク語" hreflang="da" lang="da" rel="alternate">dansk</a>
+ <a href="dsa-2153.en.html" title="英語" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="dsa-2153.fr.html" title="フランス語" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+</div>
+<a href="../../intro/cn">デフォルトの言語を設定するには</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">ホーム</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">Debian について</a>
+		  <ul>
+		  <li><a href="../../social_contract">私たちの社会契約</a></li>
+		  <li><a href="../../code_of_conduct">利用上の注意</a></li>
+		  <li><a href="../../intro/free">フリーソフトウェア</a></li>
+		  <li><a href="../../partners/">パートナー</a></li>
+		  <li><a href="../../donations">寄付</a></li>
+          <li><a href="../../legal">Legal Info</a></li>
+          <li><a href="../../legal/privacy">Data Privacy</a></li>
+		  <li><a href="../../contact">私たちと連絡を取る</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Debian を支援する</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Debian を入手する</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">ネットワークインストール</a></li>
+			  <li><a href="../../CD/">CD/USB ISO イメージ</a></li>
+			  <li><a href="../../CD/vendors/">CD ベンダ</a></li>
+			  <li><a href="../../distrib/pre-installed">プリインストール</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Pure Blends</a></li>
+			<li><a href="../../distrib/packages">Debian パッケージ</a></li>
+			<li><a href="../../devel/">開発者のコーナー</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">ニュース</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">プロジェクトニュース</a></li>
+		  <li><a href="../../events/">イベント</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">文書</a>
+      <ul>
+      <li><a href="../../releases/">リリース情報</a></li>
+      <li><a href="../../releases/stable/installmanual">インストール手順</a></li>
+      <li><a href="../../doc/books">Debian に関する書籍</a></li>
+      <li><a href="https://wiki.debian.org/">Debian Wiki</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">サポート</a>
+	  <ul>
+			  <li><a href="../../international/">Debian の国際化</a></li>
+			  <li><a href="../../security/">セキュリティ情報</a></li>
+			  <li><a href="../../Bugs/">バグ報告</a></li>
+			  <li><a href="../../MailingLists/">メーリングリスト</a></li>
+			  <li><a href="https://lists.debian.org/">»リストアーカイブ</a></li>
+			  <li><a href="../../ports/">移植/アーキテクチャ</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">サイトマップ</a></li>
+  <li><a href="https://search.debian.org/">検索</a></li>
+  <li><a href="https://bits.debian.org">Debian ブログ</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>To report a problem with the web site, please e-mail our publicly archived mailing list <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> in English. For other contact information, see the Debian <a href="../../contact">contact page</a>. Web site source code is <a href="https://salsa.debian.org/webmaster-team/webwml">available</a>.</p>
+<p>
+最終更新: 2018 年 6 月 1 日 (金) 18:42:17 UTC
+&emsp;
+Last Built: 2021 年 6 月 11 日 (金) 17:09:36 UTC
+  <br>
+  Copyright &copy; 2011-2021
+ <a href="https://www.spi-inc.org/">SPI</a> と多くの人々; <a href="../../license" rel="copyright">ライセンス条項</a>をご覧ください。<br>
+  Debian は Software in the Public Interest, Inc の<a href="../../trademark">登録商標</a>です。
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

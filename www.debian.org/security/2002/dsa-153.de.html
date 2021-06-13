@@ -1,0 +1,222 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="de">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Debian -- Sicherheitsinformationen -- DSA-153-1 mantis </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 15:59:19">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-de.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Debian Website-Suche" href="../../search.de.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Debian Home"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="de">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Suche">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Schnellnavigation überspringen</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">Sicherheits-Informationen</a>
+ &#x2F; <a href="./">2002</a>
+ &#x2F;
+Sicherheitsinformationen -- DSA-153-1 mantis</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Debian-Sicherheitsankündigung</h1>
+<h2>DSA-153-1 mantis -- Site-übergreifende Code-Ausführung und Privilegien-Erweiterung</h2>
+<dl>
+<dt>Datum des Berichts:</dt>
+	<dd>14. Aug 2002</dd>
+<dt>Betroffene Pakete:</dt>
+	<dd>
+<a href="https://packages.debian.org/src:mantis">mantis</a>
+</dd>
+<dt>Verwundbar:</dt>
+	<dd class="warning">Ja</dd>
+<dt>Sicherheitsdatenbanken-Referenzen:</dt>
+	<dd>In der Bugtraq-Datenbank (bei SecurityFocus): <a href="http://online.securityfocus.com/bid/5565">BugTraq ID 5565</a>, <a href="http://online.securityfocus.com/bid/5563">BugTraq ID 5563</a>, <a href="http://online.securityfocus.com/bid/5509">BugTraq ID 5509</a>, <a href="http://online.securityfocus.com/bid/5504">BugTraq ID 5504</a>, <a href="http://online.securityfocus.com/bid/5514">BugTraq ID 5514</a>, <a href="http://online.securityfocus.com/bid/5515">BugTraq ID 5515</a>, <a href="http://online.securityfocus.com/bid/5510">BugTraq ID 5510</a>.<br>In Mitres CVE-Verzeichnis: <a href="https://security-tracker.debian.org/tracker/CVE-2002-1114">CVE-2002-1114</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2002-1113">CVE-2002-1113</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2002-1112">CVE-2002-1112</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2002-1111">CVE-2002-1111</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2002-1110">CVE-2002-1110</a>.<br></dd>
+<dt>Weitere Informationen:</dt>
+	<dd>
+<p>Joao Gouveia entdeckte eine nicht initialisierte Variable, die für
+Datei-Inkludierungen im mantis-Paket unsicher verwendet wurde, einer
+PHP-basierenden Fehlerdatenbank. Das Debian Sicherheitsteam hat sogar weitere
+ähnliche Probleme gefunden. Wenn diese Fälle ausgenutzt werden, ist es einem
+entfernten Benutzer möglich, willkürlichen Code mit der Benutzer-ID des
+Webservers auf dem Rechner auszuführen, auf dem das Mantis-System läuft.</p>
+<p>Jeroen Latour hat entdeckt, dass Mantis nicht alle Benutzereingaben prüft,
+speziell wenn diese nicht direkt aus Formular-Feldern kommen. Dies öffnet eine
+breite Vielfalt an SQL-Vergiftungs-Verwundbarkeiten auf Systemen, die
+magic_quotes_gpc aktiviert haben. Viele dieser Verwundbarkeiten sind nur in
+einer beschränkten Art ausnutzbar, da es nicht mehr möglich ist, mehrfache
+Anfragen mit einem einzelnem mysql_query() Aufruf auszuführen. Es gibt eine
+Abfrage, die ausgetrickst werden kann, um den Zugriffslevel eines Accounts zu
+ändern.</p>
+<p>Jeroen Latour berichtete ebenfalls, dass es möglich ist, Mantis anzuweisen,
+Einreicher nur die Fehler anschauen zu lassen, die sie selbst berichtet
+haben, indem die limit_reporters Option auf ON gesetzt wird. Jedoch hat das
+Programm die limit_reporters Option nicht überprüft, wenn es die Ausgabe zum
+Drucken aufbereitet hat, und es daher Einreichern erlaubt, Zusammenfassungen
+von Fehlern zu sehen, die sie nicht selbst berichtet haben.</p>
+<p>Jeroen Latour entdeckte, dass die Seite, die für die Anzeige der Fehler in
+einem bestimmten Projekt zuständig ist, nicht prüft, ob der Benutzer
+tatsächlich Zugriff auf das Projekt hat, das über eine Cookie-Variable
+übergeben wird. Es vertraute versehentlich auf die Tatsache, dass nur Projekte
+im Drop-Down Menü angezeigt werden, auf die der Benutzer Zugriff hat. Dies
+bietet einem böswilligem Benutzer die Möglichkeit, sich die Fehler eines
+privaten ausgewähltem Projekts anzusehen.</p>
+<p>Diese Probleme wurden in Version 0.17.1-2.2 für die aktuelle stable
+Distribution (Woody) und in Version 0.17.4a-2 für die unstable Distribution
+(Sid) behoben. Die alte stable Distribution (Potato) ist davon nicht
+betroffen, da sie das mantis-Paket nicht enthält.</p>
+<p>Zusätzliche Informationen:</p>
+<ul>
+<li><a href="http://mantisbt.sourceforge.net/advisories/2002/2002-01.txt">Mantis Gutachten/2002-01</a></li>
+<li><a href="http://mantisbt.sourceforge.net/advisories/2002/2002-02.txt">Mantis Gutachten/2002-02</a></li>
+<li><a href="http://mantisbt.sourceforge.net/advisories/2002/2002-03.txt">Mantis Gutachten/2002-03</a></li>
+<li><a href="http://mantisbt.sourceforge.net/advisories/2002/2002-04.txt">Mantis Gutachten/2002-04</a></li>
+<li><a href="http://mantisbt.sourceforge.net/advisories/2002/2002-05.txt">Mantis Gutachten/2002-05</a></li>
+</ul>
+<p>Wir empfehlen Ihnen, Ihre mantis-Pakete unverzüglich zu aktualisieren.</p>
+</dd>
+<dt>Behoben in:</dt>
+	<dd>
+<h3>Debian GNU/Linux 3.0 (woody)</h3>
+<dl>
+<dt>Quellcode:
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mantis/mantis_0.17.1-2.2.dsc">http://security.debian.org/pool/updates/main/m/mantis/mantis_0.17.1-2.2.dsc</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mantis/mantis_0.17.1-2.2.diff.gz">http://security.debian.org/pool/updates/main/m/mantis/mantis_0.17.1-2.2.diff.gz</a><br>
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mantis/mantis_0.17.1.orig.tar.gz">http://security.debian.org/pool/updates/main/m/mantis/mantis_0.17.1.orig.tar.gz</a><br>
+<dt>Architektur-unabhängige Dateien:
+  <dd><a href="http://security.debian.org/pool/updates/main/m/mantis/mantis_0.17.1-2.2_all.deb">http://security.debian.org/pool/updates/main/m/mantis/mantis_0.17.1-2.2_all.deb</a><br>
+</dl>
+<p>MD5-Prüfsummen der aufgeführten Dateien stehen in der <a href="https://lists.debian.org/debian-security-announce/debian-security-announce-2002/msg00071.html">ursprünglichen Sicherheitsankündigung</a> zur Verfügung.
+</dd>
+</dl>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Diese Seite gibt es auch in den folgenden Sprachen:
+<div id="langContainer">
+ <a href="dsa-153.da.html" title="Dänisch" hreflang="da" lang="da" rel="alternate">dansk</a>
+ <a href="dsa-153.en.html" title="Englisch" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="dsa-153.es.html" title="Spanisch" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="dsa-153.fr.html" title="Französisch" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="dsa-153.it.html" title="Italienisch" hreflang="it" lang="it" rel="alternate">Italiano</a>
+ <a href="dsa-153.ja.html" title="Japanisch" hreflang="ja" lang="ja" rel="alternate">&#26085;&#26412;&#35486;&nbsp;(Nihongo)</a>
+ <a href="dsa-153.pt.html" title="Portugiesisch" hreflang="pt" lang="pt" rel="alternate">Portugu&ecirc;s</a>
+ <a href="dsa-153.sv.html" title="Schwedisch" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+</div>
+Wie man <a href="../../intro/cn">die Standardsprache einstellt</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Home</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">Über&nbsp;Debian</a>
+		  <ul>
+		  <li><a href="../../social_contract">Gesellschaftsvertrag</a></li>
+		  <li><a href="../../code_of_conduct">Verhaltenskodex</a></li>
+		  <li><a href="../../intro/free">Freie Software</a></li>
+		  <li><a href="../../partners/">Partner</a></li>
+		  <li><a href="../../donations">Spenden</a></li>
+          <li><a href="../../legal">Rechtliche Informationen</a></li>
+          <li><a href="../../legal/privacy">Datenschutz</a></li>
+		  <li><a href="../../contact">Kontakte</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Debian unterstützen</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Debian bekommen</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">Netzwerk-Installation</a></li>
+			  <li><a href="../../CD/">CD/USB-ISO-Images</a></li>
+			  <li><a href="../../CD/vendors/">CD-Distributoren</a></li>
+			  <li><a href="../../distrib/pre-installed">Vorinstalliert</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Pure Blends</a></li>
+			<li><a href="../../distrib/packages">Debian-Softwarepakete</a></li>
+			<li><a href="../../devel/">Entwickler-Ecke</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">Nachrichten</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">Projekt-Nachrichten</a></li>
+		  <li><a href="../../events/">Veranstaltungen</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">Dokumentation</a>
+      <ul>
+      <li><a href="../../releases/">Release-Informationen</a></li>
+      <li><a href="../../releases/stable/installmanual">Installationsanleitung</a></li>
+      <li><a href="../../doc/books">Debian-Bücher</a></li>
+      <li><a href="https://wiki.debian.org/">Debian-Wiki</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">Unterstützung</a>
+	  <ul>
+			  <li><a href="../../international/">Debian International</a></li>
+			  <li><a href="../../security/">Sicherheitsinformationen</a></li>
+			  <li><a href="../../Bugs/">Fehlerberichte</a></li>
+			  <li><a href="../../MailingLists/">Mailinglisten</a></li>
+			  <li><a href="https://lists.debian.org/">Archiv der Mailinglisten</a></li>
+			  <li><a href="../../ports/">Portierungen/Architekturen</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">Sitemap</a></li>
+  <li><a href="https://search.debian.org/">Suche</a></li>
+  <li><a href="https://bits.debian.org">Der Debian-Blog</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>Um Probleme mit der Website zu melden, schreiben Sie bitte eine E-Mail auf Englisch an unsere öffentlich archivierte Mailingliste <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a>. Rechtschreibfehler in der deutschen Übersetzung senden Sie bitte an <a href="mailto:debian-l10n-german@lists.debian.org">debian-l10n-german@lists.debian.org</a>. Weitere Kontaktinformationen finden Sie auf Debians <a href="../../contact">Kontaktseite</a>. Der Quelltext der Website ist <a href="https://salsa.debian.org/webmaster-team/webwml">verfügbar</a>.</p>
+<p>
+Zuletzt geändert: Freitag den 1. Jun 2018 um 18:42:20 Uhr UTC
+&emsp;
+Zuletzt gebaut: Freitag den 11. Jun 2021 um 15:59:19 Uhr UTC
+  <br>
+  Copyright &copy; 2002-2021
+ <a href="https://www.spi-inc.org/">SPI</a> und andere; weiteres in den <a href="../../license" rel="copyright">Lizenzbestimmungen</a>.<br>
+  Debian ist ein eingetragenes <a href="../../trademark">Warenzeichen</a> der Software in the Public Interest, Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="da">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Sikkerhedsoplysninger -- DSA-4564-1 linux </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-11 13:57:27">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link href="../../debian.css" rel="stylesheet" type="text/css">
+  <link href="../../debian-da.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Søg i Debians websted" href="../../search.da.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../../" title="Debian-hjem"><img src="../../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="da">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Søg">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Spring navigering over</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs"><a href="./../">Sikkerhedsoplysninger</a>
+ &#x2F; <a href="./">2019</a>
+ &#x2F;
+Sikkerhedsoplysninger -- DSA-4564-1 linux</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<h1>Debians sikkerhedsbulletin</h1>
+<h2>DSA-4564-1 linux -- sikkerhedsopdatering</h2>
+<dl>
+<dt>Rapporteret den:</dt>
+	<dd>12. nov 2019</dd>
+<dt>Berørte pakker:</dt>
+	<dd>
+<a href="https://packages.debian.org/src:linux">linux</a>
+</dd>
+<dt>Sårbar:</dt>
+	<dd class="warning">Ja</dd>
+<dt>Referencer i sikkerhedsdatabaser:</dt>
+	<dd>I Mitres CVE-ordbog: <a href="https://security-tracker.debian.org/tracker/CVE-2018-12207">CVE-2018-12207</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2019-0154">CVE-2019-0154</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2019-0155">CVE-2019-0155</a>, <a href="https://security-tracker.debian.org/tracker/CVE-2019-11135">CVE-2019-11135</a>.<br></dd>
+<dt>Yderligere oplysninger:</dt>
+	<dd>
+<p>Flere sårbarheder er opdaget i Linux-kernen, hvilke kunne føre til en
+rettighedsforøgelse, lammelsesangreb eller informationslækage.</p>
+<ul>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2018-12207">CVE-2018-12207</a>
+    <p>Man opdagede at på Intel-CPU'er, der undersøtter hardwarevirtualisering
+    med Extended Page Tables (EPT), kunne en gæste-VM manipulere
+    hukommelseshåndteringshardware medførende en Machine Check Error (MCE) og
+    lammelsesangreb (hængende system eller nedbrud).</p>
+    <p>Gæsten kunne udløse fejlen ved at ændre sidetabeller uden en TLB-flush,
+    således at både 4 KB- og 2 MB-registreringer på den samme virtuelle adresse,
+    blev indlæst i instruktion-TLB'en (iTLB). Denne opdatering implementerer en
+    afhjælpelse i KVM, som forhindrer gæste-VM'er i at indlæse 2
+    MB-registreringer i iTLB'en. Det reducerer gæste-VM'ers ydeevne.</p>
+    <p>Yderligere oplysninger om afhjælpelsen, finder man på
+    <a href="https://www.kernel.org/doc/html/latest/admin-guide/hw-vuln/multihit.html">https://www.kernel.org/doc/html/latest/admin-guide/hw-vuln/multihit.html</a>
+    eller i pakkerne linux-doc-4.9 eller linux-doc-4.19.</p>
+    <p>En qemu-opdatering, som tilføjer understøttelse af funktionaliten
+    PSCHANGE_MC_NO feature, som gør det muligt at deaktivere iTLB
+    Multihit-afhjælpelser i indlejrede hypervisorer, gøres tilgængelig via DSA
+    4566-1.</p>
+    <p>Intels redegørelse for problemet finder man på
+    <a href="https://software.intel.com/security-software-guidance/insights/deep-dive-machine-check-error-avoidance-page-size-change-0">https://software.intel.com/security-software-guidance/insights/deep-dive-machine-check-error-avoidance-page-size-change-0</a>.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2019-0154">CVE-2019-0154</a>
+    <p>Intel opdagede at i deres 8. og 9. generation-CPU'er, kunne læsning af
+    visse registre, mens GPU'en er i lavt strømforbrug-tilstand, medføre at
+    systemet hænger. En lokal bruger, med rettigheder til at anvende GPU'en,
+    kunne udnytte fejlen til lammelsesangreb.</p>
+    <p>Denne opdatering afhjælper problemet ved hjælp af ændringer i
+    i915-driveren.</p>
+    <p>De påvirkede chips (gen8 og gen9) er opremset på
+    <a href="https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Gen8">https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Gen8</a>.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2019-0155">CVE-2019-0155</a>
+    <p>Intel opdagede at i deres 9. generation- og nyere CPU'er, manglende der
+    et sikkerhedstjek i Blitter Command Streamer (BCS). En lokal bruger med
+    rettigheder til at anvende GPU'en, kunne anvende fejlen til at tilgå enhver
+    hukommelsesadresse, som GPU'en har adgang til, hvilket kunne medføre
+    lammelsesangreb (hukommelseskorruption eller nedbrud), lækage af følsomme
+    oplysninger eller rettighedsforøgelse.</p>
+    <p>Denne opdatering afhjælper problemet ved at tilføje sikkerhedstjekket i
+    i915-driveren.</p>
+    <p>De påvirkede chips (gen9 og senere) er opremset på
+    <a href="https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Gen9">https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Gen9</a>.</p></li>
+<li><a href="https://security-tracker.debian.org/tracker/CVE-2019-11135">CVE-2019-11135</a>
+    <p>Man opdagede at i Intel-CPU'er, der understøtter transaktionshukommelse
+    (TSX), kunne en transaktion, som vil blive afbrudt, fortsætte med at at
+    blive udført spekulativt, læsende følsomme data fra interne buffere og lække
+    dem gennem afhængige handlinger. Intel kalder det <q>TSX Asynchronous
+    Abort</q> (TAA).</p>
+    <p>CPU'er påvirket af det tidligere offentliggjorte Microarchitectural Data
+    Sampling-problemer (MDS)
+    (<a href="https://security-tracker.debian.org/tracker/CVE-2018-12126">CVE-2018-12126</a>,
+    <a href="https://security-tracker.debian.org/tracker/CVE-2018-12127">CVE-2018-12127</a>,
+    <a href="https://security-tracker.debian.org/tracker/CVE-2018-12130">CVE-2018-12130</a>,
+    <a href="https://security-tracker.debian.org/tracker/CVE-2019-11091">CVE-2019-11091</a>),
+    løser eksisterende hjælpelser også dette problem.</p>
+    <p>For processorer, der er sårbare over for TAA, men ikke MDS, deaktiveres
+    TSX som standard med denne opdatering. Afhjælpelsen kræver opdateret
+    CPU-mikrokode. En opdateret pakke med intel-microcode (kun tilgængelig i
+    Debian-non-free) vil blive stillet til rådighed via DSA 4565-1. Den
+    opdaterede CPU-mikrokode kan også være tilgængelig som en del af en
+    opdatering af systemets firmware (<q>BIOS</q>).</p>
+    <p>Yderligere oplysninger om hjælpelsen finder man på
+    <a href="https://www.kernel.org/doc/html/latest/admin-guide/hw-vuln/tsx_async_abort.html">https://www.kernel.org/doc/html/latest/admin-guide/hw-vuln/tsx_async_abort.html</a>
+    eller i pakkerne linux-doc-4.9 eller linux-doc-4.19.</p>
+    <p>Intels redegørelse for problemet finder man på
+    <a href="https://software.intel.com/security-software-guidance/insights/deep-dive-intel-transactional-synchronization-extensions-intel-tsx-asynchronous-abort">https://software.intel.com/security-software-guidance/insights/deep-dive-intel-transactional-synchronization-extensions-intel-tsx-asynchronous-abort</a>.</p></li>
+</ul>
+<p>I den gamle stabile distribution (stretch), er disse problemer rettet
+i version 4.9.189-3+deb9u2.</p>
+<p>I den stabile distribution (buster), er disse problemer rettet i
+version 4.19.67-2+deb10u2.</p>
+<p>Vi anbefaler at du opgraderer dine linux-pakker.</p>
+<p>For detaljeret sikkerhedsstatus vedrørende linux, se
+dens sikkerhedssporingssidede på:
+<a href="https://security-tracker.debian.org/tracker/linux">https://security-tracker.debian.org/tracker/linux</a></p>
+</dd>
+</dl>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Denne side findes også på følgende sprog:
+<div id="langContainer">
+ <a href="dsa-4564.en.html" title="engelsk" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="dsa-4564.es.html" title="spansk" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="dsa-4564.fr.html" title="fransk" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="dsa-4564.ko.html" title="koreansk" hreflang="ko" lang="ko" rel="alternate">&#54620;&#44397;&#50612;&nbsp;(Korean)</a>
+ <a href="dsa-4564.ru.html" title="russisk" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+ <a href="dsa-4564.sv.html" title="svensk" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+</div>
+Sådan opsætter du <a href="../../intro/cn">standardsprogvalg for dokumenter</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Hjem</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../../intro/about">Om&nbsp;Debian</a>
+		  <ul>
+		  <li><a href="../../social_contract">Social kontrakt</a></li>
+		  <li><a href="../../code_of_conduct">Etiske regler</a></li>
+		  <li><a href="../../intro/free">Fri software</a></li>
+		  <li><a href="../../partners/">Partnere</a></li>
+		  <li><a href="../../donations">Donationer</a></li>
+          <li><a href="../../legal">Juridisk information</a></li>
+          <li><a href="../../legal/privacy">Dataprivathed</a></li>
+		  <li><a href="../../contact">Kontakt os</a></li>
+		  </ul>
+		</li>
+        <li><a href="../../intro/help">Hjælp Debian</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../../distrib/">Få fat i Debian</a>
+			  <ul>
+			  <li><a href="../../distrib/netinst">Netværksinstallering</a></li>
+			  <li><a href="../../CD/">Cd/USB-ISO-aftryk</a></li>
+			  <li><a href="../../CD/vendors/">Cd-forhandlere</a></li>
+			  <li><a href="../../distrib/pre-installed">Præinstalleret</a></li>
+			  </ul>
+			</li>
+            <li><a href="../../blends/">Pure Blends</a></li>
+			<li><a href="../../distrib/packages">Debian-pakker</a></li>
+			<li><a href="../../devel/">Udviklerhjørnet</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../../News/">Nyheder</a>
+		  <ul>
+		  <li><a href="../../News/weekly/">Projektnyheder</a></li>
+		  <li><a href="../../events/">Begivenheder</a></li>
+		  </ul>
+		</li>
+    <li><a href="../../doc/">Dokumentation</a>
+      <ul>
+      <li><a href="../../releases/">Udgivelsesoplysninger</a></li>
+      <li><a href="../../releases/stable/installmanual">Installationsvejledning</a></li>
+      <li><a href="../../doc/books">Debian-bøger</a></li>
+      <li><a href="https://wiki.debian.org/">Debian Wiki</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../../support">Support</a>
+	  <ul>
+			  <li><a href="../../international/">Debian internationalt</a></li>
+			  <li><a href="../../security/">Sikkerhedsoplysninger</a></li>
+			  <li><a href="../../Bugs/">Fejlrapporter</a></li>
+			  <li><a href="../../MailingLists/">Postlister</a></li>
+			  <li><a href="https://lists.debian.org/">Postlistearkiv</a></li>
+			  <li><a href="../../ports/">Tilpasninger/arkitekturer</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../../sitemap">Sideoversigt</a></li>
+  <li><a href="https://search.debian.org/">Søg</a></li>
+  <li><a href="https://bits.debian.org">Debians blog</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>For at rapportere et problem med webstedet, sendes en e-mail på engelsk til vores offentligt arkiverede postliste <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a>. Se Debians <a href="../../contact">kontaktside</a> for andre kontaktoplysninger. Webstedets kildekode er <a href="https://salsa.debian.org/webmaster-team/webwml">tilgængelig</a>.</p>
+<p>
+Senest opdateret: Tirs 19. nov 2019 kl. 21.10.44 UTC
+&emsp;
+Senest opbygget: Fre 11. jun 2021 kl. 13.57.27 UTC
+  <br>
+  Ophavsretsbeskyttet &copy; 2019-2021
+ <a href="https://www.spi-inc.org/">SPI</a> og andre; Se <a href="../../license" rel="copyright">licensbetingelserne</a><br>
+  Debian er et registreret <a href="../../trademark">varemærke</a> tilhørende Software in the Public Interest, Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>

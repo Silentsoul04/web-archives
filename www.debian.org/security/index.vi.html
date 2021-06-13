@@ -1,0 +1,257 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="vi">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Debian -- Thông tin về bảo mật </title>
+  <link rel="author" href="mailto:webmaster@debian.org">
+  <meta name="Generator" content="WML 2.12.2">
+  <meta name="Modified" content="2021-06-12 04:22:54">
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobileoptimized" content="300">
+  <meta name="HandheldFriendly" content="true">
+<link rel="alternate" type="application/rss+xml"
+ title="Debian Security Advisories (titles only)" href="dsa">
+<link rel="alternate" type="application/rss+xml"
+ title="Debian Security Advisories (summaries)" href="dsa-long">
+<link href="../debian.css" rel="stylesheet" type="text/css">
+  <link href="../debian-vi.css" rel="stylesheet" type="text/css" media="all">
+<link rel="search" type="application/opensearchdescription+xml" title="Tìm kiếm trên trang thông tin điện tử Debian" href="../search.vi.xml">
+</head>
+<body>
+<div id="header">
+  <div id="upperheader">
+    <div id="logo">
+    <a href="../" title="Trang chủ Debian"><img src="../Pics/openlogo-50.png" alt="Debian"></a>
+    </div> <!-- end logo -->
+    <div id="searchbox">
+      <form name="p" method="get" action="https://search.debian.org/cgi-bin/omega">
+      <p>
+<input type="hidden" name="DB" value="vi">
+        <input name="P" value="" size="14">
+        <input type="submit" value="Tìm kiếm">
+      </p>
+      </form>
+    </div>   <!-- end sitetools -->
+  </div> <!-- end upperheader -->
+  <!--UdmComment-->
+  <div id="navbar">
+    <p class="hidecss"><a href="#content">Ẩn bảng điều hướng</a></p>
+    <ul>
+      <!-- Link to Debian's own Social Media resources -->
+      <li><a href="https://bits.debian.org/" title="Bits from Debian">Blog</a></li>
+      <li><a href="https://micronews.debian.org" title="Micronews from Debian">Micronews</a></li>
+      <li><a href="https://planet.debian.org/" title="The Planet of Debian">Planet</a></li>
+    </ul>
+  </div> <!-- end navbar -->
+<p id="breadcrumbs">
+Thông tin về bảo mật</p>
+</div> <!-- end header -->
+<!--/UdmComment-->
+<div id="content">
+<div class="trans-note"><p><em>Chú ý:</em> <a href="index.en.html">Tài liệu gốc</a> mới hơn bản dịch này.</p></div>
+<h1>Thông tin về bảo mật</h1>
+<ul class="toc">
+  <li><a href="#keeping-secure">Giữ hệ thống Debian của bạn được bảo mật</a></li>
+  <li><a href="#DSAS">Cố vấn gần đây nhất</a></li>
+  <li><a href="#contact">Thông tin liên hệ</a></li>
+</ul>
+<p>Debian ý thức rằng bảo mật là vấn đề nghiêm túc. Chúng tôi xử lý mọi vấn đề
+bảo mật mà chúng tôi thấy đáng chú ý và đảm bảo rằng chúng được sửa chữa trong
+khung thời gian hợp lý.
+Nhiều cố vấn được điều phối với những nhà cung ứng phần mềm tự do khác
+và được xuất bản cùng ngày với lỗi bảo mật được công bố v�
+chúng tôi đồng thời cũng có nhóm <a href="audit/">Kiểm kê bảo mật</a> nhóm mà xem
+xét lại phần lưu trữ để tìm ra lỗi mới hay các lỗi chưa được sửa.</p>
+<p>Kinh nghiệm chỉ ra rằng <q>việc giấu diếm lỗi bảo mật</q> là vô ích. Việc tiết
+lộ công khai cho phép có giải pháp bảo mật nhanh và tốt hơn. Từ đó,
+trang này đánh địa chỉ trạng thái của Debian với sự quan tâm đến các lỗ thủng bảo mật
+khác nhau đã biết, cái mà có thể gây ảnh hưởng tiềm tàng Debian.</p>
+<p>Debian cũng đồng thời tham dự vào nỗ lực tiêu chuẩn hóa bảo mật:
+<a href="#DSAS">Cố vấn bảo mật Debian</a> l�
+<a href="cve-compatibility">Tương thích CVE</a>
+(xem xét <a href="crossreferences">tham khảo chéo</a>)
+và Debian được giới thiệu trong bảng thông báo của
+dự án <a href="https://oval.cisecurity.org/">Open Vulnerability Assessment Language</a>.
+</p>
+<h2><a name="keeping-secure" id="keeping-secure">Giữ hệ thống Debian của bạn được bảo mật</a></h2>
+<p>Để có thể nhật được các cố vấn bảo mật Debian mới nhất, hãy đặt xem dài hạn
+vào bó thư <a href="https://lists.debian.org/debian-security-announce/">thông-báo-bảo-mật-debian</a>.</p>
+<p>Bạn có thể dùng <a href="https://packages.debian.org/stable/admin/apt">apt</a>
+để dễ dàng cập nhật các lỗi bảo mật mới nhất.
+Để làm được việc này bạn cần có dòng giống như thế này
+</p>
+<div class="centerblock">
+<p>
+<code>deb&nbsp;http://security.debian.org/debian-security&nbsp;buster/updates&nbsp;main&nbsp;contrib&nbsp;non-free</code>
+</p>
+</div>
+<p>
+ở tập tin <CODE>/etc/apt/sources.list</CODE> của bạn. Sau đó chạy lệnh
+<kbd>apt-get update &amp;&amp; apt-get upgrade</kbd> để tải và áp dụng
+việc nâng cấp.
+Phần lưu trữ bảo mật được ký bằng phần lưu
+<a href="https://ftp-master.debian.org/keys.html">các khóa để ký</a> thông thường của Debian.
+</p>
+<p>Để có thêm thông tin về bảo mật trong Debian, vui lòng xem
+the <a href="faq">FAQ của nhóm bảo mật</a> và một sổ tay hướng dẫn gọi l�
+<a href="../doc/user-manuals#securing">Bảo mật Debian</a>.</p>
+<a class="rss_logo" href="dsa">RSS</a>
+<h2><a name="DSAS" id="DSAS">Cố vấn gần đây nhất</a></h2>
+<p>Trang thông tin điện tử bao gồm các phần lưu trữ liên quan đến cố vấn bảo mật
+đã gửi vào bó thư <a href="https://lists.debian.org/debian-security-announce/">thông-báo-bảo-mật-debian</a>.
+<p>
+<tt>[10 Th6 2021]</tt> <strong><a href="2021/dsa-4930">DSA-4930-1 libwebp</a></strong> security update<br>
+<tt>[09 Th6 2021]</tt> <strong><a href="2021/dsa-4929">DSA-4929-1 rails</a></strong> security update<br>
+<tt>[09 Th6 2021]</tt> <strong><a href="2021/dsa-4928">DSA-4928-1 htmldoc</a></strong> security update<br>
+<tt>[05 Th6 2021]</tt> <strong><a href="2021/dsa-4927">DSA-4927-1 thunderbird</a></strong> security update<br>
+<tt>[03 Th6 2021]</tt> <strong><a href="2021/dsa-4926">DSA-4926-1 lasso</a></strong> security update<br>
+<tt>[02 Th6 2021]</tt> <strong><a href="2021/dsa-4925">DSA-4925-1 firefox-esr</a></strong> security update<br>
+<tt>[01 Th6 2021]</tt> <strong><a href="2021/dsa-4924">DSA-4924-1 squid</a></strong> security update<br>
+<tt>[30 Th5 2021]</tt> <strong><a href="2021/dsa-4923">DSA-4923-1 webkit2gtk</a></strong> security update<br>
+<tt>[29 Th5 2021]</tt> <strong><a href="2021/dsa-4922">DSA-4922-1 hyperkitty</a></strong> security update<br>
+<tt>[28 Th5 2021]</tt> <strong><a href="2021/dsa-4921">DSA-4921-1 nginx</a></strong> security update<br>
+<tt>[24 Th5 2021]</tt> <strong><a href="2021/dsa-4920">DSA-4920-1 libx11</a></strong> security update<br>
+<tt>[21 Th5 2021]</tt> <strong><a href="2021/dsa-4919">DSA-4919-1 lz4</a></strong> security update<br>
+<tt>[18 Th5 2021]</tt> <strong><a href="2021/dsa-4918">DSA-4918-1 ruby-rack-cors</a></strong> security update<br>
+<tt>[17 Th5 2021]</tt> <strong><a href="2021/dsa-4917">DSA-4917-1 chromium</a></strong> security update<br>
+<tt>[17 Th5 2021]</tt> <strong><a href="2021/dsa-4916">DSA-4916-1 prosody</a></strong> security update<br>
+<tt>[13 Th5 2021]</tt> <strong><a href="2021/dsa-4915">DSA-4915-1 postgresql-11</a></strong> security update<br>
+</p>
+<p>Các cố vấn bảo mật Debian mới nhất cũng sẵn sàng ở
+<a href="dsa">định dạng RDF</a>. Chúng tôi còn đưa ra một
+<a href="dsa-long">tập tin thứ hai</a> cái mà bao gồm đoạn thứ nhất của phần cố
+vấn tương ứng do đó bạn có thể thấy ở đó cái được cố vấn về vấn đề gì.</p>
+<p>Cố vấn bảo mật cũ hơn cũng sẵn có tại:
+ <a href="2021/">2021</a>, <a href="2020/">2020</a>, <a href="2019/">2019</a>, <a href="2018/">2018</a>, <a href="2017/">2017</a>, <a href="2016/">2016</a>, <a href="2015/">2015</a>, <a href="2014/">2014</a>, <a href="2013/">2013</a>, <a href="2012/">2012</a>, <a href="2011/">2011</a>, <a href="2010/">2010</a>, <a href="2009/">2009</a>, <a href="2008/">2008</a>, <a href="2007/">2007</a>, <a href="2006/">2006</a>, <a href="2005/">2005</a>, <a href="2004/">2004</a>, <a href="2003/">2003</a>, <a href="2002/">2002</a>, <a href="2001/">2001</a>, <a href="2000/">2000</a>, <a href="1999/">1999</a>, <a href="1998/">1998</a>, <a href="1997/">1997</a> và cố vấn bảo mật <a href="undated/">chưa biết ngày</a>, được bao gồm cho hậu thế.</p>
+<p>Bản phân phối Debian không phải lúc nào cũng có thể bị tấn công bởi mọi trục
+trặc bảo mật. <a href="https://security-tracker.debian.org/">Theo dõi bảo mật Debian</a>
+tập hợp tất cả các thông tin về tình trạng có thể bị tấn công của các gói Debian,
+và có thể tìm kiếm bằng tên CVE hay tên gói.</p>
+<h2><a name="contact" id="contact">Thông tin liên hệ</a></h2>
+<p>Vui lòng đọc <a href="faq">FAQ của nhóm bảo mật</a> trước khi liên hệ với
+chúng tôi, câu hỏi của bạn có thể đã được trả lời rồi!</p>
+<p>Cũng nên đọc <a href="faq#contact">cách liên lạc trong FAQ</a>.</p>
+<div class="clr"></div>
+</div> <!-- end content -->
+<div id="footer">
+<hr class="hidecss">
+<p>Quay trở lại <a href="../">trang chủ Dự án Debian</a>.</p>
+<hr>
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+Trang này cũng sẵn có bằng các ngôn ngữ sau:
+<div id="langContainer">
+ <a href="index.bg.html" title="Tiếng Bun-ga-ri" hreflang="bg" lang="bg" rel="alternate">&#1041;&#1098;&#1083;&#1075;&#1072;&#1088;&#1089;&#1082;&#1080;&nbsp;(B&#601;lgarski)</a>
+ <a href="index.da.html" title="Tiếng Đan Mạch" hreflang="da" lang="da" rel="alternate">dansk</a>
+ <a href="index.de.html" title="Tiếng Đức" hreflang="de" lang="de" rel="alternate">Deutsch</a>
+ <a href="index.el.html" title="Tiếng Hy Lạp" hreflang="el" lang="el" rel="alternate">&#917;&#955;&#955;&#951;&#957;&#953;&#954;&#940;&nbsp;(Ellinika)</a>
+ <a href="index.en.html" title="Tiếng Anh" hreflang="en" lang="en" rel="alternate">English</a>
+ <a href="index.es.html" title="Tiếng Tây Ban Nha" hreflang="es" lang="es" rel="alternate">espa&ntilde;ol</a>
+ <a href="index.fr.html" title="Tiếng Pháp" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+ <a href="index.gl.html" title="Tiếng Ga-li-xi" hreflang="gl" lang="gl" rel="alternate">Galego</a>
+ <a href="index.hr.html" title="Tiếng Croát-chi-a" hreflang="hr" lang="hr" rel="alternate">hrvatski</a>
+ <a href="index.it.html" title="Tiếng Ý" hreflang="it" lang="it" rel="alternate">Italiano</a>
+ <a href="index.ko.html" title="Tiếng Hàn" hreflang="ko" lang="ko" rel="alternate">&#54620;&#44397;&#50612;&nbsp;(Korean)</a>
+ <a href="index.hu.html" title="Tiếng Hung Ga Ri" hreflang="hu" lang="hu" rel="alternate">magyar</a>
+ <a href="index.nl.html" title="Tiếng Hà Lan" hreflang="nl" lang="nl" rel="alternate">Nederlands</a>
+ <a href="index.ja.html" title="Tiếng Nhật" hreflang="ja" lang="ja" rel="alternate">&#26085;&#26412;&#35486;&nbsp;(Nihongo)</a>
+ <a href="index.nb.html" title="Tiếng Na Uy" hreflang="nb" lang="nb" rel="alternate">norsk&nbsp;(bokm&aring;l)</a>
+ <a href="index.pl.html" title="Tiếng Ba Lan" hreflang="pl" lang="pl" rel="alternate">polski</a>
+ <a href="index.pt.html" title="Tiếng Bồ Đào Nha" hreflang="pt" lang="pt" rel="alternate">Portugu&ecirc;s</a>
+ <a href="index.ro.html" title="Tiếng Ru-ma-ni" hreflang="ro" lang="ro" rel="alternate">rom&acirc;n&#259;</a>
+ <a href="index.ru.html" title="Tiếng Nga" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;&nbsp;(Russkij)</a>
+ <a href="index.sk.html" title="Tiếng Xlô-vác" hreflang="sk" lang="sk" rel="alternate">slovenčina</a>
+ <a href="index.fi.html" title="Tiếng Phần Lan" hreflang="fi" lang="fi" rel="alternate">suomi</a>
+ <a href="index.sv.html" title="Tiếng Thụy Điển" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+ <a href="index.uk.html" title="Tiếng Ukraina " hreflang="uk" lang="uk" rel="alternate">&#1091;&#1082;&#1088;&#1072;&#1111;&#1085;&#1089;&#1100;&#1082;&#1072;&nbsp;(ukrajins'ka)</a>
+ <a href="index.zh-cn.html" title="Tiếng Trung Quốc (China)" hreflang="zh-CN" lang="zh-CN" rel="alternate">&#20013;&#25991;(&#31616;)</a>
+ <a href="index.zh-hk.html" title="Tiếng Trung Quốc (Hong Kong)" hreflang="zh-HK" lang="zh-HK" rel="alternate">&#20013;&#25991;(HK)</a>
+ <a href="index.zh-tw.html" title="Tiếng Trung Quốc (Taiwan)" hreflang="zh-TW" lang="zh-TW" rel="alternate">&#20013;&#25991;(&#32321;)</a>
+</div>
+Làm sao để đặt <a href="../intro/cn">ngôn ngữ tài liệu mặc định</a>
+</div></div><!--/UdmComment-->
+<hr>
+<div id="footermap">
+<!--UdmComment-->
+<p><strong><a href="/">Trang chủ</a></strong></p>
+    <ul id="footermap-cola">
+		<li><a href="../intro/about">Giới thiệu</a>
+		  <ul>
+		  <li><a href="../social_contract">Khế ước xã hội</a></li>
+		  <li><a href="../code_of_conduct">Quy tắc ứng xử</a></li>
+		  <li><a href="../intro/free">Phần mềm tự do</a></li>
+		  <li><a href="../partners/">Đối tác</a></li>
+		  <li><a href="../donations">Quyên góp</a></li>
+          <li><a href="../legal">Legal Info</a></li>
+          <li><a href="../legal/privacy">Data Privacy</a></li>
+		  <li><a href="../contact">Liên hệ với chúng tôi</a></li>
+		  </ul>
+		</li>
+        <li><a href="../intro/help">Hỗ trợ Debian</a></li>
+    </ul>
+	<ul id="footermap-colb">
+			<li><a href="../distrib/">Lấy Debian</a>
+			  <ul>
+			  <li><a href="../distrib/netinst">Cài đặt qua mạng</a></li>
+			  <li><a href="../CD/">Ảnh ISO CD/USB</a></li>
+			  <li><a href="../CD/vendors/">Nhà cung cấp CD</a></li>
+			  <li><a href="../distrib/pre-installed">Cài sẵn</a></li>
+			  </ul>
+			</li>
+            <li><a href="../blends/">Pure Blends</a></li>
+			<li><a href="../distrib/packages">Các gói Debian</a></li>
+			<li><a href="../devel/">Góc phát triển</a></li>
+	</ul>
+	<ul id="footermap-colc">
+		<li><a href="../News/">Tin tức</a>
+		  <ul>
+		  <li><a href="../News/weekly/">Tin tức dự án</a></li>
+		  <li><a href="../events/">Sự kiện</a></li>
+		  </ul>
+		</li>
+    <li><a href="../doc/">Tài liệu</a>
+      <ul>
+      <li><a href="../releases/">Thông tin phát hành</a></li>
+      <li><a href="../releases/stable/installmanual">Hướng dẫn cài đặt</a></li>
+      <li><a href="../doc/books">Sách về Debian</a></li>
+      <li><a href="https://wiki.debian.org/">Wiki về Debian</a></li>
+      </ul>
+    </li>
+   </ul>
+   <ul id="footermap-cold">
+    <li><a href="../support">Hỗ trợ</a>
+	  <ul>
+			  <li><a href="../international/">Debian quốc tế</a></li>
+			  <li><a href="../security/">Thông tin bảo mật</a></li>
+			  <li><a href="../Bugs/">Báo cáo lỗi</a></li>
+			  <li><a href="../MailingLists/">Bó thư</a></li>
+			  <li><a href="https://lists.debian.org/">Phần lưu trữ bó thư</a></li>
+			  <li><a href="../ports/">Bản chuyển/Kiến trúc</a></li>
+      </ul>
+    </li>
+</ul>
+<ul id="footermap-cole">
+  <li><a href="../sitemap">Sơ đồ</a></li>
+  <li><a href="https://search.debian.org/">Tìm kiếm</a></li>
+  <li><a href="https://bits.debian.org">Nhật ký Debian</a></li>
+  <li><a href="https://micronews.debian.org">Debian Micronews</a></li>
+  <li><a href="https://planet.debian.org">Debian Planet</a></li>
+</ul>
+<!--/UdmComment-->
+</div> <!-- end footermap -->
+<div id="fineprint">
+  <p>To report a problem with the web site, please e-mail our publicly archived mailing list <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a> in English. For other contact information, see the Debian <a href="../contact">contact page</a>. Web site source code is <a href="https://salsa.debian.org/webmaster-team/webwml">available</a>.</p>
+<p>
+Lần sửa cuối: 13:03:08 UTC CN, 28 Th7 2019
+&emsp;
+Last Built: 04:22:54 UTC T7, 12 Th6 2021
+  <br>
+  Bản quyền &copy; 1997-2021
+ <a href="https://www.spi-inc.org/">SPI</a> và các chủ thể khác; Xem <a href="../license" rel="copyright">các điều khoản giấy phép</a><br>
+  Debian là <a href="../trademark">nhãn hiệu</a> đã đăng ký của Software in the Public Interest, Inc.
+</p>
+</div>
+</div> <!-- end footer -->
+</body>
+</html>
