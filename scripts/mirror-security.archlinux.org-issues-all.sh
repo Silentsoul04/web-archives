@@ -1,3 +1,3 @@
 #!/bin/bash
 
-wget -x https://security.archlinux.org/issues/all
+wget --append-output=log/security.archlinux.org -x https://security.archlinux.org/issues/all

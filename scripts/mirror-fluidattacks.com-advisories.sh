@@ -1,2 +1,2 @@
 #!/bin/bash
-wget -m -np https://fluidattacks.com/advisories/
+wget --append-output=log/fluidattacks.com -m -np https://fluidattacks.com/advisories/

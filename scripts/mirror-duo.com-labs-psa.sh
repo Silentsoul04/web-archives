@@ -1,2 +1,2 @@
 #!/bin/bash
-wget -m -np https://duo.com/labs/psa/
+wget --append-output=log/duo.com -m -np https://duo.com/labs/psa/

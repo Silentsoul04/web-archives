@@ -1,3 +1,3 @@
 #!/bin/bash
 
-wget -m -np https://xenbits.xen.org/xsa/
+wget --append-output=log/xenbits.xen.org -m -np https://xenbits.xen.org/xsa/

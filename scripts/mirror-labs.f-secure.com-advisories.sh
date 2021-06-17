@@ -1,2 +1,2 @@
 #!/bin/bash
-wget -m -np https://labs.f-secure.com/advisories/
+wget --append-output=log/labs.f-secure.com -m -np https://labs.f-secure.com/advisories/

@@ -1,2 +1,2 @@
 #!/bin/bash
-wget -x https://www.google.com/about/appsecurity/research/
+wget --append-output=log/www.google.com -x https://www.google.com/about/appsecurity/research/

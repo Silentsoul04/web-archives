@@ -1,2 +1,2 @@
 #!/bin/bash
-wget -m -np https://www.malvuln.com/
+wget --append-output=log/www.malvuln.com -m -np https://www.malvuln.com/

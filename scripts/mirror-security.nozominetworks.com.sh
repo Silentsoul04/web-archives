@@ -1,2 +1,2 @@
 #!/bin/bash
-wget -m -np https://security.nozominetworks.com/
+wget --append-output=log/security.nozominetworks.com -m -np https://security.nozominetworks.com/
