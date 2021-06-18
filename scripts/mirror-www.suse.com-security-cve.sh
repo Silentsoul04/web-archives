@@ -8,4 +8,4 @@ ls  www.suse.com/security/cve/CVE*.html | sed 's/^/https:\/\//' > www.suse.com/s
 
 cat www.suse.com/security/cve/urls-got.txt www.suse.com/security/cve/urls-listed.txt | sort | uniq -u | sort -rn > www.suse.com/security/cve/urls.txt
 
-wget --append-output=log/www.suse.com -x -i www.suse.com/security/cve/urls.txt
+wget -x -i www.suse.com/security/cve/urls.txt
